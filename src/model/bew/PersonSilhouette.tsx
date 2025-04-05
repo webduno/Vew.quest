@@ -4,6 +4,9 @@ import { Box, Cylinder, Sphere } from '@react-three/drei';
 
 export const PersonSilhouette = () => {
   return (<>
+  <Box position={[0, 1.85, .185]} args={[.3, .1, .1]} >
+    <meshStandardMaterial color="#777777" />
+  </Box>
     <Sphere position={[0, 1.8, 0]} args={[.25, 8, 8]} castShadow>
       <meshStandardMaterial color="#bbbbbb" />
     </Sphere>

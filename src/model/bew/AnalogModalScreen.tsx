@@ -5,48 +5,7 @@ import { GaugeDial } from './GaugeDial';
 import { CircularMeter } from './CircularMeter';
 import { LargeSemicircularMeter } from './LargeSemicircularMeter';
 import { SliderBar } from './SliderBar';
-
-// Control Button Component
-export const ControlButton = ({ 
-  color = '#55ff55',
-  isActive = false,
-  onClick
-}: { 
-  color?: string;
-  isActive?: boolean;
-  onClick?: () => void;
-}) => {
-  return (
-    <div 
-      style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        gap: '5px',
-        cursor: 'pointer',
-        padding: '5px',
-        background: isActive ? '#444' : 'transparent',
-        borderRadius: '5px'
-      }}
-      onClick={onClick}
-    >
-      <div style={{ 
-        width: '15px', 
-        height: '15px', 
-        borderRadius: '50%', 
-        background: color,
-        border: `2px solid ${isActive ? '#ffffff' : '#3e3e3e'}`
-      }}></div>
-      <div style={{ 
-        width: '10px', 
-        height: '10px', 
-        borderRadius: '50%', 
-        background: '#222',
-        border: '1px solid #111'
-      }}></div>
-    </div>
-  );
-};
+import { ControlButton } from './ControlButton';
 
 export const AnalogModalScreen = ({
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onClose
@@ -58,7 +17,7 @@ export const AnalogModalScreen = ({
 }) => {
   // Add state for active control button and active section
   const [activeButtonIndex, setActiveButtonIndex] = React.useState(0);
-  const [activeSection, setActiveSection] = React.useState<'buttons' | 'gauges' | 'sliders' | 'meter' | 'exit'>('buttons');
+  const [activeSection, setActiveSection] = React.useState<'buttons' | 'gauges' | 'sliders' | 'meter' | 'send'>('buttons');
   const [activeGaugeIndex, setActiveGaugeIndex] = React.useState(0);
   const [activeSliderIndex, setActiveSliderIndex] = React.useState(0);
   const [meterValue, setMeterValue] = React.useState(50); // 0-100 percentage value for the large meter
@@ -76,7 +35,7 @@ export const AnalogModalScreen = ({
   const modalRef = React.useRef<HTMLDivElement>(null);
   // Add ref for the large meter to get its dimensions
   const meterRef = React.useRef<HTMLDivElement>(null);
-  // Add ref for the exit button
+  // Add ref for the send button
   const exitButtonRef = React.useRef<HTMLDivElement>(null);
 
   // Oscillation animation for active gauge or slider
@@ -86,7 +45,7 @@ export const AnalogModalScreen = ({
     let animationFrameId: number;
     const oscillationSpeed = 2; // adjust as needed
     const minValue = activeSection === 'sliders' ? 0 : 0;
-    const maxValue = activeSection === 'sliders' ? 80 : 360;
+    const maxValue = activeSection === 'sliders' ? 50 : 360;
     
     const animate = () => {
       setOscillationValue(prev => {
@@ -229,17 +188,17 @@ export const AnalogModalScreen = ({
   // Handle key press for space to switch between sections
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Space') {
+      if (e.code === 'Tab') {
         e.preventDefault();
         setActiveSection(prev => {
           if (prev === 'buttons') return 'gauges';
           if (prev === 'gauges') return 'sliders';
           if (prev === 'sliders') return 'meter';
-          if (prev === 'meter') return 'exit';
-          return 'buttons'; // From exit back to buttons
+          if (prev === 'meter') return 'send';
+          return 'buttons'; // From send back to buttons
         });
-      } else if (e.code === 'Enter' && activeSection === 'exit') {
-        // Only exit when enter is pressed while exit button is focused
+      } else if (e.code === 'Space' && activeSection === 'send') {
+        // Only send when enter is pressed while send button is focused
         e.preventDefault(); // Prevent default to avoid interference with movement controls
         // Force document focus and blur to release keyboard controls
         if (document.activeElement instanceof HTMLElement) {
@@ -315,8 +274,8 @@ export const AnalogModalScreen = ({
         e.preventDefault();
         setMeterValue(prev => Math.max(0, prev - 5));
       }
-    } else if (activeSection === 'exit') {
-      // Handle enter key for exit button
+    } else if (activeSection === 'send') {
+      // Handle enter key for send button
       if (e.key === 'Enter') {
         e.preventDefault();
         // Force document focus and blur to release keyboard controls
@@ -333,7 +292,7 @@ export const AnalogModalScreen = ({
     }
     
     // Handle general Enter key for any section
-    if (e.key === 'Enter' && activeSection === 'exit') {
+    if (e.key === 'Enter' && activeSection === 'send') {
       e.preventDefault(); // Prevent default to avoid interference with movement controls
       // Force document focus and blur to release keyboard controls
       if (document.activeElement instanceof HTMLElement) {
@@ -360,15 +319,15 @@ export const AnalogModalScreen = ({
     style={{ outline: 'none' }}
     onKeyDown={handleKeyDown}
   >
-    <div className='pos-abs top-0 right-0 mr-4 pt-4'>
+    <div className='pos-abs top-0 right-0 mr-4 pt-4 flex-col flex-justify-end flex-align-end'>
       <div 
         ref={exitButtonRef}
-        className='py-1 px-2 bord-r-5 border-white opaci-chov--50'
+        className=' px-2 bord-r-5 border-white opaci-chov--50'
         onClick={() => {
-          if (activeSection === 'exit') {
+          if (activeSection === 'send') {
             onClose();
           } else {
-            setActiveSection('exit');
+            setActiveSection('send');
             if (modalRef.current) {
               modalRef.current.focus();
             }
@@ -376,43 +335,43 @@ export const AnalogModalScreen = ({
         }}
         style={{
           background: '#333333',
-          color: '#ff5555',
-          border: activeSection === 'exit' ? '2px solid white' : '',
-          transform: activeSection === 'exit' ? 'scale(1.1)' : 'scale(1)',
+          color: activeSection === 'send' ? '#55ff55' : '#ff5555',
+          border: activeSection === 'send' ? '2px solid white' : '',
+          transform: activeSection === 'send' ? 'scale(1.1)' : 'scale(1)',
           transition: 'transform 0.2s, box-shadow 0.2s',
         }}
       >
-        EXIT
+        SEND
       </div>
-      {activeSection === 'exit' &&
-    <div className='tx-xs tx-center tx-red  bord-r-5  pt-1'>
-        ENTER TO EXIT
+      {activeSection === 'send' &&
+    <div className='tx-xs tx-center tx-white  bord-r-5  pt-1'>
+        SPACEBAR TO SEND
       </div>
       }
     </div>
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
+    <div className='flex-col w-200px bord-r-5 pa-2' style={{
       background: '#9aa39a',
-      padding: '20px',
-      width: '200px',
       border: '8px solid #565956',
-      borderRadius: '5px'
     }}>
       
       {/* Top section with gauges and danger sign */}
-      <div className='tx-sm pb-1 flex-row flex-justify-start gap-1'>
+      <div className='tx-sm pb-1 flex-row flex-justify-start gap-1 w-100'>
         <div className='opaci-50'>Type:</div>
         <div>{buttonTypes[activeButtonIndex]}</div>
       </div>
       <div className='flex-row gap-1 flex-align-end'>
         
-      <div className='flex-wrap pa-1 bord-r-5' style={{ background: '#7d807d'}}>
+      <div className='flex-wrap pa-1 bord-r-5' 
+        style={{
+          border: activeSection === 'buttons' ? '1px solid #ff3300' : '1px solid transparent',
+          background: '#7d807d'
+        }}
+      >
         {buttonColors.map((color, index) => (
           <ControlButton 
             key={index}
             color={color}
-            isActive={activeSection === 'buttons' && activeButtonIndex === index}
+            isActive={activeButtonIndex === index}
             onClick={() => {
               setActiveButtonIndex(index);
               setActiveSection('buttons');
@@ -424,7 +383,7 @@ export const AnalogModalScreen = ({
         ))}
       </div>
         {/* Left gauges */}
-        <div className='flex-row pa-1 bord-r-5' style={{ background: '#7d807d'}}>
+        <div className='flex-row pa-1 gap-1 bord-r-5' style={{ background: '#7d807d'}}>
           {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>X</div>
             <GaugeDial key="x" needleRotation={xNeedleRotation} />
@@ -446,52 +405,32 @@ export const AnalogModalScreen = ({
             />
           </div>
         </div>
-        
-        {/* Center alarm */}
-        {/* Danger sign */}
-        {/* <div style={{ 
-          background: '#ff5555', 
-          width: '50px', 
-          height: '50px', 
-          borderRadius: '50%',
-          border: '5px solid #3e3e3e'
-        }}></div>
-        
-        <div style={{ 
-          background: 'black', 
-          color: '#ff5555', 
-          padding: '8px 15px',
-          fontWeight: 'bold',
-          fontSize: '24px',
-          letterSpacing: '2px'
-        }}>DANGER</div> */}
       </div>
-      <hr className='w-100 opaci-20 my-1' />
-      <div className='tx-xs tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
-        USE SPACEBAR / SCROLL TO NAVIGATE
+      {/* <hr className='w-100 opaci-20 my-1' /> */}
+      <div className='tx-xxs mt-1 tx-ls-1 tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
+        USE TAB / SCROLL TO NAVIGATE SETTINGS
       </div>
       <hr className='w-100 opaci-20 my-1' />
       {/* Middle section with sliders and meters */}
-      <div style={{ display: 'flex', gap: '20px', marginBottom: '15px' }}>
+      <div className='w-100  flex-row gap-2 mb-1'>
         {/* Sliders section */}
-        <div style={{ 
-          flex: '1', 
+        <div className='flex-1 pa-1 flex-col w-100 ' style={{ 
           background: '#adb0ad', 
-          padding: '10px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '15px'
         }}>
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-around' 
-          }}>
+          <div className='flex-row flex-justify-around w-100 gap-1'>
+            <div className='bg-b-20 bord-r-5 h-50px box-shadow-i-5'>
+            <div className='translate-y--25'>
+            <div className='hover-4  tx-xl tx-shadow-5'
+            style={{ color: '#ff9900' }}
+            >.</div>
+            </div>
+            </div>
             {["Light", "Color", "Solid"].map((label, index) => (
-              <div 
+              <div className='bord-r-5' 
                 key={index}
                 style={{ 
                   // padding: '1px', 
-                  border: activeSection === 'sliders' && activeSliderIndex === index ? '1px solid #333333' : '1px solid transparent'
+                  border: activeSection === 'sliders' && activeSliderIndex === index ? '1px solid #ff3333' : '1px solid transparent'
                 }}
                 onClick={() => {
                   setActiveSliderIndex(index);
@@ -503,14 +442,11 @@ export const AnalogModalScreen = ({
               >
                 <div className=' tx-white pos-abs tx-xsm opaci-75'
                 style={{
-                  // top: '50%',
-                  // left: '50%',
-                  // color: activeSliderIndex === index ? '#ff0000' : '#ffffff',
                   transform: 'rotate(-90deg) translate(-100%, -180%)'
                 }}
                 >
                   <div className="flex-col pos-rel">
-                    {activeSliderIndex === index &&
+                    { activeSection === 'sliders' && activeSliderIndex === index &&
                   <div className=' pos-abs left-0 translate-x--100 tx-bold'
                   style={{
                     color: '#ff0000'
@@ -520,9 +456,11 @@ export const AnalogModalScreen = ({
                   <div> {label}</div>
                   </div>
                 </div>
-                <SliderBar 
-                  sliderPosition={activeSection === 'sliders' && activeSliderIndex === index ? oscillationValue : sliderValues[index]} 
-                />
+                <div className=' bord-r-5 noverflow'>
+                  <SliderBar 
+                    sliderPosition={activeSection === 'sliders' && activeSliderIndex === index ? oscillationValue : sliderValues[index]} 
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -530,27 +468,85 @@ export const AnalogModalScreen = ({
         
         {/* Meters section */}
         <div className="flex-col gap-3">
-          {[1, 2].map((_, i) => (
-            <CircularMeter key={i} needleRotation={-45 + i * 30} />
-          ))}
+        <CircularMeter  needleRotation={  20  } />
+        <CircularMeter  needleRotation={  300} />
+
         </div>
       </div>
-      
+      <hr className='w-100 opaci-20 mt-0 mb-1' />
       {/* Bottom section with controls and large meter */}
-      <div style={{ display: 'flex', gap: '20px' }}>
+      <div className='flex-col w-100'>
         <div 
           ref={meterRef}
           onClick={handleMeterClick}
           style={{ 
             width: '100%', 
             cursor: activeSection === 'meter' ? 'pointer' : 'default',
-            border: activeSection === 'meter' ? '2px solid #333333' : 'none',
+            // border: activeSection === 'meter' ? '2px solid #333333' : 'none',
             borderRadius: '5px',
-            padding: activeSection === 'meter' ? '2px' : '4px'
+            // padding: activeSection === 'meter' ? '2px' : '4px'
           }}
         >
           <LargeSemicircularMeter value={meterValue} isActive={activeSection === 'meter'} />
         </div>
+        {/* <div className='tx-xs pt-2'>INTENT / CONFIDENCE</div> */}
+        {/* <hr className='w-100 opaci-20 my-1' /> */}
+      <div className='px-4 mt-1 tx-xs tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
+        CONFIDENCE
+      </div>
+
+
+
+
+
+
+
+
+
+      <div className='pos-abs bottom-0 left-0 flex-row gap-1 pa-3'
+      style={{
+        paddingBottom: "12px"
+      }}
+      >
+        <div className='border-white bord-r-100 bg-b-90'>
+          <div className='flicker-5 _ddg pl-1 pt-1 bord-r-100'></div>
+        </div>
+          <div>
+            <div className='pa-2 bg-b-50 bord-r-100 pos-rel flex-col'>
+              <div className='tx-white pos-abs tx-lg'
+              style={{color: '#aaaaaa',paddingBottom: "4px"}}
+              >+</div>
+            </div>
+          </div>
+      </div>
+      
+      <div className='pos-abs bottom-0 right-0 flex-row gap-1 pa-3'>
+        
+      <div className='border-white bord-r-100 bg-b-90'>
+          <div className='flicker-5 _ddr pl-1 pt-1 bord-r-100'></div>
+        </div>
+      <div className='border-white bord-r-100 bg-b-90'>
+          <div className='flicker-3 _ddb pl-1 pt-1 bord-r-100'></div>
+        </div>
+        <div className='border-white bord-r-100 bg-b-90'>
+          <div className='flicker-5 _ddg pl-1 pt-1 bord-r-100'></div>
+        </div>
+        <div className='border-white bord-r-100 bg-b-50'>
+          <div className='flicker-2 _ddr pl-1 pt-1 bord-r-100'></div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
 {/* 
       <div className='pa-2 bg-b-90 mt-4 text-center'

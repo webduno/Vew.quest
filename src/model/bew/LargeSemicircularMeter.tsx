@@ -19,23 +19,23 @@ export const LargeSemicircularMeter = ({
     <div style={{
       flex: '1',
       position: 'relative',
-      height: '120px'
+      height: '80px'
     }}>
       <div style={{
         width: '100%',
         height: '100%',
         borderRadius: '100px 100px 0 0',
         background: '#f0f0c0',
-        border: `4px solid ${isActive ? '#333333' : '#3e3e3e'}`,
+        border: `4px solid ${isActive ? '#933333' : '#3e3e3e'}`,
         overflow: 'hidden'
       }}>
         <div style={{
           position: 'absolute',
-          bottom: '0',
+          bottom: '6px',
           left: '50%',
-          width: '4px',
-          height: '90px',
-          background: isActive ? '#ff5555' : 'red',
+          width: isActive ? '8px' : '4px',
+          height: '60px',
+          background: isActive ? '#ff0000' : '#aa5555',
           transformOrigin: 'bottom center',
           transform: `rotate(${calculatedRotation}deg) translateX(-50%)`
         }}></div>

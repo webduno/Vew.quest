@@ -21,6 +21,32 @@
 .tx-altfont-8 {     font-family: "Reenie Beanie", sans-serif !important}
 .tx-altfont-9 {     font-family: "Zeyada", sans-serif !important}
 
+.flicker-1 {   animation: opacity-flicker 1s; animation-iteration-count: infinite; }
+.flicker-2 {   animation: opacity-flicker 2s; animation-iteration-count: infinite; }
+.flicker-3 {   animation: opacity-flicker 3s; animation-iteration-count: infinite; }
+.flicker-4 {   animation: opacity-flicker 4s; animation-iteration-count: infinite; }
+.flicker-5 {   animation: opacity-flicker 5s; animation-iteration-count: infinite; }
+.flicker-6 {   animation: opacity-flicker 6s; animation-iteration-count: infinite; }
+.flicker-7 {   animation: opacity-flicker 7s; animation-iteration-count: infinite; }
+
+
+@keyframes opacity-flicker {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 
 .dilating-blur {
   animation: dilating-blur 30s;

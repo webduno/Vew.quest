@@ -10,6 +10,7 @@ import { BewLighting } from './BewLighting';
 import { TheRoom } from './TheRoom';
 import { AnalogModalScreen } from './AnalogModalScreen';
 import { BewPhysicsScene } from './BewPhysicsScene';
+import { PhysicalWall } from './PhysicalWall';
 
 
 export const BewGame = () => {
@@ -80,8 +81,28 @@ export const BewGame = () => {
 
 
           
-          <group position={[1.5, 0, -12]} rotation={[0, .7, 0]}>
+          {/* CHAIR SUPERVISOR, only visible when focusStageRef.current === 0 */}
+          {focusStageRef.current === 0 && ( <>
+          <group position={[2, 0, -20]} rotation={[0, -.5, 0]} scale={[1, 1.1, 1]}>
             <PersonSilhouette />
+          </group>
+<PhysicalWall 
+        visible={false}
+        size={[1, 3, 0.5]}
+        position={[2, 1.5, -20]} rotation={[0, 0, 0]}
+              />
+</>
+          )}
+    
+
+          {/* HALLWAY */}
+          <group position={[1.5, 0, -12]} rotation={[0, -.7, 0]} scale={[1, 1, 1]}>
+            <PersonSilhouette />
+          </group>
+          
+          {/* BEHIND THE DOOR */}
+          <group position={[1, 0, -16]} rotation={[0, Math.PI, 0]} scale={[1, 1.25, 1]}>
+          <PersonSilhouette />
           </group>
 
           <TheRoom onTriggerCollide={handleTriggerCollision} />

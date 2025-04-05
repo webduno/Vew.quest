@@ -4,7 +4,7 @@ import React from 'react';
 // Slider Bar Component
 
 export const SliderBar = ({
-  width = 15, height = 80, sliderPosition = 0
+  width = 15, height = 60, sliderPosition = 0
 }: {
   width?: number;
   height?: number;

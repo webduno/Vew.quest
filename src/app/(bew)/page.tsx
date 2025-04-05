@@ -10,9 +10,7 @@ export default function Webbew() {
 const WebbewPage = () => {
   return <div className=""
   style={{
-    // background: "url('/webbew/bg4.webp') black",
-    // background: "url('/webbew/bg5.png') black",
-    background: "url('/webbew/bg14.jpg') black",
+    background: "url('/webbew/bg15.jpg') black",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -44,9 +42,9 @@ const WebbewPage = () => {
         borderRadius: "0 5px 5px 0"
       }}
       >
-        <Link className="tx-white nodeco" href="/bew/game"><BewMenuButton>New Game</BewMenuButton></Link>
-        <Link className="tx-white nodeco" href="/bew/practice"><BewMenuButton>Practice</BewMenuButton></Link>
-        <Link className="tx-white nodeco" href="/bew/about"><BewMenuButton>About</BewMenuButton></Link>
+        <Link className="tx-white nodeco" href="/game"><BewMenuButton>New Game</BewMenuButton></Link>
+        <Link className="tx-white nodeco" href="/practice"><BewMenuButton>Practice</BewMenuButton></Link>
+        <Link className="tx-white nodeco" href="/about"><BewMenuButton>About</BewMenuButton></Link>
       </div>
     </div>
   </div>;

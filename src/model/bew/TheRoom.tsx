@@ -21,9 +21,11 @@ export const TheRoom = ({ onTriggerCollide }: TheRoomProps) => {
 <PhysicalTrigger color="#ffeeee"
         visible={false}
         size={[0.5, 1.5, 0.5]}
-        position={[2.25, .75, -21.75]} rotation={[0, 2, 0]}
+        position={[2, .75, -21.25]} rotation={[0, 2, 0]}
         onCollide={onTriggerCollide}
     />
+
+
 
 
 <PhysicalWall color="#eeeeee"
