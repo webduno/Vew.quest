@@ -9,6 +9,7 @@ import { PersonSilhouette } from './PersonSilhouette';
 import { BewLighting } from './BewLighting';
 import { TheRoom } from './TheRoom';
 import { AnalogModalScreen } from './AnalogModalScreen';
+import { BewPhysicsScene } from './BewPhysicsScene';
 
 
 export const BewGame = () => {
