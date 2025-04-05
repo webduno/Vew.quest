@@ -37,9 +37,10 @@ const WebbewPage = () => {
     }}
     >
 
-      <div className="tx-white tx-lgx tx-altfont-1  flex-col flex-align-start"
+      <div className="tx-white tx-lg tx-altfont-1  flex-col flex-align-start"
       style={{
         background: "linear-gradient(90deg, #000000, #00000000 50%)",
+        transform: "translateX(-15px)",
       }}
       >
         <Link
