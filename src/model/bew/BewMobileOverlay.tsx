@@ -6,9 +6,8 @@ export const BewMobileOverlay = () => {
     
       {/* Movement joystick */}
       <div id="joystick-container"
-        className='pos-abs bottom-0 left-25p 8 bg-b-50 bord-r-100'
+        className='pos-abs bottom-0 left-0  bg-b-50 bord-r-100 ma-4'
         style={{
-          marginBottom: "55px",
           width: '120px',
           height: '120px',
           touchAction: 'none',
@@ -17,9 +16,8 @@ export const BewMobileOverlay = () => {
 
       {/* Jump button */}
       <GameButton buttonType="zeta"
-        classOverride='pos-abs bottom-0 right-0  tx-lgx bord-r-100 py-5 mr-4'
+        classOverride='pos-abs bottom-0 right-0  tx-lgx  py-5 ma-4 '
         id="jump-button" styleOverride={{
-          marginBottom: "60px",
           touchAction: 'none',
           zIndex: 1000
         }}>
