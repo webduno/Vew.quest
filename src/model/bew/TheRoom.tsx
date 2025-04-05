@@ -1,0 +1,124 @@
+'use client';
+import { Box } from '@react-three/drei';
+import { PhysicalWall } from './PhysicalWall';
+import { PhysicalTrigger } from './PhysicalTrigger';
+
+export interface TheRoomProps {
+  onTriggerCollide?: (e: any) => void;
+}
+
+export const TheRoom = ({ onTriggerCollide }: TheRoomProps) => {
+
+
+  
+  return (
+    <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
+
+
+
+
+
+<PhysicalTrigger color="#ffeeee"
+        visible={false}
+        size={[0.5, 1.5, 0.5]}
+        position={[2.25, .75, -21.75]} rotation={[0, 2, 0]}
+        onCollide={onTriggerCollide}
+    />
+
+
+<PhysicalWall color="#eeeeee"
+        visible={false}
+        size={[4, 1, 2]}
+        position={[0, .5, -21.5]} rotation={[0, 0, 0]} />
+
+<group position={[0, 0, -21.5]}>
+
+      <TheTable />
+      <group position={[2.5, 0, 0]} rotation={[0, 2, 0]}>
+        <TheChair />
+      </group>
+</group>
+
+
+
+
+
+
+      {/* the room */}
+      <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
+        <PhysicalWall size={[13, 4, 1]}
+          position={[-6, 2, -20]} rotation={[0, Math.PI / 2, 0]} />
+        <PhysicalWall size={[13, 4, 1]}
+          position={[6, 2, -20]} rotation={[0, Math.PI / 2, 0]} />
+      </group>
+      <PhysicalWall color="#eeeeee"
+        size={[1, 4, 12]}
+        position={[0, 2, -27]} rotation={[0, -Math.PI / 2, 0]} />
+    </group>
+  );
+};
+
+
+export const TheTable = () => {
+  return (
+    <group position={[0, 0, 0]}>
+        
+      {/* table top  */}
+      <Box args={[3, .2, 2]} castShadow
+        position={[0, .8, 0]}>
+        <meshStandardMaterial color="#eeeeee" />
+      </Box>
+      {/* table legs */}
+      <Box args={[.2, 1, .2]} castShadow
+        position={[-1.2, 0.4, -0.9]}>
+        <meshStandardMaterial color="#eeeeee" />
+      </Box>
+      <Box args={[.2, 1, .2]} castShadow
+        position={[1.2, 0.4, -0.9]}>
+        <meshStandardMaterial color="#eeeeee" />
+      </Box>
+      <Box args={[.2, 1, .2]} castShadow
+        position={[-1.2, 0.4, 0.9]}>
+        <meshStandardMaterial color="#eeeeee" />
+      </Box>
+      <Box args={[.2, 1, .2]} castShadow
+        position={[1.2, 0.4, 0.9]}>
+        <meshStandardMaterial color="#eeeeee" />
+      </Box>
+      </group>
+  );
+};
+
+export const TheChair = ({ position = [0, 0, 0] }: { position?: [number, number, number] }) => {
+  return (
+    <group position={position}>
+      {/* seat */}
+      <Box args={[1, 0.1, 1]} castShadow
+        position={[0, 0.6, 0]}>
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
+      {/* backrest */}
+      <Box args={[.9, 1, 0.1]} castShadow
+        position={[0, 1, 0.5]}>
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
+      {/* chair legs */}
+      <Box args={[0.1, 0.5, 0.1]} castShadow
+        position={[-0.4, 0.3, -0.4]}>
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
+      <Box args={[0.1, 0.5, 0.1]} castShadow
+        position={[0.4, 0.3, -0.4]}>
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
+      <Box args={[0.1, 0.5, 0.1]} castShadow
+        position={[-0.4, 0.3, 0.4]}>
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
+      <Box args={[0.1, 0.5, 0.1]} castShadow
+        position={[0.4, 0.3, 0.4]}>
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
+    </group>
+  );
+};

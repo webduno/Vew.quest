@@ -1,0 +1,143 @@
+@import url('https://unpkg.com/csscss@1.1.2/index.css');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bytesized&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Codystar:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Reenie+Beanie&family=Zeyada&display=swap');
+
+
+
+.tx-altfont-1 {     font-family: 'Raleway', sans-serif !important}
+.tx-altfont-2 {     font-family: "Archivo Black", sans-serif !important}
+.tx-altfont-3 {     font-family: "Bytesized", sans-serif !important}
+.tx-altfont-4 {     font-family: "Lilita One", sans-serif !important}
+.tx-altfont-5 {     font-family: "Codystar", sans-serif !important}
+.tx-altfont-6 {     font-family: "Caveat", sans-serif !important}
+
+.tx-altfont-7 {     font-family: "Indie Flower", sans-serif !important}
+.tx-altfont-8 {     font-family: "Reenie Beanie", sans-serif !important}
+.tx-altfont-9 {     font-family: "Zeyada", sans-serif !important}
+
+
+.dilating-blur {
+  animation: dilating-blur 30s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes dilating-blur {
+  0% {
+    filter: blur(0px);
+  }
+  50% {
+    filter: blur(1px);
+  }
+  100% {
+    filter: blur(0px);
+  }
+}
+
+
+
+
+.hover-jump{animation: hoverjump 10s;  animation-iteration-count: infinite }
+
+
+@keyframes hoverjump {
+	0%{transform: translateY(0px)}
+	33%{transform: translateY(0px)}
+  35%{transform: translateY(-15px) rotate(7deg);}
+  36%{transform: translateY(-12px) rotate(-3deg);}
+  38%{transform: translateY(0px)}
+  39%{transform: translateY(-4px)}
+  40%{transform: translateY(-3px)}
+  41%{transform: translateY(0px)}
+  100%{transform: translateY(0px)}
+}
+
+
+
+
+.room-select-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+} 
+
+.game-btn-base {
+  transition: all 0.1s ease;
+}
+
+.game-btn-base:hover {
+  transform: translateY(-2px) rotate(-2deg);
+}
+
+.game-btn-alpha {
+  background: linear-gradient(0deg, #6A9A39 30%, #ADDA2F 70%);
+  box-shadow: 0 3px 1px 1px #467758, inset 0 2px 5px 2px #f4ffaE;
+}
+
+.game-btn-beta {
+  background: linear-gradient(0deg, #3F8Fb3 30%, #1EF0F1 70%);
+  box-shadow: 0 3px 1px 1px #3C6893, inset 0 2px 5px 2px #1EF0F1;
+}
+
+.game-btn-gamma {
+  background: linear-gradient(0deg, #8B0000 30%, #FF4444 70%);
+  box-shadow: 0 3px 1px 1px #5C0000, inset 0 2px 5px 2px #FFAAAA;
+}
+
+.game-btn-delta {
+  background: linear-gradient(0deg, #B35B00 30%, #FFA500 70%);
+  box-shadow: 0 3px 1px 1px #805300, inset 0 2px 5px 2px #FFD700;
+}
+
+.game-btn-epsilon {
+  background: linear-gradient(0deg, #f46A5A 30%, #FFB3B3 70%);
+  box-shadow: 0 3px 1px 1px #cc3333, inset 0 2px 5px 2px #FFc6c6;
+}
+
+.game-btn-zeta {
+  background: linear-gradient(0deg, #E29800 30%, #FFD700 70%);
+  box-shadow: 0 3px 1px 1px #B47733, inset 0 2px 5px 2px #FFe770;
+}
+
+.game-btn-indigo {
+  background: linear-gradient(0deg, #A13B9B 30%, #D18BCB 70%);
+  box-shadow: 0 3px 1px 1px #7B1B85, inset 0 2px 5px 2px #E5C4E0;
+}
+
+.game-btn-white {
+  background: linear-gradient(0deg, #cccccc 30%, #ffffff 70%);
+  box-shadow: 0 3px 1px 1px #b49743, inset 0 2px 5px 2px #FFe7a0;
+}
+
+.game-text-input {
+  background: #FfeBc2;
+  border: none;
+  box-shadow: inset 0 -1px 2px #844703, 0 0 0 2px #F8B507, 0 0 0 3px #B47733;
+}
+
+.game-list-item {
+  background: #FfeBc2;
+  border: none;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 0 0 2px #F8B507;
+  text-shadow: 0 0 2px #000000, 1px 1px #000000;
+}
+
+.game-list-item:hover {
+  background: radial-gradient( #FfeBc2 30%, #ffdd88 70%);
+  transform: translateY(-2px) rotate(-2deg);
+  box-shadow: inset 0 -1px 2px #844703, 0 0 0 2px #F8B507, 0 0 0 3px #B47733, 0 0 16px 8px #ffcc88;
+}
+
+.game-font-1 {
+  color: #FFD250;
+  text-shadow: 0 2px 0px #B6522A, 0 3px 2px #6E2612;
+}
+
+.game-font-2 {
+  color: #A9EC4F;
+  text-shadow: 0 2px 0px #66A445, 0 3px 2px #1A4E2D;
+}
