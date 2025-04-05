@@ -15,14 +15,14 @@ export const BewMobileOverlay = () => {
         }} />
 
       {/* Jump button */}
-      <GameButton buttonType="zeta"
-        classOverride='pos-abs bottom-0 right-0  tx-lgx  py-5 ma-4 '
-        id="jump-button" styleOverride={{
-          touchAction: 'none',
-          zIndex: 1000
+      <button
+        className='pos-abs bottom-0 right-0 tx-altfont-5 tx-lgx  py-2 bord-r-5 ma-4 '
+        id="jump-button" style={{
+          zIndex: 1000,
+          
         }}>
         JUMP
-      </GameButton>
+      </button>
 
       {/* Look area - for camera rotation */}
       <div id="look-area" style={{

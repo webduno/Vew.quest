@@ -219,7 +219,8 @@ export const AnalogModalScreen = ({
 
   // Handle meter click to set value based on click position
   const handleMeterClick = (e: React.MouseEvent) => {
-    if (activeSection === 'meter' && meterRef.current) {
+    console.log('handleMeterClick', meterRef.current)
+    if (meterRef.current) {
       const rect = meterRef.current.getBoundingClientRect();
       // Calculate percentage based on click position relative to the meter width
       const clickX = e.clientX - rect.left;
@@ -312,11 +313,11 @@ export const AnalogModalScreen = ({
   const buttonTypes = ['Object', 'Entity', 'Place', 'Event'];
 
   return (<div 
-    className='pos-abs z-100 tx-white' 
+    className='pos-abs tx-white' 
     onClick={handleModalClick}
     tabIndex={0}
     ref={modalRef}
-    style={{ outline: 'none' }}
+    style={{ outline: 'none', zIndex: 1000 }}
     onKeyDown={handleKeyDown}
   >
     <div className='pos-abs top-0 right-0 mr-4 pt-4 flex-col flex-justify-end flex-align-end'>
@@ -484,6 +485,7 @@ export const AnalogModalScreen = ({
             cursor: activeSection === 'meter' ? 'pointer' : 'default',
             // border: activeSection === 'meter' ? '2px solid #333333' : 'none',
             borderRadius: '5px',
+            zIndex: 29000,
             // padding: activeSection === 'meter' ? '2px' : '4px'
           }}
         >
