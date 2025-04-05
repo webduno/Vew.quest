@@ -37,14 +37,28 @@ const WebbewPage = () => {
     }}
     >
 
-      <div className="tx-white tx-lx noverflow tx-altfont-8  box-shadow-5-b"
+      <div className="tx-white tx-lgx tx-altfont-1  flex-col flex-align-start"
       style={{
-        borderRadius: "0 5px 5px 0"
+        background: "linear-gradient(90deg, #000000, #00000000 50%)",
       }}
       >
-        <Link className="tx-white nodeco" href="/game"><BewMenuButton>New Game</BewMenuButton></Link>
-        <Link className="tx-white nodeco" href="/practice"><BewMenuButton>Practice</BewMenuButton></Link>
-        <Link className="tx-white nodeco" href="/about"><BewMenuButton>About</BewMenuButton></Link>
+        <Link
+        style={{
+          color: "#222222",
+        }} className=" " href="/game">
+        <BewMenuButton>New Game</BewMenuButton></Link>
+        <Link 
+        style={{
+          color: "#333333",
+        }}
+        className=" nodeco" href="/practice">
+        <BewMenuButton>Practice</BewMenuButton></Link>
+        <Link
+        style={{
+          color: "#444444",
+        }}
+         className=" nodeco" href="/about">
+        <BewMenuButton>About</BewMenuButton></Link>
       </div>
     </div>
   </div>;
@@ -53,7 +67,9 @@ const WebbewPage = () => {
 
 
 const BewMenuButton = ({children}: {children: React.ReactNode}) => {
-  return <div className="px-8 py-1 bg-b-90 bg-glass-5 opaci-chov--75 box-shadow-5-b">
+  return <div className="px-8 py-1 pb-3 bord-r-5 key-btn"
+  
+  >
     {children}
   </div>;
 }

@@ -325,6 +325,16 @@ export const AnalogModalScreen = ({
     style={{ outline: 'none', zIndex: 1000 }}
     onKeyDown={handleKeyDown}
   >
+    <div className='pos-abs top-0 left-0  translate-y--100 w-100 flex-col'>
+      <div className='tx-xs pa-1 px-2 box-shadow-2-t tx-ls-3 '
+      style={{
+        background: '#444744',
+        borderRadius: '5px 5px 0 0',
+      }}
+      >
+        <div className='opaci-25'>SENSE METER</div>
+      </div>
+    </div>
     <div className='pos-abs top-0 right-0 mr-4 pt-4 flex-col flex-justify-end flex-align-end'>
       <div 
         ref={exitButtonRef}
@@ -573,10 +583,10 @@ export const AnalogModalScreen = ({
       </div>
       
       <div className='pos-abs bottom-0 right-0 flex-row gap-1 pa-3'>
-        
+{/*         
       <div className='border-white bord-r-100 bg-b-90'>
           <div className='flicker-5 _ddr pl-1 pt-1 bord-r-100'></div>
-        </div>
+        </div> */}
       <div className='border-white bord-r-100 bg-b-90'>
           <div className='flicker-3 _ddb pl-1 pt-1 bord-r-100'></div>
         </div>

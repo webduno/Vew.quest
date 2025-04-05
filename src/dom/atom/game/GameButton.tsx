@@ -35,7 +35,7 @@ export const GameButton = ({
         className={`game-btn-${buttonType}
             game-btn-base
             pointer
-            noborder bord-r-10 pa-1 tx-white tx-shadow-5 tx-altfont-4
+            noborder bord-r-10 pa-1 tx-white tx-shadow-5 tx-altfont-1
             ${classOverride}
         `}
         style={styleOverride}

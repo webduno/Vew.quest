@@ -16,7 +16,7 @@ export const BewMobileOverlay = () => {
 
       {/* Jump button */}
       <button
-        className='pos-abs bottom-0 right-0 tx-altfont-5 tx-lgx  py-2 bord-r-5 ma-4 '
+        className='pos-abs bottom-0 right-0 tx-altfont-1 tx-lgx  py-2 bord-r-5 ma-4 '
         id="jump-button" style={{
           zIndex: 1000,
           

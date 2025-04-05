@@ -167,3 +167,15 @@
   color: #A9EC4F;
   text-shadow: 0 2px 0px #66A445, 0 3px 2px #1A4E2D;
 }
+
+
+
+.key-btn {
+  background: linear-gradient(160deg, #4F4E43, #66665A);
+  box-shadow: inset -5px -5px 10px #00000077, inset 0 -4px 0px 6px #42433B;
+}
+
+.key-btn:hover {
+  background: linear-gradient(160deg, #5F4E43, #66665A);
+  transform: translateY(-2px) scale(1.1);
+}
