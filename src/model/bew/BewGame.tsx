@@ -1,5 +1,5 @@
 'use client';
-import { isMobile } from '@/scripts/utils/mobileDetection';
+import { isMobile } from '@/../scripts/utils/mobileDetection';
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef } from 'react';
