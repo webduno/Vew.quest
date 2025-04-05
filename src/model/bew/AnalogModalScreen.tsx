@@ -43,7 +43,7 @@ export const AnalogModalScreen = ({
     if (activeSection !== 'gauges' && activeSection !== 'sliders') return;
     
     let animationFrameId: number;
-    const oscillationSpeed = 2; // adjust as needed
+    const oscillationSpeed = 0.3; // adjust as needed
     const minValue = activeSection === 'sliders' ? 0 : 0;
     const maxValue = activeSection === 'sliders' ? 50 : 360;
     
@@ -227,6 +227,10 @@ export const AnalogModalScreen = ({
       const meterWidth = rect.width;
       const percentage = Math.min(100, Math.max(0, (clickX / meterWidth) * 100));
       setMeterValue(percentage);
+      setActiveSection('meter');
+      if (modalRef.current) {
+        modalRef.current.focus();
+      }
     }
   };
 
@@ -434,8 +438,17 @@ export const AnalogModalScreen = ({
                   border: activeSection === 'sliders' && activeSliderIndex === index ? '1px solid #ff3333' : '1px solid transparent'
                 }}
                 onClick={() => {
+                  // Save current slider value before switching to new slider
+                  if (activeSection === 'sliders') {
+                    setSliderValues(prev => {
+                      const newValues = [...prev];
+                      newValues[activeSliderIndex] = oscillationValue;
+                      return newValues;
+                    });
+                  }
                   setActiveSliderIndex(index);
                   setActiveSection('sliders');
+                  setOscillationValue(sliderValues[index]); // Set oscillation to the new slider's value
                   if (modalRef.current) {
                     modalRef.current.focus();
                   }
