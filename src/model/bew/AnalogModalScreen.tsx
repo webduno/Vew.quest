@@ -43,14 +43,15 @@ export const AnalogModalScreen = ({
     if (activeSection !== 'gauges' && activeSection !== 'sliders') return;
     
     let animationFrameId: number;
-    const oscillationSpeed = 0.3; // adjust as needed
+    const gaugeOscillationSpeed = 1; // speed for gauges
+    const sliderOscillationSpeed = 0.3; // speed for sliders
     const minValue = activeSection === 'sliders' ? 0 : 0;
     const maxValue = activeSection === 'sliders' ? 50 : 360;
     
     const animate = () => {
       setOscillationValue(prev => {
         // Calculate the new value based on direction
-        const newValue = prev + oscillationSpeed * oscillationDirection;
+        const newValue = prev + (activeSection === 'gauges' ? gaugeOscillationSpeed : sliderOscillationSpeed) * oscillationDirection;
         
         // Change direction when reaching bounds
         if (newValue >= maxValue) {
@@ -393,7 +394,25 @@ export const AnalogModalScreen = ({
             <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>X</div>
             <GaugeDial key="x" needleRotation={xNeedleRotation} />
           </div> */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div 
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
+            onClick={() => {
+              // Save current gauge value before switching
+              if (activeSection === 'gauges') {
+                setGaugeValues(prev => {
+                  const newValues = [...prev];
+                  newValues[activeGaugeIndex] = oscillationValue;
+                  return newValues;
+                });
+              }
+              setActiveGaugeIndex(0);
+              setActiveSection('gauges');
+              setOscillationValue(gaugeValues[0]); // Set oscillation to this gauge's value
+              if (modalRef.current) {
+                modalRef.current.focus();
+              }
+            }}
+          >
             <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>Natural</div>
             <GaugeDial 
               key="y" 
@@ -401,7 +420,25 @@ export const AnalogModalScreen = ({
               isActive={activeSection === 'gauges' && activeGaugeIndex === 0}
             />
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div 
+            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
+            onClick={() => {
+              // Save current gauge value before switching
+              if (activeSection === 'gauges') {
+                setGaugeValues(prev => {
+                  const newValues = [...prev];
+                  newValues[activeGaugeIndex] = oscillationValue;
+                  return newValues;
+                });
+              }
+              setActiveGaugeIndex(1);
+              setActiveSection('gauges');
+              setOscillationValue(gaugeValues[1]); // Set oscillation to this gauge's value
+              if (modalRef.current) {
+                modalRef.current.focus();
+              }
+            }}
+          >
             <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>Temp</div>
             <GaugeDial 
               key="z" 
@@ -507,7 +544,7 @@ export const AnalogModalScreen = ({
         {/* <div className='tx-xs pt-2'>INTENT / CONFIDENCE</div> */}
         {/* <hr className='w-100 opaci-20 my-1' /> */}
       <div className='px-4 mt-1 tx-xs tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
-        CONFIDENCE
+        CONFIDENCE: {meterValue}%
       </div>
 
 
