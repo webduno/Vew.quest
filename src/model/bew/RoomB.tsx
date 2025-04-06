@@ -8,7 +8,7 @@ export const RoomB = () => {
   return (<>
 
 <RoomBRightDoor />
-<RoomBLeftDoor />
+{/* <RoomBLeftDoor /> */}
 
 
 

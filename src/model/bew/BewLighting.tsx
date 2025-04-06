@@ -28,16 +28,26 @@ export const BewLighting = () => {
      />
     
 
+    {/* ROOM A */}
     <group ref={spotLightTarget1} position={[0, 0, 8.5]} >
       <Box args={[1,0.06,0.1]} position={[0,3.5,0]} >
         <meshStandardMaterial color="#e0f7ff" emissive="#a0c7ff" />
       </Box>
     </group>
-    <group ref={spotLightTarget2} position={[0, 0, -2.25]} >
-      <Box args={[1,0.06,0.1]} position={[0,3.5,0]} >
-        <meshStandardMaterial color="#ffffff" emissive="#ffc7a0" />
+    {/* ROOM B */}
+    <group ref={spotLightTarget2} position={[0, 0, -1.25]} >
+      <Box args={[1,0.06,0.1]} position={[0,3.5,-1]} >
+        <meshStandardMaterial color="#ffffff" emissive="#e7ffc0" />
+      </Box>
+      <Box args={[1,0.06,0.1]} position={[0,3.5,3]} >
+        <meshStandardMaterial color="#ffffff" emissive="#e7ffc0" />
+      </Box>
+      <Box args={[1,0.06,1]} position={[-6.5,3.5,3]} >
+        <meshStandardMaterial color="#ffffff" 
+        emissive="#575f50" />
       </Box>
     </group>
+    {/* ROOM C */}
     <group ref={spotLightTarget3} position={[0, 0, -22]}>
       <Box args={[1,0.06,0.1]} position={[0,3.5,0]} >
         <meshStandardMaterial color="#ffffff" emissive="#a0ffc7" />

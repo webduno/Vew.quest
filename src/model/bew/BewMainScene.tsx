@@ -9,7 +9,7 @@ import { BCDoorPortals } from './BCDoorPortals';
 import { CDDoorPortals } from './CDDoorPortals';
 import { RoomC } from './RoomC';
 import { RoomRight } from './RoomRight';
-
+import { RoomLeft } from './RoomLeft';
 
 export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void }) => {
 
@@ -25,6 +25,7 @@ export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (positi
       <RoomC setPlayerPosition={setPlayerPosition} />  
 
       <RoomRight />
+      <RoomLeft />
 
       <ABDoorPortals setPlayerPosition={setPlayerPosition} />
       <BCDoorPortals setPlayerPosition={setPlayerPosition} />
@@ -59,7 +60,7 @@ export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (positi
       </group>     
       
       {/* CEILING */}
-      <Box args={[18, 1, 60]} position={[0, 4, -14]}>
+      <Box args={[20, 1, 60]} position={[0, 4, -14]}>
         <meshStandardMaterial color="#ffffff" />
       </Box>
       <PhysicalFloor />
