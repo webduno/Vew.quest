@@ -656,16 +656,6 @@ export function BewPhysicsScene({
       
       // Update the last trigger value
       lastTeleportTrigger.current = teleportTrigger;
-      
-      // Temporarily unlock controls if they're locked to prevent camera issues
-      if (document.pointerLockElement) {
-        document.exitPointerLock();
-        // Re-lock after a brief delay to allow position update to complete
-        setTimeout(() => {
-          const canvas = document.querySelector('canvas');
-          canvas?.requestPointerLock();
-        }, 100);
-      }
     }
   }, [teleportTrigger, currentPosition, camera, playerHeight]);
   
