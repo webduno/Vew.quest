@@ -99,7 +99,7 @@ export const RoomA = () => {
       </Box>
       {/* back wall */}
       <PhysicalWall 
-        size={[1, 4, 8]} color="#ffffff"
+        size={[1, 4, 6.5]} color="#ffffff"
         position={[0, 2, 15]} rotation={[0, -Math.PI / 2, 0]} 
       />
       <PhysicalWall color="#f0f0f0"

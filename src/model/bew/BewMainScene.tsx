@@ -43,15 +43,23 @@ export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (positi
   
       {/* top bevels */}
       <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
+        {/* left bevel */}
         <PhysicalWall  size={[30.5, 1, 1.2]} color="#f7f7f7"
         position={[-3, 3.5, 0]} rotation={[0, Math.PI / 2, 0]} />
+        {/* right bevel */}
         <PhysicalWall 
-        size={[30.5, 1, 1.2]} color="#f7f7f7"
-        position={[3, 3.5, 0]} rotation={[0, -Math.PI / 2, 0]} />
+          size={[30.5, 1, 1.2]} color="#f7f7f7"
+          position={[3, 3.5, 0]} rotation={[0, -Math.PI / 2, 0]} 
+        />
+        {/* outer right bevel */}
+        <PhysicalWall 
+          size={[30.5, 1, 1.2]} color="#f7f7f7"
+          position={[9, 3.5, 0]} rotation={[0, -Math.PI / 2, 0]} 
+        />
       </group>     
       
       {/* CEILING */}
-      <Box args={[16, 1, 60]} position={[0, 4, -14]}>
+      <Box args={[18, 1, 60]} position={[0, 4, -14]}>
         <meshStandardMaterial color="#ffffff" />
       </Box>
       <PhysicalFloor />
