@@ -1,6 +1,6 @@
 'use client';
 import { Box } from '@react-three/drei';
-import { PhysicalFloor } from './PhysicalFloor';
+import { PhysicalCeiling, PhysicalFloor } from './PhysicalFloor';
 import { PhysicalWall } from './PhysicalWall';
 import { ABDoorPortals } from './ABDoorPortals';
 import { RoomB } from './RoomB';
@@ -8,6 +8,7 @@ import { RoomA } from './RoomA';
 import { BCDoorPortals } from './BCDoorPortals';
 import { CDDoorPortals } from './CDDoorPortals';
 import { RoomC } from './RoomC';
+import { RoomRight } from './RoomRight';
 
 
 export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void }) => {
@@ -22,6 +23,8 @@ export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (positi
       <RoomB />
       
       <RoomC setPlayerPosition={setPlayerPosition} />  
+
+      <RoomRight />
 
       <ABDoorPortals setPlayerPosition={setPlayerPosition} />
       <BCDoorPortals setPlayerPosition={setPlayerPosition} />
@@ -52,6 +55,7 @@ export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (positi
         <meshStandardMaterial color="#ffffff" />
       </Box>
       <PhysicalFloor />
+      <PhysicalCeiling />
 
     </group>
   );

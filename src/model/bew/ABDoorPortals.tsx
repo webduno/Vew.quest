@@ -46,10 +46,10 @@ export const ABDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (posit
 
 
     {/* door light */}
-    <Box position={[0, 3.3, 4.3]} args={[.12, .12, .05]}>
+    <Box position={[0, 3.3, 4.45]} args={[.12, .12, .05]}>
       <meshStandardMaterial color="#cccccc" />
     </Box>
-    <Box position={[0, 3.3, 4.3]} args={[.06, .06, .1]}>
+    <Box position={[0, 3.3, 4.45]} args={[.06, .06, .1]}>
       <meshStandardMaterial color="#55ff55" />
     </Box>
     

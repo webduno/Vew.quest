@@ -55,15 +55,23 @@ export const RoomA = () => {
 
 
 {/* behind landing walls */}
+
 <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
+        {/* left wall */}
         <PhysicalWall   color="#ffffff"
         size={[6, 4, 1]}
           position={[-3, 2, 12]} rotation={[0, Math.PI / 2, 0]} 
         />
+        {/* right wall */}
         <PhysicalWall  color="#ffffff"
         size={[6, 4, 1]}
         position={[3, 2, 12]} rotation={[0, -Math.PI / 2, 0]} />
       </group>
+
+
+
+
+
           {/* Bottom Borders */}
           <Box args={[1.1,0.4,6.1]} position={[3,0,12]}>
             <meshStandardMaterial color="#cccccc" />
