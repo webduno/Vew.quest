@@ -65,7 +65,7 @@ const WebbewPage = () => {
             <div className='opaci-50 tx-altfont-9'> (SRI) Ingoo swan</div>
             <div style={{paddingTop:"1px"}} className='w-40 opaci-50 bg-b-90 mb-1'/>
             <div>〽🌀 Mconeagle</div>
-            <div style={{transform: "rotate(-5deg)"}}>- puthoff ufo-anti-gravity__072</div>
+            <div className='opaci-80 tx-altfont-7' style={{transform: "rotate(-5deg)"}}>- puthoff ufo-lockheed</div>
             <div>-</div>
             <div>- mars 1m y BCE</div>
           </div>
