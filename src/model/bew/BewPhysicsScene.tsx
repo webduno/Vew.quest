@@ -105,12 +105,15 @@ export function BewPhysicsScene({
   maxVelocity = 30,
   // enableLocked, setEnableLocked,
   isLocked, setIsLocked,
-  onRotationUpdate
+  onRotationUpdate,
+  currentPosition,
+  teleportTrigger = 0
 }: PhysicsSceneProps) {
   const controlsRef = useRef<any>(null)
   const { camera } = useThree()
   const [showHitbox, setShowHitbox] = useState(true)
   const [isOnGround, setIsOnGround] = useState(false)
+  const lastTeleportTrigger = useRef(teleportTrigger);
   
   // Multiple balls state
   const [balls, setBalls] = useState<Array<{
@@ -623,6 +626,48 @@ export function BewPhysicsScene({
       setRemainingBalls(ballCount)
     }
   }, [ballCount])
+  
+  // Handle teleportation when teleportTrigger changes
+  useEffect(() => {
+    if (teleportTrigger !== lastTeleportTrigger.current && currentPosition) {
+      console.log("Teleporting player to:", currentPosition);
+      
+      // Update the player's physics body position
+      playerApi.position.set(
+        currentPosition[0], 
+        currentPosition[1] + playerHeight / 2, 
+        currentPosition[2]
+      );
+      
+      // Reset velocity to prevent momentum carrying over
+      playerApi.velocity.set(0, 0, 0);
+      
+      // Update camera position to match
+      if (camera) {
+        camera.position.set(
+          currentPosition[0], 
+          currentPosition[1] + playerHeight, 
+          currentPosition[2]
+        );
+      }
+      
+      // Reset ground state
+      setIsOnGround(true);
+      
+      // Update the last trigger value
+      lastTeleportTrigger.current = teleportTrigger;
+      
+      // Temporarily unlock controls if they're locked to prevent camera issues
+      if (document.pointerLockElement) {
+        document.exitPointerLock();
+        // Re-lock after a brief delay to allow position update to complete
+        setTimeout(() => {
+          const canvas = document.querySelector('canvas');
+          canvas?.requestPointerLock();
+        }, 100);
+      }
+    }
+  }, [teleportTrigger, currentPosition, camera, playerHeight]);
   
   return (
     <>

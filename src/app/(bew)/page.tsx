@@ -30,25 +30,32 @@ const WebbewPage = () => {
       <div className='tx-altfont-1 px-1 pb-1'>|</div>
       <div style={{ transform: "scaleX(-1)" }}>WEB</div>
     </div>
-    <div className='pos-abs bottom-0 pb-100 w-100 flex-col flex-align-start'
+    <LandingMainMenu />
+  </div>;
+}
+
+
+
+export const BewMenuButton = ({children}: {children: React.ReactNode}) => {
+  return <div className="px-5 py-1 pb-3 bord-r-5 key-btn"
+  
+  >
+    {children}
+  </div>;
+}
+
+
+
+
+export const LandingMainMenu = () => {
+  return (<>
+  <div className='pos-abs bottom-0 pb-100 w-100 flex-col flex-align-start'
     style={{
       background: "linear-gradient(0deg, #1E1B14, #00000000)",
 
     }}
     >
       <div className='pa-4 flex-col pos-rel tuto-paper'>
-{/*           
-      <div className='px-2 pt-2 pb-8 pos-abs'
-        style={{
-          filter: "blur(1px)",
-          transform: "rotate(-3deg)",
-          clipPath: "polygon(50% 0%, 100% 0, 98% 60%, 100% 97%, 4% 100%, 0% 60%, 2% 3%)",
-          background: "#000000",
-          // background: "linear-gradient(45deg, #706C61, #8F8B7D, #706C61)",
-        }}
-        >
-          <div className='tx-altfont-8 tx-lg'>Tutorial</div>
-        </div> */}
         <div style={{filter: "blur(10px)"}}
          className='pa-7 bg-b-90 pos-abs'></div>
 
@@ -98,19 +105,5 @@ const WebbewPage = () => {
         <BewMenuButton>About</BewMenuButton></Link>
       </div>
     </div>
-  </div>;
+  </>)
 }
-
-
-
-const BewMenuButton = ({children}: {children: React.ReactNode}) => {
-  return <div className="px-5 py-1 pb-3 bord-r-5 key-btn"
-  
-  >
-    {children}
-  </div>;
-}
-
-
-
-

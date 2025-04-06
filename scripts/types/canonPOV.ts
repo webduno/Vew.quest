@@ -19,6 +19,8 @@ export interface PhysicsSceneProps extends CanonPOVProps {
   isLocked?: boolean
   setIsLocked?: (isLocked: boolean) => void
   onRotationUpdate?: (rotation: { x: number, y: number, z: number }) => void
+  currentPosition?: [number, number, number]
+  teleportTrigger?: number
 }
 
 export interface PhysicalBallProps {

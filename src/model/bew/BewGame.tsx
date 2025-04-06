@@ -3,7 +3,8 @@ import { isMobile } from '@/../scripts/utils/mobileDetection';
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { BewMainScene, BewPreMainScene } from '@/model/bew/BewMainScene';
+import { BewMainScene } from '@/model/bew/BewMainScene';
+import { RoomC } from './RoomC';
 import { BewMobileOverlay } from '@/model/bew/BewMobileOverlay';
 import { PersonSilhouette } from './PersonSilhouette';
 import { BewLighting } from './BewLighting';
@@ -19,9 +20,11 @@ export const BewGame = () => {
   const [focusLevel, setFocusLevel] = useState(0);
   const focusStageRef = useRef<any>(0);
   const [enableLocked, setEnableLocked] = useState(true)
-  const [initialPosition, setInitialPosition] = useState<[number, number, number]>([0, 1, 3])
+  const [initialPosition, setInitialPosition] = useState<[number, number, number]>([0, 0, 1])
+  const [currentPosition, setCurrentPosition] = useState<[number, number, number]>([0, 0, 1]);
   const [playerRotation, setPlayerRotation] = useState({ x: 0, y: 0, z: 0 })
   const [isLocked, setIsLocked] = useState(false)
+  const [teleportTrigger, setTeleportTrigger] = useState(0);
 
 
 
@@ -54,6 +57,14 @@ export const BewGame = () => {
     setPlayerRotation(rotation);
   }, []);
 
+  // Handle teleporting the player to a new position
+  const handleSetPlayerPosition = useCallback((position: [number, number, number]) => {
+    console.log("Setting player position to:", position);
+    setCurrentPosition(position);
+    // Trigger a teleport by incrementing the counter
+    setTeleportTrigger(prev => prev + 1);
+  }, []);
+
   return (
     <div className='pos-abs top-0 left-0 w-100 h-100 flex-col'>
       {focusLevel !== 0 && (
@@ -68,7 +79,7 @@ export const BewGame = () => {
           }}
         />
       )}
-      <Canvas camera={{ position: [-0, 10, 28], fov: 125 }} shadows>
+      <Canvas camera={{ fov: 125 }} shadows>
 
         <BewLighting />
 
@@ -133,13 +144,12 @@ export const BewGame = () => {
 
 
 
-          <BewPreMainScene />  
 
 
 
 
 
-          <BewMainScene />
+          <BewMainScene setPlayerPosition={handleSetPlayerPosition} />
 
 
 
@@ -152,12 +162,14 @@ export const BewGame = () => {
             jumpForce={focusStageRef.current === 0 ? 10 : 0}
             maxVelocity={focusStageRef.current === 0 ? 40 : 0}
             position={initialPosition}
+            currentPosition={currentPosition}
+            teleportTrigger={teleportTrigger}
             sceneObjects={[]}
             onExit={() => {
               console.log('onExit')
             }}
             isMobile={isMobileDevice}
-            ballCount={10}
+            ballCount={0}
             // enableLocked={enableLocked}
             // setEnableLocked={setEnableLocked}
             isLocked={isLocked}

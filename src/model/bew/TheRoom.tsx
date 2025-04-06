@@ -54,7 +54,7 @@ export const TheRoom = ({ onTriggerCollide }: TheRoomProps) => {
           position={[6, 2, -20]} rotation={[0, Math.PI / 2, 0]} />
       </group>
       <PhysicalWall color="#eeeeee"
-        size={[1, 4, 12]}
+        size={[1, 4, 12.1]}
         position={[0, 2, -27]} rotation={[0, -Math.PI / 2, 0]} />
     </group>
   );
