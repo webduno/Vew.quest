@@ -36,7 +36,43 @@ const WebbewPage = () => {
 
     }}
     >
+      <div className='pa-4 flex-col pos-rel tuto-paper'>
+{/*           
+      <div className='px-2 pt-2 pb-8 pos-abs'
+        style={{
+          filter: "blur(1px)",
+          transform: "rotate(-3deg)",
+          clipPath: "polygon(50% 0%, 100% 0, 98% 60%, 100% 97%, 4% 100%, 0% 60%, 2% 3%)",
+          background: "#000000",
+          // background: "linear-gradient(45deg, #706C61, #8F8B7D, #706C61)",
+        }}
+        >
+          <div className='tx-altfont-8 tx-lg'>Tutorial</div>
+        </div> */}
+        <div style={{filter: "blur(10px)"}}
+         className='pa-7 bg-b-90 pos-abs'></div>
 
+        <div className='px-3 pt-2 pb-1 z-100'
+        style={{
+          transform: "rotate(-8deg)",
+          clipPath: "polygon(50% 0%, 100% 0, 98% 60%, 100% 97%, 4% 100%, 0% 60%, 2% 3%)",
+          background: "linear-gradient(0deg, #706C61, #8F8B7D, #605C51)",
+        }}
+        >
+          <div className='tx-altfont-8 tx-lg'>Tutorial</div>
+          <div className='tx-xs tx-altfont-6' style={{filter: "saturate(0)"}}>
+            <div className='opaci- 0'>Stargate1A (SRI)</div>
+            <div className='opaci-50'>Ingoo swan</div>
+            <div style={{paddingTop:"1px"}} className='w-50 opaci-50 bg-b-90 mb-1'/>
+            <div>〽🌀 Mconeagle</div>
+            <div>- Hal puthoff</div>
+            <div>-</div>
+            <div>- mars 1m y BCE</div>
+          </div>
+        </div>
+
+
+      </div>
       <div className="tx-white tx-lg tx-altfont-1  flex-col flex-align-start"
       style={{
         background: "linear-gradient(90deg, #000000, #00000000 50%)",
