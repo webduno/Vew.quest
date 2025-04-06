@@ -1,6 +1,7 @@
 'use client';
 import { Box } from '@react-three/drei';
 import { PhysicalWall } from './PhysicalWall';
+import { PhysicalDoor } from './PhysicalDoor';
 
 
 export const StyledWall = ({
@@ -14,7 +15,7 @@ export const StyledWall = ({
 }) => {
     return (<>
 
-        <PhysicalWall color={color}
+        <PhysicalDoor color={color}
             size={size}
             position={position}
             rotation={rotation} />

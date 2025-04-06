@@ -17,6 +17,17 @@ export const BewLighting = () => {
   return (<>
     <ambientLight intensity={0.25} />
 
+
+    <group ref={spotLightTarget2} position={[0, 0, 0]} >
+      <Box args={[0.1,0.06,1]} position={[5,3.5,0]} >
+        <meshStandardMaterial color="#ffffff" emissive="#ffc7a0" />
+      </Box>
+    </group>
+    <pointLight position={[5, 3, 0]} intensity={3} color="#ffe7c0"
+    castShadow
+     />
+    
+
     <group ref={spotLightTarget1} position={[0, 0, 8.5]} >
       <Box args={[1,0.06,0.1]} position={[0,3.5,0]} >
         <meshStandardMaterial color="#e0f7ff" emissive="#a0c7ff" />

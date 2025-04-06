@@ -102,8 +102,8 @@ export const RoomA = () => {
         size={[1, 4, 6.5]} color="#ffffff"
         position={[0, 2, 15]} rotation={[0, -Math.PI / 2, 0]} 
       />
-      <PhysicalWall color="#f0f0f0"
-        size={[1.2, 1, 8.1]}
+      <PhysicalWall color="#f7f7f7"
+        size={[1.2, 1, 7.1]}
         position={[0, 3.6, 15]} rotation={[0, -Math.PI / 2, 0]} 
       />
   </>);

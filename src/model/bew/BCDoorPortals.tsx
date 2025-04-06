@@ -2,6 +2,7 @@
 import { Box } from '@react-three/drei';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { PhysicalWall } from './PhysicalWall';
+import { PhysicalDoor } from './PhysicalDoor';
 
 
 
@@ -13,7 +14,7 @@ export const BCDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (posit
 
 
       {/* main frontal door */}
-      <PhysicalWall
+      <PhysicalDoor
         size={[.2, 4, 2]}
         position={[0, 2, -5]} rotation={[0, -Math.PI / 2, 0]} />
       {/* doorknob */}
