@@ -3,7 +3,7 @@ import { isMobile } from '@/../scripts/utils/mobileDetection';
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { BewMainScene } from '@/model/bew/BewMainScene';
+import { BewMainScene, BewPreMainScene } from '@/model/bew/BewMainScene';
 import { BewMobileOverlay } from '@/model/bew/BewMobileOverlay';
 import { PersonSilhouette } from './PersonSilhouette';
 import { BewLighting } from './BewLighting';
@@ -11,6 +11,7 @@ import { TheRoom } from './TheRoom';
 import { AnalogModalScreen } from './AnalogModalScreen';
 import { BewPhysicsScene } from './BewPhysicsScene';
 import { PhysicalWall } from './PhysicalWall';
+import { Box } from '@react-three/drei';
 
 
 export const BewGame = () => {
@@ -107,6 +108,37 @@ export const BewGame = () => {
 
           <TheRoom onTriggerCollide={handleTriggerCollision} />
 
+
+
+
+
+
+
+
+
+
+
+
+
+          {/* First Barrier */}
+          {/* <Box args={[6,1,1]} position={[0,0,0]}>
+            <meshStandardMaterial color="#000000" />
+          </Box> */}
+
+
+
+
+
+
+
+
+
+          <BewPreMainScene />  
+
+
+
+
+
           <BewMainScene />
 
 
@@ -125,7 +157,7 @@ export const BewGame = () => {
               console.log('onExit')
             }}
             isMobile={isMobileDevice}
-            ballCount={0}
+            ballCount={10}
             // enableLocked={enableLocked}
             // setEnableLocked={setEnableLocked}
             isLocked={isLocked}

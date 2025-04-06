@@ -6,6 +6,7 @@ import { CircularMeter } from './CircularMeter';
 import { LargeSemicircularMeter } from './LargeSemicircularMeter';
 import { SliderBar } from './SliderBar';
 import { ControlButton } from './ControlButton';
+import { isMobile } from '../../../scripts/utils/mobileDetection';
 
 export const AnalogModalScreen = ({
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onClose
@@ -359,7 +360,7 @@ export const AnalogModalScreen = ({
       >
         SEND
       </div>
-      {activeSection === 'send' &&
+      {activeSection === 'send' && !isMobile() &&
     <div className='tx-xs tx-center tx-white  bord-r-5  pt-1'>
         SPACEBAR TO SEND
       </div>

@@ -21,7 +21,7 @@ export const PhysicalFloor = () => {
   return (
     <mesh ref={ref as React.Ref<Mesh>} receiveShadow>
       <planeGeometry args={[100, 100]} />
-      <meshStandardMaterial color="white" />
+      <meshStandardMaterial color="white" metalness={0.15} roughness={0.15} />
     </mesh>
   );
 };
