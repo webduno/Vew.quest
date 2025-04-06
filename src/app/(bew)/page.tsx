@@ -45,18 +45,18 @@ const WebbewPage = () => {
       >
         <Link
         style={{
-          color: "#222222",
+          color: "#111111",
         }} className=" " href="/game">
         <BewMenuButton>New Game</BewMenuButton></Link>
         <Link 
         style={{
-          color: "#333333",
+          color: "#222222",
         }}
         className=" nodeco" href="/practice">
         <BewMenuButton>Practice</BewMenuButton></Link>
         <Link
         style={{
-          color: "#444444",
+          color: "#333333",
         }}
          className=" nodeco" href="/about">
         <BewMenuButton>About</BewMenuButton></Link>
