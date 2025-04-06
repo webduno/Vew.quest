@@ -76,7 +76,7 @@ const WebbewPage = () => {
       <div className="tx-white tx-lg tx-altfont-1  flex-col flex-align-start"
       style={{
         background: "linear-gradient(90deg, #000000, #00000000 50%)",
-        transform: "translateX(-15px)",
+        transform: "translateX(-10px)",
       }}
       >
         <Link
@@ -104,7 +104,7 @@ const WebbewPage = () => {
 
 
 const BewMenuButton = ({children}: {children: React.ReactNode}) => {
-  return <div className="px-8 py-1 pb-3 bord-r-5 key-btn"
+  return <div className="px-5 py-1 pb-3 bord-r-5 key-btn"
   
   >
     {children}
