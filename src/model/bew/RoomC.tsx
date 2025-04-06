@@ -13,6 +13,12 @@ export const RoomC = ({ setPlayerPosition }: BewPreMainSceneProps = {}) => {
 
 
 
+<PhysicalWall color="#ffffff"
+        size={[3.5, 4, 1]}
+        position={[3, 2, -13]} rotation={[0, -Math.PI / 2, 0]} />
+        <Box args={[1.1, 0.4, 3.58]} position={[3, 0, -13]}>
+          <meshStandardMaterial color="#cccccc" />
+        </Box>
 
 
 

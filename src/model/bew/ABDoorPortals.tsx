@@ -35,11 +35,24 @@ export const ABDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (posit
 
     <PhysicalTrigger visible={false} triggerCount={999}
       onCollide={() => {
-        setPlayerPosition && setPlayerPosition([0, 0, 6.5]);
+        // random number from 1 to 3
+        const randomWin = Math.floor(Math.random() * 3) + 1;
+        console.log(randomWin);
+        const randomguess = prompt("Random guess? (1-3)");
+
+        if (!randomguess) {
+          return;
+        }
+
+        if (randomguess?.toString() == randomWin.toString()) {
+          setPlayerPosition && setPlayerPosition([0, 0, 5.5]);
+        } else {
+          setPlayerPosition && setPlayerPosition([0, 0, -2.5]);
+        }
       }}
 
-      size={[2, 4, 1]}
-      position={[0, 1, 4.5]}
+      size={[1, 4, 0.2]}
+      position={[0, 1, 4.8]}
       rotation={[0, 0, 0]} />
 
 

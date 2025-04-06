@@ -21,6 +21,7 @@ export const StyledWall = ({
             rotation={rotation} />
 
         <Box args={[size[0] + 0.1, 0.4, size[2] + 0.1]}
+        castShadow
             position={[position[0], 0, position[2]]}>
             <meshStandardMaterial color={baseboardColor} />
         </Box>

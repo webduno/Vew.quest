@@ -18,12 +18,12 @@ export const BewLighting = () => {
     <ambientLight intensity={0.25} />
 
 
-    <group ref={spotLightTarget2} position={[0, 0, 0]} >
+    <group ref={spotLightTarget2} position={[0, 0, 2]} >
       <Box args={[0.1,0.06,1]} position={[5,3.5,0]} >
         <meshStandardMaterial color="#ffffff" emissive="#ffc7a0" />
       </Box>
     </group>
-    <pointLight position={[5, 3, 0]} intensity={3} color="#ffe7c0"
+    <pointLight position={[5, 3, 2]} intensity={3} color="#ffe7c0"
     castShadow
      />
     
