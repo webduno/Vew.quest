@@ -43,13 +43,13 @@ function PlayerCylinder({
   return (
     <group ref={cylinderRef}>
       
-      <Sphere args={[playerRadius*.75, 16, 16]}  castShadow
+      <Sphere args={[playerRadius*.6, 16, 16]}  castShadow
       position={[0, playerHeight/3, 0]} 
-      scale={[1,4,1]}
+      scale={[1,3.5,1]}
       >
         <meshStandardMaterial color="grey" />
       </Sphere>
-      <Sphere args={[playerRadius, 16, 16]}  castShadow
+      <Sphere args={[playerRadius*.75, 16, 16]}  castShadow
       position={[0, playerHeight*.75, 0]} 
       scale={[1,1.5,1]}
       >

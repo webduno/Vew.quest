@@ -2,34 +2,29 @@
 import { Box } from '@react-three/drei';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { PhysicalWall } from './PhysicalWall';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { StyledWall } from './StyledWall';
+import { RegularKey } from './RegularKey';
 
 
 
 
-export const ABDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void; }) => {
+export const ABDoorPortals = ({ setPlayerPosition, hasFirstKey, setHasFirstKey }: { setPlayerPosition: (position: [number, number, number]) => void; hasFirstKey: boolean; setHasFirstKey: (hasFirstKey: boolean) => void; }) => {
   const [cooldown, setCooldown] = useState(false);
   const [doorVisible, setDoorVisible] = useState(true);
+  // Use a ref to always have the latest value of hasFirstKey
+  const hasKeyRef = useRef(hasFirstKey);
 
+  // Monitor state changes and update the ref
+  useEffect(() => {
+    console.log('ABDoorPortals: hasFirstKey changed to', hasFirstKey);
+    hasKeyRef.current = hasFirstKey;
+  }, [hasFirstKey]);
 
-
-const randomPromptDoor = () => {
+const openDoorProcess = () => {
   setTimeout(() => {
-
     setDoorVisible(false);
   }, 1000)
-  // between 1 and 3
-  // const randomNumber = Math.floor(Math.random() * 3) + 1;
-  // console.log(randomNumber);
-
-  // const randomGuess = prompt(`Guess the number between 1 and 3`);
-  // if (randomGuess === randomNumber.toString()) {
-  //   console.log('You guessed the number!');
-  //   setDoorVisible(false);
-  // } else {
-  //   console.log('You guessed the wrong number!');
-  // }
 }
 
 
@@ -37,7 +32,18 @@ const randomPromptDoor = () => {
   return (<>
 
 
-
+{/* FIRST KEY TRIGGER */}
+<PhysicalTrigger triggerCount={1} visible={false}
+      onCollide={(e) => {
+        console.log('Key collected!');
+        setHasFirstKey(true);
+        // Directly update the ref for immediate access
+        hasKeyRef.current = true;
+      }}
+      size={[1, 1, 1]}
+      position={[-4.5, 0, 3]}
+    />
+    {!hasFirstKey && <group position={[-4.5, 0, 3]} rotation={[0, .2, 0]}><RegularKey /></group>}
   
 
       {/* front bevel */}
@@ -65,12 +71,22 @@ const randomPromptDoor = () => {
 
 
     <PhysicalTrigger visible={false} triggerCount={999}
-      onCollide={() => {
-        if (cooldown) {
+      onCollide={(e) => {
+        // Use the ref value instead of the prop to get the latest state
+        const currentHasKey = hasKeyRef.current;
+        console.log('Door trigger activated, hasFirstKey (from ref):', currentHasKey, 'hasFirstKey (from prop):', hasFirstKey);
+        
+        if (!currentHasKey) {
+          console.log('no key');
           return;
         }
+        if (cooldown) {
+          console.log('Door on cooldown');
+          return;
+        }
+        console.log('Opening door');
         setCooldown(true);
-        randomPromptDoor()
+        openDoorProcess()
         
         
         setTimeout(() => {
@@ -86,9 +102,28 @@ const randomPromptDoor = () => {
 
 
 {/* actual door */}
+{!doorVisible && (
+  <>
+    <PhysicalWall color="#ffddaa"
+        castShadow={false}
+        visible={true}
+        size={[.2, 3.2, 1.6]}
+        position={[-0.6, 1.6, 5.5]} rotation={[0, .5, 0]} />
+        <group position={[-0.6, 1.6, 5.5]} rotation={[0, .5, 0]}>
+
+    <Box position={[0.2,0,.5]} args={[.2, .2, .2]} castShadow>
+      <meshStandardMaterial color="#cccccc" />
+    </Box>
+    </group>
+    {/* doorknob */}
+  </>
+)}
+
+{/* actual door */}
 {doorVisible && (
   <>
     <PhysicalWall color="#ffddaa"
+        castShadow={false}
         visible={true}
         size={[.2, 4, 2]}
         position={[0, 2, 5]} rotation={[0, -Math.PI / 2, 0]} />
@@ -96,7 +131,18 @@ const randomPromptDoor = () => {
     <Box position={[.5, 1.5, 4.75]} args={[.2, .2, .2]} castShadow>
       <meshStandardMaterial color="#cccccc" />
     </Box>
-    {/* <Box position={[-.5, 1.5, 5.25]} args={[.2, .2, .2]} castShadow>
+  </>
+)}
+
+{/* opened door */}
+{doorVisible && (
+  <>
+    {/* <PhysicalWall color="#ffddaa"
+        castShadow={false}
+        visible={true}
+        size={[.2, 4, 2]}
+        position={[0, 2, 5]} rotation={[0, -Math.PI / 2, 0]} />
+    <Box position={[.5, 1.5, 4.75]} args={[.2, .2, .2]} castShadow>
       <meshStandardMaterial color="#cccccc" />
     </Box> */}
   </>
@@ -108,11 +154,11 @@ const randomPromptDoor = () => {
 
 
     {/* door light */}
-    <Box position={[0, 3.3, 4.45]} args={[.12, .12, .05]}>
+    <Box position={[0, 3.3, 4.45]} args={[.2, .2, .05]}>
       <meshStandardMaterial color="#cccccc" />
     </Box>
-    <Box position={[0, 3.3, 4.45]} args={[.06, .06, .1]}>
-      <meshStandardMaterial color={cooldown ? "#ff5555" : "#55ff55"} />
+    <Box position={[0, 3.3, 4.45]} args={[.1, .1, .1]}>
+      <meshStandardMaterial color={!cooldown ? "#ff5555" : "#55ff55"} />
     </Box>
     
 
@@ -125,3 +171,5 @@ const randomPromptDoor = () => {
     
   </>);
 };
+
+

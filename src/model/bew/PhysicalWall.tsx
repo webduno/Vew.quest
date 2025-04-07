@@ -4,6 +4,7 @@ import { Mesh } from 'three';
 
 
 export const PhysicalWall = ({
+  castShadow = true,
   visible = true,
   position = [0, 0, -0] as [number, number, number],
   rotation = [0, 0, 0] as [number, number, number],
@@ -28,7 +29,7 @@ export const PhysicalWall = ({
   }
 
   return (
-    <mesh ref={ref as React.Ref<Mesh>} receiveShadow castShadow>
+    <mesh ref={ref as React.Ref<Mesh>} receiveShadow castShadow={castShadow}>
       <boxGeometry args={boxSize} />
       <meshStandardMaterial color={color} />
     </mesh>

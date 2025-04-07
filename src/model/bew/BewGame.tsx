@@ -158,9 +158,9 @@ export const BewGame = () => {
           <BewPhysicsScene
             playerHeight={1.8}
             playerRadius={0.4}
-            moveSpeed={focusStageRef.current === 0 ? 11 : 0}
-            jumpForce={focusStageRef.current === 0 ? 10 : 0}
-            maxVelocity={focusStageRef.current === 0 ? 40 : 0}
+            moveSpeed={focusStageRef.current === 0 ? 8 : 0}
+            jumpForce={focusStageRef.current === 0 ? 8 : 0}
+            maxVelocity={focusStageRef.current === 0 ? 20 : 0}
             position={initialPosition}
             currentPosition={currentPosition}
             teleportTrigger={teleportTrigger}

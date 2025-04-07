@@ -1,5 +1,5 @@
 'use client';
-import { Box } from '@react-three/drei';
+import { Box, Text } from '@react-three/drei';
 import { PhysicalCeiling, PhysicalFloor } from './PhysicalFloor';
 import { PhysicalWall } from './PhysicalWall';
 import { ABDoorPortals } from './ABDoorPortals';
@@ -10,8 +10,23 @@ import { CDDoorPortals } from './CDDoorPortals';
 import { RoomC } from './RoomC';
 import { RoomRight } from './RoomRight';
 import { RoomLeft } from './RoomLeft';
+import { useState, useEffect, useCallback } from 'react';
+
 
 export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void }) => {
+
+  const [hasFirstKey, setHasFirstKey] = useState(false);
+  
+  // Add effect to monitor key state changes
+  useEffect(() => {
+    console.log('BewMainScene: hasFirstKey is now', hasFirstKey);
+  }, [hasFirstKey]);
+  
+  // Memoize the handler with useCallback to prevent recreation
+  const handleKeyCollection = useCallback((value: boolean) => {
+    console.log('Setting hasFirstKey to:', value);
+    setHasFirstKey(value);
+  }, []);
 
   return (
     <group position={[0, 0, 0]}>
@@ -27,8 +42,9 @@ export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (positi
       <RoomRight />
       <RoomLeft />
 
-      <ABDoorPortals setPlayerPosition={setPlayerPosition} />
-      <BCDoorPortals setPlayerPosition={setPlayerPosition} />
+      <ABDoorPortals setPlayerPosition={setPlayerPosition} hasFirstKey={hasFirstKey} setHasFirstKey={handleKeyCollection} />
+
+{/* <BCDoorPortals setPlayerPosition={setPlayerPosition} /> */}
       <CDDoorPortals setPlayerPosition={setPlayerPosition} />
       
 

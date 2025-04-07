@@ -1,10 +1,75 @@
 'use client';
+import { Box, Plane, Text } from '@react-three/drei';
 import { CardboardBox } from './CardboardBox';
 import { StyledWall } from './StyledWall';
+import { PhysicalWall } from './PhysicalWall';
 
 
 export const RoomRight = () => {
   return (<>
+
+
+  
+
+
+    {/* goal */}
+    <Box args={[1,4.2,7]} position={[3.25, 2, -8.5]} rotation={[0,0,0]} castShadow >
+      <meshStandardMaterial color="#eeeeee"  
+         />
+    </Box>
+    <Plane args={[4,2]} position={[3.77, 1.75, -8]} rotation={[0,Math.PI/2,0]} >
+<meshStandardMaterial color="#ffffff" emissive={"#111111"}   side={2}
+         />
+    </Plane>
+<Text 
+color="#222222" anchorX="center" anchorY="middle" position={[3.76, 3, -8]}
+rotation={[0,Math.PI/2,0]} fontSize={.25} 
+>
+{`P S I O N I C_A S S E T | Training Zone`}
+</Text>
+
+
+
+
+<Text 
+color="#393633" anchorX="center" anchorY="middle" position={[3.78, 2.35, -7]}
+rotation={[0,Math.PI/2,0]} fontSize={.2} font={"/fonts/beanie.ttf"}
+>
+{`
+- Mindset and Intention
+  * Learnable Skill
+- Ideograms + Gestalts @
+  | ?(AOL)
+`}
+</Text>
+
+
+
+<Text 
+color="#393633" anchorX="center" anchorY="middle" position={[3.78, 1.5, -7.9]}
+rotation={[0,Math.PI/2,0.05]} fontSize={.25} font={"/fonts/beanie.ttf"}
+>
+{`
+- Block Analytical Overlay 
+- Displce noise MATRIX
+     ________┌-      remember -->
+`}
+</Text>
+
+<Text 
+color="#393633" anchorX="center" anchorY="middle" position={[3.78, 1, -9.2]}
+rotation={[0,Math.PI/2,0.05]} fontSize={.15} font={"/fonts/beanie.ttf"}
+>
+{`the mind goes thru walls`}
+</Text>
+
+
+<PhysicalWall  visible={false} color="#ff9900"
+position={[3.5,2, -7]}
+size={[.51,4,5]}
+/>
+
+
 
     <CardboardBox position={[5.25, 1, 1]} size={[1.25, 1.25, 1.25]}  />
     <CardboardBox position={[7.25, 1., 1]} size={[1.5, 1.5, 1.5]}  
@@ -27,8 +92,39 @@ export const RoomRight = () => {
 
 
 
+    <group position={[3.5,1.5,13.5]} rotation={[0,-Math.PI/2,0]} >
+<Text 
+color="#333333" anchorX="center" anchorY="middle" position={[0,0.2,-0.01]}
+rotation={[0,Math.PI,0]} fontSize={0.10} font={"/fonts/beanie.ttf"}
+>
+{`COORDINATED
+REMOTE VIEWING (CRV)
+
+    CODE2: sunstreak
+    |
+    _
+
+cia_rdp96.pdf`}
+</Text>
 
 
+</group>
+
+<PhysicalWall color="#eeeeee"
+        position={[3.6,1.8,12]}
+        size={[0.45,1.25,1]}
+        rotation={[0,0,0]}
+      />
+      <Box args={[0.45,1.25,1]} position={[3.6,1.8,13.5]}
+      >
+              <meshStandardMaterial color="#eeeeee"  side={2}
+               />
+            </Box>
+      <PhysicalWall color="#eeeeee"
+              position={[3.6,1.8,10.5]}
+              size={[0.45,1.25,1]}
+              rotation={[0,0,0]}
+            />
 
 
 

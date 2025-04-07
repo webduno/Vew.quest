@@ -1,5 +1,5 @@
 'use client';
-import { Box } from '@react-three/drei';
+import { Box, Text } from '@react-three/drei';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { PhysicalWall } from './PhysicalWall';
 
@@ -8,7 +8,29 @@ import { PhysicalWall } from './PhysicalWall';
 
 export const CDDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void; }) => {
   return (<>
-
+    <Text position={[1.7, 1.75, -14.49]} rotation={[0, 0, 0]} anchorX="center" anchorY="middle"
+    textAlign="center" color="#444444"
+    fontSize={0.2} 
+    >
+      {`
+      ENTER
+      CODE 2
+      ┌                ┐
+      └                ┘
+      `}
+    </Text>
+    
+<Text position={[-1.7, 1.75, -14.49]} rotation={[0, 0, 0]} anchorX="center" anchorY="middle"
+textAlign="center" color="#444444"
+fontSize={0.2} 
+>
+  {`
+  ENTER
+  CODE 1
+  ┌                ┐
+  └                ┘
+  `}
+</Text>
 
 
 

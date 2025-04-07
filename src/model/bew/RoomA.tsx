@@ -38,7 +38,7 @@ export const RoomA = () => {
         />
       <group position={[3.5, 1.5, 8.5]} rotation={[0, -1, 0]} >
       {/* doorknob */}
-        <Box position={[-0.2,0,-.5]} args={[.2, .2, .2]} castShadow >
+        <Box position={[-0.1,0,-.5]} args={[.2, .2, .2]} castShadow >
           <meshStandardMaterial color="#aaaaaa"  />
         </Box>
 

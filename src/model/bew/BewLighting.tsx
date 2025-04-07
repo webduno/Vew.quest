@@ -15,7 +15,7 @@ export const BewLighting = () => {
   }, []);
 
   return (<>
-    <ambientLight intensity={0.25} />
+    <ambientLight intensity={0.1} />
 
 
     <group ref={spotLightTarget2} position={[0, 0, 2]} >
@@ -36,19 +36,25 @@ export const BewLighting = () => {
     </group>
     {/* ROOM B */}
     <group ref={spotLightTarget2} position={[0, 0, -1.25]} >
+    <pointLight position={[0, 2.5, 3]} intensity={.5} 
+      color="#f7fff0" 
+     />
+    
       <Box args={[1,0.06,0.1]} position={[0,3.5,-1]} >
         <meshStandardMaterial color="#ffffff" emissive="#e7ffc0" />
       </Box>
       <Box args={[1,0.06,0.1]} position={[0,3.5,3]} >
         <meshStandardMaterial color="#ffffff" emissive="#e7ffc0" />
       </Box>
-      <Box args={[1,0.06,1]} position={[-6.5,3.5,3]} >
-        <meshStandardMaterial color="#ffffff" 
-        emissive="#575f50" />
-      </Box>
     </group>
     {/* ROOM C */}
     <group ref={spotLightTarget3} position={[0, 0, -22]}>
+    <pointLight position={[0, 2, 14]} intensity={1}  castShadow
+      color="#fff7f0" 
+     />
+     <Box args={[1,0.06,0.1]} position={[0,3.5,14]} >
+       <meshStandardMaterial color="#ffffff" emissive="#7f7770" />
+     </Box>
       <Box args={[1,0.06,0.1]} position={[0,3.5,0]} >
         <meshStandardMaterial color="#ffffff" emissive="#a0ffc7" />
       </Box>
