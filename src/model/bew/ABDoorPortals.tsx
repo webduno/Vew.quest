@@ -137,14 +137,14 @@ const openDoorProcess = () => {
 {/* opened door */}
 {doorVisible && (
   <>
-    {/* <PhysicalWall color="#ffddaa"
+    <PhysicalWall color="#ffddaa"
         castShadow={false}
         visible={true}
         size={[.2, 4, 2]}
         position={[0, 2, 5]} rotation={[0, -Math.PI / 2, 0]} />
     <Box position={[.5, 1.5, 4.75]} args={[.2, .2, .2]} castShadow>
       <meshStandardMaterial color="#cccccc" />
-    </Box> */}
+    </Box>
   </>
 )}
 
