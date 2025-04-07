@@ -44,7 +44,7 @@ export const BewMainScene = ({ setPlayerPosition, codes }: { setPlayerPosition: 
 
       <ABDoorPortals setPlayerPosition={setPlayerPosition} hasFirstKey={hasFirstKey} setHasFirstKey={handleKeyCollection} />
 
-{/* <BCDoorPortals setPlayerPosition={setPlayerPosition} /> */}
+<BCDoorPortals setPlayerPosition={setPlayerPosition} />
       <CDDoorPortals codes={codes} setPlayerPosition={setPlayerPosition} />
       
 
