@@ -118,7 +118,7 @@ export const BewGame = () => {
           
 
 {!code2 && (<div className="flex-col" id="code2" style={{display:"none"}}>
-        <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code 1:</label>
+        <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code 2:</label>
           <input className='w-100px tx-md tx-center py-1 bord-r-5' 
           style={{
             background:"#494644", 
@@ -128,6 +128,9 @@ export const BewGame = () => {
           />
           </div>
           )}
+
+
+          
           
       </div>
 
@@ -215,7 +218,8 @@ export const BewGame = () => {
 
 
           <BewMainScene 
-          codes={[code1, code2, code3]}
+          code1={code1}
+          code2={code2}
           setPlayerPosition={handleSetPlayerPosition} />
 
 
