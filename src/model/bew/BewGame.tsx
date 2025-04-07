@@ -67,6 +67,25 @@ export const BewGame = () => {
 
   return (
     <div className='pos-abs top-0 left-0 w-100 h-100 flex-col'>
+
+      <div className='pos-abs bottom-0 left-0 flex-col z-100 gap-1 pa-1'>
+        <div className=''>
+          <input className='w-100px tx-md bord-r-5'
+          style={{background:"#494644"}}
+           type="text" placeholder='Enter code 1' 
+
+          />
+        </div>
+        <div className=''>
+          <input className='w-100px tx-md bord-r-5'
+          style={{background:"#494644"}}
+           type="text" placeholder='Enter code 2' 
+
+          />
+        </div>
+      </div>
+
+
       {focusLevel !== 0 && (
         <AnalogModalScreen 
           setEnableLocked={setEnableLocked}
