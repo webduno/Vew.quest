@@ -6,31 +6,113 @@ import { PhysicalWall } from './PhysicalWall';
 
 
 
-export const CDDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void; }) => {
+export const CDDoorPortals = ({ setPlayerPosition, codes }: { setPlayerPosition: (position: [number, number, number]) => void, codes: string[] }) => {
   return (<>
-    <Text position={[1.7, 1.75, -14.49]} rotation={[0, 0, 0]} anchorX="center" anchorY="middle"
-    textAlign="center" color="#444444"
-    fontSize={0.2} 
-    >
-      {`
-      ENTER
-      CODE 2
-      ┌                ┐
-      └                ┘
-      `}
-    </Text>
-    
+    { (<>
 <Text position={[-1.7, 1.75, -14.49]} rotation={[0, 0, 0]} anchorX="center" anchorY="middle"
-textAlign="center" color="#444444"
+textAlign="center" color={!!codes[0] ? "#4455e44" : "#444444"}
 fontSize={0.2} 
 >
-  {`
+  {!!codes[0] ? `
+  CODE 1
+  * * * * *` : `
   ENTER
   CODE 1
   ┌                ┐
   └                ┘
   `}
 </Text>
+
+{/* Trigger for code input */}
+<PhysicalTrigger 
+  visible={false}
+  size={[2, 2, 0.5]}
+  position={[-1.7, 1.75, -14.2]} 
+  rotation={[0, 0, 0]}
+  onCollide={(e) => {
+    console.log('Code input trigger activated');
+    // Dispatch custom event to show the code input
+    const showCodeInputEvent = new CustomEvent('showCodeInput');
+    window.dispatchEvent(showCodeInputEvent);
+    
+    // Also directly try to show the input
+    const codeInputElement = document.getElementById('code1');
+    if (codeInputElement) {
+      (codeInputElement as HTMLInputElement).style.display = 'block';
+      // (codeInputElement as HTMLInputElement).focus();
+    }
+  }}
+/>
+</>)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{ (<>
+<Text position={[1.7, 1.75, -14.49]} rotation={[0, 0, 0]} anchorX="center" anchorY="middle"
+textAlign="center" color={!!codes[0] ? "#4455e44" : "#444444"}
+fontSize={0.2} 
+>
+  {!!codes[1] ? `
+  CODE 2
+  * * * * *` : `
+  ENTER
+  CODE 2
+  ┌                ┐
+  └                ┘
+  `}
+</Text>
+
+{/* Trigger for code input */}
+<PhysicalTrigger 
+  visible={false}
+  size={[2, 2, 0.5]}
+  position={[1.7, 1.75, -14.2]} 
+  rotation={[0, 0, 0]}
+  onCollide={(e) => {
+    console.log('Code input trigger activated');
+    // Dispatch custom event to show the code input
+    const showCodeInputEvent = new CustomEvent('showCodeInput');
+    window.dispatchEvent(showCodeInputEvent);
+    
+    // Also directly try to show the input
+    const codeInputElement = document.getElementById('code2');
+    if (codeInputElement) {
+      (codeInputElement as HTMLInputElement).style.display = 'block';
+      // (codeInputElement as HTMLInputElement).focus();
+    }
+  }}
+/>
+</>)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

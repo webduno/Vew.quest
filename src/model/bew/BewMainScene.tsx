@@ -13,7 +13,7 @@ import { RoomLeft } from './RoomLeft';
 import { useState, useEffect, useCallback } from 'react';
 
 
-export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void }) => {
+export const BewMainScene = ({ setPlayerPosition, codes }: { setPlayerPosition: (position: [number, number, number]) => void, codes: string[]  }) => {
 
   const [hasFirstKey, setHasFirstKey] = useState(false);
   
@@ -45,7 +45,7 @@ export const BewMainScene = ({ setPlayerPosition }: { setPlayerPosition: (positi
       <ABDoorPortals setPlayerPosition={setPlayerPosition} hasFirstKey={hasFirstKey} setHasFirstKey={handleKeyCollection} />
 
 {/* <BCDoorPortals setPlayerPosition={setPlayerPosition} /> */}
-      <CDDoorPortals setPlayerPosition={setPlayerPosition} />
+      <CDDoorPortals codes={codes} setPlayerPosition={setPlayerPosition} />
       
 
 

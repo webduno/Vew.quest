@@ -25,8 +25,11 @@ export const BewGame = () => {
   const [playerRotation, setPlayerRotation] = useState({ x: 0, y: 0, z: 0 })
   const [isLocked, setIsLocked] = useState(false)
   const [teleportTrigger, setTeleportTrigger] = useState(0);
+  const [showCodeInput, setShowCodeInput] = useState(false);
 
-
+  const [code1, setCode1] = useState("")
+  const [code2, setCode2] = useState("")
+  const [code3, setCode3] = useState("")
 
 
   const [viewType, setViewType] = useState<'object' | 'entity' | 'place' | 'entity'>('object')
@@ -65,24 +68,67 @@ export const BewGame = () => {
     setTeleportTrigger(prev => prev + 1);
   }, []);
 
+  // Effect to listen for code input visibility changes from PhysicalTrigger
+  // useEffect(() => {
+  //   const handleCodeInputDisplay = (event: CustomEvent) => {
+  //     setShowCodeInput(true);
+  //   };
+    
+  //   window.addEventListener('showCodeInput' as any, handleCodeInputDisplay);
+    
+  //   return () => {
+  //     window.removeEventListener('showCodeInput' as any, handleCodeInputDisplay);
+  //   };
+  // }, []);
+
+  // Handle code input submission
+  const CODE_1 = "scanate"
+  const CODE_2 = "sunstreak"
+  const CODE_3 = "gondolawish"
+  const handleCode1Submit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = (e.target as HTMLInputElement).value;
+    console.log(inputValue)
+    if (inputValue === CODE_1) {
+      setCode1(inputValue)
+    }
+  };
+
+  const handleCode2Submit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = (e.target as HTMLInputElement).value;
+    console.log(inputValue)
+    if (inputValue === CODE_2) {
+      setCode2(inputValue)
+    }
+  };
   return (
     <div className='pos-abs top-0 left-0 w-100 h-100 flex-col'>
 
-      <div className='pos-abs bottom-0 left-0 flex-col z-100 gap-1 pa-1'>
-        <div className=''>
-          <input className='w-100px tx-md bord-r-5'
-          style={{background:"#494644"}}
-           type="text" placeholder='Enter code 1' 
-
+      <div className='pos-abs bottom-0 left-0 flex-col z-100 gap-1 pa-1 pb-2'>
+      {!code1 && (<div className="flex-col" id="code1" style={{display:"none"}}>
+        <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code 1:</label>
+          <input className='w-100px tx-md tx-center py-1 bord-r-5' 
+          style={{
+            background:"#494644", 
+          }}
+           type="text" placeholder='C O D E   1' 
+           onChange={handleCode1Submit}
           />
-        </div>
-        <div className=''>
-          <input className='w-100px tx-md bord-r-5'
-          style={{background:"#494644"}}
-           type="text" placeholder='Enter code 2' 
+          </div>
+          )}
+          
 
+{!code2 && (<div className="flex-col" id="code2" style={{display:"none"}}>
+        <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code 1:</label>
+          <input className='w-100px tx-md tx-center py-1 bord-r-5' 
+          style={{
+            background:"#494644", 
+          }}
+           type="text" placeholder='C O D E   2' 
+           onChange={handleCode2Submit}
           />
-        </div>
+          </div>
+          )}
+          
       </div>
 
 
@@ -168,7 +214,9 @@ export const BewGame = () => {
 
 
 
-          <BewMainScene setPlayerPosition={handleSetPlayerPosition} />
+          <BewMainScene 
+          codes={[code1, code2, code3]}
+          setPlayerPosition={handleSetPlayerPosition} />
 
 
 
