@@ -1,7 +1,8 @@
 'use client';
 import { useBox } from '@react-three/cannon';
 import { Mesh } from 'three';
-
+import { useContext } from 'react';
+import { VibeverseContext } from '@/dom/VibeverseProvider';
 
 export const PhysicalWall = ({
   castShadow = true,
@@ -11,6 +12,7 @@ export const PhysicalWall = ({
   size = [100, 100, 2] as [number, number, number],
   color = "lightgrey", friction = 0.5, restitution = 0.1
 }) => {
+  const { LS_lowGraphics } = useContext(VibeverseContext);
   const boxSize: [number, number, number] = [size[0], size[1], size[2]];
   
   const [ref] = useBox(() => ({
@@ -29,7 +31,7 @@ export const PhysicalWall = ({
   }
 
   return (
-    <mesh ref={ref as React.Ref<Mesh>} receiveShadow castShadow={castShadow}>
+    <mesh ref={ref as React.Ref<Mesh>} receiveShadow={!LS_lowGraphics} castShadow={castShadow && !LS_lowGraphics}>
       <boxGeometry args={boxSize} />
       <meshStandardMaterial color={color} />
     </mesh>

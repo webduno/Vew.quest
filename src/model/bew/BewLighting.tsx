@@ -53,7 +53,7 @@ export const BewLighting = () => {
 
     {/* ROOM RIGHT */}
     <pointLight position={[5, 3, 2]} intensity={3} color="#ffe7c0"
-    castShadow
+    castShadow={!LS_lowGraphics}
      />
      {!LS_lowGraphics && (
       <pointLight position={[6, 3, -8]} intensity={0.3} color="#f7e7ff"
@@ -78,7 +78,7 @@ export const BewLighting = () => {
     </group>
     {/* ROOM C */}
     <group ref={spotLightTarget3} position={[0, 0, -22]}>
-      <pointLight position={[0, 2, 14]} intensity={1}  castShadow
+      <pointLight position={[0, 2, 14]} intensity={1}  castShadow={!LS_lowGraphics}
         color="#fff7f0" 
        />
       <Box args={[1,0.06,0.1]} position={[0,3.5,14]} material={grayEmissiveMaterial} />
@@ -91,7 +91,7 @@ export const BewLighting = () => {
         angle={1.5}
         penumbra={1}
         intensity={50}
-        color="#f7ffe7" castShadow
+        color="#f7ffe7" castShadow={!LS_lowGraphics}
         target={spotLightTarget3.current}
       />
   
@@ -102,7 +102,7 @@ export const BewLighting = () => {
           color="#e0f7ff"
           penumbra={1} 
           intensity={10} 
-          castShadow 
+          castShadow={!LS_lowGraphics}
           target={spotLightTarget1.current} 
         />
 
@@ -113,7 +113,7 @@ export const BewLighting = () => {
           color="#fff7e7"
           penumbra={1} 
           intensity={10} 
-          castShadow 
+          castShadow={!LS_lowGraphics}
           target={spotLightTarget2.current} 
         />
       </>

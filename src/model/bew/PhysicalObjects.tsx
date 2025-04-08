@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useContext } from 'react'
 import { Mesh, MeshStandardMaterial } from 'three'
 import { useSphere, useBox } from '@react-three/cannon'
 import { PhysicalBallProps, PhysicalBoxProps } from '../../../scripts/types/canonPOV'
+import { VibeverseContext } from '@/dom/VibeverseProvider'
 
 // Global storage for object physics state
 const objectsPhysicsState = new Map();
@@ -16,6 +17,7 @@ export const clearPhysicsState = () => {
 
 // Simple physical ball with cannon.js physics - stays in the world permanently
 export function PhysicalBall({ position, velocity }: PhysicalBallProps) {
+  const { LS_lowGraphics } = useContext(VibeverseContext);
   const [ref, api] = useSphere<Mesh>(() => ({
     mass: 2,
     position: position,
@@ -38,7 +40,7 @@ export function PhysicalBall({ position, velocity }: PhysicalBallProps) {
   }, [api, position, velocity])
   
   return (
-    <mesh ref={ref} castShadow>
+    <mesh ref={ref} castShadow={!LS_lowGraphics}>
       <sphereGeometry args={[0.1, 16, 16]} />
       <primitive object={ballMaterial} />
     </mesh>
@@ -47,6 +49,7 @@ export function PhysicalBall({ position, velocity }: PhysicalBallProps) {
 
 // Generic physical box for scene objects
 export function PhysicalBox({ position, rotation, scale, geometry, material, userData }: PhysicalBoxProps) {
+  const { LS_lowGraphics } = useContext(VibeverseContext);
   const meshRef = useRef<Mesh>(null)
   
   // Try to extract dimensions from geometry
@@ -187,8 +190,8 @@ export function PhysicalBox({ position, rotation, scale, geometry, material, use
       position={position}
       rotation={rotation}
       scale={scale}
-      castShadow
-      receiveShadow
+      castShadow={!LS_lowGraphics}
+      receiveShadow={!LS_lowGraphics}
     />
   )
 } 

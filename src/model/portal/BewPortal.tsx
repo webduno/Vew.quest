@@ -1,6 +1,7 @@
 "use client";
-import { Torus, Circle, Text, Sphere } from '@react-three/drei'; import { useRef } from 'react'; import { useThree, useFrame } from '@react-three/fiber';
+import { Torus, Circle, Text, Sphere } from '@react-three/drei'; import { useRef, useContext } from 'react'; import { useThree, useFrame } from '@react-three/fiber';
 import { Vector3, Group, MeshStandardMaterial, MeshBasicMaterial } from 'three'; import { useRouter } from 'next/navigation';
+import { VibeverseContext } from '@/dom/VibeverseProvider';
 
 // Create shared materials to reduce draw calls
 const defaultPortalMaterial = new MeshStandardMaterial({ 
@@ -28,6 +29,7 @@ export const BewPortal = ({
   onCollision, textColor = "lightgrey", portalRadius = 2,
   debug = false, fontSize = 1
 }: any) => {
+  const { LS_lowGraphics } = useContext(VibeverseContext);
   const router = useRouter(); const { camera } = useThree(); const portalRef = useRef<Group>(null);
   const lastCheck = useRef(0); const throttleInterval = 100;
 
@@ -56,10 +58,10 @@ export const BewPortal = ({
           fontSize={fontSize} color={textColor||"white"} 
           renderOrder={1} font="/fonts/beanie.ttf">{title}</Text>
       }
-      <Torus args={[portalRadius, portalRadius/10, 4, 32, Math.PI]} castShadow receiveShadow
+      <Torus args={[portalRadius, portalRadius/10, 4, 32, Math.PI]} castShadow={!LS_lowGraphics} receiveShadow={!LS_lowGraphics}
         material={torusMaterial}
       />
-      <Circle args={[portalRadius, 32, 0, Math.PI]} castShadow receiveShadow
+      <Circle args={[portalRadius, 32, 0, Math.PI]} castShadow={!LS_lowGraphics} receiveShadow={!LS_lowGraphics}
         material={portalMaterial}
       />
       {debug && <Sphere args={[portalRadius*.8, 16, 16]} position={[0, 0, 0]}

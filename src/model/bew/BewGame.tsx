@@ -210,7 +210,7 @@ export const BewGame = () => {
           }}
         />
       )}
-      <Canvas camera={{ fov: 125 }} shadows>
+      <Canvas camera={{ fov: 125 }} shadows={!LS_lowGraphics}>
         {/* Performance stats component inside Canvas */}
         {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
 
