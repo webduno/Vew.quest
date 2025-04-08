@@ -566,6 +566,12 @@ export function BewPhysicsScene({
         playerApi.velocity.set(currentVelocity[0], jumpForce, currentVelocity[2])
         setIsOnGround(false)
       }
+
+      // Add camera rotation based on side movement (joystick x-axis)
+      const rotationSpeed = 0.05; // Adjust for sensitivity
+      if (touchMove.x !== 0) {
+        camera.rotation.y -= touchMove.x * rotationSpeed;
+      }
     } else {
       // Desktop controls logic
       if (!isLocked || !controlsRef.current) return

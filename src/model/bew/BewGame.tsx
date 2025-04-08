@@ -166,11 +166,16 @@ export const BewGame = () => {
         </div>
       )}
 
-      <div className='pos-abs bottom-0 right-0 mb-100 flex-col mr-4 z-100 gap-1 pa-1 pb-2'>
+      <div className='pos-abs bottom-0 right-0 mb-100 flex-col mr-4 z-100 gap-1 pa-1 pb-2'
+      style={{
+        zIndex: 1200,
+      }}
+      >
       {!code1 && (<div className="flex-col" id="code1" style={{display:"none"}}>
         <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code 1:</label>
-          <input className='w-100px tx-md tx-center py-1 bord-r-5' 
+          <input className='w-100px tx-md tx-center py-1 bord-r-5 pos-rel' 
           style={{
+            zIndex: 2000,
             background:"#494644", 
           }}
            type="text" placeholder='C O D E   1' 
@@ -182,8 +187,9 @@ export const BewGame = () => {
 
 {!code2 && (<div className="flex-col" id="code2" style={{display:"none"}}>
         <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code 2:</label>
-          <input className='w-100px tx-md tx-center py-1 bord-r-5' 
+          <input className='w-100px tx-md tx-center py-1 bord-r-5 pos-rel' 
           style={{
+            zIndex: 2000,
             background:"#494644", 
           }}
            type="text" placeholder='C O D E   2' 
