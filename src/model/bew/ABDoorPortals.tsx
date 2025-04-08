@@ -32,6 +32,10 @@ const openDoorProcess = () => {
   return (<>
 
 
+
+
+
+
 {/* FIRST KEY TRIGGER */}
 <PhysicalTrigger triggerCount={1} visible={false}
       onCollide={(e) => {
@@ -41,10 +45,15 @@ const openDoorProcess = () => {
         hasKeyRef.current = true;
       }}
       size={[1, 1, 1]}
-      position={[-4.5, 0, 3]}
+      position={[-6.5, 0, 3]}
     />
     {!hasFirstKey && <group position={[-6.5, 0, 3]} rotation={[0, .3, 0]}><RegularKey /></group>}
   
+
+
+
+
+
 
       {/* front bevel */}
       <PhysicalWall color="#f7f7f7"
