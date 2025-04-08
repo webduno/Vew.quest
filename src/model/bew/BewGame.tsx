@@ -166,7 +166,7 @@ export const BewGame = () => {
         </div>
       )}
 
-      <div className='pos-abs bottom-0 left-0 flex-col z-100 gap-1 pa-1 pb-2'>
+      <div className='pos-abs bottom-0 right-0 mb-100 flex-col mr-4 z-100 gap-1 pa-1 pb-2'>
       {!code1 && (<div className="flex-col" id="code1" style={{display:"none"}}>
         <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code 1:</label>
           <input className='w-100px tx-md tx-center py-1 bord-r-5' 
