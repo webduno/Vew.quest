@@ -57,7 +57,7 @@ export const BewMainScene = ({ setPlayerPosition,
     url={formatPortalUrl("https://portal.pieter.com/")}
     portalRadius={2}
     textColor="#333333"
-    
+
     portalMaterial={<meshStandardMaterial color="#eeffcc" />}
     />
 

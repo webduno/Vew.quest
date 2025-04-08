@@ -37,8 +37,8 @@ fontSize={0.2}
 {/* Trigger for code input */}
 <PhysicalTrigger 
   visible={false}
-  size={[2, 2, 0.5]}
-  position={[-1.7, 1.75, -14.2]} 
+  size={[.5, 1, 0.2]}
+  position={[-1.7, 1.75, -14.5]} 
   rotation={[0, 0, 0]}
   onCollide={(e) => {
     console.log('Code input trigger activated');
@@ -92,8 +92,8 @@ fontSize={0.2}
 {/* Trigger for code input */}
 <PhysicalTrigger 
   visible={false}
-  size={[2, 2, 0.5]}
-  position={[1.7, 1.75, -14.2]} 
+  size={[.5, 1, 0.2]}
+  position={[1.7, 1.75, -14.5]} 
   rotation={[0, 0, 0]}
   onCollide={(e) => {
     console.log('Code input trigger activated');
