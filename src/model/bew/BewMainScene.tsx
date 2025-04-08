@@ -81,7 +81,7 @@ position={[-2.49,2.6,0.8]} rotation={[0,Math.PI/2,0]}
 </Text>
 
 
-<Text fontSize={0.25} color="#373737" 
+<Text fontSize={0.25} color="#343434" 
 anchorX="left" anchorY="middle" textAlign="left"
 position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]}
 >

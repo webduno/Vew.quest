@@ -12,12 +12,17 @@ export const LandingMainMenu = () => {
   console.log('LandingMainMenu: LS_lowGraphics from useVibeverse is', LS_lowGraphics);
   const [enterUsername, setEnterUsername] = useState(false)
   const [isGameLoading, setGameLoading] = useState(false)
+const random10CharString = () => {
+  return Math.random().toString(36).substring(2, 15) 
+}
 
   const router = useRouter()
   const triggerNewGame = () => {
     setGameLoading(true)
-    setPlayerId(sanitizePlayerId(typedUsername))
-    router.push("/game?username=" + typedUsername)
+
+    const pre_thePlayerId = !typedUsername ? random10CharString() : sanitizePlayerId(typedUsername)
+    setPlayerId(pre_thePlayerId)
+    router.push("/game?username=" + pre_thePlayerId)
   }
 
 

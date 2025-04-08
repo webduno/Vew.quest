@@ -18,6 +18,7 @@ metalness={LS_lowGraphics ? undefined : 0.3}
 roughness={LS_lowGraphics ? undefined : 0.15} 
 emissive={"#222222"}  />
 </Box>
+{!LS_lowGraphics && (
 <Text fontSize={0.17} color="#1d1d1d"  font="/fonts/beanie.ttf"
 anchorX="left" anchorY="middle" textAlign="left"
 position={[-8.3,1.9,-4.44]} rotation={[0,0,0]}
@@ -42,6 +43,7 @@ to his joining the SRI program; namely, the ability
 to view remote locations.
 `} */}
 </Text>
+)}
   {/* DECOYS */}
 <group position={[-5,2,-1]} >
 <Box args={[1,1.5,1.15]}  castShadow

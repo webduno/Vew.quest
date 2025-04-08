@@ -1,7 +1,7 @@
 'use client';
 import { isMobile } from '@/../scripts/utils/mobileDetection';
 import { Physics } from '@react-three/cannon';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef, useContext } from 'react';
 import { BewMainScene } from '@/model/bew/BewMainScene';
 import { RoomC } from './RoomC';
@@ -15,7 +15,39 @@ import { PhysicalWall } from './PhysicalWall';
 import { Box } from '@react-three/drei';
 import { useVibeverse } from '@/dom/useVibeverse';
 import { VibeverseContext } from '@/dom/VibeverseProvider';
+import { Stats } from '@react-three/drei';
+import { useSearchParams } from 'next/navigation';
 
+// Performance stats component that works inside Canvas
+const PerformanceStats = ({ onStatsUpdate }: { onStatsUpdate: (stats: any) => void }) => {
+  const { gl, scene } = useThree();
+  const frameCount = useRef(0);
+  const lastTime = useRef(performance.now());
+  
+  useFrame(() => {
+    frameCount.current++;
+    
+    // Update stats every second
+    const currentTime = performance.now();
+    if (currentTime - lastTime.current >= 1000) {
+      const elapsed = currentTime - lastTime.current;
+      const fps = Math.round((frameCount.current * 1000) / elapsed);
+      
+      onStatsUpdate({
+        drawCalls: gl.info.render.calls,
+        objectCount: scene.children.length,
+        fps,
+        frameTime: Math.round(elapsed / frameCount.current)
+      });
+      
+      frameCount.current = 0;
+      lastTime.current = currentTime;
+    }
+  });
+  
+  // Return null since we don't want to render anything in the 3D scene
+  return null;
+};
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, formatPortalUrl } = useContext(VibeverseContext)
@@ -30,6 +62,15 @@ export const BewGame = () => {
   const [isLocked, setIsLocked] = useState(false)
   const [teleportTrigger, setTeleportTrigger] = useState(0);
   const [showCodeInput, setShowCodeInput] = useState(false);
+  // const [showStats, setShowStats] = useState(true);
+  const searchParams = useSearchParams();
+  const showStats = searchParams.get('stats') === 'true';
+  const [performanceStats, setPerformanceStats] = useState({
+    drawCalls: 0,
+    objectCount: 0,
+    fps: 0,
+    frameTime: 0
+  });
 
   const [code1, setCode1] = useState("")
   const [code2, setCode2] = useState("")
@@ -106,6 +147,24 @@ export const BewGame = () => {
   };
   return (
     <div className='pos-abs top-0 left-0 w-100 h-100 flex-col'>
+      {/* Performance Stats in top right corner */}
+      {showStats && (
+        <div className="pos-abs top-0 right-0 pa-2 z-100">
+          <div style={{
+            background: 'rgba(0,0,0,0.5)',
+            padding: '8px',
+            borderRadius: '4px',
+            color: 'white',
+            fontFamily: 'monospace',
+            fontSize: '12px'
+          }}>
+            <div>FPS: {performanceStats.fps}</div>
+            <div>Frame Time: {performanceStats.frameTime}ms</div>
+            <div>Draw Calls: {performanceStats.drawCalls}</div>
+            <div>Objects: {performanceStats.objectCount}</div>
+          </div>
+        </div>
+      )}
 
       <div className='pos-abs bottom-0 left-0 flex-col z-100 gap-1 pa-1 pb-2'>
       {!code1 && (<div className="flex-col" id="code1" style={{display:"none"}}>
@@ -152,6 +211,8 @@ export const BewGame = () => {
         />
       )}
       <Canvas camera={{ fov: 125 }} shadows>
+        {/* Performance stats component inside Canvas */}
+        {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
 
         <BewLighting />
 

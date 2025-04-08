@@ -47,9 +47,11 @@ export const BewLighting = () => {
     </group>
     {/* ROOM B */}
     <group ref={spotLightTarget2} position={[0, 0, -1.25]} >
+      {!LS_lowGraphics && (
     <pointLight position={[0, 2.5, 3]} intensity={.5} 
       color="#f7fff0" 
      />
+     )}
     
       <Box args={[1,0.06,0.1]} position={[0,3.5,-1]} >
         <meshStandardMaterial color="#ffffff" emissive="#e7ffc0" />
