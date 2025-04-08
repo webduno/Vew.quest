@@ -11,18 +11,6 @@ export const RoomB = () => {
 {/* <RoomBLeftDoor /> */}
 
 
-<PhysicalWall size={[.7, .8, .7]} color="#ffffff" visible={false}
-position={[-1.9, 0.4, 3.9]} />
-<group position={[-1.9, 0, 3.9]} rotation={[0, 0, 0]}>
-<Cylinder args={[.38, .38, .2, 16]} position={[0, 0.11, 0]}>
-  <meshStandardMaterial color="#999999" />
-</Cylinder>
-<Torus args={[.42,.1,5]} position={[0, 0.41, 0]} rotation={[Math.PI/2,0,0]} castShadow
-scale={[1,1,4]}
->
-  <meshStandardMaterial color="#cccccc" />
-</Torus>
-</group>
 {/* <group position={[2, 0, -3.9]} rotation={[0, 0, 0]}>
 <Cylinder args={[.38, .38, .2, 16]} position={[0, 0.11, 0]}>
   <meshStandardMaterial color="#999999" />

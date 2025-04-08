@@ -21,17 +21,21 @@ const WebbewPage = () => {
   }}
   >
 
-    <Link href="/" prefetch={false} className="tx-xl dilating-blur tx-shadow-5 tx-white tx-center w-100 pt-4 pb-200 tx-altfont-5 flex-row
-    "
-    style={{
+<div className='flex-col   pb-200 w-100'  style={{
       background: "linear-gradient(180deg, #1E1B14, #00000000)",
 
-    }}
+    }}>
+
+    <Link href="/" prefetch={false}
+     className="tx-xl dilating-blur tx-shadow-5 tx-white tx-center  pt-4 tx-altfont-5 flex-row
+    "
+  
     >
       <div>WEB</div>
       <div className='tx-altfont-1 '>|</div>
       <div style={{ transform: "scaleX(-1)" }}>WEB</div>
     </Link>
+    </div>
     <LandingMainMenu />
   </div>;
 }

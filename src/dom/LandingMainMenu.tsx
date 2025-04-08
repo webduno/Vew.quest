@@ -7,7 +7,9 @@ import { useVibeverse } from "./useVibeverse"
 
 export const LandingMainMenu = () => {
 
-  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = useVibeverse()
+  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId,
+     sanitizePlayerId, LS_lowGraphics, toggleLowGraphics } = useVibeverse()
+  console.log('LandingMainMenu: LS_lowGraphics from useVibeverse is', LS_lowGraphics);
   const [enterUsername, setEnterUsername] = useState(false)
   const [isGameLoading, setGameLoading] = useState(false)
 
@@ -92,6 +94,21 @@ export const LandingMainMenu = () => {
           className=" nodeco" href="/about">
         <BewMenuButton>About</BewMenuButton></Link>
       </div>
+<div className="pt-2 pl-2">
+  
+    <div className="  flex-row  bord-r-5" style={{ background: "#262320",}}>
+      <input id="vb_legacy_graphics"
+      className="pointer ml-2"
+        style={{transform: "scale(1.5)", filter: "invert(1)"}} 
+        type="checkbox" 
+        checked={LS_lowGraphics}
+        onChange={toggleLowGraphics}
+      />
+      <label
+       htmlFor="vb_legacy_graphics"
+       className="tx-white opaci-50 pa-2 pointer">Low Graphics</label>
+      </div>
+</div>
     </div>
   </>)
 }

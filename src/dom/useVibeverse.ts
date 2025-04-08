@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 export function useVibeverse() {
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const [typedUsername, setTypedUsername] = useState("");
+  const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(false);
   const router = useRouter()
   const searchParams = useSearchParams()
   // const pathname = usePathname()
@@ -34,13 +35,29 @@ export function useVibeverse() {
     return playerId.replace(/[^a-zA-Z0-9@._-]/g, '');
   };
 
+  const toggleLowGraphics = () => {
+    const newValue = !LS_lowGraphics;
+    console.log('toggleLowGraphics: Setting LS_lowGraphics to', newValue);
+    setLS_lowGraphics(newValue);
+    console.log('toggleLowGraphics: Setting localStorage VB_LEGACY_GRAPHICS to', newValue ? '1' : '0');
+    localStorage.setItem('VB_LEGACY_GRAPHICS', newValue ? '1' : '0');
+  };
+
   useEffect(() => {
     if (!localStorage) { return; }
 
     const playerId: string | null = localStorage.getItem('VB_PLAYER_ID');
-    if (!playerId) { return; }
-    setLS_playerId(playerId);
-    setTypedUsername(playerId);
+    if (playerId) {
+      setLS_playerId(playerId);
+      setTypedUsername(playerId);
+    }
+
+    const legacyGraphics: string | null = localStorage.getItem('VB_LEGACY_GRAPHICS');
+    console.log('useVibeverse: VB_LEGACY_GRAPHICS from localStorage is', legacyGraphics);
+    if (legacyGraphics !== null) {
+      console.log('useVibeverse: Setting LS_lowGraphics to', legacyGraphics === '1');
+      setLS_lowGraphics(legacyGraphics === '1');
+    }
   }, []);
 
   return {
@@ -49,6 +66,8 @@ export function useVibeverse() {
     setTypedUsername,
     setPlayerId,
     sanitizePlayerId,
-    formatPortalUrl
+    formatPortalUrl,
+    LS_lowGraphics,
+    toggleLowGraphics
   };
 };

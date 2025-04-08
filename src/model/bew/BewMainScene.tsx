@@ -10,21 +10,24 @@ import { CDDoorPortals } from './CDDoorPortals';
 import { RoomC } from './RoomC';
 import { RoomRight } from './RoomRight';
 import { RoomLeft } from './RoomLeft';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import { BewPortal } from '../portal/BewPortal';
 import { useSearchParams } from 'next/navigation';
+import { useVibeverse } from '@/dom/useVibeverse';
+import { VibeverseContext } from '@/dom/VibeverseProvider';
 
 
-export const BewMainScene = ({ setPlayerPosition,formatPortalUrl,
+export const BewMainScene = ({ setPlayerPosition,
   code1,
   code2,
   code3 }: { setPlayerPosition: (position: [number, number, number]) => void, 
-    formatPortalUrl: (url: string) => string,
     code1?: string, 
     code2?: string, 
     code3?: string  }) => {
 
-      const vb_ref = useSearchParams().get("ref")
+  const { LS_playerId, LS_lowGraphics, formatPortalUrl } = useContext(VibeverseContext)
+  console.log('BewMainScene: LS_lowGraphics is', LS_lowGraphics);
+  const vb_ref = useSearchParams().get("ref")
 
   const [hasFirstKey, setHasFirstKey] = useState(false);
   
@@ -148,7 +151,7 @@ position={[-2.49,.8,1.45]} rotation={[0,Math.PI/2,0]}
       <Box args={[20, 1, 60]} position={[0, 4, -14]}>
         <meshStandardMaterial color="#ffffff" />
       </Box>
-      <PhysicalFloor />
+      <PhysicalFloor lowGraphics={LS_lowGraphics} />
       <PhysicalCeiling />
 
     </group>

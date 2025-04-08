@@ -4,7 +4,7 @@ import { Mesh } from 'three';
 
 // Add the PhysicalFloor component definition
 
-export const PhysicalFloor = ({height = 0, visible = true}: {height?: number, visible?: boolean }) => {
+export const PhysicalFloor = ({height = 0, visible = true, lowGraphics = false}: {height?: number, visible?: boolean, lowGraphics?: boolean }) => {
   const [ref] = usePlane(() => ({
     rotation: [-Math.PI / 2, 0, 0],
     position: [0, height, 0], // Adjust Y position as needed for your scene
@@ -22,7 +22,10 @@ export const PhysicalFloor = ({height = 0, visible = true}: {height?: number, vi
   return (
     <mesh ref={ref as React.Ref<Mesh>} receiveShadow>
       <planeGeometry args={[100, 100]} />
-      <meshStandardMaterial color="white" metalness={0.15} roughness={0.15} />
+       <meshStandardMaterial color="white" 
+       metalness={lowGraphics ? undefined : 0.15} 
+       roughness={lowGraphics ? undefined : 0.15} />
+
     </mesh>
   );
 };

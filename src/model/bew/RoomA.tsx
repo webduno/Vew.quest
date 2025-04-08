@@ -1,5 +1,5 @@
 'use client';
-import { Box } from '@react-three/drei';
+import { Box, Cylinder, Torus } from '@react-three/drei';
 import { PhysicalWall } from './PhysicalWall';
 
 
@@ -10,6 +10,18 @@ export const RoomA = () => {
 
 
 
+<PhysicalWall size={[.7, .8, .7]} color="#ffffff" visible={false}
+position={[-1.9, 0.4, 13.9]} />
+<group position={[-1.9, 0, 13.9]} rotation={[0, 0, 0]}>
+<Cylinder args={[.38, .38, .2, 16]} position={[0, 0.11, 0]}>
+  <meshStandardMaterial color="#999999" />
+</Cylinder>
+<Torus args={[.42,.1,5]} position={[0, 0.41, 0]} rotation={[Math.PI/2,0,0]} castShadow
+scale={[1,1,4]}
+>
+  <meshStandardMaterial color="#cccccc" />
+</Torus>
+</group>
 
 
 

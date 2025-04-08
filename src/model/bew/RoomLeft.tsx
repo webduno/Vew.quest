@@ -2,16 +2,21 @@
 import { Box, Text, useFont } from '@react-three/drei';
 import { StyledWall } from './StyledWall';
 import { useBox } from '@react-three/cannon';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { VibeverseContext } from '@/dom/VibeverseProvider';
 
 
 
 export const RoomLeft = () => {
+  const { LS_lowGraphics } = useContext(VibeverseContext)
   return (<>
 
 
 <Box args={[4,2,0.1]} position={[-6.5,1.8,-4.5]}>
-<meshStandardMaterial color="#ffffff" metalness={0.3} roughness={0.15} emissive={"#222222"}  />
+<meshStandardMaterial color="#ffffff" 
+metalness={LS_lowGraphics ? undefined : 0.3} 
+roughness={LS_lowGraphics ? undefined : 0.15} 
+emissive={"#222222"}  />
 </Box>
 <Text fontSize={0.17} color="#1d1d1d"  font="/fonts/beanie.ttf"
 anchorX="left" anchorY="middle" textAlign="left"

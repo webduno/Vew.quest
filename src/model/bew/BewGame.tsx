@@ -2,7 +2,7 @@
 import { isMobile } from '@/../scripts/utils/mobileDetection';
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useContext } from 'react';
 import { BewMainScene } from '@/model/bew/BewMainScene';
 import { RoomC } from './RoomC';
 import { BewMobileOverlay } from '@/model/bew/BewMobileOverlay';
@@ -14,10 +14,12 @@ import { BewPhysicsScene } from './BewPhysicsScene';
 import { PhysicalWall } from './PhysicalWall';
 import { Box } from '@react-three/drei';
 import { useVibeverse } from '@/dom/useVibeverse';
+import { VibeverseContext } from '@/dom/VibeverseProvider';
 
 
 export const BewGame = () => {
-  const { LS_playerId, formatPortalUrl } = useVibeverse()
+  const { LS_playerId, LS_lowGraphics, formatPortalUrl } = useContext(VibeverseContext)
+  console.log('BewGame: LS_lowGraphics from context is', LS_lowGraphics);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [focusLevel, setFocusLevel] = useState(0);
   const focusStageRef = useRef<any>(0);
@@ -220,9 +222,9 @@ export const BewGame = () => {
 
 
           <BewMainScene 
-          formatPortalUrl={formatPortalUrl}
           code1={code1}
           code2={code2}
+          code3={code3}
           setPlayerPosition={handleSetPlayerPosition} />
 
 

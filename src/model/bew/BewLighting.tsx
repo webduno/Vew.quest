@@ -1,8 +1,10 @@
 'use client';
 
+import { VibeverseContext } from '@/dom/VibeverseProvider';
 import { Box } from '@react-three/drei';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useContext } from 'react';
 export const BewLighting = () => {
+  const { LS_lowGraphics } = useContext(VibeverseContext)
   const spotLightTarget1 = useRef<any>(null);
   const spotLightTarget2 = useRef<any>(null);
   const spotLightTarget3 = useRef<any>(null);
@@ -30,9 +32,11 @@ export const BewLighting = () => {
     <pointLight position={[5, 3, 2]} intensity={3} color="#ffe7c0"
     castShadow
      />
-     <pointLight position={[6, 3, -8]} intensity={0.3} color="#f7e7ff"
+     {!LS_lowGraphics && (
+      <pointLight position={[6, 3, -8]} intensity={0.3} color="#f7e7ff"
     castShadow
      />
+     )}
     
 
     {/* ROOM A */}

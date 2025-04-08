@@ -1,4 +1,4 @@
-import { BewGame } from '@/model/bew/BewGame';
+import { BewGameContainer } from '@/model/bew/BewGameContainer';
 import { BewLogo } from '@/model/bew/BewLogo';
 
 export default function NewGamePage() {
@@ -7,7 +7,7 @@ export default function NewGamePage() {
       <div className='pos-abs top-0 left-0 '>
         <BewLogo />
       </div>
-      <BewGame />
+      <BewGameContainer />
     </div>
   );
 } 
