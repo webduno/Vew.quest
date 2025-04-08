@@ -22,8 +22,8 @@ const wireframeMaterial = new MeshBasicMaterial({
 });
 
 export const BewPortal = ({ 
-  portalMaterial = defaultPortalMaterial, 
-  torusMaterial = defaultTorusMaterial,
+  portalMaterial = <meshStandardMaterial color="#aad0f4" emissive="#aad0f4" emissiveIntensity={0.75} />, 
+  torusMaterial = <meshStandardMaterial color="#ffffff" emissive="#222222" />,
   position, rotation, title ="???", url,
   onCollision, textColor = "lightgrey", portalRadius = 2,
   debug = false, fontSize = 1
@@ -57,11 +57,12 @@ export const BewPortal = ({
           renderOrder={1} font="/fonts/beanie.ttf">{title}</Text>
       }
       <Torus args={[portalRadius, portalRadius/10, 4, 32, Math.PI]} castShadow receiveShadow
-        material={torusMaterial}
-      />
+        
+      >
+        {torusMaterial}
+      </Torus>
       <Circle args={[portalRadius, 32, 0, Math.PI]} castShadow receiveShadow
-        material={portalMaterial}
-      />
+>{portalMaterial}</Circle>
       {debug && <Sphere args={[portalRadius*.8, 16, 16]} position={[0, 0, 0]}
         material={wireframeMaterial}
       />}

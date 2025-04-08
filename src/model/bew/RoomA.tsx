@@ -46,9 +46,9 @@ scale={[1,1,4]}
 
         {/* OPENED real door */}
         <PhysicalWall  size={[0.2, 3, 1.5]} color="#dddddd"
-          position={[3.5, 1.5, 8.5]} rotation={[0, -1, 0]} 
+          position={[3.5, 1.5, 8.65]} rotation={[0, -1.2, 0]} 
         />
-      <group position={[3.5, 1.5, 8.5]} rotation={[0, -1, 0]} >
+      <group position={[3.5, 1.5, 8.65]} rotation={[0, -1.2, 0]} >
       {/* doorknob */}
         <Box position={[-0.1,0,-.5]} args={[.2, .2, .2]} castShadow >
           <meshStandardMaterial color="#aaaaaa"  />
