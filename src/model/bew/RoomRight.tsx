@@ -13,17 +13,18 @@ export const RoomRight = () => {
 
 
     {/* goal */}
-    <Box args={[1,4.2,7]} position={[3.25, 2, -8.5]} rotation={[0,0,0]} castShadow >
+    <Box args={[1,4.2,7]} position={[3.25, 2, -8.5]} rotation={[0,0,0]} castShadow receiveShadow>
       <meshStandardMaterial color="#eeeeee"  
          />
     </Box>
-    <Plane args={[4,2]} position={[3.77, 1.75, -8]} rotation={[0,Math.PI/2,0]} >
-<meshStandardMaterial color="#ffffff" emissive={"#111111"}   side={2}
+    <Plane args={[4,2]} position={[3.77, 1.75, -8]} rotation={[0,Math.PI/2,0]} receiveShadow>
+<meshStandardMaterial color="#ffffff" emissive={"#111111"}   side={2} roughness={0.05} 
          />
     </Plane>
 <Text 
-color="#222222" anchorX="center" anchorY="middle" position={[3.76, 3, -8]}
-rotation={[0,Math.PI/2,0]} fontSize={.25} 
+color="#333333" anchorX="center" anchorY="middle" position={[3.76, 3.1, -8]}
+font={"/fonts/wallpoet.ttf"}
+rotation={[0,Math.PI/2,0]} fontSize={.2} 
 >
 {`P S I O N I C_A S S E T | Training Zone`}
 </Text>
@@ -32,7 +33,7 @@ rotation={[0,Math.PI/2,0]} fontSize={.25}
 
 
 <Text 
-color="#393633" anchorX="center" anchorY="middle" position={[3.78, 2.35, -7]}
+color="#1f1f1f" anchorX="center" anchorY="middle" position={[3.78, 2.35, -7]}
 rotation={[0,Math.PI/2,0]} fontSize={.2} font={"/fonts/beanie.ttf"}
 >
 {`
@@ -46,7 +47,7 @@ rotation={[0,Math.PI/2,0]} fontSize={.2} font={"/fonts/beanie.ttf"}
 
 
 <Text 
-color="#393633" anchorX="center" anchorY="middle" position={[3.78, 1.5, -7.9]}
+color="#1f1f1f" anchorX="center" anchorY="middle" position={[3.78, 1.5, -7.9]}
 rotation={[0,Math.PI/2,0.05]} fontSize={.25} font={"/fonts/beanie.ttf"}
 >
 {`

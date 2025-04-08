@@ -23,7 +23,14 @@ export const BewLighting = () => {
         <meshStandardMaterial color="#ffffff" emissive="#ffc7a0" />
       </Box>
     </group>
+
+
+
+    {/* ROOM RIGHT */}
     <pointLight position={[5, 3, 2]} intensity={3} color="#ffe7c0"
+    castShadow
+     />
+     <pointLight position={[6, 3, -8]} intensity={0.3} color="#f7e7ff"
     castShadow
      />
     

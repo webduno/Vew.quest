@@ -21,7 +21,7 @@ const WebbewPage = () => {
   }}
   >
 
-    <div className="tx-xl dilating-blur tx-shadow-5 tx-white tx-center w-100 pt-4 pb-200 tx-altfont-5 flex-row
+    <Link href="/" prefetch={false} className="tx-xl dilating-blur tx-shadow-5 tx-white tx-center w-100 pt-4 pb-200 tx-altfont-5 flex-row
     "
     style={{
       background: "linear-gradient(180deg, #1E1B14, #00000000)",
@@ -29,9 +29,9 @@ const WebbewPage = () => {
     }}
     >
       <div>WEB</div>
-      <div className='tx-altfont-1 px-1 pb-1'>|</div>
+      <div className='tx-altfont-1 '>|</div>
       <div style={{ transform: "scaleX(-1)" }}>WEB</div>
-    </div>
+    </Link>
     <LandingMainMenu />
   </div>;
 }

@@ -7,7 +7,7 @@ export const BewPortal = ({
   torusMaterial = <meshStandardMaterial color="#ffffff" emissive="#444444" />,
   position, rotation, title ="???", url,
   onCollision, textColor = "lightgrey", portalRadius = 2,
-  debug = false
+  debug = false, fontSize = 1
 }: any) => {
   const router = useRouter(); const { camera } = useThree(); const portalRef = useRef<Group>(null);
   const lastCheck = useRef(0); const throttleInterval = 100;
@@ -34,7 +34,7 @@ export const BewPortal = ({
         <Text key={title}  anchorX="center" anchorY="middle"
         textAlign='center'
          position={[0, portalRadius*1.25, 0.1]}
-          fontSize={1} color={textColor||"white"} 
+          fontSize={fontSize} color={textColor||"white"} 
           renderOrder={1} font="/fonts/beanie.ttf">{title}</Text>
       }
       <Torus args={[portalRadius, portalRadius/10, 4, 32, Math.PI]} castShadow receiveShadow>

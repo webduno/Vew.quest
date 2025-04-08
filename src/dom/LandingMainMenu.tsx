@@ -53,7 +53,7 @@ export const LandingMainMenu = () => {
       </div>
       <div className="tx-white tx-lg tx-altfont-1  flex-col flex-align-start"
       style={{
-        background: "linear-gradient(90deg, #000000, #00000000 50%)",
+        background: "linear-gradient(90deg, #171310, #00000000 50%)",
         transform: "translateX(-10px)",
       }}
       >
@@ -63,7 +63,7 @@ export const LandingMainMenu = () => {
         style={{
           color: "#111111",
         }} className="pointer " data-href="/game">
-        <BewMenuButton>New Game</BewMenuButton></div>
+        <BewMenuButton><div style={{borderBottom: "1px solid #111111"}}>New Game</div></BewMenuButton></div>
         {enterUsername && <div className="pa-2 flex-col gap-1 pointer  w-150px">
           <input type="text" placeholder="Username" autoFocus
            className="w-100px tx-center pa-1 bord-r-5"
@@ -75,7 +75,7 @@ export const LandingMainMenu = () => {
           style={{ background:"#494644", color: "#ccbbaa" }} value={typedUsername}
           onChange={(e) => { setTypedUsername(sanitizePlayerId(e.target.value)) }} />
           <BewMenuButton onClick={() => { triggerNewGame() }}
-            classOverride="tx-altfont-2">
+            classOverride="tx-altfont-5">
             {isGameLoading ? "Wait..." : "ENTER"}
           </BewMenuButton>
         </div>}

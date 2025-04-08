@@ -12,7 +12,7 @@ export const BewLogo = () => {
       }}
       >
         <div>WEB</div>
-        <div className='tx-altfont-1 px-1 pb-1'>|</div>
+        <div className='tx-altfont-1 '>|</div>
         <div style={{ transform: "scaleX(-1)" }}>WEB</div>
       </Link>
     );

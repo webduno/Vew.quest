@@ -10,8 +10,33 @@ export const RoomLeft = () => {
   return (<>
 
 
-
-  
+<Box args={[4,2,0.1]} position={[-6.5,1.8,-4.5]}>
+<meshStandardMaterial color="#ffffff" metalness={0.3} roughness={0.15} emissive={"#222222"}  />
+</Box>
+<Text fontSize={0.17} color="#1d1d1d"  font="/fonts/beanie.ttf"
+anchorX="left" anchorY="middle" textAlign="left"
+position={[-8.3,1.9,-4.44]} rotation={[0,0,0]}
+>
+{`
+TARGET                   RESPONSE
+______                   __________________    
+45°N 10°E           Ocean, beautiful blue-green waves,
+                    sun shining, solid ship head north
+                    
+                    └┴---__ ¶
+                       (from altitude 1500' above terrain)
+ 38°23' 45-48"N           battleground in civil war-low- cloudy
+ 79° 25' 00"W            creeks, reservoirs ###STORM
+`}
+{/* {`
+As a result of the experimentation carried out
+on what might be termo micro-abilities, Swann expressed
+the opinion that the insights obtained had strengthened
+a macro-ability which had been researched prior
+to his joining the SRI program; namely, the ability
+to view remote locations.
+`} */}
+</Text>
   {/* DECOYS */}
 <group position={[-5,2,-1]} >
 <Box args={[1,1.5,1.15]}  castShadow

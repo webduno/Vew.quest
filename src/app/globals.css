@@ -1,22 +1,16 @@
 @import url('https://unpkg.com/csscss@1.1.2/index.css');
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bytesized&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Codystar:wght@300;400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wallpoet&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Reenie+Beanie&family=Zeyada&display=swap');
 
 
 
 .tx-altfont-1 {     font-family: 'Raleway', sans-serif !important}
-.tx-altfont-2 {     font-family: "Archivo Black", sans-serif !important}
-.tx-altfont-3 {     font-family: "Bytesized", sans-serif !important}
-.tx-altfont-4 {     font-family: "Lilita One", sans-serif !important}
-.tx-altfont-5 {     font-family: "Codystar", sans-serif !important}
+.tx-altfont-5 {     font-family: "Wallpoet", sans-serif !important}
+/* HAND WRITTEN */
 .tx-altfont-6 {     font-family: "Caveat", sans-serif !important}
-
 .tx-altfont-7 {     font-family: "Indie Flower", sans-serif !important}
 .tx-altfont-8 {     font-family: "Reenie Beanie", sans-serif !important}
 .tx-altfont-9 {     font-family: "Zeyada", sans-serif !important}
