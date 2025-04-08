@@ -3,6 +3,34 @@
 import { VibeverseContext } from '@/dom/VibeverseProvider';
 import { Box } from '@react-three/drei';
 import { useRef, useEffect, useState, useContext } from 'react';
+import { MeshStandardMaterial } from 'three';
+
+// Create shared materials to reduce draw calls
+const whiteEmissiveMaterial = new MeshStandardMaterial({ 
+  color: "#ffffff", 
+  emissive: "#ffc7a0" 
+});
+
+const blueEmissiveMaterial = new MeshStandardMaterial({ 
+  color: "#e0f7ff", 
+  emissive: "#a0c7ff" 
+});
+
+const greenEmissiveMaterial = new MeshStandardMaterial({ 
+  color: "#ffffff", 
+  emissive: "#e7ffc0" 
+});
+
+const grayEmissiveMaterial = new MeshStandardMaterial({ 
+  color: "#ffffff", 
+  emissive: "#7f7770" 
+});
+
+const lightGreenEmissiveMaterial = new MeshStandardMaterial({ 
+  color: "#ffffff", 
+  emissive: "#a0ffc7" 
+});
+
 export const BewLighting = () => {
   const { LS_lowGraphics } = useContext(VibeverseContext)
   const spotLightTarget1 = useRef<any>(null);
@@ -19,14 +47,9 @@ export const BewLighting = () => {
   return (<>
     <ambientLight intensity={0.1} />
 
-
     <group ref={spotLightTarget2} position={[0, 0, 2]} >
-      <Box args={[0.1,0.06,1]} position={[5,3.5,0]} >
-        <meshStandardMaterial color="#ffffff" emissive="#ffc7a0" />
-      </Box>
+      <Box args={[0.1,0.06,1]} position={[5,3.5,0]} material={whiteEmissiveMaterial} />
     </group>
-
-
 
     {/* ROOM RIGHT */}
     <pointLight position={[5, 3, 2]} intensity={3} color="#ffe7c0"
@@ -38,12 +61,9 @@ export const BewLighting = () => {
      />
      )}
     
-
     {/* ROOM A */}
     <group ref={spotLightTarget1} position={[0, 0, 8.5]} >
-      <Box args={[1,0.06,0.1]} position={[0,3.5,0]} >
-        <meshStandardMaterial color="#e0f7ff" emissive="#a0c7ff" />
-      </Box>
+      <Box args={[1,0.06,0.1]} position={[0,3.5,0]} material={blueEmissiveMaterial} />
     </group>
     {/* ROOM B */}
     <group ref={spotLightTarget2} position={[0, 0, -1.25]} >
@@ -53,24 +73,16 @@ export const BewLighting = () => {
      />
      )}
     
-      <Box args={[1,0.06,0.1]} position={[0,3.5,-1]} >
-        <meshStandardMaterial color="#ffffff" emissive="#e7ffc0" />
-      </Box>
-      <Box args={[1,0.06,0.1]} position={[0,3.5,3]} >
-        <meshStandardMaterial color="#ffffff" emissive="#e7ffc0" />
-      </Box>
+      <Box args={[1,0.06,0.1]} position={[0,3.5,-1]} material={greenEmissiveMaterial} />
+      <Box args={[1,0.06,0.1]} position={[0,3.5,3]} material={greenEmissiveMaterial} />
     </group>
     {/* ROOM C */}
     <group ref={spotLightTarget3} position={[0, 0, -22]}>
-    <pointLight position={[0, 2, 14]} intensity={1}  castShadow
-      color="#fff7f0" 
-     />
-     <Box args={[1,0.06,0.1]} position={[0,3.5,14]} >
-       <meshStandardMaterial color="#ffffff" emissive="#7f7770" />
-     </Box>
-      <Box args={[1,0.06,0.1]} position={[0,3.5,0]} >
-        <meshStandardMaterial color="#ffffff" emissive="#a0ffc7" />
-      </Box>
+      <pointLight position={[0, 2, 14]} intensity={1}  castShadow
+        color="#fff7f0" 
+       />
+      <Box args={[1,0.06,0.1]} position={[0,3.5,14]} material={grayEmissiveMaterial} />
+      <Box args={[1,0.06,0.1]} position={[0,3.5,0]} material={lightGreenEmissiveMaterial} />
     </group>
 
     {targetsReady && (

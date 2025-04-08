@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react'
-import { Mesh } from 'three'
+import { Mesh, MeshStandardMaterial } from 'three'
 import { useSphere, useBox } from '@react-three/cannon'
 import { PhysicalBallProps, PhysicalBoxProps } from '../../../scripts/types/canonPOV'
 
 // Global storage for object physics state
 const objectsPhysicsState = new Map();
+
+// Shared materials to reduce draw calls
+const ballMaterial = new MeshStandardMaterial({ color: "red" });
 
 // Function to clear all physics state
 export const clearPhysicsState = () => {
@@ -37,7 +40,7 @@ export function PhysicalBall({ position, velocity }: PhysicalBallProps) {
   return (
     <mesh ref={ref} castShadow>
       <sphereGeometry args={[0.1, 16, 16]} />
-      <meshStandardMaterial color="red" />
+      <primitive object={ballMaterial} />
     </mesh>
   )
 }
@@ -173,11 +176,14 @@ export function PhysicalBox({ position, rotation, scale, geometry, material, use
     }
   }, [api, hasGravity]);
   
+  // Use the provided material or create a default one
+  const finalMaterial = material || new MeshStandardMaterial({ color: "#cccccc" });
+  
   return (
     <mesh 
       ref={meshRef} 
       geometry={geometry} 
-      material={material}
+      material={finalMaterial}
       position={position}
       rotation={rotation}
       scale={scale}

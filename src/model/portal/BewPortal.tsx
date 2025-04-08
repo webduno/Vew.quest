@@ -1,10 +1,29 @@
 "use client";
 import { Torus, Circle, Text, Sphere } from '@react-three/drei'; import { useRef } from 'react'; import { useThree, useFrame } from '@react-three/fiber';
-import { Vector3, Group } from 'three'; import { useRouter } from 'next/navigation';
+import { Vector3, Group, MeshStandardMaterial, MeshBasicMaterial } from 'three'; import { useRouter } from 'next/navigation';
+
+// Create shared materials to reduce draw calls
+const defaultPortalMaterial = new MeshStandardMaterial({ 
+  color: "#aad0f4", 
+  emissive: "#aad0f4", 
+  emissiveIntensity: 0.75 
+});
+
+const defaultTorusMaterial = new MeshStandardMaterial({ 
+  color: "#ffffff", 
+  emissive: "#444444" 
+});
+
+const wireframeMaterial = new MeshBasicMaterial({ 
+  wireframe: true, 
+  color: "#ffffff", 
+  transparent: true, 
+  opacity: 0.2 
+});
 
 export const BewPortal = ({ 
-  portalMaterial = <meshStandardMaterial color="#aad0f4" emissive="#aad0f4" emissiveIntensity={0.75} />, 
-  torusMaterial = <meshStandardMaterial color="#ffffff" emissive="#444444" />,
+  portalMaterial = defaultPortalMaterial, 
+  torusMaterial = defaultTorusMaterial,
   position, rotation, title ="???", url,
   onCollision, textColor = "lightgrey", portalRadius = 2,
   debug = false, fontSize = 1
@@ -37,15 +56,15 @@ export const BewPortal = ({
           fontSize={fontSize} color={textColor||"white"} 
           renderOrder={1} font="/fonts/beanie.ttf">{title}</Text>
       }
-      <Torus args={[portalRadius, portalRadius/10, 4, 32, Math.PI]} castShadow receiveShadow>
-        {torusMaterial}
-      </Torus>
-      <Circle args={[portalRadius, 32, 0, Math.PI]} castShadow receiveShadow>
-        {portalMaterial}
-      </Circle>
-      {debug && <Sphere args={[portalRadius*.8, 16, 16]} position={[0, 0, 0]}>
-        <meshBasicMaterial wireframe color="#ffffff" transparent opacity={0.2} />
-      </Sphere>}
+      <Torus args={[portalRadius, portalRadius/10, 4, 32, Math.PI]} castShadow receiveShadow
+        material={torusMaterial}
+      />
+      <Circle args={[portalRadius, 32, 0, Math.PI]} castShadow receiveShadow
+        material={portalMaterial}
+      />
+      {debug && <Sphere args={[portalRadius*.8, 16, 16]} position={[0, 0, 0]}
+        material={wireframeMaterial}
+      />}
     </group>
   );
 };

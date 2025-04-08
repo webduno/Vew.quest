@@ -40,21 +40,22 @@ function PlayerCylinder({
     }
   })
 
+  // Create shared materials to reduce draw calls
+  const greyMaterial = new MeshStandardMaterial({ color: "grey" });
+  const orangeMaterial = new MeshStandardMaterial({ color: "orangered" });
+
   return (
     <group ref={cylinderRef}>
-      
-      <Sphere args={[playerRadius*.6, 16, 16]}  castShadow
-      position={[0, playerHeight/3, 0]} 
-      scale={[1,3.5,1]}
-      >
-        <meshStandardMaterial color="grey" />
-      </Sphere>
-      <Sphere args={[playerRadius*.75, 16, 16]}  castShadow
-      position={[0, playerHeight*.75, 0]} 
-      scale={[1,1.5,1]}
-      >
-        <meshStandardMaterial color="orangered" />
-      </Sphere>
+      <Sphere args={[playerRadius*.6, 16, 16]} castShadow
+        position={[0, playerHeight/3, 0]} 
+        scale={[1,3.5,1]}
+        material={greyMaterial}
+      />
+      <Sphere args={[playerRadius*.75, 16, 16]} castShadow
+        position={[0, playerHeight*.75, 0]} 
+        scale={[1,1.5,1]}
+        material={orangeMaterial}
+      />
 {/* 
       <mesh  visible={visible} castShadow scale={[1,1,.5]} >
         <cylinderGeometry args={[playerRadius*.15, playerRadius*2, playerHeight, 16]} />

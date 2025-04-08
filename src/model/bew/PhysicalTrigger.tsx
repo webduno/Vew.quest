@@ -1,8 +1,10 @@
 'use client';
 import { useBox } from '@react-three/cannon';
 import { useRef, useEffect } from 'react';
-import { Mesh } from 'three';
+import { Mesh, MeshStandardMaterial } from 'three';
 
+// Create shared materials to reduce draw calls
+const defaultTriggerMaterial = new MeshStandardMaterial({ color: "lightgrey" });
 
 export const PhysicalTrigger = ({
     triggerCount = 1,
@@ -52,11 +54,15 @@ export const PhysicalTrigger = ({
     return null;
   }
 
+  // Use the provided color or default
+  const material = color !== "lightgrey" 
+    ? new MeshStandardMaterial({ color }) 
+    : defaultTriggerMaterial;
+
   return (
     <mesh ref={ref as React.Ref<Mesh>} receiveShadow>
       <boxGeometry args={boxSize} />
-      <meshStandardMaterial color={color} 
-       />
+      <primitive object={material} />
     </mesh>
   );
 };
