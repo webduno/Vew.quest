@@ -4,12 +4,11 @@ import { StyledWall } from './StyledWall';
 import { useBox } from '@react-three/cannon';
 import { useEffect, useState } from 'react';
 
-useFont.preload('/fonts/beanie.json')
 
 
 export const RoomLeft = () => {
-  // const font:any = useFont('/fonts/beanie.json');
   return (<>
+
 
 
   

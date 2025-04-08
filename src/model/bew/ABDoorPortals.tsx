@@ -43,7 +43,7 @@ const openDoorProcess = () => {
       size={[1, 1, 1]}
       position={[-4.5, 0, 3]}
     />
-    {!hasFirstKey && <group position={[-4.5, 0, 3]} rotation={[0, .2, 0]}><RegularKey /></group>}
+    {!hasFirstKey && <group position={[-6.5, 0, 3]} rotation={[0, .3, 0]}><RegularKey /></group>}
   
 
       {/* front bevel */}

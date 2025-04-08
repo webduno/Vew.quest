@@ -13,9 +13,11 @@ import { AnalogModalScreen } from './AnalogModalScreen';
 import { BewPhysicsScene } from './BewPhysicsScene';
 import { PhysicalWall } from './PhysicalWall';
 import { Box } from '@react-three/drei';
+import { useVibeverse } from '@/dom/useVibeverse';
 
 
 export const BewGame = () => {
+  const { LS_playerId, formatPortalUrl } = useVibeverse()
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [focusLevel, setFocusLevel] = useState(0);
   const focusStageRef = useRef<any>(0);
@@ -218,6 +220,7 @@ export const BewGame = () => {
 
 
           <BewMainScene 
+          formatPortalUrl={formatPortalUrl}
           code1={code1}
           code2={code2}
           setPlayerPosition={handleSetPlayerPosition} />

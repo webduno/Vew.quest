@@ -1,5 +1,5 @@
 'use client';
-import { Box, Text } from '@react-three/drei';
+import { Box, Cylinder, Text } from '@react-three/drei';
 import { PhysicalCeiling, PhysicalFloor } from './PhysicalFloor';
 import { PhysicalWall } from './PhysicalWall';
 import { ABDoorPortals } from './ABDoorPortals';
@@ -11,15 +11,20 @@ import { RoomC } from './RoomC';
 import { RoomRight } from './RoomRight';
 import { RoomLeft } from './RoomLeft';
 import { useState, useEffect, useCallback } from 'react';
+import { BewPortal } from '../portal/BewPortal';
+import { useSearchParams } from 'next/navigation';
 
 
-export const BewMainScene = ({ setPlayerPosition,
+export const BewMainScene = ({ setPlayerPosition,formatPortalUrl,
   code1,
   code2,
   code3 }: { setPlayerPosition: (position: [number, number, number]) => void, 
+    formatPortalUrl: (url: string) => string,
     code1?: string, 
     code2?: string, 
     code3?: string  }) => {
+
+      const vb_ref = useSearchParams().get("ref")
 
   const [hasFirstKey, setHasFirstKey] = useState(false);
   
@@ -37,7 +42,45 @@ export const BewMainScene = ({ setPlayerPosition,
   return (
     <group position={[0, 0, 0]}>
 
-      
+    {/* VIBEVERSE PORTAL */}
+    <Cylinder args={[3, 2, .9, 12, Math.PI]} 
+    position={[-3.5,0,1.9]} rotation={[0,0,-Math.PI/2]}>
+      <meshStandardMaterial color="#ffffff" />
+    </Cylinder>
+    <BewPortal
+    position={[-4,0,1.9]}
+    rotation={[0,-Math.PI/2,0]}
+    title="Vibeverse"
+    url={formatPortalUrl("https://portal.pieter.com/")}
+    portalRadius={2}
+    textColor="#333333"
+    portalMaterial={<meshStandardMaterial color="#eeffcc" />}
+    />
+
+    {/* BACK PORTAL */}
+    {/* <Cylinder args={[3.3, 2, .9, 12, Math.PI]} 
+    position={[2,0,1.9]} rotation={[0,0,-Math.PI/2]}>
+      <meshStandardMaterial color="#eeeeee" />
+    </Cylinder> */}
+    {vb_ref && <BewPortal
+    position={[2.4,0,1.5]}
+    rotation={[0,-Math.PI/2,0]}
+    title={vb_ref.split("/").pop()}
+    url={formatPortalUrl(vb_ref)}
+    portalRadius={1.8}
+    textColor="#777777"
+    portalMaterial={<meshStandardMaterial color="#ffaaaa" />}
+    />}
+
+
+
+
+  {/* <SmallPortal
+  position={[0,0,-2]}
+  rotation={[0,0,0]}
+  url="/"
+  /> */}
+
       
       <RoomA />
 
