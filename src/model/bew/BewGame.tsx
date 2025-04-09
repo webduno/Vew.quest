@@ -18,6 +18,7 @@ import { VibeverseContext } from '@/dom/VibeverseProvider';
 import { Stats } from '@react-three/drei';
 import { useSearchParams } from 'next/navigation';
 import { useBew } from './BewProvider';
+import { BackgroundMusic } from '@/dom/atom/game/BackgroundMusic';
 
 // Performance stats component that works inside Canvas
 const PerformanceStats = ({ onStatsUpdate }: { onStatsUpdate: (stats: any) => void }) => {
@@ -144,8 +145,31 @@ export const BewGame = () => {
     }, 5000);
   }
 
+
+
+
+
+// **************************************************************************************************************
+// **************************************************************************************************************
+// **************************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className='pos-abs top-0 left-0 w-100 h-100 flex-col'>
+      
+
+      <BackgroundMusic />
+
+
       {/* Performance Stats in top right corner */}
       {showStats && (
         <div className="pos-abs top-0 right-0 pa-2 z-100">

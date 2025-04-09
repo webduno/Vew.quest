@@ -4,14 +4,17 @@ import { BewGame } from './BewGame';
 import { VibeverseProvider } from '@/dom/VibeverseProvider';
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { BewProvider,  } from './BewProvider';
+import { BackgroundMusicProvider } from '../../../scripts/contexts/BackgroundMusicContext';
 
 
 export const BewGameContainer: React.FC = () => {
   return (
-    <VibeverseProvider>
-      <BewProvider>
-        <BewGame />
-      </BewProvider>
-    </VibeverseProvider>
+    <BackgroundMusicProvider>
+      <VibeverseProvider>
+        <BewProvider>
+          <BewGame />
+        </BewProvider>
+      </VibeverseProvider>
+    </BackgroundMusicProvider>
   );
 }; 
