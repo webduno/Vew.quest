@@ -6,6 +6,7 @@ interface BackgroundMusicContextType {
   isPlaying: boolean;
   togglePlay: () => void;
   playIfNotPlaying: () => void;
+  playSoundEffect: (soundPath: string, volume?: number) => void;
 }
 
 const BackgroundMusicContext = createContext<BackgroundMusicContextType | undefined>(undefined);
@@ -13,6 +14,7 @@ const BackgroundMusicContext = createContext<BackgroundMusicContextType | undefi
 export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const soundEffectsRef = useRef<{ [key: string]: HTMLAudioElement }>({});
 
   useEffect(() => {
     // Initialize audio only on the client side
@@ -26,6 +28,12 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
         audioRef.current.pause();
         audioRef.current = null;
       }
+      
+      // Clean up all sound effects
+      Object.values(soundEffectsRef.current).forEach(audio => {
+        audio.pause();
+      });
+      soundEffectsRef.current = {};
     };
   }, []); // Empty dependency array for initialization only
 
@@ -70,9 +78,28 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const playSoundEffect = (soundPath: string, volume: number = 0.5) => {
+    // Create a new audio element for the sound effect
+    const soundEffect = new Audio(soundPath);
+    soundEffect.volume = volume;
+    
+    // Store the sound effect in the ref to prevent garbage collection
+    const soundId = Date.now().toString();
+    soundEffectsRef.current[soundId] = soundEffect;
+    
+    // Play the sound effect
+    soundEffect.play().catch(error => {
+      console.log(`Error playing sound effect ${soundPath}:`, error);
+    });
+    
+    // Remove the sound effect from the ref after it finishes playing
+    soundEffect.onended = () => {
+      delete soundEffectsRef.current[soundId];
+    };
+  };
 
   return (
-    <BackgroundMusicContext.Provider value={{ isPlaying, togglePlay, playIfNotPlaying }}>
+    <BackgroundMusicContext.Provider value={{ isPlaying, togglePlay, playIfNotPlaying, playSoundEffect }}>
       {children}
     </BackgroundMusicContext.Provider>
   );

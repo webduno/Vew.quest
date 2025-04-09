@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
 
 // Define the types for severity
 type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title';
@@ -13,6 +14,7 @@ type BewContextType = {
   closeSnackbar: () => void; // Renamed for clarity
   isCutSceneOpen: boolean;
   setIsCutSceneOpen: (isCutSceneOpen: boolean) => void;
+  playSoundEffect: (soundPath: string, volume?: number) => void;
 };
 
 // Create the context with default values
@@ -34,7 +36,7 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<SnackbarSeverity>('info');
-
+  const { playSoundEffect: playBackgroundSoundEffect } = useBackgroundMusic();
 
   const showSnackbar = (message: string, severity: SnackbarSeverity) => {
     console.log('showSnackbar: message is', message, 'severity is', severity);
@@ -52,6 +54,11 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
     // }, 300); // Adjust timing based on animation
   };
 
+  // Wrapper function to play sound effects
+  const playSoundEffect = (soundPath: string, volume?: number) => {
+    playBackgroundSoundEffect(soundPath, volume);
+  };
+
   // Add state and functions for the context here later
   const contextValue: BewContextType = {
     // Provide context values here
@@ -63,6 +70,7 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
     snackbarSeverity,
     showSnackbar,
     closeSnackbar,
+    playSoundEffect,
   };
 
   console.log('BewProvider: contextValue is', contextValue); // Keep for debugging if needed

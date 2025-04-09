@@ -10,7 +10,7 @@ import { useBew } from './BewProvider';
 
 
 export const ABDoorPortals = ({ setPlayerPosition, hasFirstKey, setHasFirstKey }: { setPlayerPosition: (position: [number, number, number]) => void; hasFirstKey: boolean; setHasFirstKey: (hasFirstKey: boolean) => void; }) => {
-  const { showSnackbar, closeSnackbar } = useBew();
+  const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
   const [cooldown, setCooldown] = useState(false);
   const [doorVisible, setDoorVisible] = useState(true);
   // Use a ref to always have the latest value of hasFirstKey
@@ -24,6 +24,7 @@ export const ABDoorPortals = ({ setPlayerPosition, hasFirstKey, setHasFirstKey }
 const openDoorProcess = () => {
   setTimeout(() => {
     setDoorVisible(false);
+    playSoundEffect('/sfx/ddoor.mp3');
   }, 1000)
 }
 
@@ -109,7 +110,7 @@ const openDoorProcess = () => {
 
 
 
-{/* actual door */}
+{/* actual opened door */}
 {!doorVisible && (
   <>
     <PhysicalWall color="#ffddaa"
