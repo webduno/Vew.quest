@@ -40,7 +40,7 @@ const openDoorProcess = () => {
 <PhysicalTrigger triggerCount={1} visible={false}
       onCollide={(e) => {
         setHasFirstKey(true);
-        showSnackbar("You've found the key!", 'info');
+        showSnackbar("Great job! You've found the key", 'info');
         setTimeout(() => {
           closeSnackbar();
         }, 4000);

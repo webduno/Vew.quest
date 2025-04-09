@@ -15,6 +15,7 @@ import { BewPortal } from '../portal/BewPortal';
 import { useSearchParams } from 'next/navigation';
 import { useVibeverse } from '@/dom/useVibeverse';
 import { VibeverseContext } from '@/dom/VibeverseProvider';
+import { ZuckHead } from './ZuckHead';
 
 
 export const BewMainScene = ({ setPlayerPosition,
@@ -55,8 +56,14 @@ export const BewMainScene = ({ setPlayerPosition,
     portalMaterial={<meshStandardMaterial color="#eeffcc" />}
     />
 
+{!!vb_ref && <>
+<group position={[4.6, 2, 4.25]} rotation={[0,0,0]}>
+  <ZuckHead />
+</group>
+</>}
+
     {/* BACK PORTAL */}
-    {vb_ref && <BewPortal fontSize={0.5}
+    {!!vb_ref && <BewPortal fontSize={0.5}
     position={[2.4,0,1.5]}
     rotation={[0,-Math.PI/2,0]}
     title={vb_ref.split("/").pop()}

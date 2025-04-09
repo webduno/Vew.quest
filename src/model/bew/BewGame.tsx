@@ -136,7 +136,7 @@ export const BewGame = () => {
     // then enable the movement again
     setIsCutSceneOpen(true);
     setEnableLocked(false);
-    showSnackbar(`You are in the training room... Take a seat.`, 'info');
+    showSnackbar(`You are in the training room... Sit down.`, 'title');
     setTimeout(() => {
       closeSnackbar();
       setIsCutSceneOpen(false);

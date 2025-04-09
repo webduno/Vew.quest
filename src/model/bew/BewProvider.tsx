@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 // Define the types for severity
-type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning';
+type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title';
 
 // Define the context type
 type BewContextType = {
@@ -95,10 +95,33 @@ export const SnackbarNotif = () => {
   };
 
   return (
-    <div  className="tx-lx pa-4 pos-fix top-0 right-0 flex-col z-1000 w-200px hover-4">
-      <PaperSheet>{snackbarMessage}</PaperSheet>
+    <div  className=" pa-4 pos-fix top-0 right-0 flex-col z-1000 w-200px hover-4">
+      {snackbarSeverity === 'info' && 
+        <PaperSheet>{snackbarMessage}</PaperSheet>
+      }
+      {snackbarSeverity === 'title' && 
+        <HardBadge>{snackbarMessage}</HardBadge>
+      }
       {/* <button className="tx-white pointer pl-3 tx-mdl noborder bg-trans" onClick={closeSnackbar} >&times;</button> */}
       {/* Simple close button */}
+    </div>
+  );
+}
+
+const HardBadge = ({ children }: { children: ReactNode }) => {
+  return (
+    
+    <div className='z-100 tx-altfont-5 tx-md bord-r-5 pa-1'
+    style={{ background: "#3d3d3d" }}
+    >
+      <div className='tx-altfont-5 tx-mdl px-4 py-2  bord-r-5'
+      style={{
+        boxShadow: 'inset 1px 1px 3px 0 #aaaaaa, inset -3px -3px 5px 0 #111111',
+        background: '#1d1d1d',
+        color: "#aaaaaa",
+      }}>
+        {children}
+      </div>
     </div>
   );
 }
@@ -106,9 +129,9 @@ export const SnackbarNotif = () => {
 const PaperSheet = ({ children }: { children: ReactNode }) => {
   return (
     
-    <div className='px-2 pt-2 pb-1 z-100 tx-altfont-8'
+    <div className='px-2 pt-2 pb-1 z-100 tx-altfont-8  mt-4 tx-lgx'
     style={{
-      transform: "rotate(-8deg)",
+      transform: "rotate(-2deg)",
       clipPath: "polygon(50% 0%, 100% 0, 98% 60%, 100% 97%, 4% 100%, 0% 60%, 2% 3%)",
       background: "linear-gradient(0deg, #706C61, #8F8B7D, #605C51)",
     }}
