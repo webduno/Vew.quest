@@ -69,7 +69,7 @@ fontSize={0.2}
 
 
 
-{ (<>
+{!!code1 && (<>
 <Text position={[1.7, 1.75, -14.49]} rotation={[0, 0, 0]} anchorX="center" anchorY="middle"
 textAlign="center" color={!!code2 ? "#4455e44" : "#444444"}
 fontSize={0.2} 
@@ -85,6 +85,7 @@ fontSize={0.2}
 </Text>
 
 {/* Trigger for code input */}
+{!!code1 && (<>
 <PhysicalTrigger 
   visible={false}
   size={[.5, 1, 0.2]}
@@ -103,6 +104,7 @@ fontSize={0.2}
     }
   }}
 />
+</>)}
 </>)}
 
 
