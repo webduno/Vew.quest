@@ -26,19 +26,13 @@ export const BewMainScene = ({ setPlayerPosition,
     code3?: string  }) => {
 
   const { LS_playerId, LS_lowGraphics, formatPortalUrl } = useContext(VibeverseContext)
-  console.log('BewMainScene: LS_lowGraphics is', LS_lowGraphics);
   const vb_ref = useSearchParams().get("ref")
 
   const [hasFirstKey, setHasFirstKey] = useState(false);
   
-  // Add effect to monitor key state changes
-  useEffect(() => {
-    console.log('BewMainScene: hasFirstKey is now', hasFirstKey);
-  }, [hasFirstKey]);
   
   // Memoize the handler with useCallback to prevent recreation
   const handleKeyCollection = useCallback((value: boolean) => {
-    console.log('Setting hasFirstKey to:', value);
     setHasFirstKey(value);
   }, []);
 

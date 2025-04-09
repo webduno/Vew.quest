@@ -29,20 +29,13 @@ export const PhysicalTrigger = ({
       restitution: restitution
     },
     onCollide: (e) => {
-        // Print detailed debug info
-        console.log('PhysicalTrigger collision detected:', 
-                    'triggered:', triggeredCountRef.current, 
-                    'triggerCount:', triggerCount,
-                    'userData:', e.body?.userData);
                     
         // early return
         if (triggeredCountRef.current >= triggerCount) {
-            console.log('Trigger max count reached');
             return;
         }
       // Check if collision is with the player
       if (e.body?.userData?.type === 'player') {
-        console.log('Player collision detected');
         triggeredCountRef.current += 1;
         onCollide(e);
       }

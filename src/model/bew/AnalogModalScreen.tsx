@@ -221,7 +221,6 @@ export const AnalogModalScreen = ({
 
   // Handle meter click to set value based on click position
   const handleMeterClick = (e: React.MouseEvent) => {
-    console.log('handleMeterClick', meterRef.current)
     if (meterRef.current) {
       const rect = meterRef.current.getBoundingClientRect();
       // Calculate percentage based on click position relative to the meter width

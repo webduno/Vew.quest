@@ -9,7 +9,6 @@ export const LandingMainMenu = () => {
 
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId,
      sanitizePlayerId, LS_lowGraphics, toggleLowGraphics } = useVibeverse()
-  console.log('LandingMainMenu: LS_lowGraphics from useVibeverse is', LS_lowGraphics);
   const [enterUsername, setEnterUsername] = useState(false)
   const [isGameLoading, setGameLoading] = useState(false)
 const random10CharString = () => {

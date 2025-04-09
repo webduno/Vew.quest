@@ -5,15 +5,24 @@ import { PhysicalTrigger } from './PhysicalTrigger';
 
 export interface TheRoomProps {
   onTriggerCollide?: (e: any) => void;
+  onRoomEnter?: (e: any) => void;
 }
 
-export const TheRoom = ({ onTriggerCollide }: TheRoomProps) => {
+export const TheRoom = ({ onTriggerCollide, onRoomEnter }: TheRoomProps) => {
 
 
   
   return (
     <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
 
+
+
+<PhysicalTrigger color="#ffeeee"
+        visible={false}
+        size={[0.5, 1.5, 0.5]}
+        position={[2, .75, -21.25]} rotation={[0, 2, 0]}
+        onCollide={onRoomEnter}
+    />
 
 
 

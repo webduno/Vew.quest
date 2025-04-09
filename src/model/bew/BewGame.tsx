@@ -51,7 +51,6 @@ const PerformanceStats = ({ onStatsUpdate }: { onStatsUpdate: (stats: any) => vo
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, formatPortalUrl } = useContext(VibeverseContext)
-  console.log('BewGame: LS_lowGraphics from context is', LS_lowGraphics);
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [focusLevel, setFocusLevel] = useState(0);
   const focusStageRef = useRef<any>(0);
@@ -91,7 +90,6 @@ export const BewGame = () => {
   // Handle trigger collision
   const handleTriggerCollision = useCallback((event: any) => {
     // alert("You've triggered a collision event!");
-    console.log("You've triggered a collision event!");
     focusStageRef.current = focusStageRef.current +1
     setFocusLevel((prev) => prev + 1)
     // setEnableLocked(false)
@@ -107,7 +105,6 @@ export const BewGame = () => {
 
   // Handle teleporting the player to a new position
   const handleSetPlayerPosition = useCallback((position: [number, number, number]) => {
-    console.log("Setting player position to:", position);
     setCurrentPosition(position);
     // Trigger a teleport by incrementing the counter
     setTeleportTrigger(prev => prev + 1);
@@ -132,7 +129,6 @@ export const BewGame = () => {
   const CODE_3 = "gondolawish"
   const handleCode1Submit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = (e.target as HTMLInputElement).value;
-    console.log(inputValue)
     if (inputValue === CODE_1) {
       setCode1(inputValue)
     }
@@ -140,11 +136,21 @@ export const BewGame = () => {
 
   const handleCode2Submit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = (e.target as HTMLInputElement).value;
-    console.log(inputValue)
     if (inputValue === CODE_2) {
       setCode2(inputValue)
     }
   };
+
+  const handleRoomEnter = () => {
+    // disable the movement for 10 seconds
+    // while the intro cutscene plays
+    // then enable the movement again
+    setEnableLocked(false)
+    setTimeout(() => {
+      setEnableLocked(true)
+    }, 10000)
+  }
+
   return (
     <div className='pos-abs top-0 left-0 w-100 h-100 flex-col'>
       {/* Performance Stats in top right corner */}
@@ -256,7 +262,7 @@ export const BewGame = () => {
           <PersonSilhouette />
           </group>
 
-          <TheRoom onTriggerCollide={handleTriggerCollision} />
+          <TheRoom onTriggerCollide={handleTriggerCollision} onRoomEnter={handleRoomEnter} />
 
 
 
@@ -309,7 +315,7 @@ export const BewGame = () => {
             teleportTrigger={teleportTrigger}
             sceneObjects={[]}
             onExit={() => {
-              console.log('onExit')
+              console.warn('locking player movement onExit')
             }}
             isMobile={isMobileDevice}
             ballCount={0}

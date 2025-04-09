@@ -18,29 +18,7 @@ export const BCDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (posit
 
 <PhysicalTrigger visible={false} triggerCount={999}
       onCollide={(e) => {
-        console.log('GOBACK Door trigger activated');
         setPlayerPosition([0, 0, -3.8]);
-        // // Use the ref value instead of the prop to get the latest state
-        // const currentHasKey = hasKeyRef.current;
-        // console.log('Door trigger activated, hasFirstKey (from ref):', currentHasKey, 'hasFirstKey (from prop):', hasFirstKey);
-        
-        // if (!currentHasKey) {
-        //   console.log('no key');
-        //   return;
-        // }
-        // if (cooldown) {
-        //   console.log('Door on cooldown');
-        //   return;
-        // }
-        // console.log('Opening door');
-        // setCooldown(true);
-        // openDoorProcess()
-        
-        
-        // setTimeout(() => {
-        //   setDoorVisible(true);
-        //   setCooldown(false);
-        // }, 3000);
       }}
 
       size={[1, 4, 0.2]}

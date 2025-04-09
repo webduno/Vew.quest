@@ -27,7 +27,6 @@ function PlayerCylinder({
       // (The camera is positioned at eye level, need to move cylinder down)
       cylinderRef.current.position.x = camera.position.x
       cylinderRef.current.position.z = camera.position.z
-      // console.log('camera.position.y', camera.position.y, playerHeight)
       cylinderRef.current.position.y = camera.position.y - (playerHeight/1.5)
 
       // Extract forward direction from camera quaternion
@@ -206,9 +205,6 @@ export function BewPhysicsScene({
     const joystickContainer = document.getElementById('joystick-container')
     const jumpButton = document.getElementById('jump-button')
     const lookArea = document.getElementById('look-area')
-    // console.log('joystickContainer', joystickContainer)
-    // console.log('jumpButton', jumpButton)
-    // console.log('lookArea', lookArea)
     if (!joystickContainer || !jumpButton || !lookArea) return
     
     // Joystick handlers
@@ -637,7 +633,6 @@ export function BewPhysicsScene({
   // Handle teleportation when teleportTrigger changes
   useEffect(() => {
     if (teleportTrigger !== lastTeleportTrigger.current && currentPosition) {
-      console.log("Teleporting player to:", currentPosition);
       
       // Update the player's physics body position
       playerApi.position.set(

@@ -29,7 +29,6 @@ export const VibeverseContext = createContext<VibeverseContextType>({
 // Provider component
 export const VibeverseProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const vibeverseData = useVibeverse() || {};
-  console.log('VibeverseProvider: vibeverseData is', vibeverseData);
 
   // Ensure we always provide valid values
   const contextValue: VibeverseContextType = {
@@ -37,7 +36,6 @@ export const VibeverseProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     LS_playerId: vibeverseData.LS_playerId || null,
     formatPortalUrl: vibeverseData.formatPortalUrl || ((url: string) => url),
   };
-  console.log('VibeverseProvider: contextValue is', contextValue);
   
   return (
     <VibeverseContext.Provider value={contextValue}>

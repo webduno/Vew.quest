@@ -17,7 +17,6 @@ export const ABDoorPortals = ({ setPlayerPosition, hasFirstKey, setHasFirstKey }
 
   // Monitor state changes and update the ref
   useEffect(() => {
-    console.log('ABDoorPortals: hasFirstKey changed to', hasFirstKey);
     hasKeyRef.current = hasFirstKey;
   }, [hasFirstKey]);
 
@@ -39,7 +38,6 @@ const openDoorProcess = () => {
 {/* FIRST KEY TRIGGER */}
 <PhysicalTrigger triggerCount={1} visible={false}
       onCollide={(e) => {
-        console.log('Key collected!');
         setHasFirstKey(true);
         // Directly update the ref for immediate access
         hasKeyRef.current = true;
@@ -83,17 +81,13 @@ const openDoorProcess = () => {
       onCollide={(e) => {
         // Use the ref value instead of the prop to get the latest state
         const currentHasKey = hasKeyRef.current;
-        console.log('Door trigger activated, hasFirstKey (from ref):', currentHasKey, 'hasFirstKey (from prop):', hasFirstKey);
         
         if (!currentHasKey) {
-          console.log('no key');
           return;
         }
         if (cooldown) {
-          console.log('Door on cooldown');
           return;
         }
-        console.log('Opening door');
         setCooldown(true);
         openDoorProcess()
         

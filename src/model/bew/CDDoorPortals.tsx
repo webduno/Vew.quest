@@ -12,10 +12,6 @@ export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setP
   code3?: string }) => {
 
 
-useEffect(() => {
-  console.log('code1', code1);
-  console.log('code2', code2);
-}, [code1, code2]);
 
 
   return (<>
@@ -41,7 +37,6 @@ fontSize={0.2}
   position={[-1.7, 1.75, -14.5]} 
   rotation={[0, 0, 0]}
   onCollide={(e) => {
-    console.log('Code input trigger activated');
     // Dispatch custom event to show the code input
     const showCodeInputEvent = new CustomEvent('showCodeInput');
     window.dispatchEvent(showCodeInputEvent);
@@ -96,7 +91,6 @@ fontSize={0.2}
   position={[1.7, 1.75, -14.5]} 
   rotation={[0, 0, 0]}
   onCollide={(e) => {
-    console.log('Code input trigger activated');
     // Dispatch custom event to show the code input
     const showCodeInputEvent = new CustomEvent('showCodeInput');
     window.dispatchEvent(showCodeInputEvent);

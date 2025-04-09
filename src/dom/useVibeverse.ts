@@ -37,9 +37,7 @@ export function useVibeverse() {
 
   const toggleLowGraphics = () => {
     const newValue = !LS_lowGraphics;
-    console.log('toggleLowGraphics: Setting LS_lowGraphics to', newValue);
     setLS_lowGraphics(newValue);
-    console.log('toggleLowGraphics: Setting localStorage VB_LEGACY_GRAPHICS to', newValue ? '1' : '0');
     localStorage.setItem('VB_LEGACY_GRAPHICS', newValue ? '1' : '0');
   };
 
@@ -53,9 +51,7 @@ export function useVibeverse() {
     }
 
     const legacyGraphics: string | null = localStorage.getItem('VB_LEGACY_GRAPHICS');
-    console.log('useVibeverse: VB_LEGACY_GRAPHICS from localStorage is', legacyGraphics);
     if (legacyGraphics !== null) {
-      console.log('useVibeverse: Setting LS_lowGraphics to', legacyGraphics === '1');
       setLS_lowGraphics(legacyGraphics === '1');
     }
   }, []);
