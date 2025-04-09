@@ -119,7 +119,7 @@ position={[-2.49,.8,1.45]} rotation={[0,Math.PI/2,0]}
 
       <ABDoorPortals setPlayerPosition={setPlayerPosition} hasFirstKey={hasFirstKey} setHasFirstKey={handleKeyCollection} />
 
-      {/* <BCDoorPortals setPlayerPosition={setPlayerPosition} /> */}
+      <BCDoorPortals setPlayerPosition={setPlayerPosition} />
       <CDDoorPortals code1={code1} code2={code2} code3={code3} setPlayerPosition={setPlayerPosition} />
       
 

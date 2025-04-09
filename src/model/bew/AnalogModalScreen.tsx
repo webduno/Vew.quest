@@ -9,12 +9,20 @@ import { ControlButton } from './ControlButton';
 import { isMobile } from '../../../scripts/utils/mobileDetection';
 
 export const AnalogModalScreen = ({
-  setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onClose
+  setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onSend
 }: {
   setEnableLocked: (enableLocked: boolean) => void;
   enableLocked: boolean;
   playerRotation?: { x: number, y: number, z: number };
-  onClose: () => void;
+  onSend: (params: {
+    type: string;
+    natural: number;
+    temp: number;
+    light: number;
+    color: number;
+    solid: number;
+    confidence: number;
+  }) => void;
 }) => {
   // Add state for active control button and active section
   const [activeButtonIndex, setActiveButtonIndex] = React.useState(0);
@@ -208,7 +216,15 @@ export const AnalogModalScreen = ({
         }
         // Use setTimeout to ensure the event queue is clear before closing
         setTimeout(() => {
-          onClose();
+          onSend({
+            type: buttonTypes[activeButtonIndex],
+            natural: gaugeValues[0],
+            temp: gaugeValues[1],
+            light: sliderValues[0],
+            color: sliderValues[1],
+            solid: sliderValues[2],
+            confidence: meterValue
+          });
           // Dispatch a click event to ensure walking controls are re-enabled
           document.body.click();
         }, 0);
@@ -217,7 +233,7 @@ export const AnalogModalScreen = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeSection, onClose]);
+  }, [activeSection, onSend]);
 
   // Handle meter click to set value based on click position
   const handleMeterClick = (e: React.MouseEvent) => {
@@ -290,7 +306,15 @@ export const AnalogModalScreen = ({
         }
         // Use setTimeout to ensure the event queue is clear before closing
         setTimeout(() => {
-          onClose();
+          onSend({
+            type: buttonTypes[activeButtonIndex],
+            natural: gaugeValues[0],
+            temp: gaugeValues[1],
+            light: sliderValues[0],
+            color: sliderValues[1],
+            solid: sliderValues[2],
+            confidence: meterValue
+          });
           // Dispatch a click event to ensure walking controls are re-enabled
           document.body.click();
         }, 0);
@@ -306,7 +330,15 @@ export const AnalogModalScreen = ({
       }
       // Use setTimeout to ensure the event queue is clear before closing
       setTimeout(() => {
-        onClose();
+        onSend({
+          type: buttonTypes[activeButtonIndex],
+          natural: gaugeValues[0],
+          temp: gaugeValues[1],
+          light: sliderValues[0],
+          color: sliderValues[1],
+          solid: sliderValues[2],
+          confidence: meterValue
+        });
         // Dispatch a click event to ensure walking controls are re-enabled
         document.body.click();
       }, 0);
@@ -341,7 +373,15 @@ export const AnalogModalScreen = ({
         className=' px-2 bord-r-5 border-white opaci-chov--50'
         onClick={() => {
           if (activeSection === 'send') {
-            onClose();
+            onSend({
+              type: buttonTypes[activeButtonIndex],
+              natural: gaugeValues[0],
+              temp: gaugeValues[1],
+              light: sliderValues[0],
+              color: sliderValues[1],
+              solid: sliderValues[2],
+              confidence: meterValue
+            });
           } else {
             setActiveSection('send');
             if (modalRef.current) {

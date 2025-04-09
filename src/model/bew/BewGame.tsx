@@ -1,7 +1,7 @@
 'use client';
 import { isMobile } from '@/../scripts/utils/mobileDetection';
 import { Physics } from '@react-three/cannon';
-import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef, useContext } from 'react';
 import { BewMainScene } from '@/model/bew/BewMainScene';
 import { RoomC } from './RoomC';
@@ -12,44 +12,16 @@ import { TheRoom } from './TheRoom';
 import { AnalogModalScreen } from './AnalogModalScreen';
 import { BewPhysicsScene } from './BewPhysicsScene';
 import { PhysicalWall } from './PhysicalWall';
-import { Plane, Text } from '@react-three/drei';
+import { Box, Plane } from '@react-three/drei';
 import { useVibeverse } from '@/dom/useVibeverse';
 import { VibeverseContext } from '@/dom/VibeverseProvider';
 import { Stats } from '@react-three/drei';
 import { useSearchParams } from 'next/navigation';
 import { useBew } from './BewProvider';
 import { BackgroundMusic } from '@/dom/atom/game/BackgroundMusic';
-
-// Performance stats component that works inside Canvas
-const PerformanceStats = ({ onStatsUpdate }: { onStatsUpdate: (stats: any) => void }) => {
-  const { gl, scene } = useThree();
-  const frameCount = useRef(0);
-  const lastTime = useRef(performance.now());
-  
-  useFrame(() => {
-    frameCount.current++;
-    
-    // Update stats every second
-    const currentTime = performance.now();
-    if (currentTime - lastTime.current >= 1000) {
-      const elapsed = currentTime - lastTime.current;
-      const fps = Math.round((frameCount.current * 1000) / elapsed);
-      
-      onStatsUpdate({
-        drawCalls: gl.info.render.calls,
-        objectCount: scene.children.length,
-        fps,
-        frameTime: Math.round(elapsed / frameCount.current)
-      });
-      
-      frameCount.current = 0;
-      lastTime.current = currentTime;
-    }
-  });
-  
-  // Return null since we don't want to render anything in the 3D scene
-  return null;
-};
+import { PerformanceStats } from './PerformanceStats';
+import { RotatingBar } from './RotatingBar';
+import { AnalysisScreen } from './AnalysisScreen';
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, formatPortalUrl } = useContext(VibeverseContext)
@@ -87,7 +59,76 @@ export const BewGame = () => {
   const [naturality, setNaturality] = useState<number>(0)
   const [temperature, setTemperature] = useState<number>(0)
   
+  const sendCRVReport = async (crvData: {
+    type: string;
+    natural: number;
+    temp: number;
+    light: number;
+    color: number;
+    solid: number;
+    confidence: number;
+  }) => {
+    console.table(crvData)
+    setFocusLevel(0);
+    focusStageRef.current = 0;
+    setIsLocked(false);
+    setLoadingAnalysisResult(true)
+    playSoundEffect("/sfx/stickyshift.mp3", 0.05)
 
+    try {
+      const response = await fetch('/api/ai', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(crvData),
+      });
+
+      const data = await response.json();
+      const wholeResponse = data.choices?.[0]?.message?.content || 'No response received'
+      // max 6 words
+      const firstPart = wholeResponse.split(' ').slice(0, 6).join(' ') || 'No response received'
+      const secondPart = wholeResponse.split(' ').slice(6,12).join(' ') || ''
+      const thirdPart = wholeResponse.split(' ').slice(12,18).join(' ') || ''
+      const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
+      console.log("wholeResponse", wholeResponse)
+      console.log(firstPart, secondPart, thirdPart)
+      setTimeout(() => {
+        setLoadingAnalysisResult(false)
+        setAnalysisResult(`
+  TARGET                               RESPONSE
+  ______                               ______________________________    
+  
+  ??° ?' ■■"               ${firstPart}
+  ■■■■° NW                ${secondPart}
+                            ${thirdPart}
+                                ${restPart ? '...' : ''}
+            
+            
+  
+  
+  
+  `)
+      }, 3000)
+    } catch (error) {
+      console.error('Error sending CRV report:', error);
+      setLoadingAnalysisResult(false)
+      setAnalysisResult(`
+  TARGET                               RESPONSE
+  ______                               ______________________________    
+  
+  ??° ?' ■■"               Error analyzing data
+  ■■■■° NW                sun shining, solid ship head north
+            
+            
+  
+  
+  
+  `)
+    }
+  }
+  
+  
   
 
   useEffect(() => {
@@ -263,27 +304,7 @@ export const BewGame = () => {
           setEnableLocked={setEnableLocked}
           enableLocked={enableLocked}
           playerRotation={playerRotation}
-          onClose={() => {
-            setFocusLevel(0);
-            focusStageRef.current = 0;
-            setIsLocked(false);
-            setLoadingAnalysisResult(true)
-            playSoundEffect("/sfx/stickyshift.mp3", 0.05)
-            setTimeout(() => {
-              setLoadingAnalysisResult(false)
-              setAnalysisResult(`
-TARGET                               RESPONSE
-______                               ______________________________    
-
-??° ?' ■■"               Ocean, beautiful blue-green waves,
-■■■■° NW                sun shining, solid ship head north
-                    
-                    
-
-
-`)
-            }, 3000)
-          }}
+          onSend={sendCRVReport}
         />
       )}
       <Canvas camera={{ fov: 125 }} shadows={LS_lowGraphics ? false : true}>
@@ -296,6 +317,11 @@ ______                               ______________________________
         <Plane args={[4,2]} position={[0,2,-26.49]} rotation={[0,0,0]} receiveShadow>
           <meshStandardMaterial color="#888888" roughness={0.15}  />
         </Plane>
+        {!!loadingAnalysisResult && (
+          <group position={[0,2,-26.5]} rotation={[0,-0,0]}>
+            <RotatingBar />
+          </group>
+        )}
         {
         !!analysisResult &&
          (<>
@@ -410,12 +436,4 @@ ______                               ______________________________
 
 
 
-const AnalysisScreen = ({ analysisResult }: { analysisResult: string }) => {
-  return (
-    <Text font={"/fonts/wallpoet.ttf"}  fontSize={0.1} color={"#448844"} 
-    anchorX="center" anchorY="top" textAlign="left"
-    >
-      {analysisResult}
-    </Text>
-  )
-}
+

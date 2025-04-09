@@ -73,8 +73,6 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
     playSoundEffect,
   };
 
-  console.log('BewProvider: contextValue is', contextValue); // Keep for debugging if needed
-
   return (
     <BewContext.Provider value={contextValue}>
       <SnackbarNotif />
