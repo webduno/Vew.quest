@@ -12,7 +12,7 @@ import { TheRoom } from './TheRoom';
 import { AnalogModalScreen } from './AnalogModalScreen';
 import { BewPhysicsScene } from './BewPhysicsScene';
 import { PhysicalWall } from './PhysicalWall';
-import { Box } from '@react-three/drei';
+import { Plane, Text } from '@react-three/drei';
 import { useVibeverse } from '@/dom/useVibeverse';
 import { VibeverseContext } from '@/dom/VibeverseProvider';
 import { Stats } from '@react-three/drei';
@@ -74,6 +74,9 @@ export const BewGame = () => {
     fps: 0,
     frameTime: 0
   });
+  
+  const [loadingAnalysisResult, setLoadingAnalysisResult] = useState(false)
+  const [analysisResult, setAnalysisResult] = useState<string>("")
 
   const [code1, setCode1] = useState("")
   const [code2, setCode2] = useState("")
@@ -250,11 +253,9 @@ export const BewGame = () => {
           />
           </div>
           )}
-
-
-          
-          
       </div>
+
+      
 
 
       {focusLevel !== 0 && (
@@ -266,7 +267,22 @@ export const BewGame = () => {
             setFocusLevel(0);
             focusStageRef.current = 0;
             setIsLocked(false);
+            setLoadingAnalysisResult(true)
             playSoundEffect("/sfx/stickyshift.mp3", 0.05)
+            setTimeout(() => {
+              setLoadingAnalysisResult(false)
+              setAnalysisResult(`
+TARGET                               RESPONSE
+______                               ______________________________    
+
+??° ?' ■■"               Ocean, beautiful blue-green waves,
+■■■■° NW                sun shining, solid ship head north
+                    
+                    
+
+
+`)
+            }, 3000)
           }}
         />
       )}
@@ -277,7 +293,16 @@ export const BewGame = () => {
         <BewLighting />
 
 
-
+        <Plane args={[4,2]} position={[0,2,-26.49]} rotation={[0,0,0]} receiveShadow>
+          <meshStandardMaterial color="#888888" roughness={0.15}  />
+        </Plane>
+        {
+        !!analysisResult &&
+         (<>
+          <group position={[0,2.9,-26.48]} rotation={[0,-0,0]}>
+          <AnalysisScreen analysisResult={analysisResult} />
+          </group>
+        </>)}
 
         <Physics
           gravity={[0, -30, 0]}
@@ -385,3 +410,12 @@ export const BewGame = () => {
 
 
 
+const AnalysisScreen = ({ analysisResult }: { analysisResult: string }) => {
+  return (
+    <Text font={"/fonts/wallpoet.ttf"}  fontSize={0.1} color={"#448844"} 
+    anchorX="center" anchorY="top" textAlign="left"
+    >
+      {analysisResult}
+    </Text>
+  )
+}

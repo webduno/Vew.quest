@@ -30,9 +30,9 @@ ______                   __________________
                     sun shining, solid ship head north
                     
                     └┴---__ ¶
-                       (from altitude 1500' above terrain)
- 38°23' 45-48"N           battleground in civil war-low- cloudy
- 79° 25' 00"W            creeks, reservoirs ###STORM
+                       (from altitude 1500' above ■■■■■■■■■■■■■■)
+ 38°23' ■■■■■■"N           battleground in civil war-low ■■■■■■■
+ ■■■° 25' 00"W            cloudy, reservoirs ###STORM
 `}
 {/* {`
 As a result of the experimentation carried out
