@@ -74,10 +74,11 @@ const random10CharString = () => {
       {!!LS_playerId && !isGameLoading && (
         <Link 
       style={{
-        color: "#775522",
+        color: "#cc8822",
+        textShadow: "0 0 10px #996622, 1px 1px 0 #000000",
       }}
-      className="ma-2 tx-altfont-5 tx-shadow-5 translate-x-25 nodeco" href="/game">
-      <BewMenuButton>Continue</BewMenuButton></Link>)}
+      className="ma-2 tx-altfont-5  translate-x-25 nodeco" href="/game">
+      <BewMenuButton classOverride="hover-jump">Continue</BewMenuButton></Link>)}
       {!isGameLoading && !enterUsername &&
 
         <div onClick={() => {
@@ -95,7 +96,7 @@ const random10CharString = () => {
 
 
       
-        {enterUsername && <div className="pa- 2 pl-0 flex-row-r gap-2 pointer  ">
+        {enterUsername && <div className="pa- 2 pl-0 flex-row-r gap-3 pointer  ">
           {!isGameLoading && <>
           {/* <label className="tx-altfont-1 tx-md tx-black">Username</label> */}
           <input type="text" placeholder="Username" autoFocus
