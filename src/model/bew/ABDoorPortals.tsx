@@ -5,11 +5,12 @@ import { PhysicalWall } from './PhysicalWall';
 import { useState, useEffect, useRef } from 'react';
 import { StyledWall } from './StyledWall';
 import { RegularKey } from './RegularKey';
-
+import { useBew } from './BewProvider';
 
 
 
 export const ABDoorPortals = ({ setPlayerPosition, hasFirstKey, setHasFirstKey }: { setPlayerPosition: (position: [number, number, number]) => void; hasFirstKey: boolean; setHasFirstKey: (hasFirstKey: boolean) => void; }) => {
+  const { showSnackbar, closeSnackbar } = useBew();
   const [cooldown, setCooldown] = useState(false);
   const [doorVisible, setDoorVisible] = useState(true);
   // Use a ref to always have the latest value of hasFirstKey
@@ -39,6 +40,10 @@ const openDoorProcess = () => {
 <PhysicalTrigger triggerCount={1} visible={false}
       onCollide={(e) => {
         setHasFirstKey(true);
+        showSnackbar("You've found the key!", 'info');
+        setTimeout(() => {
+          closeSnackbar();
+        }, 4000);
         // Directly update the ref for immediate access
         hasKeyRef.current = true;
       }}

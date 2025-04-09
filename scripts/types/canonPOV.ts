@@ -8,6 +8,7 @@ export interface CanonPOVProps {
 }
 
 export interface PhysicsSceneProps extends CanonPOVProps {
+  isCutSceneOpen: boolean
   isMobile: boolean
   playerHeight?: number
   playerRadius?: number

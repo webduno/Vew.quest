@@ -17,6 +17,7 @@ import { useVibeverse } from '@/dom/useVibeverse';
 import { VibeverseContext } from '@/dom/VibeverseProvider';
 import { Stats } from '@react-three/drei';
 import { useSearchParams } from 'next/navigation';
+import { useBew } from './BewProvider';
 
 // Performance stats component that works inside Canvas
 const PerformanceStats = ({ onStatsUpdate }: { onStatsUpdate: (stats: any) => void }) => {
@@ -51,6 +52,7 @@ const PerformanceStats = ({ onStatsUpdate }: { onStatsUpdate: (stats: any) => vo
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, formatPortalUrl } = useContext(VibeverseContext)
+  const { showSnackbar, closeSnackbar, isCutSceneOpen, setIsCutSceneOpen } = useBew();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [focusLevel, setFocusLevel] = useState(0);
   const focusStageRef = useRef<any>(0);
@@ -110,19 +112,6 @@ export const BewGame = () => {
     setTeleportTrigger(prev => prev + 1);
   }, []);
 
-  // Effect to listen for code input visibility changes from PhysicalTrigger
-  // useEffect(() => {
-  //   const handleCodeInputDisplay = (event: CustomEvent) => {
-  //     setShowCodeInput(true);
-  //   };
-    
-  //   window.addEventListener('showCodeInput' as any, handleCodeInputDisplay);
-    
-  //   return () => {
-  //     window.removeEventListener('showCodeInput' as any, handleCodeInputDisplay);
-  //   };
-  // }, []);
-
   // Handle code input submission
   const CODE_1 = "scanate"
   const CODE_2 = "sunstreak"
@@ -145,10 +134,14 @@ export const BewGame = () => {
     // disable the movement for 10 seconds
     // while the intro cutscene plays
     // then enable the movement again
-    setEnableLocked(false)
+    setIsCutSceneOpen(true);
+    setEnableLocked(false);
+    showSnackbar(`You are in the training room... Take a seat.`, 'info');
     setTimeout(() => {
-      setEnableLocked(true)
-    }, 10000)
+      closeSnackbar();
+      setIsCutSceneOpen(false);
+      setEnableLocked(true);
+    }, 5000);
   }
 
   return (
@@ -305,6 +298,7 @@ export const BewGame = () => {
 
           
           <BewPhysicsScene
+            isCutSceneOpen={isCutSceneOpen}
             playerHeight={1.8}
             playerRadius={0.4}
             moveSpeed={focusStageRef.current === 0 ? 8 : 0}

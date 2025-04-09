@@ -17,10 +17,12 @@ export const TheRoom = ({ onTriggerCollide, onRoomEnter }: TheRoomProps) => {
 
 
 
-<PhysicalTrigger color="#ffeeee"
-        visible={false}
-        size={[0.5, 1.5, 0.5]}
-        position={[2, .75, -21.25]} rotation={[0, 2, 0]}
+<PhysicalTrigger color="#ffeeee" visible={false}
+        triggerCount={1}
+        size={[2, 1.5, 1]}
+        // position={[0, .75, -4]} 
+        position={[0, .75, -16]} 
+        rotation={[0, 0, 0]}
         onCollide={onRoomEnter}
     />
 

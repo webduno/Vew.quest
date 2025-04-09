@@ -94,6 +94,7 @@ function PlayerCylinder({
 }
 
 export function BewPhysicsScene({ 
+  isCutSceneOpen,
   position, 
   onExit, 
   isMobile, 
@@ -484,6 +485,9 @@ export function BewPhysicsScene({
   
   // Update player rotation values based on camera orientation
   useFrame(() => {
+    // Early return if cutscene is open to prevent player movement
+    if (isCutSceneOpen) return;
+    
     if (camera) {
       const newRotation = {
         x: camera.rotation.x,

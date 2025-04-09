@@ -85,7 +85,15 @@ const random10CharString = () => {
             {isGameLoading ? "Wait..." : "ENTER"}
           </BewMenuButton>
         </div>}
-        <Link 
+        {!!LS_playerId && (
+          <Link 
+        style={{
+          color: "#222222",
+        }}
+        className=" nodeco" href="/game">
+        <BewMenuButton>Continue</BewMenuButton></Link>)}
+
+          <Link 
         style={{
           color: "#222222",
         }}
