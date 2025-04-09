@@ -46,6 +46,7 @@ const openDoorProcess = () => {
       onCollide={(e) => {
         setHasFirstKey(true);
         showSnackbar("Great job! You've found the key", 'info');
+        playSoundEffect("/sfx/keys.mp3")
         setTimeout(() => {
           closeSnackbar();
         }, 4000);

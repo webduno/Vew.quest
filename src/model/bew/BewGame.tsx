@@ -52,7 +52,7 @@ const PerformanceStats = ({ onStatsUpdate }: { onStatsUpdate: (stats: any) => vo
 };
 
 export const BewGame = () => {
-  const { LS_playerId, LS_lowGraphics, formatPortalUrl } = useContext(VibeverseContext)
+  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, formatPortalUrl } = useContext(VibeverseContext)
   
   const { isCutSceneOpen, showSnackbar, closeSnackbar, setIsCutSceneOpen, playSoundEffect } = useBew();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -96,6 +96,11 @@ export const BewGame = () => {
     // alert("You've triggered a collision event!");
     focusStageRef.current = focusStageRef.current +1
     setFocusLevel((prev) => prev + 1)
+    playSoundEffect("/sfx/sensemeter-intro.ogg")
+    showSnackbar("1. Navigate settings - 2. Intuition input - 3. Send for Review", 'info')
+    setTimeout(() => {
+      closeSnackbar();
+    }, 10000)
     // setEnableLocked(false)
     // setIsLocked(true)
     // setInitialPosition([0, 1, 3])
@@ -176,7 +181,8 @@ export const BewGame = () => {
     <div className='pos-abs top-0 left-0 w-100 h-100 flex-col'>
       
 
-      <BackgroundMusic />
+
+      <BackgroundMusic firstTime={LS_firstTime} disableFirstTime={disableFirstTime} />
 
 
       {/* Performance Stats in top right corner */}
@@ -245,6 +251,7 @@ export const BewGame = () => {
             setFocusLevel(0);
             focusStageRef.current = 0;
             setIsLocked(false);
+            playSoundEffect("/sfx/stickyshift.mp3", 0.05)
           }}
         />
       )}

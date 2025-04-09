@@ -36,6 +36,8 @@ const random10CharString = () => {
         <div style={{filter: "blur(10px)"}}
           className='pa-7 bg-b-90 pos-abs'></div>
 
+
+{!isGameLoading && <>
         <div className='px-2 pt-2 pb-1 z-100'
         style={{
           transform: "rotate(-8deg)",
@@ -54,6 +56,10 @@ const random10CharString = () => {
             <div>- mars 1m y BCE</div>
           </div>
         </div>
+        </>}
+
+
+
 
 
       </div>
@@ -63,14 +69,33 @@ const random10CharString = () => {
         transform: "translateX(-10px)",
       }}
       >
+      {!!LS_playerId && !isGameLoading && (
+        <Link 
+      style={{
+        color: "#775522",
+      }}
+      className="ma-2 tx-altfont-5 tx-shadow-5 translate-x-25 nodeco" href="/game">
+      <BewMenuButton>Continue</BewMenuButton></Link>)}
+      {!isGameLoading && !enterUsername &&
+
         <div onClick={() => {
           setEnterUsername(true)
         }}
         style={{
           color: "#111111",
         }} className="pointer " data-href="/game">
+
         <BewMenuButton><div style={{borderBottom: "1px solid #111111"}}>New Game</div></BewMenuButton></div>
-        {enterUsername && <div className="pa-2 flex-col gap-1 pointer  w-150px">
+
+
+      }
+
+
+
+      
+        {enterUsername && <div className="pa- 2 pl-0 flex-row-r gap-2 pointer  ">
+          {!isGameLoading && <>
+          {/* <label className="tx-altfont-1 tx-md tx-black">Username</label> */}
           <input type="text" placeholder="Username" autoFocus
            className="w-100px tx-center pa-1 bord-r-5"
            onKeyDown={(e) => {
@@ -80,19 +105,16 @@ const random10CharString = () => {
           }}
           style={{ background:"#494644", color: "#ccbbaa" }} value={typedUsername}
           onChange={(e) => { setTypedUsername(sanitizePlayerId(e.target.value)) }} />
+          </>}
           <BewMenuButton onClick={() => { triggerNewGame() }}
-            classOverride="tx-altfont-5">
-            {isGameLoading ? "Wait..." : "ENTER"}
+            classOverride={"tx-altfont-5 " + (isGameLoading ? " hover-4" : "")}>
+            {isGameLoading ? "Loading..." : "ENTER GAME"}
           </BewMenuButton>
         </div>}
-        {!!LS_playerId && (
-          <Link 
-        style={{
-          color: "#222222",
-        }}
-        className=" nodeco" href="/game">
-        <BewMenuButton>Continue</BewMenuButton></Link>)}
 
+
+
+          {!isGameLoading && <>
           <Link 
         style={{
           color: "#222222",
@@ -103,9 +125,20 @@ const random10CharString = () => {
         style={{
           color: "#333333",
         }}
-          className=" nodeco" href="/about">
-        <BewMenuButton>About</BewMenuButton></Link>
+          className=" nodeco" href="/config">
+        <BewMenuButton>
+          {/* cog emoji */}
+          <span className="">🔧</span>
+          </BewMenuButton></Link></>}
+
+
+
+
       </div>
+
+
+
+      {!isGameLoading && <>
 <div className="pt-2 pl-2">
   
     <div className="  flex-row  bord-r-5" style={{ background: "#262320",}}>
@@ -121,6 +154,7 @@ const random10CharString = () => {
        className="tx-white opaci-50 pa-2 pointer">Low Graphics</label>
       </div>
 </div>
+</>}
     </div>
   </>)
 }

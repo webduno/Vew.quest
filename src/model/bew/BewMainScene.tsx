@@ -85,7 +85,7 @@ position={[-2.49,2.6,0.8]} rotation={[0,Math.PI/2,0]}
 
 <Text fontSize={0.25} color="#343434" 
 anchorX="left" anchorY="middle" textAlign="left"
-position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]}
+position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]} font="/fonts/raleway.ttf"
 >
 {`
   1. Find the key
@@ -94,13 +94,14 @@ position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]}
   3. Start CRV training
 `}
 </Text>
-
+{hasFirstKey && <>
 <Text fontSize={0.25} color="#171717"  font="/fonts/beanie.ttf"
 anchorX="left" anchorY="middle" textAlign="left"
 position={[-2.49,.8,1.45]} rotation={[0,Math.PI/2,0]}
 >
 {`3.x E/Sensory data refinement`}
 </Text>
+</>}
 
 
 

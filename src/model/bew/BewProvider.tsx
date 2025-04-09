@@ -119,10 +119,10 @@ export const SnackbarNotif = () => {
 const HardBadge = ({ children }: { children: ReactNode }) => {
   return (
     
-    <div className='z-100 tx-altfont-5 tx-md bord-r-5 pa-1 w-200px'
+    <div className='z-100 tx-altfont-5  bord-r-5 pa-1 w-200px'
     style={{ background: "#3d3d3d", boxShadow:"0 4px 20px #55333377" }}
     >
-      <div className='tx-altfont-5 tx-mdl px-4 py-2  bord-r-5'
+      <div className='tx-altfont-5 tx-md px-4 py-2  bord-r-5'
       style={{
         boxShadow: 'inset 1px 1px 3px 0 #aaaaaa, inset -3px -3px 5px 0 #111111',
         background: '#1d1d1d',
@@ -137,10 +137,10 @@ const HardBadge = ({ children }: { children: ReactNode }) => {
 const PaperSheet = ({ children }: { children: ReactNode }) => {
   return (
     
-    <div className='px-2 pt-2 pb-1 z-100 tx-altfont-8  mt-4 tx-lgx w-150px'
+    <div className='px-2 pt-2 pb-1 z-100 tx-altfont-8   tx-lgx w-150px'
     style={{
       transform: "rotate(-2deg)",
-      clipPath: "polygon(50% 0%, 100% 0, 98% 60%, 100% 97%, 4% 100%, 0% 60%, 2% 3%)",
+      clipPath: "polygon(50% 0%, 100% 2%, 98% 60%, 100% 97%, 4% 100%, 0% 60%, 2% 3%)",
       background: "linear-gradient(0deg, #706C61, #8F8B7D, #605C51)",
     }}
     >

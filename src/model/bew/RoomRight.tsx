@@ -3,9 +3,12 @@ import { Box, Plane, Text } from '@react-three/drei';
 import { CardboardBox } from './CardboardBox';
 import { StyledWall } from './StyledWall';
 import { PhysicalWall } from './PhysicalWall';
-
+import { PhysicalTrigger } from './PhysicalTrigger';
+import { useBew } from './BewProvider';
 
 export const RoomRight = () => {
+  const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
+
   return (<>
 
 
@@ -63,6 +66,15 @@ rotation={[0,Math.PI/2,0.05]} fontSize={.15} font={"/fonts/beanie.ttf"}
 >
 {`the mind goes thru walls`}
 </Text>
+
+
+<PhysicalTrigger triggerCount={1}  color="#ff9900" visible={false}
+onCollide={() => {
+  playSoundEffect("/sfx/trapped.mp3")
+}}
+position={[3,2, -10]}
+size={[.51,4,1]}
+/>
 
 
 <PhysicalWall  visible={false} color="#ff9900"

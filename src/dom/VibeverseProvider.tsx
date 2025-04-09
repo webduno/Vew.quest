@@ -12,6 +12,8 @@ type VibeverseContextType = {
   sanitizePlayerId: (playerId: string) => string;
   LS_lowGraphics: boolean;
   toggleLowGraphics: () => void;
+  LS_firstTime: boolean;
+  disableFirstTime: () => void;
 };
 
 // Create the context with default values
@@ -23,7 +25,9 @@ export const VibeverseContext = createContext<VibeverseContextType>({
   setPlayerId: (playerId: string) => {},
   sanitizePlayerId: (playerId: string) => playerId,
   LS_lowGraphics: false,
-  toggleLowGraphics: () => {}
+  toggleLowGraphics: () => {},
+  LS_firstTime: true,
+  disableFirstTime: () => {}
 });
 
 // Provider component
