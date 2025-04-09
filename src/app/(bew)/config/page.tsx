@@ -2,11 +2,11 @@
 
 export default function AboutPage() {
   return <div>
-    <ConfigPage />
+    <ConfigPageComponent />
   </div>;
 } 
 
-export const ConfigPage = () => {
+export const ConfigPageComponent = () => {
   return <div className="w-100 flex-col">
     <i className="tx-white tx-altfont-5 tx-xl mt-8">Config</i>
     <div>
