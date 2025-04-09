@@ -13,6 +13,7 @@ const BackgroundMusicContext = createContext<BackgroundMusicContextType | undefi
 
 export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [shouldPlayOnFocus, setShouldPlayOnFocus] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const soundEffectsRef = useRef<{ [key: string]: HTMLAudioElement }>({});
 
@@ -43,15 +44,51 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
       if (document.hidden && audioRef.current) {
         audioRef.current.pause();
         setIsPlaying(false);
+        // Remember that music should play when tab becomes visible again
+        if (isPlaying) {
+          setShouldPlayOnFocus(true);
+        }
+      } else if (!document.hidden && audioRef.current && shouldPlayOnFocus) {
+        // Resume playing when tab becomes visible again
+        audioRef.current.play().catch(error => {
+          console.log('Error resuming background music:', error);
+        });
+        setIsPlaying(true);
+        setShouldPlayOnFocus(false);
+      }
+    };
+
+    // Handle window blur (when browser loses focus entirely)
+    const handleWindowBlur = () => {
+      if (audioRef.current && isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+        // Remember that music should play when window regains focus
+        setShouldPlayOnFocus(true);
+      }
+    };
+
+    // Handle window focus (when browser regains focus)
+    const handleWindowFocus = () => {
+      if (audioRef.current && shouldPlayOnFocus) {
+        audioRef.current.play().catch(error => {
+          console.log('Error resuming background music:', error);
+        });
+        setIsPlaying(true);
+        setShouldPlayOnFocus(false);
       }
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleWindowBlur);
+    window.addEventListener('focus', handleWindowFocus);
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleWindowBlur);
+      window.removeEventListener('focus', handleWindowFocus);
     };
-  }, []); // Empty dependency array since we don't need any dependencies
+  }, [isPlaying, shouldPlayOnFocus]); // Add shouldPlayOnFocus to dependencies
 
   const playIfNotPlaying = async () => {
     if (!isPlaying && audioRef.current) {

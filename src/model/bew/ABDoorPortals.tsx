@@ -23,8 +23,12 @@ export const ABDoorPortals = ({ setPlayerPosition, hasFirstKey, setHasFirstKey }
 
 const openDoorProcess = () => {
   setTimeout(() => {
-    setDoorVisible(false);
-    playSoundEffect('/sfx/ddoor.mp3');
+    setDoorVisible((prev) => {
+      if (prev) {
+        playSoundEffect('/sfx/ddoor.mp3');
+      }
+      return false;
+    });
   }, 1000)
 }
 

@@ -53,7 +53,8 @@ const PerformanceStats = ({ onStatsUpdate }: { onStatsUpdate: (stats: any) => vo
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, formatPortalUrl } = useContext(VibeverseContext)
-  const { showSnackbar, closeSnackbar, isCutSceneOpen, setIsCutSceneOpen } = useBew();
+  
+  const { isCutSceneOpen, showSnackbar, closeSnackbar, setIsCutSceneOpen, playSoundEffect } = useBew();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [focusLevel, setFocusLevel] = useState(0);
   const focusStageRef = useRef<any>(0);
@@ -121,6 +122,9 @@ export const BewGame = () => {
     const inputValue = (e.target as HTMLInputElement).value;
     if (inputValue === CODE_1) {
       setCode1(inputValue)
+      if (!!code2) {
+        playSoundEffect("/sfx/goodcode.mp3")
+      }
     }
   };
 
@@ -128,6 +132,9 @@ export const BewGame = () => {
     const inputValue = (e.target as HTMLInputElement).value;
     if (inputValue === CODE_2) {
       setCode2(inputValue)
+      if (!!code1) {
+        playSoundEffect("/sfx/goodcode.mp3")
+      }
     }
   };
 
@@ -137,7 +144,9 @@ export const BewGame = () => {
     // then enable the movement again
     setIsCutSceneOpen(true);
     setEnableLocked(false);
-    showSnackbar(`You are in the training room... Sit down.`, 'title');
+    showSnackbar(`You've entered the training room... Sit down.`, 'title');
+    playSoundEffect("/sfx/sitdown.ogg")
+
     setTimeout(() => {
       closeSnackbar();
       setIsCutSceneOpen(false);
