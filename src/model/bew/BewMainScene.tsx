@@ -26,16 +26,13 @@ export const BewMainScene = ({ setPlayerPosition,
     code2?: string, 
     code3?: string  }) => {
 
-  const { LS_playerId, LS_lowGraphics, formatPortalUrl } = useContext(VibeverseContext)
+  const { LS_playerId, LS_lowGraphics, formatPortalUrl, LS_hasFirstKey, setHasFirstKey } = useContext(VibeverseContext)
   const vb_ref = useSearchParams().get("ref")
 
-  const [hasFirstKey, setHasFirstKey] = useState(false);
-  
-  
   // Memoize the handler with useCallback to prevent recreation
   const handleKeyCollection = useCallback((value: boolean) => {
     setHasFirstKey(value);
-  }, []);
+  }, [setHasFirstKey]);
 
   return (
     <group position={[0, 0, 0]}>
@@ -94,7 +91,7 @@ position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]} font="/fonts/raleway.ttf
   3. Start CRV training
 `}
 </Text>
-{hasFirstKey && <>
+{LS_hasFirstKey && <>
 <Text fontSize={0.25} color="#171717"  font="/fonts/beanie.ttf"
 anchorX="left" anchorY="middle" textAlign="left"
 position={[-2.49,.8,1.45]} rotation={[0,Math.PI/2,0]}
@@ -117,7 +114,7 @@ position={[-2.49,.8,1.45]} rotation={[0,Math.PI/2,0]}
       <RoomRight />
       <RoomLeft />
 
-      <ABDoorPortals setPlayerPosition={setPlayerPosition} hasFirstKey={hasFirstKey} setHasFirstKey={handleKeyCollection} />
+      <ABDoorPortals setPlayerPosition={setPlayerPosition} hasFirstKey={LS_hasFirstKey} setHasFirstKey={handleKeyCollection} />
 
       <BCDoorPortals setPlayerPosition={setPlayerPosition} />
       <CDDoorPortals code1={code1} code2={code2} code3={code3} setPlayerPosition={setPlayerPosition} />

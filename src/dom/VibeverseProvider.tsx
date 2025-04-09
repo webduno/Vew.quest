@@ -14,6 +14,8 @@ type VibeverseContextType = {
   toggleLowGraphics: () => void;
   LS_firstTime: boolean;
   disableFirstTime: () => void;
+  LS_hasFirstKey: boolean;
+  setHasFirstKey: (value: boolean) => void;
 };
 
 // Create the context with default values
@@ -27,7 +29,9 @@ export const VibeverseContext = createContext<VibeverseContextType>({
   LS_lowGraphics: false,
   toggleLowGraphics: () => {},
   LS_firstTime: true,
-  disableFirstTime: () => {}
+  disableFirstTime: () => {},
+  LS_hasFirstKey: false,
+  setHasFirstKey: (value: boolean) => {}
 });
 
 // Provider component

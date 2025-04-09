@@ -9,6 +9,7 @@ export function useVibeverse() {
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const [typedUsername, setTypedUsername] = useState("");
   const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(false);
+  const [LS_hasFirstKey, setLS_hasFirstKey] = useState<boolean>(false);
   const router = useRouter()
   const searchParams = useSearchParams()
   // const pathname = usePathname()
@@ -17,6 +18,11 @@ export function useVibeverse() {
     setLS_firstTime(false);
     localStorage.setItem('VB_ALREADY_PLAYED', 'true');
   }
+
+  const setHasFirstKey = (value: boolean) => {
+    localStorage.setItem('VB_HAS_FIRST_KEY', value ? '1' : '0');
+    setLS_hasFirstKey(value);
+  };
 
   const formatPortalUrl = (url: string) => {
     const local_username = localStorage.getItem("VB_PLAYER_ID") || ""
@@ -64,6 +70,11 @@ export function useVibeverse() {
 
     const alreadyPlayed: any = localStorage.getItem('VB_ALREADY_PLAYED');
     setLS_firstTime(!alreadyPlayed);
+
+    const hasFirstKey: string | null = localStorage.getItem('VB_HAS_FIRST_KEY');
+    if (hasFirstKey !== null) {
+      setLS_hasFirstKey(hasFirstKey === '1');
+    }
   }, []);
 
   return {
@@ -76,6 +87,8 @@ export function useVibeverse() {
     LS_lowGraphics,
     toggleLowGraphics,
     LS_firstTime,
-    disableFirstTime
+    disableFirstTime,
+    LS_hasFirstKey,
+    setHasFirstKey
   };
 };

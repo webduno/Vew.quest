@@ -17,6 +17,8 @@ const random10CharString = () => {
 
   const router = useRouter()
   const triggerNewGame = () => {
+    localStorage.removeItem('VB_HAS_FIRST_KEY')
+
     setGameLoading(true)
 
     const pre_thePlayerId = !typedUsername ? random10CharString() : sanitizePlayerId(typedUsername)
