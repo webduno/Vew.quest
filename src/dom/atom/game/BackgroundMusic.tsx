@@ -2,45 +2,93 @@
 
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
 import { GameButton } from './GameButton';
+import { useState } from 'react';
 
 export function BackgroundMusic({ firstTime,disableFirstTime }: { firstTime: boolean,disableFirstTime: () => void }) {
   const { isPlaying, togglePlay } = useBackgroundMusic();
+  const [show, setShow] = useState(true);
 
-  if (firstTime) {
-    return (
-      <div className='flex-col gap-1 pos-abs z-1000 bord-r-10 px-2 '
+  // if (firstTime)
+  if (show)
+    {
+    return (<>
+      <div className=' w-100vw h-100vh bottom-0 left-0 flex-col pos-abs bg-glass-3 z-100' >
+        <div className='w-100 h-100  pos-abs'
+        onClick={() => {
+          togglePlay();
+          setShow(false);
+          disableFirstTime();
+        }}
+        ></div>
+
+      <div className='flex-col gap-1 z-1000 px-2 pos-rel py-1 '
       style={{
-        background: "radial-gradient(#555555 , #000000 )",
-        boxShadow: "0 0 1px 6px #886633, 2px 2px 1px 9px #443311, -1px -1px 2px 7px #ffccaa",
+        borderRadius: "2px",
+        background: "radial-gradient(#666666 , #111111 )",
+        boxShadow: "8px 0 0 12px #666666, 8px 0 1px 20px #5A4F43, 12px 2px 1px 25px #302923, 9px -1px 1px 23px #8C887A",
       }}
       >
-                <div className='tx-white tx-shadow-5 translate-y-25 tx-altfont-1 tx-mdl tx-center'>Play with  <br /> audio?</div>
+        <div className='tx-white tx-shadow-5 tx-altfont-1 pa-2 tx-lg tx-center bord-r-25'
+        style={{
+          background: "radial-gradient(#556677 , #101914 )",
+          boxShadow: "inset 0 2px 5px #00000077",
+        }}
+        >
+          Play with  <br /> audio?
+        </div>
 
-      <div className='flex-row gap-1 translate-y-50'>
+      <div className='flex-col-r gap-1  pos-abs right-0 flex-align-start '
+      
+      style={{
+        transform: "translateX(120%)",
+        // background: "radial-gradient(#666666 , #111111 )",
+        // boxShadow: "0 0 1px 16px #5B5A52, 2px 2px 1px 21px #33322D, -1px -1px 1px 19px #8C887A",
+      }}
+      >
+      <button  className="bord-r-5 pointer py-1 pb-2 hover-4 mt-2 tx-white tx-shadow-5"
+      onClick={() => {
+        togglePlay();
+        disableFirstTime();
+        setShow(false)
+      }}
+      style={{
+        // background: "#336633",
+        background: "#668866",
+        border: "1px solid #66ff66",
+      }}
+        >
+          <span className='tx-mdl'>🔊 Yes</span>
+        </button>
       <button  className="bord-r-5 pointer pb-1 "
       onClick={() => {
         disableFirstTime();
+        setShow(false)
       }}
       style={{
-        background: "#663333",
+        // background: "#663333",
+        background: "#666666",
       }}
         >
           <span className='tx-mdl'>🔇</span>
         </button>
-      <button  className="bord-r-5 pointer pb-1 "
+        
+      <button  className="bord-r-100 tx-white px-2 pointer pb-1 "
       onClick={() => {
-        togglePlay();
-        disableFirstTime();
+        // disableFirstTime();
+        setShow(false)
       }}
       style={{
-        background: "#336633",
+        // background: "#663333",
+        background: "#666666",
       }}
         >
-          <span className='tx-mdl'>🔊</span>
+          <span className='tx-mdl opaci-25'>x</span>
         </button>
         </div>
+        
         </div>
-    )
+      </div>
+      </>)
   }
 
   return (
@@ -52,7 +100,7 @@ export function BackgroundMusic({ firstTime,disableFirstTime }: { firstTime: boo
         position: 'fixed',
       }}
     >
-      <button  className="bord-r-5 pointer pb-1 "
+      <button  className="bord-r-5 pointer pb-1 " tabIndex={-1}
       style={{
         background: "#333333",
       }}

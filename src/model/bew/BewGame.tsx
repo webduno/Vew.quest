@@ -156,7 +156,7 @@ export const BewGame = () => {
       closeSnackbar();
       setIsCutSceneOpen(false);
       setEnableLocked(true);
-    }, 5000);
+    }, 4000);
   }
 
 
