@@ -2,8 +2,8 @@
 
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
 import { GameButton } from './GameButton';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoading }: { 
   firstTime: boolean,
   disableFirstTime: () => void,
@@ -11,6 +11,15 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
 }) {
   const { isPlaying, togglePlay } = useBackgroundMusic();
   const [show, setShow] = useState(true);
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    // if ref url param has something, dont show the click to start
+    const ref = searchParams.get("ref")
+    if (ref) {
+      setShow(false)
+    }
+  }, []);
 
   if (show) {
     return (<>

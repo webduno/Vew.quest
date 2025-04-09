@@ -19,8 +19,9 @@ export function useVibeverse() {
   }
 
   const formatPortalUrl = (url: string) => {
-    const url_username = searchParams.get("username")
-    if (!url_username) { return url }
+    const local_username = localStorage.getItem("VB_PLAYER_ID") || ""
+    const url_username = searchParams.get("username") || local_username
+    // if (!url_username) { return url }
 
     // if it doesnt have a protocol, add https://
     const parsedUrl = !url.startsWith("http") ? "https://" + url : url
