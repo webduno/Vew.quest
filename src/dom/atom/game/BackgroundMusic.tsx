@@ -4,67 +4,59 @@ import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext
 import { GameButton } from './GameButton';
 import { useState } from 'react';
 
-export function BackgroundMusic({ firstTime,disableFirstTime }: { firstTime: boolean,disableFirstTime: () => void }) {
+export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoading }: { 
+  firstTime: boolean,
+  disableFirstTime: () => void,
+  isEverythingLoading: boolean 
+}) {
   const { isPlaying, togglePlay } = useBackgroundMusic();
   const [show, setShow] = useState(true);
 
-  if (show)
-    {
+  if (show) {
     return (<>
-      <div className=' w-100vw h-100vh bottom-0 left-0 flex-col pos-abs bg-glass-3 z-100' >
-        <div className='w-100 h-100  pos-abs'
-        style={{
-          cursor: "pointer",
-        }}
-        onClick={() => {
-          console.log("clicked start to play")
-          togglePlay();
-          setShow(false);
-          disableFirstTime();
-        }}
+      <div className='w-100vw h-100vh bottom-0 left-0 flex-col pos-abs bg-glass-3 z-100' >
+        <div className='w-100 h-100 pos-abs'
+          style={{
+            cursor: isEverythingLoading ? "default" : "pointer",
+          }}
+          onClick={() => {
+            if (isEverythingLoading) return;
+            console.log("clicked start to play")
+            togglePlay();
+            setShow(false);
+            disableFirstTime();
+          }}
         ></div>
 
-
-
-{/* <div className=' nowrap tx-white opaci-50 tx-shadow-5 top-0 translate-y--100 pb-100 tx-altfont-8 tx-xl tx-center p l-3'>
-          Tap the screen to play
-        </div> */}
-
-<div className='pos-rel z-1000 noclick'>
-      <div className='flex-row-r gap-1  flex-align-center '
-      
-      style={{
-      }}
-      >
-      <button  className="bord-r-5 noclick pointer py-1 pb-2  tx-white tx-shadow-5 tx-altfont-1 opaci-chov--75"
-      
-      style={{
-        background: "#668866",
-        border: "1px solid #66ff66",
-      }}
-        >
-          <span className='tx-xl px-2 py-4 tx-center flex-col'>
-            <div>CLICK THE</div>
-            <div>SCREEN</div>
-            <div>TO START</div>
-          </span>
-        </button>
-      {/* <button  className="bord-r-5 pointer pb-1 "
-      onClick={() => {
-        disableFirstTime();
-        setShow(false)
-      }}
-      style={{
-        background: "#666666",
-      }}
-        >
-          <span className='tx-mdl'>🔇</span>
-        </button> */}
-        
-        </div>
+        <div className='pos-rel z-1000 noclick'>
+          <div className='flex-row-r gap-1 flex-align-center'>
+            <button className="bord-r-5 noclick pointer py-1 pb-2 tx-white tx-shadow-5 tx-altfont-1 opaci-chov--75"
+              id='click-to-start'
+              style={{
+                background: "#668866",
+                border: "1px solid #66ff66",
+              }}
+            >
+              <span className='tx-xl px-2 py-4 tx-center flex-col'>
+                {isEverythingLoading ? (
+                  <>
+                    <div>LOADING</div>
+                    <div>PLEASE</div>
+                    <div>WAIT</div>
+                  </>
+                ) : (
+                  <>
+                    <div>CLICK THE</div>
+                    <div>SCREEN</div>
+                    <div>TO START</div>
+                  </>
+                )}
+              </span>
+            </button>
+          </div>
         </div>
       </div>
-      </>)
+    </>)
   }
   
   

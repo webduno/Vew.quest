@@ -28,6 +28,7 @@ export const BewGame = () => {
   
   const { isCutSceneOpen, showSnackbar, closeSnackbar, setIsCutSceneOpen, playSoundEffect } = useBew();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
+  const [isEverythingLoading, setIsEverythingLoading] = useState(true);
   const [focusLevel, setFocusLevel] = useState(0);
   const focusStageRef = useRef<any>(0);
   const [enableLocked, setEnableLocked] = useState(true)
@@ -133,6 +134,8 @@ export const BewGame = () => {
 
   useEffect(() => {
     setIsMobileDevice(isMobile());
+    // Set loading to false when game is ready
+    setIsEverythingLoading(false);
   }, []);
 
   // Handle trigger collision
@@ -241,7 +244,8 @@ export const BewGame = () => {
       
 
 
-      <BackgroundMusic firstTime={LS_firstTime} disableFirstTime={disableFirstTime} />
+      <BackgroundMusic  isEverythingLoading={isEverythingLoading}
+      firstTime={LS_firstTime} disableFirstTime={disableFirstTime} />
 
 
       {/* Performance Stats in top right corner */}
