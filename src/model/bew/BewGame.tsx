@@ -96,11 +96,26 @@ export const BewGame = () => {
     // alert("You've triggered a collision event!");
     focusStageRef.current = focusStageRef.current +1
     setFocusLevel((prev) => prev + 1)
-    playSoundEffect("/sfx/sensemeter-intro.ogg")
-    showSnackbar("1. Navigate settings - 2. Intuition input - 3. Send for Review", 'info')
-    setTimeout(() => {
-      closeSnackbar();
-    }, 10000)
+    if (LS_firstTime) {
+
+      playSoundEffect("/sfx/firsttimesense.ogg")
+      setTimeout(() => {
+        playSoundEffect("/sfx/sensetuto.ogg")
+
+        
+        showSnackbar("-Navigate config -Fill input values -Send for Analysis", 'info')
+        setTimeout(() => {
+          closeSnackbar();
+        }, 10000)
+      }, 3500);
+    } else {
+      
+      showSnackbar("-Navigate config -Fill input values -Send (Analysis)", 'info')
+      setTimeout(() => {
+        closeSnackbar();
+      }, 10000)
+    }
+    
     // setEnableLocked(false)
     // setIsLocked(true)
     // setInitialPosition([0, 1, 3])

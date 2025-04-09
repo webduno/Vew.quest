@@ -15,6 +15,7 @@ export function BackgroundMusic({ firstTime,disableFirstTime }: { firstTime: boo
       <div className=' w-100vw h-100vh bottom-0 left-0 flex-col pos-abs bg-glass-3 z-100' >
         <div className='w-100 h-100  pos-abs'
         onClick={() => {
+          console.log("clicked start to play")
           togglePlay();
           setShow(false);
           disableFirstTime();
@@ -28,7 +29,16 @@ export function BackgroundMusic({ firstTime,disableFirstTime }: { firstTime: boo
         boxShadow: "8px 0 0 12px #666666, 8px 0 1px 20px #5A4F43, 12px 2px 1px 25px #302923, 9px -1px 1px 23px #8C887A",
       }}
       >
+        
+<div className='pos-abs nowrap tx-white opaci-50 tx-shadow-5 top-0 translate-y--100 pb-100 tx-center pl-3'>
+          Click anywhere to play
+        </div>
         <div className='tx-white tx-shadow-5 tx-altfont-1 pa-2 tx-lg tx-center bord-r-25'
+        onClick={() => {
+          togglePlay();
+          disableFirstTime();
+          setShow(false);
+        }}
         style={{
           background: "radial-gradient(#556677 , #101914 )",
           boxShadow: "inset 0 2px 5px #00000077",
