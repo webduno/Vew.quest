@@ -112,7 +112,7 @@ const HardBadge = ({ children }: { children: ReactNode }) => {
   return (
     
     <div className='z-100 tx-altfont-5 tx-md bord-r-5 pa-1'
-    style={{ background: "#3d3d3d" }}
+    style={{ background: "#3d3d3d", boxShadow:"0 4px 20px #55333377" }}
     >
       <div className='tx-altfont-5 tx-mdl px-4 py-2  bord-r-5'
       style={{
