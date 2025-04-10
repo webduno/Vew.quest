@@ -3,6 +3,8 @@ import { Box, Text } from '@react-three/drei';
 import { StyledWall } from './StyledWall';
 import { useState } from 'react';
 import { ColorCallibrationArcade } from './ColorCallibrationArcade';
+import { SummoningCircle } from './SummoningCircle';
+import { PhysicalWall } from './PhysicalWall';
 
 
 export const CallibrationSpaces = () => {
@@ -61,6 +63,13 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
 
 
 
+
+
+<PhysicalWall visible={false}
+     position={[-8, 2, 9]} size={[2.2, 4, 2.2]} color="#ffcccc" />    
+    <group position={[-8, 0, 9]} rotation={[0, 0, 0]}>
+      <SummoningCircle />
+    </group>
 
 
 

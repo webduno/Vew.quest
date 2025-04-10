@@ -83,13 +83,6 @@ export const ColorCallibrationArcade = ({
       />
     )}
 
-    <PhysicalWall visible={false}
-     position={[-8, 2, 9]} size={[2.2, 4, 2.2]} color="#ffcccc" />    
-    <group position={[-8, 0, 9]} rotation={[0, 0, 0]}>
-      <SummoningCircle />
-    </group>
-
-
 
 
 

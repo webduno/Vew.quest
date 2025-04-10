@@ -7,7 +7,12 @@
 
 
 
-.tx-altfont-1 {     font-family: 'Raleway', sans-serif !important}
+body, html {
+  font-family: 'Consolas';
+}
+
+.tx-altfont-1 {     font-family: 'Consolas' !important}
+/* .tx-altfont-1 {     font-family: 'Raleway', sans-serif !important} */
 .tx-altfont-5 {     font-family: "Wallpoet", sans-serif !important}
 /* HAND WRITTEN */
 .tx-altfont-6 {     font-family: "Caveat", sans-serif !important}

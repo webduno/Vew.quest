@@ -17,10 +17,31 @@ export const RoomLeft = () => {
   <Box args={[1,3,2]} >
 <meshStandardMaterial color="#dddddd" />
 </Box>
+
+<Box args={[1.1,3,0.15]} position={[0,0,1]}>
+<meshStandardMaterial color="#d7d7d7" />
+</Box>
+<Box args={[1.1,3,0.15]} position={[0,0,-1]}>
+<meshStandardMaterial color="#d7d7d7" />
+</Box>
+<Box args={[1.11,.15,2.15]} position={[0,1.5,0]}>
+<meshStandardMaterial color="#d7d7d7" />
+</Box>
+
 <Box args={[0.2,0.2,0.2]} position={[0.5,0,0.5]}>
 <meshStandardMaterial color="#cccccc" />
 </Box>
 </group>
+
+
+
+
+
+
+
+
+
+
 
 <Box args={[4,2,0.1]} position={[-6.5,1.8,-4.5]}>
 <meshStandardMaterial color="#ffffff" 

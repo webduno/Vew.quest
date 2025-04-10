@@ -27,12 +27,13 @@ const WebbewPage = () => {
     }}>
 
     <Link href="/" prefetch={false}
-     className="tx-xl dilating-blur tx-shadow-5 tx-white tx-center  pt-4 tx-altfont-5 flex-row
+     className="tx-xl dilating-blur tx-shadow-5 
+     tx-white tx-center  pt-4 tx-altfont-5 flex-row
     "
   
     >
       <div>WEB</div>
-      <div className='tx-altfont-1 '>|</div>
+      <div className='tx-altfont- 1 '>|</div>
       <div style={{ transform: "scaleX(-1)" }}>WEB</div>
     </Link>
     </div>

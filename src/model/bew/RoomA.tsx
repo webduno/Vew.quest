@@ -6,6 +6,7 @@ import { PhysicalTrigger } from './PhysicalTrigger';
 import { useVibeverse } from '@/dom/useVibeverse';
 
 export const RoomA = () => {
+  const [colorCallibration, setColorCallibration] = useState(0)
   const [callibrationAvailable, setCallibrationAvailable] = useState(false)
   const [isCallibrated, setIsCallibrated] = useState(false);
 
@@ -13,7 +14,8 @@ export const RoomA = () => {
     const checkCalibration = () => {
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
-      setIsCallibrated(currentStats.color > 3);
+      setColorCallibration(currentStats.color);
+      setIsCallibrated(currentStats.color >= 3);
     };
 
     // Initial check
@@ -140,8 +142,10 @@ anchorX="center" anchorY="middle" textAlign="center"
 position={[2.62,2.25,8.25]} rotation={[0,-Math.PI/2,0]}
 >
 {`CALLIBRATED
-USERS ONLY`}
+AGENTS ONLY
+`}
 </Text>
+{/* ${(stats?.color || 0) + (stats?.solid || 0) + (stats?.light || 0)} */}
 <group position={[2.75, 1.5, 8.25]} rotation={[0, 0, 0]} >
   
 <Box position={[-0.1,0,-.5]} args={[.2, .2, .2]} castShadow >

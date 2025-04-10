@@ -88,7 +88,7 @@ const random10CharString = () => {
           color: "#111111",
         }} className="pointer " data-href="/game">
 
-        <BewMenuButton><div style={{borderBottom: "1px solid #111111"}}>New Game</div></BewMenuButton></div>
+        <BewMenuButton><div style={{borderBottom: "1px solid #111111"}}>→ New Game</div></BewMenuButton></div>
 
 
       }
@@ -154,7 +154,7 @@ const random10CharString = () => {
       />
       <label
        htmlFor="vb_legacy_graphics"
-       className="tx-white opaci-50 pa-2 pointer">Low Graphics</label>
+       className="tx-white opaci-50 pa-2 pointer tx-altfont-1">Low Graphics</label>
       </div>
 </div>
 </>}

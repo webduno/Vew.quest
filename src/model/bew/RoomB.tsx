@@ -41,15 +41,16 @@ position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]} font="/fonts/raleway.ttf
 >
 {`
   1. Find the key
-    1.1. Go to training zone
-  2. Enter the codes
+  2. Callibrate your mind
+    2.1. Go to Psionic Zone
+    2.2. Enter the codes
   3. Start CRV training
 `}
 </Text>
 {LS_hasFirstKey && <>
 <Text fontSize={0.25} color="#171717"  font="/fonts/beanie.ttf"
 anchorX="left" anchorY="middle" textAlign="left"
-position={[-2.49,.8,1.45]} rotation={[0,Math.PI/2,0]}
+position={[-2.49,.75,1.45]} rotation={[0,Math.PI/2,0]}
 >
 {`3.x E/Sensory data refinement`}
 </Text>
