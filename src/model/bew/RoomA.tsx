@@ -9,7 +9,7 @@ export const RoomA = () => {
   const [callibrationAvailable, setCallibrationAvailable] = useState(false)
 
 
-
+const [isCallibrated, setIsCallibrated] = useState(false)
 
 
   return (<>
@@ -116,11 +116,28 @@ TO OPEN`}
 
 
 
-
-        {/* OPENED real door */}
-        <PhysicalWall  size={[0.2, 3, 1.5]} color="#dddddd"
-          position={[3.5, 1.5, 8.65]} rotation={[0, -1.2, 0]} 
+{!isCallibrated && <>
+  <Text font="/fonts/raleway.ttf" fontSize={0.15} color="#252525" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[2.62,2.25,8.25]} rotation={[0,-Math.PI/2,0]}
+>
+{`CALLIBRATED
+USERS ONLY`}
+</Text>
+<group position={[2.75, 1.5, 8.25]} rotation={[0, 0, 0]} >
+  
+<Box position={[-0.1,0,-.5]} args={[.2, .2, .2]} castShadow >
+          <meshStandardMaterial color="#aaaaaa"  />
+        </Box>
+</group>
+<PhysicalWall castShadow={false} size={[0.2, 3, 1.5]} color="#dddddd"
+          position={[2.75, 1.5, 8.25]} rotation={[0, 0, 0]} 
         />
+        </>}
+        {/* OPENED real door */}
+        {/* <PhysicalWall  size={[0.2, 3, 1.5]} color="#dddddd"
+          position={[3.5, 1.5, 8.65]} rotation={[0, -1.2, 0]} 
+        /> */}
       <group position={[3.5, 1.5, 8.65]} rotation={[0, -1.2, 0]} >
       {/* doorknob */}
         <Box position={[-0.1,0,-.5]} args={[.2, .2, .2]} castShadow >
