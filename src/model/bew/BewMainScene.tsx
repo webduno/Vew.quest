@@ -16,7 +16,7 @@ import { useSearchParams } from 'next/navigation';
 import { useVibeverse } from '@/dom/useVibeverse';
 import { VibeverseContext } from '@/dom/VibeverseProvider';
 import { ZuckHead } from './ZuckHead';
-
+import { CallibrationSpaces } from './CallibrationSpaces';
 
 export const BewMainScene = ({ setPlayerPosition,
   code1,
@@ -38,7 +38,7 @@ export const BewMainScene = ({ setPlayerPosition,
     <group position={[0, 0, 0]}>
 
     {/* VIBEVERSE PORTAL */}
-    <Cylinder args={[3, 2, .9, 12, Math.PI]} 
+    {/* <Cylinder args={[3, 2, .9, 12, Math.PI]} 
     position={[-3.5,0,1.9]} rotation={[0,0,-Math.PI/2]}>
       <meshStandardMaterial color="#ffffff" />
     </Cylinder>
@@ -51,7 +51,7 @@ export const BewMainScene = ({ setPlayerPosition,
     textColor="#333333"
 
     portalMaterial={<meshStandardMaterial color="#eeffcc" />}
-    />
+    /> */}
 
 {!!vb_ref && <>
 <group position={[4.6, 2, 4.25]} rotation={[0,0,0]}>
@@ -72,38 +72,9 @@ export const BewMainScene = ({ setPlayerPosition,
 
 
 
-<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#372717" 
-anchorX="center" anchorY="middle" textAlign="center"
-position={[-2.49,2.6,0.8]} rotation={[0,Math.PI/2,0]}
->
-{`WEBBEW LABS`}
-</Text>
 
 
-<Text fontSize={0.25} color="#343434" 
-anchorX="left" anchorY="middle" textAlign="left"
-position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]} font="/fonts/raleway.ttf"
->
-{`
-  1. Find the key
-    1.1. Go to training zone
-  2. Enter the codes
-  3. Start CRV training
-`}
-</Text>
-{LS_hasFirstKey && <>
-<Text fontSize={0.25} color="#171717"  font="/fonts/beanie.ttf"
-anchorX="left" anchorY="middle" textAlign="left"
-position={[-2.49,.8,1.45]} rotation={[0,Math.PI/2,0]}
->
-{`3.x E/Sensory data refinement`}
-</Text>
-</>}
-
-
-
-
-
+      <CallibrationSpaces />
       
       <RoomA />
 

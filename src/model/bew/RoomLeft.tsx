@@ -12,6 +12,16 @@ export const RoomLeft = () => {
   return (<>
 
 
+
+<group position={[-9.94,1.5,-3]}>
+  <Box args={[1,3,2]} >
+<meshStandardMaterial color="#dddddd" />
+</Box>
+<Box args={[0.2,0.2,0.2]} position={[0.5,0,0.5]}>
+<meshStandardMaterial color="#cccccc" />
+</Box>
+</group>
+
 <Box args={[4,2,0.1]} position={[-6.5,1.8,-4.5]}>
 <meshStandardMaterial color="#ffffff" 
 metalness={LS_lowGraphics ? undefined : 0.3} 

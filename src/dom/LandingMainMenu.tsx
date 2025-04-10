@@ -131,7 +131,7 @@ const random10CharString = () => {
           className=" nodeco" href="/config">
         <BewMenuButton>
           {/* cog emoji */}
-          <span className="">🔧</span>
+          <span className="">⚙️</span>
           </BewMenuButton></Link></>}
 
 

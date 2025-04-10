@@ -1,11 +1,39 @@
 'use client';
-import { Box, Cylinder, Torus } from '@react-three/drei';
+import { Box, Cylinder, Torus, Text } from '@react-three/drei';
 import { PhysicalWall } from './PhysicalWall';
-
+import { useState } from 'react';
+import { PhysicalTrigger } from './PhysicalTrigger';
 
 
 export const RoomA = () => {
+  const [callibrationAvailable, setCallibrationAvailable] = useState(false)
+
+
+
+
+
   return (<>
+
+
+<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#1d1d1d" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[0,2.8,14.49]} rotation={[0,Math.PI,0]}
+>
+{`MARS ARCHIVES`}
+</Text>
+
+
+
+
+<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#252525" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-2.49,2.6,10.2]} rotation={[0,Math.PI/2,0]}
+>
+{`CALIBRATION
+SPACES`}
+</Text>
+
+
 
 
 
@@ -32,17 +60,61 @@ scale={[1,1,4]}
       {/* ////////////////////////////////////////////////////// */}
       
 
-      <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
-        {/* real door */}
-        <PhysicalWall  size={[1.5, 3, 0.75]} color="#dddddd"
-          position={[-3, 1.5, 8.25]} rotation={[0, Math.PI / 2, 0]} 
+
+
+      {/* <PhysicalTrigger  size={[1, 3, .5]} visible={false}
+      triggerCount={1}
+        onCollide={() => {
+          setTimeout(() => {
+            setCallibrationAvailable(true)
+            setTimeout(() => {
+              setCallibrationAvailable(false)
+            }, 2000)
+          }, 2000)
+        }}
+          position={[-2.4, 1.5, 8.25]} rotation={[0, Math.PI / 2, 0]} 
+        /> */}
+      {!callibrationAvailable && <>
+<Text font="/fonts/raleway.ttf" fontSize={0.15} color="#252525" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-2.62,2.25,8.25]} rotation={[0,Math.PI/2,0]}
+>
+{`USE HANDLE
+TO OPEN`}
+</Text>
+
+        <PhysicalWall position={[-3, 1.5, 8.25]} size={[1.5, 3, 0.75]} color="#dddddd"
+          rotation={[0, Math.PI / 2, 0]} 
         />
+      <group position={[-3, 1.5, 8.25]} rotation={[0, 0, 0]}>
+        {/* real door */}
         {/* doorknob */}
-        <Box position={[-2.6, 1.5, 8.75]} args={[.2, .2, .2]} castShadow>
+        <Box position={[0, 0, .5]} args={[1, .8, .15]} castShadow
+        onClick={() => {
+          setCallibrationAvailable(true)
+          setTimeout(() => {
+            setCallibrationAvailable(false)
+          }, 2000)
+        }}
+        >
           <meshStandardMaterial color="#aaaaaa"  />
         </Box>
 
       </group>
+      </>}
+{/* 
+      <group position={[-3, 1.49, 8.25]} rotation={[0, 0, 0]}>
+      <Box args={[10, 3, 2]} position={[-5, 0, 0]} >
+          <meshStandardMaterial color="#aaaaaa"  side={2} />
+        </Box>
+        </group> */}
+
+
+
+
+
+
+
 
         {/* OPENED real door */}
         <PhysicalWall  size={[0.2, 3, 1.5]} color="#dddddd"
@@ -120,3 +192,5 @@ scale={[1,1,4]}
       />
   </>);
 };
+
+

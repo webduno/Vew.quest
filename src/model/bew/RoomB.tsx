@@ -2,9 +2,11 @@
 import { Box, Text, Cylinder, Torus } from '@react-three/drei';
 import { PhysicalWall } from './PhysicalWall';
 import { PhysicalDoor } from './PhysicalDoor';
-
+import { VibeverseContext } from '@/dom/VibeverseProvider';
+import { useContext } from 'react';
 
 export const RoomB = () => {
+  const { LS_hasFirstKey } = useContext(VibeverseContext)
   return (<>
 
 <RoomBRightDoor />
@@ -21,6 +23,44 @@ scale={[1,1,4]}
   <meshStandardMaterial color="#cccccc" />
 </Torus>
 </group> */}
+
+
+
+
+<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#372717" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-2.49,2.6,0.8]} rotation={[0,Math.PI/2,0]}
+>
+{`WEBBEW LABS`}
+</Text>
+
+
+<Text fontSize={0.25} color="#343434" 
+anchorX="left" anchorY="middle" textAlign="left"
+position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]} font="/fonts/raleway.ttf"
+>
+{`
+  1. Find the key
+    1.1. Go to training zone
+  2. Enter the codes
+  3. Start CRV training
+`}
+</Text>
+{LS_hasFirstKey && <>
+<Text fontSize={0.25} color="#171717"  font="/fonts/beanie.ttf"
+anchorX="left" anchorY="middle" textAlign="left"
+position={[-2.49,.8,1.45]} rotation={[0,Math.PI/2,0]}
+>
+{`3.x E/Sensory data refinement`}
+</Text>
+</>}
+
+
+
+
+
+
+
 
 
 

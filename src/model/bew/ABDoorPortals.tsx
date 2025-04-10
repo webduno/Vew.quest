@@ -42,8 +42,13 @@ const openDoorProcess = () => {
 
 
 {/* FIRST KEY TRIGGER */}
+{!hasFirstKey && 
 <PhysicalTrigger triggerCount={1} visible={false}
       onCollide={(e) => {
+        if (hasKeyRef.current) {
+          return;
+        }
+        console.log("key collected")
         setHasFirstKey(true);
         showSnackbar("Great job! You've found the key", 'info');
         playSoundEffect("/sfx/keys.mp3")
@@ -56,6 +61,7 @@ const openDoorProcess = () => {
       size={[1, 1, 1]}
       position={[-6.5, 0, 3]}
     />
+}
     {!hasFirstKey && <group position={[-6.5, 0, 3]} rotation={[0, .3, 0]}><RegularKey /></group>}
   
 
