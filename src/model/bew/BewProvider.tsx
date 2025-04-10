@@ -39,7 +39,6 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
   const { playSoundEffect: playBackgroundSoundEffect } = useBackgroundMusic();
 
   const showSnackbar = (message: string, severity: SnackbarSeverity) => {
-    console.log('showSnackbar: message is', message, 'severity is', severity);
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setIsSnackbarOpen(true);

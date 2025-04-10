@@ -52,7 +52,6 @@ export const ColorCallibrationArcade = ({
 
   const handleGameEnd = () => {
     setColorCalibrationStarted(false);
-    console.log('Game ended', points, misses);
     if (points >= 4) {
       playSoundEffect("/sfx/goodcode.mp3");
       const savedStats = localStorage.getItem('VB_MINDSTATS');

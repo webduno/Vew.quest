@@ -95,8 +95,6 @@ export const BewGame = () => {
       const secondPart = wholeResponse.split(' ').slice(6,12).join(' ') || ''
       const thirdPart = wholeResponse.split(' ').slice(12,18).join(' ') || ''
       const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
-      console.log("wholeResponse", wholeResponse)
-      console.log(firstPart, secondPart, thirdPart)
       setTimeout(() => {
         setLoadingAnalysisResult(false)
         setAnalysisResult(`

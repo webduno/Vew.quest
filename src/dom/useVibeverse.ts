@@ -121,7 +121,6 @@ export function useVibeverse() {
 
     // Load tutorials first before any other operations
     const savedTutorials = localStorageProxy.VB_TUTORIALS;
-    console.log('Loading tutorials from localStorage:', savedTutorials);
     if (savedTutorials) {
       try {
         // Handle the case where the value might be a string of a stringified object
@@ -133,7 +132,6 @@ export function useVibeverse() {
             console.error('Error parsing nested tutorials:', e);
           }
         }
-        console.log('Parsed tutorials:', parsedTutorials);
         setTutorials(parsedTutorials);
       } catch (e) {
         console.error('Error parsing tutorials:', e);

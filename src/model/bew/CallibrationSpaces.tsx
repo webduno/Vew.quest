@@ -13,7 +13,6 @@ export const CallibrationSpaces = () => {
 
 
   const startColorCalibration = () => {
-    console.log('start color calibration')
     setColorCalibrationStarted(true)
   }
   

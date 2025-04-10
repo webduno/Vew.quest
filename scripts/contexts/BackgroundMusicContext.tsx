@@ -51,7 +51,7 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
       } else if (!document.hidden && audioRef.current && shouldPlayOnFocus) {
         // Resume playing when tab becomes visible again
         audioRef.current.play().catch(error => {
-          console.log('Error resuming background music:', error);
+          console.error('Error resuming background music:', error);
         });
         setIsPlaying(true);
         setShouldPlayOnFocus(false);
@@ -72,7 +72,7 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
     const handleWindowFocus = () => {
       if (audioRef.current && shouldPlayOnFocus) {
         audioRef.current.play().catch(error => {
-          console.log('Error resuming background music:', error);
+          console.error('Error resuming background music:', error);
         });
         setIsPlaying(true);
         setShouldPlayOnFocus(false);
@@ -96,7 +96,7 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
         await audioRef.current.play()
         setIsPlaying(true);
       } catch (error) {
-        console.log('Error playing background music:', error);
+        console.error('Error playing background music:', error);
       }
     }
   }
@@ -108,7 +108,7 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
         audioRef.current.pause();
       } else {
         audioRef.current.play().catch(error => {
-          console.log('Error playing background music:', error);
+          console.error('Error playing background music:', error);
         });
       }
       setIsPlaying(!isPlaying);
@@ -126,7 +126,7 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
     
     // Play the sound effect
     soundEffect.play().catch(error => {
-      console.log(`Error playing sound effect ${soundPath}:`, error);
+      console.error(`Error playing sound effect ${soundPath}:`, error);
     });
     
     // Remove the sound effect from the ref after it finishes playing

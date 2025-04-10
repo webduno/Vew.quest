@@ -48,7 +48,6 @@ const openDoorProcess = () => {
         if (hasKeyRef.current) {
           return;
         }
-        console.log("key collected")
         setHasFirstKey(true);
         showSnackbar("Great job! You've found the key", 'info');
         playSoundEffect("/sfx/keys.mp3")

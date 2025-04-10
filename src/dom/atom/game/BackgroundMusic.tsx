@@ -30,7 +30,6 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
           }}
           onClick={() => {
             if (isEverythingLoading) return;
-            console.log("clicked start to play")
             togglePlay();
             setShow(false);
             disableFirstTime();
