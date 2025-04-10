@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
 
 // Define the types for severity
-type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title';
+type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title' | 'handbook';
 
 // Define the context type
 type BewContextType = {
@@ -88,17 +88,6 @@ export const SnackbarNotif = () => {
     return null;
   }
 
-  // Basic styling for visibility - replace with actual Snackbar component later
-  const style: React.CSSProperties = {
-    backgroundColor: snackbarSeverity === 'error'
-    ? '#ff5555'
-    : snackbarSeverity === 'success'
-      ? '#55ff55'
-      : snackbarSeverity === 'warning'
-        ? '#ffaa55'
-        : '#55aaff',
-    zIndex: 1000, // Ensure it's above other content
-  };
 
   return (
     <div  className=" pa-4 pos-fix top-0 right-0 flex-col z-1000  hover-4">
@@ -107,6 +96,9 @@ export const SnackbarNotif = () => {
       }
       {snackbarSeverity === 'title' && 
         <HardBadge>{snackbarMessage}</HardBadge>
+      }
+      {snackbarSeverity === 'handbook' && 
+        <HandbookPage>{snackbarMessage}</HandbookPage>
       }
       {/* <button className="tx-white pointer pl-3 tx-mdl noborder bg-trans" onClick={closeSnackbar} >&times;</button> */}
       {/* Simple close button */}
@@ -142,6 +134,23 @@ const PaperSheet = ({ children }: { children: ReactNode }) => {
       background: "linear-gradient(0deg, #706C61, #8F8B7D, #605C51)",
     }}
     >
+      {children}
+    </div>
+  );
+}
+
+
+const HandbookPage = ({ children }: { children: ReactNode }) => {
+  return (
+    
+    <div className='px-2 py-3 z-100 tx-altfont-1   tx-smd w-100px'
+    style={{
+      transform: "rotate(1deg)",
+      boxShadow: "2px 2px 10px #444444, 3px 3px 0 0 #bFb7aD",
+      background: "linear-gradient(45deg, #dcd7c1, #bFb7aD)",
+    }}
+    >
+      <div className='tx-altfont-5 pb-2 underline pl-2 tx-xs'>TUTORIAL</div>
       {children}
     </div>
   );

@@ -29,7 +29,7 @@ export const CallibrationSpaces = () => {
 
       
 
-      <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#444444" 
+      {/* <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#444444" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-5,2.5,14.49]} rotation={[0,Math.PI,0]}
 >
@@ -37,7 +37,7 @@ position={[-5,2.5,14.49]} rotation={[0,Math.PI,0]}
 </Text>
 <Box position={[-5,1,13.9]} rotation={[0,Math.PI,0]} args={[1,2,1]}>
   <meshStandardMaterial color="#cccccc" />
-</Box>
+</Box> */}
 
 
 
@@ -74,7 +74,7 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
 
 
 
-<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#444444" 
+{/* <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#444444" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-11,2.5,14.49]} rotation={[0,Math.PI,0]}
 >
@@ -82,7 +82,7 @@ position={[-11,2.5,14.49]} rotation={[0,Math.PI,0]}
 </Text>
 <Box position={[-11,1,13.9]} rotation={[0,Math.PI,0]} args={[1,2,1]}>
   <meshStandardMaterial color="#cccccc" />
-</Box>
+</Box> */}
 
 
 
