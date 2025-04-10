@@ -10,6 +10,7 @@ export function useVibeverse() {
   const [typedUsername, setTypedUsername] = useState("");
   const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(false);
   const [LS_hasFirstKey, setLS_hasFirstKey] = useState<boolean>(false);
+  const [mindStats, setMindStats] = useState<{ color: number }>({ color: 0 });
   const router = useRouter()
   const searchParams = useSearchParams()
   // const pathname = usePathname()
@@ -54,6 +55,12 @@ export function useVibeverse() {
     localStorage.setItem('VB_LEGACY_GRAPHICS', newValue ? '1' : '0');
   };
 
+  const updateMindStats = (type: 'color', value: number) => {
+    const newStats = { ...mindStats, [type]: value };
+    setMindStats(newStats);
+    localStorage.setItem('VB_MINDSTATS', JSON.stringify(newStats));
+  };
+
   useEffect(() => {
     if (!localStorage) { return; }
 
@@ -75,6 +82,11 @@ export function useVibeverse() {
     if (hasFirstKey !== null) {
       setLS_hasFirstKey(hasFirstKey === '1');
     }
+
+    const savedMindStats = localStorage.getItem('VB_MINDSTATS');
+    if (savedMindStats) {
+      setMindStats(JSON.parse(savedMindStats));
+    }
   }, []);
 
   return {
@@ -89,6 +101,8 @@ export function useVibeverse() {
     LS_firstTime,
     disableFirstTime,
     LS_hasFirstKey,
-    setHasFirstKey
+    setHasFirstKey,
+    mindStats,
+    updateMindStats
   };
 };

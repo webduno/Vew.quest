@@ -4,6 +4,8 @@ import { PhysicalWall } from './PhysicalWall';
 import { useState, useEffect } from 'react';
 import { useBew } from './BewProvider';
 import { PhysicalTrigger } from './PhysicalTrigger';
+import { useVibeverse } from '@/dom/useVibeverse';
+
 export const ColorCallibrationArcade = ({ 
   colorCalibrationStarted,
   setColorCalibrationStarted,
@@ -14,13 +16,13 @@ export const ColorCallibrationArcade = ({
   startColorCalibration: () => void; 
 }) => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
+  const { updateMindStats } = useVibeverse();
   const [timer, setTimer] = useState<number>(5);
   const [randomColor, setRandomColor] = useState<string>('#ffffff');
   const [points, setPoints] = useState<number>(0);
   const [misses, setMisses] = useState<number>(0);
   const [currentColorAnswered, setCurrentColorAnswered] = useState<boolean>(false);
 
- 
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (colorCalibrationStarted && timer > 0) {
@@ -31,9 +33,15 @@ export const ColorCallibrationArcade = ({
       }, 3000);
     } else if (timer === 0) {
       setColorCalibrationStarted(false);
+      // Update mindStats if points are 4 or more
+      if (points >= 4) {
+        const savedStats = localStorage.getItem('VB_MINDSTATS');
+        const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
+        updateMindStats('color', currentStats.color + 1);
+      }
     }
     return () => clearInterval(interval);
-  }, [colorCalibrationStarted, timer, setColorCalibrationStarted]);
+  }, [colorCalibrationStarted, timer, setColorCalibrationStarted, points, updateMindStats]);
 
   const generateRandomColor = () => {
     const hue = Math.random() * 360;
@@ -43,16 +51,22 @@ export const ColorCallibrationArcade = ({
   };
 
   const handleStart = () => {
-     
-  
-
-  
     startColorCalibration();
     setTimer(5);
     setPoints(0);
     setMisses(0);
     setRandomColor(generateRandomColor());
     setCurrentColorAnswered(false);
+    
+    // Start the interval immediately
+    const interval = setInterval(() => {
+      setTimer(prev => prev - 1);
+      setRandomColor(generateRandomColor());
+      setCurrentColorAnswered(false);
+    }, 3000);
+
+    // Clean up the interval when component unmounts or game ends
+    return () => clearInterval(interval);
   };
 
   const checkSaturation = (isLess: boolean) => {
