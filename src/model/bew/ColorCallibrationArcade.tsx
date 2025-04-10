@@ -1,11 +1,13 @@
 'use client';
-import { Box, Cylinder, Text } from '@react-three/drei';
+import { Box, Text } from '@react-three/drei';
 import { PhysicalWall } from './PhysicalWall';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useBew } from './BewProvider';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { useVibeverse } from '@/dom/useVibeverse';
-
+import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
+import { SummoningCircle } from './SummoningCircle';
+import { ColorGameLoop } from './ColorGameLoop';
 export const ColorCallibrationArcade = ({ 
   colorCalibrationStarted,
   setColorCalibrationStarted,
@@ -15,7 +17,8 @@ export const ColorCallibrationArcade = ({
   setColorCalibrationStarted: (colorCalibrationStarted: boolean) => void;
   startColorCalibration: () => void; 
 }) => {
-  const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
+  const { showSnackbar, closeSnackbar } = useBew();
+  const { playSoundEffect } = useBackgroundMusic();
   const { updateMindStats } = useVibeverse();
   const [points, setPoints] = useState<number>(0);
   const [misses, setMisses] = useState<number>(0);
@@ -33,13 +36,24 @@ export const ColorCallibrationArcade = ({
     
     if ((isLess && saturation < 50) || (!isLess && saturation >= 50)) {
       setPoints(prev => prev + 1);
-      playSoundEffect("/sfx/keys.mp3")
+      playSoundEffect("/sfx/goodbip.wav")
       console.log('Hit! Points:', points + 1);
     } else {
       setMisses(prev => prev + 1);
+      playSoundEffect("/sfx/badbip.wav")
       console.log('Miss! Misses:', misses + 1);
     }
     return true;
+  };
+
+  const handleGameEnd = () => {
+    setColorCalibrationStarted(false);
+    console.log('Game ended', points, misses);
+    if (points >= 4) {
+      const savedStats = localStorage.getItem('VB_MINDSTATS');
+      const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
+      updateMindStats('color', currentStats.color + 1);
+    }
   };
 
   return (<>
@@ -63,6 +77,14 @@ export const ColorCallibrationArcade = ({
       <SummoningCircle />
     </group>
 
+
+
+
+
+
+
+
+
     {/* start button */}
     <Box
      position={[-8, !colorCalibrationStarted? 1.05: 0.95, 13.6]} 
@@ -79,16 +101,56 @@ export const ColorCallibrationArcade = ({
     </Box>
 
     {/* arcade scorescreen */}
-    <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#222222" 
+    <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#223322" 
       anchorX="left" anchorY="middle" textAlign="left"
       position={[-7.65,1.7,13.839]} rotation={[0,Math.PI,0]}
     >
-      {`HIT: ${points}\nMISS: ${misses}`}
+      {`HIT: ${points} \nMISS: ${misses}`}
     </Text>
     <Box position={[-8, 1.7, 13.89]} rotation={[0, 0, 0]} args={[.8, .22, .1]}>
       <meshStandardMaterial color="#cccccc"  />
     </Box>
 
+
+    <Text
+        font="/fonts/wallpoet.ttf"
+        fontSize={0.1}
+        color="#444444"
+        anchorX="center"
+        anchorY="middle"
+        textAlign="center"
+        position={[-8.2, 1.5, 13.839]}
+        rotation={[0, Math.PI, 0]}
+      >
+        {`full`}
+      </Text>
+      <Text
+        font="/fonts/wallpoet.ttf"
+        fontSize={0.1}
+        color="#111111"
+        anchorX="center"
+        anchorY="middle"
+        textAlign="center"
+        position={[-7.8, 1.5, 13.839]}
+        rotation={[0, Math.PI, 0]}
+      >
+        {`less`}
+      </Text>
+
+    <Box
+        position={[-8.2, 1.3, 13.82]}
+        rotation={[0, 0, 0]}
+        args={[.2, .2, .05]}
+      >
+        <meshStandardMaterial color="#ffffff" emissive="#333333" />
+      </Box>
+      <Box
+        position={[-7.8, 1.3, 13.82]}
+        rotation={[0, 0, 0]}
+        args={[.2, .2, .05]}
+      >
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
     {/* arcade screen background */}
     <Box position={[-8, 1.3, 13.89]} rotation={[0, 0, 0]} args={[.8, .5, .1]}>
       <meshStandardMaterial color="#ffffff" emissive="#101010" />
@@ -108,16 +170,17 @@ export const ColorCallibrationArcade = ({
       <meshStandardMaterial color="#eeeeee" />
     </Box>
 
+
+
+
+
+
+
+
+
     {colorCalibrationStarted && (
       <ColorGameLoop 
-        onGameEnd={() => {
-          setColorCalibrationStarted(false);
-          if (points >= 4) {
-            const savedStats = localStorage.getItem('VB_MINDSTATS');
-            const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
-            updateMindStats('color', currentStats.color + 1);
-          }
-        }}
+        onGameEnd={handleGameEnd}
         onCheckSaturation={checkSaturation}
         points={points}
         misses={misses}
@@ -126,120 +189,4 @@ export const ColorCallibrationArcade = ({
   </>);
 };
 
-const ColorGameLoop = ({ 
-  onGameEnd,
-  onCheckSaturation,
-  points,
-  misses
-}: {
-  onGameEnd: () => void;
-  onCheckSaturation: (isLess: boolean, currentColor: string, currentColorAnswered: boolean) => boolean;
-  points: number;
-  misses: number;
-}) => {
-  const generateRandomColor = () => {
-    const hue = Math.random() * 360;
-    const saturation = Math.random() * 100;
-    const lightness = 50;
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-  };
 
-  const [timer, setTimer] = useState<number>(5);
-  const [randomColor, setRandomColor] = useState<string>(generateRandomColor());
-  const [currentColorAnswered, setCurrentColorAnswered] = useState<boolean>(false);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    
-    if (timer > 0) {
-      interval = setInterval(() => {
-        setTimer(prev => prev - 1);
-        setRandomColor(generateRandomColor());
-        setCurrentColorAnswered(false);
-      }, 3000);
-    } else {
-      onGameEnd();
-    }
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [timer, onGameEnd]);
-
-  const handleCheckSaturation = (isLess: boolean) => {
-    if (currentColorAnswered) return;
-    const result = onCheckSaturation(isLess, randomColor, currentColorAnswered);
-    if (result) {
-      setCurrentColorAnswered(true);
-    }
-  };
-
-  return (
-    <>
-      <pointLight 
-        position={[-8, 1.49, 9]} 
-        intensity={1}
-        color={randomColor} 
-      />
-      <Text font="/fonts/wallpoet.ttf" fontSize={0.07} color="#222222" 
-        anchorX="right" anchorY="middle" textAlign="right"
-        position={[-8.38,1.7,13.839]} rotation={[0,Math.PI,0]}
-      >
-        {`ROUND:\n${5-timer}/5`}
-      </Text>
-      <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#444444" 
-        anchorX="center" anchorY="middle" textAlign="center"
-        position={[-8.2,1.5,13.839]} rotation={[0,Math.PI,0]}
-      >
-        {`full`}
-      </Text>
-      <Box position={[-8.2, 1.3, 13.82]} rotation={[0, 0, 0]} 
-        args={[.3, .3, .1]}
-        onClick={() => handleCheckSaturation(false)}
-      >
-        <meshStandardMaterial color="#ffffff" emissive="#333333"/>
-      </Box>
-      <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#111111" 
-        anchorX="center" anchorY="middle" textAlign="center"
-        position={[-7.8,1.5,13.839]} rotation={[0,Math.PI,0]}
-      >
-        {`less`}
-      </Text>
-      <Box position={[-7.8, 1.3, 13.82]} rotation={[0, 0, 0]} 
-        args={[.3, .3, .1]}
-        onClick={() => handleCheckSaturation(true)}
-      >
-        <meshStandardMaterial color="#dddddd" />
-      </Box>
-    </>
-  );
-};
-
-const SummoningCircle = () => {
-  return (<group>
-
-    
-<Cylinder args={[1.4, 1.4, 2.5]} position={[0,1.55, 0]}>
-      <meshStandardMaterial color="#ffffff" emissive="#101010" 
-      side={1}
-      />
-    </Cylinder>
-    
-<Cylinder args={[1.45, 1.45, 2.5]} position={[0,1.55, 0]}>
-      <meshStandardMaterial color="#ffffff" emissive="#101010" 
-      wireframe={true}
-      // side={1}
-      />
-    </Cylinder>
-    
-    
-<Cylinder args={[1.5, 2, 1]} >
-      <meshStandardMaterial color="#dddddd"  />
-    </Cylinder>
-    
-    <Cylinder args={[2, 1.5, 1]} position={[0, 3.25, 0]}>
-      <meshStandardMaterial color="#ffffff"  />
-    </Cylinder>
-  </group>
-  );
-};
