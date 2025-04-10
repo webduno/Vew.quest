@@ -19,7 +19,7 @@ export const ColorCallibrationArcade = ({
 }) => {
   const { showSnackbar, closeSnackbar } = useBew();
   const { playSoundEffect } = useBackgroundMusic();
-  const { updateMindStats } = useVibeverse();
+  const { updateMindStats, hasCompletedTutorial, updateTutorialStatus } = useVibeverse();
   const [points, setPoints] = useState<number>(0);
   const [misses, setMisses] = useState<number>(0);
 
@@ -57,19 +57,23 @@ export const ColorCallibrationArcade = ({
   };
 
   return (<>
-    <PhysicalTrigger  visible={false}
-    color="#ff0000"
-    triggerCount={1}
-    size={[.8, 2, 1]}
-    position={[-8, 1, 13.5]}
-    onCollide={() => {
-       playSoundEffect("/sfx/colortuto.ogg")
-      showSnackbar("Click 'FULL' or 'LESS', if the light color is intese or muted", 'handbook');
-      setTimeout(() => {
-        closeSnackbar();
-      }, 9000);
-    }}
-    />  
+    {!hasCompletedTutorial('color') && (
+      <PhysicalTrigger  visible={false}
+        color="#ff0000"
+        triggerCount={1}
+        size={[.8, 2, 1]}
+        position={[-8, 1, 13.5]}
+        onCollide={() => {
+          console.log('Playing color tutorial for the first time');
+          updateTutorialStatus('color', true);
+          playSoundEffect("/sfx/colortuto.ogg");
+          showSnackbar("Click 'FULL' or 'LESS', if the light color is intese or muted", 'handbook');
+          setTimeout(() => {
+            closeSnackbar();
+          }, 9000);
+        }}
+      />
+    )}
 
     <PhysicalWall visible={false}
      position={[-8, 2, 9]} size={[2.2, 4, 2.2]} color="#ffcccc" />    

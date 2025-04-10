@@ -11,6 +11,7 @@ export function useVibeverse() {
   const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(false);
   const [LS_hasFirstKey, setLS_hasFirstKey] = useState<boolean>(false);
   const [mindStats, setMindStats] = useState<{ color: number }>({ color: 0 });
+  const [tutorials, setTutorials] = useState<{ [key: string]: boolean }>({});
   const router = useRouter()
   const searchParams = useSearchParams()
   // const pathname = usePathname()
@@ -61,6 +62,27 @@ export function useVibeverse() {
     localStorage.setItem('VB_MINDSTATS', JSON.stringify(newStats));
   };
 
+  const updateTutorialStatus = (tutorialId: string, completed: boolean) => {
+    const savedTutorials = localStorage.getItem('VB_TUTORIALS');
+    const tutorialsObj = savedTutorials ? JSON.parse(savedTutorials) : {};
+    tutorialsObj[tutorialId] = completed;
+    localStorage.setItem('VB_TUTORIALS', JSON.stringify(tutorialsObj));
+    setTutorials(tutorialsObj);
+  };
+
+  const hasCompletedTutorial = (tutorialId: string) => {
+    // Get directly from localStorage to ensure we have the latest value
+    const savedTutorials = localStorage.getItem('VB_TUTORIALS');
+    if (!savedTutorials) return false;
+    
+    try {
+      const tutorialsObj = JSON.parse(savedTutorials);
+      return tutorialsObj[tutorialId] === true;
+    } catch (e) {
+      return false;
+    }
+  };
+
   useEffect(() => {
     if (!localStorage) { return; }
 
@@ -87,6 +109,30 @@ export function useVibeverse() {
     if (savedMindStats) {
       setMindStats(JSON.parse(savedMindStats));
     }
+
+    // Load tutorials first before any other operations
+    const savedTutorials = localStorage.getItem('VB_TUTORIALS');
+    console.log('Loading tutorials from localStorage:', savedTutorials);
+    if (savedTutorials) {
+      try {
+        // Handle the case where the value might be a string of a stringified object
+        let parsedTutorials = JSON.parse(savedTutorials);
+        if (typeof parsedTutorials === 'string') {
+          try {
+            parsedTutorials = JSON.parse(parsedTutorials);
+          } catch (e) {
+            console.error('Error parsing nested tutorials:', e);
+          }
+        }
+        console.log('Parsed tutorials:', parsedTutorials);
+        setTutorials(parsedTutorials);
+      } catch (e) {
+        console.error('Error parsing tutorials:', e);
+        setTutorials({});
+      }
+    } else {
+      setTutorials({});
+    }
   }, []);
 
   return {
@@ -103,6 +149,9 @@ export function useVibeverse() {
     LS_hasFirstKey,
     setHasFirstKey,
     mindStats,
-    updateMindStats
+    updateMindStats,
+    tutorials,
+    updateTutorialStatus,
+    hasCompletedTutorial
   };
 };
