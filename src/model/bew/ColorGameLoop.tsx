@@ -42,11 +42,13 @@ class GameTimer {
 }
 
 export const ColorGameLoop = ({
+  hardMode,
   onGameEnd,
   onCheckSaturation,
   points,
   misses
 }: {
+  hardMode: boolean;
   onGameEnd: () => void;
   onCheckSaturation: (isLess: boolean, currentColor: string, currentColorAnswered: boolean) => boolean;
   points: number;
@@ -101,11 +103,13 @@ export const ColorGameLoop = ({
 
   return (
     <>
+    {!hardMode && 
       <pointLight
         position={[-8, 1.49, 9]}
         intensity={1}
         color={currentColor}
       />
+    }
       <Text
         font="/fonts/wallpoet.ttf"
         fontSize={0.17}

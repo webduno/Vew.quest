@@ -17,7 +17,7 @@ export const CallibrationSpaces = () => {
     setColorCalibrationStarted(true)
   }
   
-  
+  const [hardMode, setHardMode] = useState(false)
   return (
     <group>
 
@@ -58,17 +58,20 @@ position={[-8,2.8,14.49]} rotation={[0,Math.PI,0]}
 {`COLOR`}
 </Text>
 <ColorCallibrationArcade 
+hardMode={hardMode} 
 startColorCalibration={startColorCalibration}
 colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={setColorCalibrationStarted} />
 
 
+
+<HardModeLever hardMode={hardMode} setHardMode={setHardMode} />
 
 
 
 <PhysicalWall visible={false}
      position={[-8, 2, 9]} size={[2.2, 4, 2.2]} color="#ffcccc" />    
     <group position={[-8, 0, 9]} rotation={[0, 0, 0]}>
-      <SummoningCircle />
+      <SummoningCircle hardMode={hardMode} colorCalibrationStarted={colorCalibrationStarted} />
     </group>
 
 
@@ -101,3 +104,25 @@ position={[-11,2.5,14.49]} rotation={[0,Math.PI,0]}
 
 
 
+const HardModeLever = ({hardMode, setHardMode}: {hardMode: boolean, setHardMode: (hardMode: boolean) => void}) => {
+  
+  const toggleHardMode = () => {
+    setHardMode(!hardMode)
+  }
+  return (
+    <group
+    onClick={() => {
+toggleHardMode()
+    }}
+    >
+    <Box position={[-8, 2, 6.5]} args={[0.5, 1, .1]}>
+      <meshStandardMaterial color="#ffffff" emissive="#111111" />
+    </Box>
+      <Box position={[-8, 2, 6.5]} args={[0.2, 1, .2]}
+      rotation={[hardMode ? -1 : 1, 0, 0]}
+      >
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
+    </group>
+  );
+};

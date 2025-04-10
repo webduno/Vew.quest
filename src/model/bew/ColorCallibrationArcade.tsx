@@ -6,13 +6,14 @@ import { useBew } from './BewProvider';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { useVibeverse } from '@/dom/useVibeverse';
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
-import { SummoningCircle } from './SummoningCircle';
 import { ColorGameLoop } from './ColorGameLoop';
 export const ColorCallibrationArcade = ({ 
+  hardMode,
   colorCalibrationStarted,
   setColorCalibrationStarted,
   startColorCalibration
 }: {
+  hardMode: boolean;
   colorCalibrationStarted: boolean;
   setColorCalibrationStarted: (colorCalibrationStarted: boolean) => void;
   startColorCalibration: () => void; 
@@ -42,11 +43,9 @@ export const ColorCallibrationArcade = ({
     if ((isLess && saturation < 50) || (!isLess && saturation >= 50)) {
       setPoints(prev => prev + 1);
       playSoundEffect("/sfx/goodbip.wav")
-      console.log('Hit! Points:', points + 1);
     } else {
       setMisses(prev => prev + 1);
       playSoundEffect("/sfx/badbip.wav")
-      console.log('Miss! Misses:', misses + 1);
     }
     return true;
   };
@@ -72,7 +71,6 @@ export const ColorCallibrationArcade = ({
         size={[.8, 2, 1]}
         position={[-8, 1, 13.5]}
         onCollide={() => {
-          console.log('Playing color tutorial for the first time');
           updateTutorialStatus('color', true);
           playSoundEffect("/sfx/colortuto.ogg");
           showSnackbar("Click 'FULL' or 'LESS', if the light color is intese or muted", 'handbook');
@@ -185,6 +183,7 @@ export const ColorCallibrationArcade = ({
 
     {colorCalibrationStarted && (
       <ColorGameLoop 
+        hardMode={hardMode}
         onGameEnd={handleGameEnd}
         onCheckSaturation={checkSaturation}
         points={points}

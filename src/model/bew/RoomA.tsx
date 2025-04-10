@@ -94,7 +94,23 @@ scale={[1,1,4]}
         }}
           position={[-2.4, 1.5, 8.25]} rotation={[0, Math.PI / 2, 0]} 
         /> */}
-      {!callibrationAvailable && <>
+      {!!callibrationAvailable && <>
+      
+        <PhysicalWall position={[-2.75, 1.5, 7.25]} 
+        size={[1.5, 3, 0.25]} color="#dddddd"
+          rotation={[0, Math.PI / 2, 0]} 
+        />
+        <group position={[-3, 1.5, 8.25]} rotation={[0, 0, 0]}>
+          {/* real door */}
+          {/* doorknob */}
+          <Box position={[.25, 0, -.5]} args={[.4, .8, .15]} castShadow
+          >
+            <meshStandardMaterial color="#ffffff"  />
+          </Box>
+  
+        </group>
+      </>}
+        {!callibrationAvailable && <>
 <Text font="/fonts/raleway.ttf" fontSize={0.15} color="#252525" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-2.62,2.25,8.25]} rotation={[0,Math.PI/2,0]}
