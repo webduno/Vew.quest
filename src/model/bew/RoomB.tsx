@@ -29,15 +29,15 @@ scale={[1,1,4]}
 
 <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#372717" 
 anchorX="center" anchorY="middle" textAlign="center"
-position={[-2.49,2.6,0.8]} rotation={[0,Math.PI/2,0]}
+position={[-2.49,2.6,1]} rotation={[0,Math.PI/2,0]}
 >
 {`WEBBEW LABS`}
 </Text>
 
 
-<Text fontSize={0.25} color="#343434" 
+<Text fontSize={0.225} color="#343434" 
 anchorX="left" anchorY="middle" textAlign="left"
-position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]} font="/fonts/raleway.ttf"
+position={[-2.49,1.7,2.2]} rotation={[0,Math.PI/2,0]} font="/fonts/consolas.ttf"
 >
 {`
   1. Find the key
@@ -50,7 +50,7 @@ position={[-2.49,1.82,1.75]} rotation={[0,Math.PI/2,0]} font="/fonts/raleway.ttf
 {LS_hasFirstKey && <>
 <Text fontSize={0.25} color="#171717"  font="/fonts/beanie.ttf"
 anchorX="left" anchorY="middle" textAlign="left"
-position={[-2.49,.75,1.45]} rotation={[0,Math.PI/2,0]}
+position={[-2.49,.75,1.7]} rotation={[0,Math.PI/2,0]}
 >
 {`3.x E/Sensory data refinement`}
 </Text>

@@ -111,7 +111,7 @@ scale={[1,1,4]}
         </group>
       </>}
         {!callibrationAvailable && <>
-<Text font="/fonts/raleway.ttf" fontSize={0.15} color="#252525" 
+<Text font="/fonts/consolas.ttf" fontSize={0.15} color="#666666" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-2.62,2.25,8.25]} rotation={[0,Math.PI/2,0]}
 >
@@ -153,7 +153,7 @@ TO OPEN`}
 
 
 {!isCallibrated && <>
-  <Text font="/fonts/raleway.ttf" fontSize={0.15} color="#252525" 
+  <Text font="/fonts/consolas.ttf" fontSize={0.15} color="#666666" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[2.62,2.25,8.25]} rotation={[0,-Math.PI/2,0]}
 >
@@ -173,9 +173,9 @@ AGENTS ONLY
         />
         </>}
         {/* OPENED real door */}
-        {/* <PhysicalWall  size={[0.2, 3, 1.5]} color="#dddddd"
+        <PhysicalWall  size={[0.2, 3, 1.5]} color="#dddddd"
           position={[3.5, 1.5, 8.65]} rotation={[0, -1.2, 0]} 
-        /> */}
+        />
       <group position={[3.5, 1.5, 8.65]} rotation={[0, -1.2, 0]} >
       {/* doorknob */}
         <Box position={[-0.1,0,-.5]} args={[.2, .2, .2]} castShadow >
