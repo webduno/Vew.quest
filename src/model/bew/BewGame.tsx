@@ -431,7 +431,7 @@ export const BewGame = () => {
         </Physics>
       </Canvas>
       {isMobileDevice && <BewMobileOverlay />}
-      <div id="crosshair" className='pos-fix top-50p left-50p opaci-10 noclick block bord-r-100'>+</div>
+      <div id="crosshair" className='pos-fix top-50p left-50p opaci-20 noclick block bord-r-100'>+</div>
     </div>
   );
 };

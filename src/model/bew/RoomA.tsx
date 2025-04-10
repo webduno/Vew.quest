@@ -90,14 +90,15 @@ TO OPEN`}
         {/* real door */}
         {/* doorknob */}
         <Box position={[0, 0, .5]} args={[1, .8, .15]} castShadow
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           setCallibrationAvailable(true)
           setTimeout(() => {
             setCallibrationAvailable(false)
           }, 2000)
         }}
         >
-          <meshStandardMaterial color="#aaaaaa"  />
+          <meshStandardMaterial color="#ffffff"  />
         </Box>
 
       </group>

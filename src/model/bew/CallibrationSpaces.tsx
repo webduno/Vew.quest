@@ -1,8 +1,8 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
 import { StyledWall } from './StyledWall';
-import { PhysicalWall } from './PhysicalWall';
 import { useState } from 'react';
+import { ColorCallibrationArcade } from './ColorCallibrationArcade';
 
 
 export const CallibrationSpaces = () => {
@@ -55,27 +55,9 @@ position={[-8,2.8,14.49]} rotation={[0,Math.PI,0]}
 >
 {`COLOR`}
 </Text>
-<PhysicalWall visible={false} position={[-8,.5,13.9]} size={[1,1,1]} color="#ffcccc" />
-<Box position={[-8,.5,13.9]} rotation={[0,0,0]} args={[1,1,1]}>
-  <meshStandardMaterial color="#cccccc" />
-</Box>
-{/* start button */}
-<Box position={[-8,1,13.6]} rotation={[0,0,0]} args={[.3,.2,.3]}
-onClick={() => {
-  startColorCalibration()
-}}
->
-  <meshStandardMaterial color="#ffffff" />
-</Box>
-<Box position={[-8,1,14.1]} rotation={[0,0,0]} args={[.9,2,.5]}>
-  <meshStandardMaterial color="#cccccc" />
-</Box>
-<Box position={[-8,2.1,14]} rotation={[0.5,0,0]} args={[1,.5,.8]}>
-  <meshStandardMaterial color="#cccccc" />
-</Box>
-{!!colorCalibrationStarted && <>
-      <pointLight position={[-8, 1.49, 10.5]} color="#aaaaaa" />
-</>}
+<ColorCallibrationArcade 
+startColorCalibration={startColorCalibration}
+colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={setColorCalibrationStarted} />
 
 
 
@@ -107,3 +89,6 @@ position={[-11,2.5,14.49]} rotation={[0,Math.PI,0]}
     </group>
   );
 };
+
+
+
