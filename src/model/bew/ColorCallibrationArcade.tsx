@@ -17,63 +17,19 @@ export const ColorCallibrationArcade = ({
 }) => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
   const { updateMindStats } = useVibeverse();
-  const [timer, setTimer] = useState<number>(5);
-  const [randomColor, setRandomColor] = useState<string>('#ffffff');
   const [points, setPoints] = useState<number>(0);
   const [misses, setMisses] = useState<number>(0);
-  const [currentColorAnswered, setCurrentColorAnswered] = useState<boolean>(false);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (colorCalibrationStarted && timer > 0) {
-      interval = setInterval(() => {
-        setTimer(prev => prev - 1);
-        setRandomColor(generateRandomColor());
-        setCurrentColorAnswered(false);
-      }, 3000);
-    } else if (timer === 0) {
-      setColorCalibrationStarted(false);
-      // Update mindStats if points are 4 or more
-      if (points >= 4) {
-        const savedStats = localStorage.getItem('VB_MINDSTATS');
-        const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
-        updateMindStats('color', currentStats.color + 1);
-      }
-    }
-    return () => clearInterval(interval);
-  }, [colorCalibrationStarted, timer, setColorCalibrationStarted, points, updateMindStats]);
-
-  const generateRandomColor = () => {
-    const hue = Math.random() * 360;
-    const saturation = Math.random() * 100;
-    const lightness = 50;
-    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-  };
 
   const handleStart = () => {
     startColorCalibration();
-    setTimer(5);
     setPoints(0);
     setMisses(0);
-    setRandomColor(generateRandomColor());
-    setCurrentColorAnswered(false);
-    
-    // Start the interval immediately
-    const interval = setInterval(() => {
-      setTimer(prev => prev - 1);
-      setRandomColor(generateRandomColor());
-      setCurrentColorAnswered(false);
-    }, 3000);
-
-    // Clean up the interval when component unmounts or game ends
-    return () => clearInterval(interval);
   };
 
-  const checkSaturation = (isLess: boolean) => {
-    if (!colorCalibrationStarted || currentColorAnswered) return;
+  const checkSaturation = (isLess: boolean, currentColor: string, currentColorAnswered: boolean) => {
+    if (!colorCalibrationStarted || currentColorAnswered) return false;
     
-    const color = randomColor;
-    const saturation = parseInt(color.split(',')[1]);
+    const saturation = parseInt(currentColor.split(',')[1]);
     
     if ((isLess && saturation < 50) || (!isLess && saturation >= 50)) {
       setPoints(prev => prev + 1);
@@ -83,7 +39,7 @@ export const ColorCallibrationArcade = ({
       setMisses(prev => prev + 1);
       console.log('Miss! Misses:', misses + 1);
     }
-    setCurrentColorAnswered(true);
+    return true;
   };
 
   return (<>
@@ -98,21 +54,14 @@ export const ColorCallibrationArcade = ({
       setTimeout(() => {
         closeSnackbar();
       }, 9000);
-      
-      // tuto start
     }}
     />  
-
-
-
 
     <PhysicalWall visible={false}
      position={[-8, 2, 9]} size={[2.2, 4, 2.2]} color="#ffcccc" />    
     <group position={[-8, 0, 9]} rotation={[0, 0, 0]}>
       <SummoningCircle />
     </group>
-
-
 
     {/* start button */}
     <Box
@@ -123,50 +72,11 @@ export const ColorCallibrationArcade = ({
       <meshStandardMaterial color={colorCalibrationStarted ? "#ccbbbb" : "#ffdddd"} />
     </Box>
 
-
-
-
     {/* arcade BOTTOM CONSOLE */}
     <PhysicalWall visible={false} position={[-8, .5, 13.9]} size={[1, 1, 1]} color="#ffcccc" />    
     <Box position={[-8, .5, 13.9]} rotation={[0, 0, 0]} args={[1, 1, 1]}>
       <meshStandardMaterial color="#dddddd" />
     </Box>
-
-
-
-
-
-
-    {/* ARCADE BUTTON LEFT */}
-    <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#444444" 
-      anchorX="center" anchorY="middle" textAlign="center"
-      position={[-8.2,1.5,13.839]} rotation={[0,Math.PI,0]}
-    >
-      {`full`}
-    </Text>
-    <Box position={[-8.2, 1.3, 13.82]} rotation={[0, 0, 0]} 
-      args={[.3, .3, .1]}
-      onClick={() => colorCalibrationStarted && checkSaturation(false)}
-    >
-      <meshStandardMaterial color="#ffffff" emissive="#333333"/>
-    </Box>
-
-    {/* ARCADE BUTTON RIGHT */}
-    <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#111111" 
-      anchorX="center" anchorY="middle" textAlign="center"
-      position={[-7.8,1.5,13.839]} rotation={[0,Math.PI,0]}
-    >
-      {`less`}
-    </Text>
-    <Box position={[-7.8, 1.3, 13.82]} rotation={[0, 0, 0]} 
-      args={[.3, .3, .1]}
-      onClick={() => colorCalibrationStarted && checkSaturation(true)}
-    >
-      <meshStandardMaterial color="#dddddd" />
-    </Box>
-
-
-
 
     {/* arcade scorescreen */}
     <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#222222" 
@@ -175,19 +85,9 @@ export const ColorCallibrationArcade = ({
     >
       {`HIT: ${points}\nMISS: ${misses}`}
     </Text>
-    <Text font="/fonts/wallpoet.ttf" fontSize={0.07} color="#222222" 
-      anchorX="right" anchorY="middle" textAlign="right"
-      position={[-8.38,1.7,13.839]} rotation={[0,Math.PI,0]}
-    >
-      {`ROUND:\n${5-timer}/5`}
-    </Text>
     <Box position={[-8, 1.7, 13.89]} rotation={[0, 0, 0]} args={[.8, .22, .1]}>
       <meshStandardMaterial color="#cccccc"  />
     </Box>
-
-
-
-
 
     {/* arcade screen background */}
     <Box position={[-8, 1.3, 13.89]} rotation={[0, 0, 0]} args={[.8, .5, .1]}>
@@ -208,17 +108,112 @@ export const ColorCallibrationArcade = ({
       <meshStandardMaterial color="#eeeeee" />
     </Box>
 
-
-
-
-    {!!colorCalibrationStarted && <>
-      <pointLight position={[-8, 1.49, 9]} 
-        intensity={1}
-      color={randomColor} />
-    </>}
+    {colorCalibrationStarted && (
+      <ColorGameLoop 
+        onGameEnd={() => {
+          setColorCalibrationStarted(false);
+          if (points >= 4) {
+            const savedStats = localStorage.getItem('VB_MINDSTATS');
+            const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
+            updateMindStats('color', currentStats.color + 1);
+          }
+        }}
+        onCheckSaturation={checkSaturation}
+        points={points}
+        misses={misses}
+      />
+    )}
   </>);
 };
 
+const ColorGameLoop = ({ 
+  onGameEnd,
+  onCheckSaturation,
+  points,
+  misses
+}: {
+  onGameEnd: () => void;
+  onCheckSaturation: (isLess: boolean, currentColor: string, currentColorAnswered: boolean) => boolean;
+  points: number;
+  misses: number;
+}) => {
+  const generateRandomColor = () => {
+    const hue = Math.random() * 360;
+    const saturation = Math.random() * 100;
+    const lightness = 50;
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+  };
+
+  const [timer, setTimer] = useState<number>(5);
+  const [randomColor, setRandomColor] = useState<string>(generateRandomColor());
+  const [currentColorAnswered, setCurrentColorAnswered] = useState<boolean>(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    
+    if (timer > 0) {
+      interval = setInterval(() => {
+        setTimer(prev => prev - 1);
+        setRandomColor(generateRandomColor());
+        setCurrentColorAnswered(false);
+      }, 3000);
+    } else {
+      onGameEnd();
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [timer, onGameEnd]);
+
+  const handleCheckSaturation = (isLess: boolean) => {
+    if (currentColorAnswered) return;
+    const result = onCheckSaturation(isLess, randomColor, currentColorAnswered);
+    if (result) {
+      setCurrentColorAnswered(true);
+    }
+  };
+
+  return (
+    <>
+      <pointLight 
+        position={[-8, 1.49, 9]} 
+        intensity={1}
+        color={randomColor} 
+      />
+      <Text font="/fonts/wallpoet.ttf" fontSize={0.07} color="#222222" 
+        anchorX="right" anchorY="middle" textAlign="right"
+        position={[-8.38,1.7,13.839]} rotation={[0,Math.PI,0]}
+      >
+        {`ROUND:\n${5-timer}/5`}
+      </Text>
+      <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#444444" 
+        anchorX="center" anchorY="middle" textAlign="center"
+        position={[-8.2,1.5,13.839]} rotation={[0,Math.PI,0]}
+      >
+        {`full`}
+      </Text>
+      <Box position={[-8.2, 1.3, 13.82]} rotation={[0, 0, 0]} 
+        args={[.3, .3, .1]}
+        onClick={() => handleCheckSaturation(false)}
+      >
+        <meshStandardMaterial color="#ffffff" emissive="#333333"/>
+      </Box>
+      <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#111111" 
+        anchorX="center" anchorY="middle" textAlign="center"
+        position={[-7.8,1.5,13.839]} rotation={[0,Math.PI,0]}
+      >
+        {`less`}
+      </Text>
+      <Box position={[-7.8, 1.3, 13.82]} rotation={[0, 0, 0]} 
+        args={[.3, .3, .1]}
+        onClick={() => handleCheckSaturation(true)}
+      >
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
+    </>
+  );
+};
 
 const SummoningCircle = () => {
   return (<group>
