@@ -30,7 +30,12 @@ export const ColorCallibrationArcade = ({
   };
 
   const checkSaturation = (isLess: boolean, currentColor: string, currentColorAnswered: boolean) => {
-    if (!colorCalibrationStarted || currentColorAnswered) return false;
+    if (!currentColorAnswered) {
+      setMisses(prev => prev + 1);
+      playSoundEffect("/sfx/passbip.mp3");
+      return false;
+    }
+    if (!colorCalibrationStarted) return false;
     
     const saturation = parseInt(currentColor.split(',')[1]);
     

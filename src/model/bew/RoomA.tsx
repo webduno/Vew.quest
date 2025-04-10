@@ -1,16 +1,34 @@
 'use client';
 import { Box, Cylinder, Torus, Text } from '@react-three/drei';
 import { PhysicalWall } from './PhysicalWall';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PhysicalTrigger } from './PhysicalTrigger';
-
+import { useVibeverse } from '@/dom/useVibeverse';
 
 export const RoomA = () => {
   const [callibrationAvailable, setCallibrationAvailable] = useState(false)
+  const [isCallibrated, setIsCallibrated] = useState(false);
 
+  useEffect(() => {
+    const checkCalibration = () => {
+      const savedStats = localStorage.getItem('VB_MINDSTATS');
+      const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
+      setIsCallibrated(currentStats.color > 3);
+    };
 
-const [isCallibrated, setIsCallibrated] = useState(false)
+    // Initial check
+    checkCalibration();
 
+    // Listen for localStorage changes
+    const handleStorageChange = (e: MessageEvent) => {
+      if (e.data === 'localStorageChanged') {
+        checkCalibration();
+      }
+    };
+
+    window.addEventListener('message', handleStorageChange);
+    return () => window.removeEventListener('message', handleStorageChange);
+  }, []);
 
   return (<>
 

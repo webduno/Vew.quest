@@ -33,8 +33,8 @@ export const BewGame = () => {
   const focusStageRef = useRef<any>(0);
   const [enableLocked, setEnableLocked] = useState(true)
   const [initialPosition, setInitialPosition] = useState<[number, number, number]>(
-    [-8, 0, 11]
-    // [-1.5, 0, 1]
+    // [-8, 0, 11]
+    [-1.5, 0, 1]
   )
   const [currentPosition, setCurrentPosition] = useState<[number, number, number]>([0, 0, 1]);
   const [playerRotation, setPlayerRotation] = useState({ x: 0, y: 0, z: 0 })

@@ -66,6 +66,9 @@ export const ColorGameLoop = ({
     const { currentRound: newRound, isNewRound, isGameOver } = gameTimerRef.current.update();
 
     if (isNewRound) {
+      if (!isAnswered) {
+        onCheckSaturation(false, currentColor, false);
+      }
       setCurrentRound(newRound);
       setCurrentColor(ColorGenerator.generate());
       setIsAnswered(false);
@@ -78,7 +81,7 @@ export const ColorGameLoop = ({
     }
 
     animationFrameRef.current = requestAnimationFrame(gameLoop);
-  }, [onGameEnd, points, misses]);
+  }, [onGameEnd, points, misses, isAnswered, currentColor, onCheckSaturation]);
 
   // Start game loop
   useEffect(() => {
@@ -92,7 +95,7 @@ export const ColorGameLoop = ({
 
   const handleAnswer = useCallback((isLess: boolean) => {
     if (isAnswered) return;
-    onCheckSaturation(isLess, currentColor, isAnswered);
+    onCheckSaturation(isLess, currentColor, true);
     setIsAnswered(true);
   }, [currentColor, isAnswered, onCheckSaturation]);
 

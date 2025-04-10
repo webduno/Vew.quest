@@ -16,18 +16,27 @@ export function useVibeverse() {
   const searchParams = useSearchParams()
   // const pathname = usePathname()
 
+  // Create a proxy for localStorage
+  const localStorageProxy = new Proxy(localStorage, {
+    set: function(target, key, value) {
+      target.setItem(key as string, value);
+      window.postMessage('localStorageChanged', '*');
+      return true;
+    }
+  });
+
   const disableFirstTime = () => {
     setLS_firstTime(false);
-    localStorage.setItem('VB_ALREADY_PLAYED', 'true');
+    localStorageProxy.VB_ALREADY_PLAYED = 'true';
   }
 
   const setHasFirstKey = (value: boolean) => {
-    localStorage.setItem('VB_HAS_FIRST_KEY', value ? '1' : '0');
+    localStorageProxy.VB_HAS_FIRST_KEY = value ? '1' : '0';
     setLS_hasFirstKey(value);
   };
 
   const formatPortalUrl = (url: string) => {
-    const local_username = localStorage.getItem("VB_PLAYER_ID") || ""
+    const local_username = localStorageProxy.VB_PLAYER_ID || ""
     const url_username = searchParams.get("username") || local_username
     // if (!url_username) { return url }
 
@@ -41,7 +50,7 @@ export function useVibeverse() {
   };
 
   const setPlayerId = (playerId: string) => {
-    localStorage.setItem('VB_PLAYER_ID', playerId);
+    localStorageProxy.VB_PLAYER_ID = playerId;
     setLS_playerId(playerId);
   };
 
@@ -53,26 +62,26 @@ export function useVibeverse() {
   const toggleLowGraphics = () => {
     const newValue = !LS_lowGraphics;
     setLS_lowGraphics(newValue);
-    localStorage.setItem('VB_LEGACY_GRAPHICS', newValue ? '1' : '0');
+    localStorageProxy.VB_LEGACY_GRAPHICS = newValue ? '1' : '0';
   };
 
   const updateMindStats = (type: 'color', value: number) => {
     const newStats = { ...mindStats, [type]: value };
     setMindStats(newStats);
-    localStorage.setItem('VB_MINDSTATS', JSON.stringify(newStats));
+    localStorageProxy.VB_MINDSTATS = JSON.stringify(newStats);
   };
 
   const updateTutorialStatus = (tutorialId: string, completed: boolean) => {
-    const savedTutorials = localStorage.getItem('VB_TUTORIALS');
+    const savedTutorials = localStorageProxy.VB_TUTORIALS;
     const tutorialsObj = savedTutorials ? JSON.parse(savedTutorials) : {};
     tutorialsObj[tutorialId] = completed;
-    localStorage.setItem('VB_TUTORIALS', JSON.stringify(tutorialsObj));
+    localStorageProxy.VB_TUTORIALS = JSON.stringify(tutorialsObj);
     setTutorials(tutorialsObj);
   };
 
   const hasCompletedTutorial = (tutorialId: string) => {
     // Get directly from localStorage to ensure we have the latest value
-    const savedTutorials = localStorage.getItem('VB_TUTORIALS');
+    const savedTutorials = localStorageProxy.VB_TUTORIALS;
     if (!savedTutorials) return false;
     
     try {
@@ -84,34 +93,34 @@ export function useVibeverse() {
   };
 
   useEffect(() => {
-    if (!localStorage) { return; }
+    if (!localStorageProxy) { return; }
 
-    const playerId: string | null = localStorage.getItem('VB_PLAYER_ID');
+    const playerId: string | null = localStorageProxy.VB_PLAYER_ID;
     if (playerId) {
       setLS_playerId(playerId);
       setTypedUsername(playerId);
     }
 
-    const legacyGraphics: string | null = localStorage.getItem('VB_LEGACY_GRAPHICS');
+    const legacyGraphics: string | null = localStorageProxy.VB_LEGACY_GRAPHICS;
     if (legacyGraphics !== null) {
       setLS_lowGraphics(legacyGraphics === '1');
     }
 
-    const alreadyPlayed: any = localStorage.getItem('VB_ALREADY_PLAYED');
+    const alreadyPlayed: any = localStorageProxy.VB_ALREADY_PLAYED;
     setLS_firstTime(!alreadyPlayed);
 
-    const hasFirstKey: string | null = localStorage.getItem('VB_HAS_FIRST_KEY');
+    const hasFirstKey: string | null = localStorageProxy.VB_HAS_FIRST_KEY;
     if (hasFirstKey !== null) {
       setLS_hasFirstKey(hasFirstKey === '1');
     }
 
-    const savedMindStats = localStorage.getItem('VB_MINDSTATS');
+    const savedMindStats = localStorageProxy.VB_MINDSTATS;
     if (savedMindStats) {
       setMindStats(JSON.parse(savedMindStats));
     }
 
     // Load tutorials first before any other operations
-    const savedTutorials = localStorage.getItem('VB_TUTORIALS');
+    const savedTutorials = localStorageProxy.VB_TUTORIALS;
     console.log('Loading tutorials from localStorage:', savedTutorials);
     if (savedTutorials) {
       try {
