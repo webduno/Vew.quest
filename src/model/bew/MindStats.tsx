@@ -55,7 +55,7 @@ export const MindStats = () => {
         background: '#a4a087',
         boxShadow: 'inset  0 5px 15px #444444',
       }}>
-        <div className=' bord-r-10 py-2  w-90' style={{
+        <div className=' bord-r-10 py-1   w-90' style={{
           // border: '2px solid #a19e94',
           boxShadow: 'inset  0 0 15px #000000',
           background: '#333333',
@@ -70,7 +70,7 @@ export const MindStats = () => {
               <div>Solid: {(stats?.solid || 0)}</div>
             </>}
             {stats?.color < 3 && <>
-              <div>{username || "----"}</div>
+              <div className='pt-1'>{username || "----"}</div>
               <div>SYNC: {(stats?.color || 0)}</div>
             </>}
             {/* <div>SYNC: {(stats?.color || 0) + (stats?.solid || 0) + (stats?.light || 0)}</div> */}

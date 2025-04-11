@@ -56,6 +56,15 @@ export const BewMainScene = ({ setPlayerPosition,
 
 {(!!vb_ref || hasExploredZone('psionic_asset_zone')) && <>
 <group position={[4.6, 2, 4.25]} rotation={[0,0,0]}>
+  <Text fontSize={0.1} color="#404040" position={[0.1,-.2,0.249]}
+  font="/fonts/beanie.ttf"
+  rotation={[0,Math.PI,0]}
+  >
+    {`Cydonia Valleys
+
+40.75° North
+350.54° East`}
+  </Text>
   <ZuckHead />
 </group>
 </>}

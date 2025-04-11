@@ -73,7 +73,6 @@ export const SolidCallibrationArcade = ({
         position={[-11, 1, 13.5]}
         onCollide={() => {
           updateTutorialStatus('solid', true);
-          playSoundEffect("/sfx/colortuto.ogg");
           showSnackbar("Click 'MORE' or 'LESS', if there are more boxes than spheres", 'handbook');
           setTimeout(() => {
             closeSnackbar();
@@ -84,9 +83,12 @@ export const SolidCallibrationArcade = ({
 
     {/* start button */}
     <Box
-     position={[-11, !solidCalibrationStarted? 1.05: 0.95, 13.6]} 
+     position={[-11, 1.1, 13.6]} 
      rotation={[0, 0, 0]} args={[.5, .2, .2]}
-      onClick={handleStart}
+      onClick={()=>{
+        console.log("clicked");
+        handleStart();
+      }}
     >
       <meshStandardMaterial color={solidCalibrationStarted ? "#ccbbbb" : "#ffdddd"} />
     </Box>
