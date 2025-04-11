@@ -16,6 +16,8 @@ type VibeverseContextType = {
   disableFirstTime: () => void;
   LS_hasFirstKey: boolean;
   setHasFirstKey: (value: boolean) => void;
+  updateExploredStatus: (zone: string, status: boolean) => void;
+  hasExploredZone: (value: string) => boolean
 };
 
 // Create the context with default values
@@ -31,7 +33,9 @@ export const VibeverseContext = createContext<VibeverseContextType>({
   LS_firstTime: true,
   disableFirstTime: () => {},
   LS_hasFirstKey: false,
-  setHasFirstKey: (value: boolean) => {}
+  setHasFirstKey: (value: boolean) => {},
+  updateExploredStatus: (zone: string, status: boolean) => {},
+  hasExploredZone: (zone: string)=> false
 });
 
 // Provider component
@@ -43,6 +47,7 @@ export const VibeverseProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     ...vibeverseData,
     LS_playerId: vibeverseData.LS_playerId || null,
     formatPortalUrl: vibeverseData.formatPortalUrl || ((url: string) => url),
+    updateExploredStatus: vibeverseData.updateExploredStatus || (() => {}),
   };
   
   return (

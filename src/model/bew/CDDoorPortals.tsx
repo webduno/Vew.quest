@@ -4,6 +4,7 @@ import { PhysicalTrigger } from './PhysicalTrigger';
 import { PhysicalWall } from './PhysicalWall';
 import { useEffect } from 'react';
 import { useBew } from './BewProvider';
+import { useVibeverse } from '@/dom/useVibeverse';
 
 
 export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setPlayerPosition: (position: [number, number, number]) => void,
@@ -11,6 +12,7 @@ export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setP
   code2?: string,
   code3?: string }) => {
 
+  const { hasExploredZone } = useVibeverse();
   const { showSnackbar, closeSnackbar } = useBew();
 
 
@@ -47,10 +49,12 @@ fontSize={0.2}
     const codeInputElement = document.getElementById('code1');
     // only if its not already visible
     if (codeInputElement && (codeInputElement as HTMLInputElement).style.display !== "block") {
-      showSnackbar("Find the codes in the ESP Lab", "info");
-      setTimeout(() => {        
-        closeSnackbar();
-      }, 3000);
+      if (!hasExploredZone("witness_room")) {
+        showSnackbar("Find the codes in the ESP Lab and Psionic Zone", "info");
+        setTimeout(() => {        
+          closeSnackbar();
+        }, 3000);
+      }
       (codeInputElement as HTMLInputElement).style.display = 'block';
       // (codeInputElement as HTMLInputElement).focus();
     }

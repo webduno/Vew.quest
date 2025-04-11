@@ -26,9 +26,9 @@ export const BewMainScene = ({ setPlayerPosition,
     code2?: string, 
     code3?: string  }) => {
 
-  const { LS_playerId, LS_lowGraphics, formatPortalUrl, LS_hasFirstKey, setHasFirstKey } = useContext(VibeverseContext)
+  const { LS_playerId, LS_lowGraphics, hasExploredZone, formatPortalUrl, LS_hasFirstKey, setHasFirstKey } = useContext(VibeverseContext)
   const vb_ref = useSearchParams().get("ref")
-  const { hasExploredZone } = useVibeverse();
+  // const { hasExploredZone } = useVibeverse();
 
   // Memoize the handler with useCallback to prevent recreation
   const handleKeyCollection = useCallback((value: boolean) => {

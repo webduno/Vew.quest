@@ -22,9 +22,12 @@ import { PerformanceStats } from './PerformanceStats';
 import { RotatingBar } from './RotatingBar';
 import { AnalysisScreen } from './AnalysisScreen';
 import { MindStats } from './MindStats';
+import { useVibeverse } from '@/dom/useVibeverse';
 
 export const BewGame = () => {
-  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, formatPortalUrl } = useContext(VibeverseContext)
+  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, formatPortalUrl } = useContext(VibeverseContext)
+  // const { updateExploredStatus, hasExploredZone } = useVibeverse();
+
   
   const { isCutSceneOpen, showSnackbar, closeSnackbar, setIsCutSceneOpen, playSoundEffect } = useBew();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -212,7 +215,8 @@ export const BewGame = () => {
     // then enable the movement again
     setIsCutSceneOpen(true);
     setEnableLocked(false);
-    showSnackbar(`You've entered the training room... Sit down.`, 'title');
+    updateExploredStatus('witness_room', true);
+    showSnackbar(`You've entered the witness room... Sit down.`, 'title');
     playSoundEffect("/sfx/sitdown.ogg")
 
     setTimeout(() => {

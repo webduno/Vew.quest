@@ -54,6 +54,15 @@ SPACES`}
 </Text>
 
 
+<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#252525" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[2.49,2.6,10.2]} rotation={[0,-Math.PI/2,0]}
+>
+{`PSIONIC
+ZONE`}
+</Text>
+
+
 
 
 
