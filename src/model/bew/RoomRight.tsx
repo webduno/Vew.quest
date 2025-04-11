@@ -50,12 +50,12 @@ rotation={[0,Math.PI/2,0]} fontSize={.2} font={"/fonts/beanie.ttf"}
 
 
 <Text 
-color="#1f1f1f" anchorX="center" anchorY="middle" position={[3.78, 1.5, -7.9]}
+color="#1a1a1a" anchorX="center" anchorY="middle" position={[3.78, 1.5, -7.9]}
 rotation={[0,Math.PI/2,0.05]} fontSize={.25} font={"/fonts/beanie.ttf"}
 >
 {`
-- Block Analytical Overlay 
-- Displce noise MATRIX
+   - Block Analytical Overlay 
+SOLID MIND CALLIBRATION (2 required)
      ________┌-      remember -->
 `}
 </Text>
@@ -68,7 +68,7 @@ rotation={[0,Math.PI/2,0.05]} fontSize={.15} font={"/fonts/beanie.ttf"}
 </Text>
 
 
-<PhysicalTrigger triggerCount={1}  color="#ff9900" visible={false}
+<PhysicalTrigger triggerCount={1}  color="#ff9900" visible={true}
 onCollide={() => {
   playSoundEffect("/sfx/trapped.mp3")
 }}
@@ -76,6 +76,11 @@ position={[3,2, -10]}
 size={[.51,4,1]}
 />
 
+{/* only show when mindstats.color >= 2 */}
+<PhysicalWall  visible={true} color="#ff9900"
+position={[3.5,2, -9]}
+size={[.525,4,7]}
+/>
 
 <PhysicalWall  visible={false} color="#ff9900"
 position={[3.5,2, -7]}

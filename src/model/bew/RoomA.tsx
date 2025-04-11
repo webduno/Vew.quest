@@ -158,6 +158,7 @@ anchorX="center" anchorY="middle" textAlign="center"
 position={[2.62,2.25,8.25]} rotation={[0,-Math.PI/2,0]}
 >
 {`CALLIBRATED
+LEVEL 3
 AGENTS ONLY
 `}
 </Text>

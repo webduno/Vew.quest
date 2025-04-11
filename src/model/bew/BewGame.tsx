@@ -502,7 +502,13 @@ const MindStats = () => {
           textShadow: '0 0 5px #00ff00',
         }}>
           <div>{username || "----"}</div>
-          <div>SYNC: {(stats?.color || 0)}</div>
+          {stats?.color >= 3 && <>
+          <div>Color: {(stats?.color || 0)}</div>
+          <div>Solid: {(stats?.solid || 0)}</div>
+          </>}
+          {stats?.color < 3 && <>
+            <div>SYNC: {(stats?.color || 0)}</div>
+          </>}
           {/* <div>SYNC: {(stats?.color || 0) + (stats?.solid || 0) + (stats?.light || 0)}</div> */}
           <div>KEYS: {hasFirstKey ? "1" : "0"}</div>
           </div>
