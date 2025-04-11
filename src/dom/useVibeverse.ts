@@ -12,6 +12,7 @@ export function useVibeverse() {
   const [LS_hasFirstKey, setLS_hasFirstKey] = useState<boolean>(false);
   const [mindStats, setMindStats] = useState<{ color: number, solid: number }>({ color: 0, solid: 0 });
   const [tutorials, setTutorials] = useState<{ [key: string]: boolean }>({});
+  const [explored, setExplored] = useState<{ [key: string]: boolean }>({});
   const router = useRouter()
   const searchParams = useSearchParams()
   // const pathname = usePathname()
@@ -92,6 +93,26 @@ export function useVibeverse() {
     }
   };
 
+  const updateExploredStatus = (zoneId: string, isExplored: boolean) => {
+    const savedExplored = localStorageProxy.VB_EXPLORED;
+    const exploredObj = savedExplored ? JSON.parse(savedExplored) : {};
+    exploredObj[zoneId] = isExplored;
+    localStorageProxy.VB_EXPLORED = JSON.stringify(exploredObj);
+    setExplored(exploredObj);
+  };
+
+  const hasExploredZone = (zoneId: string) => {
+    const savedExplored = localStorageProxy.VB_EXPLORED;
+    if (!savedExplored) return false;
+    
+    try {
+      const exploredObj = JSON.parse(savedExplored);
+      return exploredObj[zoneId] === true;
+    } catch (e) {
+      return false;
+    }
+  };
+
   useEffect(() => {
     if (!localStorageProxy) { return; }
 
@@ -141,6 +162,27 @@ export function useVibeverse() {
     } else {
       setTutorials({});
     }
+
+    // Load explored zones
+    const savedExplored = localStorageProxy.VB_EXPLORED;
+    if (savedExplored) {
+      try {
+        let parsedExplored = JSON.parse(savedExplored);
+        if (typeof parsedExplored === 'string') {
+          try {
+            parsedExplored = JSON.parse(parsedExplored);
+          } catch (e) {
+            console.error('Error parsing nested explored:', e);
+          }
+        }
+        setExplored(parsedExplored);
+      } catch (e) {
+        console.error('Error parsing explored:', e);
+        setExplored({});
+      }
+    } else {
+      setExplored({});
+    }
   }, []);
 
   return {
@@ -160,6 +202,9 @@ export function useVibeverse() {
     updateMindStats,
     tutorials,
     updateTutorialStatus,
-    hasCompletedTutorial
+    hasCompletedTutorial,
+    explored,
+    updateExploredStatus,
+    hasExploredZone
   };
 };

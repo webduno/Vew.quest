@@ -1,18 +1,40 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
 import { StyledWall } from './StyledWall';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ColorCallibrationArcade } from './ColorCallibrationArcade';
 import { SummoningCircle } from './SummoningCircle';
 import { PhysicalWall } from './PhysicalWall';
 import { SolidCallibrationArcade } from './SolidCallibrationArcade';
+import { useVibeverse } from '../../dom/useVibeverse';
 
 
 export const CallibrationSpaces = () => {
-
+  const { hasExploredZone } = useVibeverse();
   const [colorCalibrationStarted, setColorCalibrationStarted] = useState(false)
   const [solidCalibrationStarted, setSolidCalibrationStarted] = useState(false)
 
+  const [colorLevel, setColorLevel] = useState(0);
+
+  useEffect(() => {
+    const checkColorLevel = () => {
+      const savedStats = localStorage.getItem('VB_MINDSTATS');
+      const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
+      setColorLevel(currentStats.color);
+    };
+
+    // Initial check
+    checkColorLevel();
+    // Listen for localStorage changes
+    const handleStorageChange = (e: MessageEvent) => {
+      if (e.data === 'localStorageChanged') {
+        checkColorLevel();
+      }
+    };
+
+    window.addEventListener('message', handleStorageChange);
+    return () => window.removeEventListener('message', handleStorageChange);
+  }, []);
 
   const startColorCalibration = () => {
     setColorCalibrationStarted(true)
@@ -101,11 +123,31 @@ position={[-11,2.8,14.49]} rotation={[0,Math.PI,0]}
 >
 {`SOLID`}
 </Text>
+{!hasExploredZone('psionic_asset_zone') && colorLevel >= 3 && (<>
+  <Text font="/fonts/consolas.ttf" fontSize={0.2} color="#333333" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-11,1.8,14.49]} rotation={[0,Math.PI,0]}
+>
+{`Solid callibration
+is for Psionic
+Assets only`}
+</Text>
 
+<Text font="/fonts/consolas.ttf" fontSize={0.2} color="#333333" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-11,1,14.49]} rotation={[0,Math.PI,0]}
+>
+{`FIND THE ZONE
+AND COME BACK`}
+</Text>
+</>)}
+
+{hasExploredZone('psionic_asset_zone') && (
 <SolidCallibrationArcade 
 hardMode={hardMode} 
 startSolidCalibration={startSolidCalibration}
 solidCalibrationStarted={solidCalibrationStarted} setSolidCalibrationStarted={setSolidCalibrationStarted} />
+)}
 
 
 

@@ -28,6 +28,7 @@ export const BewMainScene = ({ setPlayerPosition,
 
   const { LS_playerId, LS_lowGraphics, formatPortalUrl, LS_hasFirstKey, setHasFirstKey } = useContext(VibeverseContext)
   const vb_ref = useSearchParams().get("ref")
+  const { hasExploredZone } = useVibeverse();
 
   // Memoize the handler with useCallback to prevent recreation
   const handleKeyCollection = useCallback((value: boolean) => {
@@ -53,7 +54,7 @@ export const BewMainScene = ({ setPlayerPosition,
     portalMaterial={<meshStandardMaterial color="#eeffcc" />}
     /> */}
 
-{!!vb_ref && <>
+{(!!vb_ref || hasExploredZone('psionic_asset_zone')) && <>
 <group position={[4.6, 2, 4.25]} rotation={[0,0,0]}>
   <ZuckHead />
 </group>

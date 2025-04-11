@@ -140,19 +140,6 @@ const RoomBLeftDoor = () => {
 const RoomBRightDoor = () => {
   return (<>
   
-<Text 
-color="#333333" anchorX="center" anchorY="middle" position={[2.91, 2.65, -2.25]}
-rotation={[0,Math.PI/2,0.1]} fontSize={0.10} font={"/fonts/beanie.ttf"}
->
-{`
-CODE3: GONDOLAWISH
-        _________
-
-
-        |@@@
-mcmonagle.pdf
-989.333 BCE`}
-</Text>
   <Box args={[2, 3, 0.3]} 
       position={[3.1, 1.5, -2.25]} rotation={[0, Math.PI / 2, 0]}
       castShadow

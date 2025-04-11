@@ -6,25 +6,34 @@ import { PhysicalWall } from './PhysicalWall';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { useBew } from './BewProvider';
 import { useState, useEffect } from 'react';
+import { useVibeverse } from '../../dom/useVibeverse';
 
 export const RoomRight = () => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
+  const { updateExploredStatus, hasExploredZone } = useVibeverse();
   const [solidLevel, setSolidLevel] = useState(0);
-
+  const [colorLevel, setColorLevel] = useState(0);
   useEffect(() => {
     const checkSolidLevel = () => {
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { solid: 0 };
       setSolidLevel(currentStats.solid);
     };
+    const checkColorLevel = () => {
+      const savedStats = localStorage.getItem('VB_MINDSTATS');
+      const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
+      console.log('currentStats', currentStats);
+      setColorLevel(currentStats.color);
+    };
 
     // Initial check
     checkSolidLevel();
-
+    checkColorLevel();
     // Listen for localStorage changes
     const handleStorageChange = (e: MessageEvent) => {
       if (e.data === 'localStorageChanged') {
         checkSolidLevel();
+        checkColorLevel();
       }
     };
 
@@ -34,6 +43,33 @@ export const RoomRight = () => {
 
   return (<>
 
+<Text 
+color="#333333" anchorX="center" anchorY="middle" position={[2.91, 2.65, -2.25]}
+rotation={[0,Math.PI/2,0.1]} fontSize={0.10} font={"/fonts/beanie.ttf"}
+>
+{`
+CODE3: GONDOLAWISH
+        _________
+
+
+        |@@@
+mcmonagle.pdf
+989.333 BCE`}
+</Text>
+
+{!hasExploredZone('psionic_asset_zone') &&  (
+<PhysicalTrigger visible={true}
+ position={[7, 2, -5]} size={[3,4,1.1]}
+ onCollide={() => {
+  updateExploredStatus('psionic_asset_zone', true);
+  showSnackbar('You\'ve found the Psionic Asset Zone!', 'info');
+  setTimeout(() => {
+    closeSnackbar();
+  }, 1000);
+}}
+>
+</PhysicalTrigger>
+)}
 
   
 
