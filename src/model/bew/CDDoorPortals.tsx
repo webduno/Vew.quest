@@ -3,7 +3,7 @@ import { Box, Text } from '@react-three/drei';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { PhysicalWall } from './PhysicalWall';
 import { useEffect } from 'react';
-
+import { useBew } from './BewProvider';
 
 
 export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setPlayerPosition: (position: [number, number, number]) => void,
@@ -11,7 +11,7 @@ export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setP
   code2?: string,
   code3?: string }) => {
 
-
+  const { showSnackbar, closeSnackbar } = useBew();
 
 
   return (<>
@@ -31,6 +31,8 @@ fontSize={0.2}
 </Text>
 
 {/* Trigger for code input */}
+{
+!code1 && (<>
 <PhysicalTrigger 
   visible={false}
   size={[.5, 1, 0.2]}
@@ -43,12 +45,18 @@ fontSize={0.2}
     
     // Also directly try to show the input
     const codeInputElement = document.getElementById('code1');
-    if (codeInputElement) {
+    // only if its not already visible
+    if (codeInputElement && (codeInputElement as HTMLInputElement).style.display !== "block") {
+      showSnackbar("Find the codes in the ESP Lab", "info");
+      setTimeout(() => {        
+        closeSnackbar();
+      }, 3000);
       (codeInputElement as HTMLInputElement).style.display = 'block';
       // (codeInputElement as HTMLInputElement).focus();
     }
   }}
 />
+</>)}
 </>)}
 
 
