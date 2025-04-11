@@ -4,12 +4,16 @@ import { useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import { useRef } from 'react'; 
 
-export const SummoningCircle = ({hardMode, colorCalibrationStarted}: {hardMode: boolean, colorCalibrationStarted: boolean}) => {
+export const SummoningCircle = ({hardMode, colorCalibrationStarted, solidCalibrationStarted}: {
+  hardMode: boolean, 
+  colorCalibrationStarted: boolean,
+  solidCalibrationStarted: boolean
+}) => {
 
   const wireFrameRef = useRef<Mesh>(null)
 
 useFrame(() => {
-  if (!colorCalibrationStarted) {
+  if (!colorCalibrationStarted && !solidCalibrationStarted) {
     return
   }
   if (!wireFrameRef.current) {

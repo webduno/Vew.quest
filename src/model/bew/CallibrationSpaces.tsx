@@ -5,15 +5,21 @@ import { useState } from 'react';
 import { ColorCallibrationArcade } from './ColorCallibrationArcade';
 import { SummoningCircle } from './SummoningCircle';
 import { PhysicalWall } from './PhysicalWall';
+import { SolidCallibrationArcade } from './SolidCallibrationArcade';
 
 
 export const CallibrationSpaces = () => {
 
   const [colorCalibrationStarted, setColorCalibrationStarted] = useState(false)
+  const [solidCalibrationStarted, setSolidCalibrationStarted] = useState(false)
 
 
   const startColorCalibration = () => {
     setColorCalibrationStarted(true)
+  }
+
+  const startSolidCalibration = () => {
+    setSolidCalibrationStarted(true)
   }
   
   const [hardMode, setHardMode] = useState(false)
@@ -70,7 +76,11 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
 <PhysicalWall visible={false}
      position={[-8, 2, 9]} size={[2.2, 4, 2.2]} color="#ffcccc" />    
     <group position={[-8, 0, 9]} rotation={[0, 0, 0]}>
-      <SummoningCircle hardMode={hardMode} colorCalibrationStarted={colorCalibrationStarted} />
+      <SummoningCircle 
+        hardMode={hardMode} 
+        colorCalibrationStarted={colorCalibrationStarted}
+        solidCalibrationStarted={solidCalibrationStarted} 
+      />
     </group>
 
 
@@ -85,15 +95,17 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
 
 
 
-{/* <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#444444" 
+<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#444444" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-11,2.5,14.49]} rotation={[0,Math.PI,0]}
 >
 {`SOLID`}
 </Text>
-<Box position={[-11,1,13.9]} rotation={[0,Math.PI,0]} args={[1,2,1]}>
-  <meshStandardMaterial color="#cccccc" />
-</Box> */}
+
+<SolidCallibrationArcade 
+hardMode={hardMode} 
+startSolidCalibration={startSolidCalibration}
+solidCalibrationStarted={solidCalibrationStarted} setSolidCalibrationStarted={setSolidCalibrationStarted} />
 
 
 
