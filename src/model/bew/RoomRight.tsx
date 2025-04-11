@@ -5,9 +5,32 @@ import { StyledWall } from './StyledWall';
 import { PhysicalWall } from './PhysicalWall';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { useBew } from './BewProvider';
+import { useState, useEffect } from 'react';
 
 export const RoomRight = () => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
+  const [solidLevel, setSolidLevel] = useState(0);
+
+  useEffect(() => {
+    const checkSolidLevel = () => {
+      const savedStats = localStorage.getItem('VB_MINDSTATS');
+      const currentStats = savedStats ? JSON.parse(savedStats) : { solid: 0 };
+      setSolidLevel(currentStats.solid);
+    };
+
+    // Initial check
+    checkSolidLevel();
+
+    // Listen for localStorage changes
+    const handleStorageChange = (e: MessageEvent) => {
+      if (e.data === 'localStorageChanged') {
+        checkSolidLevel();
+      }
+    };
+
+    window.addEventListener('message', handleStorageChange);
+    return () => window.removeEventListener('message', handleStorageChange);
+  }, []);
 
   return (<>
 
@@ -68,7 +91,7 @@ rotation={[0,Math.PI/2,0.05]} fontSize={.15} font={"/fonts/beanie.ttf"}
 </Text>
 
 
-<PhysicalTrigger triggerCount={1}  color="#ff9900" visible={true}
+<PhysicalTrigger triggerCount={1}  color="#ff9900" visible={false}
 onCollide={() => {
   playSoundEffect("/sfx/trapped.mp3")
 }}
@@ -76,11 +99,13 @@ position={[3,2, -10]}
 size={[.51,4,1]}
 />
 
-{/* only show when mindstats.color >= 2 */}
-<PhysicalWall  visible={true} color="#ff9900"
+{/* only show when mindstats.solid >= 2 */}
+{solidLevel < 3 && <>
+<PhysicalWall  visible={false} color="#ff9900"
 position={[3.5,2, -9]}
 size={[.525,4,7]}
 />
+</>}
 
 <PhysicalWall  visible={false} color="#ff9900"
 position={[3.5,2, -7]}
