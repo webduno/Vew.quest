@@ -4,16 +4,39 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 
 class PrimitivesGenerator {
   static generate() {
-    const primitives: { type: 'box' | 'sphere', count: number }[] = [];
+    const primitives: { 
+      type: 'box' | 'sphere', 
+      count: number, 
+      y: number,
+      rotation: [number, number, number]
+    }[] = [];
     const totalPrimitives = 5;
     const boxCount = Math.floor(Math.random() * (totalPrimitives + 1));
     const sphereCount = totalPrimitives - boxCount;
 
     for (let i = 0; i < boxCount; i++) {
-      primitives.push({ type: 'box', count: i });
+      primitives.push({ 
+        type: 'box',
+        count: i, 
+        y: (Math.random() * 1.5) - 1,
+        rotation: [
+          Math.random() * Math.PI * 2,
+          Math.random() * Math.PI * 2,
+          Math.random() * Math.PI * 2
+        ]
+      });
     }
     for (let i = 0; i < sphereCount; i++) {
-      primitives.push({ type: 'sphere', count: i });
+      primitives.push({ 
+        type: 'sphere', 
+        count: i, 
+        y: (Math.random() * 1.5) - 1,
+        rotation: [
+          Math.random() * Math.PI * 2,
+          Math.random() * Math.PI * 2,
+          Math.random() * Math.PI * 2
+        ]
+      });
     }
 
     // Shuffle the array
@@ -119,7 +142,13 @@ export const SolidGameLoop = ({
 
   return (
     <>
-      <group position={[-11, 1.49, 9]}>
+    
+    <pointLight
+        position={[-8, 1.49, 9]}
+        intensity={1}
+        color="#ffffff"
+      />
+      <group position={[-8, 1.49, 9]}>
         {currentPrimitives.map((primitive, index) => {
           const angle = (index / currentPrimitives.length) * Math.PI * 2;
           const radius = 1;
@@ -130,7 +159,8 @@ export const SolidGameLoop = ({
             return (
               <Box
                 key={`box-${index}`}
-                position={[x, 0, z]}
+                position={[x, primitive.y, z]}
+                rotation={primitive.rotation}
                 args={[0.3, 0.3, 0.3]}
               >
                 <meshStandardMaterial color="#ffffff" />
@@ -140,7 +170,8 @@ export const SolidGameLoop = ({
             return (
               <Sphere
                 key={`sphere-${index}`}
-                position={[x, 0, z]}
+                position={[x, primitive.y, z]}
+                rotation={primitive.rotation}
                 args={[0.15, 16, 16]}
               >
                 <meshStandardMaterial color="#ffffff" />

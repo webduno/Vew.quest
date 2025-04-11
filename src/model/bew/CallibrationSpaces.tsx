@@ -36,7 +36,7 @@ export const CallibrationSpaces = () => {
 
       
 
-      {/* <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#444444" 
+      {/* <Text font="/fonts/wallpoet.ttf" fontSize={0.4} color="#333333" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-5,2.5,14.49]} rotation={[0,Math.PI,0]}
 >
@@ -56,7 +56,7 @@ position={[-5,2.5,14.49]} rotation={[0,Math.PI,0]}
 
 
 
-<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#444444" 
+<Text font="/fonts/wallpoet.ttf" fontSize={0.4} color="#333333" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-8,2.8,14.49]} rotation={[0,Math.PI,0]}
 >
@@ -95,9 +95,9 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
 
 
 
-<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#444444" 
+<Text font="/fonts/wallpoet.ttf" fontSize={0.4} color="#333333" 
 anchorX="center" anchorY="middle" textAlign="center"
-position={[-11,2.5,14.49]} rotation={[0,Math.PI,0]}
+position={[-11,2.8,14.49]} rotation={[0,Math.PI,0]}
 >
 {`SOLID`}
 </Text>

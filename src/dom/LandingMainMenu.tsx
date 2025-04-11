@@ -28,6 +28,14 @@ const random10CharString = () => {
 
 
   return (<>
+    {!!isGameLoading && <>
+    <div className="pos-abs bottom-0 left-0 mb-100 z-100">
+      <BewMenuButton 
+      classOverride={"tx-altfont-5 hover-4 ml-2 tx-white "}>
+      Loading...
+    </BewMenuButton>
+    </div>
+    </>}
   <div className='pos-abs bottom-0 pb-100 w-100 flex-col flex-align-start'
     style={{
       background: "linear-gradient(0deg, #1E1B14, #00000000)",
@@ -77,7 +85,7 @@ const random10CharString = () => {
         color: "#cc8822",
         textShadow: "0 0 10px #996622, 1px 1px 0 #000000",
       }}
-      className="ma-2 tx-altfont-5  translate-x-25 nodeco" href="/game">
+      className="ma-2 tx-altfont-5  translate-x-25 nodeco" href="/game" onClick={() => setGameLoading(true)}>
       <BewMenuButton classOverride="hover-jump">Continue</BewMenuButton></Link>)}
       {!isGameLoading && !enterUsername &&
 
@@ -108,13 +116,12 @@ const random10CharString = () => {
           }}
           style={{ background:"#494644", color: "#ccbbaa" }} value={typedUsername}
           onChange={(e) => { setTypedUsername(sanitizePlayerId(e.target.value)) }} />
-          </>}
           <BewMenuButton onClick={() => { triggerNewGame() }}
             classOverride={"tx-altfont-5 " + (isGameLoading ? " hover-4" : "")}>
             {isGameLoading ? "Loading..." : "ENTER GAME"}
           </BewMenuButton>
-        </div>}
-
+          </>}
+          </div>}
 
 
           {!isGameLoading && <>

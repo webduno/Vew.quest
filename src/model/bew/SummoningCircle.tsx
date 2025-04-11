@@ -19,7 +19,7 @@ useFrame(() => {
   if (!wireFrameRef.current) {
     return
   }
-  wireFrameRef.current.rotation.y += .1
+  wireFrameRef.current.rotation.y += .01
 })
 
   
