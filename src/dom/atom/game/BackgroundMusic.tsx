@@ -23,7 +23,11 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
 
   if (show) {
     return (<>
-      <div className='w-100vw h-100vh bottom-0 left-0 flex-col pos-abs bg-glass-3 z-100' >
+      <div className='w-100vw h-100vh bottom-0 left-0 flex-col pos-abs bg-glass-3 '
+        style={{
+          zIndex: 1500,
+        }}
+       >
         <div className='w-100 h-100 pos-abs'
           style={{
             cursor: isEverythingLoading ? "default" : "pointer",
