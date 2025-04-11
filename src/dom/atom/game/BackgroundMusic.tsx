@@ -91,16 +91,16 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
   
   return (
     <div
-      className='pos-abs top-0 left-0 mt-3 ml-150  '
+      className='pos-abs top-0 left-0 mt-4 ml-150  '
       onClick={togglePlay}
       style={{
         zIndex: 9000,
         position: 'fixed',
       }}
     >
-      <button  className="bord-r-5 pointer pb-1 " tabIndex={-1}
+      <button  className="bord-r-5 key-btn noborder pointer pb-1 " tabIndex={-1}
       style={{
-        background: "#333333",
+        // background: "#333333",
       }}
        >
         {!isPlaying ? (
