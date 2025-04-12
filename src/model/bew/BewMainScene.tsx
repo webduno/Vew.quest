@@ -1,12 +1,10 @@
 'use client';
 import { Box, Cylinder, Text } from '@react-three/drei';
-import { PhysicalCeiling, PhysicalFloor } from './PhysicalFloor';
-import { PhysicalWall } from './PhysicalWall';
-import { ABDoorPortals } from './ABDoorPortals';
+import { PhysicalWall } from '../core/PhysicalWall';
+import { ABDoorPortals } from '../doorwalls/ABDoorPortals';
 import { RoomB } from '../rooms/RoomB';
 import { RoomA } from '../rooms/RoomA';
-import { BCDoorPortals } from './BCDoorPortals';
-import { CDDoorPortals } from './CDDoorPortals';
+import { BCDoorPortals } from '../doorwalls/BCDoorPortals';
 import { RoomC } from '../rooms/RoomC';
 import { RoomRight } from '../rooms/RoomRight';
 import { RoomLeft } from '../rooms/RoomLeft';

@@ -1,5 +1,5 @@
 'use client';
-import { useTexture, Sphere, Text, Plane, RoundedBox, MeshTransmissionMaterial, Cylinder, Box } from '@react-three/drei';
+import { useTexture, Sphere, Text, Plane, RoundedBox,  Cylinder } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 

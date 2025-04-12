@@ -1,8 +1,7 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { PhysicalTrigger } from './PhysicalTrigger';
-import { PhysicalWall } from './PhysicalWall';
-import { useEffect } from 'react';
+import { PhysicalTrigger } from '../core/PhysicalTrigger';
+import { PhysicalWall } from '../core/PhysicalWall';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 

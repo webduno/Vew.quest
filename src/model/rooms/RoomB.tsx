@@ -1,7 +1,7 @@
 'use client';
-import { Box, Text, Cylinder, Torus } from '@react-three/drei';
-import { PhysicalWall } from '../bew/PhysicalWall';
-import { PhysicalDoor } from '../bew/PhysicalDoor';
+import { Box, Text } from '@react-three/drei';
+import { PhysicalWall } from '../core/PhysicalWall';
+import { PhysicalDoor } from '../core/PhysicalDoor';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
 export const RoomB = () => {
@@ -11,17 +11,6 @@ export const RoomB = () => {
 <RoomBRightDoor />
 {/* <RoomBLeftDoor /> */}
 
-
-{/* <group position={[2, 0, -3.9]} rotation={[0, 0, 0]}>
-<Cylinder args={[.38, .38, .2, 16]} position={[0, 0.11, 0]}>
-  <meshStandardMaterial color="#999999" />
-</Cylinder>
-<Torus args={[.42,.1,5]} position={[0, 0.41, 0]} rotation={[Math.PI/2,0,0]} castShadow
-scale={[1,1,4]}
->
-  <meshStandardMaterial color="#cccccc" />
-</Torus>
-</group> */}
 
 
 

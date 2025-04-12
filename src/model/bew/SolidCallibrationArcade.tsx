@@ -1,9 +1,9 @@
 'use client';
 import { Box, Text, Sphere } from '@react-three/drei';
-import { PhysicalWall } from './PhysicalWall';
+import { PhysicalWall } from '../core/PhysicalWall';
 import { useState } from 'react';
 import { useBew } from '../../../scripts/contexts/BewProvider';
-import { PhysicalTrigger } from './PhysicalTrigger';
+import { PhysicalTrigger } from '../core/PhysicalTrigger';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
 import { SolidGameLoop } from './SolidGameLoop';

@@ -4,7 +4,7 @@ import { StyledWall } from './StyledWall';
 import { useState, useEffect } from 'react';
 import { ColorCallibrationArcade } from './ColorCallibrationArcade';
 import { SummoningCircle } from './SummoningCircle';
-import { PhysicalWall } from './PhysicalWall';
+import { PhysicalWall } from '../core/PhysicalWall';
 import { SolidCallibrationArcade } from './SolidCallibrationArcade';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 

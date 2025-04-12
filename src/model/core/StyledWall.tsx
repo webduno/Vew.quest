@@ -1,7 +1,6 @@
 'use client';
 import { Box } from '@react-three/drei';
-import { PhysicalWall } from './PhysicalWall';
-import { PhysicalDoor } from './PhysicalDoor';
+import { PhysicalDoor } from '../core/PhysicalDoor';
 
 
 export const StyledWall = ({

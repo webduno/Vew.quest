@@ -1,7 +1,7 @@
 'use client';
 import { Box } from '@react-three/drei';
-import { PhysicalWall } from './PhysicalWall';
-import { PhysicalTrigger } from './PhysicalTrigger';
+import { PhysicalWall } from '../core/PhysicalWall';
+import { PhysicalTrigger } from '../core/PhysicalTrigger';
 
 export interface TheRoomProps {
   onChairSit?: (e: any) => void;

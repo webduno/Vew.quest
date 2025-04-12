@@ -1,9 +1,8 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { PhysicalTrigger } from './PhysicalTrigger';
-import { PhysicalWall } from './PhysicalWall';
-import { PhysicalDoor } from './PhysicalDoor';
-import { StyledWall } from './StyledWall';
+import { PhysicalTrigger } from '../core/PhysicalTrigger';
+import { PhysicalWall } from '../core/PhysicalWall';
+import { PhysicalDoor } from '../core/PhysicalDoor';
 
 
 

@@ -1,10 +1,10 @@
 'use client';
 import { Box } from '@react-three/drei';
-import { PhysicalTrigger } from './PhysicalTrigger';
-import { PhysicalWall } from './PhysicalWall';
+import { PhysicalTrigger } from '../core/PhysicalTrigger';
+import { PhysicalWall } from '../core/PhysicalWall';
 import { useState, useEffect, useRef } from 'react';
-import { StyledWall } from './StyledWall';
-import { RegularKey } from './RegularKey';
+import { StyledWall } from '../core/StyledWall';
+import { RegularKey } from '../bew/RegularKey';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 
 

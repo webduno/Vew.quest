@@ -8,10 +8,10 @@ import { BewMainScene } from '@/model/bew/BewMainScene';
 import { BewMobileOverlay } from '@/model/bew/BewMobileOverlay';
 import { PersonSilhouette } from './PersonSilhouette';
 import { BewLighting } from './BewLighting';
-import { TheRoom } from './TheRoom';
+import { TheRoom } from '../rooms/TheRoom';
 import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScreen';
 import { BewPhysicsScene } from './BewPhysicsScene';
-import { PhysicalWall } from './PhysicalWall';
+import { PhysicalWall } from '../core/PhysicalWall';
 import { Box, Plane } from '@react-three/drei';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 import { useSearchParams } from 'next/navigation';
@@ -21,10 +21,10 @@ import { PerformanceStats } from './PerformanceStats';
 import { RotatingBar } from './RotatingBar';
 import { AnalysisScreen } from './AnalysisScreen';
 import { MindStats } from './MindStats';
-import { TheWhiteMirror } from './TheWhiteMirror';
-import { PhysicalFloor } from './PhysicalFloor';
-import { PhysicalCeiling } from './PhysicalFloor';
-import { CDDoorPortals } from './CDDoorPortals';
+import { TheWhiteMirror } from '../rooms/TheWhiteMirror';
+import { PhysicalFloor } from '../core/PhysicalFloor';
+import { PhysicalCeiling } from '../core/PhysicalFloor';
+import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl } =  useVibeverse()
