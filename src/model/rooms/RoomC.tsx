@@ -1,7 +1,7 @@
 'use client';
 import { Box } from '@react-three/drei';
-import { PhysicalWall } from './PhysicalWall';
-import { PhysicalTrigger } from './PhysicalTrigger';
+import { PhysicalWall } from '../bew/PhysicalWall';
+import { PhysicalTrigger } from '../bew/PhysicalTrigger';
 
 interface BewPreMainSceneProps {
   setPlayerPosition?: (position: [number, number, number]) => void;

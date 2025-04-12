@@ -1,10 +1,10 @@
 'use client';
 import { Box, Plane, Text } from '@react-three/drei';
-import { CardboardBox } from './CardboardBox';
-import { StyledWall } from './StyledWall';
-import { PhysicalWall } from './PhysicalWall';
-import { PhysicalTrigger } from './PhysicalTrigger';
-import { useBew } from './BewProvider';
+import { CardboardBox } from '../bew/CardboardBox';
+import { StyledWall } from '../bew/StyledWall';
+import { PhysicalWall } from '../bew/PhysicalWall';
+import { PhysicalTrigger } from '../bew/PhysicalTrigger';
+import { useBew } from '../../../scripts/contexts/BewProvider';
 import { useState, useEffect } from 'react';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 

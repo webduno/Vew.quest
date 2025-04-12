@@ -1,8 +1,8 @@
 'use client';
 import { Box, Cylinder, Torus, Text } from '@react-three/drei';
-import { PhysicalWall } from './PhysicalWall';
+import { PhysicalWall } from '../bew/PhysicalWall';
 import { useState, useEffect } from 'react';
-import { PhysicalTrigger } from './PhysicalTrigger';
+import { PhysicalTrigger } from '../bew/PhysicalTrigger';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
 export const RoomA = () => {
