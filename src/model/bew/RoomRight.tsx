@@ -58,14 +58,14 @@ mcmonagle.pdf
 </Text>
 
 {!hasExploredZone('psionic_asset_zone') &&  (
-<PhysicalTrigger visible={true}
+<PhysicalTrigger visible={false}
  position={[7, 2, -5]} size={[3,4,1.1]}
  onCollide={() => {
   updateExploredStatus('psionic_asset_zone', true);
   showSnackbar('You\'ve found the Psionic Asset Zone!', 'info');
   setTimeout(() => {
     closeSnackbar();
-  }, 1000);
+  }, 4000);
 }}
 >
 </PhysicalTrigger>
