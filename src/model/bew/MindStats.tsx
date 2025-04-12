@@ -1,5 +1,5 @@
 'use client';
-import { useVibeverse } from '@/dom/useVibeverse';
+import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { useState, useEffect } from 'react';
 
 

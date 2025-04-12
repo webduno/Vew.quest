@@ -2,9 +2,9 @@
 import { Box, Text, Sphere } from '@react-three/drei';
 import { PhysicalWall } from './PhysicalWall';
 import { useState } from 'react';
-import { useBew } from './BewProvider';
+import { useBew } from '../../../scripts/contexts/BewProvider';
 import { PhysicalTrigger } from './PhysicalTrigger';
-import { useVibeverse } from '@/dom/useVibeverse';
+import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
 import { SolidGameLoop } from './SolidGameLoop';
 

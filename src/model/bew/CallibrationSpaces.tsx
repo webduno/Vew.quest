@@ -6,7 +6,7 @@ import { ColorCallibrationArcade } from './ColorCallibrationArcade';
 import { SummoningCircle } from './SummoningCircle';
 import { PhysicalWall } from './PhysicalWall';
 import { SolidCallibrationArcade } from './SolidCallibrationArcade';
-import { useVibeverse } from '../../dom/useVibeverse';
+import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
 
 export const CallibrationSpaces = () => {

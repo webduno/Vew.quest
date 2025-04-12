@@ -1,5 +1,5 @@
 import React from 'react';
-import { LargeSemicircularMeter } from '../LargeSemicircularMeter';
+import { LargeSemicircularMeter } from '../../../model/bew/LargeSemicircularMeter';
 
 type SectionType = 'buttons' | 'natural' | 'temp' | 'sliders' | 'meter' | 'send';
 

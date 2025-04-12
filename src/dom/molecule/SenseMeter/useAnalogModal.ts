@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { buttonTypes } from './analogHelpers';
+import { buttonTypes } from '../../../../scripts/helpers/analogHelpers';
 
 export const useAnalogModal = (onSend: (params: {
   type: string;

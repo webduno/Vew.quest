@@ -1,6 +1,6 @@
 'use client';
 import { Box, Text, useFont } from '@react-three/drei';
-import { StyledWall } from './StyledWall';
+import { StyledWall } from '../bew/StyledWall';
 import { useBox } from '@react-three/cannon';
 import { useEffect, useState, useContext } from 'react';
 import { VibeverseContext } from '@/dom/VibeverseProvider';

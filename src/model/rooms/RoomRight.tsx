@@ -6,7 +6,7 @@ import { PhysicalWall } from './PhysicalWall';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { useBew } from './BewProvider';
 import { useState, useEffect } from 'react';
-import { useVibeverse } from '../../dom/useVibeverse';
+import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
 export const RoomRight = () => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();

@@ -5,7 +5,7 @@ import { PhysicalWall } from './PhysicalWall';
 import { useState, useEffect, useRef } from 'react';
 import { StyledWall } from './StyledWall';
 import { RegularKey } from './RegularKey';
-import { useBew } from './BewProvider';
+import { useBew } from '../../../scripts/contexts/BewProvider';
 
 
 

@@ -1,7 +1,7 @@
 'use client';
 import { Box, Text, Cylinder, Torus } from '@react-three/drei';
-import { PhysicalWall } from './PhysicalWall';
-import { PhysicalDoor } from './PhysicalDoor';
+import { PhysicalWall } from '../bew/PhysicalWall';
+import { PhysicalDoor } from '../bew/PhysicalDoor';
 import { VibeverseContext } from '@/dom/VibeverseProvider';
 import { useContext } from 'react';
 

@@ -3,8 +3,8 @@ import { Box, Text } from '@react-three/drei';
 import { PhysicalTrigger } from './PhysicalTrigger';
 import { PhysicalWall } from './PhysicalWall';
 import { useEffect } from 'react';
-import { useBew } from './BewProvider';
-import { useVibeverse } from '@/dom/useVibeverse';
+import { useBew } from '../../../scripts/contexts/BewProvider';
+import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
 
 export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setPlayerPosition: (position: [number, number, number]) => void,

@@ -3,7 +3,7 @@ import { Box, Cylinder, Torus, Text } from '@react-three/drei';
 import { PhysicalWall } from './PhysicalWall';
 import { useState, useEffect } from 'react';
 import { PhysicalTrigger } from './PhysicalTrigger';
-import { useVibeverse } from '@/dom/useVibeverse';
+import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
 export const RoomA = () => {
   const [colorCallibration, setColorCallibration] = useState(0)

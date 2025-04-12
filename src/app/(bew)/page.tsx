@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { BewMenuButton } from '../../model/bew/BewMenuButton';
-import { LandingMainMenu } from '@/dom/LandingMainMenu';
+import { LandingMainMenu } from '@/dom/organ/LandingMainMenu';
 
 export default function Webbew() {
   return <div>
