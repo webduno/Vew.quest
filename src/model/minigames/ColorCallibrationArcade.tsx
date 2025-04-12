@@ -33,7 +33,7 @@ export const ColorCallibrationArcade = ({
   const checkSaturation = (isLess: boolean, currentColor: string, currentColorAnswered: boolean) => {
     if (!currentColorAnswered) {
       setMisses(prev => prev + 1);
-      playSoundEffect("/sfx/passbip.mp3");
+      playSoundEffect("/sfx/short/passbip.mp3");
       return false;
     }
     if (!colorCalibrationStarted) return false;
@@ -42,10 +42,10 @@ export const ColorCallibrationArcade = ({
     
     if ((isLess && saturation < 50) || (!isLess && saturation >= 50)) {
       setPoints(prev => prev + 1);
-      playSoundEffect("/sfx/goodbip.wav")
+      playSoundEffect("/sfx/short/goodbip.wav")
     } else {
       setMisses(prev => prev + 1);
-      playSoundEffect("/sfx/badbip.wav")
+      playSoundEffect("/sfx/short/badbip.wav")
     }
     return true;
   };
@@ -53,12 +53,12 @@ export const ColorCallibrationArcade = ({
   const handleGameEnd = () => {
     setColorCalibrationStarted(false);
     if (points >= 4) {
-      playSoundEffect("/sfx/goodcode.mp3");
+      playSoundEffect("/sfx/short/goodcode.mp3");
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
       updateMindStats('color', currentStats.color + 1);
     } else {
-      playSoundEffect("/sfx/badbip.wav");
+      playSoundEffect("/sfx/short/badbip.wav");
     }
   };
 

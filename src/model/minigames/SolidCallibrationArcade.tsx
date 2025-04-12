@@ -34,7 +34,7 @@ export const SolidCallibrationArcade = ({
   const checkPrimitives = (isMoreBoxes: boolean, currentPrimitives: { type: 'box' | 'sphere', count: number }[], currentPrimitivesAnswered: boolean) => {
     if (!currentPrimitivesAnswered) {
       setMisses(prev => prev + 1);
-      playSoundEffect("/sfx/passbip.mp3");
+      playSoundEffect("/sfx/short/passbip.mp3");
       return false;
     }
     if (!solidCalibrationStarted) return false;
@@ -44,10 +44,10 @@ export const SolidCallibrationArcade = ({
     
     if ((isMoreBoxes && boxCount > sphereCount) || (!isMoreBoxes && boxCount <= sphereCount)) {
       setPoints(prev => prev + 1);
-      playSoundEffect("/sfx/goodbip.wav")
+      playSoundEffect("/sfx/short/goodbip.wav")
     } else {
       setMisses(prev => prev + 1);
-      playSoundEffect("/sfx/badbip.wav")
+      playSoundEffect("/sfx/short/badbip.wav")
     }
     return true;
   };
@@ -55,12 +55,12 @@ export const SolidCallibrationArcade = ({
   const handleGameEnd = () => {
     setSolidCalibrationStarted(false);
     if (points >= 4) {
-      playSoundEffect("/sfx/goodcode.mp3");
+      playSoundEffect("/sfx/short/goodcode.mp3");
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { solid: 0 };
       updateMindStats('solid', currentStats.solid + 1);
     } else {
-      playSoundEffect("/sfx/badbip.wav");
+      playSoundEffect("/sfx/short/badbip.wav");
     }
   };
 

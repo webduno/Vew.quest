@@ -25,7 +25,7 @@ const openDoorProcess = () => {
   setTimeout(() => {
     setDoorVisible((prev) => {
       if (prev) {
-        playSoundEffect('/sfx/ddoor.mp3');
+        playSoundEffect('/sfx/short/ddoor.mp3');
       }
       return false;
     });

@@ -3,7 +3,7 @@ import { isMobile } from '@/../scripts/utils/mobileDetection';
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef, useContext } from 'react';
-import { BewMainScene } from '@/model/bew/BewMainScene';
+import { BewMainScene } from '@/model/bew/scenes/BewMainScene';
 import { BewMobileOverlay } from '@/dom/organ/BewMobileOverlay';
 import { PersonSilhouette } from '../bits/PersonSilhouette';
 import { BewLighting } from './BewLighting';
@@ -18,7 +18,7 @@ import { useBew } from '../../../scripts/contexts/BewProvider';
 import { BackgroundMusic } from '@/dom/molecule/BackgroundMusic';
 import { PerformanceStats } from '../../dom/molecule/PerformanceStats';
 import { RotatingBar } from '../bits/RotatingBar';
-import { AnalysisScreen } from './AnalysisScreen';
+import { AnalysisScreen } from '../bits/AnalysisScreen';
 import { MindStats } from '../../dom/molecule/MindStats';
 import { TheWhiteMirror } from '../rooms/TheWhiteMirror';
 import { PhysicalFloor } from '../core/PhysicalFloor';
@@ -215,7 +215,7 @@ export const BewGame = () => {
     if (inputValue === CODE_1) {
       setCode1(inputValue)
       if (!!code2) {
-        playSoundEffect("/sfx/goodcode.mp3")
+        playSoundEffect("/sfx/short/goodcode.mp3")
       }
     }
   };
@@ -225,7 +225,7 @@ export const BewGame = () => {
     if (inputValue === CODE_2) {
       setCode2(inputValue)
       if (!!code1) {
-        playSoundEffect("/sfx/goodcode.mp3")
+        playSoundEffect("/sfx/short/goodcode.mp3")
       }
     }
   };
