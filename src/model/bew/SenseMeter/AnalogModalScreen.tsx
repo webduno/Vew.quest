@@ -1,12 +1,10 @@
 'use client';
 
 import React from 'react';
-import { GaugeDial } from '../GaugeDial';
-import { CircularMeter } from '../CircularMeter';
-import { LargeSemicircularMeter } from '../LargeSemicircularMeter';
-import { SliderBar } from '../SliderBar';
-import { ControlButton } from '../ControlButton';
-import { isMobile } from '../../../../scripts/utils/mobileDetection';
+import { TopSection } from './TopSection';
+import { MiddleSection } from './MiddleSection';
+import { BottomSection } from './BottomSection';
+import { ExitButton } from './ExitButton';
 
 export const AnalogModalScreen = ({
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onSend
@@ -368,256 +366,55 @@ export const AnalogModalScreen = ({
         <div className='opaci-25'>SENSE METER</div>
       </div>
     </div>
-    <div className='pos-abs top-0 right-0 mr-4 pt-4 flex-col flex-justify-end flex-align-end'>
-      <div 
-        ref={exitButtonRef}
-        className=' px-2 bord-r-5 border-white opaci-chov--50'
-        onClick={() => {
-          if (activeSection === 'send') {
-            onSend({
-              type: buttonTypes[activeButtonIndex],
-              natural: gaugeValues[0],
-              temp: gaugeValues[1],
-              light: sliderValues[0],
-              color: sliderValues[1],
-              solid: sliderValues[2],
-              confidence: meterValue
-            });
-          } else {
-            setActiveSection('send');
-            if (modalRef.current) {
-              modalRef.current.focus();
-            }
-          }
-        }}
-        style={{
-          background: '#333333',
-          color: activeSection === 'send' ? '#55ff55' : '#ff5555',
-          border: activeSection === 'send' ? '2px solid white' : '',
-          transform: activeSection === 'send' ? 'scale(1.1)' : 'scale(1)',
-          transition: 'transform 0.2s, box-shadow 0.2s',
-        }}
-      >
-        SEND
-      </div>
-      {activeSection === 'send' && !isMobile() &&
-    <div className='tx-xs tx-center tx-white  bord-r-5  pt-1'>
-        SPACEBAR TO SEND
-      </div>
-      }
-    </div>
+
+    <ExitButton
+      activeSection={activeSection}
+      activeButtonIndex={activeButtonIndex}
+      gaugeValues={gaugeValues}
+      sliderValues={sliderValues}
+      meterValue={meterValue}
+      buttonTypes={buttonTypes}
+      onSend={onSend}
+      setActiveSection={setActiveSection}
+      modalRef={modalRef}
+    />
+
     <div className='flex-col w-200px bord-r-5 pa-2' style={{
       background: '#9aa39a',
       border: '8px solid #565956',
     }}>
-      
-      {/* Top section with gauges and danger sign */}
-      <div className='tx-sm pb-1 flex-row flex-justify-start gap-1 w-100'>
-        <div className='opaci-50'>Type:</div>
-        <div>{buttonTypes[activeButtonIndex]}</div>
-      </div>
-      <div className='flex-row gap-1 flex-align-end'>
-        
-      <div className='flex-wrap pa-1 bord-r-5' 
-        style={{
-          border: activeSection === 'buttons' ? '1px solid #ff3300' : '1px solid transparent',
-          background: '#7d807d'
-        }}
-      >
-        {buttonColors.map((color, index) => (
-          <ControlButton 
-            key={index}
-            color={color}
-            isActive={activeButtonIndex === index}
-            onClick={() => {
-              setActiveButtonIndex(index);
-              setActiveSection('buttons');
-              if (modalRef.current) {
-                modalRef.current.focus();
-              }
-            }}
-          />
-        ))}
-      </div>
-        {/* Left gauges */}
-        <div className='flex-row pa-1 gap-1 bord-r-5' style={{ background: '#7d807d'}}>
-          <div 
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
-            onClick={() => {
-              // Save current gauge value before switching
-              if (activeSection === 'natural' || activeSection === 'temp') {
-                setGaugeValues(prev => {
-                  const newValues = [...prev];
-                  newValues[activeSection === 'natural' ? 0 : 1] = oscillationValue;
-                  return newValues;
-                });
-              }
-              setActiveSection('natural');
-              setOscillationValue(gaugeValues[0]); // Set oscillation to this gauge's value
-              if (modalRef.current) {
-                modalRef.current.focus();
-              }
-            }}
-          >
-            <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>Natural</div>
-            <GaugeDial 
-              key="y" 
-              needleRotation={activeSection === 'natural' ? oscillationValue : gaugeValues[0]}
-              isActive={activeSection === 'natural'}
-            />
-          </div>
-          <div 
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
-            onClick={() => {
-              // Save current gauge value before switching
-              if (activeSection === 'natural' || activeSection === 'temp') {
-                setGaugeValues(prev => {
-                  const newValues = [...prev];
-                  newValues[activeSection === 'natural' ? 0 : 1] = oscillationValue;
-                  return newValues;
-                });
-              }
-              setActiveSection('temp');
-              setOscillationValue(gaugeValues[1]); // Set oscillation to this gauge's value
-              if (modalRef.current) {
-                modalRef.current.focus();
-              }
-            }}
-          >
-            <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>Temp</div>
-            <GaugeDial 
-              key="z" 
-              needleRotation={activeSection === 'temp' ? oscillationValue : gaugeValues[1]}
-              isActive={activeSection === 'temp'}
-            />
-          </div>
-        </div>
-      </div>
-      <div className='tx-xxs mt-1 tx-ls-1 tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
-        USE TAB / SCROLL TO NAVIGATE SETTINGS
-      </div>
-      <hr className='w-100 opaci-20 my-1' />
-      {/* Middle section with sliders and meters */}
-      <div className='w-100  flex-row gap-2 mb-1'>
-        {/* Sliders section */}
-        <div className='flex-1 pa-1 flex-col w-100 ' style={{ 
-          background: '#adb0ad', 
-        }}>
-          <div className='flex-row flex-justify-around w-100 gap-1'>
-            <div className='bg-b-20 bord-r-5 h-50px box-shadow-i-5'>
-            <div className='translate-y--25'>
-            <div className='hover-4  tx-xl tx-shadow-5'
-            style={{ color: '#ff9900' }}
-            >.</div>
-            </div>
-            </div>
-            {["Light", "Color", "Solid"].map((label, index) => (
-              <div className='bord-r-5' 
-                key={index}
-                style={{ 
-                  // padding: '1px', 
-                  border: activeSection === 'sliders' && activeSliderIndex === index ? '1px solid #ff3333' : '1px solid transparent'
-                }}
-                onClick={() => {
-                  // Save current slider value before switching to new slider
-                  if (activeSection === 'sliders') {
-                    setSliderValues(prev => {
-                      const newValues = [...prev];
-                      newValues[activeSliderIndex] = oscillationValue;
-                      return newValues;
-                    });
-                  }
-                  setActiveSliderIndex(index);
-                  setActiveSection('sliders');
-                  setOscillationValue(sliderValues[index]); // Set oscillation to the new slider's value
-                  if (modalRef.current) {
-                    modalRef.current.focus();
-                  }
-                }}
-              >
-                <div className=' tx-white pos-abs tx-xsm opaci-75'
-                style={{
-                  transform: 'rotate(-90deg) translate(-100%, -180%)'
-                }}
-                >
-                  <div className="flex-col pos-rel">
-                    { activeSection === 'sliders' && activeSliderIndex === index &&
-                  <div className=' pos-abs left-0 translate-x--100 tx-bold'
-                  style={{
-                    color: '#ff0000'
-                  }}
-                  >→</div>}
-                  
-                  <div> {label}</div>
-                  </div>
-                </div>
-                <div className=' bord-r-5 noverflow'>
-                  <SliderBar 
-                    sliderPosition={activeSection === 'sliders' && activeSliderIndex === index ? oscillationValue : sliderValues[index]} 
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        {/* Meters section */}
-        <div className="flex-col gap-3">
-        <CircularMeter  needleRotation={  20  } />
-        <CircularMeter  needleRotation={  300} />
+      <TopSection
+        activeButtonIndex={activeButtonIndex}
+        activeSection={activeSection}
+        buttonColors={buttonColors}
+        buttonTypes={buttonTypes}
+        gaugeValues={gaugeValues}
+        oscillationValue={oscillationValue}
+        setActiveButtonIndex={setActiveButtonIndex}
+        setActiveSection={setActiveSection}
+        setOscillationValue={setOscillationValue}
+        setGaugeValues={setGaugeValues}
+        modalRef={modalRef}
+      />
 
-        </div>
-      </div>
-      <hr className='w-100 opaci-20 mt-0 mb-1' />
-      {/* Bottom section with controls and large meter */}
-      <div className='flex-col w-100'>
-        <div 
-          ref={meterRef}
-          onClick={handleMeterClick}
-          style={{ 
-            width: '100%', 
-            cursor: activeSection === 'meter' ? 'pointer' : 'default',
-            borderRadius: '5px',
-            zIndex: 29000,
-          }}
-        >
-          <LargeSemicircularMeter value={meterValue} isActive={activeSection === 'meter'} />
-        </div>
-      <div className='px-4 mt-1 tx-xs tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
-        CONFIDENCE: {meterValue}%
-      </div>
+      <MiddleSection
+        activeSection={activeSection}
+        activeSliderIndex={activeSliderIndex}
+        oscillationValue={oscillationValue}
+        sliderValues={sliderValues}
+        setActiveSection={setActiveSection}
+        setActiveSliderIndex={setActiveSliderIndex}
+        setOscillationValue={setOscillationValue}
+        setSliderValues={setSliderValues}
+        modalRef={modalRef}
+      />
 
-
-      <div className='pos-abs bottom-0 left-0 flex-row gap-1 pa-3'
-      style={{
-        paddingBottom: "12px"
-      }}
-      >
-        <div className='border-white bord-r-100 bg-b-90'>
-          <div className='flicker-5 _ddg pl-1 pt-1 bord-r-100'></div>
-        </div>
-          <div>
-            <div className='pa-2 bg-b-50 bord-r-100 pos-rel flex-col'>
-              <div className='tx-white pos-abs tx-lg'
-              style={{color: '#aaaaaa',paddingBottom: "4px"}}
-              >+</div>
-            </div>
-          </div>
-      </div>
-      
-      <div className='pos-abs bottom-0 right-0 flex-row gap-1 pa-3'>
-      <div className='border-white bord-r-100 bg-b-90'>
-          <div className='flicker-3 _ddb pl-1 pt-1 bord-r-100'></div>
-        </div>
-        <div className='border-white bord-r-100 bg-b-90'>
-          <div className='flicker-5 _ddg pl-1 pt-1 bord-r-100'></div>
-        </div>
-        <div className='border-white bord-r-100 bg-b-50'>
-          <div className='flicker-2 _ddr pl-1 pt-1 bord-r-100'></div>
-        </div>
-      </div>
-
-      </div>
+      <BottomSection
+        activeSection={activeSection}
+        meterValue={meterValue}
+        meterRef={meterRef}
+        handleMeterClick={handleMeterClick}
+      />
     </div>
   </div>
   );
