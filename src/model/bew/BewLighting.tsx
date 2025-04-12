@@ -115,7 +115,6 @@ export const BewLighting = ({
         target={spotLightTarget3.current}
       />
       )}
-  {!showWhiteMirror && <>
         <spotLight 
           position={[0, 3.3, 8.5]} 
           angle={1.6} 
@@ -137,7 +136,6 @@ export const BewLighting = ({
           castShadow 
           target={spotLightTarget2.current} 
         />
-        </>}
       </>
     )}
   </>);
