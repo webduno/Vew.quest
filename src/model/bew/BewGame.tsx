@@ -31,6 +31,9 @@ export const BewGame = () => {
 
   const [showAnalogModal, setShowAnalogModal] = useState(false);
   const [whiteRoomTarget, setWhiteRoomTarget] = useState("");
+  const [crvTargetObject, setCrvTargetObject] = useState({})
+  const [accuracyResult, setAccuracyResult] = useState({})
+  const [submitted, setSubmitted] = useState({})
   const [showWhiteMirror, setShowWhiteMirror] = useState(false);
   const { isCutSceneOpen, showSnackbar, closeSnackbar, setIsCutSceneOpen, playSoundEffect } = useBew();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -80,6 +83,8 @@ export const BewGame = () => {
     solid: number;
     confidence: number;
   }) => {
+    setSubmitted(crvData)
+
     console.table(crvData)
     setShowAnalogModal(false);
     setShowWhiteMirror(false);
@@ -89,6 +94,21 @@ export const BewGame = () => {
     setLoadingAnalysisResult(true)
     playSoundEffect("/sfx/stickyshift.mp3", 0.05)
 
+
+    // Compare submitted data with target
+    const target = crvTargetObject as typeof crvData;
+
+    const accuracyres = {
+      typeMatch: target.type === crvData.type,
+      naturalityAccuracy: Math.abs(target.natural - crvData.natural) / 360,
+      temperatureAccuracy: Math.abs(target.temp - crvData.temp) / 360,
+      lightAccuracy: Math.abs(target.light - crvData.light) / 100,
+      colorAccuracy: Math.abs(target.color - crvData.color) / 100,
+      solidAccuracy: Math.abs(target.solid - crvData.solid) / 100,
+      confidenceAccuracy: Math.abs(target.confidence - crvData.confidence) / 100
+    }
+    setAccuracyResult(accuracyres)
+   
     try {
       const response = await fetch('/api/ai', {
         method: 'POST',
@@ -121,6 +141,8 @@ export const BewGame = () => {
   
   
   `)
+
+        
       }, 3000)
     } catch (error) {
       console.error('Error sending CRV report:', error);
@@ -163,9 +185,21 @@ export const BewGame = () => {
         //random 8digit code
         const theTarget = Math.random().toString(9).substring(2, 10);
         setWhiteRoomTarget(theTarget);
-          // setShowAnalogModal(true);
-          setShowWhiteMirror(true);
-          setIsTransitioning(false);
+
+        // Generate random CRV target object
+        const crvTarget = {
+          type: ['object', 'entity', 'place'][Math.floor(Math.random() * 3)],
+          natural: Math.floor(Math.random() * 100),
+          temp: Math.floor(Math.random() * 100),
+          light: Math.floor(Math.random() * 100),
+          color: Math.floor(Math.random() * 100),
+          solid: Math.floor(Math.random() * 100),
+          confidence: Math.floor(Math.random() * 100)
+        };
+        setCrvTargetObject(crvTarget);
+        
+        setShowWhiteMirror(true);
+        setIsTransitioning(false);
 
 
 
@@ -363,7 +397,7 @@ export const BewGame = () => {
 
 
 
-      
+
       <Canvas camera={{ fov: 125 }} shadows={LS_lowGraphics ? false : true}>
         {/* Performance stats component inside Canvas */}
         {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
@@ -371,21 +405,7 @@ export const BewGame = () => {
         <BewLighting showWhiteMirror={showWhiteMirror} />
 
 
-        <Plane args={[4,2]} position={[0,2,-26.49]} rotation={[0,0,0]} receiveShadow>
-          <meshStandardMaterial color="#888888" roughness={0.15}  />
-        </Plane>
-        {!!loadingAnalysisResult && (
-          <group position={[0,2,-26.5]} rotation={[0,-0,0]}>
-            <RotatingBar />
-          </group>
-        )}
-        {
-        !!analysisResult &&
-         (<>
-          <group position={[0,2.9,-26.48]} rotation={[0,-0,0]}>
-          <AnalysisScreen analysisResult={analysisResult} />
-          </group>
-        </>)}
+        
 
         <Physics
           gravity={[0, -30, 0]}
@@ -419,6 +439,22 @@ export const BewGame = () => {
           <PersonSilhouette />
           </group>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {showWhiteMirror && (
           <TheWhiteMirror whiteRoomTarget={whiteRoomTarget}
            setShowAnalogModal={setShowAnalogModal} />
@@ -428,7 +464,28 @@ export const BewGame = () => {
           showWhiteMirror={showWhiteMirror}
           setShowWhiteMirror={setShowWhiteMirror}
            onChairSit={handleChairSit} onRoomEnter={handleRoomEnter} />
-          )}
+          )}<Plane args={[4,2]} position={[0,2,-26.49]} rotation={[0,0,0]} receiveShadow>
+          <meshStandardMaterial color="#888888" roughness={0.15}  />
+        </Plane>
+        {!!loadingAnalysisResult && (
+          <group position={[0,2,-26.5]} rotation={[0,-0,0]}>
+            <RotatingBar />
+          </group>
+        )}
+        {
+        !!analysisResult &&
+         (<>
+          <group position={[0,2.9,-26.48]} rotation={[0,-0,0]}>
+            <AnalysisScreen analysisResult={analysisResult} 
+            submitted={submitted}
+            targetResults={crvTargetObject}
+            accuracyResult={accuracyResult}
+            />
+          </group>
+        </>)}
+
+
+
 
 
 
