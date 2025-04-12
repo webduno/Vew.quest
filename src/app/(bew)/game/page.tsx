@@ -1,5 +1,5 @@
 import { BewGameContainer } from '@/model/bew/BewGameContainer';
-import { BewLogo } from '@/model/bew/BewLogo';
+import { BewLogo } from '@/dom/atom/BewLogo';
 
 export default function NewGamePage() {
   return (

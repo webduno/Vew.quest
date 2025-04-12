@@ -1,5 +1,5 @@
 'use client'
-import { BewMenuButton } from "@/model/bew/BewMenuButton"
+import { BewMenuButton } from "@/dom/atom/BewMenuButton"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"

@@ -1,6 +1,6 @@
 'use client';
 import { Box, Plane, Text } from '@react-three/drei';
-import { CardboardBox } from '../bew/CardboardBox';
+import { CardboardBox } from '../bits/CardboardBox';
 import { StyledWall } from '../core/StyledWall';
 import { PhysicalWall } from '../core/PhysicalWall';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';

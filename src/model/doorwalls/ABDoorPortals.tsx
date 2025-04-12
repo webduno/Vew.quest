@@ -4,7 +4,7 @@ import { PhysicalTrigger } from '../core/PhysicalTrigger';
 import { PhysicalWall } from '../core/PhysicalWall';
 import { useState, useEffect, useRef } from 'react';
 import { StyledWall } from '../core/StyledWall';
-import { RegularKey } from '../bew/RegularKey';
+import { RegularKey } from '../bits/RegularKey';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 
 

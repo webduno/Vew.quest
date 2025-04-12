@@ -1,11 +1,11 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { StyledWall } from './StyledWall';
+import { StyledWall } from '@/model/core/StyledWall';
 import { useState, useEffect } from 'react';
-import { ColorCallibrationArcade } from './ColorCallibrationArcade';
-import { SummoningCircle } from './SummoningCircle';
+import { ColorCallibrationArcade } from '@/model/minigames/ColorCallibrationArcade';
+import { SummoningCircle } from '../bits/SummoningCircle';
 import { PhysicalWall } from '../core/PhysicalWall';
-import { SolidCallibrationArcade } from './SolidCallibrationArcade';
+import { SolidCallibrationArcade } from '@/model/minigames/SolidCallibrationArcade';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
 

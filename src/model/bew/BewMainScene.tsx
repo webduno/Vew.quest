@@ -11,7 +11,7 @@ import { RoomLeft } from '../rooms/RoomLeft';
 import { useState, useEffect, useCallback, useContext } from 'react';
 import { BewPortal } from '../portal/BewPortal';
 import { useSearchParams } from 'next/navigation';
-import { ZuckHead } from './ZuckHead';
+import { ZuckHead } from '../bits/ZuckHead';
 import { CallibrationSpaces } from './CallibrationSpaces';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
