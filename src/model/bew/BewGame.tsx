@@ -14,7 +14,6 @@ import { BewPhysicsScene } from './BewPhysicsScene';
 import { PhysicalWall } from './PhysicalWall';
 import { Box, Plane } from '@react-three/drei';
 import { VibeverseContext } from '@/dom/VibeverseProvider';
-import { Stats } from '@react-three/drei';
 import { useSearchParams } from 'next/navigation';
 import { useBew } from './BewProvider';
 import { BackgroundMusic } from '@/dom/atom/game/BackgroundMusic';
@@ -23,12 +22,15 @@ import { RotatingBar } from './RotatingBar';
 import { AnalysisScreen } from './AnalysisScreen';
 import { MindStats } from './MindStats';
 import { useVibeverse } from '@/dom/useVibeverse';
+import { TheWhiteMirror } from './TheWhiteMirror';
 
 export const BewGame = () => {
-  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, formatPortalUrl } = useContext(VibeverseContext)
+  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl } = useContext(VibeverseContext)
   // const { updateExploredStatus, hasExploredZone } = useVibeverse();
 
-  
+  const [showAnalogModal, setShowAnalogModal] = useState(false);
+  const [whiteRoomTarget, setWhiteRoomTarget] = useState("");
+  const [showWhiteMirror, setShowWhiteMirror] = useState(false);
   const { isCutSceneOpen, showSnackbar, closeSnackbar, setIsCutSceneOpen, playSoundEffect } = useBew();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [isEverythingLoading, setIsEverythingLoading] = useState(true);
@@ -36,8 +38,8 @@ export const BewGame = () => {
   const focusStageRef = useRef<any>(0);
   const [enableLocked, setEnableLocked] = useState(true)
   const [initialPosition, setInitialPosition] = useState<[number, number, number]>(
-    // [-8, 0, 11]
-    [-1.5, 0, 1]
+    [-3, 0, -19]
+    // [-1.5, 0, 1]
   )
   const [currentPosition, setCurrentPosition] = useState<[number, number, number]>([0, 0, 1]);
   const [playerRotation, setPlayerRotation] = useState({ x: 0, y: 0, z: 0 })
@@ -66,6 +68,8 @@ export const BewGame = () => {
   const [naturality, setNaturality] = useState<number>(0)
   const [temperature, setTemperature] = useState<number>(0)
   
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
   const sendCRVReport = async (crvData: {
     type: string;
     natural: number;
@@ -76,6 +80,8 @@ export const BewGame = () => {
     confidence: number;
   }) => {
     console.table(crvData)
+    setShowAnalogModal(false);
+    setShowWhiteMirror(false);
     setFocusLevel(0);
     focusStageRef.current = 0;
     setIsLocked(false);
@@ -143,35 +149,38 @@ export const BewGame = () => {
   }, []);
 
   // Handle trigger collision
-  const handleTriggerCollision = useCallback((event: any) => {
-    // alert("You've triggered a collision event!");
-    focusStageRef.current = focusStageRef.current +1
-    setFocusLevel((prev) => prev + 1)
-    if (LS_firstTime) {
-
-      playSoundEffect("/sfx/firsttimesense.ogg")
+  const handleChairSit = useCallback((event: any) => {
+    handleSetPlayerPosition([2.5, 0, -21.5])
+    showSnackbar("Take a big nose inhale, and exhale slowly.", 'handbook');
+    focusStageRef.current = focusStageRef.current + 1;
+    setFocusLevel((prev) => prev + 1);
+    setTimeout(() => {
+      setIsTransitioning(true);
       setTimeout(() => {
-        playSoundEffect("/sfx/sensetuto.ogg")
-
+      closeSnackbar();
+      setTimeout(() => {
         
-        showSnackbar("-Navigate config -Fill input values -Send for Analysis", 'info')
+        //random 8digit code
+        const theTarget = Math.random().toString(9).substring(2, 10);
+        setWhiteRoomTarget(theTarget);
+          // setShowAnalogModal(true);
+          setShowWhiteMirror(true);
+          setIsTransitioning(false);
+        }, 1000);
+      }, 3000);
+    }, 1000);
+
+    if (LS_firstTime) {
+      playSoundEffect("/sfx/firsttimesense.ogg");
+      setTimeout(() => {
+        playSoundEffect("/sfx/sensetuto.ogg");
+        showSnackbar("-Navigate config -Fill input values -Send for Analysis", 'info');
         setTimeout(() => {
           closeSnackbar();
-        }, 10000)
+        }, 10000);
       }, 3500);
-    } else {
-      
-      showSnackbar("-Navigate config -Fill input values -Send (Analysis)", 'info')
-      setTimeout(() => {
-        closeSnackbar();
-      }, 10000)
     }
-    
-    // setEnableLocked(false)
-    // setIsLocked(true)
-    // setInitialPosition([0, 1, 3])
-    // document.pointerLockElement && document.exitPointerLock()
-  }, []);
+  }, [LS_firstTime, playSoundEffect, showSnackbar, closeSnackbar]);
 
   // Callback to get player rotation from physics scene
   const handlePlayerRotationUpdate = useCallback((rotation: { x: number, y: number, z: number }) => {
@@ -213,17 +222,21 @@ export const BewGame = () => {
     // disable the movement for 10 seconds
     // while the intro cutscene plays
     // then enable the movement again
-    setIsCutSceneOpen(true);
-    setEnableLocked(false);
-    updateExploredStatus('witness_room', true);
-    showSnackbar(`You've entered the witness room... Sit down.`, 'title');
-    playSoundEffect("/sfx/sitdown.ogg")
+    // setEnableLocked(false);
+    if (!hasExploredZone("white_mirror_room")) {
+      updateExploredStatus('white_mirror_room', true);
+      setIsCutSceneOpen(true);
+      showSnackbar(`You've entered the white mirror room... Sit down.`, 'title');
+      playSoundEffect("/sfx/sitdown.ogg")
 
-    setTimeout(() => {
-      closeSnackbar();
-      setIsCutSceneOpen(false);
-      setEnableLocked(true);
-    }, 4000);
+        
+      setTimeout(() => {
+        closeSnackbar();
+        setIsCutSceneOpen(false);
+        // setEnableLocked(true);
+      }, 4000);
+    }
+
   }
 
 
@@ -246,6 +259,22 @@ export const BewGame = () => {
 
   return (
     <div className='pos-abs top-0 left-0 w-100 h-100 flex-col'>
+
+{(
+    <div id="transition-screen"
+    className={`pos-abs top-0 left-0 w-100 h-100 ${isTransitioning ? 'opaci-100' : 'opaci-0'}`}
+    style={{
+      pointerEvents: !isTransitioning ? 'none' : 'auto',
+      background: '#777777',
+      transition: 'opacity 4s ease-in-out',
+      zIndex: 10000
+    }}>
+
+    </div>
+)}
+
+
+
       <div className='pos-abs top-0 left-0 mt-8 z-100 w-100px  ml-2 pt-4'>
       <MindStats />
       </div>
@@ -310,7 +339,7 @@ export const BewGame = () => {
       
 
 
-      {focusLevel !== 0 && (
+      {focusLevel !== 0 && showAnalogModal && (
         <AnalogModalScreen 
           setEnableLocked={setEnableLocked}
           enableLocked={enableLocked}
@@ -322,7 +351,7 @@ export const BewGame = () => {
         {/* Performance stats component inside Canvas */}
         {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
 
-        <BewLighting />
+        <BewLighting showWhiteMirror={showWhiteMirror} />
 
 
         <Plane args={[4,2]} position={[0,2,-26.49]} rotation={[0,0,0]} receiveShadow>
@@ -349,7 +378,8 @@ export const BewGame = () => {
 
           
           {/* CHAIR SUPERVISOR, only visible when focusStageRef.current === 0 */}
-          {focusStageRef.current === 0 && ( <>
+          {!showWhiteMirror && ( <>
+          
           <group position={[2, 0, -20]} rotation={[0, -.5, 0]} scale={[1, 1.1, 1]}>
             <PersonSilhouette />
           </group>
@@ -372,7 +402,13 @@ export const BewGame = () => {
           <PersonSilhouette />
           </group>
 
-          <TheRoom onTriggerCollide={handleTriggerCollision} onRoomEnter={handleRoomEnter} />
+{showWhiteMirror && (
+          <TheWhiteMirror whiteRoomTarget={whiteRoomTarget}
+           setShowAnalogModal={setShowAnalogModal} />
+          )}
+          <TheRoom
+          setShowWhiteMirror={setShowWhiteMirror}
+           onChairSit={handleChairSit} onRoomEnter={handleRoomEnter} />
 
 
 
@@ -447,6 +483,7 @@ transform: "translate(-50%, -50%)",
     </div>
   );
 };
+
 
 
 

@@ -4,11 +4,12 @@ import { PhysicalWall } from './PhysicalWall';
 import { PhysicalTrigger } from './PhysicalTrigger';
 
 export interface TheRoomProps {
-  onTriggerCollide?: (e: any) => void;
+  onChairSit?: (e: any) => void;
   onRoomEnter?: (e: any) => void;
+  setShowWhiteMirror?: (show: boolean) => void;
 }
 
-export const TheRoom = ({ onTriggerCollide, onRoomEnter }: TheRoomProps) => {
+export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror }: TheRoomProps) => {
 
 
   
@@ -33,7 +34,7 @@ export const TheRoom = ({ onTriggerCollide, onRoomEnter }: TheRoomProps) => {
         visible={false}
         size={[0.5, 1.5, 0.5]}
         position={[2, .75, -21.25]} rotation={[0, 2, 0]}
-        onCollide={onTriggerCollide}
+        onCollide={onChairSit}
     />
 
 

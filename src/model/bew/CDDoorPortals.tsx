@@ -49,7 +49,7 @@ fontSize={0.2}
     const codeInputElement = document.getElementById('code1');
     // only if its not already visible
     if (codeInputElement && (codeInputElement as HTMLInputElement).style.display !== "block") {
-      if (!hasExploredZone("witness_room")) {
+      if (!hasExploredZone("white_mirror_room")) {
         showSnackbar("Find the codes in the ESP Lab and Psionic Zone", "info");
         setTimeout(() => {        
           closeSnackbar();

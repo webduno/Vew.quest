@@ -31,7 +31,9 @@ const lightGreenEmissiveMaterial = new MeshStandardMaterial({
   emissive: "#a0ffc7" 
 });
 
-export const BewLighting = () => {
+export const BewLighting = ({ 
+  showWhiteMirror = false 
+ }) => {
   const { LS_lowGraphics } = useContext(VibeverseContext)
   const spotLightTarget1 = useRef<any>(null);
   const spotLightTarget2 = useRef<any>(null);
@@ -87,13 +89,17 @@ export const BewLighting = () => {
 
     {targetsReady && (
       <>
-      <spotLight position={[0, 3, -22]}
+      {
+      // !showWhiteMirror && 
+      (
+        <spotLight position={[0, 3, !showWhiteMirror?-22:-26]}
         angle={1.5}
         penumbra={1}
         intensity={50}
         color="#f7ffe7" castShadow
         target={spotLightTarget3.current}
       />
+      )}
   
         <spotLight 
           position={[0, 3.3, 8.5]} 
