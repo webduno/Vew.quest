@@ -2,11 +2,10 @@
 import { Box, Text, Cylinder, Torus } from '@react-three/drei';
 import { PhysicalWall } from '../bew/PhysicalWall';
 import { PhysicalDoor } from '../bew/PhysicalDoor';
-import { VibeverseContext } from '@/dom/VibeverseProvider';
-import { useContext } from 'react';
+import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
 export const RoomB = () => {
-  const { LS_hasFirstKey } = useContext(VibeverseContext)
+  const { LS_hasFirstKey } = useVibeverse()
   return (<>
 
 <RoomBRightDoor />

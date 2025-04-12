@@ -3,12 +3,11 @@ import { Box, Text, useFont } from '@react-three/drei';
 import { StyledWall } from '../bew/StyledWall';
 import { useBox } from '@react-three/cannon';
 import { useEffect, useState, useContext } from 'react';
-import { VibeverseContext } from '@/dom/VibeverseProvider';
-
+import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
 
 export const RoomLeft = () => {
-  const { LS_lowGraphics } = useContext(VibeverseContext)
+  const { LS_lowGraphics } = useVibeverse()
   return (<>
 
 

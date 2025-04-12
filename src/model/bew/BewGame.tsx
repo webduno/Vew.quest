@@ -4,7 +4,7 @@ import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef, useContext } from 'react';
 import { BewMainScene } from '@/model/bew/BewMainScene';
-import { RoomC } from './RoomC';
+
 import { BewMobileOverlay } from '@/model/bew/BewMobileOverlay';
 import { PersonSilhouette } from './PersonSilhouette';
 import { BewLighting } from './BewLighting';
@@ -13,7 +13,7 @@ import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScre
 import { BewPhysicsScene } from './BewPhysicsScene';
 import { PhysicalWall } from './PhysicalWall';
 import { Box, Plane } from '@react-three/drei';
-import { VibeverseContext } from '@/dom/VibeverseProvider';
+import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 import { useSearchParams } from 'next/navigation';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 import { BackgroundMusic } from '@/dom/atom/game/BackgroundMusic';
@@ -21,14 +21,13 @@ import { PerformanceStats } from './PerformanceStats';
 import { RotatingBar } from './RotatingBar';
 import { AnalysisScreen } from './AnalysisScreen';
 import { MindStats } from './MindStats';
-import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { TheWhiteMirror } from './TheWhiteMirror';
 import { PhysicalFloor } from './PhysicalFloor';
 import { PhysicalCeiling } from './PhysicalFloor';
 import { CDDoorPortals } from './CDDoorPortals';
 
 export const BewGame = () => {
-  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl } = useContext(VibeverseContext)
+  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl } =  useVibeverse()
   // const { updateExploredStatus, hasExploredZone } = useVibeverse();
 
   const [showAnalogModal, setShowAnalogModal] = useState(false);

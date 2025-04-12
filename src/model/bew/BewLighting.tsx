@@ -1,6 +1,6 @@
 'use client';
 
-import { VibeverseContext } from '@/dom/VibeverseProvider';
+import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 import { Box } from '@react-three/drei';
 import { useRef, useEffect, useState, useContext } from 'react';
 import { MeshStandardMaterial } from 'three';
@@ -34,7 +34,7 @@ const lightGreenEmissiveMaterial = new MeshStandardMaterial({
 export const BewLighting = ({ 
   showWhiteMirror = false 
  }) => {
-  const { LS_lowGraphics } = useContext(VibeverseContext)
+  const { LS_lowGraphics } = useVibeverse()
   const spotLightTarget1 = useRef<any>(null);
   const spotLightTarget2 = useRef<any>(null);
   const spotLightTarget3 = useRef<any>(null);
