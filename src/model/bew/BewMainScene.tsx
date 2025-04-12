@@ -12,7 +12,7 @@ import { useState, useEffect, useCallback, useContext } from 'react';
 import { BewPortal } from '../portal/BewPortal';
 import { useSearchParams } from 'next/navigation';
 import { ZuckHead } from '../bits/ZuckHead';
-import { CallibrationSpaces } from './CallibrationSpaces';
+import { CallibrationSpaces } from '../rooms/CallibrationSpaces';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
 export const BewMainScene = ({ setPlayerPosition,

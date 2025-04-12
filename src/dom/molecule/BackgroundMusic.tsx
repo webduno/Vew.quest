@@ -1,7 +1,7 @@
 "use client"
 
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
-import { GameButton } from './GameButton';
+import { GameButton } from '../atom/game/GameButton';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoading }: { 

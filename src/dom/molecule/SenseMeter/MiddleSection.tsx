@@ -1,6 +1,6 @@
 import React from 'react';
-import { SliderBar } from '../../../model/bew/SliderBar';
-import { CircularMeter } from '../../../model/bew/CircularMeter';
+import { SliderBar } from './parts/SliderBar';
+import { CircularMeter } from './parts/CircularMeter';
 
 type SectionType = 'buttons' | 'natural' | 'temp' | 'sliders' | 'meter' | 'send';
 

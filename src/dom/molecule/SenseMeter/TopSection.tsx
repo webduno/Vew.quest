@@ -1,6 +1,6 @@
 import React from 'react';
-import { ControlButton } from '../../../model/bew/ControlButton';
-import { GaugeDial } from '../../../model/bew/GaugeDial';
+import { ControlButton } from './parts/ControlButton';
+import { GaugeDial } from './parts/GaugeDial';
 
 type SectionType = 'buttons' | 'natural' | 'temp' | 'sliders' | 'meter' | 'send';
 
