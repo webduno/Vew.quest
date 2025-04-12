@@ -90,6 +90,7 @@ export const MindStats = () => {
       }}>
         <div>wbw</div>
         <hr className='w-100 opaci-20' />
+        <div className='flex-row gap-1'>
         <div  className='bord-r-100' id="changeIndicator"
         style={{
           background: !toggleChangeSomething ? '#442222' : '#aa1111',
@@ -97,6 +98,16 @@ export const MindStats = () => {
           marginBottom: '2px',
         }}
         ></div>
+          
+        <div  className='bord-r-100' id="changeIndicator"
+        style={{
+          background: toggleChangeSomething ? '#442222' : '#aa1111',
+          padding: '2px',
+          marginBottom: '2px',
+        }}
+        >
+        </div>
+        </div>
 
         <div className=' flex-col flex-align-start opaci-30'>
           <div>{username.slice(1, 4)}</div>
