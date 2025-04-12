@@ -78,7 +78,7 @@ export const TheTable = () => {
     <group position={[0, 0, 0]}>
         
       {/* table top  */}
-      <Box args={[3, .2, 2]} castShadow
+      <Box args={[3, .2, 2]} castShadow receiveShadow
         position={[0, .8, 0]}>
         <meshStandardMaterial color="#eeeeee" />
       </Box>

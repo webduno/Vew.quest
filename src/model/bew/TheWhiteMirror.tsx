@@ -46,13 +46,15 @@ export const TheWhiteMirror = ({
       setShowAnalogModal(true);
     }}
     >
-      <Cylinder args={[.42, .6, .45, 12]} position={[0, -.85, 0]}>
+      <Cylinder args={[.42, .6, .45, 12]} position={[0, -.85, 0]}
+      castShadow receiveShadow
+      >
         <meshStandardMaterial color="#ffffff" emissive="#443300"
         />
       </Cylinder>
       <pointLight intensity={2} color="#ffffff" castShadow
         position={[-1.75, 0, 0]} />
-      <Sphere args={[.7, 32, 32]} ref={orbRef2}
+      <Sphere args={[.7, 32, 32]} ref={orbRef2} castShadow
       >
         <meshStandardMaterial color="#ffffff"
           // emissive="#ffffff"
