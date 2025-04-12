@@ -7,7 +7,7 @@ import { BewMainScene } from '@/model/bew/scenes/BewMainScene';
 import { BewMobileOverlay } from '@/dom/organ/BewMobileOverlay';
 import { PersonSilhouette } from '../bits/PersonSilhouette';
 import { BewLighting } from './BewLighting';
-import { TheRoom } from '../rooms/TheRoom';
+import { TheRoom } from '../rooms/WhiteMirror/TheRoom';
 import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScreen';
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
 import { PhysicalWall } from '../core/PhysicalWall';
@@ -20,7 +20,7 @@ import { PerformanceStats } from '../../dom/molecule/PerformanceStats';
 import { RotatingBar } from '../bits/RotatingBar';
 import { AnalysisScreen } from '../bits/AnalysisScreen';
 import { MindStats } from '../../dom/molecule/MindStats';
-import { TheWhiteMirror } from '../rooms/TheWhiteMirror';
+import { TheWhiteMirror } from '../rooms/WhiteMirror/TheWhiteMirror';
 import { PhysicalFloor } from '../core/PhysicalFloor';
 import { PhysicalCeiling } from '../core/PhysicalFloor';
 import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
@@ -359,6 +359,11 @@ export const BewGame = () => {
           onSend={sendCRVReport}
         />
       )}
+
+
+
+
+      
       <Canvas camera={{ fov: 125 }} shadows={LS_lowGraphics ? false : true}>
         {/* Performance stats component inside Canvas */}
         {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
