@@ -56,7 +56,15 @@ export const ColorCallibrationArcade = ({
       playSoundEffect("/sfx/short/goodcode.mp3");
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
-      updateMindStats('color', currentStats.color + 1);
+      const newPoints = currentStats.color + (points < 5 ? 1 : 2)
+      if (currentStats.color == 2 && newPoints >= 3) {
+        playSoundEffect("/sfx/short/keys.mp3");
+        showSnackbar("You've reached sync level 3!", 'info');
+        setTimeout(() => {
+          closeSnackbar();
+        }, 3000);
+      }
+      updateMindStats('color', newPoints);
     } else {
       playSoundEffect("/sfx/short/badbip.wav");
     }

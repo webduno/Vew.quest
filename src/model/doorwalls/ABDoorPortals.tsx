@@ -9,10 +9,18 @@ import { useBew } from '../../../scripts/contexts/BewProvider';
 
 
 
-export const ABDoorPortals = ({ setPlayerPosition, hasFirstKey, setHasFirstKey }: { setPlayerPosition: (position: [number, number, number]) => void; hasFirstKey: boolean; setHasFirstKey: (hasFirstKey: boolean) => void; }) => {
+export const ABDoorPortals = ({
+   setPlayerPosition, hasFirstKey, setHasFirstKey,
+   doorVisible, setDoorVisible
+}: {
+  setPlayerPosition: (position: [number, number, number]) => void;
+  hasFirstKey: boolean;
+  setHasFirstKey: (hasFirstKey: boolean) => void;
+  doorVisible: boolean;
+  setDoorVisible: any
+}) => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
   const [cooldown, setCooldown] = useState(false);
-  const [doorVisible, setDoorVisible] = useState(true);
   // Use a ref to always have the latest value of hasFirstKey
   const hasKeyRef = useRef(hasFirstKey);
 
@@ -23,7 +31,7 @@ export const ABDoorPortals = ({ setPlayerPosition, hasFirstKey, setHasFirstKey }
 
 const openDoorProcess = () => {
   setTimeout(() => {
-    setDoorVisible((prev) => {
+    setDoorVisible((prev:any) => {
       if (prev) {
         playSoundEffect('/sfx/short/ddoor.mp3');
       }
@@ -92,7 +100,7 @@ const openDoorProcess = () => {
 
 
 
-
+{hasKeyRef.current && <>
     <PhysicalTrigger visible={false} triggerCount={999}
       onCollide={(e) => {
         // Use the ref value instead of the prop to get the latest state
@@ -117,6 +125,7 @@ const openDoorProcess = () => {
       size={[1, 4, 0.2]}
       position={[0, 1, 4.8]}
       rotation={[0, 0, 0]} />
+</>}
 
 
 

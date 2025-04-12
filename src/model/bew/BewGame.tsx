@@ -212,7 +212,7 @@ export const BewGame = () => {
   const CODE_3 = "gondolawish"
   const handleCode1Submit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = (e.target as HTMLInputElement).value;
-    if (inputValue === CODE_1) {
+    if (inputValue.toLowerCase() === CODE_1.toLowerCase()) {
       setCode1(inputValue)
       if (!!code2) {
         playSoundEffect("/sfx/short/goodcode.mp3")
@@ -222,7 +222,7 @@ export const BewGame = () => {
 
   const handleCode2Submit = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = (e.target as HTMLInputElement).value;
-    if (inputValue === CODE_2) {
+    if (inputValue.toLowerCase() === CODE_2.toLowerCase()) {
       setCode2(inputValue)
       if (!!code1) {
         playSoundEffect("/sfx/short/goodcode.mp3")
@@ -315,7 +315,7 @@ export const BewGame = () => {
         </div>
       )}
 
-      <div className='pos-abs bottom-0 right-0 mb-100 flex-col mr-4 z-100 gap-1 pa-1 pb-2'
+      <div className='pos-abs bottom-0 right-0 mb-150 flex-col mr-4 z-100 gap-1 pa-1 pb-2'
       style={{
         zIndex: 1200,
       }}
@@ -418,11 +418,12 @@ export const BewGame = () => {
           <TheWhiteMirror whiteRoomTarget={whiteRoomTarget}
            setShowAnalogModal={setShowAnalogModal} />
           )}
+          {code1 && code2 && (
           <TheRoom
           showWhiteMirror={showWhiteMirror}
           setShowWhiteMirror={setShowWhiteMirror}
            onChairSit={handleChairSit} onRoomEnter={handleRoomEnter} />
-
+          )}
 
 
 

@@ -18,15 +18,31 @@ import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 export const BewMainScene = ({ setPlayerPosition,
   code1,
   code2,
-  code3 }: { setPlayerPosition: (position: [number, number, number]) => void, 
-    code1?: string, 
-    code2?: string, 
-    code3?: string  }) => {
+  code3
+}: {
+  setPlayerPosition: (position: [number, number, number]) => void, 
+  code1?: string, 
+  code2?: string, 
+  code3?: string
+}) => {
 
-  const { LS_playerId, LS_lowGraphics, hasExploredZone, formatPortalUrl, LS_hasFirstKey, setHasFirstKey } =  useVibeverse()
+  const {
+    LS_playerId,
+    LS_lowGraphics,
+    hasExploredZone,
+    formatPortalUrl,
+    LS_hasFirstKey,
+    setHasFirstKey
+  } =  useVibeverse()
   const vb_ref = useSearchParams().get("ref")
   // const { hasExploredZone } = useVibeverse();
-
+  const [firstDoorVisible, setFirstDoorVisible] = useState(true);
+  const [wasFirstDoorOpened, setWasFirstDoorOpened] = useState(false);
+  const handle_setFirstDoorVisible = (value: boolean) => {
+    setFirstDoorVisible(value);
+    if (wasFirstDoorOpened) { return }
+    setWasFirstDoorOpened(true);
+  }
   // Memoize the handler with useCallback to prevent recreation
   const handleKeyCollection = useCallback((value: boolean) => {
     setHasFirstKey(value);
@@ -81,18 +97,28 @@ export const BewMainScene = ({ setPlayerPosition,
 
 
 
-      <CallibrationSpaces />
+      {wasFirstDoorOpened && <>
+        <CallibrationSpaces />
       
-      <RoomA />
+        <RoomA />
+        </>}
 
       <RoomB />
       
-      <RoomC setPlayerPosition={setPlayerPosition} />  
+      
 
-      <RoomRight />
+
+
+      {wasFirstDoorOpened && <>
+        <RoomRight />
+        <RoomC setPlayerPosition={setPlayerPosition} />  
+      </>}
+
       <RoomLeft />
 
-      <ABDoorPortals setPlayerPosition={setPlayerPosition} hasFirstKey={LS_hasFirstKey} setHasFirstKey={handleKeyCollection} />
+      <ABDoorPortals setPlayerPosition={setPlayerPosition} 
+        hasFirstKey={LS_hasFirstKey} setHasFirstKey={handleKeyCollection}
+        doorVisible={firstDoorVisible} setDoorVisible={handle_setFirstDoorVisible} />
 
       <BCDoorPortals setPlayerPosition={setPlayerPosition} />
       

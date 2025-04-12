@@ -3,12 +3,18 @@
 ---
 
 ## **Game Overview**
-**Title:** TBD  
+**Title:** Web Bew (Brain Extrasensorial White Mirror)
 **Genre:** First-person Parapsychology Puzzle/Exploration  
 **Platform:** Web (HTML5/WebGL)  
 **Game Modes:** Single-player, Multiplayer  
-**Art Style:** Abstract, composed of simple primitives (cubes, pyramids, spheres), with a retro, analog research lab aesthetic rather than a futuristic look.  
-**Target Audience:** Players interested in cognitive science, perception, and experimental gameplay
+**Art Style:** Abstract, composed of simple primitives (cubes, pyramids, spheres), with a retro, analog research lab aesthetic 80s
+**Target Audience:** Players interested in cognitive science, extra sensorial perception, and experimental gameplay
+
+## **Description**
+*Psionic Calibration* is an immersive, first-person exploration and calibration game where players train their perception and intuitive skills in a surreal, vintage office-like setting.
+
+The game introduces players to psychic development concepts through interactive puzzles, arcade machines, and agent-level progression.
+
 
 ## **Core Gameplay Mechanics**
 - Players control a test subject enrolled in a fictionalized version of the early SRI parapsychology program.
@@ -16,8 +22,55 @@
 - Players complete a series of research-based challenges designed to test mental focus, pattern recognition, and remote perception.
 
 ## **Game Structure**
-- **Level 1-4:** Predefined experimental environments with increasing cognitive difficulty.
-- **Level 5 (Final Level):** Procedurally generated, providing infinite experimental permutations.
+- Player starts in a main office area with several doors.
+- Initial interaction is choosing a key and progressing to a hallway with three labeled rooms:
+  - **Psionic Zone** *(Level 3 agents only)*
+  - **Mars Archives**
+  - **Calibration Spaces**
+- The **Calibration Spaces** room is open. Inside is an arcade-like color calibration machine.
+- A light appears on a monitor; the player judges whether it is 'full' (colorful) or 'less' (muted).
+- Responses earn calibration points across several rounds (3–10 sec per color).
+- After achieving Level 3 calibration, the player gains access to the Psionic Zone area.
+- Navigating through boxes, the player enters the **Psionic Asset Training Zone**.
+- A new calibration appears — **Solidness Calibration**. Another arcade machine shows boxes and spheres:
+  - More boxes = More Solid
+  - More spheres = Solid Less
+- Upon earning at least two solidness calibration points, the player can phase through a wall in the Psionic Asset Training Zone.
+- Beyond the wall, a door requires two hidden codes found on walls throughout the rooms.
+- After entering the codes, the player enters the **Witness Room**.
+- The player sits with two agents and uses a **Sense Meter** to intuitively describe a hidden target.
+
+## Calibration Mechanics
+
+### Color Calibration
+- Interactive console shows a random color intensity.
+- Player chooses **'Full'** or **'Less'** using buttons.
+- Points awarded for correct perception; multiple attempts required.
+- Must reach Level 3 for Psionic Zone access.
+
+### Solidness Calibration
+- A machine displays shapes (boxes and spheres).
+- Player determines **'More Solid'** or **'Solid Less'** based on count.
+- Minimum of 2 points required to progress.
+
+## Progression & Access
+
+Progress is achieved through correct calibrations:
+- Level 3 Color Calibration → Psionic Zone
+- Solid Calibration → Asset Training Wall Access
+- Code Input → Witness Room Entry
+
+## Witness Room (Final Task)
+
+- Room contains a table, two agents, and a chair.
+- Player sits and is presented with a **Sense Meter**.
+- A target is randomly selected but hidden.
+- Player must use calibrated intuition to determine characteristics:
+  - **Temperature** (Hot/Cold)
+  - **Origin** (Natural/Man-made)
+  - **Solidness**
+  - **Colorness**
+
 
 ### **Player Abilities & Controls**
 - **Move:** WASD / Arrow Keys
@@ -36,45 +89,6 @@
 - Players can join a cooperative session to complete experiments together.
 - Competitive mode where players race to complete perception trials first.
 
-## **Game Levels**
-### **Level 1 (Orientation Lab)**
-- **Objective:** Introduce the facility and begin initial cognitive calibration.
-- **Gameplay:**
-  - Players enter a simulated training center with voice-over guidance.
-  - Tasks include identifying symbols hidden within visual noise, completing simple pattern sequences.
-  - Introduction to "mental focus zones"—areas requiring players to slow down and stabilize their view to reveal hidden elements.
-- **Challenges:**
-  - Visual decryption: Find patterns within layered abstract shapes.
-  - Basic spatial memory: Reconstruct shape sequences after brief exposure.
-
-### **Level 2 (Remote Perception Test)**
-- **Objective:** Train players to perceive environments not visible to the eye.
-- **Gameplay:**
-  - Players enter isolated rooms where a random location is being projected remotely.
-  - Using vague cues and audio hints, players must match what they "sense" with correct 3D layouts.
-  - Successful guesses improve the player's signal clarity stat.
-- **Challenges:**
-  - Choosing the correct matching room from multiple decoys.
-  - Solving rotating puzzles that only align from a certain perspective.
-
-### **Level 3 (Psi-Energy Calibration)**
-- **Objective:** Allow players to manipulate psi-energy fields under test conditions.
-- **Gameplay:**
-  - Players must stabilize and direct streams of abstract energy to complete circuits.
-  - Introduces calibration nodes and field amplifiers.
-  - Players need to match frequency patterns in order to unlock the next room.
-- **Challenges:**
-  - Route fluctuating energy beams using primitive mirrors and filters.
-  - Solve frequency-matching puzzles while under a time constraint.
-
-### **Level 4 (ESP Pattern Synthesis)**
-- Players must decipher increasingly complex visual or auditory sequences.
-- Timed trials and recognition of evolving waveforms.
-
-### **Level 5 (Infinite Perceptual Matrix)**
-- Procedurally generated test chambers.
-- Randomized challenges that adapt based on the player’s stats and performance.
-- Endless replayability and experimentation.
 
 ## **Visual & Audio Design**
 - **Graphics:** Minimalist, composed of geometric shapes with glowing effects to represent mental energies and focus zones.
@@ -88,10 +102,9 @@
 - Room-based system where players can create or join sessions.
 
 ## **Development Stack**
-- **Engine:** Three.js / Babylon.js (WebGL-based frameworks)
-- **Networking:** WebSockets / WebRTC
+- **Engine:** Three.js / React three fiber / Canon.js (WebGL-based frameworks)
+- **Networking:** WebSockets / WebRTC / Supabase
 - **Procedural Generation:** Randomized layouts based on predefined rules
 
 ## **Conclusion**
-This 3D web-based parapsychology game is a fictionalized simulation of experimental psi research. By combining cognitive tests, perceptual challenges, and minimalist visuals, it offers players a fresh exploration of mental phenomena in both solo and cooperative settings, with an aesthetic inspired by mid-20th century research environments rather than a futuristic setting.
-
+This 3D web-based parapsychology game is a fictionalized simulation of experimental psi research. By combining cognitive tests, perceptual challenges, and minimalist visuals, it offers players a fresh exploration of mental phenomena in both solo and cooperative settings, with an aesthetic inspired by mid-20th century research environments

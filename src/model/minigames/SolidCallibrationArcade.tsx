@@ -83,7 +83,7 @@ export const SolidCallibrationArcade = ({
 
     {/* start button */}
     <Box
-     position={[-11, 1.1, 13.6]} 
+     position={[-11, !solidCalibrationStarted? 1.05: 0.95, 13.6]} 
      rotation={[0, 0, 0]} args={[.5, .2, .2]}
       onClick={()=>{
         console.log("clicked");
