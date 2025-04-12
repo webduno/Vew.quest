@@ -1,5 +1,3 @@
-import { GameButton } from '@/dom/atom/game/GameButton';
-import { BewMenuButton } from './BewMenuButton';
 
 export const BewMobileOverlay = () => {
   return (
