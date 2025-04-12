@@ -28,6 +28,13 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
         <TheChair />
       </group>
 </group>
+<PhysicalTrigger color="#ffeeee"
+        visible={false}
+        size={[1, 1.5, 1]}
+        position={[2.3, .75, -21.25]} 
+        onCollide={onChairSit}
+    />
+
 {!showWhiteMirror && (
 
 
@@ -49,13 +56,6 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
 
 
 
-
-<PhysicalTrigger color="#ffeeee"
-        visible={false}
-        size={[1, 1.5, 1]}
-        position={[2.3, .75, -21.25]} 
-        onCollide={onChairSit}
-    />
 
 
 
