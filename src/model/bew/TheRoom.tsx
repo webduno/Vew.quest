@@ -32,8 +32,8 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror }: TheRoom
 
 <PhysicalTrigger color="#ffeeee"
         visible={false}
-        size={[0.5, 1.5, 0.5]}
-        position={[2, .75, -21.25]} rotation={[0, 2, 0]}
+        size={[1, 1.5, 1]}
+        position={[2.3, .75, -21.25]} 
         onCollide={onChairSit}
     />
 

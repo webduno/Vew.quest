@@ -1,5 +1,5 @@
 'use client';
-import { useTexture, Sphere, Text, Plane, RoundedBox } from '@react-three/drei';
+import { useTexture, Sphere, Text, Plane, RoundedBox, MeshTransmissionMaterial, Cylinder } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 
@@ -21,28 +21,38 @@ export const TheWhiteMirror = ({
 
 
   const orbRef = useRef<any>(null);
+  const orbRef2 = useRef<any>(null);
   // const timeRef = useRef(0);
-  const hdriRaceTexture = useTexture(`/bg/space3.jpg`);
+  const hdriRaceTexture = useTexture(`/bg/qqq.jpg`);
 
 
 
   useFrame((state: any, delta: any): any => {
     if (!orbRef.current) return;
-
+    if (!orbRef2.current) return;
     // timeRef.current += delta;
     // orbRef.current.position.y = Math.sin(orbRef.current.position.y) * 1 + 1.5;
-    orbRef.current.rotation.y += 0.01;
+    orbRef.current.rotation.y += 0.008;
+    orbRef.current.rotation.z += 0.003;
+    orbRef2.current.rotation.x -= 0.009;
+    orbRef2.current.rotation.z -= 0.014;
   });
 
   return (<>
 
-    <group ref={orbRef} position={[0, 2, -21.5]}>
-      <pointLight intensity={1} color="#ffffff" castShadow
-        position={[0, 0.25, 0]} />
-      <Sphere args={[1, 16, 16]}
-        onClick={() => {
-          setShowAnalogModal(true);
-        }}
+    <group  position={[0, 1.9, -21.5]}
+    
+    onClick={() => {
+      setShowAnalogModal(true);
+    }}
+    >
+      <Cylinder args={[.42, .6, .45, 12]} position={[0, -.85, 0]}>
+        <meshStandardMaterial color="#ffffff" emissive="#443300"
+        />
+      </Cylinder>
+      <pointLight intensity={2} color="#ffffff" castShadow
+        position={[-1.75, 0, 0]} />
+      <Sphere args={[.7, 32, 32]} ref={orbRef2}
       >
         <meshStandardMaterial color="#ffffff"
           // emissive="#ffffff"
@@ -50,7 +60,46 @@ export const TheWhiteMirror = ({
           // envMapIntensity={1}
           // emissiveMap={hdriRaceTexture}
           // emissiveIntensity={1}
-          map={hdriRaceTexture} />
+          emissive="#330033"
+          map={hdriRaceTexture}
+           />
+      </Sphere>
+      <Sphere args={[.72, 32, 32]}
+        ref={orbRef}
+      >
+        {/* <meshPhysicalMaterial color="#aa77ff"
+          metalness={0.9}
+          roughness={0.3}
+          transparent={true}
+          opacity={0.8}
+          reflectivity={0.9}
+        /> */}
+            {/* <MeshTransmissionMaterial backside backsideThickness={5} thickness={.2} /> */}
+
+        {/* <meshStandardMaterial color="#aa77ff"
+          // emissive="#997799"
+          // side={1}
+          transparent={true}
+          opacity={0.8}
+          // metalness={0.9}  
+          roughness={0.3}
+          // envMapIntensity={1}
+          // emissiveMap={hdriRaceTexture}
+          // emissiveIntensity={1}
+          // map={hdriRaceTexture} 
+          /> */}
+          <meshStandardMaterial 
+          color="#ffffff"
+          emissive="#330033"
+          // map={hdriRaceTexture}
+          // metalness={0.9}
+          // side={1}
+          roughness={0.13}
+          transparent={true}
+          map={hdriRaceTexture}
+          opacity={.35}
+          // reflectivity={0.9}
+        />
       </Sphere>
     </group>
 

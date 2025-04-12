@@ -38,8 +38,8 @@ export const BewGame = () => {
   const focusStageRef = useRef<any>(0);
   const [enableLocked, setEnableLocked] = useState(true)
   const [initialPosition, setInitialPosition] = useState<[number, number, number]>(
-    [-3, 0, -19]
-    // [-1.5, 0, 1]
+    // [-3, 0, -19]
+    [-1.5, 0, 1]
   )
   const [currentPosition, setCurrentPosition] = useState<[number, number, number]>([0, 0, 1]);
   const [playerRotation, setPlayerRotation] = useState({ x: 0, y: 0, z: 0 })
@@ -157,7 +157,6 @@ export const BewGame = () => {
     setTimeout(() => {
       setIsTransitioning(true);
       setTimeout(() => {
-      closeSnackbar();
       setTimeout(() => {
         
         //random 8digit code
@@ -166,6 +165,18 @@ export const BewGame = () => {
           // setShowAnalogModal(true);
           setShowWhiteMirror(true);
           setIsTransitioning(false);
+
+
+
+    setTimeout(() => {
+    showSnackbar("Click crystal ball to start.", 'handbook');
+    setTimeout(() => {
+    closeSnackbar();
+    }, 3000);
+  }, 2000);
+
+
+
         }, 1000);
       }, 3000);
     }, 1000);
