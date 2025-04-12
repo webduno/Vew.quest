@@ -1,12 +1,12 @@
 'use client';
 
 import React from 'react';
-import { GaugeDial } from './GaugeDial';
-import { CircularMeter } from './CircularMeter';
-import { LargeSemicircularMeter } from './LargeSemicircularMeter';
-import { SliderBar } from './SliderBar';
-import { ControlButton } from './ControlButton';
-import { isMobile } from '../../../scripts/utils/mobileDetection';
+import { GaugeDial } from '../GaugeDial';
+import { CircularMeter } from '../CircularMeter';
+import { LargeSemicircularMeter } from '../LargeSemicircularMeter';
+import { SliderBar } from '../SliderBar';
+import { ControlButton } from '../ControlButton';
+import { isMobile } from '../../../../scripts/utils/mobileDetection';
 
 export const AnalogModalScreen = ({
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onSend
@@ -441,10 +441,6 @@ export const AnalogModalScreen = ({
       </div>
         {/* Left gauges */}
         <div className='flex-row pa-1 gap-1 bord-r-5' style={{ background: '#7d807d'}}>
-          {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>X</div>
-            <GaugeDial key="x" needleRotation={xNeedleRotation} />
-          </div> */}
           <div 
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
             onClick={() => {
@@ -497,7 +493,6 @@ export const AnalogModalScreen = ({
           </div>
         </div>
       </div>
-      {/* <hr className='w-100 opaci-20 my-1' /> */}
       <div className='tx-xxs mt-1 tx-ls-1 tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
         USE TAB / SCROLL TO NAVIGATE SETTINGS
       </div>
@@ -582,26 +577,15 @@ export const AnalogModalScreen = ({
           style={{ 
             width: '100%', 
             cursor: activeSection === 'meter' ? 'pointer' : 'default',
-            // border: activeSection === 'meter' ? '2px solid #333333' : 'none',
             borderRadius: '5px',
             zIndex: 29000,
-            // padding: activeSection === 'meter' ? '2px' : '4px'
           }}
         >
           <LargeSemicircularMeter value={meterValue} isActive={activeSection === 'meter'} />
         </div>
-        {/* <div className='tx-xs pt-2'>INTENT / CONFIDENCE</div> */}
-        {/* <hr className='w-100 opaci-20 my-1' /> */}
       <div className='px-4 mt-1 tx-xs tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
         CONFIDENCE: {meterValue}%
       </div>
-
-
-
-
-
-
-
 
 
       <div className='pos-abs bottom-0 left-0 flex-row gap-1 pa-3'
@@ -622,10 +606,6 @@ export const AnalogModalScreen = ({
       </div>
       
       <div className='pos-abs bottom-0 right-0 flex-row gap-1 pa-3'>
-{/*         
-      <div className='border-white bord-r-100 bg-b-90'>
-          <div className='flicker-5 _ddr pl-1 pt-1 bord-r-100'></div>
-        </div> */}
       <div className='border-white bord-r-100 bg-b-90'>
           <div className='flicker-3 _ddb pl-1 pt-1 bord-r-100'></div>
         </div>
@@ -637,32 +617,7 @@ export const AnalogModalScreen = ({
         </div>
       </div>
 
-
-
-
-
-
-
-
-
-
-
-
       </div>
-{/* 
-      <div className='pa-2 bg-b-90 mt-4 text-center'
-        onClick={() => {
-          setEnableLocked(true);
-        }}
-        style={{
-          cursor: 'pointer',
-          border: '3px solid #555',
-          borderRadius: '5px',
-          fontWeight: 'bold'
-        }}
-      >
-        Click to continue
-      </div> */}
     </div>
   </div>
   );

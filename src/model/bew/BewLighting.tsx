@@ -41,7 +41,7 @@ export const BewLighting = ({
   const [targetsReady, setTargetsReady] = useState(false);
 
   useEffect(() => {
-    if (spotLightTarget1.current && spotLightTarget2.current) {
+    if (spotLightTarget1.current && spotLightTarget2.current && spotLightTarget3.current) {
       setTargetsReady(true);
     }
   }, []);

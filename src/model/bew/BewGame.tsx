@@ -9,7 +9,7 @@ import { BewMobileOverlay } from '@/model/bew/BewMobileOverlay';
 import { PersonSilhouette } from './PersonSilhouette';
 import { BewLighting } from './BewLighting';
 import { TheRoom } from './TheRoom';
-import { AnalogModalScreen } from './AnalogModalScreen';
+import { AnalogModalScreen } from './SenseMeter/AnalogModalScreen';
 import { BewPhysicsScene } from './BewPhysicsScene';
 import { PhysicalWall } from './PhysicalWall';
 import { Box, Plane } from '@react-three/drei';
