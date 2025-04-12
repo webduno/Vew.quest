@@ -91,7 +91,7 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
   
   return (
     <div
-      className='pos-abs top-0 left-0 mt-4 ml-150  '
+      className='pos-abs top-0 left-0 mt-3 ml-100  '
       onClick={togglePlay}
       style={{
         zIndex: 9000,

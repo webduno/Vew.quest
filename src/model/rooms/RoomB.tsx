@@ -19,7 +19,7 @@ export const RoomB = () => {
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-2.49,2.6,1]} rotation={[0,Math.PI/2,0]}
 >
-{`WEBBEW LABS`}
+{`WEB|BEW LABS`}
 </Text>
 
 

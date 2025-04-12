@@ -8,8 +8,8 @@ import '@/app/globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Webbew',
-  description: 'Webbew',
+  title: 'WBEW',
+  description: 'Web Brain Extrasensorial Witness Program',
 }
 
 export default function RootLayout({
