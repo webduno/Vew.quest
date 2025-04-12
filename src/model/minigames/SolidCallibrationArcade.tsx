@@ -6,7 +6,7 @@ import { useBew } from '../../../scripts/contexts/BewProvider';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
-import { SolidGameLoop } from './SolidGameLoop';
+import { SolidGameLoop } from '@/model/minigames/SolidGameLoop';
 
 export const SolidCallibrationArcade = ({ 
   hardMode,

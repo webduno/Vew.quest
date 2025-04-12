@@ -183,9 +183,9 @@ export const BewGame = () => {
     }, 1000);
 
     if (LS_firstTime) {
-      playSoundEffect("/sfx/firsttimesense.ogg");
+      playSoundEffect("/sfx/tutorial/firsttimesense.ogg");
       setTimeout(() => {
-        playSoundEffect("/sfx/sensetuto.ogg");
+        playSoundEffect("/sfx/tutorial/sensetuto.ogg");
         showSnackbar("-Navigate config -Fill input values -Send for Analysis", 'info');
         setTimeout(() => {
           closeSnackbar();
@@ -239,7 +239,7 @@ export const BewGame = () => {
       updateExploredStatus('white_mirror_room', true);
       setIsCutSceneOpen(true);
       showSnackbar(`You've entered the white mirror room... Sit down.`, 'title');
-      playSoundEffect("/sfx/sitdown.ogg")
+      playSoundEffect("/sfx/tutorial/sitdown.ogg")
 
         
       setTimeout(() => {

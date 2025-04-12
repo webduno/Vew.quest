@@ -6,7 +6,7 @@ import { useBew } from '../../../scripts/contexts/BewProvider';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
-import { ColorGameLoop } from './ColorGameLoop';
+import { ColorGameLoop } from '@/model/minigames/ColorGameLoop';
 export const ColorCallibrationArcade = ({ 
   hardMode,
   colorCalibrationStarted,
@@ -71,7 +71,7 @@ export const ColorCallibrationArcade = ({
         position={[-8, 1, 13.5]}
         onCollide={() => {
           updateTutorialStatus('color', true);
-          playSoundEffect("/sfx/colortuto.ogg");
+          playSoundEffect("/sfx/tutorial/colortuto.ogg");
           showSnackbar("Click 'FULL' or 'LESS', if the light color is intese or muted", 'handbook');
           setTimeout(() => {
             closeSnackbar();
