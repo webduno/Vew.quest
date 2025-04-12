@@ -23,6 +23,9 @@ import { AnalysisScreen } from './AnalysisScreen';
 import { MindStats } from './MindStats';
 import { useVibeverse } from '@/dom/useVibeverse';
 import { TheWhiteMirror } from './TheWhiteMirror';
+import { PhysicalFloor } from './PhysicalFloor';
+import { PhysicalCeiling } from './PhysicalFloor';
+import { CDDoorPortals } from './CDDoorPortals';
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl } = useContext(VibeverseContext)
@@ -38,8 +41,8 @@ export const BewGame = () => {
   const focusStageRef = useRef<any>(0);
   const [enableLocked, setEnableLocked] = useState(true)
   const [initialPosition, setInitialPosition] = useState<[number, number, number]>(
-    // [-3, 0, -19]
-    [-1.5, 0, 1]
+    [-3, 0, -19]
+    // [-1.5, 0, 1]
   )
   const [currentPosition, setCurrentPosition] = useState<[number, number, number]>([0, 0, 1]);
   const [playerRotation, setPlayerRotation] = useState({ x: 0, y: 0, z: 0 })
@@ -418,6 +421,7 @@ export const BewGame = () => {
            setShowAnalogModal={setShowAnalogModal} />
           )}
           <TheRoom
+          showWhiteMirror={showWhiteMirror}
           setShowWhiteMirror={setShowWhiteMirror}
            onChairSit={handleChairSit} onRoomEnter={handleRoomEnter} />
 
@@ -445,17 +449,25 @@ export const BewGame = () => {
 
 
 
+      {/* CEILING */}
+      <Box args={[20, 1, 60]} position={[0, 4, -14]}>
+        <meshStandardMaterial color="#ffffff" />
+      </Box>
+      <PhysicalFloor lowGraphics={LS_lowGraphics} />
+      <PhysicalCeiling />
 
 
 
 
+      <CDDoorPortals code1={code1} code2={code2} code3={code3} setPlayerPosition={handleSetPlayerPosition} />
 
-
+{!showWhiteMirror && (
           <BewMainScene 
           code1={code1}
           code2={code2}
           code3={code3}
           setPlayerPosition={handleSetPlayerPosition} />
+)}
 
 
 

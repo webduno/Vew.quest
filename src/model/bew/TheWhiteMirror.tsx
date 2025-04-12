@@ -1,5 +1,5 @@
 'use client';
-import { useTexture, Sphere, Text, Plane, RoundedBox, MeshTransmissionMaterial, Cylinder } from '@react-three/drei';
+import { useTexture, Sphere, Text, Plane, RoundedBox, MeshTransmissionMaterial, Cylinder, Box } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 
@@ -29,11 +29,11 @@ export const TheWhiteMirror = ({
 
   useFrame((state: any, delta: any): any => {
     if (!orbRef.current) return;
-    if (!orbRef2.current) return;
     // timeRef.current += delta;
     // orbRef.current.position.y = Math.sin(orbRef.current.position.y) * 1 + 1.5;
     orbRef.current.rotation.y += 0.008;
     orbRef.current.rotation.z += 0.003;
+    if (!orbRef2.current) return;
     orbRef2.current.rotation.x -= 0.009;
     orbRef2.current.rotation.z -= 0.014;
   });
@@ -47,60 +47,30 @@ export const TheWhiteMirror = ({
     }}
     >
       <Cylinder args={[.42, .6, .45, 12]} position={[0, -.85, 0]}
-      castShadow receiveShadow
       >
         <meshStandardMaterial color="#ffffff" emissive="#443300"
         />
       </Cylinder>
-      <pointLight intensity={2} color="#ffffff" castShadow
+      <pointLight intensity={2} color="#ffffff" 
         position={[-1.75, 0, 0]} />
-      <Sphere args={[.7, 32, 32]} ref={orbRef2} castShadow
+      {/* <Sphere args={[.7, 32, 32]} ref={orbRef2} castShadow
       >
         <meshStandardMaterial color="#ffffff"
-          // emissive="#ffffff"
           side={1}
-          // envMapIntensity={1}
-          // emissiveMap={hdriRaceTexture}
-          // emissiveIntensity={1}
           emissive="#330033"
           map={hdriRaceTexture}
            />
-      </Sphere>
+      </Sphere> */}
       <Sphere args={[.72, 32, 32]}
         ref={orbRef}
       >
-        {/* <meshPhysicalMaterial color="#aa77ff"
-          metalness={0.9}
-          roughness={0.3}
-          transparent={true}
-          opacity={0.8}
-          reflectivity={0.9}
-        /> */}
-            {/* <MeshTransmissionMaterial backside backsideThickness={5} thickness={.2} /> */}
-
-        {/* <meshStandardMaterial color="#aa77ff"
-          // emissive="#997799"
-          // side={1}
-          transparent={true}
-          opacity={0.8}
-          // metalness={0.9}  
-          roughness={0.3}
-          // envMapIntensity={1}
-          // emissiveMap={hdriRaceTexture}
-          // emissiveIntensity={1}
-          // map={hdriRaceTexture} 
-          /> */}
           <meshStandardMaterial 
           color="#ffffff"
           emissive="#330033"
-          // map={hdriRaceTexture}
-          // metalness={0.9}
-          // side={1}
           roughness={0.13}
           transparent={true}
-          map={hdriRaceTexture}
-          opacity={.35}
-          // reflectivity={0.9}
+          // map={hdriRaceTexture}
+          opacity={.5}
         />
       </Sphere>
     </group>
@@ -134,11 +104,19 @@ export const TheWhiteMirror = ({
         <Plane args={[4, 2]} position={[0, .5, -4.74]} rotation={[0, 0, 0]} receiveShadow>
           <meshStandardMaterial color="#ffffff"
             emissive="#888888"
-            roughness={0.15} />
+            roughness={0.15} 
+            />
         </Plane>
       </group>
 
 
+      {/* <Box
+        args={[9.5, 3.33, 9.5]} position={[0, 0.2, 0]} receiveShadow>
+        <meshStandardMaterial color="#ffffff" side={1}
+          emissive="#aaaaaa" />
+      </Box> */}
+
+      
       <RoundedBox
         radius={.4}
         args={[9.5, 3.33, 9.5]} position={[0, 0.2, 0]} receiveShadow>

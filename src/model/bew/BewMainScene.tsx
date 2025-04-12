@@ -98,7 +98,6 @@ export const BewMainScene = ({ setPlayerPosition,
       <ABDoorPortals setPlayerPosition={setPlayerPosition} hasFirstKey={LS_hasFirstKey} setHasFirstKey={handleKeyCollection} />
 
       <BCDoorPortals setPlayerPosition={setPlayerPosition} />
-      <CDDoorPortals code1={code1} code2={code2} code3={code3} setPlayerPosition={setPlayerPosition} />
       
 
 
@@ -128,12 +127,6 @@ export const BewMainScene = ({ setPlayerPosition,
         />
       </group>     
       
-      {/* CEILING */}
-      <Box args={[20, 1, 60]} position={[0, 4, -14]}>
-        <meshStandardMaterial color="#ffffff" />
-      </Box>
-      <PhysicalFloor lowGraphics={LS_lowGraphics} />
-      <PhysicalCeiling />
 
     </group>
   );

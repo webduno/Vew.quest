@@ -7,13 +7,33 @@ export interface TheRoomProps {
   onChairSit?: (e: any) => void;
   onRoomEnter?: (e: any) => void;
   setShowWhiteMirror?: (show: boolean) => void;
+  showWhiteMirror?: boolean;
 }
 
-export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror }: TheRoomProps) => {
+export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhiteMirror }: TheRoomProps) => {
 
 
   
-  return (
+  return (<>
+  
+<PhysicalWall color="#eeeeee"
+        visible={false}
+        size={[4, 1, 2]}
+        position={[0, .5, -21.5]} rotation={[0, 0, 0]} />
+
+<group position={[0, 0, -21.5]}>
+
+      <TheTable />
+      <group position={[2.5, 0, 0]} rotation={[0, 2, 0]}>
+        <TheChair />
+      </group>
+</group>
+{!showWhiteMirror && (
+
+
+
+
+
     <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
 
 
@@ -40,19 +60,6 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror }: TheRoom
 
 
 
-<PhysicalWall color="#eeeeee"
-        visible={false}
-        size={[4, 1, 2]}
-        position={[0, .5, -21.5]} rotation={[0, 0, 0]} />
-
-<group position={[0, 0, -21.5]}>
-
-      <TheTable />
-      <group position={[2.5, 0, 0]} rotation={[0, 2, 0]}>
-        <TheChair />
-      </group>
-</group>
-
 
 
 
@@ -69,7 +76,8 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror }: TheRoom
         size={[1, 4, 12.1]}
         position={[0, 2, -27]} rotation={[0, -Math.PI / 2, 0]} />
     </group>
-  );
+)}
+    </>);
 };
 
 
@@ -79,7 +87,7 @@ export const TheTable = () => {
         
       {/* table top  */}
       <Box args={[3, .2, 2]} castShadow receiveShadow
-        position={[0, .8, 0]}>
+        position={[0, .81, 0]}>
         <meshStandardMaterial color="#eeeeee" />
       </Box>
       {/* table legs */}

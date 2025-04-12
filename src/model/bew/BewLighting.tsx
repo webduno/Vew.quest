@@ -53,7 +53,30 @@ export const BewLighting = ({
       <Box args={[0.1,0.06,1]} position={[5,3.5,0]} material={whiteEmissiveMaterial} />
     </group>
 
-    {/* ROOM RIGHT */}
+    
+    {/* ROOM A */}
+    <group ref={spotLightTarget1} position={[0, 0, 8.5]} >
+      <Box args={[1,0.06,0.1]} position={[0,3.5,0]} material={blueEmissiveMaterial} />
+    </group>
+    {/* ROOM B */}
+
+    <group ref={spotLightTarget2} position={[0, 0, -1.25]} >
+      
+    
+      <Box args={[1,0.06,0.1]} position={[0,3.5,-1]} material={greenEmissiveMaterial} />
+      <Box args={[1,0.06,0.1]} position={[0,3.5,3]} material={greenEmissiveMaterial} />
+    </group>
+
+
+    {/* ROOM C */}
+    <group ref={spotLightTarget3} position={[0, 0, -22]}>
+    </group>
+
+
+    
+    
+    {!showWhiteMirror && <>
+
     <pointLight position={[5, 3, 2]} intensity={3} color="#ffe7c0"
     castShadow
      />
@@ -62,28 +85,20 @@ export const BewLighting = ({
     castShadow
      />
      )}
-    
-    {/* ROOM A */}
-    <group ref={spotLightTarget1} position={[0, 0, 8.5]} >
-      <Box args={[1,0.06,0.1]} position={[0,3.5,0]} material={blueEmissiveMaterial} />
-    </group>
-    {/* ROOM B */}
-    <group ref={spotLightTarget2} position={[0, 0, -1.25]} >
-      {!LS_lowGraphics && (
-    <pointLight position={[0, 2.5, 3]} intensity={.5} 
+    {!LS_lowGraphics && (
+    <pointLight position={[0, 2.5, 3-1.25]} intensity={.5} 
       color="#f7fff0" 
      />
      )}
-    
-      <Box args={[1,0.06,0.1]} position={[0,3.5,-1]} material={greenEmissiveMaterial} />
-      <Box args={[1,0.06,0.1]} position={[0,3.5,3]} material={greenEmissiveMaterial} />
-    </group>
-    {/* ROOM C */}
-    <group ref={spotLightTarget3} position={[0, 0, -22]}>
-      <pointLight position={[0, 2, 14]} intensity={1}  castShadow
+      <pointLight position={[0, 2, 14-22]} intensity={1}  castShadow
         color="#fff7f0" 
        />
-      <Box args={[1,0.06,0.1]} position={[0,3.5,14]} material={grayEmissiveMaterial} />
+</>}
+
+
+
+    <group ref={spotLightTarget3} position={[0, 0, -22]}>
+    <Box args={[1,0.06,0.1]} position={[0,3.5,14]} material={grayEmissiveMaterial} />
       <Box args={[1,0.06,0.1]} position={[0,3.5,0]} material={lightGreenEmissiveMaterial} />
     </group>
 
@@ -100,7 +115,7 @@ export const BewLighting = ({
         target={spotLightTarget3.current}
       />
       )}
-  
+  {!showWhiteMirror && <>
         <spotLight 
           position={[0, 3.3, 8.5]} 
           angle={1.6} 
@@ -122,6 +137,7 @@ export const BewLighting = ({
           castShadow 
           target={spotLightTarget2.current} 
         />
+        </>}
       </>
     )}
   </>);
