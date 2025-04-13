@@ -51,6 +51,10 @@ export const BewGame = () => {
   const [isLocked, setIsLocked] = useState(false)
   const [teleportTrigger, setTeleportTrigger] = useState(0);
   const [showCodeInput, setShowCodeInput] = useState(false);
+  const wasFirstDoorOpened = useRef(false);
+  const handleFirstDoorOpened = useCallback(() => {
+    wasFirstDoorOpened.current = true;
+  }, []);
   // const [showStats, setShowStats] = useState(true);
   const searchParams = useSearchParams();
   const showStats = searchParams.get('stats') === 'true';
@@ -554,6 +558,8 @@ export const BewGame = () => {
           code1={code1}
           code2={code2}
           code3={code3}
+          wasFirstDoorOpened={wasFirstDoorOpened.current}
+          onFirstDoorOpened={handleFirstDoorOpened}
           setPlayerPosition={handleSetPlayerPosition} />
 )}
 

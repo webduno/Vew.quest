@@ -11,13 +11,14 @@ import { useBew } from '../../../scripts/contexts/BewProvider';
 
 export const ABDoorPortals = ({
    setPlayerPosition, hasFirstKey, setHasFirstKey,
-   doorVisible, setDoorVisible
+   doorVisible, setDoorVisible, onFirstDoorOpened
 }: {
   setPlayerPosition: (position: [number, number, number]) => void;
   hasFirstKey: boolean;
   setHasFirstKey: (hasFirstKey: boolean) => void;
   doorVisible: boolean;
-  setDoorVisible: any
+  setDoorVisible: any;
+  onFirstDoorOpened: () => void;
 }) => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
   const [cooldown, setCooldown] = useState(false);
@@ -34,6 +35,7 @@ const openDoorProcess = () => {
     setDoorVisible((prev:any) => {
       if (prev) {
         playSoundEffect('/sfx/short/ddoor.mp3');
+        onFirstDoorOpened();
       }
       return false;
     });
