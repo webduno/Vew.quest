@@ -32,6 +32,7 @@ export const BewGame = () => {
   const [showAnalogModal, setShowAnalogModal] = useState(false);
   const [whiteRoomTarget, setWhiteRoomTarget] = useState("");
   const [crvTargetObject, setCrvTargetObject] = useState({})
+  const [lastCashReward, setLastCashReward] = useState(0)
   const [accuracyResult, setAccuracyResult] = useState({})
   const [submitted, setSubmitted] = useState({})
   const [showWhiteMirror, setShowWhiteMirror] = useState(false);
@@ -74,6 +75,24 @@ export const BewGame = () => {
   
   const [isTransitioning, setIsTransitioning] = useState(false);
   
+  const calculateAccuracy = (target: number, guess: number, isGauge: boolean = false): number => {
+    if (isGauge) {
+      // For gauge values with larger input numbers
+      const difference = Math.abs(target - guess);
+      // Handle wrap-around cases for inputs > 100
+      const wrappedDifference = Math.min(difference, Math.abs(360 - difference));
+      // Convert to percentage where 100% means perfect match
+      const accuracy = Math.round((1 - (wrappedDifference / 180)) * 100);
+      // Ensure result is between 0 and 100
+      return Math.max(0, Math.min(100, accuracy));
+    } else {
+      // For regular values (0-100)
+      const difference = Math.abs(target - guess);
+      // Convert to percentage where 100% means perfect match
+      return Math.round((1 - (difference / 100)) * 100);
+    }
+  };
+
   const sendCRVReport = async (crvData: {
     type: string;
     natural: number;
@@ -100,14 +119,20 @@ export const BewGame = () => {
 
     const accuracyres = {
       typeMatch: target.type === crvData.type,
-      naturalityAccuracy: Math.abs(target.natural - crvData.natural) / 360,
-      temperatureAccuracy: Math.abs(target.temp - crvData.temp) / 360,
-      lightAccuracy: Math.abs(target.light - crvData.light) / 100,
-      colorAccuracy: Math.abs(target.color - crvData.color) / 100,
-      solidAccuracy: Math.abs(target.solid - crvData.solid) / 100,
-      confidenceAccuracy: Math.abs(target.confidence - crvData.confidence) / 100
+      naturalityAccuracy: calculateAccuracy(target.natural, crvData.natural, true),
+      temperatureAccuracy: calculateAccuracy(target.temp, crvData.temp, true),
+      lightAccuracy: calculateAccuracy(target.light, crvData.light),
+      colorAccuracy: calculateAccuracy(target.color, crvData.color),
+      solidAccuracy: calculateAccuracy(target.solid, crvData.solid),
     }
     setAccuracyResult(accuracyres)
+
+    const rewardAmaount = (accuracyres.naturalityAccuracy +
+    accuracyres.temperatureAccuracy +
+    accuracyres.lightAccuracy +
+    accuracyres.colorAccuracy +
+    accuracyres.solidAccuracy)
+    setLastCashReward(rewardAmaount)
    
     try {
       const response = await fetch('/api/ai', {
@@ -194,7 +219,6 @@ export const BewGame = () => {
           light: Math.floor(Math.random() * 100),
           color: Math.floor(Math.random() * 100),
           solid: Math.floor(Math.random() * 100),
-          confidence: Math.floor(Math.random() * 100)
         };
         setCrvTargetObject(crvTarget);
         
@@ -475,11 +499,12 @@ export const BewGame = () => {
         {
         !!analysisResult &&
          (<>
-          <group position={[0,2.9,-26.48]} rotation={[0,-0,0]}>
+          <group position={[0,3,-26.48]} rotation={[0,-0,0]}>
             <AnalysisScreen analysisResult={analysisResult} 
             submitted={submitted}
             targetResults={crvTargetObject}
             accuracyResult={accuracyResult}
+            rewardAmount={lastCashReward}
             />
           </group>
         </>)}

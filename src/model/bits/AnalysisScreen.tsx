@@ -7,18 +7,20 @@ export const AnalysisScreen = ({
   accuracyResult,
   targetResults,
   submitted,
+  rewardAmount
 }: {
   analysisResult: string;
   targetResults: any;
   accuracyResult: any;
   submitted: any;
+  rewardAmount: any
 }) => {
   const toFixedObject = useMemo(() => {
     return (obj: Record<string, any>) => {
       return Object.fromEntries(
         Object.entries(obj).map(([key, value]) => [
           key, 
-          typeof value === 'number' ? value.toFixed(2) : value
+          typeof value === 'number' ? value : value
         ])
       );
     };
@@ -27,24 +29,35 @@ export const AnalysisScreen = ({
   const formattedAccuracy = useMemo(() => toFixedObject(accuracyResult), [accuracyResult, toFixedObject]);
 
   return (<>
-    <Text font={"/fonts/wallpoet.ttf"} fontSize={0.1} color={"#448844"}
+    <Text font={"/fonts/wallpoet.ttf"} fontSize={0.1} color={"#446644"}
       anchorX="center" anchorY="top" textAlign="left"
+      position={[-.5,0,0]}
     >
       {analysisResult}
     </Text>
-    <Text font={"/fonts/wallpoet.ttf"} fontSize={0.1} color={"#448844"}
+    <Text font={"/fonts/wallpoet.ttf"} fontSize={0.1} color={"#337733"}
       anchorX="center" anchorY="top" textAlign="left"
-      position={[0, -.95, 0]}
+      position={[0, -.8, 0]}
     >
-{`
+{`${accuracyResult.typeMatch ? "✅" : "❌"}
 type        natural        temp        light        color        solidness        
-  ${accuracyResult.typeMatch ? "✅" : "❌"}   ${formattedAccuracy.naturalityAccuracy*100}%                  ${formattedAccuracy.temperatureAccuracy*100}%            ${formattedAccuracy.lightAccuracy*100}%            ${formattedAccuracy.colorAccuracy*100}%              ${formattedAccuracy.solidAccuracy*100}%
+${targetResults.type}       ${formattedAccuracy.naturalityAccuracy}%                  ${formattedAccuracy.temperatureAccuracy}%            ${formattedAccuracy.lightAccuracy}%            ${formattedAccuracy.colorAccuracy}%              ${formattedAccuracy.solidAccuracy}%
 
-
-target         ${targetResults.natural}               ${targetResults.temp}              ${targetResults.light}            ${targetResults.color}               ${targetResults.solid}
-sent            ${parseInt(submitted.natural)}            ${parseInt(submitted.temp)}              ${parseInt(submitted.light)}              ${parseInt(submitted.color)}                ${parseInt(submitted.solid)}
+TARGET         ${targetResults.natural}               ${targetResults.temp}                 ${targetResults.light}            ${targetResults.color}               ${targetResults.solid}
+SENT            ${parseInt(submitted.natural)}            ${parseInt(submitted.temp)}              ${parseInt(submitted.light)}              ${parseInt(submitted.color)}                ${parseInt(submitted.solid)}
 
 `}
+    </Text>
+
+
+
+    
+    <Text font={"/fonts/wallpoet.ttf"} fontSize={0.15} color={"#22aa22"}
+      anchorX="right" anchorY="top" textAlign="right"
+      letterSpacing={.2}
+      position={[1.6, -1.65, 0]}
+    >
+{`REWARD = $${rewardAmount}`}
     </Text>
   </>);
 };
