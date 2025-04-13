@@ -1,5 +1,5 @@
 'use client';
-import { Box, Cylinder, Torus, Text } from '@react-three/drei';
+import { Box, Cylinder, Torus, Text, Sphere } from '@react-three/drei';
 import { PhysicalWall } from '../core/PhysicalWall';
 import { useState, useEffect } from 'react';
 
@@ -33,6 +33,16 @@ export const RoomA = () => {
   return (<>
 
 
+<VendingMachine />
+{/* inside */}
+{/* <Box position={[1.94,1.6,12]} args={[1,1.5,1.5]}>
+  <meshStandardMaterial side={1} color={"#ffffff"} 
+  emissive={"#444444"}/>
+</Box> */}
+
+
+
+
 <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#1d1d1d" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[0,2.8,14.49]} rotation={[0,Math.PI,0]}
@@ -54,7 +64,7 @@ SPACES`}
 
 <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#252525" 
 anchorX="center" anchorY="middle" textAlign="center"
-position={[2.49,2.6,10.2]} rotation={[0,-Math.PI/2,0]}
+position={[2.49,2.6,6.5]} rotation={[0,-Math.PI/2,0]}
 >
 {`PSIONIC
 ZONE`}
@@ -258,3 +268,235 @@ AGENTS ONLY
 };
 
 
+export const VendingMachine = () => {
+  return (
+    <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
+     
+{/* veending machine */}
+<PhysicalWall size={[1.1, 2.6, 2.5]} color="#ff9933" visible={false}
+position={[2.1,1.3,12]} />
+
+
+<group position={[1.9,1.26,12]}>
+<Box position={[0,0,-1.11]} args={[1.1,2.55,.2]}>
+    <meshStandardMaterial color={"#ffffff"}  />
+  </Box>
+  <Box position={[0,0,1.11]} args={[1.1,2.55,.2]}>
+    <meshStandardMaterial color={"#ffffff"}  />
+  </Box>
+  
+
+
+  
+  {/* console */}
+  <Box position={[0,0.2,0.6]} args={[1,1.8,.8]}>
+    <meshStandardMaterial color={"#ffffff"}  />
+  </Box>
+  <group position={[-0.5,0.5,0.6]}>  
+    <Box position={[0,0,0]} args={[.1,.4,.2]}>
+      <meshStandardMaterial color={"#ffcccc"}  />
+    </Box>
+
+    <Box position={[0,0,-.25]} args={[.1,.4,.2]}>
+      <meshStandardMaterial color={"#ffccff"}  />
+    </Box>
+    <Box position={[0,0,.25]} args={[.1,.4,.2]}>
+      <meshStandardMaterial color={"#ccffcc"}  />
+    </Box>
+  </group>
+
+
+
+
+
+
+  
+  {/* insied floors */}
+  <group position={[.1,0,-0.5]}>
+  <Box position={[0,0.9,0]} args={[.6,.05,1.4]}>
+    <meshStandardMaterial color={"#ffffff"}  />
+  </Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <Box position={[0,0.6,-0.3]} args={[.2,.2,.3]}>
+    <meshStandardMaterial color={"#eeeeee"}  />
+  </Box>
+  <Box position={[0,0.7,-0.3]} args={[.22,.1,.33]}>
+    <meshStandardMaterial color={"#dddddd"}  />
+  </Box>
+  
+  
+<Box position={[-0.3,0.5,-0.25]} args={[.02,.15,.25]}>
+    <meshStandardMaterial color={"#ffffff"} emissive={"#222222"}  />
+  </Box>
+
+<Text font="/fonts/consolas.ttf" fontSize={0.05} color="#1d1d1d" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-0.32,0.5,-0.25]} rotation={[0,-Math.PI/2,0]}
+>
+{`PK Pill`}
+</Text>
+
+
+
+
+
+
+
+<Sphere position={[0,0.65,0.3]} args={[.15]}>
+    <meshStandardMaterial color={"#eeeeee"}  />
+  </Sphere>
+<Text font="/fonts/consolas.ttf" fontSize={0.05} color="#1d1d1d" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-0.32,0.5,0.35]} rotation={[0,-Math.PI/2,0]}
+>
+{`Mars
+Pass`}
+</Text>
+<Box position={[-0.3,0.5,0.35]} args={[.02,.15,.2]}>
+    <meshStandardMaterial color={"#ffffff"} emissive={"#222222"}  />
+  </Box>
+
+
+
+
+
+  
+  
+    {/* pk pill */}
+    {/* mars pass */}
+  <Box position={[0,0.5,0]} args={[.6,.05,1.4]}>
+    <meshStandardMaterial color={"#ffffff"}  />
+  </Box>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {/* declasification request */}
+    {/* chronovisor ticket */}
+  <Box position={[0,0.1,0]} args={[.6,.05,1.4]}>
+    <meshStandardMaterial color={"#ffffff"}  />
+  </Box>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <Box position={[0,0.15,-0.33]} args={[.3,.02,.3]}
+  rotation={[0,0.2,0]}
+  >
+    <meshStandardMaterial color={"#eeeeee"}  />
+  </Box>
+
+  <Box position={[0,0.125,-0.3]} args={[.33,.02,.33]}>
+    <meshStandardMaterial color={"#eeeeee"}  />
+  </Box>
+
+
+<Box position={[-0.3,0.1,-0.25]} args={[.02,.15,.4]}>
+    <meshStandardMaterial color={"#ffffff"} emissive={"#222222"}  />
+  </Box>
+
+<Text font="/fonts/consolas.ttf" fontSize={0.05} color="#1d1d1d" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-0.32,0.1,-0.25]} rotation={[0,-Math.PI/2,0]}
+>
+{`Declasific-
+ation request`}
+</Text>
+
+
+
+
+
+
+
+<Cylinder position={[0,0.2,0.3]} args={[.2,.2,.1]}>
+    <meshStandardMaterial color={"#eeeeee"}  />
+  </Cylinder>
+<Text font="/fonts/consolas.ttf" fontSize={0.05} color="#1d1d1d" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-0.32,0.1,0.3]} rotation={[0,-Math.PI/2,0]}
+>
+{`Chronovis-
+or Ticket`}
+</Text>
+<Box position={[-0.3,0.1,0.3]} args={[.02,.15,.3]}>
+    <meshStandardMaterial color={"#ffffff"} emissive={"#222222"}  />
+  </Box>
+
+
+
+
+
+
+
+
+
+
+  <Box position={[0,-0.3,0]} args={[.6,.05,1.4]}>
+    <meshStandardMaterial color={"#ffffff"}  />
+  </Box>
+  </group>
+
+  {/* top */}
+  <Box position={[0,1.2,0]} args={[1.2,.2,2.45]}>
+    <meshStandardMaterial color={"#ffffff"}  />
+  </Box>
+  {/* bottom */}
+  <Box position={[0,-1,0]} args={[1.1,.8,2]}>
+    <meshStandardMaterial color={"#ffffff"}  />
+  </Box>
+
+</group>
+
+{/* back */}
+<Box position={[2.3,1.5,12]} args={[.1,1.9,2.1]}>
+  <meshStandardMaterial  color={"#ffffff"} 
+  />
+</Box>
+{/* glass */}
+<Box position={[1.45,1.5,12]} args={[.05,1.9,2.1]}>
+  <meshStandardMaterial  color={"#ffffff"} 
+  opacity={0.5}
+  transparent={true}
+  />
+</Box>
+
+    </group>
+  );
+};
