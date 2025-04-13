@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 
 export const MindStats = () => {
   const { mindStats } = useVibeverse();
-  const [stats, setStats] = useState(mindStats);
+  const [stats, setStats] = useState<{ color: number; solid: number; cash?: number }>(mindStats);
   const [username, setUsername] = useState("");
   const [hasFirstKey, setHasFirstKey] = useState(0);
   const [toggleChangeSomething, setToggleChangeSomething] = useState(false);
@@ -62,25 +62,28 @@ export const MindStats = () => {
           boxShadow: 'inset  0 0 15px #000000',
           background: '#333333',
         }}>
-          <div className='flex-col-r flex-align-start pl-1 tx-xs' style={{
+          <div className='flex-col flex-align-start pl-1 tx-xs' style={{
             fontFamily: 'monospace',
             color: '#009900',
             textShadow: '0 0 5px #00bb00',
           }}>
             
-              <div className='flex-wrap  flex-justify-start'>
-              <div className=''>SyncLevels</div>
-              <div className='pr-1' style={{filter:""}}>🎨{(stats?.color || 0)}</div>
-            {stats?.color >= 3 && <>
-                <div>🪨{(stats?.solid || 0)}</div>
-            </>}
-              </div>
+            <div>KEYS → {hasFirstKey ? "1" : "0"}</div>
+                  {stats?.cash && <>
+                      <div>${(stats?.cash || 0)}</div>
+                  </>}
               <div className='w-80' style={{
                 background: '#005500',
                 margin: '0px 0 2px 0',
                 height: '1px',
               }}></div>
-            <div>KEYS → {hasFirstKey ? "1" : "0"}</div>
+            <div className='flex-wrap  flex-justify-start'>
+                    <div className=''>SyncLevels</div>
+                    <div className='pr-1' style={{filter:""}}>🎨{(stats?.color || 0)}</div>
+                  {stats?.color >= 3 && <>
+                      <div>🪨{(stats?.solid || 0)}</div>
+                  </>}
+              </div>
           </div>
         </div>
       </div>

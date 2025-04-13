@@ -10,7 +10,7 @@ export function useVibeverse() {
   const [typedUsername, setTypedUsername] = useState("");
   const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(false);
   const [LS_hasFirstKey, setLS_hasFirstKey] = useState<boolean>(false);
-  const [mindStats, setMindStats] = useState<{ color: number, solid: number }>({ color: 0, solid: 0 });
+  const [mindStats, setMindStats] = useState<{ color: number, solid: number, cash?: number }>({ color: 0, solid: 0 });
   const [tutorials, setTutorials] = useState<{ [key: string]: boolean }>({});
   const [explored, setExplored] = useState<{ [key: string]: boolean }>({});
   const router = useRouter()
@@ -66,7 +66,7 @@ export function useVibeverse() {
     localStorageProxy.VB_LEGACY_GRAPHICS = newValue ? '1' : '0';
   };
 
-  const updateMindStats = (type: 'color' | 'solid', value: number) => {
+  const updateMindStats = (type: 'color' | 'solid' | 'cash', value: number) => {
     const newStats = { ...mindStats, [type]: value };
     setMindStats(newStats);
     localStorageProxy.VB_MINDSTATS = JSON.stringify(newStats);
@@ -138,7 +138,7 @@ export function useVibeverse() {
     const savedMindStats = localStorageProxy.VB_MINDSTATS;
     if (savedMindStats) {
       const parsedStats = JSON.parse(savedMindStats);
-      setMindStats({ color: parsedStats.color || 0, solid: parsedStats.solid || 0 });
+      setMindStats({ color: parsedStats.color || 0, solid: parsedStats.solid || 0, cash: parsedStats.cash || 0 });
     }
 
     // Load tutorials first before any other operations

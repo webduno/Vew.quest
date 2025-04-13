@@ -8,7 +8,7 @@ import { BCDoorPortals } from '../../doorwalls/BCDoorPortals';
 import { RoomC } from '../../rooms/RoomC';
 import { RoomRight } from '../../rooms/RoomRight';
 import { RoomLeft } from '../../rooms/RoomLeft';
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useState, useEffect, useCallback, useContext, useRef } from 'react';
 import { BewPortal } from '../../portal/BewPortal';
 import { useSearchParams } from 'next/navigation';
 import { ZuckHead } from '../../bits/ZuckHead';
@@ -37,11 +37,11 @@ export const BewMainScene = ({ setPlayerPosition,
   const vb_ref = useSearchParams().get("ref")
   // const { hasExploredZone } = useVibeverse();
   const [firstDoorVisible, setFirstDoorVisible] = useState(true);
-  const [wasFirstDoorOpened, setWasFirstDoorOpened] = useState(false);
+  const wasFirstDoorOpened = useRef(false);
   const handle_setFirstDoorVisible = (value: boolean) => {
     setFirstDoorVisible(value);
-    if (wasFirstDoorOpened) { return }
-    setWasFirstDoorOpened(true);
+    if (wasFirstDoorOpened.current) { return }
+    wasFirstDoorOpened.current = true;
   }
   // Memoize the handler with useCallback to prevent recreation
   const handleKeyCollection = useCallback((value: boolean) => {
@@ -97,7 +97,7 @@ export const BewMainScene = ({ setPlayerPosition,
 
 
 
-      {wasFirstDoorOpened && <>
+      {wasFirstDoorOpened.current && <>
         <CallibrationSpaces />
       
         <RoomA />
@@ -109,7 +109,7 @@ export const BewMainScene = ({ setPlayerPosition,
 
 
 
-      {wasFirstDoorOpened && <>
+      {wasFirstDoorOpened.current && <>
         <RoomRight />
         <RoomC setPlayerPosition={setPlayerPosition} />  
       </>}

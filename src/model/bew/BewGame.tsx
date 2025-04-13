@@ -26,7 +26,7 @@ import { PhysicalCeiling } from '../core/PhysicalFloor';
 import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
 
 export const BewGame = () => {
-  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl } =  useVibeverse()
+  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl, updateMindStats, mindStats } =  useVibeverse()
   // const { updateExploredStatus, hasExploredZone } = useVibeverse();
 
   const [showAnalogModal, setShowAnalogModal] = useState(false);
@@ -132,7 +132,9 @@ export const BewGame = () => {
     accuracyres.lightAccuracy +
     accuracyres.colorAccuracy +
     accuracyres.solidAccuracy)
-    setLastCashReward(rewardAmaount)
+    setLastCashReward(rewardAmaount*3)
+    const currentCash = mindStats.cash || 0;
+    updateMindStats('cash', currentCash + rewardAmaount*3)
    
     try {
       const response = await fetch('/api/ai', {
