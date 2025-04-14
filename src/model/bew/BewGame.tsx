@@ -122,7 +122,7 @@ export const BewGame = () => {
     const target = crvTargetObject as typeof crvData;
 
     const accuracyres = {
-      typeMatch: target.type === crvData.type,
+      typeMatch: target.type.toLowerCase() === crvData.type.toLowerCase(),
       naturalityAccuracy: calculateAccuracy(target.natural, crvData.natural, true),
       temperatureAccuracy: calculateAccuracy(target.temp, crvData.temp, true),
       lightAccuracy: calculateAccuracy(target.light, crvData.light),
@@ -159,11 +159,11 @@ export const BewGame = () => {
       setTimeout(() => {
         setLoadingAnalysisResult(false)
         setAnalysisResult(`
-  TARGET                               RESPONSE
+  SENT                                  VISUAL FEEDBACK
   ______                               ______________________________    
   
-  ??° ?' ■■"               ${firstPart}
-  ■■■■° NW                ${secondPart}
+  ${parseInt(crvData.natural.toString())}|${parseInt(crvData.temp.toString())}               ${firstPart}
+  ${parseInt(crvData.light.toString())}|${parseInt(crvData.color.toString())}|${parseInt(crvData.solid.toString())}                ${secondPart}
                             ${thirdPart}
                                 ${restPart ? '...' : ''}
             
