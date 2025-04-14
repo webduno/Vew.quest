@@ -5,41 +5,11 @@ import { StyledWall } from '../core/StyledWall';
 import { PhysicalWall } from '../core/PhysicalWall';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';
 import { useBew } from '../../../scripts/contexts/BewProvider';
-import { useState, useEffect } from 'react';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
 export const PsionicZone = () => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
-  const { updateExploredStatus, hasExploredZone } = useVibeverse();
-  const [solidLevel, setSolidLevel] = useState(0);
-  const [colorLevel, setColorLevel] = useState(0);
-  useEffect(() => {
-    const checkSolidLevel = () => {
-      const savedStats = localStorage.getItem('VB_MINDSTATS');
-      const currentStats = savedStats ? JSON.parse(savedStats) : { solid: 0 };
-      setSolidLevel(currentStats.solid);
-    };
-    const checkColorLevel = () => {
-      const savedStats = localStorage.getItem('VB_MINDSTATS');
-      const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
-      console.log('currentStats', currentStats);
-      setColorLevel(currentStats.color);
-    };
-
-    // Initial check
-    checkSolidLevel();
-    checkColorLevel();
-    // Listen for localStorage changes
-    const handleStorageChange = (e: MessageEvent) => {
-      if (e.data === 'localStorageChanged') {
-        checkSolidLevel();
-        checkColorLevel();
-      }
-    };
-
-    window.addEventListener('message', handleStorageChange);
-    return () => window.removeEventListener('message', handleStorageChange);
-  }, []);
+  const { updateExploredStatus, hasExploredZone, mindStats } = useVibeverse();
 
   return (<>
 
@@ -136,7 +106,7 @@ size={[.51,4,1]}
 />
 
 {/* only show when mindstats.solid >= 2 */}
-{solidLevel < 2 && <>
+{mindStats.solid < 2 && <>
 <PhysicalWall  visible={false} color="#ff9900"
 position={[3.5,2, -9]}
 size={[.525,4,7]}

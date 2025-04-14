@@ -151,24 +151,34 @@ export function useVibeverse() {
       setLS_hasFirstKey(hasFirstKey === '1');
     }
 
-    const savedMindStats = localStorageProxy.VB_MINDSTATS;
-    if (savedMindStats) {
-      const parsedStats = JSON.parse(savedMindStats);
-      setMindStats({
-        color: parsedStats.color || 0,
-        solid: parsedStats.solid || 0,
-        cash: parsedStats.cash || 0,
-        chronovisor_ticket: parsedStats.chronovisor_ticket || 0,
-        pk_pill: parsedStats.pk_pill || 0,
-        mars_pass: parsedStats.mars_pass || 0,
-        declasification_request: parsedStats.declasification_request || 0 });
-    }
+    // Function to update mindStats from localStorage
+    const updateMindStatsFromStorage = () => {
+      const savedStats = localStorageProxy.VB_MINDSTATS;
+      if (savedStats) {
+        try {
+          const parsedStats = JSON.parse(savedStats);
+          setMindStats({
+            color: parsedStats.color || 0,
+            solid: parsedStats.solid || 0,
+            cash: parsedStats.cash || 0,
+            chronovisor_ticket: parsedStats.chronovisor_ticket || 0,
+            pk_pill: parsedStats.pk_pill || 0,
+            mars_pass: parsedStats.mars_pass || 0,
+            declasification_request: parsedStats.declasification_request || 0
+          });
+        } catch (e) {
+          console.error('Error parsing mindStats:', e);
+        }
+      }
+    };
+
+    // Initial load of mindStats
+    updateMindStatsFromStorage();
 
     // Load tutorials first before any other operations
     const savedTutorials = localStorageProxy.VB_TUTORIALS;
     if (savedTutorials) {
       try {
-        // Handle the case where the value might be a string of a stringified object
         let parsedTutorials = JSON.parse(savedTutorials);
         if (typeof parsedTutorials === 'string') {
           try {
@@ -198,7 +208,6 @@ export function useVibeverse() {
             console.error('Error parsing nested explored:', e);
           }
         }
-        console.log('parsedExplored', parsedExplored);
         setExplored(parsedExplored);
       } catch (e) {
         console.error('Error parsing explored:', e);
@@ -207,6 +216,16 @@ export function useVibeverse() {
     } else {
       setExplored({});
     }
+
+    // Listen for localStorage changes
+    const handleStorageChange = (e: MessageEvent) => {
+      if (e.data === 'localStorageChanged') {
+        updateMindStatsFromStorage();
+      }
+    };
+
+    window.addEventListener('message', handleStorageChange);
+    return () => window.removeEventListener('message', handleStorageChange);
   }, []);
 
   return {

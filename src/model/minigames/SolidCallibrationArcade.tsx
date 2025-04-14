@@ -58,7 +58,7 @@ export const SolidCallibrationArcade = ({
       playSoundEffect("/sfx/short/goodcode.mp3");
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { solid: 0 };
-      updateMindStats('solid', currentStats.solid + 1);
+      updateMindStats('solid', currentStats.solid + (points < 5 ? 1 : 2));
     } else {
       playSoundEffect("/sfx/short/badbip.wav");
     }

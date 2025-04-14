@@ -208,6 +208,18 @@ export const BewGame = () => {
 
   // Handle trigger collision
   const handleChairSit = useCallback((event: any) => {
+    // Check if user has enough solid calibration points using the live mindStats from useVibeverse
+    if (mindStats.solid <= 0) {
+      showSnackbar("You need at least 1 solid calibration point to enter the white room.", 'error');
+      setTimeout(() => {
+        closeSnackbar();
+      }, 3000);
+      return;
+    }
+
+    // Deduct 1 solid calibration point
+    updateMindStats('solid', mindStats.solid - 1);
+
     console.log("handleChairSit")
     handleSetPlayerPosition([2.5, 0, -21.5])
     showSnackbar("Take a big nose inhale, and exhale slowly.", 'handbook');
@@ -236,16 +248,12 @@ export const BewGame = () => {
         setShowWhiteMirror(true);
         setIsTransitioning(false);
 
-
-
     setTimeout(() => {
     showSnackbar("Click crystal ball to start.", 'handbook');
     setTimeout(() => {
     closeSnackbar();
     }, 3000);
   }, 2000);
-
-
 
         }, 1000);
       }, 3000);
@@ -261,7 +269,7 @@ export const BewGame = () => {
         }, 10000);
       }, 3500);
     }
-  }, [LS_firstTime, playSoundEffect, showSnackbar, closeSnackbar]);
+  }, [LS_firstTime, playSoundEffect, showSnackbar, closeSnackbar, mindStats, updateMindStats]);
 
   // Callback to get player rotation from physics scene
   const handlePlayerRotationUpdate = useCallback((rotation: { x: number, y: number, z: number }) => {
@@ -325,6 +333,7 @@ export const BewGame = () => {
     setAccuracyResult({})
     setSubmitted({})
     setLastCashReward(0)
+    
     handleChairSit({});
   }, [handleChairSit]);
 
@@ -369,8 +378,10 @@ export const BewGame = () => {
       </div>
 
 
-      <BackgroundMusic  isEverythingLoading={isEverythingLoading}
-      firstTime={LS_firstTime} disableFirstTime={disableFirstTime} />
+      <BackgroundMusic 
+       isEverythingLoading={isEverythingLoading}
+      firstTime={LS_firstTime}
+       disableFirstTime={disableFirstTime} />
 
 
       {/* Performance Stats in top right corner */}
