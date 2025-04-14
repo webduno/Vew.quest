@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
-import { calculateAccuracy } from '../../../../scripts/utils/mobileDetection';
+import { calculateAccuracy } from "../../../../scripts/utils/calculateAccuracy";
 
 export const dynamic = 'force-dynamic';
 
@@ -62,13 +62,18 @@ export async function POST(request: Request) {
       );
     }
 
-    const overallAccuracy = Math.round((
-      calculateAccuracy(objList.target.natural, objList.sent.natural, true) +
-      calculateAccuracy(objList.target.temp, objList.sent.temp, true) +
-      calculateAccuracy(objList.target.light, objList.sent.light) +
-      calculateAccuracy(objList.target.color, objList.sent.color) +
-      calculateAccuracy(objList.target.solid, objList.sent.solid)
-    ) / 5)
+    const naturalityAccuracy = calculateAccuracy(objList.target.natural, objList.sent.natural, true, false)
+    const temperatureAccuracy = calculateAccuracy(objList.target.temp, objList.sent.temp, true, false)
+    const lightAccuracy = calculateAccuracy(objList.target.light, objList.sent.light, false, false)
+    const colorAccuracy = calculateAccuracy(objList.target.color, objList.sent.color, false, false)
+    const solidAccuracy = calculateAccuracy(objList.target.solid, objList.sent.solid, false, false)
+    const overallAccuracy = (
+      naturalityAccuracy +
+      temperatureAccuracy +
+      lightAccuracy +
+      colorAccuracy +
+      solidAccuracy
+    ) / 5
     
     const result = await supabase
       .from('crv_object')

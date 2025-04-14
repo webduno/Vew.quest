@@ -1,5 +1,6 @@
 'use client';
-import { calculateAccuracy, isMobile } from '@/../scripts/utils/mobileDetection';
+import { isMobile } from '@/../scripts/utils/mobileDetection';
+import { calculateAccuracy } from "../../../scripts/utils/calculateAccuracy";
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef, useContext } from 'react';
@@ -103,34 +104,64 @@ export const BewGame = () => {
 
     // Compare submitted data with target
     const target = crvTargetObject as typeof crvData;
+
+    const naturalityAccuracy = calculateAccuracy(target.natural, crvData.natural, true, false)
+    const temperatureAccuracy = calculateAccuracy(target.temp, crvData.temp, true, false)
+    const lightAccuracy = calculateAccuracy(target.light, crvData.light, false, false)
+    const colorAccuracy = calculateAccuracy(target.color, crvData.color, false, false)
+    const solidAccuracy = calculateAccuracy(target.solid, crvData.solid, false, false)
     const overallAccuracy = Math.round((
-      calculateAccuracy(target.natural, crvData.natural, true) +
-      calculateAccuracy(target.temp, crvData.temp, true) +
-      calculateAccuracy(target.light, crvData.light) +
-      calculateAccuracy(target.color, crvData.color) +
-      calculateAccuracy(target.solid, crvData.solid)
+      naturalityAccuracy +
+      temperatureAccuracy +
+      lightAccuracy +
+      colorAccuracy +
+      solidAccuracy
     ) / 5)
     const accuracyres = {
       typeMatch: target.type.toLowerCase() === crvData.type.toLowerCase(),
-      naturalityAccuracy: calculateAccuracy(target.natural, crvData.natural, true),
-      temperatureAccuracy: calculateAccuracy(target.temp, crvData.temp, true),
-      lightAccuracy: calculateAccuracy(target.light, crvData.light),
-      colorAccuracy: calculateAccuracy(target.color, crvData.color),
-      solidAccuracy: calculateAccuracy(target.solid, crvData.solid),
+      naturalityAccuracy: naturalityAccuracy,
+      temperatureAccuracy: temperatureAccuracy,
+      lightAccuracy: lightAccuracy,
+      colorAccuracy: colorAccuracy,
+      solidAccuracy: solidAccuracy,
       overallAccuracy: overallAccuracy
     }
     setAccuracyResult(accuracyres)
 
-    const rewardAmount = (accuracyres.naturalityAccuracy +
+    // do round amount
+    const rewardAmount = Math.round((accuracyres.naturalityAccuracy +
       accuracyres.temperatureAccuracy +
       accuracyres.lightAccuracy +
       accuracyres.colorAccuracy +
-      accuracyres.solidAccuracy)
+      accuracyres.solidAccuracy) / 5)
     setLastCashReward(rewardAmount * 3)
     const currentCash = mindStats.cash || 0;
     updateMindStats('cash', currentCash + rewardAmount * 3)
 
     try {
+
+      let wholeResponse = ''
+try {
+  const response = await fetch('/api/ai', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(crvData),
+  });
+
+  const data = await response.json();
+  wholeResponse = data.choices?.[0]?.message?.content || 'No response received'
+  // max 6 words
+} catch (error) {
+  console.error('Error getting ai guess:', error);
+}
+
+const firstPart = wholeResponse.split(' ').slice(0, 6).join(' ') || 'No response received'
+const secondPart = wholeResponse.split(' ').slice(6,12).join(' ') || ''
+const thirdPart = wholeResponse.split(' ').slice(12,18).join(' ') || ''
+const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
+      
       console.log('saving to supabase')
       const saveResponse = await fetch('/api/supabase', {
         method: 'POST',
@@ -139,6 +170,7 @@ export const BewGame = () => {
           objList: {
             sent: crvData,
             target: crvTargetObject,
+            ai_sent_guess: wholeResponse,
           },
           storageKey: LS_playerId
         })
@@ -146,21 +178,6 @@ export const BewGame = () => {
       const saveData = await saveResponse.json();
       console.log('saveData', saveData)
 
-      const response = await fetch('/api/ai', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(crvData),
-      });
-
-      const data = await response.json();
-      const wholeResponse = data.choices?.[0]?.message?.content || 'No response received'
-      // max 6 words
-      const firstPart = wholeResponse.split(' ').slice(0, 6).join(' ') || 'No response received'
-      const secondPart = wholeResponse.split(' ').slice(6,12).join(' ') || ''
-      const thirdPart = wholeResponse.split(' ').slice(12,18).join(' ') || ''
-      const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
 
       setTimeout(() => {
         setLoadingAnalysisResult(false)

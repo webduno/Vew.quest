@@ -3,7 +3,7 @@ import { Box, Text, Plane } from '@react-three/drei';
 import { PhysicalWall } from '../core/PhysicalWall';
 import { useEffect, useState } from 'react';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
-import { calculateAccuracy } from '../../../scripts/utils/mobileDetection';
+import { calculateAccuracy } from "../../../scripts/utils/calculateAccuracy";
 
 interface BewPreMainSceneProps {
   setPlayerPosition?: (position: [number, number, number]) => void;
@@ -88,12 +88,17 @@ position={[-2.44, 2.6, -9]} rotation={[0, Math.PI/2, 0]}
   const reward = rewardAmount * 3;
   
   return (
-    <group key={obj.id}>
+    <group key={obj.id}
+    onClick={() => {
+      console.log('clicked', obj)
+      
+    }}
+    >
       <Text font="/fonts/beanie.ttf" fontSize={0.2} color="#2a2a2a" 
         anchorX="center" anchorY="middle" textAlign="center"
         position={[-2.42, 2.05 - (index * 0.2), -9]} rotation={[0, Math.PI/2, 0]}
       >
-        {`${obj.result}% ($${reward}) | `}
+        {`${obj.result.toFixed(2)}% $${reward}|`}
         {/* only hour and minute */}
         {`${new Date(obj.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
       </Text>

@@ -22,7 +22,7 @@ export const AnalysisScreen = ({
       return Object.fromEntries(
         Object.entries(obj).map(([key, value]) => [
           key, 
-          typeof value === 'number' ? value : value
+          typeof value === 'number' ? Math.round(value) : value
         ])
       );
     };
