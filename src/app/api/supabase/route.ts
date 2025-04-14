@@ -67,6 +67,7 @@ export async function POST(request: Request) {
     const lightAccuracy = calculateAccuracy(objList.target.light, objList.sent.light, false, false)
     const colorAccuracy = calculateAccuracy(objList.target.color, objList.sent.color, false, false)
     const solidAccuracy = calculateAccuracy(objList.target.solid, objList.sent.solid, false, false)
+    
     const overallAccuracy = (
       naturalityAccuracy +
       temperatureAccuracy +
@@ -74,7 +75,14 @@ export async function POST(request: Request) {
       colorAccuracy +
       solidAccuracy
     ) / 5
-    
+    console.table({
+      overallAccuracy,
+      naturalityAccuracy,
+      temperatureAccuracy,
+      lightAccuracy,
+      colorAccuracy,
+      solidAccuracy
+    })
     const result = await supabase
       .from('crv_object')
       .insert([{ 

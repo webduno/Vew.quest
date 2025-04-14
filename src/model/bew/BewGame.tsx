@@ -133,7 +133,9 @@ export const BewGame = () => {
       accuracyres.temperatureAccuracy +
       accuracyres.lightAccuracy +
       accuracyres.colorAccuracy +
-      accuracyres.solidAccuracy) / 5)
+      accuracyres.solidAccuracy) )
+      console.table(accuracyres)
+      console.log('rewardAmount', rewardAmount)
     setLastCashReward(rewardAmount * 3)
     const currentCash = mindStats.cash || 0;
     updateMindStats('cash', currentCash + rewardAmount * 3)
