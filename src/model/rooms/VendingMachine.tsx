@@ -78,9 +78,14 @@ export const VendingMachine = () => {
           <Text font="/fonts/beanie.ttf" fontSize={0.1} 
           color={"#222222"}
             anchorX="center" anchorY="middle" textAlign="center"
-            position={[0.7, 0.4, .62]} rotation={[0, 0, .1]}
+            position={[0.65, 0.2, .62]} rotation={[0, 0, .1]}
           >
-{`inventata la
+{`
+domenica corriere
+_____________    ___
+|
+
+inventata la
 macchina
 che fotografa
 il passato`}
@@ -241,18 +246,18 @@ Pass`}
           </Text>
 {/* /////////////////////////////////////////////////////////////////////////// */}
 
-<Box position={[-0.3, 0.1, 0.3]} args={[.02, .15, .3]}>
+<Box position={[-0.3, -0.3, 0.3]} args={[.02, .15, .3]}>
             <meshStandardMaterial 
             color={selectedItem === 3 ? "#ffffff" : "#bbbbbb"}
             />
           </Box>
-          <Cylinder position={[0, 0.2, 0.3]} args={[.2, .2, .1]}>
+          <Cylinder position={[-0.1, -0.1, 0.3]} args={[.2, .2, .1]}>
             <meshStandardMaterial color={"#bbddff"} />
           </Cylinder>
           <Text font="/fonts/consolas.ttf" fontSize={0.05} 
           color={selectedItem === 3 ? "#ffffff" : "#555555"}
             anchorX="center" anchorY="middle" textAlign="center"
-            position={[-0.32, 0.1, 0.3]} rotation={[0, -Math.PI / 2, 0]}
+            position={[-0.32, -0.3, 0.3]} rotation={[0, -Math.PI / 2, 0]}
           >
             {`Chronovis-
 or Ticket`}

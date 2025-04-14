@@ -74,7 +74,9 @@ export const BewMainScene = ({ setPlayerPosition,
   font="/fonts/beanie.ttf"
   rotation={[0,Math.PI,0]}
   >
-    {`Cydonia Valleys
+    {`gobekli tepe/solon
+
+  +++Cydonia Valleys
 
 40.75° North
 350.54° East`}

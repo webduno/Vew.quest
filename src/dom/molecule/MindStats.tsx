@@ -56,7 +56,7 @@ export const MindStats = () => {
       gap: '3px',
       borderRadius: '3px',
       background: '#a4a087',
-      boxShadow: 'inset -3px -3px 6px #242017',
+      boxShadow: 'inset -3px -3px 4px #242017',
     }}>
       <div className=' bord-r-5 flex-col  flex-1' style={{
         padding: '3px',
@@ -133,35 +133,70 @@ export const MindStats = () => {
       ) && (<>
 
 <details>
-<summary className='flex-col flex-align-start pt-2 pointer'>
-<button className="noclick box-shadow-i-5-t bord-r-5 pa-1 tx-xs"
+<summary className='flex-row flex-justify-start pt-1 pointer'>
+  
+<button className="noclick box-shadow-i-5-t  pa -1 tx-xs"
 style={{
-  background: '#444444',
-  color: '#999999',
+  padding: '3px 8px',
+  height: '100%',
+  // background: '#443d3a',
+  color: '#2a2a2a',
+      boxShadow: 'inset 0px -3px 3px #444037',
+  background: '#a4a087',
+  border: "none",
+  borderRadius: '3px 0 0 3px'
+}}
+><div className='opaci-50'>▼</div>
+    </button>
+<button className="noclick box-shadow-i-5-t  pa -1 tx-xs"
+style={{
+  padding: '3px 12px',
+  // background: '#443d3a',
+  color: '#2a2a2a',
+      boxShadow: 'inset -3px -3px 3px #444037',
+  background: '#a4a087',
+  borderRadius: '0 3px 3px 0',
+  border: "none"
 }}
 >
       INVENTORY
     </button>
 </summary>
 
-  <div className='mt-2 tx-white tx-xs bord-r-5 w-80px pa-1 flex-col gap-1
+  <div className='mt-1 tx-white tx-xs bord-r-5 w-80px pa- 1 flex-col gap-1
   flex-col flex-align-start tx-altfont-1 
   '
   style={{
-    background: '#444444',
+    // background: '#444444',
   }}
   >
-    {!!mindStats.chronovisor_ticket && <div className="box-shadow-i-5-t bord-r-5 bg-w-20 pa-1">
+    {!!mindStats.chronovisor_ticket &&
+    <div className="box-shadow-i-5-t pa-1"
+    style={{        background: '#a4a087',
+color:"#222222"}}
+    >
       chronoview: {mindStats.chronovisor_ticket}
     </div>}
-    {!!mindStats.pk_pill && <div className="box-shadow-i-5-t bord-r-5 bg-w-20 pa-1">
-      pk_pill: {mindStats.pk_pill}
-    </div>}
-    {!!mindStats.mars_pass && <div className="box-shadow-i-5-t bord-r-5 bg-w-20 pa-1">
+    {!!mindStats.mars_pass &&
+    <div className="box-shadow-i-5-t pa-1"
+    style={{        background: '#a4a087',
+color:"#222222"}}
+    >
       mars_pass: {mindStats.mars_pass}
     </div>}
-    {!!mindStats.declasification_request && <div className="box-shadow-i-5-t bord-r-5 bg-w-20 pa-1">
-      foia_req:      {mindStats.declasification_request}
+    {!!mindStats.declasification_request &&
+    <div className="box-shadow-i-5-t pa-1"
+    style={{        background: '#a4a087',
+color:"#222222"}}
+    >
+      foia_req: {mindStats.declasification_request}
+    </div>}
+    {!!mindStats.pk_pill &&
+    <div className="box-shadow-i-5-t pa-1"
+    style={{        background: '#a4a087',
+color:"#222222"}}
+    >
+      pk_pill: {mindStats.pk_pill}
     </div>}
 
   </div>
