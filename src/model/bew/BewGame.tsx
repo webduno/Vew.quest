@@ -128,6 +128,13 @@ export const BewGame = () => {
       lightAccuracy: calculateAccuracy(target.light, crvData.light),
       colorAccuracy: calculateAccuracy(target.color, crvData.color),
       solidAccuracy: calculateAccuracy(target.solid, crvData.solid),
+      overallAccuracy: Math.round((
+        calculateAccuracy(target.natural, crvData.natural, true) +
+        calculateAccuracy(target.temp, crvData.temp, true) +
+        calculateAccuracy(target.light, crvData.light) +
+        calculateAccuracy(target.color, crvData.color) +
+        calculateAccuracy(target.solid, crvData.solid)
+      ) / 5)
     }
     setAccuracyResult(accuracyres)
 
@@ -163,9 +170,9 @@ export const BewGame = () => {
   ______                               ______________________________    
   
   ${parseInt(crvData.natural.toString())}|${parseInt(crvData.temp.toString())}               ${firstPart}
-  ${parseInt(crvData.light.toString())}|${parseInt(crvData.color.toString())}|${parseInt(crvData.solid.toString())}                ${secondPart}
-                            ${thirdPart}
-                                ${restPart ? '...' : ''}
+  ${parseInt(crvData.light.toString())},${parseInt(crvData.color.toString())},${parseInt(crvData.solid.toString())}                ${secondPart}
+                            ${thirdPart}${restPart ? '...' : ''}
+                                
             
             
   
@@ -183,7 +190,7 @@ export const BewGame = () => {
   ______                               ______________________________    
   
   ??° ?' ■■"               Error analyzing data
-  ■■■■° NW                sun shining, solid ship head north
+  ■■■■° NW                ??sun shining, solid ship head north
             
             
   

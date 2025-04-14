@@ -42,12 +42,12 @@ export const AnalysisScreen = ({
       position={[0, -.9, 0]}
     >
 {`
-type          natural          temp             light            color            solidness        
-SENT            ${parseInt(submitted.natural)}            ${parseInt(submitted.temp)}              ${parseInt(submitted.light)}              ${parseInt(submitted.color)}                ${parseInt(submitted.solid)}
+type         natural          temp             light            color            solidness        
+SENT           ${parseInt(submitted.natural)}            ${parseInt(submitted.temp)}              ${parseInt(submitted.light)}              ${parseInt(submitted.color)}                ${parseInt(submitted.solid)}
 ${submitted.type.toLowerCase()}
 
 TARGET         ${targetResults.natural}               ${targetResults.temp}               ${targetResults.light}           ${targetResults.color}                 ${targetResults.solid}
-${targetResults.type}${accuracyResult.typeMatch ? "✅" : "❌"}  ${formattedAccuracy.naturalityAccuracy}%                ${formattedAccuracy.temperatureAccuracy}%            ${formattedAccuracy.lightAccuracy}%            ${formattedAccuracy.colorAccuracy}%              ${formattedAccuracy.solidAccuracy}%
+${targetResults.type}${accuracyResult.typeMatch ? "✓" : "✗"}           ${formattedAccuracy.naturalityAccuracy}%                ${formattedAccuracy.temperatureAccuracy}%            ${formattedAccuracy.lightAccuracy}%            ${formattedAccuracy.colorAccuracy}%              ${formattedAccuracy.solidAccuracy}%
 `}
     </Text>
 
@@ -59,7 +59,7 @@ ${targetResults.type}${accuracyResult.typeMatch ? "✅" : "❌"}  ${formattedAcc
       letterSpacing={.2}
       position={[1.6, -1.65, 0]}
     >
-{`REWARD = $${rewardAmount}`}
+{`(${formattedAccuracy.overallAccuracy}%) | REWARD = $${rewardAmount}`}
     </Text>
 
 
