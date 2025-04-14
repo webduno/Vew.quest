@@ -3,6 +3,7 @@ import { Box, Text, Plane } from '@react-three/drei';
 import { PhysicalWall } from '../core/PhysicalWall';
 import { useEffect, useState } from 'react';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
+import { calculateAccuracy } from '../../../scripts/utils/mobileDetection';
 
 interface BewPreMainSceneProps {
   setPlayerPosition?: (position: [number, number, number]) => void;
@@ -60,26 +61,45 @@ position={[-2.44, 2.6, -7]} rotation={[0, Math.PI/2, 0]}
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-2.44, 2.6, -9]} rotation={[0, Math.PI/2, 0]}
 >
-{`DAILY\nQUOTA | ${crvObjects.length}/5`}
+  {/* crvobjects only for today */}
+{`DAILY\nQUOTA | ${crvObjects.filter(obj => new Date(obj.created_at).toLocaleDateString('en-US') === new Date().toLocaleDateString('en-US')).length}/5`}
 </Text>
 
 {/* show maximum 9 items */}
 {/* CRV Objects Display only for today */}
-{crvObjects.slice(0, 9).map((obj, index) => (
-  <group key={obj.id}>
-    {/* <Plane args={[1.8, 0.4]} position={[-2.43, 0.8 - (index * 0.5), -9]} rotation={[0, Math.PI/2, 0]}>
-      <meshStandardMaterial color="#f0f0f0" />
-    </Plane> */}
-    <Text font="/fonts/wallpoet.ttf" fontSize={0.1} color="#2a2a2a" 
-      anchorX="center" anchorY="middle" textAlign="center"
-      position={[-2.42, 2.1 - (index * 0.2), -9]} rotation={[0, Math.PI/2, 0]}
-    >
-      {`R: ${obj.result}% | `}
-      {/* only hour and minute */}
-      {`${new Date(obj.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
-    </Text>
-  </group>
-))}
+{crvObjects.slice(0, 9).map((obj, index) => {
+  const sent = obj.content?.sent;
+  const target = obj.content?.target;
+  
+  const accuracyres = {
+    naturalityAccuracy: calculateAccuracy(target?.natural, sent?.natural, true),
+    temperatureAccuracy: calculateAccuracy(target?.temp, sent?.temp, true),
+    lightAccuracy: calculateAccuracy(target?.light, sent?.light),
+    colorAccuracy: calculateAccuracy(target?.color, sent?.color),
+    solidAccuracy: calculateAccuracy(target?.solid, sent?.solid),
+  };
+
+  const rewardAmount = (accuracyres.naturalityAccuracy +
+    accuracyres.temperatureAccuracy +
+    accuracyres.lightAccuracy +
+    accuracyres.colorAccuracy +
+    accuracyres.solidAccuracy);
+
+  const reward = rewardAmount * 3;
+  
+  return (
+    <group key={obj.id}>
+      <Text font="/fonts/beanie.ttf" fontSize={0.2} color="#2a2a2a" 
+        anchorX="center" anchorY="middle" textAlign="center"
+        position={[-2.42, 2.05 - (index * 0.2), -9]} rotation={[0, Math.PI/2, 0]}
+      >
+        {`${obj.result}% ($${reward}) | `}
+        {/* only hour and minute */}
+        {`${new Date(obj.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
+      </Text>
+    </group>
+  );
+})}
 
 <Plane args={[1.8, 1.8]} position={[-2.44, 1.35, -11]} rotation={[0, Math.PI/2, 0]}>
   <meshStandardMaterial color="#ffffff" emissive={"#222222"} />
