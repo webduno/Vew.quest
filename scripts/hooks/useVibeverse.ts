@@ -198,6 +198,7 @@ export function useVibeverse() {
             console.error('Error parsing nested explored:', e);
           }
         }
+        console.log('parsedExplored', parsedExplored);
         setExplored(parsedExplored);
       } catch (e) {
         console.error('Error parsing explored:', e);

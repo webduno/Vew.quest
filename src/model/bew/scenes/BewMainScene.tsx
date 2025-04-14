@@ -1,19 +1,23 @@
 'use client';
-import { Box, Cylinder, Text } from '@react-three/drei';
-import { PhysicalWall } from '../../core/PhysicalWall';
-import { ABDoorPortals } from '../../doorwalls/ABDoorPortals';
-import { RoomB } from '../../rooms/RoomB';
-import { RoomA } from '../../rooms/RoomA';
-import { BCDoorPortals } from '../../doorwalls/BCDoorPortals';
-import { RoomC } from '../../rooms/RoomC';
-import { RoomRight } from '../../rooms/RoomRight';
-import { RoomLeft } from '../../rooms/RoomLeft';
 import { useState, useEffect, useCallback, useContext, useRef } from 'react';
-import { BewPortal } from '../../portal/BewPortal';
 import { useSearchParams } from 'next/navigation';
-import { ZuckHead } from '../../bits/ZuckHead';
-import { CallibrationSpaces } from '../../rooms/CallibrationSpaces';
+import { Box, Cylinder, Text } from '@react-three/drei';
+
+import { PhysicalWall } from '../../core/PhysicalWall';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
+
+import { ABDoorPortals } from '../../doorwalls/ABDoorPortals';
+import { CallibrationSpaces } from '../../rooms/CallibrationSpaces';
+import { BCDoorPortals } from '../../doorwalls/BCDoorPortals';
+
+import { MainHallway } from '../../rooms/MainHallway';
+import { CommonArea } from '../../rooms/CommonArea';
+import { ESPLobby } from '../../rooms/ESPLobby';
+import { PsionicZone } from '../../rooms/PsionicZone';
+import { PortalRoom } from '../../rooms/PortalRoom';
+
+import { BewPortal } from '../../portal/BewPortal';
+import { ZuckHead } from '../../bits/ZuckHead';
 
 export const BewMainScene = ({ setPlayerPosition,
   code1,
@@ -52,21 +56,6 @@ export const BewMainScene = ({ setPlayerPosition,
   return (
     <group position={[0, 0, 0]}>
 
-    {/* VIBEVERSE PORTAL */}
-    {/* <Cylinder args={[3, 2, .9, 12, Math.PI]} 
-    position={[-3.5,0,1.9]} rotation={[0,0,-Math.PI/2]}>
-      <meshStandardMaterial color="#ffffff" />
-    </Cylinder>
-    <BewPortal fontSize={0.5}
-    position={[-4,0,1.9]}
-    rotation={[0,-Math.PI/2,0]}
-    title="portal.pieter.com"
-    url={formatPortalUrl("https://portal.pieter.com/")}
-    portalRadius={2}
-    textColor="#333333"
-
-    portalMaterial={<meshStandardMaterial color="#eeffcc" />}
-    /> */}
 
 {(!!vb_ref || hasExploredZone('psionic_asset_zone')) && <>
 <group position={[4.6, 2, 4.25]} rotation={[0,0,0]}>
@@ -86,7 +75,7 @@ export const BewMainScene = ({ setPlayerPosition,
 </>}
 
     {/* BACK PORTAL */}
-    {!!vb_ref && <BewPortal fontSize={0.5}
+    {!!vb_ref && <><BewPortal fontSize={0.5}
     position={[2.4,0,1.5]}
     rotation={[0,-Math.PI/2,0]}
     title={vb_ref.split("/").pop()}
@@ -94,7 +83,24 @@ export const BewMainScene = ({ setPlayerPosition,
     portalRadius={2}
     textColor="#777777"
     portalMaterial={<meshStandardMaterial color="#ffaaaa" />}
-    />}
+    />
+    
+    {/* VIBEVERSE PORTAL */}
+    <Cylinder args={[3, 2, .9, 12, Math.PI]} 
+    position={[-3.5,0,1.9]} rotation={[0,0,-Math.PI/2]}>
+      <meshStandardMaterial color="#ffffff" />
+    </Cylinder>
+    <BewPortal fontSize={0.5}
+    position={[-4,0,1.9]}
+    rotation={[0,-Math.PI/2,0]}
+    title="portal.pieter.com"
+    url={formatPortalUrl("https://portal.pieter.com/")}
+    portalRadius={2}
+    textColor="#333333"
+
+    portalMaterial={<meshStandardMaterial color="#eeffcc" />}
+    />
+    </>}
 
 
 
@@ -103,21 +109,21 @@ export const BewMainScene = ({ setPlayerPosition,
       {wasFirstDoorOpened && <>
         <CallibrationSpaces />
       
-        <RoomA />
+        <CommonArea />
         </>}
 
-      <RoomB />
+      <MainHallway />
       
       
 
 
 
       {wasFirstDoorOpened && <>
-        <RoomRight />
-        <RoomC setPlayerPosition={setPlayerPosition} />  
+        <PsionicZone />
+        <ESPLobby setPlayerPosition={setPlayerPosition} />  
       </>}
 
-      <RoomLeft />
+      <PortalRoom />
 
       <ABDoorPortals setPlayerPosition={setPlayerPosition} 
         hasFirstKey={LS_hasFirstKey} setHasFirstKey={handleKeyCollection}

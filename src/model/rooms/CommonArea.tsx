@@ -4,7 +4,7 @@ import { PhysicalWall } from '../core/PhysicalWall';
 import { useState, useEffect } from 'react';
 import { VendingMachine } from './VendingMachine';
 
-export const RoomA = () => {
+export const CommonArea = () => {
   const [colorCallibration, setColorCallibration] = useState(0)
   const [callibrationAvailable, setCallibrationAvailable] = useState(false)
   const [isCallibrated, setIsCallibrated] = useState(false);

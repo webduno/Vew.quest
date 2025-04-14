@@ -4,7 +4,7 @@ import { PhysicalWall } from '../core/PhysicalWall';
 import { PhysicalDoor } from '../core/PhysicalDoor';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
-export const RoomB = () => {
+export const MainHallway = () => {
   const { LS_hasFirstKey } = useVibeverse()
   return (<>
 

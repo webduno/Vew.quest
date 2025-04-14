@@ -4,7 +4,7 @@ import { StyledWall } from '../core/StyledWall';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
 
-export const RoomLeft = () => {
+export const PortalRoom = () => {
   const { LS_lowGraphics } = useVibeverse()
   return (<>
 
@@ -46,13 +46,19 @@ metalness={LS_lowGraphics ? undefined : 0.3}
 roughness={LS_lowGraphics ? undefined : 0.15} 
 emissive={"#222222"}  />
 </Box>
-{!LS_lowGraphics && (
-<Text fontSize={0.17} color="#1d1d1d"  font="/fonts/beanie.ttf"
+<Text fontSize={0.14} color="#1d1d1d"  font="/fonts/wallpoet.ttf"
 anchorX="left" anchorY="middle" textAlign="left"
-position={[-8.3,1.9,-4.44]} rotation={[0,0,0]}
+position={[-8.4,2.75,-4.44]} rotation={[0,0,0]}
 >
 {`
-TARGET                   RESPONSE
+PORTAL ROOM`}</Text>
+{!LS_lowGraphics && (
+<Text fontSize={0.16} color="#1d1d1d"  font="/fonts/beanie.ttf"
+anchorX="left" anchorY="middle" textAlign="left"
+position={[-8.3,1.85,-4.44]} rotation={[0,0,0]}
+>
+{`
+                         RESPONSE
 ______                   __________________    
 45°N 10°E           Ocean, beautiful blue-green waves,
                     sun shining, solid ship head north

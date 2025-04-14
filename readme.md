@@ -108,3 +108,10 @@ Progress is achieved through correct calibrations:
 
 ## **Conclusion**
 This 3D web-based parapsychology game is a fictionalized simulation of experimental psi research. By combining cognitive tests, perceptual challenges, and minimalist visuals, it offers players a fresh exploration of mental phenomena in both solo and cooperative settings, with an aesthetic inspired by mid-20th century research environments
+
+
+
+
+
+
+## low graphics

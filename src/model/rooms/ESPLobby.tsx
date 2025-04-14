@@ -6,7 +6,7 @@ interface BewPreMainSceneProps {
   setPlayerPosition?: (position: [number, number, number]) => void;
 }
 
-export const RoomC = ({ setPlayerPosition }: BewPreMainSceneProps = {}) => {
+export const ESPLobby = ({ setPlayerPosition }: BewPreMainSceneProps = {}) => {
   return (
     <group position={[0, 0, 0]}>
 

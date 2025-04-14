@@ -52,10 +52,11 @@ export const BewGame = () => {
   const [isLocked, setIsLocked] = useState(false)
   const [teleportTrigger, setTeleportTrigger] = useState(0);
   const [showCodeInput, setShowCodeInput] = useState(false);
-  const wasFirstDoorOpened = useRef(false);
+  const [wasFirstDoorOpened, setWasFirstDoorOpened] = useState(false);
+  // const wasFirstDoorOpened = useRef(false);
   const handleFirstDoorOpened = useCallback(() => {
     console.log("handleFirstDoorOpened")
-    wasFirstDoorOpened.current = true;
+    setWasFirstDoorOpened(true);
   }, []);
   // const [showStats, setShowStats] = useState(true);
   const searchParams = useSearchParams();
@@ -442,10 +443,10 @@ export const BewGame = () => {
 
       <Canvas camera={{ fov: 125 }} 
       shadows={LS_lowGraphics ? false : true}
-      onCreated={({ gl }) => {
-        gl.toneMapping = ACESFilmicToneMapping;
-        gl.toneMappingExposure = 0.5;
-      }}
+      // onCreated={({ gl }) => {
+      //   gl.toneMapping = ACESFilmicToneMapping;
+      //   gl.toneMappingExposure = 0.5;
+      // }}
       >
         {/* Performance stats component inside Canvas */}
         {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
@@ -578,7 +579,7 @@ export const BewGame = () => {
           code1={code1}
           code2={code2}
           code3={code3}
-          wasFirstDoorOpened={wasFirstDoorOpened.current}
+          wasFirstDoorOpened={wasFirstDoorOpened}
           onFirstDoorOpened={handleFirstDoorOpened}
           setPlayerPosition={handleSetPlayerPosition} />
 )}

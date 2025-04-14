@@ -8,7 +8,7 @@ import { useBew } from '../../../scripts/contexts/BewProvider';
 import { useState, useEffect } from 'react';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
-export const RoomRight = () => {
+export const PsionicZone = () => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
   const { updateExploredStatus, hasExploredZone } = useVibeverse();
   const [solidLevel, setSolidLevel] = useState(0);
