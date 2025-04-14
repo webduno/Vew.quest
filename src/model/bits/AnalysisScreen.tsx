@@ -30,8 +30,8 @@ export const AnalysisScreen = ({
 
   return (<>
     <Text font={"/fonts/wallpoet.ttf"} fontSize={0.1} color={"#446644"}
-      anchorX="center" anchorY="top" textAlign="left"
-      position={[-.5,0,0]}
+      anchorX="left" anchorY="top" textAlign="left"
+      position={[-1.5,0,0]}
     >
       {analysisResult}
     </Text>

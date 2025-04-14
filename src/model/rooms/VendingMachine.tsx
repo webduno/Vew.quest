@@ -21,7 +21,25 @@ export const VendingMachine = () => {
   };
 
   const handleBuy = () => {
-    console.log(`Buying ${items[selectedItem].name}`);
+    const savedStats = localStorage.getItem('VB_MINDSTATS');
+    const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0, solid: 0, cash: 0 };
+    
+    if (currentStats.cash < items[selectedItem].cost) {
+      console.log('Not enough money');
+      return;
+    }
+
+    // Update cash
+    const newCash = currentStats.cash - items[selectedItem].cost;
+    const newStats = { ...currentStats, cash: newCash };
+    
+    // Add item to inventory
+    const itemName = items[selectedItem].name.toLowerCase().replace(/\s+/g, '_');
+    newStats[itemName] = (newStats[itemName] || 0) + 1;
+    
+    localStorage.setItem('VB_MINDSTATS', JSON.stringify(newStats));
+    window.postMessage('localStorageChanged', '*');
+    console.log(`Bought ${items[selectedItem].name}`);
   };
 
   return (
