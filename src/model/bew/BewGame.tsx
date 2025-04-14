@@ -204,6 +204,7 @@ export const BewGame = () => {
 
   // Handle trigger collision
   const handleChairSit = useCallback((event: any) => {
+    console.log("handleChairSit")
     handleSetPlayerPosition([2.5, 0, -21.5])
     showSnackbar("Take a big nose inhale, and exhale slowly.", 'handbook');
     focusStageRef.current = focusStageRef.current + 1;
@@ -314,6 +315,14 @@ export const BewGame = () => {
     }
 
   }
+
+  const handleResetAnalysis = useCallback(() => {
+    setAnalysisResult("")
+    setAccuracyResult({})
+    setSubmitted({})
+    setLastCashReward(0)
+    handleChairSit({});
+  }, [handleChairSit]);
 
 
 
@@ -494,7 +503,8 @@ export const BewGame = () => {
           showWhiteMirror={showWhiteMirror}
           setShowWhiteMirror={setShowWhiteMirror}
            onChairSit={handleChairSit} onRoomEnter={handleRoomEnter} />
-          )}<Plane args={[4,2]} position={[0,2,-26.49]} rotation={[0,0,0]} receiveShadow>
+          )}
+          <Plane args={[4,2]} position={[0,2,-26.49]} rotation={[0,0,0]} receiveShadow>
           <meshStandardMaterial color="#888888" roughness={0.15}  />
         </Plane>
         {!!loadingAnalysisResult && (
@@ -511,6 +521,7 @@ export const BewGame = () => {
             targetResults={crvTargetObject}
             accuracyResult={accuracyResult}
             rewardAmount={lastCashReward}
+            onReset={handleResetAnalysis}
             />
           </group>
         </>)}

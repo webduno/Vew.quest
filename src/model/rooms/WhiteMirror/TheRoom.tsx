@@ -34,6 +34,7 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
         size={[1, 1.5, 1]}
         position={[2.3, .75, -21.25]} 
         onCollide={onChairSit}
+        
     />
 
 {!showWhiteMirror && (

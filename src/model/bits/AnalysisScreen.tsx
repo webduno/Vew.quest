@@ -1,5 +1,5 @@
 'use client';
-import { Text } from '@react-three/drei';
+import { Box, Text } from '@react-three/drei';
 import { useMemo } from 'react';
 
 export const AnalysisScreen = ({
@@ -7,13 +7,15 @@ export const AnalysisScreen = ({
   accuracyResult,
   targetResults,
   submitted,
-  rewardAmount
+  rewardAmount,
+  onReset
 }: {
   analysisResult: string;
   targetResults: any;
   accuracyResult: any;
   submitted: any;
-  rewardAmount: any
+  rewardAmount: any;
+  onReset: () => void;
 }) => {
   const toFixedObject = useMemo(() => {
     return (obj: Record<string, any>) => {
@@ -31,13 +33,13 @@ export const AnalysisScreen = ({
   return (<>
     <Text font={"/fonts/wallpoet.ttf"} fontSize={0.1} color={"#446644"}
       anchorX="left" anchorY="top" textAlign="left"
-      position={[-1.5,0,0]}
+      position={[-1.75,-0.1,0]}
     >
       {analysisResult}
     </Text>
     <Text font={"/fonts/wallpoet.ttf"} fontSize={0.1} color={"#337733"}
       anchorX="center" anchorY="top" textAlign="left"
-      position={[0, -.8, 0]}
+      position={[0, -.9, 0]}
     >
 {`${accuracyResult.typeMatch ? "✅" : "❌"}
 type        natural        temp        light        color        solidness        
@@ -59,5 +61,21 @@ SENT            ${parseInt(submitted.natural)}            ${parseInt(submitted.t
     >
 {`REWARD = $${rewardAmount}`}
     </Text>
+
+
+
+    <Text font={"/fonts/wallpoet.ttf"} fontSize={0.2} color={"#2a2a2a"}
+      anchorX="center" anchorY="top" textAlign="center"
+      letterSpacing={.2}
+      rotation={[0, Math.PI, 0]}
+      position={[-3, -.2, 10.9]}
+    >
+      {`NEW TARGET`}
+    </Text>
+<Box position={[-3, -1.2, 10.9]} onClick={onReset} receiveShadow
+args={[1, 1, .1]}
+>
+  <meshStandardMaterial color={"#cccccc"} />
+</Box>
   </>);
 };
