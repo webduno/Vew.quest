@@ -54,6 +54,7 @@ export const BewGame = () => {
   const [showCodeInput, setShowCodeInput] = useState(false);
   const wasFirstDoorOpened = useRef(false);
   const handleFirstDoorOpened = useCallback(() => {
+    console.log("handleFirstDoorOpened")
     wasFirstDoorOpened.current = true;
   }, []);
   // const [showStats, setShowStats] = useState(true);
