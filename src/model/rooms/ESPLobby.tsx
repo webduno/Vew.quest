@@ -135,16 +135,22 @@ position={[-2.44, 2.6, -7]} rotation={[0, Math.PI/2, 0]}
 {`PUBLIC\nREQUESTS`}
 </Text>
 
+<Text font="/fonts/consolas.ttf" fontSize={0.07} color="#333333" 
+      anchorX="center" anchorY="middle" textAlign="center"
+      position={[-2.42, 2.12 , -7.65]} rotation={[0, Math.PI/2, 0]}
+    >
+      {`TAKE\nREQUEST`}
+    </Text>
 {/* Display CRV Requests */}
 {crvRequests.map((request, index) => (
   <group key={request.id}>
     <Text font="/fonts/consolas.ttf" fontSize={0.12} color="#2a2a2a" 
       anchorX="right" anchorY="middle" textAlign="right"
-      position={[-2.42, 2.05 - (index * 0.2), -7.5]} rotation={[0, Math.PI/2, 0]}
+      position={[-2.42, 1.95 - (index * 0.2), -7.4]} rotation={[0, Math.PI/2, 0]}
     >
       {`#${request.id}___t:${new Date(request.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
     </Text>
-    <Box args={[0.1, 0.15, .3]} position={[-2.42, 2.05 - (index * 0.2), -7.7]} >
+    <Box args={[0.05, 0.15, .3]} position={[-2.42, 1.95 - (index * 0.2), -7.65]} >
       <meshStandardMaterial color="#eeeeee" />
     </Box>
   </group>
