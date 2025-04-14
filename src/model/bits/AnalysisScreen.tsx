@@ -39,15 +39,15 @@ export const AnalysisScreen = ({
     </Text>
     <Text font={"/fonts/beanie.ttf"} fontSize={0.1} color={"#337733"}
       anchorX="center" anchorY="top" textAlign="left"
-      position={[0, -.9, 0]}
+      position={[0, -.8, 0]}
     >
 {`
+SENT
 type         natural          temp             light            color            solidness        
-SENT           ${parseInt(submitted.natural)}            ${parseInt(submitted.temp)}              ${parseInt(submitted.light)}              ${parseInt(submitted.color)}                ${parseInt(submitted.solid)}
-${submitted.type.toLowerCase()}
+${submitted.type.toLowerCase()}${accuracyResult.typeMatch ? "✓" : "✗"}             ${parseInt(submitted.natural)}            ${parseInt(submitted.temp)}              ${parseInt(submitted.light)}              ${parseInt(submitted.color)}                ${parseInt(submitted.solid)}
 
 TARGET         ${targetResults.natural}               ${targetResults.temp}               ${targetResults.light}           ${targetResults.color}                 ${targetResults.solid}
-${targetResults.type}${accuracyResult.typeMatch ? "✓" : "✗"}           ${formattedAccuracy.naturalityAccuracy}%                ${formattedAccuracy.temperatureAccuracy}%            ${formattedAccuracy.lightAccuracy}%            ${formattedAccuracy.colorAccuracy}%              ${formattedAccuracy.solidAccuracy}%
+${targetResults.type}           ${formattedAccuracy.naturalityAccuracy}%             ${formattedAccuracy.temperatureAccuracy}%            ${formattedAccuracy.lightAccuracy}%            ${formattedAccuracy.colorAccuracy}%              ${formattedAccuracy.solidAccuracy}%
 `}
     </Text>
 

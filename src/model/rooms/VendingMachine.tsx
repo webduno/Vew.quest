@@ -45,7 +45,7 @@ export const VendingMachine = () => {
   return (
     <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
       {/* veending machine */}
-      <PhysicalWall size={[1.1, 2.6, 2.5]} color="#ff9933" visible={false}
+      <PhysicalWall size={[1.2, 2.6, 2.5]} color="#ff9933" visible={false}
         position={[2.1, 1.3, 12]} />
 
 
@@ -120,11 +120,11 @@ il passato`}
           <Text font="/fonts/consolas.ttf" fontSize={0.05} 
           color={"#555555"}
             anchorX="center" anchorY="middle" textAlign="center"
-            position={[-0.051, 0, -0.25]} rotation={[0, -Math.PI / 2, 0]}
+            position={[-0.051, 0, 0]} rotation={[0, -Math.PI / 2, 0]}
           >
             {`NEXT`}
           </Text>
-          <Box position={[0, 0, -.25]} args={[.1, .3, .2]} onClick={handleNext}>
+          <Box position={[0, 0, 0]} args={[.1, .3, .2]} onClick={handleNext}>
             <meshStandardMaterial emissive="#222222"
              color={"#ffffff"} />
           </Box>
@@ -132,11 +132,11 @@ il passato`}
           <Text font="/fonts/consolas.ttf" fontSize={0.05} 
           color={"#555555"}
             anchorX="center" anchorY="middle" textAlign="center"
-            position={[-0.051, 0, 0]} rotation={[0, -Math.PI / 2, 0]}
+            position={[-0.051, 0, -0.25]} rotation={[0, -Math.PI / 2, 0]}
           >
             {`PREV`}
           </Text>
-          <Box position={[0, 0, 0]} args={[.1, .3, .2]} onClick={handlePrevious}>
+          <Box position={[0, 0, -0.25]} args={[.1, .3, .2]} onClick={handlePrevious}>
             <meshStandardMaterial emissive="#222222"
              color={"#ffffff"} />
           </Box>

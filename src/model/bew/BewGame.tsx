@@ -170,14 +170,8 @@ export const BewGame = () => {
   ______                               ______________________________    
   
   ${parseInt(crvData.natural.toString())}|${parseInt(crvData.temp.toString())}               ${firstPart}
-  ${parseInt(crvData.light.toString())},${parseInt(crvData.color.toString())},${parseInt(crvData.solid.toString())}                ${secondPart}
+  ${parseInt(crvData.light.toString())}, ${parseInt(crvData.color.toString())}, ${parseInt(crvData.solid.toString())}                ${secondPart}
                             ${thirdPart}${restPart ? '...' : ''}
-                                
-            
-            
-  
-  
-  
   `)
 
         
