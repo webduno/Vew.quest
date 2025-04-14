@@ -136,13 +136,6 @@ export const VendingMachine = () => {
             <meshStandardMaterial color={"#ffffff"} />
           </Box>
 
-          <Box position={[0, 0.6, -0.3]} args={[.2, .2, .3]}>
-            <meshStandardMaterial color={"#eeeeee"} />
-          </Box>
-          <Box position={[0, 0.7, -0.3]} args={[.22, .1, .33]}>
-            <meshStandardMaterial color={"#dddddd"} />
-          </Box>
-
 
 
 
@@ -155,6 +148,17 @@ export const VendingMachine = () => {
 {/* /////////////////////////////////////////////////////////////////////////// */}
           <Box position={[-0.3, 0.5, -0.25]} args={[.02, .15, .25]}>
             <meshStandardMaterial color={selectedItem === 0 ? "#ffffff" : "#bbbbbb"}  />
+          </Box>
+
+          <Box position={[0, 0.6, -0.2]} args={[.2, .2, .3]}
+          rotation={[0,-.25,0]}
+          >
+            <meshStandardMaterial color={"#ffeeff"} />
+          </Box>
+          <Box position={[0, 0.7, -0.2]} args={[.22, .1, .33]}
+          rotation={[0,-.25,0]}
+          >
+            <meshStandardMaterial color={"#ffddff"} />
           </Box>
 
           <Text font="/fonts/consolas.ttf" fontSize={0.05} 
@@ -171,8 +175,8 @@ export const VendingMachine = () => {
             color={selectedItem === 1 ? "#ffffff" : "#bbbbbb"}  />
           </Box>
 
-          <Sphere position={[0, 0.65, 0.3]} args={[.15]}>
-            <meshStandardMaterial color={"#eeeeee"} />
+          <Sphere position={[0, 0.65, 0.38]} args={[.15]}>
+            <meshStandardMaterial color={"#ffccaa"} />
           </Sphere>
           <Text font="/fonts/consolas.ttf" fontSize={0.05} 
           color={selectedItem === 1 ? "#ffffff" : "#555555"}
@@ -196,7 +200,7 @@ Pass`}
             />
           </Box>
           <Box position={[0, 0.125, -0.3]} args={[.33, .02, .33]}>
-            <meshStandardMaterial color={"#eeeeee"} />
+            <meshStandardMaterial color={"#eeeeee"} emissive={"#555555"} />
           </Box>
 
           <Box position={[0, 0.1, 0]} args={[.6, .05, 1.4]}>
@@ -206,7 +210,7 @@ Pass`}
           <Box position={[0, 0.15, -0.33]} args={[.3, .02, .3]}
             rotation={[0, 0.2, 0]}
           >
-            <meshStandardMaterial color={"#eeeeee"} />
+            <meshStandardMaterial color={"#eeeeee"} emissive={"#333333"} />
           </Box>
 
           <Text font="/fonts/consolas.ttf" fontSize={0.05}
@@ -214,8 +218,7 @@ Pass`}
             anchorX="center" anchorY="middle" textAlign="center"
             position={[-0.32, 0.1, -0.25]} rotation={[0, -Math.PI / 2, 0]}
           >
-            {`Declasific-
-ation request`}
+            {`FOIA request`}
           </Text>
 {/* /////////////////////////////////////////////////////////////////////////// */}
 
@@ -225,7 +228,7 @@ ation request`}
             />
           </Box>
           <Cylinder position={[0, 0.2, 0.3]} args={[.2, .2, .1]}>
-            <meshStandardMaterial color={"#eeeeee"} />
+            <meshStandardMaterial color={"#bbddff"} />
           </Cylinder>
           <Text font="/fonts/consolas.ttf" fontSize={0.05} 
           color={selectedItem === 3 ? "#ffffff" : "#555555"}

@@ -10,7 +10,23 @@ export function useVibeverse() {
   const [typedUsername, setTypedUsername] = useState("");
   const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(false);
   const [LS_hasFirstKey, setLS_hasFirstKey] = useState<boolean>(false);
-  const [mindStats, setMindStats] = useState<{ color: number, solid: number, cash?: number }>({ color: 0, solid: 0 });
+  const [mindStats, setMindStats] = useState<{ 
+    color: number,
+    solid: number,
+    cash?: number,
+    chronovisor_ticket?: number,
+    pk_pill?: number,
+    mars_pass?: number,
+    declasification_request?: number,
+   }>({
+    color: 0,
+    solid: 0,
+    cash: 0,
+    chronovisor_ticket: 0,
+    pk_pill: 0,
+    mars_pass: 0,
+    declasification_request: 0
+  });
   const [tutorials, setTutorials] = useState<{ [key: string]: boolean }>({});
   const [explored, setExplored] = useState<{ [key: string]: boolean }>({});
   const router = useRouter()
@@ -138,7 +154,14 @@ export function useVibeverse() {
     const savedMindStats = localStorageProxy.VB_MINDSTATS;
     if (savedMindStats) {
       const parsedStats = JSON.parse(savedMindStats);
-      setMindStats({ color: parsedStats.color || 0, solid: parsedStats.solid || 0, cash: parsedStats.cash || 0 });
+      setMindStats({
+        color: parsedStats.color || 0,
+        solid: parsedStats.solid || 0,
+        cash: parsedStats.cash || 0,
+        chronovisor_ticket: parsedStats.chronovisor_ticket || 0,
+        pk_pill: parsedStats.pk_pill || 0,
+        mars_pass: parsedStats.mars_pass || 0,
+        declasification_request: parsedStats.declasification_request || 0 });
     }
 
     // Load tutorials first before any other operations

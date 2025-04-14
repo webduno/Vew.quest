@@ -11,7 +11,12 @@ import { useState, useEffect } from 'react';
 
 export const MindStats = () => {
   const { mindStats } = useVibeverse();
-  const [stats, setStats] = useState<{ color: number; solid: number; cash?: number }>(mindStats);
+  const [stats, setStats] = useState<{ 
+      color: number;
+      solid: number;
+      cash?: number;
+      chronovisor_ticket?: number
+     }>(mindStats);
   const [username, setUsername] = useState("");
   const [hasFirstKey, setHasFirstKey] = useState(0);
   const [toggleChangeSomething, setToggleChangeSomething] = useState(false);
@@ -45,7 +50,7 @@ export const MindStats = () => {
     return null;
   }
 
-  return (
+  return (<>
     <div className=' flex-row flex-align-stretch w-100px' style={{
       padding: '6px',
       gap: '3px',
@@ -120,5 +125,51 @@ export const MindStats = () => {
 
       </div>
     </div>
-  );
+    {(
+      mindStats.chronovisor_ticket ||
+      mindStats.pk_pill ||
+      mindStats.mars_pass ||
+      mindStats.declasification_request
+      ) && (<>
+
+<details>
+<summary className='flex-col flex-align-start pt-2 pointer'>
+<button className="noclick box-shadow-i-5-t bord-r-5 pa-1 tx-xs"
+style={{
+  background: '#444444',
+  color: '#999999',
+}}
+>
+      INVENTORY
+    </button>
+</summary>
+
+  <div className='mt-2 tx-white tx-xs bord-r-5 w-80px pa-1 flex-col gap-1
+  flex-col flex-align-start tx-altfont-1 
+  '
+  style={{
+    background: '#444444',
+  }}
+  >
+    {!!mindStats.chronovisor_ticket && <div className="box-shadow-i-5-t bord-r-5 bg-w-20 pa-1">
+      chronoview: {mindStats.chronovisor_ticket}
+    </div>}
+    {!!mindStats.pk_pill && <div className="box-shadow-i-5-t bord-r-5 bg-w-20 pa-1">
+      pk_pill: {mindStats.pk_pill}
+    </div>}
+    {!!mindStats.mars_pass && <div className="box-shadow-i-5-t bord-r-5 bg-w-20 pa-1">
+      mars_pass: {mindStats.mars_pass}
+    </div>}
+    {!!mindStats.declasification_request && <div className="box-shadow-i-5-t bord-r-5 bg-w-20 pa-1">
+      foia_req:      {mindStats.declasification_request}
+    </div>}
+
+  </div>
+</details>
+
+
+
+
+  </>)}
+  </>);
 };
