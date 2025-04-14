@@ -48,6 +48,11 @@ export const VendingMachine = () => {
       <PhysicalWall size={[1.1, 2.6, 2.5]} color="#ff9933" visible={false}
         position={[2.1, 1.3, 12]} />
 
+
+
+
+
+
       <group position={[1.9, 1.26, 12]}>
         {/* top */}
         <Box position={[0, 1.2, 0]} args={[1.11, .2, 2.45]}>
@@ -70,6 +75,20 @@ export const VendingMachine = () => {
           <meshStandardMaterial color={"#ffffff"} />
         </Box>
         <group position={[-0.5, 0.5, 0.6]}>
+          <Text font="/fonts/beanie.ttf" fontSize={0.1} 
+          color={"#222222"}
+            anchorX="center" anchorY="middle" textAlign="center"
+            position={[0.7, 0.4, .62]} rotation={[0, 0, .1]}
+          >
+{`inventata la
+macchina
+che fotografa
+il passato`}
+          </Text>
+
+
+
+
           <Plane position={[-0.01, 0.4, 0]}  args={[.7, .3]}
           rotation={[0, -Math.PI / 2, 0]}
           >
