@@ -329,6 +329,14 @@ export const BewGame = () => {
   }
 
   const handleResetAnalysis = useCallback(() => {
+    // Check if user has enough solid calibration points using the live mindStats from useVibeverse
+    if (mindStats.solid <= 0) {
+      showSnackbar("You need at least 1 solid calibration point to enter the white room.", 'error');
+      setTimeout(() => {
+        closeSnackbar();
+      }, 3000);
+      return;
+    }
     setAnalysisResult("")
     setAccuracyResult({})
     setSubmitted({})
