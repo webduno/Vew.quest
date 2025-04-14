@@ -11,7 +11,7 @@ import { TheRoom } from '../rooms/WhiteMirror/TheRoom';
 import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScreen';
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
 import { PhysicalWall } from '../core/PhysicalWall';
-import { Box, Plane } from '@react-three/drei';
+import { Box, Plane, PositionalAudio } from '@react-three/drei';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 import { useSearchParams } from 'next/navigation';
 import { useBew } from '../../../scripts/contexts/BewProvider';
@@ -460,7 +460,6 @@ export const BewGame = () => {
           gravity={[0, -30, 0]}
           defaultContactMaterial={{ friction: 0.001, restitution: 0.2 }}
         >
-
 
           
           {/* CHAIR SUPERVISOR, only visible when focusStageRef.current === 0 */}

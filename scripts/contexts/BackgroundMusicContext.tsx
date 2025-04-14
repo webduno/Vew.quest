@@ -19,7 +19,7 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Initialize audio only on the client side
-    audioRef.current = new Audio('/sfx/ominous.mp3');
+    audioRef.current = new Audio('/sfx/bg/ominous.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.1;
 

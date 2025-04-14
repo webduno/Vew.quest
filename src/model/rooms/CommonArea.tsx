@@ -44,11 +44,12 @@ export const CommonArea = () => {
 
 
 
-<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#1d1d1d" 
+<Text font="/fonts/wallpoet.ttf" fontSize={0.2} color="#1d1d1d" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[0,2.8,14.49]} rotation={[0,Math.PI,0]}
 >
-{`MARS ARCHIVES`}
+{`MARS ARCHIVES
+ELEVATOR`}
 </Text>
 
 
