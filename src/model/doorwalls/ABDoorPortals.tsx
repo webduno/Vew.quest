@@ -31,11 +31,11 @@ export const ABDoorPortals = ({
   }, [hasFirstKey]);
 
 const openDoorProcess = () => {
-  setTimeout(() => {
+    onFirstDoorOpened();
+    setTimeout(() => {
     setDoorVisible((prev:any) => {
       if (prev) {
         playSoundEffect('/sfx/short/ddoor.mp3');
-        onFirstDoorOpened();
       }
       return false;
     });
