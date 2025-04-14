@@ -1,5 +1,5 @@
 'use client';
-import { isMobile } from '@/../scripts/utils/mobileDetection';
+import { calculateAccuracy, isMobile } from '@/../scripts/utils/mobileDetection';
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef, useContext } from 'react';
@@ -82,23 +82,6 @@ export const BewGame = () => {
   
   const [isTransitioning, setIsTransitioning] = useState(false);
   
-  const calculateAccuracy = (target: number, guess: number, isGauge: boolean = false): number => {
-    if (isGauge) {
-      // For gauge values with larger input numbers
-      const difference = Math.abs(target - guess);
-      // Handle wrap-around cases for inputs > 100
-      const wrappedDifference = Math.min(difference, Math.abs(360 - difference));
-      // Convert to percentage where 100% means perfect match
-      const accuracy = Math.round((1 - (wrappedDifference / 180)) * 100);
-      // Ensure result is between 0 and 100
-      return Math.max(0, Math.min(100, accuracy));
-    } else {
-      // For regular values (0-100)
-      const difference = Math.abs(target - guess);
-      // Convert to percentage where 100% means perfect match
-      return Math.round((1 - (difference / 100)) * 100);
-    }
-  };
 
   const sendCRVReport = async (crvData: {
     type: string;
@@ -110,8 +93,6 @@ export const BewGame = () => {
     confidence: number;
   }) => {
     setSubmitted(crvData)
-
-    console.table(crvData)
     setShowAnalogModal(false);
     setShowWhiteMirror(false);
     setFocusLevel(0);
@@ -120,10 +101,15 @@ export const BewGame = () => {
     setLoadingAnalysisResult(true)
     playSoundEffect("/sfx/stickyshift.mp3", 0.05)
 
-
     // Compare submitted data with target
     const target = crvTargetObject as typeof crvData;
-
+    const overallAccuracy = Math.round((
+      calculateAccuracy(target.natural, crvData.natural, true) +
+      calculateAccuracy(target.temp, crvData.temp, true) +
+      calculateAccuracy(target.light, crvData.light) +
+      calculateAccuracy(target.color, crvData.color) +
+      calculateAccuracy(target.solid, crvData.solid)
+    ) / 5)
     const accuracyres = {
       typeMatch: target.type.toLowerCase() === crvData.type.toLowerCase(),
       naturalityAccuracy: calculateAccuracy(target.natural, crvData.natural, true),
@@ -131,26 +117,35 @@ export const BewGame = () => {
       lightAccuracy: calculateAccuracy(target.light, crvData.light),
       colorAccuracy: calculateAccuracy(target.color, crvData.color),
       solidAccuracy: calculateAccuracy(target.solid, crvData.solid),
-      overallAccuracy: Math.round((
-        calculateAccuracy(target.natural, crvData.natural, true) +
-        calculateAccuracy(target.temp, crvData.temp, true) +
-        calculateAccuracy(target.light, crvData.light) +
-        calculateAccuracy(target.color, crvData.color) +
-        calculateAccuracy(target.solid, crvData.solid)
-      ) / 5)
+      overallAccuracy: overallAccuracy
     }
     setAccuracyResult(accuracyres)
 
-    const rewardAmaount = (accuracyres.naturalityAccuracy +
-    accuracyres.temperatureAccuracy +
-    accuracyres.lightAccuracy +
-    accuracyres.colorAccuracy +
-    accuracyres.solidAccuracy)
-    setLastCashReward(rewardAmaount*3)
+    const rewardAmount = (accuracyres.naturalityAccuracy +
+      accuracyres.temperatureAccuracy +
+      accuracyres.lightAccuracy +
+      accuracyres.colorAccuracy +
+      accuracyres.solidAccuracy)
+    setLastCashReward(rewardAmount * 3)
     const currentCash = mindStats.cash || 0;
-    updateMindStats('cash', currentCash + rewardAmaount*3)
-   
+    updateMindStats('cash', currentCash + rewardAmount * 3)
+
     try {
+      console.log('saving to supabase')
+      const saveResponse = await fetch('/api/supabase', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          objList: {
+            sent: crvData,
+            target: crvTargetObject,
+          },
+          storageKey: LS_playerId
+        })
+      });
+      const saveData = await saveResponse.json();
+      console.log('saveData', saveData)
+
       const response = await fetch('/api/ai', {
         method: 'POST',
         headers: {
@@ -166,6 +161,7 @@ export const BewGame = () => {
       const secondPart = wholeResponse.split(' ').slice(6,12).join(' ') || ''
       const thirdPart = wholeResponse.split(' ').slice(12,18).join(' ') || ''
       const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
+
       setTimeout(() => {
         setLoadingAnalysisResult(false)
         setAnalysisResult(`
@@ -176,11 +172,9 @@ export const BewGame = () => {
   ${parseInt(crvData.light.toString())}, ${parseInt(crvData.color.toString())}, ${parseInt(crvData.solid.toString())}                ${secondPart}
                             ${thirdPart}${restPart ? '...' : ''}
   `)
-
-        
       }, 3000)
     } catch (error) {
-      console.error('Error sending CRV report:', error);
+      console.error('Error processing CRV report:', error);
       setLoadingAnalysisResult(false)
       setAnalysisResult(`
   TARGET                               RESPONSE
@@ -188,11 +182,6 @@ export const BewGame = () => {
   
   ??° ?' ■■"               Error analyzing data
   ■■■■° NW                ??sun shining, solid ship head north
-            
-            
-  
-  
-  
   `)
     }
   }
@@ -210,10 +199,10 @@ export const BewGame = () => {
   const handleChairSit = useCallback((event: any) => {
     // Check if user has enough solid calibration points using the live mindStats from useVibeverse
     if (mindStats.solid <= 0) {
-      showSnackbar("You need at least 1 solid calibration point to enter the white room.", 'error');
+      showSnackbar("Solid calibration is required in the white room.", 'error');
       setTimeout(() => {
         closeSnackbar();
-      }, 3000);
+      }, 4000);
       return;
     }
 
@@ -331,10 +320,10 @@ export const BewGame = () => {
   const handleResetAnalysis = useCallback(() => {
     // Check if user has enough solid calibration points using the live mindStats from useVibeverse
     if (mindStats.solid <= 0) {
-      showSnackbar("You need at least 1 solid calibration point to enter the white room.", 'error');
+      showSnackbar("Solid calibration is required in the white room.", 'error');
       setTimeout(() => {
         closeSnackbar();
-      }, 3000);
+      }, 4000);
       return;
     }
     setAnalysisResult("")

@@ -25,18 +25,20 @@ export const BCDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (posit
       rotation={[0, 0, 0]} />
 
 
-<Text position={[0.1, 1.75, -5.12]} rotation={[0, Math.PI, -0.05]} anchorX="center" anchorY="middle"
+<Text position={[0.1, 1.6, -5.12]} rotation={[0, Math.PI, -0.05]} anchorX="center" anchorY="middle"
 textAlign="center" color="#333333"
 fontSize={0.3} font={"/fonts/beanie.ttf"}
 >
   {`
+  (ESP) LAB
+  Main Hallway
+  |
+  |
+  |
   EXTRA
   SENSORIAL
   PERCEPTION
-  |
-  |
-  |
-  (ESP) LAB
+  DOOR
   `}
 </Text>
 
