@@ -110,13 +110,13 @@ export const BewGame = () => {
     const lightAccuracy = calculateAccuracy(target.light, crvData.light, false, false)
     const colorAccuracy = calculateAccuracy(target.color, crvData.color, false, false)
     const solidAccuracy = calculateAccuracy(target.solid, crvData.solid, false, false)
-    const overallAccuracy = Math.round((
+    const overallAccuracy = ((
       naturalityAccuracy +
       temperatureAccuracy +
       lightAccuracy +
       colorAccuracy +
       solidAccuracy
-    ) / 5)
+    ) / 5).toFixed(3)
     const accuracyres = {
       typeMatch: target.type.toLowerCase() === crvData.type.toLowerCase(),
       naturalityAccuracy: naturalityAccuracy,
