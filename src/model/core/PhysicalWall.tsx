@@ -29,7 +29,8 @@ export const PhysicalWall = ({
   }
 
   return (
-    <mesh ref={ref as React.Ref<Mesh>} receiveShadow castShadow={castShadow}>
+    <mesh ref={ref as React.Ref<Mesh>} 
+    receiveShadow castShadow={castShadow}>
       <boxGeometry args={boxSize} />
       <meshStandardMaterial color={color} />
     </mesh>

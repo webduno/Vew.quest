@@ -185,7 +185,7 @@ il passato`}
             <meshStandardMaterial color={"#ffddff"} />
           </Box>
 
-          <Text font="/fonts/consolas.ttf" fontSize={0.05} 
+          <Text  font="/fonts/consolas.ttf" fontSize={0.05} 
           color={selectedItem === 0 ? "#ffffff" : "#555555"}
             anchorX="center" anchorY="middle" textAlign="center"
             position={[-0.32, 0.5, -0.25]} rotation={[0, -Math.PI / 2, 0]}
@@ -202,7 +202,7 @@ il passato`}
           <Sphere position={[0, 0.65, 0.38]} args={[.15]}>
             <meshStandardMaterial color={"#ffccaa"} />
           </Sphere>
-          <Text font="/fonts/consolas.ttf" fontSize={0.05} 
+          <Text  font="/fonts/consolas.ttf" fontSize={0.05} 
           color={selectedItem === 1 ? "#ffffff" : "#555555"}
             anchorX="center" anchorY="middle" textAlign="center"
             position={[-0.32, 0.5, 0.35]} rotation={[0, -Math.PI / 2, 0]}
@@ -237,7 +237,7 @@ Pass`}
             <meshStandardMaterial color={"#eeeeee"} emissive={"#333333"} />
           </Box>
 
-          <Text font="/fonts/consolas.ttf" fontSize={0.05}
+          <Text  font="/fonts/consolas.ttf" fontSize={0.05}
            color={selectedItem === 2 ? "#ffffff" : "#555555"}
             anchorX="center" anchorY="middle" textAlign="center"
             position={[-0.32, 0.1, -0.25]} rotation={[0, -Math.PI / 2, 0]}
@@ -254,7 +254,7 @@ Pass`}
           <Cylinder position={[-0.1, -0.1, 0.3]} args={[.2, .2, .1]}>
             <meshStandardMaterial color={"#bbddff"} />
           </Cylinder>
-          <Text font="/fonts/consolas.ttf" fontSize={0.05} 
+          <Text  font="/fonts/consolas.ttf" fontSize={0.05} 
           color={selectedItem === 3 ? "#ffffff" : "#555555"}
             anchorX="center" anchorY="middle" textAlign="center"
             position={[-0.32, -0.3, 0.3]} rotation={[0, -Math.PI / 2, 0]}
@@ -284,7 +284,9 @@ or Ticket`}
         <meshStandardMaterial color={"#ffffff"} />
       </Box>
       {/* glass */}
-      <Box position={[1.45, 1.5, 12]} args={[.05, 1.9, 2.1]}>
+      <Box position={[1.45, 1.5, 12]} args={[.05, 1.9, 2.1]}
+      renderOrder={1}
+      >
         <meshStandardMaterial color={"#ffffff"}
           opacity={0.5}
           transparent={true} />

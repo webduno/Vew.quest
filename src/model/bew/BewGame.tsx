@@ -24,6 +24,7 @@ import { TheWhiteMirror } from '../rooms/WhiteMirror/TheWhiteMirror';
 import { PhysicalFloor } from '../core/PhysicalFloor';
 import { PhysicalCeiling } from '../core/PhysicalFloor';
 import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
+import { ACESFilmicToneMapping } from 'three';
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl, updateMindStats, mindStats } =  useVibeverse()
@@ -438,7 +439,13 @@ export const BewGame = () => {
 
 
 
-      <Canvas camera={{ fov: 125 }} shadows={LS_lowGraphics ? false : true}>
+      <Canvas camera={{ fov: 125 }} 
+      shadows={LS_lowGraphics ? false : true}
+      onCreated={({ gl }) => {
+        gl.toneMapping = ACESFilmicToneMapping;
+        gl.toneMappingExposure = 0.5;
+      }}
+      >
         {/* Performance stats component inside Canvas */}
         {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
 
