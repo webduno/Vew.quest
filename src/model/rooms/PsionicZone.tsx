@@ -108,8 +108,8 @@ size={[.51,4,1]}
 {/* only show when mindstats.solid >= 2 */}
 {mindStats.solid < 2 && <>
 <PhysicalWall  visible={false} color="#ff9900"
-position={[3.5,2, -9]}
-size={[.525,4,7]}
+position={[3,2, -9]}
+size={[1.4,4,7]}
 />
 </>}
 
