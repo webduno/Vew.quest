@@ -9,7 +9,46 @@ import { PaperSheet } from '../../../../scripts/contexts/PaperSheet';
 import { useVibeverse } from '../../../../scripts/hooks/useVibeverse';
 type GameState = 'initial' | 'playing' | 'results';
 
-export default function PracticePage() {
+export default function TrainingPage() {
+  const [isLoadingMyRequests, setIsLoadingMyRequests] = useState(false);
+  const [myRequests, setMyRequests] = useState<null | {
+    description: string;
+    bounty: number;
+    attempts: number;
+    solved: number;
+    created_at: string;
+  }[]>(null);
+  const handleMyRequests = async () => {
+    const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
+    if (!LS_playerId) {
+      alert('No player ID found');
+      return;
+    }
+
+    try {
+      setIsLoadingMyRequests(true);
+      const response = await fetch(`/api/supabase/crvmailbox?playerId=${LS_playerId}`, {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+          'Pragma': 'no-cache'
+        },
+        cache: 'no-store'
+      });
+      const data = await response.json();
+      
+      if (!data.success || !data.data || data.data.length === 0) {
+        alert('No requests found');
+        return;
+      }
+
+      setMyRequests(data.data);
+    } catch (error) {
+      console.error('Error fetching my requests:', error);
+      alert('Error fetching requests');
+    } finally {
+      setIsLoadingMyRequests(false);
+    }
+  }
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [enableLocked, setEnableLocked] = useState(false);
   const [gameState, setGameState] = useState<GameState>('initial');
@@ -146,7 +185,63 @@ export default function PracticePage() {
       <div className='pos-abs left-0 top-0'>
       <BewLogo />
       </div>
-      {gameState === 'initial' && (<>
+      { myRequests && myRequests.length > 0 && (<>
+
+
+      <div className="tx-white tx-center">
+        <div className="tx-lg mt-4  tx-altfont-5 tx-shadow- 5 mb-4"
+        style={{
+          color: "#777777",
+        }}
+        >
+          
+        YOUR CRV <br /> Requests
+        </div>
+        <div className='tx-sm opaci-50 flex-col gap-1 flex-align-start' >
+          <div className='flex-row gap-1 w-100'>
+            <div className='w-150px pa-2 tx-start'>Description</div>
+            <div className='pa-2 tx-right flex-1'></div>
+            <div className='pa-2 tx-right'>Attm/Slvd</div>
+          </div>
+          {myRequests.map((request, index) => (
+            <div key={index} className='flex-row gap-1 opaci-chov--75'
+            onClick={()=>{
+              alert(`Description: ${request.description}\n\nBounty: ${request.bounty}\n\nCreated at: ${request.created_at}`);
+            }}
+            style={{
+              color: "#cccccc",
+              backgroundColor: "#171717",
+              borderRadius: "3px",
+              boxShadow: "1px 1px 1px #111111, -1px -1px 1px #777777",
+            }}
+            >
+              <div className='w-150px pa-2 tx-start'>{request.description}</div>
+              <div className='pa-2 tx-right'
+              
+              >{request.bounty ? `$$$` : 'No bounty'}</div>
+              <div className='pa-2 tx-right'>{request.attempts || '0'}</div>
+              <div className='pa-2 tx-right'>{request.solved || '0'}</div>
+            </div>
+          ))}
+        </div>
+        <button 
+            className="noborder bg-trans tx-white pointer mt-4 tx-altfont-1" 
+            onClick={()=>{
+              setMyRequests(null);
+              setGameState('initial');
+              setResults(null);
+              setSentObject(null);
+            }}
+          >
+            <BewMenuButton>Go Back</BewMenuButton>
+          </button>
+      </div>
+      
+      
+      
+      </>
+      )}
+      {gameState === 'initial' && ( myRequests?.length === 0 || !myRequests) && (<>
         <button 
           className="tx-lg bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
           style={{
@@ -168,7 +263,19 @@ export default function PracticePage() {
         >
           <BewMenuButton>Request CRV</BewMenuButton>
         </button>
-        {successRequest && (
+        <button 
+          className="mt-2 tx-mdl bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
+          style={{
+            color: "#999999",
+          }}
+          onClick={()=>{
+            if (isLoadingMyRequests) return;
+            handleMyRequests();
+          }}
+        >
+          <BewMenuButton>{isLoadingMyRequests ? 'Loading...' : 'My Requests'}</BewMenuButton>
+        </button>
+        {successRequest && (myRequests?.length === 0  || !myRequests) && (
           <div className="tx-white tx-center">
             <div className="tx-lg mt-4  tx-altfont-5 tx-shadow-5"
             style={{
@@ -185,7 +292,7 @@ export default function PracticePage() {
         )}
         </>)}
 
-      {gameState === 'playing' && target && (
+      {gameState === 'playing' && target && (myRequests?.length === 0 || !myRequests) && (
         <div className="flex-col flex-center">
           <div className="tx-white tx-center mb-8">
             {/* <div className="tx-md tx-altfont-5 opaci-50">Target Code</div> */}
@@ -204,7 +311,7 @@ export default function PracticePage() {
         </div>
       )}
 
-      {gameState === 'results' && results && target && (
+      {gameState === 'results' && results && target && (myRequests?.length === 0 || !myRequests) && (
         <div className="tx-white tx-center">
           <div className="tx-lg mb-4 tx-altfont-5 tx-shadow-5"
           style={{
