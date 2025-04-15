@@ -51,8 +51,8 @@ export const TheWhiteMirror = ({
         <meshStandardMaterial color="#ffffff" emissive="#443300"
         />
       </Cylinder>
-      <pointLight intensity={2} color="#ffffff" 
-        position={[-1.75, 0, 0]} />
+      <pointLight intensity={5} color="#ffffff" 
+        position={[1.5, 1.1, -3]} />
       {/* <Sphere args={[.7, 32, 32]} ref={orbRef2} castShadow
       >
         <meshStandardMaterial color="#ffffff"

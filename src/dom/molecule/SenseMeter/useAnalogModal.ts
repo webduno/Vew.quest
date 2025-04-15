@@ -22,79 +22,13 @@ export const useAnalogModal = (onSend: (params: {
   // State for slider values (0-80)
   const [sliderValues, setSliderValues] = useState([40, 40, 40]);
   
-  // For oscillation
-  const [oscillationDirection, setOscillationDirection] = useState(1);
+  // For oscillation value (but no automatic oscillation)
   const [oscillationValue, setOscillationValue] = useState(180);
   
   // Add ref for focusing
   const modalRef = useRef<HTMLDivElement>(null);
   // Add ref for the large meter to get its dimensions
   const meterRef = useRef<HTMLDivElement>(null);
-
-  // Oscillation animation for active gauge or slider
-  useEffect(() => {
-    if (activeSection !== 'natural' && activeSection !== 'temp' && activeSection !== 'sliders') return;
-    
-    let animationFrameId: number;
-    const gaugeOscillationSpeed = 1; // speed for gauges
-    const sliderOscillationSpeed = 0.3; // speed for sliders
-    const minValue = activeSection === 'sliders' ? 0 : 0;
-    const maxValue = activeSection === 'sliders' ? 50 : 360;
-    
-    const animate = () => {
-      setOscillationValue(prev => {
-        // Calculate the new value based on direction
-        const newValue = prev + (activeSection === 'sliders' ? sliderOscillationSpeed : gaugeOscillationSpeed) * oscillationDirection;
-        
-        // Change direction when reaching bounds
-        if (newValue >= maxValue) {
-          setOscillationDirection(-1);
-          return maxValue; // Cap at max
-        } else if (newValue <= minValue) {
-          setOscillationDirection(1);
-          return minValue; // Cap at min
-        }
-        
-        return newValue;
-      });
-      
-      animationFrameId = requestAnimationFrame(animate);
-    };
-    
-    animationFrameId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [activeSection, oscillationDirection]);
-  
-  // Update gauge/slider values when switching between them
-  useEffect(() => {
-    if (activeSection === 'natural' || activeSection === 'temp') {
-      // Save current oscillation value to the previously active gauge
-      setGaugeValues(prev => {
-        const newValues = [...prev];
-        // Only update if coming from an active gauge state
-        if (prev[activeSection === 'natural' ? 0 : 1] !== oscillationValue && oscillationValue !== 0) {
-          newValues[activeSection === 'natural' ? 0 : 1] = oscillationValue;
-        }
-        return newValues;
-      });
-      
-      // Reset oscillation value to match the newly active gauge
-      setOscillationValue(gaugeValues[activeSection === 'natural' ? 0 : 1]);
-    } else if (activeSection === 'sliders') {
-      // Save current oscillation value to the previously active slider
-      setSliderValues(prev => {
-        const newValues = [...prev];
-        // Only update if coming from an active slider state
-        if (prev[activeSliderIndex] !== oscillationValue && oscillationValue >= 0) {
-          newValues[activeSliderIndex] = oscillationValue;
-        }
-        return newValues;
-      });
-      
-      // Reset oscillation value to match the newly active slider
-      setOscillationValue(sliderValues[activeSliderIndex]);
-    }
-  }, [activeGaugeIndex, activeSliderIndex, activeSection]);
 
   // Handle wheel event globally to ensure it works
   useEffect(() => {
@@ -111,33 +45,29 @@ export const useAnalogModal = (onSend: (params: {
           setActiveButtonIndex((prev) => (prev - 1 + 4) % 4);
         }
       } else if (activeSection === 'natural' || activeSection === 'temp') {
-        // Before switching, save current oscillation value
+        const gaugeIndex = activeSection === 'natural' ? 0 : 1;
+        
+        // Update the gauge value directly
         setGaugeValues(prev => {
           const newValues = [...prev];
-          newValues[activeSection === 'natural' ? 0 : 1] = oscillationValue;
+          // Decrease on scroll down, increase on scroll up
+          const change = e.deltaY < 0 ? -15 : 15;
+          newValues[gaugeIndex] = Math.min(360, Math.max(0, newValues[gaugeIndex] + change));
+          // Also update oscillation value to match
+          setOscillationValue(newValues[gaugeIndex]);
           return newValues;
         });
-        
-        // Cycle through gauges
-        if (e.deltaY > 0) {
-          setActiveGaugeIndex((prev) => (prev + 1) % 2);
-        } else {
-          setActiveGaugeIndex((prev) => (prev - 1 + 2) % 2);
-        }
       } else if (activeSection === 'sliders') {
-        // Before switching, save current oscillation value
+        // Update slider values directly
         setSliderValues(prev => {
           const newValues = [...prev];
-          newValues[activeSliderIndex] = oscillationValue;
+          // Decrease on scroll down, increase on scroll up
+          const change = e.deltaY > 0 ? -5 : 5;
+          newValues[activeSliderIndex] = Math.min(80, Math.max(0, newValues[activeSliderIndex] + change));
+          // Also update oscillation value to match
+          setOscillationValue(newValues[activeSliderIndex]);
           return newValues;
         });
-        
-        // Cycle through sliders
-        if (e.deltaY > 0) {
-          setActiveSliderIndex((prev) => (prev + 1) % 3);
-        } else {
-          setActiveSliderIndex((prev) => (prev - 1 + 3) % 3);
-        }
       } else if (activeSection === 'meter') {
         // Adjust meter value with scroll
         setMeterValue(prev => {
@@ -160,7 +90,7 @@ export const useAnalogModal = (onSend: (params: {
     return () => {
       window.removeEventListener('wheel', handleGlobalWheel);
     };
-  }, [activeSection, activeGaugeIndex, activeSliderIndex, oscillationValue]);
+  }, [activeSection, activeSliderIndex, oscillationValue]);
 
   // Handle key press for space to switch between sections
   useEffect(() => {
