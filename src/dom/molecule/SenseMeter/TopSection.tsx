@@ -9,10 +9,8 @@ interface TopSectionProps {
   buttonColors: string[];
   buttonTypes: string[];
   gaugeValues: number[];
-  oscillationValue: number;
   setActiveButtonIndex: (index: number) => void;
   setActiveSection: (section: SectionType) => void;
-  setOscillationValue: (value: number) => void;
   setGaugeValues: (values: number[] | ((prev: number[]) => number[])) => void;
   modalRef: React.RefObject<HTMLDivElement>;
 }
@@ -23,10 +21,8 @@ export const TopSection: React.FC<TopSectionProps> = ({
   buttonColors,
   buttonTypes,
   gaugeValues,
-  oscillationValue,
   setActiveButtonIndex,
   setActiveSection,
-  setOscillationValue,
   setGaugeValues,
   modalRef
 }) => {
@@ -62,15 +58,7 @@ export const TopSection: React.FC<TopSectionProps> = ({
           <div 
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
             onClick={() => {
-              if (activeSection === 'natural' || activeSection === 'temp') {
-                setGaugeValues(prev => {
-                  const newValues = [...prev];
-                  newValues[activeSection === 'natural' ? 0 : 1] = oscillationValue;
-                  return newValues;
-                });
-              }
               setActiveSection('natural');
-              setOscillationValue(gaugeValues[0]);
               if (modalRef.current) {
                 modalRef.current.focus();
               }
@@ -79,22 +67,14 @@ export const TopSection: React.FC<TopSectionProps> = ({
             <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>Natural</div>
             <GaugeDial 
               key="y" 
-              needleRotation={activeSection === 'natural' ? oscillationValue : gaugeValues[0]}
+              needleRotation={gaugeValues[0]}
               isActive={activeSection === 'natural'}
             />
           </div>
           <div 
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
             onClick={() => {
-              if (activeSection === 'natural' || activeSection === 'temp') {
-                setGaugeValues(prev => {
-                  const newValues = [...prev];
-                  newValues[activeSection === 'natural' ? 0 : 1] = oscillationValue;
-                  return newValues;
-                });
-              }
               setActiveSection('temp');
-              setOscillationValue(gaugeValues[1]);
               if (modalRef.current) {
                 modalRef.current.focus();
               }
@@ -103,7 +83,7 @@ export const TopSection: React.FC<TopSectionProps> = ({
             <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>Temp</div>
             <GaugeDial 
               key="z" 
-              needleRotation={activeSection === 'temp' ? oscillationValue : gaugeValues[1]}
+              needleRotation={gaugeValues[1]}
               isActive={activeSection === 'temp'}
             />
           </div>

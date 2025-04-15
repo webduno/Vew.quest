@@ -5,20 +5,16 @@ import { SectionType } from './types';
 
 interface MiddleSectionProps {
   activeSection: SectionType;
-  oscillationValue: number;
   sliderValues: number[];
   setActiveSection: (section: SectionType) => void;
-  setOscillationValue: (value: number) => void;
   setSliderValues: (values: number[] | ((prev: number[]) => number[])) => void;
   modalRef: React.RefObject<HTMLDivElement>;
 }
 
 export const MiddleSection: React.FC<MiddleSectionProps> = ({
   activeSection,
-  oscillationValue,
   sliderValues,
   setActiveSection,
-  setOscillationValue,
   setSliderValues,
   modalRef
 }) => {
@@ -47,7 +43,6 @@ export const MiddleSection: React.FC<MiddleSectionProps> = ({
               }}
               onClick={() => {
                 setActiveSection(section);
-                setOscillationValue(sliderValues[index]);
                 if (modalRef.current) {
                   modalRef.current.focus();
                 }
@@ -71,7 +66,7 @@ export const MiddleSection: React.FC<MiddleSectionProps> = ({
               </div>
               <div className=' bord-r-5 noverflow'>
                 <SliderBar 
-                  sliderPosition={activeSection === section ? oscillationValue : sliderValues[index]} 
+                  sliderPosition={sliderValues[index]} 
                 />
               </div>
             </div>

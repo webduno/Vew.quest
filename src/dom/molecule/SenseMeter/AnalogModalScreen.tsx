@@ -32,7 +32,6 @@ export const AnalogModalScreen = ({
     meterValue,
     gaugeValues,
     sliderValues,
-    oscillationValue,
     modalRef,
     meterRef,
     setActiveButtonIndex,
@@ -41,7 +40,6 @@ export const AnalogModalScreen = ({
     setMeterValue,
     setGaugeValues,
     setSliderValues,
-    setOscillationValue,
     handleMeterClick,
     handleKeyDown
   } = useAnalogModal(onSend);
@@ -104,20 +102,16 @@ export const AnalogModalScreen = ({
         buttonColors={buttonColors}
         buttonTypes={buttonTypes}
         gaugeValues={gaugeValues}
-        oscillationValue={oscillationValue}
         setActiveButtonIndex={setActiveButtonIndex}
         setActiveSection={setActiveSection}
-        setOscillationValue={setOscillationValue}
         setGaugeValues={setGaugeValues}
         modalRef={modalRef}
       />
 
       <MiddleSection
         activeSection={activeSection}
-        oscillationValue={oscillationValue}
         sliderValues={sliderValues}
         setActiveSection={setActiveSection}
-        setOscillationValue={setOscillationValue}
         setSliderValues={setSliderValues}
         modalRef={modalRef}
       />
