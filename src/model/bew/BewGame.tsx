@@ -229,6 +229,9 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
     updateMindStats('solid', mindStats.solid - 1);
 
     console.log("handleChairSit")
+    // Set initial position to chair position
+    setInitialPosition([2.5, 0, -21.5])
+    // Set current position to chair position
     handleSetPlayerPosition([2.5, 0, -21.5])
     showSnackbar("Take a big nose inhale, and exhale slowly.", 'handbook');
     focusStageRef.current = focusStageRef.current + 1;
