@@ -48,7 +48,7 @@ export const DailyQuota = ({ crvObjects, onRefresh }: DailyQuotaProps) => {
         anchorX="center" anchorY="middle" textAlign="center"
         position={[-2.44, 2.6, -9]} rotation={[0, Math.PI/2, 0]}
       >
-        {`YOUR DAILY\nQUOTA | ${todayObjects.length}/5`}
+        {`YOUR DAILY\nQUOTA | ${todayObjects.length}/3`}
       </Text>
 
       {crvObjects.slice(0, 9).map((obj, index) => {
