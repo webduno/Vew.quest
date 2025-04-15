@@ -84,7 +84,7 @@ export const MiddleSection: React.FC<MiddleSectionProps> = ({
           ))}
         </div>
       </div>
-      <div>
+      <div className='flex-col gap-1'>
         <CircularMeter needleRotation={20} />
         <CircularMeter needleRotation={300} />
       </div>

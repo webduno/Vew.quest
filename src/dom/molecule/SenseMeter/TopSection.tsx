@@ -64,12 +64,17 @@ export const TopSection: React.FC<TopSectionProps> = ({
               }
             }}
           >
-            <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>Natural</div>
-            <GaugeDial 
-              key="y" 
-              needleRotation={gaugeValues[0]}
-              isActive={activeSection === 'natural'}
-            />
+            <div className='tx-xs tx-white mb-1 flex-row' style={{gap:"2px"}}>
+              <div className='opaci-50'>Natural</div>
+              <div>{gaugeValues[0]}</div>
+            </div>
+            <div style={{transform:"rotate(180deg)"}}>
+              <GaugeDial 
+                key="y" 
+                needleRotation={gaugeValues[0]}
+                isActive={activeSection === 'natural'}
+              />
+            </div>
           </div>
           <div 
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
@@ -80,12 +85,15 @@ export const TopSection: React.FC<TopSectionProps> = ({
               }
             }}
           >
-            <div style={{ color: '#f0f0f0', fontWeight: 'bold', marginBottom: '3px', fontSize: '10px' }}>Temp</div>
-            <GaugeDial 
+            <div className='tx-xs  tx-white mb-1 flex-row' style={{gap:"2px"}}>
+              <div className='opaci-50'>Temp</div>
+              <div>{gaugeValues[1]}</div>
+            </div>
+            <div style={{transform:"rotate(180deg)"}}><GaugeDial 
               key="z" 
               needleRotation={gaugeValues[1]}
               isActive={activeSection === 'temp'}
-            />
+            /></div>
           </div>
         </div>
       </div>
