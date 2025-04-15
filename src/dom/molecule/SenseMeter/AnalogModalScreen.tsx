@@ -22,8 +22,8 @@ export const AnalogModalScreen = ({
     color: number;
     solid: number;
     confidence: number;
-  }) => void;
-}) => {
+  }, requestId?: string) => void;
+  }) => {
   const {
     activeButtonIndex,
     activeSection,

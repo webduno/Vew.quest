@@ -80,7 +80,7 @@ export const BewGame = () => {
   const [viewType, setViewType] = useState<'object' | 'entity' | 'place' | 'entity'>('object')
   const [naturality, setNaturality] = useState<number>(0)
   const [temperature, setTemperature] = useState<number>(0)
-  
+  const [isTakingRequest, setIsTakingRequest] = useState<string | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false);
   
 
@@ -355,8 +355,41 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
 
 
 
+const sendCRVRequestAttempt = async ( crvData: {
+  type: string;
+  natural: number;
+  temp: number;
+  light: number;
+  color: number;
+  solid: number;
+}, requestId?: string) => {
 
+console.log('sendCRVRequestAttempt', crvData,
+  {
+    objList: {
+      sent: crvData,
+    },
+    storageKey: LS_playerId,
+    requestId: requestId
+  }
+)
 
+// send to supabase
+const response = await fetch('/api/supabase', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    objList: {
+      sent: crvData,
+    },
+    storageKey: LS_playerId,
+    requestId: requestId
+  })
+})
+
+// Reset the request state
+setIsTakingRequest(null);
+}
 // **************************************************************************************************************
 // **************************************************************************************************************
 // **************************************************************************************************************
@@ -452,7 +485,19 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
           )}
       </div>
 
-      
+      {isTakingRequest && !showAnalogModal && focusLevel === 0 && (<>
+        
+        <AnalogModalScreen 
+          setEnableLocked={() => {}}
+          enableLocked={false}
+          playerRotation={{x:0, y:0, z:0}}
+          onSend={
+            (crvData, requestId)=>{
+              console.log('onSend', crvData, requestId)
+              return sendCRVRequestAttempt(crvData, isTakingRequest)
+            }}
+        />
+      </>)}
 
 
       {focusLevel !== 0 && showAnalogModal && (
@@ -602,6 +647,8 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
 
 {!showWhiteMirror && (
           <BewMainScene 
+          isTakingRequest={isTakingRequest}
+          setIsTakingRequest={setIsTakingRequest}
           code1={code1}
           code2={code2}
           code3={code3}

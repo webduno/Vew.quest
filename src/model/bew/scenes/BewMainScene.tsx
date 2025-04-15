@@ -24,14 +24,18 @@ export const BewMainScene = ({ setPlayerPosition,
   code2,
   code3,
   wasFirstDoorOpened,
-  onFirstDoorOpened
+  onFirstDoorOpened,
+  isTakingRequest,
+  setIsTakingRequest
 }: {
   setPlayerPosition: (position: [number, number, number]) => void, 
   code1?: string, 
   code2?: string, 
   code3?: string,
   wasFirstDoorOpened: boolean,
-  onFirstDoorOpened: () => void
+  onFirstDoorOpened: () => void,
+  isTakingRequest: string | null,
+  setIsTakingRequest: (value: string | null) => void
 }) => {
 
   const {
@@ -120,7 +124,7 @@ export const BewMainScene = ({ setPlayerPosition,
 
       {wasFirstDoorOpened && <>
         <PsionicZone />
-        <ESPLobby setPlayerPosition={setPlayerPosition} />  
+        <ESPLobby setPlayerPosition={setPlayerPosition} isTakingRequest={isTakingRequest} setIsTakingRequest={setIsTakingRequest} />  
       </>}
 
       <PortalRoom />

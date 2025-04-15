@@ -24,6 +24,7 @@ export async function GET(request: Request) {
       .from('crv_object')
       .select()
       .eq('storage_key', storageKey)
+      .eq('request_id', null)
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -53,7 +54,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
-    const { objList, storageKey } = await request.json();
+    const { objList, storageKey, requestId } = await request.json();
 
     if (!objList || !storageKey) {
       return NextResponse.json(
@@ -62,34 +63,39 @@ export async function POST(request: Request) {
       );
     }
 
-    const naturalityAccuracy = calculateAccuracy(objList.target.natural, objList.sent.natural, true, false)
-    const temperatureAccuracy = calculateAccuracy(objList.target.temp, objList.sent.temp, true, false)
-    const lightAccuracy = calculateAccuracy(objList.target.light, objList.sent.light, false, false)
-    const colorAccuracy = calculateAccuracy(objList.target.color, objList.sent.color, false, false)
-    const solidAccuracy = calculateAccuracy(objList.target.solid, objList.sent.solid, false, false)
-    
-    const overallAccuracy = (
-      naturalityAccuracy +
-      temperatureAccuracy +
-      lightAccuracy +
-      colorAccuracy +
-      solidAccuracy
-    ) / 5
-    console.table({
-      overallAccuracy,
-      naturalityAccuracy,
-      temperatureAccuracy,
-      lightAccuracy,
-      colorAccuracy,
-      solidAccuracy
-    })
+    let overallAccuracy = 0;
+    if (!requestId) {
+      const naturalityAccuracy = calculateAccuracy(objList.target.natural, objList.sent.natural, true, false)
+      const temperatureAccuracy = calculateAccuracy(objList.target.temp, objList.sent.temp, true, false)
+      const lightAccuracy = calculateAccuracy(objList.target.light, objList.sent.light, false, false)
+      const colorAccuracy = calculateAccuracy(objList.target.color, objList.sent.color, false, false)
+      const solidAccuracy = calculateAccuracy(objList.target.solid, objList.sent.solid, false, false)
+      
+      overallAccuracy = (
+        naturalityAccuracy +
+        temperatureAccuracy +
+        lightAccuracy +
+        colorAccuracy +
+        solidAccuracy
+      ) / 5
+      console.table({
+        overallAccuracy,
+        naturalityAccuracy,
+        temperatureAccuracy,
+        lightAccuracy,
+        colorAccuracy,
+        solidAccuracy
+      })
+    }
+
     const result = await supabase
       .from('crv_object')
       .insert([{ 
         content: JSON.stringify(objList),
         result: overallAccuracy,
         storage_key: storageKey,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        request_id: requestId
       }]);
 
     if (result.error) {

@@ -5,9 +5,12 @@ import { useEffect, useState } from 'react';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { calculateAccuracy } from "../../../scripts/utils/calculateAccuracy";
 import { useBew } from '../../../scripts/contexts/BewProvider';
+import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScreen';
 
 interface BewPreMainSceneProps {
   setPlayerPosition?: (position: [number, number, number]) => void;
+  isTakingRequest: string | null;
+  setIsTakingRequest: (value: string | null) => void;
 }
 
 interface CRVObject {
@@ -25,13 +28,14 @@ interface CRVRequest {
   storage_key: string;
 }
 
-export const ESPLobby = ({ setPlayerPosition }: BewPreMainSceneProps = {}) => {
+export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingRequest }: BewPreMainSceneProps) => {
   const { LS_playerId } = useVibeverse();
   const [crvObjects, setCrvObjects] = useState<CRVObject[]>([]);
   const [scoreboardObjects, setScoreboardObjects] = useState<CRVObject[]>([]);
   const [crvRequests, setCrvRequests] = useState<CRVRequest[]>([]);
   const { showSnackbar, closeSnackbar } = useBew();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState<CRVRequest | null>(null);
 
   const handleSubmitRequest = async ({newRequestDescription}: {newRequestDescription: string}) => {
     if (!newRequestDescription.trim() || isSubmitting) return;
@@ -63,6 +67,7 @@ export const ESPLobby = ({ setPlayerPosition }: BewPreMainSceneProps = {}) => {
       console.error('Error submitting request:', error);
     } finally {
       setIsSubmitting(false);
+      setIsTakingRequest(null);
     }
   };
 
@@ -72,6 +77,7 @@ export const ESPLobby = ({ setPlayerPosition }: BewPreMainSceneProps = {}) => {
       handleSubmitRequest({newRequestDescription});
     } else {
       console.log('no description')
+      setIsTakingRequest(null);
     }
   }
 
@@ -150,7 +156,13 @@ position={[-2.44, 2.6, -7]} rotation={[0, Math.PI/2, 0]}
     >
       {`#${request.id}___t:${new Date(request.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
     </Text>
-    <Box args={[0.05, 0.15, .3]} position={[-2.42, 1.95 - (index * 0.2), -7.65]} >
+    {/* take specific request button */}
+    <Box args={[0.05, 0.15, .3]} position={[-2.42, 1.95 - (index * 0.2), -7.65]} 
+      onClick={(e) => {
+        e.stopPropagation();
+        setSelectedRequest(request);
+        setIsTakingRequest(request.id);
+      }}>
       <meshStandardMaterial color="#eeeeee" />
     </Box>
   </group>
@@ -278,6 +290,7 @@ position={[-2.44, 2.6, -11]} rotation={[0, Math.PI/2, 0]}
         <Box args={[1.1, 0.4, 3.58]} position={[3, 0, -13]}>
           <meshStandardMaterial color="#cccccc" />
         </Box>
+
 
     </group>
   );
