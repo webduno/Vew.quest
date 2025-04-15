@@ -9,9 +9,27 @@ import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
 export const PsionicZone = () => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
-  const { updateExploredStatus, hasExploredZone, mindStats } = useVibeverse();
+  const { updateExploredStatus, hasExploredZone, mindStats, LS_lowGraphics } = useVibeverse();
 
   return (<>
+
+
+  
+     {/* cydonia light */}
+<pointLight position={[5, 3, 2]} intensity={3} color="#ffe7c0"
+    castShadow
+     />     
+     
+
+
+     {/* whiteboard light */}
+{!LS_lowGraphics && (
+      <pointLight position={[6, 3, -8]} intensity={0.3} color="#f7e7ff"
+    castShadow
+     />
+     )}
+
+
 
 <Text 
 color="#333333" anchorX="center" anchorY="middle" position={[2.91, 2.65, -2.25]}

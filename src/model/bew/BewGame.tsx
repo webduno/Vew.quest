@@ -26,6 +26,7 @@ import { PhysicalFloor } from '../core/PhysicalFloor';
 import { PhysicalCeiling } from '../core/PhysicalFloor';
 import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
 import { ACESFilmicToneMapping } from 'three';
+import { BewCoreLights } from './BewCoreLights';
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl, updateMindStats, mindStats } =  useVibeverse()
@@ -522,7 +523,7 @@ setIsTakingRequest(null);
         {/* Performance stats component inside Canvas */}
         {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
 
-        <BewLighting showWhiteMirror={showWhiteMirror} />
+        <BewCoreLights showWhiteMirror={showWhiteMirror} />
         
         {/* <Fisheye >
         <ambientLight intensity={.1} /> */}
@@ -657,11 +658,12 @@ setIsTakingRequest(null);
 
 
       {/* CEILING */}
-      <Box args={[20, 1, 60]} position={[0, 4, -14]}>
+      <PhysicalFloor lowGraphics={LS_lowGraphics} />
+      {/* <Box args={[20, 1, 60]} position={[0, 4, -14]}>
         <meshStandardMaterial color="#ffffff" />
       </Box>
-      <PhysicalFloor lowGraphics={LS_lowGraphics} />
-      <PhysicalCeiling />
+      */}
+      <PhysicalCeiling /> 
 
 
 

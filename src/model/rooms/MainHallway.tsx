@@ -5,7 +5,7 @@ import { PhysicalDoor } from '../core/PhysicalDoor';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
 export const MainHallway = () => {
-  const { LS_hasFirstKey } = useVibeverse()
+  const { LS_hasFirstKey, LS_lowGraphics } = useVibeverse()
   return (<>
 
 <RoomBRightDoor />
@@ -13,6 +13,14 @@ export const MainHallway = () => {
 
 
 
+
+     
+{/* fill light */}
+{!LS_lowGraphics && (
+<pointLight position={[0, 2.5, 3-1.25]} intensity={.5} 
+  color="#f7fff0" 
+ />
+ )}
 
 
 <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#372717" 

@@ -201,6 +201,12 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
 
   return (
     <group position={[0, 0, 0]}>
+
+      <pointLight position={[0, 2, 14-22]} intensity={1}  castShadow
+        color="#fff7f0" 
+       />
+
+
       {crvObjects.length > 0 && (
         <>
           <PublicRequests 
