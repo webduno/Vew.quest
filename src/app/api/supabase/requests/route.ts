@@ -39,7 +39,7 @@ export async function GET() {
 export async function POST(request: Request) {
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
-    const { description, creator_id } = await request.json();
+    const { description, bounty, creator_id } = await request.json();
 
     if (!description) {
       return NextResponse.json(
@@ -55,7 +55,8 @@ export async function POST(request: Request) {
         creator_id,
         created_at: new Date().toISOString(),
         solved: 0,
-        attempts: 0
+        attempts: 0,
+        bounty: bounty
       }]);
 
     if (result.error) {

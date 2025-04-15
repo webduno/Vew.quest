@@ -33,11 +33,12 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
   const [crvObjects, setCrvObjects] = useState<CRVObject[]>([]);
   const [scoreboardObjects, setScoreboardObjects] = useState<CRVObject[]>([]);
   const [crvRequests, setCrvRequests] = useState<CRVRequest[]>([]);
+  const [userCrvRequests, setUserCrvRequests] = useState<CRVRequest[]>([]);
   const { showSnackbar, closeSnackbar } = useBew();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState<CRVRequest | null>(null);
 
-  const handleSubmitRequest = async ({newRequestDescription}: {newRequestDescription: string}) => {
+  const handleSubmitRequest = async ({newRequestDescription, newRequestBounty}: {newRequestDescription: string, newRequestBounty: string}) => {
     if (!newRequestDescription.trim() || isSubmitting) return;
     
     setIsSubmitting(true);
@@ -49,7 +50,8 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
         },
         body: JSON.stringify({
           description: newRequestDescription.trim(),
-          creator_id: LS_playerId
+          creator_id: LS_playerId,
+          bounty: newRequestBounty
         }),
       });
 
@@ -73,8 +75,10 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
 
   const handleClickRequest = () => {
     const newRequestDescription = prompt('Enter a new CRV request description:');
+    const newRequestBounty = prompt('Enter a bounty (OPTIONAL)');
+
     if (newRequestDescription && !isSubmitting) {
-      handleSubmitRequest({newRequestDescription});
+      handleSubmitRequest({newRequestDescription, newRequestBounty});
     } else {
       console.log('no description')
       setIsTakingRequest(null);
@@ -120,9 +124,23 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
       }
     };
 
+    const fetchUserCrvRequests = async () => {
+      if (!LS_playerId) return;
+      try {
+        const response = await fetch(`/api/supabase/crvmailbox?playerId=${LS_playerId}`);
+        const data = await response.json();
+        if (data.success) {
+          setUserCrvRequests(data.data);
+        }
+      } catch (error) {
+        console.error('Error fetching user CRV requests:', error);
+      }
+    };
+
     fetchCrvObjects();
     fetchScoreboard();
     fetchCrvRequests();
+    fetchUserCrvRequests();
   }, [LS_playerId]);
 
   return (
@@ -154,7 +172,7 @@ position={[-2.44, 2.6, -7]} rotation={[0, Math.PI/2, 0]}
       anchorX="right" anchorY="middle" textAlign="right"
       position={[-2.42, 1.95 - (index * 0.2), -7.4]} rotation={[0, Math.PI/2, 0]}
     >
-      {`#${request.id}___t:${new Date(request.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
+      {`${request.bounty ? "$" : ""} #${request.id}___t:${new Date(request.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
     </Text>
     {/* take specific request button */}
     <Box args={[0.05, 0.15, .3]} position={[-2.42, 1.95 - (index * 0.2), -7.65]} 
@@ -167,6 +185,31 @@ position={[-2.44, 2.6, -7]} rotation={[0, Math.PI/2, 0]}
     </Box>
   </group>
 ))}
+
+{/* Input Box for New Request on other side of the wall */}
+
+<group position={[2.5, 0.65, -7]}
+onClick={(e) => {
+  alert("Coming Soon!\nPlease contact the admin to solve your request.")
+}}>
+  
+<Box args={[0.2, 0.4, 1.6]} position={[0, 0, 0]} >
+  <meshStandardMaterial color="#f0f0f0" />
+</Box>
+<Text font="/fonts/wallpoet.ttf" fontSize={0.15} color="#4f4f4f"
+  anchorX="center" anchorY="middle" textAlign="center"
+  position={[-0.11, 0, 0]} rotation={[0, -Math.PI/2, 0]}
+  
+>
+  {('SOLVE REQUEST')}
+</Text>
+</group>
+
+
+
+
+
+
 
 {/* Input Box for New Request */}
 <group position={[-2.5, 0.65, -7]}
@@ -249,8 +292,8 @@ position={[-2.44, 2.6, -11]} rotation={[0, Math.PI/2, 0]}
 {`SCORE\nBOARD`}
 </Text>
 
-{/* Top 10 Scoreboard Items */}
-{scoreboardObjects.map((obj, index) => {
+{/* Top 8 Scoreboard Items */}
+{scoreboardObjects.slice(0, 8).map((obj, index) => {
   const sent = obj.content?.sent;
   const target = obj.content?.target;
   const storage_key = obj.storage_key;
@@ -291,6 +334,35 @@ position={[-2.44, 2.6, -11]} rotation={[0, Math.PI/2, 0]}
           <meshStandardMaterial color="#cccccc" />
         </Box>
 
+{/* User's CRV Requests Display */}
+<Plane args={[1.8, 1.3]} position={[2.44, 1.6, -7]} rotation={[0, -Math.PI/2, 0]} receiveShadow>
+  <meshStandardMaterial color="#ffffff" emissive={"#171717"} />
+</Plane>
+<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#2a2a2a" 
+  anchorX="center" anchorY="middle" textAlign="center"
+  position={[2.44, 2.6, -7]} rotation={[0, -Math.PI/2, 0]}
+>
+  {`YOUR CRV\nREQUESTS`}
+</Text>
+
+<Text font="/fonts/consolas.ttf" fontSize={0.08} color="#2a2a2a" 
+      anchorX="left" anchorY="middle" textAlign="left"
+      position={[2.42, 2.15 , -7.8]} rotation={[0, -Math.PI/2, 0]}
+    >
+      {`attmp  slvd  bounty `}
+    </Text>
+{/* Display User's CRV Requests */}
+{userCrvRequests.map((request, index) => (
+  <group key={request.id}>
+    <Text font="/fonts/beanie.ttf" fontSize={0.18} color="#2a2a2a" 
+      anchorX="left" anchorY="middle" textAlign="left"
+      position={[2.42, 1.95 - (index * 0.2), -7.75]} rotation={[0, -Math.PI/2, 0]}
+    >
+      {`${request.attempts} | ${request.solved} | ${!!request?.bounty ? "$$$" : "---"} | `}
+      {`t:${new Date(request.created_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`}
+    </Text>
+  </group>
+))}
 
     </group>
   );
