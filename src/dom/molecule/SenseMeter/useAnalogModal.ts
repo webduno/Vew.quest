@@ -48,7 +48,7 @@ export const useAnalogModal = (onSend: (params: {
         setGaugeValues(prev => {
           const newValues = [...prev];
           // Decrease on scroll down, increase on scroll up
-          const change = e.deltaY < 0 ? -15 : 15;
+          const change = e.deltaY > 0 ? -15 : 15;
           newValues[gaugeIndex] = Math.min(360, Math.max(0, newValues[gaugeIndex] + change));
           return newValues;
         });
