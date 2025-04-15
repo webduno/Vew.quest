@@ -26,6 +26,9 @@ interface CRVRequest {
   content: any;
   created_at: string;
   storage_key: string;
+  bounty: number | null;
+  attempts: number;
+  solved: number;
 }
 
 export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingRequest }: BewPreMainSceneProps) => {
@@ -38,7 +41,9 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState<CRVRequest | null>(null);
 
-  const handleSubmitRequest = async ({newRequestDescription, newRequestBounty}: {newRequestDescription: string, newRequestBounty: string}) => {
+  const handleSubmitRequest = async ({
+    newRequestDescription, newRequestBounty
+  }: {newRequestDescription: string, newRequestBounty: string}) => {
     if (!newRequestDescription.trim() || isSubmitting) return;
     
     setIsSubmitting(true);
@@ -78,7 +83,7 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
     const newRequestBounty = prompt('Enter a bounty (OPTIONAL)');
 
     if (newRequestDescription && !isSubmitting) {
-      handleSubmitRequest({newRequestDescription, newRequestBounty});
+      handleSubmitRequest({newRequestDescription, newRequestBounty: newRequestBounty || ""});
     } else {
       console.log('no description')
       setIsTakingRequest(null);
