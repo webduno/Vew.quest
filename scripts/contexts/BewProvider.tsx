@@ -1,5 +1,10 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
+import { HardBadge } from './HardBadge';
+import { HandbookPage } from './HandbookPage';
+import { ErrorSheet } from './ErrorSheet';
+import { PaperSheet } from './PaperSheet';
+import { SuccessBadge } from './SuccessBadge';
 
 // Define the types for severity
 type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title' | 'handbook';
@@ -107,89 +112,6 @@ export const SnackbarNotif = () => {
       }
       {/* <button className="tx-white pointer pl-3 tx-mdl noborder bg-trans" onClick={closeSnackbar} >&times;</button> */}
       {/* Simple close button */}
-    </div>
-  );
-}
-
-const SuccessBadge = ({ children }: { children: ReactNode }) => {
-  return (
-    
-    <div className='z-100 tx-altfont-5  bord-r-5 pa-1 w-200px'
-    style={{ background: "#3d3d3d", boxShadow:"0 4px 20px #33773377" }}
-    >
-      <div className='tx-altfont-5 tx-md px-4 py-2  bord-r-5'
-      style={{
-        boxShadow: 'inset 1px 1px 3px 0 #aaaaaa, inset -3px -3px 5px 0 #111111',
-        background: '#2d2d2d',
-        color: "#bbccbb",
-      }}>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-const HardBadge = ({ children }: { children: ReactNode }) => {
-  return (
-    
-    <div className='z-100 tx-altfont-5  bord-r-5 pa-1 w-200px'
-    style={{ background: "#3d3d3d", boxShadow:"0 4px 20px #55333377" }}
-    >
-      <div className='tx-altfont-5 tx-md px-4 py-2  bord-r-5'
-      style={{
-        boxShadow: 'inset 1px 1px 3px 0 #aaaaaa, inset -3px -3px 5px 0 #111111',
-        background: '#1d1d1d',
-        color: "#aaaaaa",
-      }}>
-        {children}
-      </div>
-    </div>
-  );
-}
-
-const PaperSheet = ({ children }: { children: ReactNode }) => {
-  return (
-    
-    <div className='px-2 pt-2 pb-1 z-100 tx-altfont-8   tx-lgx w-150px'
-    style={{
-      transform: "rotate(-2deg)",
-      clipPath: "polygon(50% 0%, 100% 2%, 98% 60%, 100% 97%, 4% 100%, 0% 60%, 2% 3%)",
-      background: "linear-gradient(0deg, #706C61, #8F8B7D, #605C51)",
-    }}
-    >
-      {children}
-    </div>
-  );
-}
-
-const ErrorSheet = ({ children }: { children: ReactNode }) => {
-  return (
-    
-    <div className='px-2 pt-2 pb-1 z-100 tx-altfont-8   tx-lgx w-150px'
-    style={{
-      transform: "rotate(1deg)",
-      clipPath: "polygon(50% 0%, 100% 2%, 98% 60%, 100% 97%, 4% 100%, 0% 60%, 2% 3%)",
-      background: "linear-gradient(0deg, #776C61, #8F8B7D, #805C51)",
-    }}
-    >
-      {children}
-    </div>
-  );
-}
-
-
-const HandbookPage = ({ children }: { children: ReactNode }) => {
-  return (
-    
-    <div className='px-2 py-3 z-100 tx-altfont-1   tx-smd w-100px'
-    style={{
-      transform: "rotate(1deg)",
-      boxShadow: "2px 2px 10px #444444, 3px 3px 0 0 #bFb7aD",
-      background: "linear-gradient(45deg, #dcd7c1, #bFb7aD)",
-    }}
-    >
-      <div className='tx-altfont-5 pb-2 underline pl-2 tx-xs'>TUTORIAL</div>
-      {children}
     </div>
   );
 }

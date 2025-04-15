@@ -13,7 +13,7 @@ const WebbewPage = () => {
   return <div className=""
   style={{
     // background: "url('/webbew/bg15.jpg') black",
-    background: "url('/webbew/ingameblur.png') black",
+    background: "url('/webbew/bg1234.png') black",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",

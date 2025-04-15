@@ -156,12 +156,12 @@ const random10CharString = () => {
       className="pointer ml-2"
         style={{transform: "scale(1.5)", filter: "invert(1)"}} 
         type="checkbox" 
-        checked={LS_lowGraphics}
+        checked={!LS_lowGraphics}
         onChange={toggleLowGraphics}
       />
       <label
        htmlFor="vb_legacy_graphics"
-       className="tx-white opaci-50 pa-2 pointer tx-altfont-1">Low Graphics</label>
+       className="tx-white opaci-50 pa-2 pointer tx-altfont-1">HD</label>
       </div>
 </div>
 </>}
