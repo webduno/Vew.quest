@@ -12,7 +12,7 @@ import { TheRoom } from '../rooms/WhiteMirror/TheRoom';
 import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScreen';
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
 import { PhysicalWall } from '../core/PhysicalWall';
-import { Box, Plane, PositionalAudio } from '@react-three/drei';
+import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere } from '@react-three/drei';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 import { useSearchParams } from 'next/navigation';
 import { useBew } from '../../../scripts/contexts/BewProvider';
@@ -582,15 +582,40 @@ setIsTakingRequest(null);
           <TheWhiteMirror whiteRoomTarget={whiteRoomTarget}
            setShowAnalogModal={setShowAnalogModal} />
           )}
-          {code1 && code2 && (
+          {code1 && code2 && (<>
           <TheRoom
           showWhiteMirror={showWhiteMirror}
           setShowWhiteMirror={setShowWhiteMirror}
            onChairSit={handleChairSit} onRoomEnter={handleRoomEnter} />
-          )}
+          </>)}
+
+
+          {/* double mirror */}
           <Plane args={[4,2]} position={[0,2,-26.49]} rotation={[0,0,0]} receiveShadow>
-          <meshStandardMaterial color="#888888" roughness={0.15}  />
+          <meshStandardMaterial color="#cccccc" 
+          roughness={LS_lowGraphics ? undefined : 0.05} 
+         >
+          </meshStandardMaterial>
         </Plane>
+        {!LS_lowGraphics && (
+<mesh position={[0,2,-26.49]}  >
+  <planeGeometry  args={[4,2]} />
+  <MeshPortalMaterial>
+    <group position={[0,0,-4.5]}>  
+    <pointLight position={[0,0,0]} intensity={.5} />
+    <Box args={[9,3,9 ]} position={[0,0,0]}>
+      <meshStandardMaterial color="#ffffff" emissive={"#222222"} 
+      side={1}
+      />
+    </Box>
+    </group>
+  </MeshPortalMaterial>
+</mesh>
+)}
+
+
+
+
         {!!loadingAnalysisResult && (
           <group position={[0,2,-26.5]} rotation={[0,-0,0]}>
             <RotatingBar />

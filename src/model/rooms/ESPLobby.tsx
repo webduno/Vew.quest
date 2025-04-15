@@ -100,27 +100,31 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
     }
   }
 
-  useEffect(() => {
-    const fetchCrvObjects = async () => {
-      if (!LS_playerId) return;
-      
-      try {
-        const response = await fetch(`/api/supabase?storageKey=${LS_playerId}`, {
-          headers: {
-            'Cache-Control': 'no-store, no-cache, must-revalidate',
-            'Pragma': 'no-cache'
-          },
-          cache: 'no-store'
-        });
-        const data = await response.json();
-        if (data.success) {
-          setCrvObjects(data.data);
-        }
-      } catch (error) {
-        console.error('Error fetching CRV objects:', error);
+  const fetchCrvObjects = async () => {
+    if (!LS_playerId) return;
+    
+    try {
+      const response = await fetch(`/api/supabase?storageKey=${LS_playerId}`, {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+          'Pragma': 'no-cache'
+        },
+        cache: 'no-store'
+      });
+      const data = await response.json();
+      if (data.success) {
+        setCrvObjects(data.data);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching CRV objects:', error);
+    }
+  };
 
+  const handleRefreshDailyQuota = () => {
+    fetchCrvObjects();
+  };
+
+  useEffect(() => {
     const fetchScoreboard = async () => {
       try {
         const response = await fetch('/api/supabase/scoreboard', {
@@ -184,18 +188,22 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
 
   return (
     <group position={[0, 0, 0]}>
-      <PublicRequests 
-        crvRequests={crvRequests}
-        isSubmitting={isSubmitting}
-        onTakeRequest={(requestId) => setIsTakingRequest(requestId)}
-        onAddRequest={handleClickRequest}
-      />
+      {crvObjects.length > 0 && (
+        <>
+          <PublicRequests 
+            crvRequests={crvRequests}
+            isSubmitting={isSubmitting}
+            onTakeRequest={(requestId) => setIsTakingRequest(requestId)}
+            onAddRequest={handleClickRequest}
+          />
 
-      <YourRequests userCrvRequests={userCrvRequests} />
+          <YourRequests userCrvRequests={userCrvRequests} />
 
-      <Scoreboard scoreboardObjects={scoreboardObjects} />
+          <Scoreboard scoreboardObjects={scoreboardObjects} />
+        </>
+      )}
 
-      <DailyQuota crvObjects={crvObjects} />
+      <DailyQuota crvObjects={crvObjects} onRefresh={handleRefreshDailyQuota} />
 
       <PhysicalWall color="#ffffff"
         size={[3.5, 4, 1]}
