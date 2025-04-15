@@ -74,7 +74,7 @@ export const MindStats = () => {
           }}>
             
             <div>KEYS → {hasFirstKey ? "1" : "0"}</div>
-                  {stats?.cash && <>
+                  {!!stats?.cash && <>
                       <div>${(stats?.cash || 0)}</div>
                   </>}
               <div className='w-80' style={{
@@ -126,10 +126,10 @@ export const MindStats = () => {
       </div>
     </div>
     {(
-      mindStats.chronovisor_ticket ||
-      mindStats.pk_pill ||
-      mindStats.mars_pass ||
-      mindStats.declasification_request
+      !!mindStats.chronovisor_ticket ||
+      !!mindStats.pk_pill ||
+      !!mindStats.mars_pass ||
+      !!mindStats.declasification_request
       ) && (<>
 
 <details>
