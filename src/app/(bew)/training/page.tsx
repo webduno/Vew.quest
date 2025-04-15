@@ -6,11 +6,14 @@ import { calculateAccuracy } from '@/../scripts/utils/calculateAccuracy';
 import { BewLogo } from '@/dom/atom/BewLogo';
 import { BewMenuButton } from '@/dom/atom/BewMenuButton';
 import { PaperSheet } from '../../../../scripts/contexts/PaperSheet';
+import { useVibeverse } from '../../../../scripts/hooks/useVibeverse';
 type GameState = 'initial' | 'playing' | 'results';
 
 export default function PracticePage() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [enableLocked, setEnableLocked] = useState(false);
   const [gameState, setGameState] = useState<GameState>('initial');
+  const [successRequest, setSuccessRequest] = useState(false);
   const [sentObject, setSentObject] = useState<null | {
     type: string;
     natural: number;
@@ -40,6 +43,10 @@ export default function PracticePage() {
     solid: number;
     confidence: number;
   }>(null);
+
+  const random10CharString = () => {
+    return Math.random().toString(36).substring(2, 15);
+  };
 
   function generateRandomTarget() {
     // Generate random 8-digit code in format XXXX-XXXX
@@ -90,12 +97,51 @@ export default function PracticePage() {
     setGameState('results');
   }, [target]);
 
+  const handleRequestCRV = async () => {
+    const newRequestDescription = prompt('Enter a new CRV request description:');
+    const newRequestBounty = prompt('Enter a bounty (OPTIONAL)');
+
+    if (!newRequestDescription?.trim() || isSubmitting) return;
+    const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
+    const creator_id = LS_playerId || random10CharString();
+    
+    // Save the generated ID if it's new
+    if (!LS_playerId) {
+      localStorage.setItem('VB_PLAYER_ID', creator_id);
+    }
+    
+    setIsSubmitting(true);
+    try {
+      const response = await fetch('/api/supabase/requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+          'Pragma': 'no-cache'
+        },
+        body: JSON.stringify({
+          description: newRequestDescription.trim(),
+          creator_id,
+          bounty: newRequestBounty
+        }),
+        cache: 'no-store'
+      });
+
+      const data = await response.json();
+      setSuccessRequest(data.success);
+    } catch (error) {
+      console.error('Error submitting request:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="h-100vh w-100vw flex-col flex-center bg-dark">
       <div className='pos-abs left-0 top-0'>
       <BewLogo />
       </div>
-      {gameState === 'initial' && (
+      {gameState === 'initial' && (<>
         <button 
           className="tx-lg bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
           style={{
@@ -105,7 +151,25 @@ export default function PracticePage() {
         >
           <BewMenuButton>Start Practice</BewMenuButton>
         </button>
-      )}
+        <button 
+          className="mt-2 tx-lg bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
+          style={{
+            color: "#999999",
+          }}
+          onClick={handleRequestCRV}
+        >
+          <BewMenuButton>Request CRV</BewMenuButton>
+        </button>
+        {successRequest && (
+          <div className="tx-white tx-center">
+            <div className="tx-lg mt-4 tx-green tx-altfont-5 tx-shadow-5">
+              Request submitted
+              <br />
+              successfully!
+            </div>
+          </div>
+        )}
+        </>)}
 
       {gameState === 'playing' && target && (
         <div className="flex-col flex-center">

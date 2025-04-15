@@ -129,8 +129,8 @@ const random10CharString = () => {
         style={{
           color: "#222222",
         }}
-        className=" nodeco" href="/practice">
-        <BewMenuButton>Practice</BewMenuButton></Link>
+        className=" nodeco" href="/training">
+        <BewMenuButton>Training</BewMenuButton></Link>
         <Link
         style={{
           color: "#333333",
@@ -138,7 +138,7 @@ const random10CharString = () => {
           className=" nodeco" href="/config">
         <BewMenuButton>
           {/* cog emoji */}
-          <span className="">⚙️</span>
+          <span className="">Config</span>
           </BewMenuButton></Link></>}
 
 
@@ -151,7 +151,10 @@ const random10CharString = () => {
       {!isGameLoading && <>
 <div className="pt-2 pl-2">
   
-    <div className="  flex-row  bord-r-5" style={{ background: "#262320",}}>
+    <div className="  flex-row  bord-r-5" style={{
+      background: "#262320",
+      boxShadow: "1px 1px 1px #111111, -1px -1px 1px #777777",
+      }}>
       <input id="vb_legacy_graphics"
       className="pointer ml-2"
         style={{transform: "scale(1.5)", filter: "invert(1)"}} 
