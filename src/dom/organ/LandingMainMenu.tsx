@@ -75,7 +75,7 @@ const random10CharString = () => {
       </div>
       <div className="tx-white tx-lg tx-altfont-1  flex-col flex-align-start"
       style={{
-        background: "linear-gradient(90deg, #171310, #00000000 50%)",
+        // background: "linear-gradient(90deg, #171310, #00000000 50%)",
         transform: "translateX(-10px)",
       }}
       >
@@ -85,7 +85,7 @@ const random10CharString = () => {
         color: "#cc8822",
         textShadow: "0 0 10px #996622, 1px 1px 0 #000000",
       }}
-      className="ma-2 tx-altfont-5  translate-x-25 nodeco" href="/game" onClick={() => setGameLoading(true)}>
+      className="ma-2 tx-altfont-5  translate-x-25 mb-0 nodeco" href="/game" onClick={() => setGameLoading(true)}>
       <BewMenuButton classOverride="hover-jump">Continue</BewMenuButton></Link>)}
       {!isGameLoading && !enterUsername &&
 

@@ -10,7 +10,8 @@ import { useAnalogModal } from './useAnalogModal';
 import { SectionType } from './types';
 
 export const AnalogModalScreen = ({
-  setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onSend
+  setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onSend,
+  absolute = true
 }: {
   setEnableLocked: (enableLocked: boolean) => void;
   enableLocked: boolean;
@@ -24,6 +25,7 @@ export const AnalogModalScreen = ({
     solid: number;
     confidence: number;
   }, requestId?: string) => void;
+  absolute?: boolean;
   }) => {
   const {
     activeButtonIndex,
@@ -62,7 +64,7 @@ export const AnalogModalScreen = ({
   const normalizedRotation = normalizeRotation(playerRotation.y);
 
   return (<div 
-    className='pos-abs tx-white' 
+    className={`${absolute ? 'pos-abs' : ''} tx-white`} 
     onClick={handleModalClick}
     tabIndex={0}
     ref={modalRef}
