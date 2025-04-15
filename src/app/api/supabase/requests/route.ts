@@ -13,6 +13,8 @@ export async function GET() {
     const { data, error } = await supabase
       .from('crv_request')
       .select()
+      .eq('solved', 0)
+      .lt('attempts', 10)
       .order('created_at', { ascending: false })
       .limit(9); // Limit to 9 items to match the display in ESPLobby
 

@@ -34,7 +34,7 @@ interface CRVRequest {
 }
 
 export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingRequest }: BewPreMainSceneProps) => {
-  const { LS_playerId } = useVibeverse();
+  const { LS_playerId, updateMindStats, mindStats } = useVibeverse();
   const [crvObjects, setCrvObjects] = useState<CRVObject[]>([]);
   const [scoreboardObjects, setScoreboardObjects] = useState<CRVObject[]>([]);
   const [crvRequests, setCrvRequests] = useState<CRVRequest[]>([]);
@@ -99,6 +99,19 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
       setIsTakingRequest(null);
     }
   }
+
+  const handleTakeRequest = (requestId: string) => {
+    if (mindStats.color <= 0) {
+      showSnackbar('Not enough color points to take a request!', 'error');
+      setTimeout(() => {
+        closeSnackbar();
+      }, 3000);
+      return;
+    }
+    
+    updateMindStats('color', mindStats.color - 1);
+    setIsTakingRequest(requestId);
+  };
 
   const fetchCrvObjects = async () => {
     if (!LS_playerId) return;
@@ -193,7 +206,7 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
           <PublicRequests 
             crvRequests={crvRequests}
             isSubmitting={isSubmitting}
-            onTakeRequest={(requestId) => setIsTakingRequest(requestId)}
+            onTakeRequest={handleTakeRequest}
             onAddRequest={handleClickRequest}
           />
 
