@@ -12,7 +12,7 @@ import { TheRoom } from '../rooms/WhiteMirror/TheRoom';
 import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScreen';
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
 import { PhysicalWall } from '../core/PhysicalWall';
-import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere } from '@react-three/drei';
+import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye } from '@react-three/drei';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 import { useSearchParams } from 'next/navigation';
 import { useBew } from '../../../scripts/contexts/BewProvider';
@@ -518,19 +518,14 @@ setIsTakingRequest(null);
 
       <Canvas camera={{ fov: 125 }} 
       shadows={LS_lowGraphics ? false : true}
-      // onCreated={({ gl }) => {
-      //   gl.toneMapping = ACESFilmicToneMapping;
-      //   gl.toneMappingExposure = 0.5;
-      // }}
       >
         {/* Performance stats component inside Canvas */}
         {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
 
         <BewLighting showWhiteMirror={showWhiteMirror} />
-
-
         
-
+        {/* <Fisheye >
+        <ambientLight intensity={.1} /> */}
         <Physics
           gravity={[0, -30, 0]}
           defaultContactMaterial={{ friction: 0.001, restitution: 0.2 }}
@@ -711,6 +706,7 @@ setIsTakingRequest(null);
             setIsLocked={setIsLocked}
             onRotationUpdate={handlePlayerRotationUpdate} />
         </Physics>
+        {/* </Fisheye> */}
       </Canvas>
       {isMobileDevice && <BewMobileOverlay />}
       <div id="crosshair" 
