@@ -51,9 +51,9 @@ export const CallibrationSpaces = () => {
       <StyledWall size={[10, 4, 1]} position={[-8, 1.49, 15]} color="#ffffff" />
       <StyledWall size={[10, 4, 1]} position={[-8, 1.49, 6]} color="#ffffff" />
       <StyledWall size={[1, 4, 8]} position={[-13, 1.49, 10.5]} color="#ffffff" />
-      <Box position={[-8.5, 3.6, 10.5]} args={[10, 1, 8]}>
+      {/* <Box position={[-8.5, 3.6, 10.5]} args={[10, 1, 8]}>
         <meshStandardMaterial color="#ffffff" />
-      </Box>
+      </Box> */}
 
 
       

@@ -517,16 +517,19 @@ setIsTakingRequest(null);
 
 
 
-      <Canvas camera={{ fov: 125 }} 
+      <Canvas camera={{ fov: 125,
+      position: [0, 4.5, 0]
+      // position: [0, 20, 6]
+    }} 
       shadows={LS_lowGraphics ? false : true}
       >
         {/* Performance stats component inside Canvas */}
         {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
 
-        <BewCoreLights showWhiteMirror={showWhiteMirror} />
         
-        {/* <Fisheye >
-        <ambientLight intensity={.1} /> */}
+        <Fisheye >
+        <BewCoreLights showWhiteMirror={showWhiteMirror} />
+        {/* <ambientLight intensity={.1} /> */}
         <Physics
           gravity={[0, -30, 0]}
           defaultContactMaterial={{ friction: 0.001, restitution: 0.2 }}
@@ -578,12 +581,12 @@ setIsTakingRequest(null);
           <TheWhiteMirror whiteRoomTarget={whiteRoomTarget}
            setShowAnalogModal={setShowAnalogModal} />
           )}
-          {code1 && code2 && (<>
+          {/* {code1 && code2 && (<> */}
           <TheRoom
           showWhiteMirror={showWhiteMirror}
           setShowWhiteMirror={setShowWhiteMirror}
            onChairSit={handleChairSit} onRoomEnter={handleRoomEnter} />
-          </>)}
+          {/* </>)} */}
 
 
           {/* double mirror */}
@@ -663,7 +666,7 @@ setIsTakingRequest(null);
         <meshStandardMaterial color="#ffffff" />
       </Box>
       */}
-      <PhysicalCeiling /> 
+      {/* <PhysicalCeiling />  */}
 
 
 
@@ -677,7 +680,7 @@ setIsTakingRequest(null);
           code1={code1}
           code2={code2}
           code3={code3}
-          wasFirstDoorOpened={wasFirstDoorOpened}
+          wasFirstDoorOpened={true}
           onFirstDoorOpened={handleFirstDoorOpened}
           setPlayerPosition={handleSetPlayerPosition} />
 )}
@@ -685,7 +688,7 @@ setIsTakingRequest(null);
 
 
 
-          
+{/*           
           <BewPhysicsScene
             isCutSceneOpen={isCutSceneOpen}
             playerHeight={1.8}
@@ -706,9 +709,9 @@ setIsTakingRequest(null);
             // setEnableLocked={setEnableLocked}
             isLocked={isLocked}
             setIsLocked={setIsLocked}
-            onRotationUpdate={handlePlayerRotationUpdate} />
+            onRotationUpdate={handlePlayerRotationUpdate} /> */}
         </Physics>
-        {/* </Fisheye> */}
+        </Fisheye>
       </Canvas>
       {isMobileDevice && <BewMobileOverlay />}
       <div id="crosshair" 
