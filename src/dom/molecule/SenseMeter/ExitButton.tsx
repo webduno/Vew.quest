@@ -1,7 +1,6 @@
 import React from 'react';
 import { isMobile } from '../../../../scripts/utils/mobileDetection';
-
-type SectionType = 'buttons' | 'natural' | 'temp' | 'sliders' | 'meter' | 'send';
+import { SectionType } from './types';
 
 interface ExitButtonProps {
   activeSection: SectionType;

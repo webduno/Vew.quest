@@ -1,16 +1,13 @@
 import React from 'react';
 import { SliderBar } from './parts/SliderBar';
 import { CircularMeter } from './parts/CircularMeter';
-
-type SectionType = 'buttons' | 'natural' | 'temp' | 'sliders' | 'meter' | 'send';
+import { SectionType } from './types';
 
 interface MiddleSectionProps {
   activeSection: SectionType;
-  activeSliderIndex: number;
   oscillationValue: number;
   sliderValues: number[];
   setActiveSection: (section: SectionType) => void;
-  setActiveSliderIndex: (index: number) => void;
   setOscillationValue: (value: number) => void;
   setSliderValues: (values: number[] | ((prev: number[]) => number[])) => void;
   modalRef: React.RefObject<HTMLDivElement>;
@@ -18,11 +15,9 @@ interface MiddleSectionProps {
 
 export const MiddleSection: React.FC<MiddleSectionProps> = ({
   activeSection,
-  activeSliderIndex,
   oscillationValue,
   sliderValues,
   setActiveSection,
-  setActiveSliderIndex,
   setOscillationValue,
   setSliderValues,
   modalRef
@@ -40,22 +35,18 @@ export const MiddleSection: React.FC<MiddleSectionProps> = ({
               >.</div>
             </div>
           </div>
-          {["Light", "Color", "Solid"].map((label, index) => (
+          {[
+            { label: "Light", section: 'light' as const, index: 0 },
+            { label: "Color", section: 'color' as const, index: 1 },
+            { label: "Solid", section: 'solid' as const, index: 2 }
+          ].map(({ label, section, index }) => (
             <div className='bord-r-5' 
               key={index}
               style={{ 
-                border: activeSection === 'sliders' && activeSliderIndex === index ? '1px solid #ff3333' : '1px solid transparent'
+                border: activeSection === section ? '1px solid #ff3333' : '1px solid transparent'
               }}
               onClick={() => {
-                if (activeSection === 'sliders') {
-                  setSliderValues(prev => {
-                    const newValues = [...prev];
-                    newValues[activeSliderIndex] = oscillationValue;
-                    return newValues;
-                  });
-                }
-                setActiveSliderIndex(index);
-                setActiveSection('sliders');
+                setActiveSection(section);
                 setOscillationValue(sliderValues[index]);
                 if (modalRef.current) {
                   modalRef.current.focus();
@@ -68,26 +59,26 @@ export const MiddleSection: React.FC<MiddleSectionProps> = ({
                 }}
               >
                 <div className="flex-col pos-rel">
-                  { activeSection === 'sliders' && activeSliderIndex === index &&
+                  {activeSection === section &&
                     <div className=' pos-abs left-0 translate-x--100 tx-bold'
                       style={{
                         color: '#ff0000'
                       }}
                     >→</div>
                   }
-                  <div> {label}</div>
+                  <div>{label}</div>
                 </div>
               </div>
               <div className=' bord-r-5 noverflow'>
                 <SliderBar 
-                  sliderPosition={activeSection === 'sliders' && activeSliderIndex === index ? oscillationValue : sliderValues[index]} 
+                  sliderPosition={activeSection === section ? oscillationValue : sliderValues[index]} 
                 />
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className="flex-col gap-3">
+      <div>
         <CircularMeter needleRotation={20} />
         <CircularMeter needleRotation={300} />
       </div>

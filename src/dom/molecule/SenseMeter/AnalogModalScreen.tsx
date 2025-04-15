@@ -7,6 +7,7 @@ import { BottomSection } from './BottomSection';
 import { ExitButton } from './ExitButton';
 import { normalizeRotation, buttonColors, buttonTypes } from '../../../../scripts/helpers/analogHelpers';
 import { useAnalogModal } from './useAnalogModal';
+import { SectionType } from './types';
 
 export const AnalogModalScreen = ({
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onSend
@@ -28,7 +29,6 @@ export const AnalogModalScreen = ({
     activeButtonIndex,
     activeSection,
     activeGaugeIndex,
-    activeSliderIndex,
     meterValue,
     gaugeValues,
     sliderValues,
@@ -36,9 +36,8 @@ export const AnalogModalScreen = ({
     modalRef,
     meterRef,
     setActiveButtonIndex,
-    setActiveSection,
+    setActiveSection: setActiveSectionState,
     setActiveGaugeIndex,
-    setActiveSliderIndex,
     setMeterValue,
     setGaugeValues,
     setSliderValues,
@@ -46,6 +45,11 @@ export const AnalogModalScreen = ({
     handleMeterClick,
     handleKeyDown
   } = useAnalogModal(onSend);
+
+  // Create a wrapper function to handle the type conversion
+  const setActiveSection = (section: SectionType) => {
+    setActiveSectionState(section);
+  };
 
   // Prevent event propagation to avoid triggering pointer lock
   const handleModalClick = (e: React.MouseEvent) => {
@@ -110,11 +114,9 @@ export const AnalogModalScreen = ({
 
       <MiddleSection
         activeSection={activeSection}
-        activeSliderIndex={activeSliderIndex}
         oscillationValue={oscillationValue}
         sliderValues={sliderValues}
         setActiveSection={setActiveSection}
-        setActiveSliderIndex={setActiveSliderIndex}
         setOscillationValue={setOscillationValue}
         setSliderValues={setSliderValues}
         modalRef={modalRef}

@@ -1,0 +1,1 @@
+export type SectionType = 'buttons' | 'natural' | 'temp' | 'light' | 'color' | 'solid' | 'meter' | 'send'; 

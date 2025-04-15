@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { buttonTypes } from '../../../../scripts/helpers/analogHelpers';
+import { SectionType } from './types';
 
 export const useAnalogModal = (onSend: (params: {
   type: string;
@@ -12,9 +13,8 @@ export const useAnalogModal = (onSend: (params: {
 }) => void) => {
   // State for active control button and active section
   const [activeButtonIndex, setActiveButtonIndex] = useState(0);
-  const [activeSection, setActiveSection] = useState<'buttons' | 'natural' | 'temp' | 'sliders' | 'meter' | 'send'>('buttons');
+  const [activeSection, setActiveSection] = useState<SectionType>('buttons');
   const [activeGaugeIndex, setActiveGaugeIndex] = useState(0);
-  const [activeSliderIndex, setActiveSliderIndex] = useState(0);
   const [meterValue, setMeterValue] = useState(50); // 0-100 percentage value for the large meter
   
   // State for gauge values (0-360 degrees)
@@ -57,15 +57,18 @@ export const useAnalogModal = (onSend: (params: {
           setOscillationValue(newValues[gaugeIndex]);
           return newValues;
         });
-      } else if (activeSection === 'sliders') {
+      } else if (activeSection === 'light' || activeSection === 'color' || activeSection === 'solid') {
+        // Map section to slider index
+        const sliderIndex = activeSection === 'light' ? 0 : activeSection === 'color' ? 1 : 2;
+        
         // Update slider values directly
         setSliderValues(prev => {
           const newValues = [...prev];
           // Decrease on scroll down, increase on scroll up
           const change = e.deltaY > 0 ? -5 : 5;
-          newValues[activeSliderIndex] = Math.min(80, Math.max(0, newValues[activeSliderIndex] + change));
+          newValues[sliderIndex] = Math.min(80, Math.max(0, newValues[sliderIndex] + change));
           // Also update oscillation value to match
-          setOscillationValue(newValues[activeSliderIndex]);
+          setOscillationValue(newValues[sliderIndex]);
           return newValues;
         });
       } else if (activeSection === 'meter') {
@@ -90,7 +93,7 @@ export const useAnalogModal = (onSend: (params: {
     return () => {
       window.removeEventListener('wheel', handleGlobalWheel);
     };
-  }, [activeSection, activeSliderIndex, oscillationValue]);
+  }, [activeSection, oscillationValue]);
 
   // Handle key press for space to switch between sections
   useEffect(() => {
@@ -100,8 +103,10 @@ export const useAnalogModal = (onSend: (params: {
         setActiveSection(prev => {
           if (prev === 'buttons') return 'natural';
           if (prev === 'natural') return 'temp';
-          if (prev === 'temp') return 'sliders';
-          if (prev === 'sliders') return 'meter';
+          if (prev === 'temp') return 'light';
+          if (prev === 'light') return 'color';
+          if (prev === 'color') return 'solid';
+          if (prev === 'solid') return 'meter';
           if (prev === 'meter') return 'send';
           return 'buttons'; // From send back to buttons
         });
@@ -170,18 +175,32 @@ export const useAnalogModal = (onSend: (params: {
         e.preventDefault();
         setActiveGaugeIndex((prev) => (prev - 1 + 2) % 2);
       }
-    } else if (activeSection === 'sliders') {
-      // Save current value before switching
+    } else if (activeSection === 'light' || activeSection === 'color' || activeSection === 'solid') {
+      // Map section to slider index
+      const sliderIndex = activeSection === 'light' ? 0 : activeSection === 'color' ? 1 : 2;
+      
+      // Save current value
       const newSliderValues = [...sliderValues];
-      newSliderValues[activeSliderIndex] = oscillationValue;
+      newSliderValues[sliderIndex] = oscillationValue;
       setSliderValues(newSliderValues);
       
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      // Handle arrow keys for value adjustment
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
         e.preventDefault();
-        setActiveSliderIndex((prev) => (prev + 1) % 3);
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        setSliderValues(prev => {
+          const newValues = [...prev];
+          newValues[sliderIndex] = Math.min(80, newValues[sliderIndex] + 5);
+          setOscillationValue(newValues[sliderIndex]);
+          return newValues;
+        });
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
         e.preventDefault();
-        setActiveSliderIndex((prev) => (prev - 1 + 3) % 3);
+        setSliderValues(prev => {
+          const newValues = [...prev];
+          newValues[sliderIndex] = Math.max(0, newValues[sliderIndex] - 5);
+          setOscillationValue(newValues[sliderIndex]);
+          return newValues;
+        });
       }
     } else if (activeSection === 'meter') {
       // Control meter value with arrow keys
@@ -222,7 +241,6 @@ export const useAnalogModal = (onSend: (params: {
     activeButtonIndex,
     activeSection,
     activeGaugeIndex,
-    activeSliderIndex,
     meterValue,
     gaugeValues,
     sliderValues,
@@ -232,7 +250,6 @@ export const useAnalogModal = (onSend: (params: {
     setActiveButtonIndex,
     setActiveSection,
     setActiveGaugeIndex,
-    setActiveSliderIndex,
     setMeterValue,
     setGaugeValues,
     setSliderValues,

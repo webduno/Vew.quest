@@ -1,8 +1,7 @@
 import React from 'react';
 import { ControlButton } from './parts/ControlButton';
 import { GaugeDial } from './parts/GaugeDial';
-
-type SectionType = 'buttons' | 'natural' | 'temp' | 'sliders' | 'meter' | 'send';
+import { SectionType } from './types';
 
 interface TopSectionProps {
   activeButtonIndex: number;

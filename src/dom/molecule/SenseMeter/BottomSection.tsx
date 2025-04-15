@@ -1,7 +1,6 @@
 import React from 'react';
 import { LargeSemicircularMeter } from './parts/LargeSemicircularMeter';
-
-type SectionType = 'buttons' | 'natural' | 'temp' | 'sliders' | 'meter' | 'send';
+import { SectionType } from './types';
 
 interface BottomSectionProps {
   activeSection: SectionType;
