@@ -64,6 +64,11 @@ export default function PracticePage() {
       }
     };
   }
+  const handleTryAgain = () => {
+    setGameState('initial');
+    setResults(null);
+    setSentObject(null);
+  }
 
   const handleStart = () => {
     setTarget(generateRandomTarget());
@@ -149,21 +154,30 @@ export default function PracticePage() {
           }}
           onClick={handleStart}
         >
-          <BewMenuButton>Start Practice</BewMenuButton>
+          <BewMenuButton>Start Training</BewMenuButton>
         </button>
         <button 
           className="mt-2 tx-lg bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
           style={{
             color: "#999999",
           }}
-          onClick={handleRequestCRV}
+          onClick={()=>{
+            setSuccessRequest(false);
+            handleRequestCRV();
+          }}
         >
           <BewMenuButton>Request CRV</BewMenuButton>
         </button>
         {successRequest && (
           <div className="tx-white tx-center">
-            <div className="tx-lg mt-4 tx-green tx-altfont-5 tx-shadow-5">
-              Request submitted
+            <div className="tx-lg mt-4  tx-altfont-5 tx-shadow-5"
+            style={{
+              color: "#77cc77",
+            }}
+            >
+              Request
+              <br />
+              submitted
               <br />
               successfully!
             </div>
@@ -260,7 +274,7 @@ Score:
           </PaperSheet>
           <button 
             className="noborder bg-trans tx-white pointer mt-4 tx-altfont-1" 
-            onClick={handleStart}
+            onClick={handleTryAgain}
           >
             <BewMenuButton>Try Again</BewMenuButton>
           </button>
