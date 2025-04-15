@@ -38,7 +38,7 @@ const random10CharString = () => {
     </>}
   <div className='pos-abs bottom-0 pb-100 w-100 flex-col flex-align-start'
     style={{
-      background: "linear-gradient(0deg, #1E1B14, #00000000)",
+      // background: "linear-gradient(0deg, #1E1B14, #00000000)",
 
     }}
     >
