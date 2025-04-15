@@ -70,7 +70,7 @@ export const useAnalogModal = (onSend: (params: {
           // Decrease on scroll down, increase on scroll up
           const newValue = prev + (e.deltaY > 0 ? -5 : 5);
           // Clamp between 0 and 100
-          return Math.min(100, Math.max(0, newValue));
+          return Math.round(Math.min(100, Math.max(0, newValue)));
         });
       }
     };
@@ -137,7 +137,7 @@ export const useAnalogModal = (onSend: (params: {
       // Calculate percentage based on click position relative to the meter width
       const clickX = e.clientX - rect.left;
       const meterWidth = rect.width;
-      const percentage = Math.min(100, Math.max(0, (clickX / meterWidth) * 100));
+      const percentage = Math.round(Math.min(100, Math.max(0, (clickX / meterWidth) * 100)));
       setMeterValue(percentage);
       setActiveSection('meter');
       if (modalRef.current) {
@@ -187,10 +187,10 @@ export const useAnalogModal = (onSend: (params: {
       // Control meter value with arrow keys
       if (e.key === 'ArrowRight') {
         e.preventDefault();
-        setMeterValue(prev => Math.min(100, prev + 5));
+        setMeterValue(prev => Math.round(Math.min(100, prev + 5)));
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        setMeterValue(prev => Math.max(0, prev - 5));
+        setMeterValue(prev => Math.round(Math.max(0, prev - 5)));
       }
     } else if (activeSection === 'send') {
       // Handle enter key for send button

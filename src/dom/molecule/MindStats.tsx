@@ -85,7 +85,7 @@ export const MindStats = () => {
             <div className='flex-wrap  flex-justify-start'>
                     <div className=''>SyncLevels</div>
                     <div className='pr-1' style={{filter:""}}>🎨{(stats?.color || 0)}</div>
-                  {stats?.color >= 3 && <>
+                  {(stats?.color >= 3 || stats?.solid >= 0) && <>
                       <div>🪨{(stats?.solid || 0)}</div>
                   </>}
               </div>

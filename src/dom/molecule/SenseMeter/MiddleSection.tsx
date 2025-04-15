@@ -67,6 +67,17 @@ export const MiddleSection: React.FC<MiddleSectionProps> = ({
               <div className=' bord-r-5 noverflow'>
                 <SliderBar 
                   sliderPosition={sliderValues[index]} 
+                  onSliderClick={(value) => {
+                    setSliderValues(prev => {
+                      const newValues = [...prev];
+                      // Convert 0-100 value to 0-80 range for consistency with existing implementation
+                      newValues[index] = Math.round((value / 100) * 80);
+                      return newValues;
+                    });
+                    if (modalRef.current) {
+                      modalRef.current.focus();
+                    }
+                  }}
                 />
               </div>
             </div>
