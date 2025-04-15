@@ -66,15 +66,36 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
 
       const data = await response.json();
       if (data.success) {
-        // Refresh the requests list
-        const refreshResponse = await fetch('/api/supabase/requests', {
-          headers: {
-            'Cache-Control': 'no-store, no-cache, must-revalidate',
-            'Pragma': 'no-cache'
-          },
-          cache: 'no-store'
-        });
-        const refreshData = await refreshResponse.json();
+        // Fetch both public and user requests
+        const [publicResponse, userResponse] = await Promise.all([
+          fetch('/api/supabase/requests', {
+            headers: {
+              'Cache-Control': 'no-store, no-cache, must-revalidate',
+              'Pragma': 'no-cache'
+            },
+            cache: 'no-store'
+          }),
+          fetch(`/api/supabase/crvmailbox?playerId=${LS_playerId}`, {
+            headers: {
+              'Cache-Control': 'no-store, no-cache, must-revalidate',
+              'Pragma': 'no-cache'
+            },
+            cache: 'no-store'
+          })
+        ]);
+
+        const [publicData, userData] = await Promise.all([
+          publicResponse.json(),
+          userResponse.json()
+        ]);
+
+        if (publicData.success) {
+          setCrvRequests(publicData.data);
+        }
+        if (userData.success) {
+          setUserCrvRequests(userData.data);
+        }
+
         showSnackbar('Request submitted successfully!', 'success');
         setTimeout(() => {
           closeSnackbar();
