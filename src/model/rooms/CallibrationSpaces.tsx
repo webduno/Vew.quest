@@ -4,7 +4,7 @@ import { StyledWall } from '@/model/core/StyledWall';
 import { useState, useEffect } from 'react';
 import { ColorCallibrationArcade } from '@/model/minigames/ColorCallibrationArcade';
 import { SummoningCircle } from '../bits/SummoningCircle';
-import { PhysicalWall } from '../core/PhysicalWall';
+import { SolidBox } from '../core/SolidBox';
 import { SolidCallibrationArcade } from '@/model/minigames/SolidCallibrationArcade';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
@@ -95,7 +95,7 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
 
 
 
-<PhysicalWall visible={false}
+<SolidBox visible={false}
      position={[-8, 2, 9]} size={[2.2, 4, 2.2]} color="#ffcccc" />    
     <group position={[-8, 0, 9]} rotation={[0, 0, 0]}>
       <SummoningCircle 

@@ -1,6 +1,6 @@
 'use client';
 import { Box, Text, Sphere, Cylinder, Plane } from '@react-three/drei';
-import { PhysicalWall } from '../core/PhysicalWall';
+import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
 
 export const VendingMachine = () => {
@@ -45,7 +45,7 @@ export const VendingMachine = () => {
   return (
     <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
       {/* veending machine */}
-      <PhysicalWall size={[1.2, 2.6, 2.5]} color="#ff9933" visible={false}
+      <SolidBox size={[1.2, 2.6, 2.5]} color="#ff9933" visible={false}
         position={[2.1, 1.3, 12]} />
 
 

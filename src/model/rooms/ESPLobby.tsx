@@ -1,6 +1,6 @@
 'use client';
 import { Box } from '@react-three/drei';
-import { PhysicalWall } from '../core/PhysicalWall';
+import { SolidBox } from '../core/SolidBox';
 import { useEffect, useState } from 'react';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { useBew } from '../../../scripts/contexts/BewProvider';
@@ -245,7 +245,7 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
 
       <DailyQuota crvObjects={crvObjects} onRefresh={handleRefreshDailyQuota} />
 
-      <PhysicalWall color="#ffffff"
+      <SolidBox color="#ffffff"
         size={[3.5, 4, 1]}
         position={[3, 2, -13]} rotation={[0, -Math.PI / 2, 0]} />
       <Box args={[1.1, 0.4, 3.58]} position={[3, 0, -13]}>

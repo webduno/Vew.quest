@@ -97,7 +97,7 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
                   ) : (
                     <div className='flex-row gap-2 tx-sm pt-2'>
                       <div>AND USE</div>
-                      <div>W, S, A, D</div>
+                      <div>W, A, S, D</div>
                       <div>TO MOVE</div>
                     </div>
                   )}

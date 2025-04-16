@@ -1,6 +1,6 @@
 'use client';
 import { Box, Cylinder, Torus, Text } from '@react-three/drei';
-import { PhysicalWall } from '../core/PhysicalWall';
+import { SolidBox } from '../core/SolidBox';
 import { useState, useEffect } from 'react';
 import { VendingMachine } from './VendingMachine';
 
@@ -77,7 +77,7 @@ ZONE`}
 
 
 
-<PhysicalWall size={[.7, .8, .7]} color="#ffffff" visible={false}
+<SolidBox size={[.7, .8, .7]} color="#ffffff" visible={false}
 position={[-1.9, 0.4, 13.9]} />
 <group position={[-1.9, 0, 13.9]} rotation={[0, 0, 0]}>
 <Cylinder args={[.38, .38, .2, 16]} position={[0, 0.11, 0]}>
@@ -115,7 +115,7 @@ scale={[1,1,4]}
         /> */}
       {!!callibrationAvailable && <>
       
-        <PhysicalWall position={[-2.75, 1.5, 7.25]} 
+        <SolidBox position={[-2.75, 1.5, 7.25]} 
         size={[1.5, 3, 0.25]} color="#dddddd"
           rotation={[0, Math.PI / 2, 0]} 
         />
@@ -138,7 +138,7 @@ position={[-2.62,2.25,8.25]} rotation={[0,Math.PI/2,0]}
 TO OPEN`}
 </Text>
 
-        <PhysicalWall position={[-3, 1.5, 8.25]} size={[1.5, 3, 0.75]} color="#dddddd"
+        <SolidBox position={[-3, 1.5, 8.25]} size={[1.5, 3, 0.75]} color="#dddddd"
           rotation={[0, Math.PI / 2, 0]} 
         />
       <group position={[-3, 1.5, 8.25]} rotation={[0, 0, 0]}>
@@ -188,12 +188,12 @@ AGENTS ONLY
           <meshStandardMaterial color="#aaaaaa"  />
         </Box>
 </group>
-<PhysicalWall castShadow={false} size={[0.2, 3, 1.5]} color="#dddddd"
+<SolidBox castShadow={false} size={[0.2, 3, 1.5]} color="#dddddd"
           position={[2.75, 1.5, 8.25]} rotation={[0, 0, 0]} 
         />
         </>}
         {/* OPENED real door */}
-        <PhysicalWall  size={[0.2, 3, 1.5]} color="#dddddd"
+        <SolidBox  size={[0.2, 3, 1.5]} color="#dddddd"
           position={[3.5, 1.5, 8.65]} rotation={[0, -1.2, 0]} 
         />
       <group position={[3.5, 1.5, 8.65]} rotation={[0, -1.2, 0]} >
@@ -218,12 +218,12 @@ AGENTS ONLY
 
 <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
         {/* left wall */}
-        <PhysicalWall   color="#ffffff"
+        <SolidBox   color="#ffffff"
         size={[6, 4, 1]}
           position={[-3, 2, 12]} rotation={[0, Math.PI / 2, 0]} 
         />
         {/* right wall */}
-        <PhysicalWall  color="#ffffff"
+        <SolidBox  color="#ffffff"
         size={[6, 4, 1]}
         position={[3, 2, 12]} rotation={[0, -Math.PI / 2, 0]} />
       </group>
@@ -258,11 +258,11 @@ AGENTS ONLY
         <meshStandardMaterial color="#cccccc" />
       </Box>
       {/* back wall */}
-      <PhysicalWall 
+      <SolidBox 
         size={[1, 4, 6.5]} color="#ffffff"
         position={[0, 2, 15]} rotation={[0, -Math.PI / 2, 0]} 
       />
-      <PhysicalWall color="#f7f7f7"
+      <SolidBox color="#f7f7f7"
         size={[1.2, 1, 7.1]}
         position={[0, 3.6, 15]} rotation={[0, -Math.PI / 2, 0]} 
       />

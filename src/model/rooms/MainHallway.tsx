@@ -1,7 +1,6 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { PhysicalWall } from '../core/PhysicalWall';
-import { PhysicalDoor } from '../core/PhysicalDoor';
+import { SolidBox } from '../core/SolidBox';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
 export const MainHallway = () => {
@@ -9,8 +8,6 @@ export const MainHallway = () => {
   return (<>
 
 <OutOfServiceDoor />
-{/* <RoomBLeftDoor /> */}
-
 
 
 
@@ -31,31 +28,34 @@ position={[-2.49,2.6,1]} rotation={[0,Math.PI/2,0]}
 </Text>
 
 
-<Text fontSize={0.225} color="#343434" 
+{!LS_hasFirstKey && <>
+  <Text fontSize={0.225} color="#343434" 
 anchorX="left" anchorY="top" textAlign="left"
 position={[-2.49,2.5,2.2]} rotation={[0,Math.PI/2,0]} font="/fonts/consolas.ttf"
 >
 {`
-  1. Find the key
-  1.1. Open the wooden door
+  1. Find the key 
+  1.1. Open wooden door
 `}
 </Text>
+</>}
+
 {LS_hasFirstKey && <>
   <Text fontSize={0.225} color="#343434" 
-anchorX="left" anchorY="middle" textAlign="left"
-position={[-2.49,1.7,2.2]} rotation={[0,Math.PI/2,0]} font="/fonts/consolas.ttf"
+anchorX="left" anchorY="top" textAlign="left"
+position={[-2.49,2.5,2.2]} rotation={[0,Math.PI/2,0]} font="/fonts/consolas.ttf"
 >
 {`
-  1. Find the key
-  2. Callibrate your mind
+  1. Find the key ✔
+  1.1. Open wooden door
+ 2. Callibrate your mind
     2.1. Go to Psionic Zone
-    2.2. Enter the codes
-  3. Start CRV training
+  3. Enter the codes
 `}
 </Text>
 <Text fontSize={0.25} color="#171717"  font="/fonts/beanie.ttf"
-anchorX="left" anchorY="middle" textAlign="left"
-position={[-2.49,.75,1.7]} rotation={[0,Math.PI/2,0]}
+anchorX="left" anchorY="top" textAlign="left"
+position={[-2.49,.9,1.7]} rotation={[0,Math.PI/2,0]}
 >
 {`3.x E/Sensory data refinement`}
 </Text>
@@ -71,7 +71,7 @@ position={[-2.49,.75,1.7]} rotation={[0,Math.PI/2,0]}
 
 
     {/* LEFT WALL */}
-      <PhysicalWall size={[12, 4, 1]} color="#ffffff"
+      <SolidBox size={[12, 4, 1]} color="#ffffff"
         position={[-3, 2, -9]} rotation={[0, Math.PI / 2, 0]} />
         {/* Bottom Borders */}
     <Box args={[1.1, 0.4, 12.08]} position={[-3, 0, -9]}>
@@ -84,7 +84,7 @@ position={[-2.49,.75,1.7]} rotation={[0,Math.PI/2,0]}
 
 
 {/* RIGHT WALL */}
-      <PhysicalWall color="#ffffff"
+      <SolidBox color="#ffffff"
         size={[6, 4, 1]}
         position={[3, 2, -6]} rotation={[0, -Math.PI / 2, 0]} />
         <Box args={[1.1, 0.4, 6.08]} position={[3, 0, -6]}>
@@ -99,9 +99,9 @@ position={[-2.49,.75,1.7]} rotation={[0,Math.PI/2,0]}
 
     {/* landing walls */}
     <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
-      <PhysicalWall size={[9, 4, 1]} color="#ffffff"
+      <SolidBox size={[9, 4, 1]} color="#ffffff"
         position={[-3, 2, 3]} rotation={[0, Math.PI / 2, 0]} />
-      <PhysicalWall
+      <SolidBox
         size={[9, 4, 1]} color="#ffffff"
         position={[3, 2, 3]} rotation={[0, -Math.PI / 2, 0]} />
     </group>
@@ -125,22 +125,6 @@ position={[-2.49,.75,1.7]} rotation={[0,Math.PI/2,0]}
 
 
 
-const RoomBLeftDoor = () => {
-  return (<>
-  
-    {/* LEFT DOORS */}
-    <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
-      {/* real door */}
-      <PhysicalDoor size={[1.5, 3, 0.3]} color="#dddddd"
-        position={[-2.75, 1.5, -2.25]} rotation={[0, Math.PI / 2, 0]} />
-      {/* door knob */}
-      <Box position={[-2.6, 1.5, -1.75]} args={[.2, .2, .2]} castShadow>
-        <meshStandardMaterial color="#aaaaaa" />
-      </Box>
-    </group>
-  </>)
-}
-
 
 const OutOfServiceDoor = () => {
   return (<>
@@ -159,7 +143,7 @@ SERVICE`}
       </Box>
   <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
       {/* real door */}
-      <PhysicalDoor size={[1.5, 3, 0.3]} color="#dddddd"
+      <SolidBox size={[1.5, 3, 0.3]} color="#dddddd" castShadow={false}
         position={[2.75, 1.5, -2.25]} rotation={[0, Math.PI / 2, 0]} />
       {/* door knob */}
       <Box position={[2.6, 1.5, -2.75]} args={[.2, .2, .2]} castShadow>

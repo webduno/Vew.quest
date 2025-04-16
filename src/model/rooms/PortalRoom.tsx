@@ -1,8 +1,9 @@
 'use client';
-import { Box, Text } from '@react-three/drei';
+import { Box, GradientTexture, Text } from '@react-three/drei';
 import { StyledWall } from '../core/StyledWall';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 import { useBew } from '../../../scripts/contexts/BewProvider';
+import { SolidBox } from '../core/SolidBox';
 
 
 export const PortalRoom = () => {
@@ -82,79 +83,71 @@ to view remote locations.
 `} */}
 </Text>
 )}
-  {/* DECOYS */}
-<group position={[-5,2,-1]} >
-<Box args={[1,1.5,1.15]}  castShadow
->
-        <meshStandardMaterial color="#eeeeee"  side={2}
-         />
+
+
+
+    {/* DECOYS */}
+    <SolidBox size={[1,1.5,.5]} position={[-5,2,-1.4]} visible={false} />
+    <group position={[-5,2,-1]} >
+      
+      <Box args={[1,1.5,1.3]}  >
+        <meshStandardMaterial>
+          <GradientTexture stops={[0, 1]} colors={["#ffffff", "#cccccc"]} size={4} />
+        </meshStandardMaterial>
       </Box>
-<Box args={[0.1,0.5,0.05]}  position={[-0.12,-0.5,-0.5]} castShadow
->
-        <meshStandardMaterial color="#ffffff" emissive={"#332222"} 
-         />
+      {/* FIRST AID KIT */}
+      <Box args={[0.3,0.7,0.1]}  position={[-0.12,-0.4,0.4]} castShadow
+        onClick={(e)=>{
+          console.log("clicked item")
+          e.stopPropagation()
+        }}
+      >
+        <meshStandardMaterial>
+          <GradientTexture stops={[0, 1]} colors={["#ffeeee", "#ffcccc"]} size={4} />
+        </meshStandardMaterial>
       </Box>
-<Box args={[0.5,0.2,0.2]}  position={[-1.5,-0.4,0.25]} castShadow
->
-        <meshStandardMaterial color="#ffeeee" emissive={"#332222"}  side={2}
-         />
+      <Box args={[1,1.5,0.6]}  position={[-1.5,0,0.25]} >
+        <meshStandardMaterial color="#eeeeee"  side={2} />
       </Box>
-<Box args={[1,1.5,0.6]}  position={[-1.5,0,0.25]} castShadow
->
-        <meshStandardMaterial color="#eeeeee"  side={2}
-         />
-      </Box>
-</group>
+    </group>
 
       
 
 
-<group position={[-8,2,4.5]} >
-<Text 
-color="#333333" anchorX="center" anchorY="middle" position={[0,0.2,-0.01]}
-rotation={[0,Math.PI,0]} fontSize={0.10} font={"/fonts/beanie.ttf"}
->
-{`CODE1: SCANATE
+    {/* hidden codes */}
+    <group position={[-8,2,4.5]} >
+      <Text color="#333333"  position={[0,0.2,-0.01]}
+        rotation={[0,Math.PI,0]} fontSize={0.10} font={"/fonts/beanie.ttf"}
+      >
+        {`CODE1: SCANATE
 
-Psychoenergetics (PSI) goes
-back to SRI → 1970+
-              |
-           ___    --.
-`}
-</Text>
+        Psychoenergetics (PSI) goes
+        back to SRI → 1970+
+            |
+          ___    --.
+        `}
+      </Text>
 
-<Text 
-color="#333333" anchorX="center" anchorY="middle" position={[0,-0.4,-0.01]}
-rotation={[0,Math.PI,0.1]} fontSize={0.10} font={"/fonts/beanie.ttf"}
->
-{`        |@
-SRI#GRILL FLAME
-2025 - Telepathy/ESP Tapes`}
-</Text>
-<Box args={[1,1.5,.65]}  castShadow
->
-        <meshStandardMaterial color="#dddddd"  side={2}
-         />
+      <Text color="#333333" position={[0,-0.4,-0.01]}
+        rotation={[0,Math.PI,0.1]} fontSize={0.10} font={"/fonts/beanie.ttf"}
+      >
+        {`        |@
+        SRI#GRILL FLAME
+        2025 - Telepathy/ESP Tapes`}
+      </Text>
+      <Box args={[1.4,1.5,.65]}  >
+        <meshStandardMaterial color="#dddddd"  side={2} />
       </Box>
-</group>
+    </group>
 
-<StyledWall color="#ffffff" size={[5, 4, 0.5]} 
-      position={[-5.5, 2, -1]} rotation={[0,0,0]} 
-    />
+    {/* separator wall */}
+    <StyledWall size={[5, 4, 0.5]} position={[-5.5, 2, -1]} />
 
+    {/* south wall */}
+    <StyledWall size={[1, 4, 10]} position={[-10, 2, 0]} />
 
-
-    <StyledWall color="#ffffff" size={[1, 4, 10]} 
-      position={[-10, 2, 0]} rotation={[0,0,0]} 
-    />
-
-
-
-{/* left wall */}
-<StyledWall color="#ffffff"
-        size={[10, 4, 1]}
-        position={[-6, 2, -5]} 
-         />
+    {/* left wall */}
+    <StyledWall size={[10, 4, 1]} position={[-6, 2, -5]} />
   </>);
 };
 

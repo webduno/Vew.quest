@@ -1,7 +1,7 @@
 'use client';
 import { Box } from '@react-three/drei';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';
-import { PhysicalWall } from '../core/PhysicalWall';
+import { SolidBox } from '../core/SolidBox';
 import { useState, useEffect, useRef } from 'react';
 import { StyledWall } from '../core/StyledWall';
 import { RegularKey } from '../bits/RegularKey';
@@ -80,12 +80,12 @@ const openDoorProcess = () => {
 
 
       {/* front bevel */}
-      <PhysicalWall color="#f7f7f7"
+      <SolidBox color="#f7f7f7"
         size={[1.1, 1, 20.1]}
         position={[-4, 3.6, 5]} rotation={[0, -Math.PI / 2, 0]} />
 
 
-<PhysicalWall color="#ffffff"
+<SolidBox color="#ffffff"
         size={[1, 4, 5]}
         position={[3.5, 2, 5]} rotation={[0, -Math.PI / 2, 0]} />
      
@@ -134,7 +134,7 @@ const openDoorProcess = () => {
 {/* actual opened door */}
 {!doorVisible && (
   <>
-    <PhysicalWall
+    <SolidBox
     color="#ffddaa"
         castShadow={false}
         visible={true}
@@ -153,9 +153,9 @@ const openDoorProcess = () => {
 {/* actual door */}
 {doorVisible && (
   <>
-    <PhysicalWall color="#ffddaa"
+    <SolidBox color="#ffddaa"
     onClick={()=>{
-      showSnackbar("Find key, and get close to the door", "handbook")
+      showSnackbar("Find key, and approach the door", "handbook")
       setTimeout(() => {
         closeSnackbar();
       }, 4000);
@@ -174,7 +174,7 @@ const openDoorProcess = () => {
 {/* opened door */}
 {doorVisible && (
   <>
-    <PhysicalWall color="#ffddaa"
+    <SolidBox color="#ffddaa"
         castShadow={false}
         visible={true}
         size={[.2, 4, 2]}

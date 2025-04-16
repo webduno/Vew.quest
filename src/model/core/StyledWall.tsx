@@ -1,6 +1,6 @@
 'use client';
 import { Box } from '@react-three/drei';
-import { PhysicalDoor } from '../core/PhysicalDoor';
+import { SolidBox } from './SolidBox';
 
 
 export const StyledWall = ({
@@ -11,10 +11,11 @@ export const StyledWall = ({
     size?: [number, number, number];
     position?: [number, number, number];
     rotation?: [number, number, number];
+    onClick?: () => void;
 }) => {
     return (<>
 
-        <PhysicalDoor color={color}
+        <SolidBox color={color}
             size={size}
             position={position}
             rotation={rotation} />

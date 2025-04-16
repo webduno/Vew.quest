@@ -1,5 +1,5 @@
 'use client';
-import { PhysicalWall } from '../../core/PhysicalWall';
+import { SolidBox } from '../../core/SolidBox';
 import { PhysicalTrigger } from '../../core/PhysicalTrigger';
 import { TheChair } from './TheChair';
 import { TheTable } from './TheTable';
@@ -17,7 +17,7 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
   
   return (<>
   
-<PhysicalWall color="#eeeeee"
+<SolidBox color="#eeeeee"
         visible={false}
         size={[4, 1, 2]}
         position={[0, .5, -21.5]} rotation={[0, 0, 0]} />
@@ -69,12 +69,12 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
 
       {/* the room */}
       <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
-        <PhysicalWall size={[13, 4, 1]}
+        <SolidBox size={[13, 4, 1]}
           position={[-6, 2, -20]} rotation={[0, Math.PI / 2, 0]} />
-        <PhysicalWall size={[13, 4, 1]}
+        <SolidBox size={[13, 4, 1]}
           position={[6, 2, -20]} rotation={[0, Math.PI / 2, 0]} />
       </group>
-      <PhysicalWall color="#eeeeee"
+      <SolidBox color="#eeeeee"
         size={[1, 4, 12.1]}
         position={[0, 2, -27]} rotation={[0, -Math.PI / 2, 0]} />
     </group>

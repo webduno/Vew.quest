@@ -1,7 +1,7 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';
-import { PhysicalWall } from '../core/PhysicalWall';
+import { SolidBox } from '../core/SolidBox';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
@@ -134,7 +134,7 @@ fontSize={0.2}
 
 
 {(!!code1 && !!code2) && (<>
-      <PhysicalWall color="#cccccc"
+      <SolidBox color="#cccccc"
         size={[1.6, 3.1, .2]}
         position={[0.5, 1.6, -15.5]}   rotation={[0, -1, 0]}
       />
@@ -149,7 +149,7 @@ fontSize={0.2}
 </>)}
       {/* front door */}
 {(!code1 || !code2) && (<>
-      <PhysicalWall color="#cccccc"
+      <SolidBox color="#cccccc"
         size={[2, 3.1, .2]}
         position={[0, 1.6, -15]}   rotation={[0, 0, 0]}
       />
@@ -170,16 +170,16 @@ fontSize={0.2}
 
 
       {/* front wall */}
-      <PhysicalWall color="#ffffff"
+      <SolidBox color="#ffffff"
         size={[1, 4, 5]}
         position={[3.5, 2, -15]} rotation={[0, -Math.PI / 2, 0]} 
       />
-      <PhysicalWall color="#ffffff"
+      <SolidBox color="#ffffff"
         size={[1, 4, 5]}
         position={[-3.5, 2, -15]} rotation={[0, -Math.PI / 2, 0]} 
       />
       {/* front bevel */}
-      <PhysicalWall color="#f7f7f7"
+      <SolidBox color="#f7f7f7"
         size={[1, 1, 12.1]}
         position={[0, 3.6, -14.8]} rotation={[0, -Math.PI / 2, 0]} 
       />

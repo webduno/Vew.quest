@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useContext, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Box, Cylinder, Text } from '@react-three/drei';
 
-import { PhysicalWall } from '../../core/PhysicalWall';
+import { SolidBox } from '../../core/SolidBox';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 
 import { ABDoorPortals } from '../../doorwalls/ABDoorPortals';
@@ -150,15 +150,15 @@ export const BewMainScene = ({ setPlayerPosition,
       {/* top bevels */}
       <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
         {/* left bevel */}
-        <PhysicalWall  size={[30.5, 1, 1.2]} color="#f7f7f7"
+        <SolidBox  size={[30.5, 1, 1.2]} color="#f7f7f7"
         position={[-3, 3.5, 0]} rotation={[0, Math.PI / 2, 0]} />
         {/* right bevel */}
-        <PhysicalWall 
+        <SolidBox 
           size={[30.5, 1, 1.2]} color="#f7f7f7"
           position={[3, 3.5, 0]} rotation={[0, -Math.PI / 2, 0]} 
         />
         {/* outer right bevel */}
-        <PhysicalWall 
+        <SolidBox 
           size={[30.5, 1, 1.2]} color="#f7f7f7"
           position={[9, 3.5, 0]} rotation={[0, -Math.PI / 2, 0]} 
         />

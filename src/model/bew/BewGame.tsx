@@ -11,7 +11,7 @@ import { BewLighting } from './BewLighting';
 import { TheRoom } from '../rooms/WhiteMirror/TheRoom';
 import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScreen';
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
-import { PhysicalWall } from '../core/PhysicalWall';
+import { SolidBox } from '../core/SolidBox';
 import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye } from '@react-three/drei';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
 import { useSearchParams } from 'next/navigation';
@@ -539,7 +539,7 @@ setIsTakingRequest(null);
           <group position={[2, 0, -20]} rotation={[0, -.5, 0]} scale={[1, 1.1, 1]}>
             <PersonSilhouette />
           </group>
-<PhysicalWall 
+<SolidBox 
         visible={false}
         size={[1, 3, 0.5]}
         position={[2, 1.5, -20]} rotation={[0, 0, 0]}

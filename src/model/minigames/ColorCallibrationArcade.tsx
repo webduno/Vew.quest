@@ -1,6 +1,6 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { PhysicalWall } from '../core/PhysicalWall';
+import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';
@@ -105,7 +105,7 @@ export const ColorCallibrationArcade = ({
     </Box>
 
     {/* arcade BOTTOM CONSOLE */}
-    <PhysicalWall visible={false} position={[-8, .5, 13.9]} size={[1, 1, 1]} color="#ffcccc" />    
+    <SolidBox visible={false} position={[-8, .5, 13.9]} size={[1, 1, 1]} color="#ffcccc" />    
     <Box position={[-8, .5, 13.9]} rotation={[0, 0, 0]} args={[1, 1, 1]}>
       <meshStandardMaterial color="#dddddd" />
     </Box>

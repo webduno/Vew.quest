@@ -2,7 +2,7 @@
 import { Box, Plane, Text } from '@react-three/drei';
 import { CardboardBox } from '../bits/CardboardBox';
 import { StyledWall } from '../core/StyledWall';
-import { PhysicalWall } from '../core/PhysicalWall';
+import { SolidBox } from '../core/SolidBox';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
@@ -125,13 +125,13 @@ size={[.51,4,1]}
 
 {/* only show when mindstats.solid >= 2 */}
 {mindStats.solid < 2 && <>
-<PhysicalWall  visible={false} color="#ff9900"
+<SolidBox  visible={false} color="#ff9900"
 position={[3,2, -9]}
 size={[1.4,4,7]}
 />
 </>}
 
-<PhysicalWall  visible={false} color="#ff9900"
+<SolidBox  visible={false} color="#ff9900"
 position={[3.5,2, -7]}
 size={[.51,4,5]}
 />
@@ -177,7 +177,7 @@ cia_rdp96.pdf`}
 
 </group>
 
-<PhysicalWall color="#eeeeee"
+<SolidBox color="#eeeeee"
         position={[3.6,1.8,12]}
         size={[0.45,1.25,1]}
         rotation={[0,0,0]}
@@ -187,7 +187,7 @@ cia_rdp96.pdf`}
               <meshStandardMaterial color="#eeeeee"  side={2}
                />
             </Box>
-      <PhysicalWall color="#eeeeee"
+      <SolidBox color="#eeeeee"
               position={[3.6,1.8,10.5]}
               size={[0.45,1.25,1]}
               rotation={[0,0,0]}

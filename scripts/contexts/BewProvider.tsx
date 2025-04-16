@@ -65,7 +65,7 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleLockedDoor = () => {
-    showSnackbar("Access denied, experience is required", "error");
+    showSnackbar("Access denied. Experience is required", "error");
     playSoundEffect("/sfx/short/metallock.mp3");
     setTimeout(() => {
       closeSnackbar();

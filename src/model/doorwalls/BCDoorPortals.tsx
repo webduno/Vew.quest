@@ -1,8 +1,7 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';
-import { PhysicalWall } from '../core/PhysicalWall';
-import { PhysicalDoor } from '../core/PhysicalDoor';
+import { SolidBox } from '../core/SolidBox';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 
 
@@ -46,7 +45,8 @@ fontSize={0.3} font={"/fonts/beanie.ttf"}
 
       {/* main frontal door */}
       <group position={[0, 0, 0]} rotation={[0, 0, 0]} onClick={handleLockedDoor}>
-      <PhysicalDoor color="#cccccc"
+      <SolidBox color="#cccccc" castShadow={false}
+      onClick={()=>{}}
         size={[.2, 4, 2]}
         position={[0, 2, -5]} rotation={[0, -Math.PI / 2, 0]} />
       {/* doorknob */}
@@ -67,7 +67,7 @@ fontSize={0.3} font={"/fonts/beanie.ttf"}
 
 
 {/* right wall */}
-      <PhysicalWall color="#ffffff"
+      <SolidBox color="#ffffff"
         size={[1, 4, 5]}
         position={[3.5, 2, -5]} rotation={[0, -Math.PI / 2, 0]} />
       
@@ -81,7 +81,7 @@ fontSize={0.3} font={"/fonts/beanie.ttf"}
 
 
       {/* front bevel */}
-      <PhysicalWall color="#f7f7f7"
+      <SolidBox color="#f7f7f7"
         size={[1.1, 1, 20.1]}
         position={[-4, 3.6, -5]} rotation={[0, -Math.PI / 2, 0]} />
 
