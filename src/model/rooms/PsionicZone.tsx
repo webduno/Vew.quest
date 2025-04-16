@@ -167,7 +167,7 @@ rotation={[0,Math.PI,0]} fontSize={0.10} font={"/fonts/beanie.ttf"}
 {`COORDINATED
 REMOTE VIEWING (CRV)
 
-    CODE2: sunstreak
+    *CODE 2 : sunstreak*
     |
     _
 

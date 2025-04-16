@@ -18,6 +18,7 @@ export function useVibeverse() {
     pk_pill?: number,
     mars_pass?: number,
     declasification_request?: number,
+    firstaid_pr?: number,
    }>({
     color: 0,
     solid: 0,
@@ -25,7 +26,8 @@ export function useVibeverse() {
     chronovisor_ticket: 0,
     pk_pill: 0,
     mars_pass: 0,
-    declasification_request: 0
+    declasification_request: 0,
+    firstaid_pr: 0
   });
   const [tutorials, setTutorials] = useState<{ [key: string]: boolean }>({});
   const [explored, setExplored] = useState<{ [key: string]: boolean }>({});
@@ -82,7 +84,7 @@ export function useVibeverse() {
     localStorageProxy.VB_LEGACY_GRAPHICS = newValue ? '1' : '0';
   };
 
-  const updateMindStats = (type: 'color' | 'solid' | 'cash', value: number) => {
+  const updateMindStats = (type: 'color' | 'solid' | 'cash' | 'firstaid_pr', value: number) => {
     const newStats = { ...mindStats, [type]: value };
     setMindStats(newStats);
     localStorageProxy.VB_MINDSTATS = JSON.stringify(newStats);
@@ -164,7 +166,8 @@ export function useVibeverse() {
             chronovisor_ticket: parsedStats.chronovisor_ticket || 0,
             pk_pill: parsedStats.pk_pill || 0,
             mars_pass: parsedStats.mars_pass || 0,
-            declasification_request: parsedStats.declasification_request || 0
+            declasification_request: parsedStats.declasification_request || 0,
+            firstaid_pr: parsedStats.firstaid_pr || 0
           });
         } catch (e) {
           console.error('Error parsing mindStats:', e);

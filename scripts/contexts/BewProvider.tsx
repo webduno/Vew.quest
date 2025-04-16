@@ -15,7 +15,7 @@ type BewContextType = {
   isSnackbarOpen: boolean;
   snackbarMessage: string;  
   snackbarSeverity: SnackbarSeverity;
-  showSnackbar: (message: string, severity: SnackbarSeverity) => void;
+  showSnackbar: (message: string, severity: SnackbarSeverity, autoClose?: number) => void;
   closeSnackbar: () => void; // Renamed for clarity
   isCutSceneOpen: boolean;
   setIsCutSceneOpen: (isCutSceneOpen: boolean) => void;
@@ -44,19 +44,20 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
   const [snackbarSeverity, setSnackbarSeverity] = useState<SnackbarSeverity>('info');
   const { playSoundEffect: playBackgroundSoundEffect } = useBackgroundMusic();
 
-  const showSnackbar = (message: string, severity: SnackbarSeverity) => {
+  const showSnackbar = (message: string, severity: SnackbarSeverity, autoClose?: number) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setIsSnackbarOpen(true);
+    if (autoClose) {
+      setTimeout(() => {
+        closeSnackbar();
+      }, autoClose);
+    }
   };
+
 
   const closeSnackbar = () => {
     setIsSnackbarOpen(false);
-    // Optionally reset message and severity after closing animation (if any)
-    // setTimeout(() => {
-    //   setSnackbarMessage('');
-    //   setSnackbarSeverity('info');
-    // }, 300); // Adjust timing based on animation
   };
 
   // Wrapper function to play sound effects
@@ -65,11 +66,8 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleLockedDoor = () => {
-    showSnackbar("Access denied. Experience is required", "error");
+    showSnackbar("Access denied. Experience is required", "error", 2000);
     playSoundEffect("/sfx/short/metallock.mp3");
-    setTimeout(() => {
-      closeSnackbar();
-    }, 2000);
   };
 
   // Add state and functions for the context here later

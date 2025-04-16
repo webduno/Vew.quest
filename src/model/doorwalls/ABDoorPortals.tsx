@@ -155,10 +155,7 @@ const openDoorProcess = () => {
   <>
     <SolidBox color="#ffddaa"
     onClick={()=>{
-      showSnackbar("Find key, and approach the door", "handbook")
-      setTimeout(() => {
-        closeSnackbar();
-      }, 4000);
+      showSnackbar("Find key, and approach the door", "handbook", 4000)
     }}
         castShadow={false}
         visible={true}

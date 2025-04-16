@@ -2,12 +2,11 @@
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { useState, useEffect } from 'react';
 
-
-
-
-
-
-
+const getTotalFirstAid = (stats: any) => {
+  return Object.entries(stats)
+    .filter(([key]) => key.startsWith('firstaid_'))
+    .reduce((sum, [_, value]) => sum + (value as number), 0);
+};
 
 export const MindStats = () => {
   const { mindStats } = useVibeverse();
@@ -15,7 +14,8 @@ export const MindStats = () => {
       color: number;
       solid: number;
       cash?: number;
-      chronovisor_ticket?: number
+      chronovisor_ticket?: number;
+      firstaid_pr?: number;
      }>(mindStats);
   const [username, setUsername] = useState("");
   const [hasFirstKey, setHasFirstKey] = useState(0);
@@ -129,7 +129,8 @@ export const MindStats = () => {
       !!mindStats.chronovisor_ticket ||
       !!mindStats.pk_pill ||
       !!mindStats.mars_pass ||
-      !!mindStats.declasification_request
+      !!mindStats.declasification_request ||
+      !!getTotalFirstAid(mindStats)
       ) && (<>
 
 <details>
@@ -197,6 +198,13 @@ color:"#222222"}}
 color:"#222222"}}
     >
       pk_pill: {mindStats.pk_pill}
+    </div>}
+    {!!getTotalFirstAid(mindStats) &&
+    <div className="box-shadow-i-5-t pa-1"
+    style={{        background: '#a4a087',
+color:"#222222"}}
+    >
+      first aid: {getTotalFirstAid(mindStats)}
     </div>}
 
   </div>

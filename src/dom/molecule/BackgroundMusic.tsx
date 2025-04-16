@@ -43,7 +43,7 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
                 togglePlay();
                 setShow(false);
                 disableFirstTime();
-              }, 4000)
+              }, 1000)
               return
             }
             togglePlay();
