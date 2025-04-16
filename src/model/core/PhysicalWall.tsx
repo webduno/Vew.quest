@@ -9,7 +9,10 @@ export const PhysicalWall = ({
   position = [0, 0, -0] as [number, number, number],
   rotation = [0, 0, 0] as [number, number, number],
   size = [100, 100, 2] as [number, number, number],
-  color = "lightgrey", friction = 0.5, restitution = 0.1
+  color = "lightgrey", friction = 0.5, restitution = 0.1,
+  onClick = (e: any) => {
+    e.stopPropagation();
+  }
 }) => {
   const boxSize: [number, number, number] = [size[0], size[1], size[2]];
   
@@ -29,7 +32,7 @@ export const PhysicalWall = ({
   }
 
   return (
-    <mesh ref={ref as React.Ref<Mesh>} 
+    <mesh ref={ref as React.Ref<Mesh>} onClick={onClick}
     receiveShadow castShadow={castShadow}>
       <boxGeometry args={boxSize} />
       <meshStandardMaterial color={color} />

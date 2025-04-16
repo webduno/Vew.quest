@@ -4,12 +4,13 @@ import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext
 import { GameButton } from '../atom/game/GameButton';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { isMobile } from '../../../scripts/utils/mobileDetection';
 export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoading }: { 
   firstTime: boolean,
   disableFirstTime: () => void,
   isEverythingLoading: boolean 
 }) {
-  const { isPlaying, togglePlay } = useBackgroundMusic();
+  const { isPlaying, togglePlay, playSoundEffect } = useBackgroundMusic();
   const [show, setShow] = useState(true);
   const searchParams = useSearchParams()
 
@@ -34,9 +35,20 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
           }}
           onClick={() => {
             if (isEverythingLoading) return;
+
+            if (!localStorage.getItem("VB_ALREADY_PLAYED")) {
+              playSoundEffect("/sfx/tutorials/gameintro1.ogg")
+              setTimeout(() => {
+                
+                togglePlay();
+                setShow(false);
+                disableFirstTime();
+              }, 4000)
+              return
+            }
             togglePlay();
             setShow(false);
-            disableFirstTime();
+            disableFirstTime();            
           }}
         ></div>
 
@@ -65,7 +77,7 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
                 style={{background:"#ff5555"}}
                 >X</div>
               </div>
-              <div className='block tx-xl px-2 py-4 tx-center flex-col'
+              <div className='block tx-xl px-4 py-2 tx-center flex-col'
               
               >
                 {isEverythingLoading ? (
@@ -76,9 +88,19 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
                   </>
                 ) : (
                   <>
-                    <div>CLICK THE</div>
-                    <div>ANYWHERE</div>
-                    <div>TO START</div>
+                  <div>CLICK</div>
+                  <div>ANYWHERE</div>
+                  <div>TO START</div>
+                  {isMobile() ? (
+                    <>
+                      </>
+                  ) : (
+                    <div className='flex-row gap-2 tx-sm pt-2'>
+                      <div>AND USE</div>
+                      <div>W, S, A, D</div>
+                      <div>TO MOVE</div>
+                    </div>
+                  )}
                   </>
                 )}
               </div>

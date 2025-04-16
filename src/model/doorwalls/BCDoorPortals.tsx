@@ -3,10 +3,11 @@ import { Box, Text } from '@react-three/drei';
 import { PhysicalTrigger } from '../core/PhysicalTrigger';
 import { PhysicalWall } from '../core/PhysicalWall';
 import { PhysicalDoor } from '../core/PhysicalDoor';
-
+import { useBew } from '../../../scripts/contexts/BewProvider';
 
 
 export const BCDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void; }) => {
+  const { handleLockedDoor } = useBew()
   return (<>
 
 
@@ -44,6 +45,7 @@ fontSize={0.3} font={"/fonts/beanie.ttf"}
 
 
       {/* main frontal door */}
+      <group position={[0, 0, 0]} rotation={[0, 0, 0]} onClick={handleLockedDoor}>
       <PhysicalDoor color="#cccccc"
         size={[.2, 4, 2]}
         position={[0, 2, -5]} rotation={[0, -Math.PI / 2, 0]} />
@@ -51,6 +53,7 @@ fontSize={0.3} font={"/fonts/beanie.ttf"}
       <Box position={[-.5, 1.5, -4.9]} args={[.2, .2, .2]} castShadow>
         <meshStandardMaterial color="#aaaaaa"/>
       </Box>
+      </group>
 
       <Box position={[-.5, 1.5, -5.1]} args={[.2, .2, .2]} >
         <meshStandardMaterial color="#aaaaaa"/>

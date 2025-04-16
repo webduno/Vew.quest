@@ -20,6 +20,7 @@ type BewContextType = {
   isCutSceneOpen: boolean;
   setIsCutSceneOpen: (isCutSceneOpen: boolean) => void;
   playSoundEffect: (soundPath: string, volume?: number) => void;
+  handleLockedDoor: () => void;
 };
 
 // Create the context with default values
@@ -63,6 +64,14 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
     playBackgroundSoundEffect(soundPath, volume);
   };
 
+  const handleLockedDoor = () => {
+    showSnackbar("Access denied, experience is required", "error");
+    playSoundEffect("/sfx/short/metallock.mp3");
+    setTimeout(() => {
+      closeSnackbar();
+    }, 2000);
+  };
+
   // Add state and functions for the context here later
   const contextValue: BewContextType = {
     // Provide context values here
@@ -75,6 +84,7 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
     showSnackbar,
     closeSnackbar,
     playSoundEffect,
+    handleLockedDoor,
   };
 
   return (

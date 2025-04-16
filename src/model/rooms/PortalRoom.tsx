@@ -2,15 +2,19 @@
 import { Box, Text } from '@react-three/drei';
 import { StyledWall } from '../core/StyledWall';
 import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
+import { useBew } from '../../../scripts/contexts/BewProvider';
 
 
 export const PortalRoom = () => {
-  const { LS_lowGraphics } = useVibeverse()
+  const { handleLockedDoor } = useBew()
+  const { LS_lowGraphics, LS_hasFirstKey } = useVibeverse()
   return (<>
 
 
-
-<group position={[-9.94,1.5,-3]}>
+{/* main locked door */}
+<group position={[-9.94,1.5,-3]}
+onClick={handleLockedDoor}
+>
   <Box args={[1,3,2]} >
 <meshStandardMaterial color="#dddddd" />
 </Box>
@@ -52,7 +56,7 @@ position={[-8.4,2.75,-4.44]} rotation={[0,0,0]}
 >
 {`
 PORTAL ROOM`}</Text>
-{!LS_lowGraphics && (
+{!LS_lowGraphics && LS_hasFirstKey && (
 <Text fontSize={0.16} color="#1d1d1d"  font="/fonts/beanie.ttf"
 anchorX="left" anchorY="middle" textAlign="left"
 position={[-8.3,1.85,-4.44]} rotation={[0,0,0]}
