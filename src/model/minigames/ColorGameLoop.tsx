@@ -15,15 +15,19 @@ class GameTimer {
   private currentRound: number;
   private readonly roundDuration: number;
   private readonly maxRounds: number;
+  private readonly onRound: (round: number) => void;
 
-  constructor(roundDuration: number, maxRounds: number) {
+  constructor(roundDuration: number, maxRounds: number, onRound: () => void) {
+
     this.startTime = Date.now();
     this.currentRound = 1;
     this.roundDuration = roundDuration;
     this.maxRounds = maxRounds;
+    this.onRound = onRound;
   }
 
   update() {
+
     const elapsedTime = Date.now() - this.startTime;
     const newRound = Math.min(
       Math.floor(elapsedTime / this.roundDuration) + 1,
@@ -31,6 +35,9 @@ class GameTimer {
     );
 
     const isNewRound = newRound > this.currentRound;
+    if (isNewRound) {
+      this.onRound(newRound);
+    }
     this.currentRound = newRound;
 
     return {
@@ -46,19 +53,21 @@ export const ColorGameLoop = ({
   onGameEnd,
   onCheckSaturation,
   points,
-  misses
+  misses,
+  onRound
 }: {
   hardMode: boolean;
   onGameEnd: () => void;
   onCheckSaturation: (isLess: boolean, currentColor: string, currentColorAnswered: boolean) => boolean;
   points: number;
   misses: number;
+  onRound: (round: number) => void;
 }) => {
   const [currentRound, setCurrentRound] = useState(1);
   const [currentColor, setCurrentColor] = useState(ColorGenerator.generate());
   const [isAnswered, setIsAnswered] = useState(false);
   
-  const gameTimerRef = useRef<GameTimer>(new GameTimer(3000, 5));
+  const gameTimerRef = useRef<GameTimer>(new GameTimer(3000, 5, () => onRound(currentRound)));
   const animationFrameRef = useRef<number>();
   const isGameOverRef = useRef(false);
 

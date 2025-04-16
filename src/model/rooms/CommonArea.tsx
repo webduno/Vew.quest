@@ -16,9 +16,9 @@ export const CommonArea = () => {
   useEffect(() => {
     const checkCalibration = () => {
       const savedStats = localStorage.getItem('VB_MINDSTATS');
-      const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
+      const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0, solid: 0 };
       setColorCallibration(currentStats.color);
-      setIsCallibrated(currentStats.color >= 3);
+      setIsCallibrated(currentStats.color >= 1 || currentStats.solid >= 1);
     };
 
     // Initial check

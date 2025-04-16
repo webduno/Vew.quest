@@ -28,12 +28,14 @@ export const ColorCallibrationArcade = ({
     startColorCalibration();
     setPoints(0);
     setMisses(0);
+    playSoundEffect("/sfx/short/passbip.mp3");
+    showSnackbar("Arcade on, CLICK NOW!", 'handbook', 3000);
   };
 
   const checkSaturation = (isLess: boolean, currentColor: string, currentColorAnswered: boolean) => {
     if (!currentColorAnswered) {
       setMisses(prev => prev + 1);
-      playSoundEffect("/sfx/short/passbip.mp3");
+      playSoundEffect("/sfx/short/badbip.wav");
       return false;
     }
     if (!colorCalibrationStarted) return false;
@@ -56,14 +58,8 @@ export const ColorCallibrationArcade = ({
       playSoundEffect("/sfx/short/goodcode.mp3");
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
-      const newPoints = currentStats.color + (points < 5 ? 1 : 2)
-      if (currentStats.color == 2 && newPoints >= 3) {
-        playSoundEffect("/sfx/short/keys.mp3");
-        showSnackbar("You've reached sync level 3!", 'info');
-        setTimeout(() => {
-          closeSnackbar();
-        }, 3000);
-      }
+      const newPoints = currentStats.color + points
+      showSnackbar(points+" callibration points added", 'success', 3000);
       updateMindStats('color', newPoints);
     } else {
       playSoundEffect("/sfx/short/badbip.wav");
@@ -79,11 +75,8 @@ export const ColorCallibrationArcade = ({
         position={[-8, 1, 13.5]}
         onCollide={() => {
           updateTutorialStatus('color', true);
-          playSoundEffect("/sfx/tutorial/colortuto.ogg");
-          showSnackbar("Click 'FULL' or 'LESS', if the light color is intese or muted", 'handbook');
-          setTimeout(() => {
-            closeSnackbar();
-          }, 9000);
+          playSoundEffect("/sfx/tutorials/colordemo.ogg");
+          showSnackbar("Click 'FULL' or 'LESS', if the light color is intese or muted", 'handbook', 9000);
         }}
       />
     )}
@@ -195,6 +188,14 @@ export const ColorCallibrationArcade = ({
         onCheckSaturation={checkSaturation}
         points={points}
         misses={misses}
+        onRound={
+          (roundNumber) => {
+            console.log("roundNumber", roundNumber);
+            setTimeout(() => {
+              playSoundEffect("/sfx/short/passbip.mp3");
+            }, 100);
+          }
+        }
       />
     )}
   </>);

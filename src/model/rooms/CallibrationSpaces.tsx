@@ -7,10 +7,12 @@ import { SummoningCircle } from '../bits/SummoningCircle';
 import { SolidBox } from '../core/SolidBox';
 import { SolidCallibrationArcade } from '@/model/minigames/SolidCallibrationArcade';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
-
+import { CollisionBox } from '../core/CollisionBox';
+import { useBew } from '../../../scripts/contexts/BewProvider';
 
 export const CallibrationSpaces = () => {
-  const { hasExploredZone } = useVibeverse();
+  const { showSnackbar, playSoundEffect } = useBew();
+  const { hasExploredZone, updateExploredStatus } = useVibeverse();
   const [colorCalibrationStarted, setColorCalibrationStarted] = useState(false)
   const [solidCalibrationStarted, setSolidCalibrationStarted] = useState(false)
 
@@ -48,6 +50,20 @@ export const CallibrationSpaces = () => {
   return (
     <group>
 
+      
+    {!hasExploredZone('callibration_spaces') && (
+      <CollisionBox 
+        onCollide={() => {
+          updateExploredStatus('callibration_spaces', true);
+          if (true) {
+            playSoundEffect('/sfx/tutorials/arcade1.ogg');
+          }
+        }}
+        position={[-4,1.5,8.25]} size={[1,3,2]} 
+      />
+    )}
+    
+
       <StyledWall size={[10, 4, 1]} position={[-8, 1.49, 15]} color="#ffffff" />
       <StyledWall size={[10, 4, 1]} position={[-8, 1.49, 6]} color="#ffffff" />
       <StyledWall size={[1, 4, 8]} position={[-13, 1.49, 10.5]} color="#ffffff" />
@@ -55,7 +71,26 @@ export const CallibrationSpaces = () => {
         <meshStandardMaterial color="#ffffff" />
       </Box>
 
+{/* 
+      <Text font="/fonts/wallpoet.ttf" fontSize={0.2} color="#777777" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-5,2.5,14.49]} rotation={[0,Math.PI,0]}
+>
+{`ARCADE MACHINES -->`}
+</Text> */}
 
+<Text font="/fonts/wallpoet.ttf" fontSize={1} color="#777777" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-3.51,1.5,11.75]} rotation={[0,-Math.PI/2,0]}
+>
+{`ARCADE`}
+</Text>
+<Text font="/fonts/wallpoet.ttf" fontSize={0.4} color="#777777" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-5.5,1.5,14.49]} rotation={[0,Math.PI,0]}
+>
+{`MACHINES ---->`}
+</Text>
       
 
       {/* <Text font="/fonts/wallpoet.ttf" fontSize={0.4} color="#333333" 
@@ -117,13 +152,20 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
 
 
 
-<Text font="/fonts/wallpoet.ttf" fontSize={0.4} color="#333333" 
+{!hasExploredZone('psionic_asset_zone') && colorLevel >= 3 && (<>
+
+</>)}
+  {!hasExploredZone('psionic_asset_zone') && colorLevel >= 3 && (<>
+
+
+    <Text font="/fonts/wallpoet.ttf" fontSize={0.4} color="#333333" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-11,2.8,14.49]} rotation={[0,Math.PI,0]}
 >
 {`SOLID`}
 </Text>
-{!hasExploredZone('psionic_asset_zone') && colorLevel >= 3 && (<>
+
+
   <Text font="/fonts/consolas.ttf" fontSize={0.2} color="#333333" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-11,1.8,14.49]} rotation={[0,Math.PI,0]}
