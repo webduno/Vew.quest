@@ -7,6 +7,7 @@ interface BackgroundMusicContextType {
   togglePlay: () => void;
   playIfNotPlaying: () => void;
   playSoundEffect: (soundPath: string, volume?: number) => void;
+  changeBackgroundMusic: (soundPath: string) => void;
 }
 
 const BackgroundMusicContext = createContext<BackgroundMusicContextType | undefined>(undefined);
@@ -135,8 +136,23 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
     };
   };
 
+  const changeBackgroundMusic = (soundPath: string) => {
+    if (audioRef.current) {
+      const wasPlaying = !audioRef.current.paused;
+      audioRef.current.pause();
+      audioRef.current = new Audio(soundPath);
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.1;
+      if (wasPlaying) {
+        audioRef.current.play().catch(error => {
+          console.error('Error playing background music:', error);
+        });
+      }
+    }
+  };
+
   return (
-    <BackgroundMusicContext.Provider value={{ isPlaying, togglePlay, playIfNotPlaying, playSoundEffect }}>
+    <BackgroundMusicContext.Provider value={{ isPlaying, togglePlay, playIfNotPlaying, playSoundEffect, changeBackgroundMusic }}>
       {children}
     </BackgroundMusicContext.Provider>
   );

@@ -27,9 +27,11 @@ import { PhysicalCeiling } from '../core/PhysicalFloor';
 import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
 import { ACESFilmicToneMapping } from 'three';
 import { BewCoreLights } from './BewCoreLights';
+import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl, updateMindStats, mindStats } =  useVibeverse()
+  const { changeBackgroundMusic } = useBackgroundMusic();
   // const { updateExploredStatus, hasExploredZone } = useVibeverse();
 
   const [showAnalogModal, setShowAnalogModal] = useState(false);
@@ -55,6 +57,7 @@ export const BewGame = () => {
   const [teleportTrigger, setTeleportTrigger] = useState(0);
   const [showCodeInput, setShowCodeInput] = useState(false);
   const [wasFirstDoorOpened, setWasFirstDoorOpened] = useState(false);
+  const [wasPsionicHallwayEntered, setWasPsionicHallwayEntered] = useState(false);
   // const wasFirstDoorOpened = useRef(false);
   const handleFirstDoorOpened = useCallback(() => {
     console.log("handleFirstDoorOpened")
@@ -672,6 +675,14 @@ setIsTakingRequest(null);
 
 {!showWhiteMirror && (
           <BewMainScene 
+          wasPsionicHallwayEntered={wasPsionicHallwayEntered}
+          setWasPsionicHallwayEntered={()=>{
+            if (!wasPsionicHallwayEntered) {
+              // change background looping music song
+              changeBackgroundMusic('/sfx/bg/ominous.mp3');
+            }
+            setWasPsionicHallwayEntered(true)
+          }}
           isTakingRequest={isTakingRequest}
           setIsTakingRequest={setIsTakingRequest}
           code1={code1}

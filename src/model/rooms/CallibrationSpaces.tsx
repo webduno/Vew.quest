@@ -152,10 +152,16 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
 
 
 
-{!hasExploredZone('psionic_asset_zone') && colorLevel >= 3 && (<>
+{!!hasExploredZone('psionic_asset_zone') && colorLevel >= 1 && (<>
+    <Text font="/fonts/wallpoet.ttf" fontSize={0.4} color="#333333" 
+anchorX="center" anchorY="middle" textAlign="center"
+position={[-11,2.8,14.49]} rotation={[0,Math.PI,0]}
+>
+{`SOLID`}
+</Text>
 
 </>)}
-  {!hasExploredZone('psionic_asset_zone') && colorLevel >= 3 && (<>
+  {!hasExploredZone('psionic_asset_zone') && colorLevel >= 1 && (<>
 
 
     <Text font="/fonts/wallpoet.ttf" fontSize={0.4} color="#333333" 

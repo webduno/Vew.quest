@@ -242,8 +242,9 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
           <Scoreboard scoreboardObjects={scoreboardObjects} />
         </>
       )}
-
+{crvObjects.length > 0  && (
       <DailyQuota crvObjects={crvObjects} onRefresh={handleRefreshDailyQuota} />
+)}
 
       <SolidBox color="#ffffff"
         size={[3.5, 4, 1]}

@@ -5,6 +5,7 @@ import { HandbookPage } from './HandbookPage';
 import { ErrorSheet } from './ErrorSheet';
 import { PaperSheet } from './PaperSheet';
 import { SuccessBadge } from './SuccessBadge';
+import { WarningBadge } from './WarningBadge';
 
 // Define the types for severity
 type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title' | 'handbook';
@@ -75,7 +76,7 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleLockedDoor = () => {
-    showSnackbar("Access denied", "title", 3000);
+    showSnackbar("Access denied", "warning", 3000);
     playSoundEffect("/sfx/short/metallock.mp3");
   };
 
@@ -120,6 +121,9 @@ export const SnackbarNotif = () => {
       }
       {snackbarSeverity === 'error' && 
         <ErrorSheet>{snackbarMessage}</ErrorSheet>
+      }
+      {snackbarSeverity === 'warning' && 
+        <WarningBadge>{snackbarMessage}</WarningBadge>
       }
       {snackbarSeverity === 'title' && 
         <HardBadge>{snackbarMessage}</HardBadge>

@@ -54,12 +54,12 @@ export const ColorCallibrationArcade = ({
 
   const handleGameEnd = () => {
     setColorCalibrationStarted(false);
-    if (points >= 4) {
+    if (points >= 1) {
       playSoundEffect("/sfx/short/goodcode.mp3");
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0 };
       const newPoints = currentStats.color + points
-      showSnackbar(points+" callibration points added", 'success', 3000);
+      showSnackbar(points+" callibration point(s) added", 'success', 3000);
       updateMindStats('color', newPoints);
     } else {
       playSoundEffect("/sfx/short/badbip.wav");

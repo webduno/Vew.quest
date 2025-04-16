@@ -7,12 +7,21 @@ import { CollisionBox } from '../core/CollisionBox';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
-export const PsionicZone = () => {
+export const PsionicHallway = ({wasPsionicHallwayEntered, setWasPsionicHallwayEntered}: {wasPsionicHallwayEntered: boolean, setWasPsionicHallwayEntered: (wasPsionicHallwayEntered: boolean) => void}) => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
   const { updateExploredStatus, hasExploredZone, mindStats, LS_lowGraphics } = useVibeverse();
 
   return (<>
-
+  {!wasPsionicHallwayEntered && (
+<CollisionBox 
+        onCollide={() => {
+          if (!wasPsionicHallwayEntered) {
+            setWasPsionicHallwayEntered(true);
+          }
+        }}
+        position={[4,1.5,8.25]} size={[1,3,2]} 
+      />
+  )}
 
   
      {/* cydonia light */}
@@ -50,10 +59,9 @@ mcmonagle.pdf
  position={[7, 2, -5]} size={[3,4,1.1]}
  onCollide={() => {
   updateExploredStatus('psionic_asset_zone', true);
-  showSnackbar('You\'ve found the Psionic Asset Zone!', 'info');
-  setTimeout(() => {
-    closeSnackbar();
-  }, 4000);
+  playSoundEffect('/sfx/tutorials/psionicassets.ogg');
+
+  showSnackbar('Psionic Asset Training Zone', 'title', 4500);
 }}
 >
 </CollisionBox>

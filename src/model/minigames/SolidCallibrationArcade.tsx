@@ -54,7 +54,7 @@ export const SolidCallibrationArcade = ({
 
   const handleGameEnd = () => {
     setSolidCalibrationStarted(false);
-    if (points >= 4) {
+    if (points >= 1) {
       playSoundEffect("/sfx/short/goodcode.mp3");
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { solid: 0 };

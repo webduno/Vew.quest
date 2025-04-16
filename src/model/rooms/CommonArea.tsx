@@ -45,7 +45,7 @@ export const CommonArea = () => {
           updateExploredStatus('common_area', true);
           if (!mindStats.cash) {
             playSoundEffect('/sfx/tutorials/nomoney.ogg');
-            showSnackbar('No money! Callibrate your mind first', 'info', 5000);
+            showSnackbar('No money! continue your training', 'info', 6000);
           }
         }}
         position={[0,1.5,12]} size={[5,3,1.5]} 

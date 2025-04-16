@@ -13,7 +13,7 @@ import { BCDoorPortals } from '../../doorwalls/BCDoorPortals';
 import { MainHallway } from '../../rooms/MainHallway';
 import { CommonArea } from '../../rooms/CommonArea';
 import { ESPLobby } from '../../rooms/ESPLobby';
-import { PsionicZone } from '../../rooms/PsionicZone';
+import { PsionicHallway } from '../../rooms/PsionicHallway';
 import { PortalRoom } from '../../rooms/PortalRoom';
 
 import { BewPortal } from '../../portal/BewPortal';
@@ -26,7 +26,9 @@ export const BewMainScene = ({ setPlayerPosition,
   wasFirstDoorOpened,
   onFirstDoorOpened,
   isTakingRequest,
-  setIsTakingRequest
+  setIsTakingRequest,
+  wasPsionicHallwayEntered,
+  setWasPsionicHallwayEntered
 }: {
   setPlayerPosition: (position: [number, number, number]) => void, 
   code1?: string, 
@@ -35,7 +37,9 @@ export const BewMainScene = ({ setPlayerPosition,
   wasFirstDoorOpened: boolean,
   onFirstDoorOpened: () => void,
   isTakingRequest: string | null,
-  setIsTakingRequest: (value: string | null) => void
+  setIsTakingRequest: (value: string | null) => void,
+  wasPsionicHallwayEntered: boolean,
+  setWasPsionicHallwayEntered: (value: boolean) => void
 }) => {
 
   const {
@@ -132,7 +136,7 @@ export const BewMainScene = ({ setPlayerPosition,
       </>}
 
       {wasFirstDoorOpened && <>
-        <PsionicZone />
+        <PsionicHallway wasPsionicHallwayEntered={wasPsionicHallwayEntered} setWasPsionicHallwayEntered={setWasPsionicHallwayEntered} />
         <ESPLobby setPlayerPosition={setPlayerPosition} isTakingRequest={isTakingRequest} setIsTakingRequest={setIsTakingRequest} />  
       </>}
 
