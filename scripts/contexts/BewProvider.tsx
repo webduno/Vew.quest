@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useRef } from 'react';
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
 import { HardBadge } from './HardBadge';
 import { HandbookPage } from './HandbookPage';
@@ -43,21 +43,30 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<SnackbarSeverity>('info');
   const { playSoundEffect: playBackgroundSoundEffect } = useBackgroundMusic();
+  const autoCloseTimeoutRef = useRef<NodeJS.Timeout>();
 
   const showSnackbar = (message: string, severity: SnackbarSeverity, autoClose?: number) => {
+    // Clear any existing timeout
+    if (autoCloseTimeoutRef.current) {
+      clearTimeout(autoCloseTimeoutRef.current);
+    }
+
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setIsSnackbarOpen(true);
+    
     if (autoClose) {
-      setTimeout(() => {
+      autoCloseTimeoutRef.current = setTimeout(() => {
         closeSnackbar();
       }, autoClose);
     }
   };
 
-
   const closeSnackbar = () => {
     setIsSnackbarOpen(false);
+    if (autoCloseTimeoutRef.current) {
+      clearTimeout(autoCloseTimeoutRef.current);
+    }
   };
 
   // Wrapper function to play sound effects
