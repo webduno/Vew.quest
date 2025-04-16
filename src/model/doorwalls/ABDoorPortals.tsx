@@ -134,7 +134,8 @@ const openDoorProcess = () => {
 {/* actual opened door */}
 {!doorVisible && (
   <>
-    <PhysicalWall color="#ffddaa"
+    <PhysicalWall
+    color="#ffddaa"
         castShadow={false}
         visible={true}
         size={[.2, 3.2, 1.6]}
@@ -153,6 +154,12 @@ const openDoorProcess = () => {
 {doorVisible && (
   <>
     <PhysicalWall color="#ffddaa"
+    onClick={()=>{
+      showSnackbar("Find key, and get close to the door", "handbook")
+      setTimeout(() => {
+        closeSnackbar();
+      }, 4000);
+    }}
         castShadow={false}
         visible={true}
         size={[.2, 4, 2]}

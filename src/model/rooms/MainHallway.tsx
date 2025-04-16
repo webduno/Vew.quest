@@ -8,7 +8,7 @@ export const MainHallway = () => {
   const { LS_hasFirstKey, LS_lowGraphics } = useVibeverse()
   return (<>
 
-<RoomBRightDoor />
+<OutOfServiceDoor />
 {/* <RoomBLeftDoor /> */}
 
 
@@ -142,7 +142,7 @@ const RoomBLeftDoor = () => {
 }
 
 
-const RoomBRightDoor = () => {
+const OutOfServiceDoor = () => {
   return (<>
   <Text fontSize={0.25} color="#343434"  font="/fonts/consolas.ttf"
   anchorX="center" anchorY="middle" textAlign="center"
