@@ -37,7 +37,7 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
             if (isEverythingLoading) return;
 
             if (!localStorage.getItem("VB_ALREADY_PLAYED")) {
-              playSoundEffect("/sfx/tutorials/gameintro1.ogg")
+              playSoundEffect("/sfx/tutorials/gameintro2.ogg")
               setTimeout(() => {
                 
                 togglePlay();

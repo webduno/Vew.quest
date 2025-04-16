@@ -17,7 +17,7 @@ const random10CharString = () => {
 
   const router = useRouter()
   const triggerNewGame = () => {
-    localStorage.removeItem('VB_HAS_FIRST_KEY')
+    localStorage.clear()
 
     setGameLoading(true)
 

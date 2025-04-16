@@ -53,7 +53,7 @@ export const ABDoorPortals = ({
             return;
           }
           setHasFirstKey(true);
-          showSnackbar("Great job! You've found the key", 'info', 4000);
+          showSnackbar("Great job! You have found the key", 'info', 4500);
           playSoundEffect("/sfx/keys.mp3")
           // Directly update the ref for immediate access
           hasKeyRef.current = true;
@@ -65,7 +65,12 @@ export const ABDoorPortals = ({
 
 
     {!hasFirstKey &&
-      <group position={[-6.5, 0, 3]} rotation={[0, .3, 0]}>
+      <group position={[-6.5, 0, 3]} rotation={[0, .3, 0]}
+        onClick={() => {
+          playSoundEffect("/sfx/short/passbip.mp3")
+          showSnackbar("Stand over the key to grab it", 'handbook', 4000);
+        }}
+      >
         <RegularKey />
       </group>}
       {/* front bevel */}
@@ -148,6 +153,7 @@ export const ABDoorPortals = ({
             if (openedFirstDoor) {
               return;
             }
+            playSoundEffect("/sfx/short/passbip.mp3")
             const tutorialMessage = hasFirstKey ? "Approach the wooden door" : "Find key, and approach the door"
             showSnackbar(tutorialMessage, "handbook", 4000)
           }}

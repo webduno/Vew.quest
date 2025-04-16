@@ -49,7 +49,7 @@ export const PortalRoom = () => {
     </Box>
     <Text fontSize={0.14} color="#1d1d1d"  font="/fonts/wallpoet.ttf"
       anchorX="left" anchorY="middle" textAlign="left"
-      position={[-8.4,2.75,-4.44]} rotation={[0,0,0]}
+      position={[-8.4,2.65,-4.44]} rotation={[0,0,0]}
     >
       {`PORTAL ROOM`}
     </Text>
