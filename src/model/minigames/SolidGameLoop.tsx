@@ -54,12 +54,13 @@ class GameTimer {
   private currentRound: number;
   private readonly roundDuration: number;
   private readonly maxRounds: number;
-
-  constructor(roundDuration: number, maxRounds: number) {
+  private onRound: (roundNumber: number) => void;
+  constructor(roundDuration: number, maxRounds: number, onRound: (roundNumber: number) => void) {
     this.startTime = Date.now();
     this.currentRound = 1;
     this.roundDuration = roundDuration;
     this.maxRounds = maxRounds;
+    this.onRound = onRound;
   }
 
   update() {
@@ -85,19 +86,21 @@ export const SolidGameLoop = ({
   onGameEnd,
   onCheckPrimitives,
   points,
-  misses
+  misses,
+  onRound
 }: {
   hardMode: boolean;
   onGameEnd: () => void;
   onCheckPrimitives: (isMoreBoxes: boolean, currentPrimitives: { type: 'box' | 'sphere', count: number }[], currentPrimitivesAnswered: boolean) => boolean;
   points: number;
   misses: number;
+  onRound: (roundNumber: number) => void;
 }) => {
   const [currentRound, setCurrentRound] = useState(1);
   const [currentPrimitives, setCurrentPrimitives] = useState(PrimitivesGenerator.generate());
   const [isAnswered, setIsAnswered] = useState(false);
   
-  const gameTimerRef = useRef<GameTimer>(new GameTimer(3000, 5));
+  const gameTimerRef = useRef<GameTimer>(new GameTimer(3000, 5, () => onRound(currentRound)));
   const animationFrameRef = useRef<number>();
   const isGameOverRef = useRef(false);
 
@@ -107,6 +110,7 @@ export const SolidGameLoop = ({
     const { currentRound: newRound, isNewRound, isGameOver } = gameTimerRef.current.update();
 
     if (isNewRound) {
+      onRound(newRound);
       if (!isAnswered) {
         onCheckPrimitives(false, currentPrimitives, false);
       }

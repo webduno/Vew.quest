@@ -26,6 +26,7 @@ export const SolidCallibrationArcade = ({
   const [misses, setMisses] = useState<number>(0);
 
   const handleStart = () => {
+    playSoundEffect("/sfx/short/passbip.mp3");
     startSolidCalibration();
     setPoints(0);
     setMisses(0);
@@ -34,7 +35,7 @@ export const SolidCallibrationArcade = ({
   const checkPrimitives = (isMoreBoxes: boolean, currentPrimitives: { type: 'box' | 'sphere', count: number }[], currentPrimitivesAnswered: boolean) => {
     if (!currentPrimitivesAnswered) {
       setMisses(prev => prev + 1);
-      playSoundEffect("/sfx/short/passbip.mp3");
+      playSoundEffect("/sfx/short/badbip.wav");
       return false;
     }
     if (!solidCalibrationStarted) return false;
@@ -56,6 +57,8 @@ export const SolidCallibrationArcade = ({
     setSolidCalibrationStarted(false);
     if (points >= 1) {
       playSoundEffect("/sfx/short/goodcode.mp3");
+      showSnackbar(points+" callibration point(s) added", 'success', 3000);
+
       const savedStats = localStorage.getItem('VB_MINDSTATS');
       const currentStats = savedStats ? JSON.parse(savedStats) : { solid: 0 };
       updateMindStats('solid', currentStats.solid + points);
@@ -172,6 +175,14 @@ export const SolidCallibrationArcade = ({
         onCheckPrimitives={checkPrimitives}
         points={points}
         misses={misses}
+        onRound={
+          (roundNumber) => {
+            console.log("roundNumber", roundNumber);
+            setTimeout(() => {
+              playSoundEffect("/sfx/short/passbip.mp3");
+            }, 100);
+          }
+        }
       />
     )}
   </>);
