@@ -3,8 +3,12 @@ import { Box, Cylinder, Torus, Text } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useState, useEffect } from 'react';
 import { VendingMachine } from './VendingMachine';
-
+import { CollisionBox } from '../core/CollisionBox';
+import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
+import { useBew } from '../../../scripts/contexts/BewProvider';
 export const CommonArea = () => {
+  const { showSnackbar, playSoundEffect } = useBew();
+  const { mindStats, updateExploredStatus, hasExploredZone } = useVibeverse();
   const [colorCallibration, setColorCallibration] = useState(0)
   const [callibrationAvailable, setCallibrationAvailable] = useState(false)
   const [isCallibrated, setIsCallibrated] = useState(false);
@@ -33,13 +37,20 @@ export const CommonArea = () => {
 
   return (<>
 
+    <VendingMachine />
 
-<VendingMachine />
-{/* inside */}
-{/* <Box position={[1.94,1.6,12]} args={[1,1.5,1.5]}>
-  <meshStandardMaterial side={1} color={"#ffffff"} 
-  emissive={"#444444"}/>
-</Box> */}
+    {!hasExploredZone('common_area') && (
+      <CollisionBox 
+        onCollide={() => {
+          updateExploredStatus('common_area', true);
+          if (!mindStats.cash) {
+            playSoundEffect('/sfx/tutorials/nomoney.ogg');
+            showSnackbar('No money! Callibrate your mind first', 'info', 5000);
+          }
+        }}
+        position={[0,1.5,12]} size={[5,3,1.5]} 
+      />
+    )}
 
 
 
@@ -101,7 +112,7 @@ scale={[1,1,4]}
 
 
 
-      {/* <PhysicalTrigger  size={[1, 3, .5]} visible={false}
+      {/* <CollisionBox  size={[1, 3, .5]} visible={false}
       triggerCount={1}
         onCollide={() => {
           setTimeout(() => {
@@ -113,10 +124,26 @@ scale={[1,1,4]}
         }}
           position={[-2.4, 1.5, 8.25]} rotation={[0, Math.PI / 2, 0]} 
         /> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       {!!callibrationAvailable && <>
       
-        <SolidBox position={[-2.75, 1.5, 7.25]} 
-        size={[1.5, 3, 0.25]} color="#dddddd"
+        <SolidBox position={[-2.75, 1.5, 7.25]} castShadow={false}
+        size={[1.5, 3, 0.25]} color="#ffddaa"
           rotation={[0, Math.PI / 2, 0]} 
         />
         <group position={[-3, 1.5, 8.25]} rotation={[0, 0, 0]}>
@@ -129,8 +156,11 @@ scale={[1,1,4]}
   
         </group>
       </>}
+
+
+
         {!callibrationAvailable && <>
-<Text font="/fonts/consolas.ttf" fontSize={0.15} color="#666666" 
+<Text font="/fonts/consolas.ttf" fontSize={0.15} color="#222222" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-2.62,2.25,8.25]} rotation={[0,Math.PI/2,0]}
 >
@@ -138,17 +168,20 @@ position={[-2.62,2.25,8.25]} rotation={[0,Math.PI/2,0]}
 TO OPEN`}
 </Text>
 
-        <SolidBox position={[-3, 1.5, 8.25]} size={[1.5, 3, 0.75]} color="#dddddd"
+        <SolidBox position={[-2.75, 1.5, 8.25]} castShadow={false}
+        size={[1.5, 3, 0.25]} color="#ffddaa"
           rotation={[0, Math.PI / 2, 0]} 
         />
-      <group position={[-3, 1.5, 8.25]} rotation={[0, 0, 0]}>
+      <group position={[-2.75, 1.5, 8.25]} rotation={[0, 0, 0]}>
         {/* real door */}
         {/* doorknob */}
-        <Box position={[0, 0, .5]} args={[1, .8, .15]} castShadow
+        <Box position={[0, 0, .5]} args={[.4, .8, .15]} castShadow
         onClick={(e) => {
           e.stopPropagation();
           setCallibrationAvailable(true)
+          playSoundEffect('/sfx/short/ddoor.mp3');
           setTimeout(() => {
+
             setCallibrationAvailable(false)
           }, 2000)
         }}
@@ -171,13 +204,41 @@ TO OPEN`}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {!isCallibrated && <>
   <Text font="/fonts/consolas.ttf" fontSize={0.15} color="#666666" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[2.62,2.25,8.25]} rotation={[0,-Math.PI/2,0]}
 >
 {`
-LEVEL 3 SYNCED
+CALLIBRATED
 AGENTS ONLY
 `}
 </Text>

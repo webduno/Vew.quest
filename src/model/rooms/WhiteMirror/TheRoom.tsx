@@ -1,6 +1,6 @@
 'use client';
 import { SolidBox } from '../../core/SolidBox';
-import { PhysicalTrigger } from '../../core/PhysicalTrigger';
+import { CollisionBox } from '../../core/CollisionBox';
 import { TheChair } from './TheChair';
 import { TheTable } from './TheTable';
 
@@ -29,8 +29,8 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
         <TheChair />
       </group>
 </group>
-<PhysicalTrigger color="#ffeeee"
-        visible={false}
+<CollisionBox color="#ffeeee"
+        
         size={[1, 1.5, 1]}
         position={[2.3, .75, -21.25]} 
         onCollide={onChairSit}
@@ -47,7 +47,7 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
 
 
 
-<PhysicalTrigger color="#ffeeee" visible={false}
+<CollisionBox color="#ffeeee" 
         triggerCount={1}
         size={[6, 1.5, 1]}
         // position={[0, .75, -4]} 

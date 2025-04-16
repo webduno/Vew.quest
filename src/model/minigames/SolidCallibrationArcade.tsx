@@ -3,7 +3,7 @@ import { Box, Text, Sphere } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
 import { useBew } from '../../../scripts/contexts/BewProvider';
-import { PhysicalTrigger } from '../core/PhysicalTrigger';
+import { CollisionBox } from '../core/CollisionBox';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
 import { SolidGameLoop } from '@/model/minigames/SolidGameLoop';
@@ -66,7 +66,7 @@ export const SolidCallibrationArcade = ({
 
   return (<>
     {!hasCompletedTutorial('solid') && (
-      <PhysicalTrigger  visible={false}
+      <CollisionBox  
         color="#ff0000"
         triggerCount={1}
         size={[.8, 2, 1]}

@@ -13,8 +13,10 @@ export const PortalRoom = () => {
 
 
     {/* main locked door */}
-    <group position={[-9.94,1.5,-3]} onClick={handleLockedDoor}>
-      <Box args={[1,3,2]} ><meshStandardMaterial color="#dddddd" /></Box>
+    <group position={[-9.94,1.5,-3]} >
+      <Box args={[1,3,2]} onClick={handleLockedDoor}>
+        <meshStandardMaterial color="#dddddd" />
+      </Box>
       {/* door frame */}
       <Box args={[1.1,3,0.15]} position={[0,0,1]}>
         <meshStandardMaterial color="#d7d7d7" />

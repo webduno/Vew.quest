@@ -3,7 +3,7 @@ import { Box, Plane, Text } from '@react-three/drei';
 import { CardboardBox } from '../bits/CardboardBox';
 import { StyledWall } from '../core/StyledWall';
 import { SolidBox } from '../core/SolidBox';
-import { PhysicalTrigger } from '../core/PhysicalTrigger';
+import { CollisionBox } from '../core/CollisionBox';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
 
@@ -46,7 +46,7 @@ mcmonagle.pdf
 </Text>
 
 {!hasExploredZone('psionic_asset_zone') &&  (
-<PhysicalTrigger visible={false}
+<CollisionBox 
  position={[7, 2, -5]} size={[3,4,1.1]}
  onCollide={() => {
   updateExploredStatus('psionic_asset_zone', true);
@@ -56,7 +56,7 @@ mcmonagle.pdf
   }, 4000);
 }}
 >
-</PhysicalTrigger>
+</CollisionBox>
 )}
 
   
@@ -115,7 +115,7 @@ rotation={[0,Math.PI/2,0.05]} fontSize={.15} font={"/fonts/beanie.ttf"}
 </Text>
 
 
-<PhysicalTrigger triggerCount={1}  color="#ff9900" visible={false}
+<CollisionBox triggerCount={1}  color="#ff9900" 
 onCollide={() => {
   playSoundEffect("/sfx/trapped.mp3")
 }}

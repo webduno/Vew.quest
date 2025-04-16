@@ -12,7 +12,7 @@ export const HandbookPage = ({ children }: { children: ReactNode; }) => {
         background: "linear-gradient(45deg, #dcd7c1, #bFb7aD)",
       }}
     >
-      <div className='tx-altfont-5 pb-2 underline pl-2 tx-xs'>TUTORIAL</div>
+      <div className='tx-altfont-5 pb-2 underline pl-2 tx-xs'>HINT</div>
       {children}
     </div>
   );

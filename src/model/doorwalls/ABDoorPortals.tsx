@@ -2,7 +2,7 @@
 import { Box } from '@react-three/drei';
 import { useState, useEffect, useRef } from 'react';
 
-import { PhysicalTrigger } from '@/model/core/PhysicalTrigger';
+import { CollisionBox } from '@/model/core/CollisionBox';
 import { SolidBox } from '@/model/core/SolidBox';
 import { StyledWall } from '@/model/core/StyledWall';
 import { RegularKey } from '@/model/bits/RegularKey';
@@ -47,13 +47,13 @@ export const ABDoorPortals = ({
   return (<>
     {/* FIRST KEY TRIGGER */}
     {!hasFirstKey && 
-      <PhysicalTrigger triggerCount={1} visible={false}
+      <CollisionBox triggerCount={1} visible={false}
         onCollide={(e) => {
           if (hasKeyRef.current) {
             return;
           }
           setHasFirstKey(true);
-          showSnackbar("Great job! You have found the key", 'info', 4500);
+          showSnackbar("Great job! You've recieved a key", 'info', 4500);
           playSoundEffect("/sfx/keys.mp3")
           // Directly update the ref for immediate access
           hasKeyRef.current = true;
@@ -97,7 +97,7 @@ export const ABDoorPortals = ({
 
 
     {hasKeyRef.current && <>
-      <PhysicalTrigger visible={false} triggerCount={999}
+      <CollisionBox triggerCount={999}
         onCollide={(e) => {
           // Use the ref value instead of the prop to get the latest state
           const currentHasKey = hasKeyRef.current;

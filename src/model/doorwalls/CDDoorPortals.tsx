@@ -1,6 +1,6 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { PhysicalTrigger } from '../core/PhysicalTrigger';
+import { CollisionBox } from '../core/CollisionBox';
 import { SolidBox } from '../core/SolidBox';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
@@ -34,8 +34,7 @@ fontSize={0.2}
 {/* Trigger for code input */}
 {
 !code1 && (<>
-<PhysicalTrigger 
-  visible={false}
+<CollisionBox 
   size={[.5, 1, 0.2]}
   position={[-1.7, 1.75, -14.5]} 
   rotation={[0, 0, 0]}
@@ -97,8 +96,7 @@ fontSize={0.2}
 
 {/* Trigger for code input */}
 {!!code1 && (<>
-<PhysicalTrigger 
-  visible={false}
+<CollisionBox 
   size={[.5, 1, 0.2]}
   position={[1.7, 1.75, -14.5]} 
   rotation={[0, 0, 0]}

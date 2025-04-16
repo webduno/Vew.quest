@@ -36,6 +36,12 @@ position={[-2.49,2.5,2.2]} rotation={[0,Math.PI/2,0]} font="/fonts/consolas.ttf"
 {`
   1. Find the key 
   1.1. Open wooden door
+
+  2. Callibrate your mind
+
+  3. ???
+  3.1. Profit
+
 `}
 </Text>
 </>}
@@ -48,7 +54,7 @@ position={[-2.49,2.5,2.2]} rotation={[0,Math.PI/2,0]} font="/fonts/consolas.ttf"
 {`
   1. Find the key ✔
   1.1. Open wooden door
- 2. Callibrate your mind
+  2. Callibrate your mind
     2.1. Go to Psionic Zone
   3. Enter the codes
 `}

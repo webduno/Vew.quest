@@ -12,6 +12,7 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
 }) {
   const { isPlaying, togglePlay, playSoundEffect } = useBackgroundMusic();
   const [show, setShow] = useState(true);
+  const [firstIntroText, setFirstIntroText] = useState("");
   const searchParams = useSearchParams()
 
   useEffect(() => {
@@ -38,12 +39,13 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
 
             if (!localStorage.getItem("VB_ALREADY_PLAYED")) {
               playSoundEffect("/sfx/tutorials/gameintro2.ogg")
+              setFirstIntroText("Welcome to WebBew Labs!")
               setTimeout(() => {
                 
                 togglePlay();
                 setShow(false);
                 disableFirstTime();
-              }, 1000)
+              }, 4000)
               return
             }
             togglePlay();
@@ -80,29 +82,41 @@ export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoadi
               <div className='block tx-xl px-4 py-2 tx-center flex-col'
               
               >
-                {isEverythingLoading ? (
-                  <>
-                    <div>LOADING</div>
-                    <div>PLEASE</div>
-                    <div>WAIT</div>
-                  </>
-                ) : (
-                  <>
-                  <div>CLICK</div>
-                  <div>ANYWHERE</div>
-                  <div>TO START</div>
-                  {isMobile() ? (
-                    <>
-                      </>
-                  ) : (
-                    <div className='flex-row gap-2 tx-sm pt-2'>
-                      <div>AND USE</div>
-                      <div>W, A, S, D</div>
-                      <div>TO MOVE</div>
+                {!!firstIntroText && !isEverythingLoading && (<>
+                  <div className='w-250px'>
+                    <div className='tx-xl pb-4'>{firstIntroText}</div>
+                    <div className='flex-row gap-2 tx-md'>
+                      <div>Psychic</div>
+                      <div>Training</div>
+                      <div>Program</div>
                     </div>
+                  </div>
+                </>)}
+                {!firstIntroText && (<>
+                  {isEverythingLoading ? (
+                    <>
+                      <div>LOADING</div>
+                      <div>PLEASE</div>
+                      <div>WAIT</div>
+                    </>
+                  ) : (
+                    <>
+                    <div>CLICK</div>
+                    <div>ANYWHERE</div>
+                    <div>TO START</div>
+                    {isMobile() ? (
+                      <>
+                        </>
+                    ) : (
+                      <div className='flex-row gap-2 tx-sm pt-2'>
+                        <div>AND USE</div>
+                        <div>W, A, S, D</div>
+                        <div>TO MOVE</div>
+                      </div>
+                    )}
+                    </>
                   )}
-                  </>
-                )}
+                  </>)}
               </div>
             </div>
           </div>

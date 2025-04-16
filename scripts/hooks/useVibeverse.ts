@@ -224,6 +224,12 @@ export function useVibeverse() {
     const handleStorageChange = (e: MessageEvent) => {
       if (e.data === 'localStorageChanged') {
         updateMindStatsFromStorage();
+        
+        // Also check and update hasFirstKey
+        const hasFirstKey: string | null = localStorageProxy.VB_HAS_FIRST_KEY;
+        if (hasFirstKey !== null) {
+          setLS_hasFirstKey(hasFirstKey === '1');
+        }
       }
     };
 

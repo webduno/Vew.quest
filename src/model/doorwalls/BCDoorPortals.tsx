@@ -1,6 +1,6 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { PhysicalTrigger } from '../core/PhysicalTrigger';
+import { CollisionBox } from '../core/CollisionBox';
 import { SolidBox } from '../core/SolidBox';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 
@@ -15,7 +15,7 @@ export const BCDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (posit
 
   
 
-<PhysicalTrigger visible={false} triggerCount={999}
+<CollisionBox triggerCount={999}
       onCollide={(e) => {
         setPlayerPosition([0, 0, -3.8]);
       }}
@@ -44,9 +44,9 @@ fontSize={0.3} font={"/fonts/beanie.ttf"}
 
 
       {/* main frontal door */}
-      <group position={[0, 0, 0]} rotation={[0, 0, 0]} onClick={handleLockedDoor}>
+      <group position={[0, 0, 0]} rotation={[0, 0, 0]} >
       <SolidBox color="#cccccc" castShadow={false}
-      onClick={()=>{}}
+      onClick={handleLockedDoor}
         size={[.2, 4, 2]}
         position={[0, 2, -5]} rotation={[0, -Math.PI / 2, 0]} />
       {/* doorknob */}

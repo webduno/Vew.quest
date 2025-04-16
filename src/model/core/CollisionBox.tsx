@@ -6,9 +6,9 @@ import { Mesh, MeshStandardMaterial } from 'three';
 // Create shared materials to reduce draw calls
 const defaultTriggerMaterial = new MeshStandardMaterial({ color: "lightgrey" });
 
-export const PhysicalTrigger = ({
+export const CollisionBox = ({
     triggerCount = 1,
-  visible = true,
+  visible = false,
   position = [0, 0, -0] as [number, number, number],
   rotation = [0, 0, 0] as [number, number, number],
   size = [100, 100, 2] as [number, number, number],
@@ -55,7 +55,7 @@ export const PhysicalTrigger = ({
   return (
     <mesh ref={ref as React.Ref<Mesh>} receiveShadow>
       <boxGeometry args={boxSize} />
-      <primitive object={material} />
+      {/* <primitive object={material} /> */}
     </mesh>
   );
 };
