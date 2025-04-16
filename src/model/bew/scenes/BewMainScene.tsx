@@ -48,10 +48,7 @@ export const BewMainScene = ({ setPlayerPosition,
   } =  useVibeverse()
   const vb_ref = useSearchParams().get("ref")
   // const { hasExploredZone } = useVibeverse();
-  const [firstDoorVisible, setFirstDoorVisible] = useState(true);
-  const handle_setFirstDoorVisible = (value: boolean) => {
-    setFirstDoorVisible(value);
-  }
+  
   // Memoize the handler with useCallback to prevent recreation
   const handleKeyCollection = useCallback((value: boolean) => {
     setHasFirstKey(value);
@@ -131,8 +128,9 @@ export const BewMainScene = ({ setPlayerPosition,
 
       <ABDoorPortals setPlayerPosition={setPlayerPosition} 
         hasFirstKey={LS_hasFirstKey} setHasFirstKey={handleKeyCollection}
-        doorVisible={firstDoorVisible} setDoorVisible={handle_setFirstDoorVisible}
-        onFirstDoorOpened={onFirstDoorOpened} />
+        onFirstDoorOpened={onFirstDoorOpened}
+        openedFirstDoor={wasFirstDoorOpened}
+      />
 
       <BCDoorPortals setPlayerPosition={setPlayerPosition} />
       
