@@ -110,7 +110,7 @@ rotation={[0,Math.PI/2,0.05]} fontSize={.25} font={"/fonts/beanie.ttf"}
 >
 {`
    - Block Analytical Overlay 
-SOLID MIND CALLIBRATION (2 required)
+SOLID CALLIBRATION (2 required)
      ________┌-      remember -->
 `}
 </Text>

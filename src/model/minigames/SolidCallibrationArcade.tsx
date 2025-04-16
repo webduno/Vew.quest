@@ -73,7 +73,8 @@ export const SolidCallibrationArcade = ({
         position={[-11, 1, 13.5]}
         onCollide={() => {
           updateTutorialStatus('solid', true);
-          showSnackbar("Click 'MORE' or 'LESS', if there are more boxes than spheres", 'handbook');
+          playSoundEffect("/sfx/tutorials/solidtuto.ogg");
+          showSnackbar("Click 'LESS' or 'FULL', if there are more spheres or boxes", 'handbook');
           setTimeout(() => {
             closeSnackbar();
           }, 9000);
@@ -120,7 +121,7 @@ export const SolidCallibrationArcade = ({
         position={[-11.2, 1.5, 13.839]}
         rotation={[0, Math.PI, 0]}
       >
-        {`more`}
+        {`full`}
       </Text>
       <Text
         font="/fonts/wallpoet.ttf"
@@ -142,13 +143,9 @@ export const SolidCallibrationArcade = ({
       >
         <meshStandardMaterial color="#ffffff" emissive="#333333" />
       </Box>
-      <Box
-        position={[-10.8, 1.3, 13.82]}
-        rotation={[0, 0, 0]}
-        args={[.2, .2, .05]}
-      >
-        <meshStandardMaterial color="#dddddd" />
-      </Box>
+      <Sphere args={[.12, 16, 16]} position={[-10.8, 1.3, 13.82]}>
+        <meshStandardMaterial color="#ffffff" />
+      </Sphere>
     {/* arcade screen background */}
     <Box position={[-11, 1.3, 13.89]} rotation={[0, 0, 0]} args={[.8, .5, .1]}>
       <meshStandardMaterial color="#ffffff" emissive="#101010" />

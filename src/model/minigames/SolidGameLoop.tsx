@@ -148,7 +148,7 @@ export const SolidGameLoop = ({
         intensity={1}
         color="#ffffff"
       />
-      <group position={[-8, 1.49, 9]}>
+      <group position={[-8, 2, 9]}>
         {currentPrimitives.map((primitive, index) => {
           const angle = (index / currentPrimitives.length) * Math.PI * 2;
           const radius = 1;
@@ -161,7 +161,7 @@ export const SolidGameLoop = ({
                 key={`box-${index}`}
                 position={[x, primitive.y, z]}
                 rotation={primitive.rotation}
-                args={[0.3, 0.3, 0.3]}
+                args={[0.5, 0.5, 0.5]}
               >
                 <meshStandardMaterial color="#ffffff" />
               </Box>
@@ -172,9 +172,9 @@ export const SolidGameLoop = ({
                 key={`sphere-${index}`}
                 position={[x, primitive.y, z]}
                 rotation={primitive.rotation}
-                args={[0.15, 16, 16]}
+                args={[0.3, 16, 16]}
               >
-                <meshStandardMaterial color="#ffffff" />
+                <meshStandardMaterial color="#ffffff" transparent opacity={0.5} />
               </Sphere>
             );
           }
@@ -213,14 +213,11 @@ export const SolidGameLoop = ({
       >
         <meshStandardMaterial color="#ffffff" emissive="#333333" />
       </Box>
-      <Box
-        position={[-10.8, 1.3, 13.82]}
-        rotation={[0, 0, 0]}
-        args={[.3, .3, .1]}
+      <Sphere args={[.15, 16, 16]} position={[-10.8, 1.3, 13.82]}
         onClick={() => handleAnswer(false)}
-      >
+        >
         <meshStandardMaterial color="#dddddd" />
-      </Box>
+      </Sphere>
     </>
   );
 }; 
