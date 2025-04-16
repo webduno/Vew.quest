@@ -578,7 +578,7 @@ setIsTakingRequest(null);
           <TheWhiteMirror whiteRoomTarget={whiteRoomTarget}
            setShowAnalogModal={setShowAnalogModal} />
           )}
-          {code1 && code2 && (<>
+          {!!code1 && !!code2 && (<>
           <TheRoom
           showWhiteMirror={showWhiteMirror}
           setShowWhiteMirror={setShowWhiteMirror}

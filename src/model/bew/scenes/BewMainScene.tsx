@@ -58,71 +58,55 @@ export const BewMainScene = ({ setPlayerPosition,
     <group position={[0, 0, 0]}>
 
 
-{(!!vb_ref || hasExploredZone('psionic_asset_zone')) && <>
-<group position={[4.6, 2, 4.25]} rotation={[0,0,0]}>
-  <Text fontSize={0.1} color="#404040" position={[0.1,-.2,0.249]}
-  font="/fonts/beanie.ttf"
-  rotation={[0,Math.PI,0]}
-  >
+    {(!!vb_ref || !!hasExploredZone('psionic_asset_zone')) && <>
+      <group position={[4.6, 2, 4.25]} rotation={[0,0,0]}>
+        <Text fontSize={0.1} color="#404040" position={[0.1,-.2,0.249]}
+        font="/fonts/beanie.ttf"
+        rotation={[0,Math.PI,0]}
+        >
     {`gobekli tepe/solon
 
   +++Cydonia Valleys
 
 40.75° North
 350.54° East`}
-  </Text>
-  <ZuckHead />
-</group>
-</>}
+        </Text>
+        <ZuckHead />
+      </group>
+    </>}
 
-    {/* BACK PORTAL */}
-    {!!vb_ref && <><BewPortal fontSize={0.5}
-    position={[2.4,0,1.5]}
-    rotation={[0,-Math.PI/2,0]}
-    title={vb_ref.split("/").pop()}
-    url={formatPortalUrl(vb_ref)}
-    portalRadius={2}
-    textColor="#777777"
-    portalMaterial={<meshStandardMaterial color="#ffaaaa" />}
-    />
-    
-    {/* VIBEVERSE PORTAL */}
-    <Cylinder args={[3, 2, .9, 12, Math.PI]} 
-    position={[-3.5,0,1.9]} rotation={[0,0,-Math.PI/2]}>
-      <meshStandardMaterial color="#ffffff" />
-    </Cylinder>
-    <BewPortal fontSize={0.5}
-    position={[-4,0,1.9]}
-    rotation={[0,-Math.PI/2,0]}
-    title="portal.pieter.com"
-    url={formatPortalUrl("https://portal.pieter.com/")}
-    portalRadius={2}
-    textColor="#333333"
+    {!!vb_ref && <>
+      {/* BACK PORTAL */}
+      <BewPortal fontSize={0.5}
+        position={[2.4,0,1.5]}
+        rotation={[0,-Math.PI/2,0]}
+        title={vb_ref.split("/").pop()}
+        url={formatPortalUrl(vb_ref)}
+        portalRadius={2}
+        textColor="#777777"
+        portalMaterial={<meshStandardMaterial color="#ffaaaa" />}
+      />
+      {/* VIBEVERSE PORTAL */}
+      <Cylinder args={[3, 2, .9, 12, Math.PI]} 
+        position={[-3.5,0,1.9]} rotation={[0,0,-Math.PI/2]}
+      >
+        <meshStandardMaterial color="#ffffff" />
+      </Cylinder>
+      <BewPortal fontSize={0.5}
+        position={[-4,0,1.9]}
+        rotation={[0,-Math.PI/2,0]}
+        title="portal.pieter.com"
+        url={formatPortalUrl("https://portal.pieter.com/")}
+        portalRadius={2}
+        textColor="#333333"
 
-    portalMaterial={<meshStandardMaterial color="#eeffcc" />}
-    />
+        portalMaterial={<meshStandardMaterial color="#eeffcc" />}
+      />
     </>}
 
 
 
-
-
-      {wasFirstDoorOpened && <>
-        <CallibrationSpaces />
-      
-        <CommonArea />
-        </>}
-
-      <MainHallway />
-      
-      
-
-
-
-      {wasFirstDoorOpened && <>
-        <PsionicZone />
-        <ESPLobby setPlayerPosition={setPlayerPosition} isTakingRequest={isTakingRequest} setIsTakingRequest={setIsTakingRequest} />  
-      </>}
+    <MainHallway />
 
       <PortalRoom />
 
@@ -141,6 +125,18 @@ export const BewMainScene = ({ setPlayerPosition,
 
 
 
+      {wasFirstDoorOpened && <>
+        <CallibrationSpaces />
+      
+        <CommonArea />
+      </>}
+
+      {wasFirstDoorOpened && <>
+        <PsionicZone />
+        <ESPLobby setPlayerPosition={setPlayerPosition} isTakingRequest={isTakingRequest} setIsTakingRequest={setIsTakingRequest} />  
+      </>}
+
+
 
 
 
@@ -149,7 +145,8 @@ export const BewMainScene = ({ setPlayerPosition,
       <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
         {/* left bevel */}
         <SolidBox  size={[30.5, 1, 1.2]} color="#f7f7f7"
-        position={[-3, 3.5, 0]} rotation={[0, Math.PI / 2, 0]} />
+          position={[-3, 3.5, 0]} rotation={[0, Math.PI / 2, 0]} 
+        />
         {/* right bevel */}
         <SolidBox 
           size={[30.5, 1, 1.2]} color="#f7f7f7"
