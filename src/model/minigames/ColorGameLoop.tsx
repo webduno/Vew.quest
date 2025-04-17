@@ -115,8 +115,8 @@ export const ColorGameLoop = ({
     {!hardMode && 
       <pointLight
         position={[-8, 1.49, 9]}
-        distance={10}
-        intensity={2}
+        distance={12}
+        intensity={3}
         color={currentColor}
       />
     }

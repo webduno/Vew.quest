@@ -666,7 +666,7 @@ setIsTakingRequest(null);
         <meshStandardMaterial color="#ffffff" />
       </Box>
       */}
-      <PhysicalCeiling /> 
+      <PhysicalCeiling lowGraphics={LS_lowGraphics} /> 
 
 
 

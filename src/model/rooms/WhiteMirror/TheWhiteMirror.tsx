@@ -51,8 +51,9 @@ export const TheWhiteMirror = ({
         <meshStandardMaterial color="#ffffff" emissive="#443300"
         />
       </Cylinder>
-      <pointLight intensity={5} color="#ffffff" 
-        position={[1.5, 1.1, -3]} />
+      <pointLight intensity={10} color="#ffffff" castShadow
+      distance={12}
+        position={[0, 1.1, -3]} />
       {/* <Sphere args={[.7, 32, 32]} ref={orbRef2} castShadow
       >
         <meshStandardMaterial color="#ffffff"
@@ -103,7 +104,7 @@ export const TheWhiteMirror = ({
 
         <Plane args={[4, 2]} position={[0, .5, -4.74]} rotation={[0, 0, 0]} receiveShadow>
           <meshStandardMaterial color="#ffffff"
-            emissive="#888888"
+            emissive="#555555"
             roughness={0.15} 
             />
         </Plane>

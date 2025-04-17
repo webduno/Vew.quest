@@ -55,7 +55,7 @@ export const CommonArea = () => {
 
 
 
-<Text font="/fonts/wallpoet.ttf" fontSize={0.2} color="#1d1d1d" 
+<Text font="/fonts/wallpoet.ttf" fontSize={0.2} color="#171717" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[0,2.8,14.49]} rotation={[0,Math.PI,0]}
 >
@@ -66,7 +66,7 @@ ELEVATOR`}
 
 
 
-<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#252525" 
+<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#1d1d1d" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[-2.49,2.6,10.2]} rotation={[0,Math.PI/2,0]}
 >
@@ -75,7 +75,7 @@ SPACES`}
 </Text>
 
 
-<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#252525" 
+<Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#1d1d1d" 
 anchorX="center" anchorY="middle" textAlign="center"
 position={[2.49,2.6,6.5]} rotation={[0,-Math.PI/2,0]}
 >

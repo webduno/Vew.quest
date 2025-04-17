@@ -223,10 +223,10 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
   return (
     <group position={[0, 0, 0]}>
 
-      <pointLight position={[0, 2, 14-22]} intensity={1}  castShadow
+      <pointLight position={[0, 2, -10]} intensity={1}  castShadow
         color="#fff7f0" 
 
-        distance={7}
+        distance={8}
 
         shadow-mapSize-blurSamples={2}
         shadow-mapSize-radius={.2}

@@ -50,21 +50,21 @@ export const BewCoreLights = ({
     <ambientLight intensity={0.1} />
 
     <group ref={spotLightTarget2} position={[0, 0, 2]} >
-      <Box args={[0.1,0.06,1]} position={[5,3.5,0]} material={whiteEmissiveMaterial} />
+      <Box args={[0.1,0.06,1]} position={[5,3.6,0]} material={whiteEmissiveMaterial} />
     </group>
 
     
     {/* ROOM A */}
     <group ref={spotLightTarget1} position={[0, 0, 8.5]} >
-      <Box args={[1,0.06,0.1]} position={[0,3.5,0]} material={blueEmissiveMaterial} />
+      <Box args={[1,0.06,0.1]} position={[0,3.6,0]} material={blueEmissiveMaterial} />
     </group>
     {/* ROOM B */}
 
     <group ref={spotLightTarget2} position={[0, 0, -1.25]} >
       
     
-      <Box args={[1,0.06,0.1]} position={[0,3.5,-1]} material={greenEmissiveMaterial} />
-      <Box args={[1,0.06,0.1]} position={[0,3.5,3]} material={greenEmissiveMaterial} />
+      <Box args={[1,0.06,0.1]} position={[0,3.6,-1]} material={greenEmissiveMaterial} />
+      <Box args={[1,0.06,0.1]} position={[0,3.6,3]} material={greenEmissiveMaterial} />
     </group>
 
 
@@ -77,10 +77,10 @@ export const BewCoreLights = ({
     
 
 
+    <Box args={[1,0.06,0.1]} position={[0,3.6,-10]} material={grayEmissiveMaterial} />
 
     <group ref={spotLightTarget3} position={[0, 0, -22]}>
-    <Box args={[1,0.06,0.1]} position={[0,3.5,14]} material={grayEmissiveMaterial} />
-      <Box args={[1,0.06,0.1]} position={[0,3.5,0]} material={lightGreenEmissiveMaterial} />
+      <Box args={[1,0.06,0.1]} position={[0,3.6,0]} material={lightGreenEmissiveMaterial} />
     </group>
 
     {targetsReady && (
@@ -98,8 +98,8 @@ export const BewCoreLights = ({
         distance={10}
 
           
-        shadow-mapSize-width={128}
-        shadow-mapSize-height={128}
+        shadow-mapSize-width={256}
+        shadow-mapSize-height={256}
         shadow-mapSize-blurSamples={2}
         shadow-mapSize-radius={.2}
         shadow-camera-near={1}

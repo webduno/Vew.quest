@@ -128,7 +128,20 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
 
 <HardModeLever hardMode={hardMode} setHardMode={setHardMode} />
 
-
+{hardMode   && (
+  <pointLight position={[-5, 2, 8.25]} intensity={.5} color="#ffffff" 
+  castShadow
+  distance={9}
+  shadow-mapSize-width={32}
+  shadow-mapSize-height={32}
+  shadow-camera-near={1}
+  shadow-camera-far={9}
+  shadow-camera-left={-9}
+  shadow-camera-right={9}
+  shadow-camera-top={9}
+  shadow-camera-bottom={-9}
+  />
+)}
 
 <SolidBox visible={false}
      position={[-8, 2, 9]} size={[2.2, 4, 2.2]} color="#ffcccc" />    
