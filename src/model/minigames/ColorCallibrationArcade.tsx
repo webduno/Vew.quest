@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useGameCore } from '../../../script/contexts/hook/useGameCore';
 import { CollisionBox } from '../core/CollisionBox';
 import { usePlayerStats } from '../../../script/contexts/hook/usePlayerStats';
-import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
 import { ColorGameLoop } from '@/model/minigames/ColorGameLoop';
 export const ColorCallibrationArcade = ({ 
   hardMode,
@@ -18,8 +17,7 @@ export const ColorCallibrationArcade = ({
   setColorCalibrationStarted: (colorCalibrationStarted: boolean) => void;
   startColorCalibration: () => void; 
 }) => {
-  const { showSnackbar, closeSnackbar } = useGameCore();
-  const { playSoundEffect } = useBackgroundMusic();
+  const { showSnackbar, playSoundEffect } = useGameCore();
   const { updateMindStats, hasCompletedTutorial, updateTutorialStatus } = usePlayerStats();
   const [points, setPoints] = useState<number>(0);
   const [misses, setMisses] = useState<number>(0);

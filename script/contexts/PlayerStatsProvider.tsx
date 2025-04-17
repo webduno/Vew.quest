@@ -3,7 +3,7 @@ import React, { createContext, useContext } from 'react';
 import { usePlayerStats } from './hook/usePlayerStats';
 
 // Define the context type
-type VibeverseContextType = {
+type PlayerStatsContextType = {
   LS_playerId: string | null;
   formatPortalUrl: (url: string) => string;
   typedUsername: string;
@@ -21,7 +21,7 @@ type VibeverseContextType = {
 };
 
 // Create the context with default values
-export const VibeverseContext = createContext<VibeverseContextType>({
+export const PlayerStatsContext = createContext<PlayerStatsContextType>({
   LS_playerId: null,
   formatPortalUrl: (url: string) => url,
   typedUsername: "",
@@ -39,11 +39,11 @@ export const VibeverseContext = createContext<VibeverseContextType>({
 });
 
 // Provider component
-export const VibeverseProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const PlayerStatsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const vibeverseData = usePlayerStats() || {};
 
   // Ensure we always provide valid values
-  const contextValue: VibeverseContextType = {
+  const contextValue: PlayerStatsContextType = {
     ...vibeverseData,
     LS_playerId: vibeverseData.LS_playerId || null,
     formatPortalUrl: vibeverseData.formatPortalUrl || ((url: string) => url),
@@ -51,8 +51,8 @@ export const VibeverseProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   };
   
   return (
-    <VibeverseContext.Provider value={contextValue}>
+    <PlayerStatsContext.Provider value={contextValue}>
       {children}
-    </VibeverseContext.Provider>
+    </PlayerStatsContext.Provider>
   );
 }; 

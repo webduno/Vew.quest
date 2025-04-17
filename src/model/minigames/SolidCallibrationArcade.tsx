@@ -1,12 +1,13 @@
 'use client';
-import { Box, Text, Sphere } from '@react-three/drei';
-import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
+import { Box, Text, Sphere } from '@react-three/drei';
+
+import { SolidBox } from '../core/SolidBox';
 import { useGameCore } from '../../../script/contexts/hook/useGameCore';
 import { CollisionBox } from '../core/CollisionBox';
 import { usePlayerStats } from '../../../script/contexts/hook/usePlayerStats';
-import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
 import { SolidGameLoop } from '@/model/minigames/SolidGameLoop';
+
 
 export const SolidCallibrationArcade = ({ 
   hardMode,
@@ -19,8 +20,7 @@ export const SolidCallibrationArcade = ({
   setSolidCalibrationStarted: (solidCalibrationStarted: boolean) => void;
   startSolidCalibration: () => void; 
 }) => {
-  const { showSnackbar, closeSnackbar } = useGameCore();
-  const { playSoundEffect } = useBackgroundMusic();
+  const { showSnackbar, closeSnackbar, playSoundEffect } = useGameCore();
   const { updateMindStats, hasCompletedTutorial, updateTutorialStatus } = usePlayerStats();
   const [points, setPoints] = useState<number>(0);
   const [misses, setMisses] = useState<number>(0);

@@ -4,7 +4,7 @@
 - `BewGameContainer`
   - Wraps the game with necessary providers:
     - `BackgroundMusicProvider`
-    - `VibeverseProvider`
+    - `PlayerStatsProvider`
     - `GameCoreProvider`
   - Contains `BewGame` as the main component
 
@@ -77,7 +77,7 @@
    - Controls cutscenes
    - Manages sound effects
 
-2. **VibeverseProvider**
+2. **PlayerStatsProvider**
    - Player ID management
    - Graphics settings
    - Zone exploration status

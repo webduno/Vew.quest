@@ -27,11 +27,18 @@ import { PhysicalCeiling } from '../core/PhysicalFloor';
 import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
 import { ACESFilmicToneMapping } from 'three';
 import { BewCoreLights } from './BewCoreLights';
-import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
 
 export const BewGame = () => {
-  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl, updateMindStats, mindStats } =  usePlayerStats()
-  const { changeBackgroundMusic } = useBackgroundMusic();
+  const {
+    LS_playerId,
+    LS_lowGraphics,
+    LS_firstTime,
+    disableFirstTime,
+    updateExploredStatus,
+    hasExploredZone,
+    updateMindStats,
+    mindStats
+  } =  usePlayerStats()
   // const { updateExploredStatus, hasExploredZone } = usePlayerStats();
 
   const [showAnalogModal, setShowAnalogModal] = useState(false);
@@ -41,7 +48,14 @@ export const BewGame = () => {
   const [accuracyResult, setAccuracyResult] = useState({})
   const [submitted, setSubmitted] = useState({})
   const [showWhiteMirror, setShowWhiteMirror] = useState(false);
-  const { isCutSceneOpen, showSnackbar, closeSnackbar, setIsCutSceneOpen, playSoundEffect } = useGameCore();
+  const {
+    isCutSceneOpen,
+    showSnackbar,
+    closeSnackbar,
+    setIsCutSceneOpen,
+    playSoundEffect,
+    changeBackgroundMusic
+  } = useGameCore();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [isEverythingLoading, setIsEverythingLoading] = useState(true);
   const [focusLevel, setFocusLevel] = useState(0);

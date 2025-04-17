@@ -1,13 +1,14 @@
 "use client"
 
-import { createContext, useContext, useState, useRef, ReactNode, useEffect } from 'react';
+import { createContext, useContext, useState, useRef, ReactNode, useEffect, MutableRefObject } from 'react';
 
 interface BackgroundMusicContextType {
   isPlaying: boolean;
-  togglePlay: () => void;
-  playIfNotPlaying: () => void;
-  playSoundEffect: (soundPath: string, volume?: number) => void;
-  changeBackgroundMusic: (soundPath: string) => void;
+  setIsPlaying: (isPlaying: boolean) => void;
+  shouldPlayOnFocus: boolean;
+  setShouldPlayOnFocus: (shouldPlayOnFocus: boolean) => void;
+  audioRef: MutableRefObject<HTMLAudioElement | null>;
+  soundEffectsRef: MutableRefObject<{ [key: string]: HTMLAudioElement }>;
 }
 
 const BackgroundMusicContext = createContext<BackgroundMusicContextType | undefined>(undefined);
@@ -18,11 +19,45 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const soundEffectsRef = useRef<{ [key: string]: HTMLAudioElement }>({});
 
+
+  return (
+    <BackgroundMusicContext.Provider
+      value={{
+        isPlaying,
+        setIsPlaying,
+        shouldPlayOnFocus,
+        setShouldPlayOnFocus,
+        audioRef,
+        soundEffectsRef
+      }}>
+      {children}
+    </BackgroundMusicContext.Provider>
+  );
+}
+
+export function useBackgroundMusic() {
+  const context = useContext(BackgroundMusicContext);
+  if (context === undefined) {
+    throw new Error('useBackgroundMusic must be used within a BackgroundMusicProvider');
+  }
+
+
+  const {
+    isPlaying,
+    setIsPlaying,
+    shouldPlayOnFocus,
+    setShouldPlayOnFocus,
+    audioRef,
+    soundEffectsRef
+  } = context;
+
   useEffect(() => {
     // Initialize audio only on the client side
     audioRef.current = new Audio('/sfx/bg/vending_machine.mp3');
-    audioRef.current.loop = true;
-    audioRef.current.volume = 0.1;
+    if (audioRef.current) {
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.1;
+    }
 
     // Cleanup function to handle unmounting
     return () => {
@@ -32,10 +67,12 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
       }
       
       // Clean up all sound effects
-      Object.values(soundEffectsRef.current).forEach(audio => {
-        audio.pause();
-      });
-      soundEffectsRef.current = {};
+      if (soundEffectsRef.current) {
+        Object.values(soundEffectsRef.current).forEach(audio => {
+          audio.pause();
+        });
+        soundEffectsRef.current = {};
+      }
     };
   }, []); // Empty dependency array for initialization only
 
@@ -123,7 +160,9 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
     
     // Store the sound effect in the ref to prevent garbage collection
     const soundId = Date.now().toString();
-    soundEffectsRef.current[soundId] = soundEffect;
+    if (soundEffectsRef.current) {
+      soundEffectsRef.current[soundId] = soundEffect;
+    }
     
     // Play the sound effect
     soundEffect.play().catch(error => {
@@ -132,7 +171,9 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
     
     // Remove the sound effect from the ref after it finishes playing
     soundEffect.onended = () => {
-      delete soundEffectsRef.current[soundId];
+      if (soundEffectsRef.current) {
+        delete soundEffectsRef.current[soundId];
+      }
     };
   };
 
@@ -151,17 +192,11 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  return (
-    <BackgroundMusicContext.Provider value={{ isPlaying, togglePlay, playIfNotPlaying, playSoundEffect, changeBackgroundMusic }}>
-      {children}
-    </BackgroundMusicContext.Provider>
-  );
-}
-
-export function useBackgroundMusic() {
-  const context = useContext(BackgroundMusicContext);
-  if (context === undefined) {
-    throw new Error('useBackgroundMusic must be used within a BackgroundMusicProvider');
-  }
-  return context;
+  return {
+    ...context,
+    togglePlay,
+    playIfNotPlaying,
+    playSoundEffect,
+    changeBackgroundMusic
+  };
 } 

@@ -17,6 +17,7 @@ type GameCoreContextType = {
   snackbarSeverity: SnackbarSeverity;
   setSnackbarSeverity: (severity: SnackbarSeverity) => void;
   setIsSnackbarOpen: (isSnackbarOpen: boolean) => void;
+  changeBackgroundMusic: (soundPath: string) => void;
 };
 
 // Create the context with default values
@@ -28,7 +29,10 @@ export const GameCoreProvider = ({ children }: { children: ReactNode }) => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<SnackbarSeverity>('info');
-  const { playSoundEffect } = useBackgroundMusic();
+  const {
+    playSoundEffect,
+    changeBackgroundMusic
+  } = useBackgroundMusic();
   const autoCloseTimeoutRef = useRef<NodeJS.Timeout>();
 
 
@@ -46,6 +50,7 @@ export const GameCoreProvider = ({ children }: { children: ReactNode }) => {
     setIsSnackbarOpen,
     snackbarSeverity,
     playSoundEffect,
+    changeBackgroundMusic
   };
 
   return (
