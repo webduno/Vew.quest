@@ -1,8 +1,8 @@
 'use client';
 import { Box, GradientTexture, Text } from '@react-three/drei';
 import { StyledWall } from '../core/StyledWall';
-import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
-import { useGameCore } from '../../../script/contexts/useGameCore';
+import { usePlayerStats } from '../../../script/contexts/hook/usePlayerStats';
+import { useGameCore } from '../../../script/contexts/hook/useGameCore';
 import { SolidBox } from '../core/SolidBox';
 
 

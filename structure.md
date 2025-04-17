@@ -5,7 +5,7 @@
   - Wraps the game with necessary providers:
     - `BackgroundMusicProvider`
     - `VibeverseProvider`
-    - `BewProvider`
+    - `GameCoreProvider`
   - Contains `BewGame` as the main component
 
 ## Main Game Component (`BewGame`)
@@ -71,7 +71,7 @@
    - Analysis result display
 
 ## Context Providers
-1. **BewProvider**
+1. **GameCoreProvider**
    - Manages game state
    - Handles snackbar notifications
    - Controls cutscenes

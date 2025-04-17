@@ -1,7 +1,7 @@
 import React from 'react';
 import { SliderBar } from './parts/SliderBar';
 import { CircularMeter } from './parts/CircularMeter';
-import { SenseSectionType } from '../../../../script/utils/play/senseMeterTypes';
+import { SenseSectionType } from '@/../script/utils/play/senseMeterTypes';
 
 interface MiddleSectionProps {
   activeSection: SenseSectionType;

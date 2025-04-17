@@ -3,7 +3,7 @@ import { KeyboardBtn } from "@/dom/atom/button/KeyboardBtn"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { usePlayerStats } from "../../../script/contexts/usePlayerStats"
+import { usePlayerStats } from "../../../script/contexts/hook/usePlayerStats"
 
 export const LandingMainMenu = () => {
 

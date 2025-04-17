@@ -2,8 +2,8 @@
 import { Box, Text } from '@react-three/drei';
 import { CollisionBox } from '../core/CollisionBox';
 import { SolidBox } from '../core/SolidBox';
-import { useGameCore } from '../../../script/contexts/useGameCore';
-import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
+import { useGameCore } from '../../../script/contexts/hook/useGameCore';
+import { usePlayerStats } from '../../../script/contexts/hook/usePlayerStats';
 import { useState } from 'react';
 
 export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setPlayerPosition: (position: [number, number, number]) => void,

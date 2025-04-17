@@ -1,5 +1,5 @@
 'use client';
-import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
+import { usePlayerStats } from '../../../script/contexts/hook/usePlayerStats';
 import { useState, useEffect } from 'react';
 
 const getTotalFirstAid = (stats: any) => {

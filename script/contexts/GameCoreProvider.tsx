@@ -1,12 +1,12 @@
 import React, { createContext, useState, ReactNode, useRef } from 'react';
 import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
-import { SnackbarNotif } from './SnackbarNotif';
+import { SnackbarNotif } from '../../src/dom/molecule/notification/SnackbarNotif';
 
 // Define the types for severity
 type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title' | 'handbook';
 
 // Define the context type
-type BewContextType = {
+type GameCoreContextType = {
   testdata: string;
   isSnackbarOpen: boolean;
   snackbarMessage: string;  
@@ -20,10 +20,10 @@ type BewContextType = {
 };
 
 // Create the context with default values
-export const BewContext = createContext<BewContextType | undefined>(undefined);
+export const GameCoreContext = createContext<GameCoreContextType | undefined>(undefined);
 
 // Provider component
-export const BewProvider = ({ children }: { children: ReactNode }) => {
+export const GameCoreProvider = ({ children }: { children: ReactNode }) => {
   const [isCutSceneOpen, setIsCutSceneOpen] = useState(false);
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -66,7 +66,7 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // Add state and functions for the context here later
-  const contextValue: BewContextType = {
+  const contextValue: GameCoreContextType = {
     // Provide context values here
     isCutSceneOpen,
     setIsCutSceneOpen,
@@ -81,10 +81,10 @@ export const BewProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <BewContext.Provider value={contextValue}>
+    <GameCoreContext.Provider value={contextValue}>
       <SnackbarNotif />
       {children}
-    </BewContext.Provider>
+    </GameCoreContext.Provider>
   );
 };
 

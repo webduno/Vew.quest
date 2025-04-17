@@ -1,6 +1,6 @@
 import React from 'react';
 import { LargeSemicircularMeter } from './parts/LargeSemicircularMeter';
-import { SenseSectionType } from '../../../../script/utils/play/senseMeterTypes';
+import { SenseSectionType } from '@/../script/utils/play/senseMeterTypes';
 
 interface BottomSectionProps {
   activeSection: SenseSectionType;

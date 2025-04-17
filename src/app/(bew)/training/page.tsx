@@ -2,11 +2,11 @@
 
 import { useState, useCallback } from 'react';
 import { AnalogModalScreen } from '@/dom/molecule/SenseMeter/AnalogModalScreen';
-import { calculateAccuracy } from '../../../../script/utils/play/calculateAccuracy';
+import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
 import { BewLogo } from '@/dom/atom/logo/BewLogo';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
-import { usePlayerStats } from '../../../../script/contexts/usePlayerStats';
+import { usePlayerStats } from '@/../script/contexts/hook/usePlayerStats';
 type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {

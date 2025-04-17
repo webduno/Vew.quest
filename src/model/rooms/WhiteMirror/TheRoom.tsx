@@ -4,8 +4,8 @@ import { CollisionBox } from '../../core/CollisionBox';
 import { TheChair } from './TheChair';
 import { TheTable } from './TheTable';
 import { Box, Plane, Text, Text3D } from '@react-three/drei';
-import { usePlayerStats } from '../../../../script/contexts/usePlayerStats';
-import { useGameCore } from '../../../../script/contexts/useGameCore';
+import { usePlayerStats } from '@/../script/contexts/hook/usePlayerStats';
+import { useGameCore } from '@/../script/contexts/hook/useGameCore';
 
 export interface TheRoomProps {
   onChairSit?: (e: any) => void;

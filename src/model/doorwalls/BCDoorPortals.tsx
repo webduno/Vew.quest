@@ -2,7 +2,7 @@
 import { Box, Text } from '@react-three/drei';
 import { CollisionBox } from '../core/CollisionBox';
 import { SolidBox } from '../core/SolidBox';
-import { useGameCore } from '../../../script/contexts/useGameCore';
+import { useGameCore } from '../../../script/contexts/hook/useGameCore';
 import { useRef } from 'react';
 
 export const BCDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void; }) => {

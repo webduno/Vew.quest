@@ -5,9 +5,9 @@ import { TopSection } from './TopSection';
 import { MiddleSection } from './MiddleSection';
 import { BottomSection } from './BottomSection';
 import { ExitButton } from './ExitButton';
-import { normalizeRotation, buttonColors, buttonTypes } from '../../../../script/utils/play/analogHelpers';
+import { normalizeRotation, buttonColors, buttonTypes } from '@/../script/utils/play/analogHelpers';
 import { useAnalogModal } from './useAnalogModal';
-import { SenseSectionType } from '../../../../script/utils/play/senseMeterTypes';
+import { SenseSectionType } from '@/../script/utils/play/senseMeterTypes';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 
 export const AnalogModalScreen = ({

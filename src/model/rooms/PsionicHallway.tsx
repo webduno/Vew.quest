@@ -4,8 +4,8 @@ import { CardboardBox } from '../bits/CardboardBox';
 import { StyledWall } from '../core/StyledWall';
 import { SolidBox } from '../core/SolidBox';
 import { CollisionBox } from '../core/CollisionBox';
-import { useGameCore } from '../../../script/contexts/useGameCore';
-import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
+import { useGameCore } from '../../../script/contexts/hook/useGameCore';
+import { usePlayerStats } from '../../../script/contexts/hook/usePlayerStats';
 
 export const PsionicHallway = ({wasPsionicHallwayEntered, setWasPsionicHallwayEntered}: {wasPsionicHallwayEntered: boolean, setWasPsionicHallwayEntered: (wasPsionicHallwayEntered: boolean) => void}) => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useGameCore();

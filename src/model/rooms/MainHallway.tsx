@@ -1,7 +1,7 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
-import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
+import { usePlayerStats } from '../../../script/contexts/hook/usePlayerStats';
 
 export const MainHallway = () => {
   const { LS_hasFirstKey, LS_lowGraphics } = usePlayerStats()
