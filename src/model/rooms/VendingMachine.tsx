@@ -32,6 +32,8 @@ export const VendingMachine = () => {
       showSnackbar('Not enough money', 'error', 3000);
       return;
     }
+    playSoundEffect('/sfx/short/kash.mp3');
+    showSnackbar(`✓ ${items[selectedItem].name} purchased`, 'success', 3000);
 
     // Update cash
     const newCash = currentStats.cash - items[selectedItem].cost;

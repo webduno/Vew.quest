@@ -26,7 +26,7 @@ export const TheRoom = ({
 }: TheRoomProps) => {
 
   const { playSoundEffect } = useBew();
-  const { hasExploredZone, updateExploredStatus,  } = useVibeverse();
+  const { hasExploredZone, updateExploredStatus, mindStats } = useVibeverse();
   
   return (<>
   
@@ -108,7 +108,14 @@ export const TheRoom = ({
         position={[0, 3.5, -27]} />
 
 
-{!analysisResult && (<>
+{!(
+
+!!analysisResult &&
+!!mindStats?.cash && mindStats?.cash > 10000 &&
+!!mindStats?.color && mindStats?.color > 10 &&
+!!mindStats?.solid && mindStats?.solid > 10 
+
+) && (<>
 <SolidBox color="#eeeeee"
         size={[4, 2, .9]}
         position={[0, 2, -27]} />
@@ -123,7 +130,11 @@ export const TheRoom = ({
         size={[4, 2, .9]}
         position={[0, 2, -27.5]} />
 </>)}
-{!!analysisResult && hasExploredZone("credits") && (<CreditsCube />)}
+{!!analysisResult &&
+!!mindStats?.cash && mindStats?.cash > 10000 &&
+!!mindStats?.color && mindStats?.color > 10 &&
+!!mindStats?.solid && mindStats?.solid > 10 &&
+hasExploredZone("credits") && (<CreditsCube />)}
 
     </group>
 )}

@@ -220,9 +220,15 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
 
   // Handle trigger collision
   const handleChairSit = useCallback((event: any) => {
-    // Check if user has enough solid calibration points using the live mindStats from useVibeverse
+    
+    if (loadingAnalysisResult) {
+      return;
+    }
     if (mindStats.solid <= 0) {
       failedChairSit()
+      return;
+    }
+    if (isTransitioning) {
       return;
     }
     
@@ -267,10 +273,9 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
         setIsTransitioning(false);
 
     setTimeout(() => {
-    showSnackbar("Now, click crystal ball to start.", 'handbook');
-    setTimeout(() => {
-    closeSnackbar();
-    }, 3000);
+    playSoundEffect('/sfx/tutorials/cball.ogg');
+
+    showSnackbar("Now, click crystal ball to start.", 'handbook', 3000);
   }, 2000);
 
         }, 1000);
@@ -355,6 +360,12 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
     // Check if user has enough solid calibration points using the live mindStats from useVibeverse
     if (mindStats.solid <= 0) {
       failedChairSit()
+      return;
+    }
+    if (isTransitioning) {
+      return;
+    }
+    if (loadingAnalysisResult) {
       return;
     }
     setAnalysisResult("")
@@ -545,7 +556,12 @@ setIsTakingRequest(null);
           {!showWhiteMirror && ( <>
           
           <group position={[2, 0, -20]} rotation={[0, -.5, 0]} scale={[1, 1.1, 1]}>
-            <PersonSilhouette />
+            <PersonSilhouette
+            
+            onClick={() => {
+              playSoundEffect(`/sfx/short/sit.ogg`);
+            }}
+            />
           </group>
 <SolidBox 
         visible={false}
