@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { GameCoreContext, SnackbarSeverity } from '../GameCoreProvider';
+import { GameCoreContext, SnackbarSeverity } from '@/../script/state/context/GameCoreProvider';
 
 // Custom hook to use the Bew context
 
