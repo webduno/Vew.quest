@@ -3,7 +3,7 @@ import { Box } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useEffect, useState } from 'react';
 import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 import { PublicRequests } from './PublicRequests';
 import { YourRequests } from './YourRequests';
 import { Scoreboard } from './Scoreboard';
@@ -35,12 +35,12 @@ interface CRVRequest {
 
 export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingRequest }: BewPreMainSceneProps) => {
   const { LS_playerId, updateMindStats, mindStats } = usePlayerStats();
-  const { playSoundEffect } = useBew();
+  const { playSoundEffect } = useGameCore();
   const [crvObjects, setCrvObjects] = useState<CRVObject[]>([]);
   const [scoreboardObjects, setScoreboardObjects] = useState<CRVObject[]>([]);
   const [crvRequests, setCrvRequests] = useState<CRVRequest[]>([]);
   const [userCrvRequests, setUserCrvRequests] = useState<CRVRequest[]>([]);
-  const { showSnackbar, closeSnackbar } = useBew();
+  const { showSnackbar, closeSnackbar } = useGameCore();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitRequest = async ({

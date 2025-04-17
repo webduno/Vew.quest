@@ -2,10 +2,10 @@
 import { Box, Text, Sphere, Cylinder, Plane } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 
 export const VendingMachine = () => {
-  const { showSnackbar, playSoundEffect } = useBew();
+  const { showSnackbar, playSoundEffect } = useGameCore();
   const [selectedItem, setSelectedItem] = useState(0);
   const items = [
     { name: 'PK Pill', position: [-0.3, 0.5, -0.25], cost: 1350 },

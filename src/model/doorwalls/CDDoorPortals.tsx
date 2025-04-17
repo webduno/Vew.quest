@@ -2,7 +2,7 @@
 import { Box, Text } from '@react-three/drei';
 import { CollisionBox } from '../core/CollisionBox';
 import { SolidBox } from '../core/SolidBox';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { useState } from 'react';
 
@@ -12,7 +12,7 @@ export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setP
   code3?: string }) => {
 
   const { hasExploredZone } = usePlayerStats();
-  const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
+  const { showSnackbar, closeSnackbar, playSoundEffect } = useGameCore();
   const [enterAttempt, setEnterAttempt] = useState(0);
 
   return (<>

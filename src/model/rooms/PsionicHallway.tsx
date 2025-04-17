@@ -4,11 +4,11 @@ import { CardboardBox } from '../bits/CardboardBox';
 import { StyledWall } from '../core/StyledWall';
 import { SolidBox } from '../core/SolidBox';
 import { CollisionBox } from '../core/CollisionBox';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 
 export const PsionicHallway = ({wasPsionicHallwayEntered, setWasPsionicHallwayEntered}: {wasPsionicHallwayEntered: boolean, setWasPsionicHallwayEntered: (wasPsionicHallwayEntered: boolean) => void}) => {
-  const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
+  const { showSnackbar, closeSnackbar, playSoundEffect } = useGameCore();
   const { updateExploredStatus, hasExploredZone, mindStats, LS_lowGraphics } = usePlayerStats();
 
   return (<>

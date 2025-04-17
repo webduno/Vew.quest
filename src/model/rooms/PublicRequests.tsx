@@ -1,7 +1,7 @@
 'use client';
 import { Box, Text, Plane } from '@react-three/drei';
 import { useState } from 'react';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 
 interface CRVRequest {
   id: string;

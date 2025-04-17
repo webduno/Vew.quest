@@ -2,11 +2,11 @@
 import { Box, Text } from '@react-three/drei';
 import { CollisionBox } from '../core/CollisionBox';
 import { SolidBox } from '../core/SolidBox';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 import { useRef } from 'react';
 
 export const BCDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void; }) => {
-  const { handleLockedDoor, playSoundEffect } = useBew()
+  const { handleLockedDoor, playSoundEffect } = useGameCore()
   const soundEffectPlaying = useRef(false);
   return (<>
 

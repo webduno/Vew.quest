@@ -2,7 +2,7 @@
 import { Box, Text } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 import { CollisionBox } from '../core/CollisionBox';
 import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
@@ -18,7 +18,7 @@ export const ColorCallibrationArcade = ({
   setColorCalibrationStarted: (colorCalibrationStarted: boolean) => void;
   startColorCalibration: () => void; 
 }) => {
-  const { showSnackbar, closeSnackbar } = useBew();
+  const { showSnackbar, closeSnackbar } = useGameCore();
   const { playSoundEffect } = useBackgroundMusic();
   const { updateMindStats, hasCompletedTutorial, updateTutorialStatus } = usePlayerStats();
   const [points, setPoints] = useState<number>(0);

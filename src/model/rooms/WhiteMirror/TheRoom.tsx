@@ -5,7 +5,7 @@ import { TheChair } from './TheChair';
 import { TheTable } from './TheTable';
 import { Box, Plane, Text, Text3D } from '@react-three/drei';
 import { usePlayerStats } from '../../../../script/contexts/usePlayerStats';
-import { useBew } from '@/../script/contexts/BewProvider';
+import { useGameCore } from '../../../../script/contexts/useGameCore';
 
 export interface TheRoomProps {
   onChairSit?: (e: any) => void;
@@ -25,7 +25,7 @@ export const TheRoom = ({
   analysisResult
 }: TheRoomProps) => {
 
-  const { playSoundEffect } = useBew();
+  const { playSoundEffect } = useGameCore();
   const { hasExploredZone, updateExploredStatus, mindStats } = usePlayerStats();
   
   return (<>

@@ -2,7 +2,7 @@
 import { useTexture, Sphere, Text, Plane, RoundedBox,  Cylinder } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import { useBew } from '@/../script/contexts/BewProvider';
+import { useGameCore } from '../../../../script/contexts/useGameCore';
 
 
 
@@ -20,7 +20,7 @@ export const TheWhiteMirror = ({
   showAnalogModal: boolean;
 }) => {
 
-  const { playSoundEffect } = useBew();
+  const { playSoundEffect } = useGameCore();
 
   const orbRef = useRef<any>(null);
   const orbRef2 = useRef<any>(null);

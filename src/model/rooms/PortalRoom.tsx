@@ -2,12 +2,12 @@
 import { Box, GradientTexture, Text } from '@react-three/drei';
 import { StyledWall } from '../core/StyledWall';
 import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 import { SolidBox } from '../core/SolidBox';
 
 
 export const PortalRoom = () => {
-  const { handleLockedDoor, showSnackbar, closeSnackbar } = useBew()
+  const { handleLockedDoor, showSnackbar, closeSnackbar } = useGameCore()
   const { LS_lowGraphics, LS_hasFirstKey, mindStats, updateMindStats } = usePlayerStats()
   return (<>
 

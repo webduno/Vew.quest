@@ -15,7 +15,7 @@ import { SolidBox } from '../core/SolidBox';
 import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye } from '@react-three/drei';
 import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { useSearchParams } from 'next/navigation';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 import { BackgroundMusic } from '@/dom/molecule/BackgroundMusic';
 import { PerformanceStats } from '../../dom/molecule/PerformanceStats';
 import { RotatingBar } from '../bits/RotatingBar';
@@ -41,7 +41,7 @@ export const BewGame = () => {
   const [accuracyResult, setAccuracyResult] = useState({})
   const [submitted, setSubmitted] = useState({})
   const [showWhiteMirror, setShowWhiteMirror] = useState(false);
-  const { isCutSceneOpen, showSnackbar, closeSnackbar, setIsCutSceneOpen, playSoundEffect } = useBew();
+  const { isCutSceneOpen, showSnackbar, closeSnackbar, setIsCutSceneOpen, playSoundEffect } = useGameCore();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [isEverythingLoading, setIsEverythingLoading] = useState(true);
   const [focusLevel, setFocusLevel] = useState(0);

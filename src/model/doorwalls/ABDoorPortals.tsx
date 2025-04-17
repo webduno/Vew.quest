@@ -6,7 +6,7 @@ import { CollisionBox } from '@/model/core/CollisionBox';
 import { SolidBox } from '@/model/core/SolidBox';
 import { StyledWall } from '@/model/core/StyledWall';
 import { RegularKey } from '@/model/bits/RegularKey';
-import { useBew } from '@/../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 
 
 export const ABDoorPortals = ({
@@ -20,7 +20,7 @@ export const ABDoorPortals = ({
   openedFirstDoor: boolean;
 }) => {
   const [doorClosed, setDoorClosed] = useState(true);
-  const { showSnackbar, playSoundEffect } = useBew();
+  const { showSnackbar, playSoundEffect } = useGameCore();
   const [cooldown, setCooldown] = useState(false);
   const hasKeyRef = useRef(hasFirstKey);
 

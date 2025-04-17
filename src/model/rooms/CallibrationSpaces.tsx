@@ -8,10 +8,10 @@ import { SolidBox } from '../core/SolidBox';
 import { SolidCallibrationArcade } from '@/model/minigames/SolidCallibrationArcade';
 import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { CollisionBox } from '../core/CollisionBox';
-import { useBew } from '../../../script/contexts/BewProvider';
+import { useGameCore } from '../../../script/contexts/useGameCore';
 
 export const CallibrationSpaces = () => {
-  const { showSnackbar, playSoundEffect } = useBew();
+  const { showSnackbar, playSoundEffect } = useGameCore();
   const { hasExploredZone, updateExploredStatus } = usePlayerStats();
   const [colorCalibrationStarted, setColorCalibrationStarted] = useState(false)
   const [solidCalibrationStarted, setSolidCalibrationStarted] = useState(false)
