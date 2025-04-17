@@ -1,4 +1,5 @@
 'use client';
+import { useSearchParams } from 'next/navigation';
 import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye } from '@react-three/drei';
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
@@ -9,13 +10,12 @@ import { calculateAccuracy } from "@/../script/utils/play/calculateAccuracy";
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
 import { BewMainScene } from '@/model/bew/scenes/BewMainScene';
-import { BewMobileOverlay } from '@/dom/organ/BewMobileOverlay';
+import { MobileControlOverlay } from '@/dom/molecule/game/MobileControlOverlay';
 import { PersonSilhouette } from '../bits/PersonSilhouette';
 import { TheRoom } from '../rooms/WhiteMirror/TheRoom';
-import { AnalogModalScreen } from '@/dom/molecule/SenseMeter/AnalogModalScreen';
+import { AnalogModalScreen } from '@/dom/molecule/game/SenseMeter/AnalogModalScreen';
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
 import { SolidBox } from '../core/SolidBox';
-import { useSearchParams } from 'next/navigation';
 import { BgMusicToggle } from '@/dom/molecule/notification/BgMusicToggle';
 import { PerformanceStats } from '@/dom/molecule/notification/PerformanceStats';
 import { RotatingBar } from '../bits/RotatingBar';
@@ -764,7 +764,7 @@ setIsTakingRequest(null);
         </Physics>
         {/* </Fisheye> */}
       </Canvas>
-      {isMobileDevice && <BewMobileOverlay />}
+      {isMobileDevice && <MobileControlOverlay />}
       <div id="crosshair" 
       className='pos-fix top-50p left-50p opaci-20 noclick block bord-r-100 tx-white tx-shadow-5'
       style={{

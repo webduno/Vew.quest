@@ -1,5 +1,5 @@
 
-export const BewMobileOverlay = () => {
+export const MobileControlOverlay = () => {
   return (
     <>
     

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { AnalogModalScreen } from '@/dom/molecule/SenseMeter/AnalogModalScreen';
+import { AnalogModalScreen } from '@/dom/molecule/game/SenseMeter/AnalogModalScreen';
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
 import { BewLogo } from '@/dom/atom/logo/BewLogo';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
