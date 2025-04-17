@@ -35,6 +35,7 @@ interface CRVRequest {
 
 export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingRequest }: BewPreMainSceneProps) => {
   const { LS_playerId, updateMindStats, mindStats } = useVibeverse();
+  const { playSoundEffect } = useBew();
   const [crvObjects, setCrvObjects] = useState<CRVObject[]>([]);
   const [scoreboardObjects, setScoreboardObjects] = useState<CRVObject[]>([]);
   const [crvRequests, setCrvRequests] = useState<CRVRequest[]>([]);
@@ -138,6 +139,7 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
     if (!LS_playerId) return;
     
     try {
+
       const response = await fetch(`/api/supabase?storageKey=${LS_playerId}`, {
         headers: {
           'Cache-Control': 'no-store, no-cache, must-revalidate',
@@ -155,6 +157,8 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
   };
 
   const handleRefreshDailyQuota = () => {
+      playSoundEffect('/sfx/short/beep.mp3');
+
     fetchCrvObjects();
   };
 

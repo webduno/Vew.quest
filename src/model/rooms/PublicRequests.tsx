@@ -40,7 +40,7 @@ export const PublicRequests = ({ crvRequests, isSubmitting, onTakeRequest, onAdd
         {`TAKE\nREQUEST`}
       </Text>
 
-      {crvRequests.map((request, index) => (
+      {crvRequests.slice(0, 5).map((request, index) => (
         <group key={request.id}>
           <Text font="/fonts/consolas.ttf" fontSize={0.12} color="#181818" 
             anchorX="right" anchorY="middle" textAlign="right"

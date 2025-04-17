@@ -12,7 +12,7 @@ export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setP
   code3?: string }) => {
 
   const { hasExploredZone } = useVibeverse();
-  const { showSnackbar, closeSnackbar } = useBew();
+  const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
 
 
   return (<>
@@ -48,10 +48,9 @@ fontSize={0.2}
     // only if its not already visible
     if (codeInputElement && (codeInputElement as HTMLInputElement).style.display !== "block") {
       if (!hasExploredZone("white_mirror_room")) {
-        showSnackbar("Find the codes in the ESP Lab and Psionic Zone", "info");
-        setTimeout(() => {        
-          closeSnackbar();
-        }, 3000);
+
+        playSoundEffect('/sfx/tutorials/codes.ogg');
+        showSnackbar("Codes are in the Portal Room and Psionic Hallway", "handbook", 5000);
       }
       (codeInputElement as HTMLInputElement).style.display = 'block';
       // (codeInputElement as HTMLInputElement).focus();
@@ -88,7 +87,7 @@ fontSize={0.2}
   CODE 2
   * * * * *` : `
   ENTER
-  CODE 2
+  CODE#2
   ┌                ┐
   └                ┘
   `}

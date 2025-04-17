@@ -216,12 +216,12 @@ export const SolidGameLoop = ({
         args={[.3, .3, .1]}
         onClick={() => handleAnswer(true)}
       >
-        <meshStandardMaterial color="#ffffff" emissive="#333333" />
-      </Box>
+        <meshStandardMaterial color="#dddddd" />
+        </Box>
       <Sphere args={[.15, 16, 16]} position={[-10.8, 1.3, 13.82]}
         onClick={() => handleAnswer(false)}
         >
-        <meshStandardMaterial color="#dddddd" />
+        <meshStandardMaterial color="#ffffff" emissive="#333333" />
       </Sphere>
     </>
   );

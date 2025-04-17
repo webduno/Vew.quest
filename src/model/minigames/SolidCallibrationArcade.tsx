@@ -117,7 +117,7 @@ export const SolidCallibrationArcade = ({
     <Text
         font="/fonts/wallpoet.ttf"
         fontSize={0.1}
-        color="#444444"
+        color="#111111"
         anchorX="center"
         anchorY="middle"
         textAlign="center"
@@ -127,9 +127,9 @@ export const SolidCallibrationArcade = ({
         {`full`}
       </Text>
       <Text
+        color="#444444"
         font="/fonts/wallpoet.ttf"
         fontSize={0.1}
-        color="#111111"
         anchorX="center"
         anchorY="middle"
         textAlign="center"
@@ -144,11 +144,11 @@ export const SolidCallibrationArcade = ({
         rotation={[0, 0, 0]}
         args={[.2, .2, .05]}
       >
-        <meshStandardMaterial color="#ffffff" emissive="#333333" />
+        <meshStandardMaterial color="#dddddd" />
       </Box>
       <Sphere args={[.12, 16, 16]} position={[-10.8, 1.3, 13.82]}>
-        <meshStandardMaterial color="#ffffff" />
-      </Sphere>
+        <meshStandardMaterial color="#ffffff" emissive="#333333" />
+        </Sphere>
     {/* arcade screen background */}
     <Box position={[-11, 1.3, 13.89]} rotation={[0, 0, 0]} args={[.8, .5, .1]}>
       <meshStandardMaterial color="#ffffff" emissive="#101010" />

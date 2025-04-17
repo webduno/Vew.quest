@@ -469,7 +469,7 @@ setIsTakingRequest(null);
       }}
       >
       {!code1 && (<div className="flex-col" id="code1" style={{display:"none"}}>
-        <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code 1:</label>
+        <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code#1:</label>
           <input className='w-100px tx-md tx-center py-1 bord-r-5 pos-rel' 
           style={{
             zIndex: 2000,
@@ -483,7 +483,7 @@ setIsTakingRequest(null);
           
 
 {!code2 && (<div className="flex-col" id="code2" style={{display:"none"}}>
-        <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code 2:</label>
+        <label className='block pl-2 tx-altfont-8 tx-lg tx-white opaci-50'>Code#2:</label>
           <input className='w-100px tx-md tx-center py-1 bord-r-5 pos-rel' 
           style={{
             zIndex: 2000,

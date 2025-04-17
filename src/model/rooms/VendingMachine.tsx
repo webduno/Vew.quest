@@ -2,8 +2,10 @@
 import { Box, Text, Sphere, Cylinder, Plane } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
+import { useBew } from '../../../scripts/contexts/BewProvider';
 
 export const VendingMachine = () => {
+  const { showSnackbar, playSoundEffect } = useBew();
   const [selectedItem, setSelectedItem] = useState(0);
   const items = [
     { name: 'PK Pill', position: [-0.3, 0.5, -0.25], cost: 1350 },
@@ -25,7 +27,9 @@ export const VendingMachine = () => {
     const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0, solid: 0, cash: 0 };
     
     if (currentStats.cash < items[selectedItem].cost) {
-      console.log('Not enough money');
+      // console.log('Not enough money');
+      playSoundEffect('/sfx/short/errorbip.mp3');
+      showSnackbar('Not enough money', 'error', 3000);
       return;
     }
 
@@ -78,7 +82,7 @@ export const VendingMachine = () => {
           <Text font="/fonts/beanie.ttf" fontSize={0.1} 
           color={"#222222"}
             anchorX="center" anchorY="middle" textAlign="center"
-            position={[0.65, 0.2, .62]} rotation={[0, 0, .1]}
+            position={[0.6, 0.1, .62]} rotation={[0, 0, .1]}
           >
 {`
 domenica corriere
@@ -88,7 +92,11 @@ _____________    ___
 inventata la
 macchina
 che fotografa
-il passato`}
+il passato
+_______ ___
+code#1 in portal room
+
+`}
           </Text>
 
 

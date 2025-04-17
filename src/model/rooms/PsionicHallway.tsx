@@ -19,7 +19,7 @@ export const PsionicHallway = ({wasPsionicHallwayEntered, setWasPsionicHallwayEn
             setWasPsionicHallwayEntered(true);
           }
         }}
-        position={[4,1.5,8.25]} size={[1,3,2]} 
+        position={[7,1.5,4]} size={[3,3,1]} 
       />
   )}
 
@@ -190,7 +190,7 @@ rotation={[0,Math.PI,0]} fontSize={0.10} font={"/fonts/beanie.ttf"}
 {`COORDINATED
 REMOTE VIEWING (CRV)
 
-    *CODE 2 : sunstreak*
+    *CODE#2 : sunstreak*
     |
     _
 

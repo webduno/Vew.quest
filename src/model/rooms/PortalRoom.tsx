@@ -113,7 +113,7 @@ ______                   __________________
       <Text color="#333333"  position={[0,0.2,-0.01]}
         rotation={[0,Math.PI,0]} fontSize={0.10} font={"/fonts/beanie.ttf"}
       >
-{`*CODE 1: SCANATE*
+{`*CODE#1: SCANATE*
 
 Psychoenergetics (PSI) goes
 back to SRI → 1970+
