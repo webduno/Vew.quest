@@ -2,6 +2,7 @@
 import { useTexture, Sphere, Text, Plane, RoundedBox,  Cylinder } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
+import { useBew } from '../../../../scripts/contexts/BewProvider';
 
 
 
@@ -12,13 +13,14 @@ import { useRef } from 'react';
 
 
 export const TheWhiteMirror = ({
-  whiteRoomTarget, setShowAnalogModal
+  whiteRoomTarget, setShowAnalogModal, showAnalogModal
 }: {
   whiteRoomTarget: string;
   setShowAnalogModal: (show: boolean) => void;
+  showAnalogModal: boolean;
 }) => {
 
-
+  const { playSoundEffect } = useBew();
 
   const orbRef = useRef<any>(null);
   const orbRef2 = useRef<any>(null);
@@ -44,6 +46,9 @@ export const TheWhiteMirror = ({
     
     onClick={() => {
       setShowAnalogModal(true);
+      if (showAnalogModal) { return }
+    playSoundEffect("/sfx/short/clin.mp3")
+
     }}
     >
       <Cylinder args={[.42, .6, .45, 12]} position={[0, -.85, 0]}

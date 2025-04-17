@@ -230,7 +230,7 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
     setAccuracyResult({})
     setSubmitted({})
     setLastCashReward(0)
-
+    playSoundEffect("/sfx/short/chairsit.mp3")
     // Deduct 1 solid calibration point
     updateMindStats('solid', mindStats.solid - 1);
 
@@ -588,6 +588,7 @@ setIsTakingRequest(null);
 
 {showWhiteMirror && (
           <TheWhiteMirror whiteRoomTarget={whiteRoomTarget}
+          showAnalogModal={showAnalogModal}
            setShowAnalogModal={setShowAnalogModal} />
           )}
           {!!code1 && !!code2 && (<>
@@ -685,7 +686,7 @@ setIsTakingRequest(null);
 
       <CDDoorPortals code1={code1} code2={code2} code3={code3} setPlayerPosition={handleSetPlayerPosition} />
 
-{!showWhiteMirror && (
+{!showWhiteMirror && !isTransitioning && (
           <BewMainScene 
           wasPsionicHallwayEntered={wasPsionicHallwayEntered}
           setWasPsionicHallwayEntered={()=>{

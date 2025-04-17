@@ -13,19 +13,19 @@ export const TheTable = () => {
         <meshStandardMaterial color="#eeeeee" />
       </Box>
       {/* table legs */}
-      <Box args={[.2, 1, .2]} castShadow
+      <Box args={[.18, 1, .18]} castShadow
         position={[-1.2, 0.4, -0.9]}>
         <meshStandardMaterial color="#eeeeee" />
       </Box>
-      <Box args={[.2, 1, .2]} castShadow
+      <Box args={[.18, 1, .18]} castShadow
         position={[1.2, 0.4, -0.9]}>
         <meshStandardMaterial color="#eeeeee" />
       </Box>
-      <Box args={[.2, 1, .2]} castShadow
+      <Box args={[.18, 1, .18]} castShadow
         position={[-1.2, 0.4, 0.9]}>
         <meshStandardMaterial color="#eeeeee" />
       </Box>
-      <Box args={[.2, 1, .2]} castShadow
+      <Box args={[.18, 1, .18]} castShadow
         position={[1.2, 0.4, 0.9]}>
         <meshStandardMaterial color="#eeeeee" />
       </Box>
