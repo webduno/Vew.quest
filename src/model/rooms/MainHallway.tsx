@@ -1,7 +1,7 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
-import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
+import { useVibeverse } from '@/../script/hooks/useVibeverse';
 
 export const MainHallway = () => {
   const { LS_hasFirstKey, LS_lowGraphics } = useVibeverse()

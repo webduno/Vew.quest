@@ -1,5 +1,5 @@
 import React from 'react';
-import { isMobile } from '../../../../scripts/utils/mobileDetection';
+import { isMobile } from '../../../../script/utils/mobileDetection';
 import { SectionType } from './types';
 
 interface ExitButtonProps {

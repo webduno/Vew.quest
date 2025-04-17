@@ -2,8 +2,8 @@
 import { Box, Text } from '@react-three/drei';
 import { CollisionBox } from '../core/CollisionBox';
 import { SolidBox } from '../core/SolidBox';
-import { useBew } from '../../../scripts/contexts/BewProvider';
-import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
+import { useBew } from '../../../script/contexts/BewProvider';
+import { useVibeverse } from '../../../script/hooks/useVibeverse';
 import { useState } from 'react';
 
 export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setPlayerPosition: (position: [number, number, number]) => void,

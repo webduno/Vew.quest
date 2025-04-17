@@ -3,7 +3,7 @@ import { BewMenuButton } from "@/dom/atom/BewMenuButton"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { useVibeverse } from "../../../scripts/hooks/useVibeverse"
+import { useVibeverse } from "../../../script/hooks/useVibeverse"
 
 export const LandingMainMenu = () => {
 

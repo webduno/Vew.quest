@@ -5,7 +5,7 @@ import { TopSection } from './TopSection';
 import { MiddleSection } from './MiddleSection';
 import { BottomSection } from './BottomSection';
 import { ExitButton } from './ExitButton';
-import { normalizeRotation, buttonColors, buttonTypes } from '../../../../scripts/helpers/analogHelpers';
+import { normalizeRotation, buttonColors, buttonTypes } from '../../../../script/helpers/analogHelpers';
 import { useAnalogModal } from './useAnalogModal';
 import { SectionType } from './types';
 import { BewMenuButton } from '@/dom/atom/BewMenuButton';

@@ -1,6 +1,6 @@
 'use client';
 import React, { createContext, useContext } from 'react';
-import { useVibeverse } from '../../scripts/hooks/useVibeverse';
+import { useVibeverse } from '../../script/hooks/useVibeverse';
 
 // Define the context type
 type VibeverseContextType = {

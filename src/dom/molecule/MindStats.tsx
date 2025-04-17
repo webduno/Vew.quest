@@ -1,5 +1,5 @@
 'use client';
-import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
+import { useVibeverse } from '../../../script/hooks/useVibeverse';
 import { useState, useEffect } from 'react';
 
 const getTotalFirstAid = (stats: any) => {

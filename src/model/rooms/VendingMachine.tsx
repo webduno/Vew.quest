@@ -2,7 +2,7 @@
 import { Box, Text, Sphere, Cylinder, Plane } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
-import { useBew } from '../../../scripts/contexts/BewProvider';
+import { useBew } from '../../../script/contexts/BewProvider';
 
 export const VendingMachine = () => {
   const { showSnackbar, playSoundEffect } = useBew();

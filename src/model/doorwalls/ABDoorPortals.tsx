@@ -6,7 +6,7 @@ import { CollisionBox } from '@/model/core/CollisionBox';
 import { SolidBox } from '@/model/core/SolidBox';
 import { StyledWall } from '@/model/core/StyledWall';
 import { RegularKey } from '@/model/bits/RegularKey';
-import { useBew } from '@/../scripts/contexts/BewProvider';
+import { useBew } from '@/../script/contexts/BewProvider';
 
 
 export const ABDoorPortals = ({

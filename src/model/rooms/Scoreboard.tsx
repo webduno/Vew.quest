@@ -1,6 +1,6 @@
 'use client';
 import { Text, Plane } from '@react-three/drei';
-import { calculateAccuracy } from "../../../scripts/utils/calculateAccuracy";
+import { calculateAccuracy } from "../../../script/utils/calculateAccuracy";
 
 interface CRVObject {
   id: string;

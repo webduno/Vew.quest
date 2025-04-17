@@ -1,6 +1,6 @@
 "use client";
 
-import { HardBadge } from "@/../scripts/contexts/HardBadge";
+import { HardBadge } from "@/../script/contexts/HardBadge";
 import { BewLogo } from "../atom/BewLogo";
 
 export const ConfigPageComponent = () => {

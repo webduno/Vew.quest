@@ -4,8 +4,8 @@ import { SolidBox } from '../core/SolidBox';
 import { useState, useEffect } from 'react';
 import { VendingMachine } from './VendingMachine';
 import { CollisionBox } from '../core/CollisionBox';
-import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
-import { useBew } from '../../../scripts/contexts/BewProvider';
+import { useVibeverse } from '../../../script/hooks/useVibeverse';
+import { useBew } from '../../../script/contexts/BewProvider';
 export const CommonArea = () => {
   const { showSnackbar, playSoundEffect } = useBew();
   const { mindStats, updateExploredStatus, hasExploredZone } = useVibeverse();

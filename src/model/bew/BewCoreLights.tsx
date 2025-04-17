@@ -1,6 +1,6 @@
 'use client';
 
-import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
+import { useVibeverse } from '@/../script/hooks/useVibeverse';
 import { Box } from '@react-three/drei';
 import { useRef, useEffect, useState, useContext } from 'react';
 import { MeshStandardMaterial } from 'three';

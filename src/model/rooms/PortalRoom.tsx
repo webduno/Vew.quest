@@ -1,8 +1,8 @@
 'use client';
 import { Box, GradientTexture, Text } from '@react-three/drei';
 import { StyledWall } from '../core/StyledWall';
-import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
-import { useBew } from '../../../scripts/contexts/BewProvider';
+import { useVibeverse } from '@/../script/hooks/useVibeverse';
+import { useBew } from '../../../script/contexts/BewProvider';
 import { SolidBox } from '../core/SolidBox';
 
 

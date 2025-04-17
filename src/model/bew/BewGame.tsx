@@ -1,6 +1,6 @@
 'use client';
-import { isMobile } from '@/../scripts/utils/mobileDetection';
-import { calculateAccuracy } from "../../../scripts/utils/calculateAccuracy";
+import { isMobile } from '@/../script/utils/mobileDetection';
+import { calculateAccuracy } from "../../../script/utils/calculateAccuracy";
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef, useContext } from 'react';
@@ -13,9 +13,9 @@ import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScre
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
 import { SolidBox } from '../core/SolidBox';
 import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye } from '@react-three/drei';
-import { useVibeverse } from '@/../scripts/hooks/useVibeverse';
+import { useVibeverse } from '@/../script/hooks/useVibeverse';
 import { useSearchParams } from 'next/navigation';
-import { useBew } from '../../../scripts/contexts/BewProvider';
+import { useBew } from '../../../script/contexts/BewProvider';
 import { BackgroundMusic } from '@/dom/molecule/BackgroundMusic';
 import { PerformanceStats } from '../../dom/molecule/PerformanceStats';
 import { RotatingBar } from '../bits/RotatingBar';
@@ -27,7 +27,7 @@ import { PhysicalCeiling } from '../core/PhysicalFloor';
 import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
 import { ACESFilmicToneMapping } from 'three';
 import { BewCoreLights } from './BewCoreLights';
-import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
+import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
 
 export const BewGame = () => {
   const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl, updateMindStats, mindStats } =  useVibeverse()

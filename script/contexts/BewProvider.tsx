@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, useRef } from 'react';
-import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
+import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
 import { HardBadge } from './HardBadge';
 import { HandbookPage } from './HandbookPage';
 import { ErrorSheet } from './ErrorSheet';

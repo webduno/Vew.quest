@@ -4,8 +4,8 @@ import { CardboardBox } from '../bits/CardboardBox';
 import { StyledWall } from '../core/StyledWall';
 import { SolidBox } from '../core/SolidBox';
 import { CollisionBox } from '../core/CollisionBox';
-import { useBew } from '../../../scripts/contexts/BewProvider';
-import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
+import { useBew } from '../../../script/contexts/BewProvider';
+import { useVibeverse } from '../../../script/hooks/useVibeverse';
 
 export const PsionicHallway = ({wasPsionicHallwayEntered, setWasPsionicHallwayEntered}: {wasPsionicHallwayEntered: boolean, setWasPsionicHallwayEntered: (wasPsionicHallwayEntered: boolean) => void}) => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();

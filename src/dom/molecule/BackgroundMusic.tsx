@@ -1,10 +1,10 @@
 "use client"
 
-import { useBackgroundMusic } from '@/../scripts/contexts/BackgroundMusicContext';
+import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
 import { GameButton } from '../atom/game/GameButton';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { isMobile } from '../../../scripts/utils/mobileDetection';
+import { isMobile } from '../../../script/utils/mobileDetection';
 export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoading }: { 
   firstTime: boolean,
   disableFirstTime: () => void,

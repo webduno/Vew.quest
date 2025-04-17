@@ -2,8 +2,8 @@
 import { Box } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useEffect, useState } from 'react';
-import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
-import { useBew } from '../../../scripts/contexts/BewProvider';
+import { useVibeverse } from '../../../script/hooks/useVibeverse';
+import { useBew } from '../../../script/contexts/BewProvider';
 import { PublicRequests } from './PublicRequests';
 import { YourRequests } from './YourRequests';
 import { Scoreboard } from './Scoreboard';
