@@ -20,8 +20,8 @@ export const useAnalogModal = (onSend: (params: {
   
   // State for gauge values (0-360 degrees)
   const [gaugeValues, setGaugeValues] = useState([180, 180]);
-  // State for slider values (0-80)
-  const [sliderValues, setSliderValues] = useState([40, 40, 40]);
+  // State for slider values (0-100)
+  const [sliderValues, setSliderValues] = useState([50, 50, 50]);
   
   // Add ref for focusing
   const modalRef = useRef<HTMLDivElement>(null);
@@ -62,7 +62,7 @@ export const useAnalogModal = (onSend: (params: {
           const newValues = [...prev];
           // Decrease on scroll down, increase on scroll up
           const change = e.deltaY > 0 ? -5 : 5;
-          newValues[sliderIndex] = Math.min(80, Math.max(0, newValues[sliderIndex] + change));
+          newValues[sliderIndex] = Math.min(100, Math.max(0, newValues[sliderIndex] + change));
           return newValues;
         });
       } else if (activeSection === 'meter') {
@@ -177,7 +177,7 @@ export const useAnalogModal = (onSend: (params: {
         e.preventDefault();
         setSliderValues(prev => {
           const newValues = [...prev];
-          newValues[sliderIndex] = Math.min(80, newValues[sliderIndex] + 5);
+          newValues[sliderIndex] = Math.min(100, newValues[sliderIndex] + 5);
           return newValues;
         });
       } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {

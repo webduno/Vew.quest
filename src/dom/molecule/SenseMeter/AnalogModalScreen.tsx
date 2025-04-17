@@ -131,8 +131,8 @@ export const AnalogModalScreen = ({
 {!shouldShowMiddleSection && !shouldShowBottomSection &&
  shouldShowTopRightSection && (<>
       
-      <div className='tx-center tx-altfont-1 opaci-75 pos-rel w-100 tx-black pb- flex-col w-100 flex-align-end'>
-        <div>Whats the nature of the target?</div>
+      <div className='tx-center tx-altfont-1 tx-xsm opaci-75 pos-rel w-100 tx-black pb- flex-col w-100 flex-align-end'>
+        <div>Whats the nature/temperature of the target?</div>
         {/* <div className='tx-xsm'>Artificial/Organic | Cold/Hot</div> */}
         
         <div className='pos-abs tx-xl translate-y-75 pr-4'>↓</div>

@@ -330,7 +330,7 @@ export default function TrainingPage() {
               CATEGORY (SENT/TARGET)
               </div>
               <div className="tx-white tx-altfont-1 tx-black opaci-75">
-                 HIT
+                 HIT %
               </div>
             </div>
             <hr className='w-100 opaci-50' />
@@ -369,7 +369,7 @@ export default function TrainingPage() {
           <div className="flex-row pb-4  ">
 <div className="flex-col">
 <div className="flex-1 tx-center tx-altfont-5 opaci-50">
-Score:
+Averaged Score:
 </div>
 <div className="flex-1 tx-center tx-altfont-8 tx-shadow-5 tx-xxl">
 {Number(overallAccuracy).toFixed(3)}%

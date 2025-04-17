@@ -24,10 +24,10 @@ export const SliderBar = ({
     onSliderClick(clampedValue);
   };
 
-  // Convert sliderPosition (0-80) to percentage of available height
+  // Convert sliderPosition (0-100) to percentage of available height
   const sliderHeightPx = 10; // Height of the slider indicator
   const availableHeight = height - sliderHeightPx;
-  const bottomPosition = Math.min(availableHeight, (sliderPosition / 80) * availableHeight);
+  const bottomPosition = Math.min(availableHeight, (sliderPosition / 100) * availableHeight);
 
   return (
     <div 

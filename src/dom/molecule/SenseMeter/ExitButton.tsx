@@ -66,8 +66,12 @@ export const ExitButton: React.FC<ExitButtonProps> = ({
         SEND
       </div>
       {activeSection === 'send' && !isMobile() &&
-        <div className='tx-xs tx-center tx-white  bord-r-5  pt-1'>
-          SPACEBAR TO SEND
+        <div className='tx-xs tx-shadow-5 tx-center  bord-r-5  pt-1'
+        style={{
+          color: '#00ff00',
+        }}
+        >
+          {isMobile() ? "TAP TO CONFIRM" : "SPACEBAR TO CONFIRM"}
         </div>
       }
     </div>

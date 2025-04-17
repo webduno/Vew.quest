@@ -54,12 +54,19 @@ export const MiddleSection: React.FC<MiddleSectionProps> = ({
                 }}
               >
                 <div className="flex-col pos-rel">
-                  {activeSection === section &&
+                  {/* {activeSection === section &&
                     <div className=' pos-abs left-0 translate-x--100 tx-bold'
                       style={{
                         color: '#ff0000'
                       }}
                     >→</div>
+                  } */}
+                  {activeSection === section &&
+                    <div className='pl-1 pos-abs right-0 translate-x-100 tx-bold'
+                      style={{
+                        color: '#ff0000'
+                      }}
+                    >{sliderValues[index]}</div>
                   }
                   <div>{label}</div>
                 </div>
@@ -70,8 +77,7 @@ export const MiddleSection: React.FC<MiddleSectionProps> = ({
                   onSliderClick={(value) => {
                     setSliderValues(prev => {
                       const newValues = [...prev];
-                      // Convert 0-100 value to 0-80 range for consistency with existing implementation
-                      newValues[index] = Math.round((value / 100) * 80);
+                      newValues[index] = value;
                       return newValues;
                     });
                     if (modalRef.current) {
