@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { Box, Cylinder, Text } from '@react-three/drei';
 
 import { SolidBox } from '../../core/SolidBox';
-import { useVibeverse } from '@/../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../../script/contexts/usePlayerStats';
 
 import { ABDoorPortals } from '../../doorwalls/ABDoorPortals';
 import { CallibrationSpaces } from '../../rooms/CallibrationSpaces';
@@ -49,9 +49,9 @@ export const BewMainScene = ({ setPlayerPosition,
     formatPortalUrl,
     LS_hasFirstKey,
     setHasFirstKey
-  } =  useVibeverse()
+  } =  usePlayerStats()
   const vb_ref = useSearchParams().get("ref")
-  // const { hasExploredZone } = useVibeverse();
+  // const { hasExploredZone } = usePlayerStats();
   
   // Memoize the handler with useCallback to prevent recreation
   const handleKeyCollection = useCallback((value: boolean) => {

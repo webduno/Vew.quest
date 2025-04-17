@@ -2,7 +2,7 @@
 import { Box } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useEffect, useState } from 'react';
-import { useVibeverse } from '../../../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { useBew } from '../../../script/contexts/BewProvider';
 import { PublicRequests } from './PublicRequests';
 import { YourRequests } from './YourRequests';
@@ -34,7 +34,7 @@ interface CRVRequest {
 }
 
 export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingRequest }: BewPreMainSceneProps) => {
-  const { LS_playerId, updateMindStats, mindStats } = useVibeverse();
+  const { LS_playerId, updateMindStats, mindStats } = usePlayerStats();
   const { playSoundEffect } = useBew();
   const [crvObjects, setCrvObjects] = useState<CRVObject[]>([]);
   const [scoreboardObjects, setScoreboardObjects] = useState<CRVObject[]>([]);

@@ -1,6 +1,6 @@
 'use client';
 import React, { createContext, useContext } from 'react';
-import { useVibeverse } from '../../script/hooks/useVibeverse';
+import { usePlayerStats } from './usePlayerStats';
 
 // Define the context type
 type VibeverseContextType = {
@@ -40,7 +40,7 @@ export const VibeverseContext = createContext<VibeverseContextType>({
 
 // Provider component
 export const VibeverseProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const vibeverseData = useVibeverse() || {};
+  const vibeverseData = usePlayerStats() || {};
 
   // Ensure we always provide valid values
   const contextValue: VibeverseContextType = {

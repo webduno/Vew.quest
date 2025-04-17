@@ -1,5 +1,5 @@
 'use client';
-import { useVibeverse } from '../../../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { useState, useEffect } from 'react';
 
 const getTotalFirstAid = (stats: any) => {
@@ -9,7 +9,7 @@ const getTotalFirstAid = (stats: any) => {
 };
 
 export const MindStats = () => {
-  const { mindStats } = useVibeverse();
+  const { mindStats } = usePlayerStats();
   const [stats, setStats] = useState<{ 
       color: number;
       solid: number;

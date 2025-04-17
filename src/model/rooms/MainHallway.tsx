@@ -1,10 +1,10 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
-import { useVibeverse } from '@/../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 
 export const MainHallway = () => {
-  const { LS_hasFirstKey, LS_lowGraphics } = useVibeverse()
+  const { LS_hasFirstKey, LS_lowGraphics } = usePlayerStats()
   return (<>
 
 <OutOfServiceDoor />

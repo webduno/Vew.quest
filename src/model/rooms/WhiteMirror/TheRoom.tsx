@@ -4,7 +4,7 @@ import { CollisionBox } from '../../core/CollisionBox';
 import { TheChair } from './TheChair';
 import { TheTable } from './TheTable';
 import { Box, Plane, Text, Text3D } from '@react-three/drei';
-import { useVibeverse } from '@/../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../../script/contexts/usePlayerStats';
 import { useBew } from '@/../script/contexts/BewProvider';
 
 export interface TheRoomProps {
@@ -26,7 +26,7 @@ export const TheRoom = ({
 }: TheRoomProps) => {
 
   const { playSoundEffect } = useBew();
-  const { hasExploredZone, updateExploredStatus, mindStats } = useVibeverse();
+  const { hasExploredZone, updateExploredStatus, mindStats } = usePlayerStats();
   
   return (<>
   

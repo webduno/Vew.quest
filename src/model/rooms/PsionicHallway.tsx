@@ -5,11 +5,11 @@ import { StyledWall } from '../core/StyledWall';
 import { SolidBox } from '../core/SolidBox';
 import { CollisionBox } from '../core/CollisionBox';
 import { useBew } from '../../../script/contexts/BewProvider';
-import { useVibeverse } from '../../../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 
 export const PsionicHallway = ({wasPsionicHallwayEntered, setWasPsionicHallwayEntered}: {wasPsionicHallwayEntered: boolean, setWasPsionicHallwayEntered: (wasPsionicHallwayEntered: boolean) => void}) => {
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
-  const { updateExploredStatus, hasExploredZone, mindStats, LS_lowGraphics } = useVibeverse();
+  const { updateExploredStatus, hasExploredZone, mindStats, LS_lowGraphics } = usePlayerStats();
 
   return (<>
   {!wasPsionicHallwayEntered && (

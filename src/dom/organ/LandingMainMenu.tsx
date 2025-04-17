@@ -3,12 +3,12 @@ import { KeyboardBtn } from "@/dom/atom/button/KeyboardBtn"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { useVibeverse } from "../../../script/hooks/useVibeverse"
+import { usePlayerStats } from "../../../script/contexts/usePlayerStats"
 
 export const LandingMainMenu = () => {
 
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId,
-     sanitizePlayerId, LS_lowGraphics, toggleLowGraphics } = useVibeverse()
+     sanitizePlayerId, LS_lowGraphics, toggleLowGraphics } = usePlayerStats()
   const [enterUsername, setEnterUsername] = useState(false)
   const [isGameLoading, setGameLoading] = useState(false)
 const random10CharString = () => {

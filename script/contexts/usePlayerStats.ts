@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 
 
-export function useVibeverse() {
+export function usePlayerStats() {
   const [LS_firstTime, setLS_firstTime] = useState<boolean>(true);
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const [typedUsername, setTypedUsername] = useState("");

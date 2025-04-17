@@ -4,7 +4,7 @@ import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
 import { useBew } from '../../../script/contexts/BewProvider';
 import { CollisionBox } from '../core/CollisionBox';
-import { useVibeverse } from '../../../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
 import { SolidGameLoop } from '@/model/minigames/SolidGameLoop';
 
@@ -21,7 +21,7 @@ export const SolidCallibrationArcade = ({
 }) => {
   const { showSnackbar, closeSnackbar } = useBew();
   const { playSoundEffect } = useBackgroundMusic();
-  const { updateMindStats, hasCompletedTutorial, updateTutorialStatus } = useVibeverse();
+  const { updateMindStats, hasCompletedTutorial, updateTutorialStatus } = usePlayerStats();
   const [points, setPoints] = useState<number>(0);
   const [misses, setMisses] = useState<number>(0);
 

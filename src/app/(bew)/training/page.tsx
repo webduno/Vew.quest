@@ -6,7 +6,7 @@ import { calculateAccuracy } from '../../../../script/utils/play/calculateAccura
 import { BewLogo } from '@/dom/atom/logo/BewLogo';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
-import { useVibeverse } from '@/../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../../script/contexts/usePlayerStats';
 type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {

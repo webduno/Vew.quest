@@ -4,11 +4,11 @@ import { SolidBox } from '../core/SolidBox';
 import { useState, useEffect } from 'react';
 import { VendingMachine } from './VendingMachine';
 import { CollisionBox } from '../core/CollisionBox';
-import { useVibeverse } from '../../../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { useBew } from '../../../script/contexts/BewProvider';
 export const CommonArea = () => {
   const { showSnackbar, playSoundEffect } = useBew();
-  const { mindStats, updateExploredStatus, hasExploredZone } = useVibeverse();
+  const { mindStats, updateExploredStatus, hasExploredZone } = usePlayerStats();
   const [colorCallibration, setColorCallibration] = useState(0)
   const [callibrationAvailable, setCallibrationAvailable] = useState(false)
   const [isCallibrated, setIsCallibrated] = useState(false);

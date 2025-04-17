@@ -6,13 +6,13 @@ import { ColorCallibrationArcade } from '@/model/minigames/ColorCallibrationArca
 import { SummoningCircle } from '../bits/SummoningCircle';
 import { SolidBox } from '../core/SolidBox';
 import { SolidCallibrationArcade } from '@/model/minigames/SolidCallibrationArcade';
-import { useVibeverse } from '../../../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { CollisionBox } from '../core/CollisionBox';
 import { useBew } from '../../../script/contexts/BewProvider';
 
 export const CallibrationSpaces = () => {
   const { showSnackbar, playSoundEffect } = useBew();
-  const { hasExploredZone, updateExploredStatus } = useVibeverse();
+  const { hasExploredZone, updateExploredStatus } = usePlayerStats();
   const [colorCalibrationStarted, setColorCalibrationStarted] = useState(false)
   const [solidCalibrationStarted, setSolidCalibrationStarted] = useState(false)
 

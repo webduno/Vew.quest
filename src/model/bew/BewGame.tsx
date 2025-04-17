@@ -13,7 +13,7 @@ import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScre
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
 import { SolidBox } from '../core/SolidBox';
 import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye } from '@react-three/drei';
-import { useVibeverse } from '@/../script/hooks/useVibeverse';
+import { usePlayerStats } from '../../../script/contexts/usePlayerStats';
 import { useSearchParams } from 'next/navigation';
 import { useBew } from '../../../script/contexts/BewProvider';
 import { BackgroundMusic } from '@/dom/molecule/BackgroundMusic';
@@ -30,9 +30,9 @@ import { BewCoreLights } from './BewCoreLights';
 import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
 
 export const BewGame = () => {
-  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl, updateMindStats, mindStats } =  useVibeverse()
+  const { LS_playerId, LS_lowGraphics, LS_firstTime, disableFirstTime, updateExploredStatus, hasExploredZone, formatPortalUrl, updateMindStats, mindStats } =  usePlayerStats()
   const { changeBackgroundMusic } = useBackgroundMusic();
-  // const { updateExploredStatus, hasExploredZone } = useVibeverse();
+  // const { updateExploredStatus, hasExploredZone } = usePlayerStats();
 
   const [showAnalogModal, setShowAnalogModal] = useState(false);
   const [whiteRoomTarget, setWhiteRoomTarget] = useState("");
@@ -357,7 +357,7 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
   }
 
   const handleResetAnalysis = useCallback(() => {
-    // Check if user has enough solid calibration points using the live mindStats from useVibeverse
+    // Check if user has enough solid calibration points using the live mindStats from usePlayerStats
     if (mindStats.solid <= 0) {
       failedChairSit()
       return;
