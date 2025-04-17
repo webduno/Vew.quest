@@ -1,8 +1,8 @@
 "use client"
 
-import { ConfigPageComponent } from "../@/dom/organ/ConfigPageComponent";
+import { ConfigPageComponent } from "@/dom/organ/ConfigPageComponent";
 
-export default function AboutPage() {
+export default function ConfigPage() {
   return <div>
     <ConfigPageComponent />
   </div>;
