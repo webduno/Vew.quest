@@ -71,8 +71,45 @@ Progress is achieved through correct calibrations:
   - **Solidness**
   - **Colorness**
 
+## ESP Lobby Features
 
-### **Player Abilities & Controls**
+The ESP Lobby is a central hub for CRV (Controlled Remote Viewing) activities, featuring several interactive components:
+
+### Public Requests
+- Display of available CRV requests from other players
+- Each request shows ID, timestamp, and optional bounty
+- Players can take requests using color points
+- Interface to submit new CRV requests with optional bounties
+
+### Your Requests
+- Shows player's submitted CRV requests
+- Displays attempts, solved status, and bounty information
+- Time-stamped entries for tracking request history
+
+### Scoreboard
+- Top performers in CRV tasks
+- Displays accuracy percentages and player IDs
+- Highlights top 3 performers with enhanced visibility
+- Shows up to 8 entries
+
+### Daily Quota
+- Tracks daily CRV attempts (limit of 3 per day)
+- Shows completion percentage and rewards
+- Displays recent results with timestamps
+- Includes refresh functionality to update stats
+- Reward calculations based on multiple accuracy factors:
+  - Naturality
+  - Temperature
+  - Light
+  - Color
+  - Solidness
+
+### Networking Features
+- Real-time updates for requests and scores
+- Asynchronous request handling
+- Player-to-player interaction through request system
+
+## **Player Abilities & Controls**
 - **Move:** WASD / Arrow Keys
 - **Look Around:** Mouse
 - **Interact with Objects:** Left Click
