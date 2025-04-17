@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
-import { calculateAccuracy } from "../../../../script/utils/calculateAccuracy";
+import { calculateAccuracy } from "@/../script/utils/calculateAccuracy";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;

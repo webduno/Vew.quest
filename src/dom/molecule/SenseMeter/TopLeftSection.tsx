@@ -1,14 +1,14 @@
 import React from 'react';
 import { ControlButton } from './parts/ControlButton';
-import { SectionType } from './types';
+import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
 
 interface TopLeftSectionProps {
   activeButtonIndex: number;
-  activeSection: SectionType;
+  activeSection: SenseSectionType;
   buttonColors: string[];
   buttonTypes: string[];
   setActiveButtonIndex: (index: number) => void;
-  setActiveSection: (section: SectionType) => void;
+  setActiveSection: (section: SenseSectionType) => void;
   modalRef: React.RefObject<HTMLDivElement>;
 }
 

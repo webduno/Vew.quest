@@ -1,5 +1,5 @@
 'use client';
-import { isMobile } from '@/../script/utils/mobileDetection';
+import { isMobile } from '@/../script/utils/platform/mobileDetection';
 import { calculateAccuracy } from "../../../script/utils/calculateAccuracy";
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';

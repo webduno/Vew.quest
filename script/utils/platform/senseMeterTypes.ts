@@ -1,0 +1,1 @@
+export type SenseSectionType = 'buttons' | 'natural' | 'temp' | 'light' | 'color' | 'solid' | 'meter' | 'send'; 

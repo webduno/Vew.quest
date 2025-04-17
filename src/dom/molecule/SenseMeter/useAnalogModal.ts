@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { buttonTypes } from '../../../../script/helpers/analogHelpers';
-import { SectionType } from './types';
+import { buttonTypes } from '@/../script/helpers/analogHelpers';
+import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
 
 export const useAnalogModal = (onSend: (params: {
   type: string;
@@ -13,7 +13,7 @@ export const useAnalogModal = (onSend: (params: {
 }) => void) => {
   // State for active control button and active section
   const [activeButtonIndex, setActiveButtonIndex] = useState(0);
-  const [activeSection, setActiveSection] = useState<SectionType>('buttons');
+  const [activeSection, setActiveSection] = useState<SenseSectionType>('buttons');
   const [activeGaugeIndex, setActiveGaugeIndex] = useState(0);
   const [meterValue, setMeterValue] = useState(50); // 0-100 percentage value for the large meter
   const [hasCompletedLoop, setHasCompletedLoop] = useState(false);

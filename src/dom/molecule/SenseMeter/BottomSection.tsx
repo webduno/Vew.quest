@@ -1,9 +1,9 @@
 import React from 'react';
 import { LargeSemicircularMeter } from './parts/LargeSemicircularMeter';
-import { SectionType } from './types';
+import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
 
 interface BottomSectionProps {
-  activeSection: SectionType;
+  activeSection: SenseSectionType;
   meterValue: number;
   meterRef: React.RefObject<HTMLDivElement>;
   handleMeterClick: (e: React.MouseEvent) => void;

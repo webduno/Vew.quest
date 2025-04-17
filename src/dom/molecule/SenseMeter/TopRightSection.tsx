@@ -1,11 +1,11 @@
 import React from 'react';
 import { GaugeDial } from './parts/GaugeDial';
-import { SectionType } from './types';
+import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
 
 interface TopRightSectionProps {
-  activeSection: SectionType;
+  activeSection: SenseSectionType;
   gaugeValues: number[];
-  setActiveSection: (section: SectionType) => void;
+  setActiveSection: (section: SenseSectionType) => void;
   setGaugeValues: (values: number[] | ((prev: number[]) => number[])) => void;
   modalRef: React.RefObject<HTMLDivElement>;
 }

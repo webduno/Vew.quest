@@ -1,12 +1,12 @@
 import React from 'react';
 import { SliderBar } from './parts/SliderBar';
 import { CircularMeter } from './parts/CircularMeter';
-import { SectionType } from './types';
+import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
 
 interface MiddleSectionProps {
-  activeSection: SectionType;
+  activeSection: SenseSectionType;
   sliderValues: number[];
-  setActiveSection: (section: SectionType) => void;
+  setActiveSection: (section: SenseSectionType) => void;
   setSliderValues: (values: number[] | ((prev: number[]) => number[])) => void;
   modalRef: React.RefObject<HTMLDivElement>;
 }

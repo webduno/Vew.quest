@@ -1,16 +1,16 @@
 import React from 'react';
 import { TopLeftSection } from './TopLeftSection';
 import { TopRightSection } from './TopRightSection';
-import { SectionType } from './types';
+import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
 
 interface TopSectionProps {
   activeButtonIndex: number;
-  activeSection: SectionType;
+  activeSection: SenseSectionType;
   buttonColors: string[];
   buttonTypes: string[];
   gaugeValues: number[];
   setActiveButtonIndex: (index: number) => void;
-  setActiveSection: (section: SectionType) => void;
+  setActiveSection: (section: SenseSectionType) => void;
   setGaugeValues: (values: number[] | ((prev: number[]) => number[])) => void;
   modalRef: React.RefObject<HTMLDivElement>;
   shouldShowTopRightSection: boolean;

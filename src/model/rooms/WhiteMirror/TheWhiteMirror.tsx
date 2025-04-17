@@ -2,7 +2,7 @@
 import { useTexture, Sphere, Text, Plane, RoundedBox,  Cylinder } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import { useBew } from '../../../../script/contexts/BewProvider';
+import { useBew } from '@/../script/contexts/BewProvider';
 
 
 

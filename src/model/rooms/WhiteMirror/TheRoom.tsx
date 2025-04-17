@@ -4,8 +4,8 @@ import { CollisionBox } from '../../core/CollisionBox';
 import { TheChair } from './TheChair';
 import { TheTable } from './TheTable';
 import { Box, Plane, Text, Text3D } from '@react-three/drei';
-import { useVibeverse } from '../../../../script/hooks/useVibeverse';
-import { useBew } from '../../../../script/contexts/BewProvider';
+import { useVibeverse } from '@/../script/hooks/useVibeverse';
+import { useBew } from '@/../script/contexts/BewProvider';
 
 export interface TheRoomProps {
   onChairSit?: (e: any) => void;

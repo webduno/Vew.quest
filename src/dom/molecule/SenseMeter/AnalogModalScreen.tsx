@@ -5,9 +5,9 @@ import { TopSection } from './TopSection';
 import { MiddleSection } from './MiddleSection';
 import { BottomSection } from './BottomSection';
 import { ExitButton } from './ExitButton';
-import { normalizeRotation, buttonColors, buttonTypes } from '../../../../script/helpers/analogHelpers';
+import { normalizeRotation, buttonColors, buttonTypes } from '@/../script/helpers/analogHelpers';
 import { useAnalogModal } from './useAnalogModal';
-import { SectionType } from './types';
+import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
 import { BewMenuButton } from '@/dom/atom/BewMenuButton';
 
 export const AnalogModalScreen = ({
@@ -52,7 +52,7 @@ export const AnalogModalScreen = ({
   } = useAnalogModal(onSend);
 
   // Create a wrapper function to handle the type conversion
-  const setActiveSection = (section: SectionType) => {
+  const setActiveSection = (section: SenseSectionType) => {
     setActiveSectionState(section);
   };
 

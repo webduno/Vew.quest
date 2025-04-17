@@ -1,9 +1,10 @@
 import React from 'react';
-import { isMobile } from '../../../../script/utils/mobileDetection';
-import { SectionType } from './types';
+import { isMobile } from '@/../script/utils/platform/mobileDetection';
+import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
+
 
 interface ExitButtonProps {
-  activeSection: SectionType;
+  activeSection: SenseSectionType;
   activeButtonIndex: number;
   gaugeValues: number[];
   sliderValues: number[];
@@ -18,7 +19,7 @@ interface ExitButtonProps {
     solid: number;
     confidence: number;
   }) => void;
-  setActiveSection: (section: SectionType) => void;
+  setActiveSection: (section: SenseSectionType) => void;
   modalRef: React.RefObject<HTMLDivElement>;
 }
 
