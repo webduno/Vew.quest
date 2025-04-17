@@ -1,6 +1,6 @@
 import React from 'react';
-import { ControlButton } from './parts/ControlButton';
-import { GaugeDial } from './parts/GaugeDial';
+import { TopLeftSection } from './TopLeftSection';
+import { TopRightSection } from './TopRightSection';
 import { SectionType } from './types';
 
 interface TopSectionProps {
@@ -13,6 +13,7 @@ interface TopSectionProps {
   setActiveSection: (section: SectionType) => void;
   setGaugeValues: (values: number[] | ((prev: number[]) => number[])) => void;
   modalRef: React.RefObject<HTMLDivElement>;
+  shouldShowTopRightSection: boolean;
 }
 
 export const TopSection: React.FC<TopSectionProps> = ({
@@ -24,105 +25,31 @@ export const TopSection: React.FC<TopSectionProps> = ({
   setActiveButtonIndex,
   setActiveSection,
   setGaugeValues,
-  modalRef
+  modalRef,
+  shouldShowTopRightSection
 }) => {
   return (
     <>
-      <div className='tx-sm pb-1 flex-row flex-justify-start gap-1 w-100'>
-        <div className='opaci-50'>Type:</div>
-        <div>{buttonTypes[activeButtonIndex]}</div>
+      <div className='flex-row gap-2 flex-align-end'>
+        <TopLeftSection
+          activeButtonIndex={activeButtonIndex}
+          activeSection={activeSection}
+          buttonColors={buttonColors}
+          buttonTypes={buttonTypes}
+          setActiveButtonIndex={setActiveButtonIndex}
+          setActiveSection={setActiveSection}
+          modalRef={modalRef}
+        />
+        {shouldShowTopRightSection && (
+          <TopRightSection
+            activeSection={activeSection}
+            gaugeValues={gaugeValues}
+            setActiveSection={setActiveSection}
+            setGaugeValues={setGaugeValues}
+            modalRef={modalRef}
+          />
+        )}
       </div>
-      <div className='flex-row gap-1 flex-align-end'>
-        <div className='flex-wrap pa-1 bord-r-5' 
-          style={{
-            border: activeSection === 'buttons' ? '1px solid #ff3300' : '1px solid transparent',
-            background: '#7d807d'
-          }}
-        >
-          {buttonColors.map((color, index) => (
-            <ControlButton 
-              key={index}
-              color={color}
-              isActive={activeButtonIndex === index}
-              onClick={() => {
-                setActiveButtonIndex(index);
-                setActiveSection('buttons');
-                if (modalRef.current) {
-                  modalRef.current.focus();
-                }
-              }}
-            />
-          ))}
-        </div>
-        <div className='flex-row pa-1 gap-1 bord-r-5' style={{ background: '#7d807d'}}>
-          <div 
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
-            onClick={() => {
-              setActiveSection('natural');
-              if (modalRef.current) {
-                modalRef.current.focus();
-              }
-            }}
-          >
-            <div className='tx-xs tx-white mb-1 flex-row' style={{gap:"2px"}}>
-              <div className='opaci-50'>Natural</div>
-              <div>{gaugeValues[0]}</div>
-            </div>
-            <div style={{}}>
-              <GaugeDial 
-                key="y" 
-                needleRotation={gaugeValues[0]}
-                isActive={activeSection === 'natural'}
-                onChange={(angle) => {
-                  setGaugeValues(prev => {
-                    const newValues = [...prev];
-                    newValues[0] = angle;
-                    return newValues;
-                  });
-                  setActiveSection('natural');
-                  if (modalRef.current) {
-                    modalRef.current.focus();
-                  }
-                }}
-              />
-            </div>
-          </div>
-          <div 
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', cursor: 'pointer' }}
-            onClick={() => {
-              setActiveSection('temp');
-              if (modalRef.current) {
-                modalRef.current.focus();
-              }
-            }}
-          >
-            <div className='tx-xs  tx-white mb-1 flex-row' style={{gap:"2px"}}>
-              <div className='opaci-50'>Temp</div>
-              <div>{gaugeValues[1]}</div>
-            </div>
-            <div style={{}}><GaugeDial 
-              key="z" 
-              needleRotation={gaugeValues[1]}
-              isActive={activeSection === 'temp'}
-              onChange={(angle) => {
-                setGaugeValues(prev => {
-                  const newValues = [...prev];
-                  newValues[1] = angle;
-                  return newValues;
-                });
-                setActiveSection('temp');
-                if (modalRef.current) {
-                  modalRef.current.focus();
-                }
-              }}
-            /></div>
-          </div>
-        </div>
-      </div>
-      <div className='tx-xxs mt-1 tx-ls-1 tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
-        USE TAB / SCROLL TO NAVIGATE SETTINGS
-      </div>
-      <hr className='w-100 opaci-20 my-1' />
     </>
   );
 }; 

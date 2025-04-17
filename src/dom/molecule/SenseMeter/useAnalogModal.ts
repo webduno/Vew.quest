@@ -16,6 +16,7 @@ export const useAnalogModal = (onSend: (params: {
   const [activeSection, setActiveSection] = useState<SectionType>('buttons');
   const [activeGaugeIndex, setActiveGaugeIndex] = useState(0);
   const [meterValue, setMeterValue] = useState(50); // 0-100 percentage value for the large meter
+  const [hasCompletedLoop, setHasCompletedLoop] = useState(false);
   
   // State for gauge values (0-360 degrees)
   const [gaugeValues, setGaugeValues] = useState([180, 180]);
@@ -101,7 +102,11 @@ export const useAnalogModal = (onSend: (params: {
           if (prev === 'color') return 'solid';
           if (prev === 'solid') return 'meter';
           if (prev === 'meter') return 'send';
-          return 'buttons'; // From send back to buttons
+          if (prev === 'send') {
+            setHasCompletedLoop(true);
+            return 'buttons';
+          }
+          return 'buttons';
         });
       } else if (e.code === 'Space' && activeSection === 'send') {
         // Only send when enter is pressed while send button is focused
@@ -227,6 +232,10 @@ export const useAnalogModal = (onSend: (params: {
     sliderValues,
     modalRef,
     meterRef,
+    hasCompletedLoop,
+    shouldShowTopRightSection: hasCompletedLoop || ['natural', 'temp', 'light', 'color', 'solid', 'meter', 'send'].includes(activeSection),
+    shouldShowMiddleSection: hasCompletedLoop || ['light', 'color', 'solid', 'meter', 'send'].includes(activeSection),
+    shouldShowBottomSection: hasCompletedLoop || ['meter', 'send'].includes(activeSection),
     setActiveButtonIndex,
     setActiveSection,
     setActiveGaugeIndex,
