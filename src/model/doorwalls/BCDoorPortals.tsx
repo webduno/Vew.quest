@@ -3,11 +3,11 @@ import { Box, Text } from '@react-three/drei';
 import { CollisionBox } from '../core/CollisionBox';
 import { SolidBox } from '../core/SolidBox';
 import { useBew } from '../../../scripts/contexts/BewProvider';
-import { useState } from 'react';
+import { useRef } from 'react';
 
 export const BCDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (position: [number, number, number]) => void; }) => {
   const { handleLockedDoor, playSoundEffect } = useBew()
-  const [soundEffectPlaying, setSoundEffectPlaying] = useState(false);
+  const soundEffectPlaying = useRef(false);
   return (<>
 
 
@@ -18,16 +18,15 @@ export const BCDoorPortals = ({ setPlayerPosition }: { setPlayerPosition: (posit
 
 <CollisionBox triggerCount={999}
       onCollide={(e) => {
-        if (soundEffectPlaying) { return; }
-        setSoundEffectPlaying(true);
+        if (soundEffectPlaying.current) return;
+        
+        soundEffectPlaying.current = true;
         setPlayerPosition([0, 0, -3.8]);
         playSoundEffect('/sfx/short/rewind.mp3');
         setTimeout(() => {
-          setSoundEffectPlaying(false);
-        }, 5000);
-
+          soundEffectPlaying.current = false;
+        }, 300);
       }}
-
       size={[1, 4, 0.2]}
       position={[0, 1, -5.2]}
       rotation={[0, 0, 0]} />
