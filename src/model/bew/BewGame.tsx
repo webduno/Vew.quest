@@ -557,7 +557,12 @@ setIsTakingRequest(null);
 
           {/* HALLWAY */}
           <group position={[1.5, 0, -12]} rotation={[0, -.7, 0]} scale={[1, 1, 1]}>
-            <PersonSilhouette />
+            <PersonSilhouette 
+            onClick={() => {
+              const randomVoice = Math.random() > 0.5 ? 'what' : 'whatuwant';
+              playSoundEffect(`/sfx/short/${randomVoice}.ogg`);
+            }}
+            />
           </group>
           
           {/* BEHIND THE DOOR */}

@@ -4,7 +4,7 @@ import { CollisionBox } from '../core/CollisionBox';
 import { SolidBox } from '../core/SolidBox';
 import { useBew } from '../../../scripts/contexts/BewProvider';
 import { useVibeverse } from '../../../scripts/hooks/useVibeverse';
-
+import { useState } from 'react';
 
 export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setPlayerPosition: (position: [number, number, number]) => void,
   code1?: string,
@@ -13,7 +13,7 @@ export const CDDoorPortals = ({ setPlayerPosition, code1, code2, code3 }: { setP
 
   const { hasExploredZone } = useVibeverse();
   const { showSnackbar, closeSnackbar, playSoundEffect } = useBew();
-
+  const [enterAttempt, setEnterAttempt] = useState(0);
 
   return (<>
     { (<>
@@ -147,6 +147,16 @@ fontSize={0.2}
       {/* front door */}
 {(!code1 || !code2) && (<>
       <SolidBox color="#cccccc"
+      onClick={(e) => {
+        e.stopPropagation();
+        playSoundEffect('/sfx/short/errorbip.mp3');
+        setEnterAttempt(prev => prev + 1);
+        if (!hasExploredZone("white_mirror_room") && enterAttempt == 3) {
+
+          playSoundEffect('/sfx/tutorials/codes.ogg');
+          showSnackbar("Codes are in the Portal Room and Psionic Hallway", "handbook", 5000);
+        }
+      }}
         size={[2, 3.1, .2]}
         position={[0, 1.6, -15]}   rotation={[0, 0, 0]}
       />
