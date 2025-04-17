@@ -68,11 +68,22 @@ export const TopSection: React.FC<TopSectionProps> = ({
               <div className='opaci-50'>Natural</div>
               <div>{gaugeValues[0]}</div>
             </div>
-            <div style={{transform:"rotate(180deg)"}}>
+            <div style={{}}>
               <GaugeDial 
                 key="y" 
                 needleRotation={gaugeValues[0]}
                 isActive={activeSection === 'natural'}
+                onChange={(angle) => {
+                  setGaugeValues(prev => {
+                    const newValues = [...prev];
+                    newValues[0] = angle;
+                    return newValues;
+                  });
+                  setActiveSection('natural');
+                  if (modalRef.current) {
+                    modalRef.current.focus();
+                  }
+                }}
               />
             </div>
           </div>
@@ -89,10 +100,21 @@ export const TopSection: React.FC<TopSectionProps> = ({
               <div className='opaci-50'>Temp</div>
               <div>{gaugeValues[1]}</div>
             </div>
-            <div style={{transform:"rotate(180deg)"}}><GaugeDial 
+            <div style={{}}><GaugeDial 
               key="z" 
               needleRotation={gaugeValues[1]}
               isActive={activeSection === 'temp'}
+              onChange={(angle) => {
+                setGaugeValues(prev => {
+                  const newValues = [...prev];
+                  newValues[1] = angle;
+                  return newValues;
+                });
+                setActiveSection('temp');
+                if (modalRef.current) {
+                  modalRef.current.focus();
+                }
+              }}
             /></div>
           </div>
         </div>

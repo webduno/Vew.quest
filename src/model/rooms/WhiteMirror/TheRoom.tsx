@@ -4,6 +4,8 @@ import { CollisionBox } from '../../core/CollisionBox';
 import { TheChair } from './TheChair';
 import { TheTable } from './TheTable';
 import { Box, Plane, Text, Text3D } from '@react-three/drei';
+import { useVibeverse } from '../../../../scripts/hooks/useVibeverse';
+import { useBew } from '../../../../scripts/contexts/BewProvider';
 
 export interface TheRoomProps {
   onChairSit?: (e: any) => void;
@@ -23,7 +25,8 @@ export const TheRoom = ({
   analysisResult
 }: TheRoomProps) => {
 
-
+  const { playSoundEffect } = useBew();
+  const { hasExploredZone, updateExploredStatus,  } = useVibeverse();
   
   return (<>
   
@@ -110,7 +113,17 @@ export const TheRoom = ({
         size={[4, 2, .9]}
         position={[0, 2, -27]} />
 </>)}
-{!!analysisResult && (<CreditsCube />)}
+{!!analysisResult && !hasExploredZone("credits") && (<>
+<CollisionBox color="#eeeeee"
+        triggerCount={1}
+        onCollide={() => {
+          updateExploredStatus("credits", true)
+          playSoundEffect('/sfx/credits.mp3');
+        }}
+        size={[4, 2, .9]}
+        position={[0, 2, -27.5]} />
+</>)}
+{!!analysisResult && hasExploredZone("credits") && (<CreditsCube />)}
 
     </group>
 )}
