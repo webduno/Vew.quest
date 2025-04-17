@@ -53,6 +53,9 @@ export const useGameCore = () => {
 
   return {
     ...context,
+    showSnackbar,
+    closeSnackbar,
+    playSoundEffect,
     handleLockedDoor,
   };
 };
