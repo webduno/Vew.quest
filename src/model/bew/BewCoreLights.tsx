@@ -95,6 +95,21 @@ export const BewCoreLights = ({
         intensity={50}
         color="#f7ffe7" castShadow
         target={spotLightTarget3.current}
+        distance={10}
+
+          
+        shadow-mapSize-width={128}
+        shadow-mapSize-height={128}
+        shadow-mapSize-blurSamples={2}
+        shadow-mapSize-radius={.2}
+        shadow-camera-near={1}
+        shadow-camera-far={8}
+        shadow-camera-left={-8}
+        shadow-camera-right={8}
+
+
+        shadow-camera-top={2}
+        shadow-camera-bottom={-5}
       />
       )
       }
@@ -104,18 +119,30 @@ export const BewCoreLights = ({
 
       {/* common area vending machine lights */}
         <spotLight 
-          position={[0, 3.3, 8.5]} 
+          position={[0, 3.3, 9]} 
           angle={1.6} 
-          
           color="#e0f7ff"
           penumbra={1} 
           intensity={10} 
           castShadow 
           target={spotLightTarget1.current} 
+
+          
+          shadow-mapSize-width={128}
+          shadow-mapSize-height={128}
+          shadow-mapSize-blurSamples={2}
+          shadow-mapSize-radius={.2}
+        shadow-camera-near={1}
+        shadow-camera-far={8}
+          shadow-camera-left={-8}
+          shadow-camera-right={8}
+          shadow-camera-top={2}
+          shadow-camera-bottom={-5}
+
+        distance={5}
         />
 
 
-      {/* main hallway lights */}
         <spotLight 
           position={[0, 3.3, -2.25]} 
           angle={1.6} 
@@ -125,6 +152,25 @@ export const BewCoreLights = ({
           intensity={10} 
           castShadow 
           target={spotLightTarget2.current} 
+
+
+
+
+          shadow-mapSize-width={128}
+          shadow-mapSize-height={128}
+          shadow-mapSize-blurSamples={2}
+          shadow-mapSize-radius={.2}
+        shadow-camera-near={1}
+        shadow-camera-far={8}
+          shadow-camera-left={-8}
+          shadow-camera-right={8}
+
+
+
+          
+          shadow-camera-top={2}
+          shadow-camera-bottom={-5}
+        distance={8}
         />
       </>
     )}

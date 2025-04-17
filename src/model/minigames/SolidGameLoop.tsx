@@ -149,6 +149,7 @@ export const SolidGameLoop = ({
     
     <pointLight
         position={[-8, 1.49, 9]}
+        distance={6}
         intensity={1}
         color="#ffffff"
       />

@@ -26,7 +26,21 @@ export const PsionicHallway = ({wasPsionicHallwayEntered, setWasPsionicHallwayEn
   
      {/* cydonia light */}
 <pointLight position={[5, 3, 2]} intensity={3} color="#ffe7c0"
-    castShadow
+    castShadow 
+    distance={6}
+    
+    shadow-mapSize-blurSamples={2}
+    shadow-mapSize-radius={.2}
+
+    shadow-mapSize-width={16}
+    shadow-mapSize-height={16}
+        shadow-camera-near={1}
+        shadow-camera-far={4}
+    shadow-camera-left={-4}
+    shadow-camera-right={4}
+    shadow-camera-top={4}
+    shadow-camera-bottom={-4}
+
      />     
      
 
@@ -34,7 +48,8 @@ export const PsionicHallway = ({wasPsionicHallwayEntered, setWasPsionicHallwayEn
      {/* whiteboard light */}
 {!LS_lowGraphics && (
       <pointLight position={[6, 3, -8]} intensity={0.3} color="#f7e7ff"
-    castShadow
+    // castShadow 
+    distance={4}
      />
      )}
 

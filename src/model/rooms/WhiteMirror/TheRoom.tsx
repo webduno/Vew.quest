@@ -69,9 +69,9 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
 
       {/* the room */}
       <group position={[0, 0, 0]} rotation={[0, 0, 0]}>
-        <SolidBox size={[13, 4, 1]}
+        <SolidBox size={[13, 4, 1]} color="#ffffff"
           position={[-6, 2, -20]} rotation={[0, Math.PI / 2, 0]} />
-        <SolidBox size={[13, 4, 1]}
+        <SolidBox size={[13, 4, 1]} color="#ffffff"
           position={[6, 2, -20]} rotation={[0, Math.PI / 2, 0]} />
       </group>
       <SolidBox color="#eeeeee"

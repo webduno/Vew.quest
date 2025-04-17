@@ -225,6 +225,21 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
 
       <pointLight position={[0, 2, 14-22]} intensity={1}  castShadow
         color="#fff7f0" 
+
+        distance={7}
+
+        shadow-mapSize-blurSamples={2}
+        shadow-mapSize-radius={.2}
+    
+        shadow-mapSize-width={16}
+        shadow-mapSize-height={16}
+            shadow-camera-near={1}
+            shadow-camera-far={4}
+        shadow-camera-left={-4}
+        shadow-camera-right={4}
+        shadow-camera-top={4}
+        shadow-camera-bottom={-4}
+
        />
 
 

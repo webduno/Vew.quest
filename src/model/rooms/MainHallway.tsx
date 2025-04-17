@@ -15,7 +15,7 @@ export const MainHallway = () => {
 {/* fill light */}
 {!LS_lowGraphics && (
 <pointLight position={[0, 2.5, 3-1.25]} intensity={.5} 
-  color="#f7fff0" 
+  color="#f7fff0" distance={6}
  />
  )}
 
@@ -29,7 +29,7 @@ position={[-2.49,2.6,1]} rotation={[0,Math.PI/2,0]}
 
 
 {!LS_hasFirstKey && <>
-  <Text fontSize={0.225} color="#343434" 
+  <Text fontSize={0.225} color="#5a5a5a" 
 anchorX="left" anchorY="top" textAlign="left"
 position={[-2.49,2.5,2.2]} rotation={[0,Math.PI/2,0]} font="/fonts/consolas.ttf"
 >
@@ -47,7 +47,7 @@ position={[-2.49,2.5,2.2]} rotation={[0,Math.PI/2,0]} font="/fonts/consolas.ttf"
 </>}
 
 {LS_hasFirstKey && <>
-  <Text fontSize={0.225} color="#343434" 
+  <Text fontSize={0.225} color="#5a5a5a" 
 anchorX="left" anchorY="top" textAlign="left"
 position={[-2.49,2.5,2.2]} rotation={[0,Math.PI/2,0]} font="/fonts/consolas.ttf"
 >
