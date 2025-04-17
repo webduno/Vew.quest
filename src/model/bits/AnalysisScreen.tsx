@@ -1,5 +1,5 @@
 'use client';
-import { Box, Text } from '@react-three/drei';
+import { Box, Cylinder, Text } from '@react-three/drei';
 import { useMemo } from 'react';
 
 export const AnalysisScreen = ({
@@ -64,7 +64,7 @@ ${targetResults.type}           ${formattedAccuracy.naturalityAccuracy}%        
 
 
 
-    <Text font={"/fonts/wallpoet.ttf"} fontSize={0.2} color={"#2a2a2a"}
+    <Text font={"/fonts/wallpoet.ttf"} fontSize={0.2} color={"#202020"}
       anchorX="center" anchorY="top" textAlign="center"
       letterSpacing={.2}
       rotation={[0, Math.PI, 0]}
@@ -72,10 +72,13 @@ ${targetResults.type}           ${formattedAccuracy.naturalityAccuracy}%        
     >
       {`NEW TARGET`}
     </Text>
-<Box position={[-3, -1.2, 10.9]} onClick={onReset} receiveShadow
-args={[1, 1, .1]}
+<Cylinder position={[-3, -1.2, 10.9]} onClick={onReset} 
+rotation={[Math.PI/2, 0, 0]}
+receiveShadow
+args={[.7, .6, .1]}
 >
-  <meshStandardMaterial color={"#cccccc"} />
-</Box>
+  <meshStandardMaterial color={"#ffcccc"}
+   />
+</Cylinder>
   </>);
 };

@@ -222,12 +222,14 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
   const handleChairSit = useCallback((event: any) => {
     // Check if user has enough solid calibration points using the live mindStats from useVibeverse
     if (mindStats.solid <= 0) {
-      showSnackbar("Solid calibration is required in the white room.", 'error');
-      setTimeout(() => {
-        closeSnackbar();
-      }, 4000);
+      failedChairSit()
       return;
     }
+    
+    setAnalysisResult("")
+    setAccuracyResult({})
+    setSubmitted({})
+    setLastCashReward(0)
 
     // Deduct 1 solid calibration point
     updateMindStats('solid', mindStats.solid - 1);
@@ -343,13 +345,15 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
 
   }
 
+  const failedChairSit = () => {
+    playSoundEffect("/sfx/short/badbip.wav")
+    showSnackbar("Solid points=0 Calibration is required", 'error', 4000);
+  }
+
   const handleResetAnalysis = useCallback(() => {
     // Check if user has enough solid calibration points using the live mindStats from useVibeverse
     if (mindStats.solid <= 0) {
-      showSnackbar("Solid calibration is required in the white room.", 'error');
-      setTimeout(() => {
-        closeSnackbar();
-      }, 4000);
+      failedChairSit()
       return;
     }
     setAnalysisResult("")
@@ -582,7 +586,8 @@ setIsTakingRequest(null);
            setShowAnalogModal={setShowAnalogModal} />
           )}
           {!!code1 && !!code2 && (<>
-          <TheRoom
+          <TheRoom analysisResult={analysisResult}
+          isTransitioning={isTransitioning}
           showWhiteMirror={showWhiteMirror}
           setShowWhiteMirror={setShowWhiteMirror}
            onChairSit={handleChairSit} onRoomEnter={handleRoomEnter} />
@@ -661,7 +666,9 @@ setIsTakingRequest(null);
 
 
       {/* CEILING */}
-      <PhysicalFloor lowGraphics={LS_lowGraphics} />
+      <PhysicalFloor lowGraphics={LS_lowGraphics} 
+      
+      />
       {/* <Box args={[20, 1, 60]} position={[0, 4, -14]}>
         <meshStandardMaterial color="#ffffff" />
       </Box>

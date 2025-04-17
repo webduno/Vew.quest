@@ -21,14 +21,14 @@ export const YourRequests = ({ userCrvRequests }: YourRequestsProps) => {
       <Plane args={[1.8, 1.3]} position={[2.44, 1.6, -7]} rotation={[0, -Math.PI/2, 0]} receiveShadow>
         <meshStandardMaterial color="#ffffff" emissive={"#171717"} />
       </Plane>
-      <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#2a2a2a" 
+      <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#181818" 
         anchorX="center" anchorY="middle" textAlign="center"
         position={[2.44, 2.6, -7]} rotation={[0, -Math.PI/2, 0]}
       >
         {`YOUR CRV\nREQUESTS`}
       </Text>
 
-      <Text font="/fonts/consolas.ttf" fontSize={0.08} color="#2a2a2a" 
+      <Text font="/fonts/consolas.ttf" fontSize={0.08} color="#181818" 
         anchorX="left" anchorY="middle" textAlign="left"
         position={[2.42, 2.15 , -7.8]} rotation={[0, -Math.PI/2, 0]}
       >
@@ -37,7 +37,7 @@ export const YourRequests = ({ userCrvRequests }: YourRequestsProps) => {
 
       {userCrvRequests.map((request, index) => (
         <group key={request.id}>
-          <Text font="/fonts/beanie.ttf" fontSize={0.18} color="#2a2a2a" 
+          <Text font="/fonts/beanie.ttf" fontSize={0.18} color="#222222" 
             anchorX="left" anchorY="middle" textAlign="left"
             position={[2.42, 1.95 - (index * 0.2), -7.75]} rotation={[0, -Math.PI/2, 0]}
           >

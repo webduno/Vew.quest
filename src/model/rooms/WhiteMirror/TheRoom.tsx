@@ -3,15 +3,25 @@ import { SolidBox } from '../../core/SolidBox';
 import { CollisionBox } from '../../core/CollisionBox';
 import { TheChair } from './TheChair';
 import { TheTable } from './TheTable';
+import { Box, Plane, Text, Text3D } from '@react-three/drei';
 
 export interface TheRoomProps {
   onChairSit?: (e: any) => void;
   onRoomEnter?: (e: any) => void;
   setShowWhiteMirror?: (show: boolean) => void;
   showWhiteMirror?: boolean;
+  analysisResult?: any;
+  isTransitioning?: boolean;
 }
 
-export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhiteMirror }: TheRoomProps) => {
+export const TheRoom = ({
+  onChairSit,
+  onRoomEnter,
+  isTransitioning,
+  setShowWhiteMirror,
+  showWhiteMirror,
+  analysisResult
+}: TheRoomProps) => {
 
 
   
@@ -25,14 +35,21 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
 <group position={[0, 0, -21.5]}>
 
       <TheTable />
-      <group position={[2.5, 0, 0]} rotation={[0, 2, 0]}>
+      <group position={[2.5, 0, 0]} rotation={[0, 2, 0]}
+      onClick={(e:any) => {
+        if (showWhiteMirror) return;
+        if (isTransitioning) return;
+        e.stopPropagation()
+        onChairSit && onChairSit(e)
+      }}
+      >
         <TheChair />
       </group>
 </group>
 <CollisionBox color="#ffeeee"
         
-        size={[1, 1.5, 1]}
-        position={[2.3, .75, -21.25]} 
+        size={[1.2, 2, 1.2]}
+        position={[2.4, 1, -21.5]} 
         onCollide={onChairSit}
         
     />
@@ -75,8 +92,26 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
           position={[6, 2, -20]} rotation={[0, Math.PI / 2, 0]} />
       </group>
       <SolidBox color="#eeeeee"
-        size={[1, 4, 12.1]}
-        position={[0, 2, -27]} rotation={[0, -Math.PI / 2, 0]} />
+        size={[1, 1, 12.1]}
+        position={[0, .5, -27]} rotation={[0, -Math.PI / 2, 0]} />
+        <SolidBox color="#eeeeee"
+        size={[4, 3, 1]}
+        position={[-4, 2.5, -27]} />
+        <SolidBox color="#eeeeee"
+        size={[4, 3, 1]}
+        position={[4, 2.5, -27]} />
+        <SolidBox color="#eeeeee"
+        size={[4,1.5, 1]}
+        position={[0, 3.5, -27]} />
+
+
+{!analysisResult && (<>
+<SolidBox color="#eeeeee"
+        size={[4, 2, .9]}
+        position={[0, 2, -27]} />
+</>)}
+{!!analysisResult && (<CreditsCube />)}
+
     </group>
 )}
     </>);
@@ -84,3 +119,31 @@ export const TheRoom = ({ onChairSit, onRoomEnter, setShowWhiteMirror, showWhite
 
 
 
+
+
+const CreditsCube = () => {
+  return (<>
+  
+  <pointLight position={[0, 2, -30]} intensity={15}
+         distance={5} color="#ffffff" castShadow
+         />
+         <Plane args={[4, 2]} position={[0, 2, -27.51]} rotation={[0, Math.PI, 0]}>
+          <meshStandardMaterial color="#ffffff" 
+          emissive="#aaaaaa"
+           />
+         </Plane>
+         
+         <Text3D  font="/fonts/consolas.json" position={[-4.6, 0.1, -32]}  castShadow
+         size={1.5}
+         >
+          {'@WEBDUNO'}
+  <meshNormalMaterial />
+</Text3D>
+        <Box receiveShadow
+        args={[11.99, 3.59, 8.99]} position={[0, 1.8, -32]} rotation={[0, 0, 0]}>
+          <meshStandardMaterial color="#ffffff" side={1}
+          emissive="#555555"
+           />
+        </Box>
+  </>)
+}

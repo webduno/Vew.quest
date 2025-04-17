@@ -44,7 +44,7 @@ export const DailyQuota = ({ crvObjects, onRefresh }: DailyQuotaProps) => {
         </Text>
       </group>
 
-      <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#2a2a2a" 
+      <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#222222" 
         anchorX="center" anchorY="middle" textAlign="center"
         position={[-2.44, 2.6, -9]} rotation={[0, Math.PI/2, 0]}
       >
@@ -73,7 +73,7 @@ export const DailyQuota = ({ crvObjects, onRefresh }: DailyQuotaProps) => {
         
         return (
           <group key={obj.id}>
-            <Text font="/fonts/beanie.ttf" fontSize={0.18} color="#2a2a2a" 
+            <Text font="/fonts/beanie.ttf" fontSize={0.18} color="#222222" 
               anchorX="center" anchorY="middle" textAlign="center"
               position={[-2.42, 2.05 - (index * 0.2), -8.9]} rotation={[0, Math.PI/2, 0]}
             >

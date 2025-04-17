@@ -26,14 +26,14 @@ export const PublicRequests = ({ crvRequests, isSubmitting, onTakeRequest, onAdd
       <Plane args={[1.8, 1.3]} position={[-2.44, 1.6, -7]} rotation={[0, Math.PI/2, 0]} receiveShadow>
         <meshStandardMaterial color="#ffffff" emissive={"#171717"} />
       </Plane>
-      <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#2a2a2a" 
+      <Text font="/fonts/wallpoet.ttf" fontSize={0.25} color="#181818" 
         anchorX="center" anchorY="middle" textAlign="center"
         position={[-2.44, 2.6, -7]} rotation={[0, Math.PI/2, 0]}
       >
         {`PUBLIC\nREQUESTS`}
       </Text>
 
-      <Text font="/fonts/consolas.ttf" fontSize={0.07} color="#333333" 
+      <Text font="/fonts/consolas.ttf" fontSize={0.07} color="#555555" 
         anchorX="center" anchorY="middle" textAlign="center"
         position={[-2.42, 2.12 , -7.65]} rotation={[0, Math.PI/2, 0]}
       >
@@ -42,7 +42,7 @@ export const PublicRequests = ({ crvRequests, isSubmitting, onTakeRequest, onAdd
 
       {crvRequests.map((request, index) => (
         <group key={request.id}>
-          <Text font="/fonts/consolas.ttf" fontSize={0.12} color="#2a2a2a" 
+          <Text font="/fonts/consolas.ttf" fontSize={0.12} color="#181818" 
             anchorX="right" anchorY="middle" textAlign="right"
             position={[-2.42, 1.95 - (index * 0.2), -7.4]} rotation={[0, Math.PI/2, 0]}
           >

@@ -8,7 +8,7 @@ export const PhysicalFloor = ({height = 0, visible = true, lowGraphics = false}:
   const [ref] = usePlane(() => ({
     rotation: [-Math.PI / 2, 0, 0],
     position: [0, height, 0], // Adjust Y position as needed for your scene
-    args: [100, 1, 100], // Plane size
+    args: [60, 1, 60], // Plane size
     type: 'Static',
     material: {
       friction: 0.5,
@@ -21,7 +21,7 @@ export const PhysicalFloor = ({height = 0, visible = true, lowGraphics = false}:
   // Or return null/fragment if the physics plane itself is enough
   return (
     <mesh ref={ref as React.Ref<Mesh>} receiveShadow>
-      <planeGeometry args={[100, 100]} />
+      <planeGeometry args={[30, 60]} />
        <meshStandardMaterial color="white" 
        metalness={lowGraphics ? undefined : 0.15} 
        roughness={lowGraphics ? undefined : 0.15} 
@@ -35,7 +35,7 @@ export const PhysicalCeiling = ({height = 3.6, visible = true, lowGraphics = fal
   const [ref] = usePlane(() => ({
     rotation: [Math.PI / 2, 0, 0], // Rotated to face downward
     position: [0, height, 0], // Positioned above the scene (adjust height as needed)
-    args: [100, 1, 100], // Plane size
+    args: [30, 1, 60], // Plane size
     type: 'Static',
     material: {
       friction: 0.5,
@@ -48,7 +48,7 @@ export const PhysicalCeiling = ({height = 3.6, visible = true, lowGraphics = fal
   // Visual representation for the ceiling
   return (
     <mesh ref={ref as React.Ref<Mesh>} receiveShadow>
-      <planeGeometry args={[100, 100]} />
+      <planeGeometry args={[30, 60]} />
       <meshStandardMaterial color="white"
        metalness={lowGraphics ? undefined : 0.15} 
        roughness={lowGraphics ? undefined : 0.15} 
