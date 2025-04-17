@@ -47,7 +47,7 @@ export const TheWhiteMirror = ({
     onClick={() => {
       setShowAnalogModal(true);
       if (showAnalogModal) { return }
-    playSoundEffect("/sfx/short/clin.mp3")
+    playSoundEffect("/sfx/short/cling.mp3")
 
     }}
     >

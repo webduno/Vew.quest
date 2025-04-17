@@ -239,7 +239,8 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
     setInitialPosition([2.5, 0, -21.5])
     // Set current position to chair position
     handleSetPlayerPosition([2.5, 0, -21.5])
-    showSnackbar("Take a big nose inhale, and exhale slowly.", 'handbook');
+    playSoundEffect("/sfx/tutorials/breath.ogg")
+    showSnackbar("Take a deep breath, and exhale slowly.", 'handbook');
     focusStageRef.current = focusStageRef.current + 1;
     setFocusLevel((prev) => prev + 1);
     setTimeout(() => {
@@ -266,7 +267,7 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
         setIsTransitioning(false);
 
     setTimeout(() => {
-    showSnackbar("Click crystal ball to start.", 'handbook');
+    showSnackbar("Now, click crystal ball to start.", 'handbook');
     setTimeout(() => {
     closeSnackbar();
     }, 3000);
