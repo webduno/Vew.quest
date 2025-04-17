@@ -2,8 +2,8 @@
 import { Box } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useEffect, useState } from 'react';
-import { usePlayerStats } from '../../../script/state/hook/usePlayerStats';
-import { useGameCore } from '../../../script/state/hook/useGameCore';
+import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
+import { useGameCore } from '@/../script/state/hook/useGameCore';
 import { PublicRequests } from './PublicRequests';
 import { YourRequests } from './YourRequests';
 import { Scoreboard } from './Scoreboard';

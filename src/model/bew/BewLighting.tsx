@@ -1,6 +1,6 @@
 'use client';
 
-import { usePlayerStats } from '../../../script/state/hook/usePlayerStats';
+import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { Box } from '@react-three/drei';
 import { useRef, useEffect, useState, useContext } from 'react';
 import { MeshStandardMaterial } from 'three';

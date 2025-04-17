@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { Box, Text, Sphere } from '@react-three/drei';
 
 import { SolidBox } from '../core/SolidBox';
-import { useGameCore } from '../../../script/state/hook/useGameCore';
+import { useGameCore } from '@/../script/state/hook/useGameCore';
 import { CollisionBox } from '../core/CollisionBox';
-import { usePlayerStats } from '../../../script/state/hook/usePlayerStats';
+import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { SolidGameLoop } from '@/model/minigames/SolidGameLoop';
 
 

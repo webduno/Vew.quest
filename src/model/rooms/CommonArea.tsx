@@ -4,8 +4,8 @@ import { SolidBox } from '../core/SolidBox';
 import { useState, useEffect } from 'react';
 import { VendingMachine } from './VendingMachine';
 import { CollisionBox } from '../core/CollisionBox';
-import { usePlayerStats } from '../../../script/state/hook/usePlayerStats';
-import { useGameCore } from '../../../script/state/hook/useGameCore';
+import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
+import { useGameCore } from '@/../script/state/hook/useGameCore';
 export const CommonArea = () => {
   const { showSnackbar, playSoundEffect } = useGameCore();
   const { mindStats, updateExploredStatus, hasExploredZone } = usePlayerStats();

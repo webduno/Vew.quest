@@ -1,31 +1,30 @@
 'use client';
-import { isMobile } from '@/../script/utils/platform/mobileDetection';
-import { calculateAccuracy } from "../../../script/utils/play/calculateAccuracy";
+import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye } from '@react-three/drei';
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
 import { useState, useEffect, useCallback, useRef, useContext } from 'react';
+
+import { isMobile } from '@/../script/utils/platform/mobileDetection';
+import { calculateAccuracy } from "@/../script/utils/play/calculateAccuracy";
+import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
+import { useGameCore } from '@/../script/state/hook/useGameCore';
 import { BewMainScene } from '@/model/bew/scenes/BewMainScene';
 import { BewMobileOverlay } from '@/dom/organ/BewMobileOverlay';
 import { PersonSilhouette } from '../bits/PersonSilhouette';
-import { BewLighting } from './BewLighting';
 import { TheRoom } from '../rooms/WhiteMirror/TheRoom';
-import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScreen';
+import { AnalogModalScreen } from '@/dom/molecule/SenseMeter/AnalogModalScreen';
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
 import { SolidBox } from '../core/SolidBox';
-import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye } from '@react-three/drei';
-import { usePlayerStats } from '../../../script/state/hook/usePlayerStats';
 import { useSearchParams } from 'next/navigation';
-import { useGameCore } from '../../../script/state/hook/useGameCore';
-import { BackgroundMusic } from '@/dom/molecule/BackgroundMusic';
-import { PerformanceStats } from '../../dom/molecule/PerformanceStats';
+import { BgMusicToggle } from '@/dom/molecule/BgMusicToggle';
+import { PerformanceStats } from '@/dom/molecule/PerformanceStats';
 import { RotatingBar } from '../bits/RotatingBar';
 import { AnalysisScreen } from '../bits/AnalysisScreen';
-import { MindStats } from '../../dom/molecule/MindStats';
+import { MindStats } from '@/dom/molecule/MindStats';
 import { TheWhiteMirror } from '../rooms/WhiteMirror/TheWhiteMirror';
 import { PhysicalFloor } from '../core/PhysicalFloor';
 import { PhysicalCeiling } from '../core/PhysicalFloor';
 import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
-import { ACESFilmicToneMapping } from 'three';
 import { BewCoreLights } from './BewCoreLights';
 
 export const BewGame = () => {
@@ -464,7 +463,7 @@ setIsTakingRequest(null);
       </div>
 
 
-      <BackgroundMusic 
+      <BgMusicToggle 
        isEverythingLoading={isEverythingLoading}
       firstTime={LS_firstTime}
        disableFirstTime={disableFirstTime} />

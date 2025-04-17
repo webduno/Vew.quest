@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { PointerLockControls, Sphere } from '@react-three/drei'
 import { Object3D, Vector3, Mesh, CylinderGeometry, MeshStandardMaterial } from 'three'
-import { PhysicsSceneProps } from '../../../script/utils/game/canonPOV'
-import { useKeyboardControls } from '../../../script/utils/platform/useKeyboardControls'
+import { PhysicsSceneProps } from '@/../script/utils/game/canonPOV'
+import { useKeyboardControls } from '@/../script/utils/platform/useKeyboardControls'
 import { PhysicalBall } from './PhysicalObjects'
 
 

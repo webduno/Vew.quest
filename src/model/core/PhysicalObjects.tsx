@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Mesh, MeshStandardMaterial } from 'three'
 import { useSphere, useBox } from '@react-three/cannon'
-import { PhysicalBallProps, PhysicalBoxProps } from '../../../script/utils/game/canonPOV'
+import { PhysicalBallProps, PhysicalBoxProps } from '@/../script/utils/game/canonPOV'
 
 // Global storage for object physics state
 const objectsPhysicsState = new Map();

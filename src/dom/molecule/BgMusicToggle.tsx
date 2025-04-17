@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { isMobile } from '@/../script/utils/platform/mobileDetection';
 import { useBackgroundMusic } from '@/../script/state/context/BackgroundMusicContext';
 
-export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoading }: { 
+export function BgMusicToggle({ firstTime, disableFirstTime, isEverythingLoading }: { 
   firstTime: boolean,
   disableFirstTime: () => void,
   isEverythingLoading: boolean 
