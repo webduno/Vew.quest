@@ -2,9 +2,9 @@
 import { Box, Text } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
-import { useGameCore } from '../../../script/contexts/hook/useGameCore';
+import { useGameCore } from '../../../script/state/hook/useGameCore';
 import { CollisionBox } from '../core/CollisionBox';
-import { usePlayerStats } from '../../../script/contexts/hook/usePlayerStats';
+import { usePlayerStats } from '../../../script/state/hook/usePlayerStats';
 import { ColorGameLoop } from '@/model/minigames/ColorGameLoop';
 export const ColorCallibrationArcade = ({ 
   hardMode,

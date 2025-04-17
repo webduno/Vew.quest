@@ -2,7 +2,7 @@
 import { Box, Text, Sphere, Cylinder, Plane } from '@react-three/drei';
 import { SolidBox } from '../core/SolidBox';
 import { useState } from 'react';
-import { useGameCore } from '../../../script/contexts/hook/useGameCore';
+import { useGameCore } from '../../../script/state/hook/useGameCore';
 
 export const VendingMachine = () => {
   const { showSnackbar, playSoundEffect } = useGameCore();

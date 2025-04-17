@@ -6,7 +6,7 @@ import { CollisionBox } from '@/model/core/CollisionBox';
 import { SolidBox } from '@/model/core/SolidBox';
 import { StyledWall } from '@/model/core/StyledWall';
 import { RegularKey } from '@/model/bits/RegularKey';
-import { useGameCore } from '../../../script/contexts/hook/useGameCore';
+import { useGameCore } from '../../../script/state/hook/useGameCore';
 
 
 export const ABDoorPortals = ({

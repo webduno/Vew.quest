@@ -2,9 +2,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
 import { isMobile } from '@/../script/utils/platform/mobileDetection';
-
+import { useBackgroundMusic } from '@/../script/state/context/BackgroundMusicContext';
 
 export function BackgroundMusic({ firstTime, disableFirstTime, isEverythingLoading }: { 
   firstTime: boolean,

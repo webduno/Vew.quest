@@ -1,6 +1,14 @@
 "use client"
+import {
+  createContext,
+  useContext,
+  useState,
+  useRef,
+  ReactNode,
+  useEffect,
+  MutableRefObject
+} from 'react';
 
-import { createContext, useContext, useState, useRef, ReactNode, useEffect, MutableRefObject } from 'react';
 
 interface BackgroundMusicContextType {
   isPlaying: boolean;

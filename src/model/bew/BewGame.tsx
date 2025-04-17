@@ -13,9 +13,9 @@ import { AnalogModalScreen } from '../../dom/molecule/SenseMeter/AnalogModalScre
 import { BewPhysicsScene } from '../core/BewPhysicsScene';
 import { SolidBox } from '../core/SolidBox';
 import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye } from '@react-three/drei';
-import { usePlayerStats } from '../../../script/contexts/hook/usePlayerStats';
+import { usePlayerStats } from '../../../script/state/hook/usePlayerStats';
 import { useSearchParams } from 'next/navigation';
-import { useGameCore } from '../../../script/contexts/hook/useGameCore';
+import { useGameCore } from '../../../script/state/hook/useGameCore';
 import { BackgroundMusic } from '@/dom/molecule/BackgroundMusic';
 import { PerformanceStats } from '../../dom/molecule/PerformanceStats';
 import { RotatingBar } from '../bits/RotatingBar';

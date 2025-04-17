@@ -6,7 +6,7 @@ import { HardBadge } from '@/dom/atom/toast/HardBadge';
 import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import { SuccessBadge } from '@/dom/atom/toast/SuccessBadge';
 import { WarningBadge } from '@/dom/atom/toast/WarningBadge';
-import { useGameCore } from '@/../script/contexts/hook/useGameCore';
+import { useGameCore } from '@/../script/state/hook/useGameCore';
 
 
 export const SnackbarNotif = () => {

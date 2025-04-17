@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { Box, Cylinder, Text } from '@react-three/drei';
 
 import { SolidBox } from '../../core/SolidBox';
-import { usePlayerStats } from '@/../script/contexts/hook/usePlayerStats';
+import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
 import { ABDoorPortals } from '../../doorwalls/ABDoorPortals';
 import { CallibrationSpaces } from '../../rooms/CallibrationSpaces';

@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode, useRef } from 'react';
-import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
-import { SnackbarNotif } from '../../src/dom/molecule/notification/SnackbarNotif';
+import { useBackgroundMusic } from '@/../script/state/context/BackgroundMusicContext';
+import { SnackbarNotif } from '@/dom/molecule/notification/SnackbarNotif';
 
 // Define the types for severity
 export type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title' | 'handbook';

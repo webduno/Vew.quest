@@ -1,6 +1,6 @@
 'use client';
 import React, { createContext, useContext } from 'react';
-import { usePlayerStats } from './hook/usePlayerStats';
+import { usePlayerStats } from '../hook/usePlayerStats';
 
 // Define the context type
 type PlayerStatsContextType = {
