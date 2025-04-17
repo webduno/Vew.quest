@@ -14,7 +14,6 @@ export const SnackbarNotif = () => {
     isSnackbarOpen,
     snackbarMessage,
     snackbarSeverity,
-    closeSnackbar
   } = useGameCore();
 
   if (!isSnackbarOpen) {

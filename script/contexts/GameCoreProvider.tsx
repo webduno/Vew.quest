@@ -14,6 +14,7 @@ type GameCoreContextType = {
   playSoundEffect: (soundPath: string, volume?: number) => void;
   autoCloseTimeoutRef: React.MutableRefObject<NodeJS.Timeout | undefined>;
   setSnackbarMessage: (message: string) => void;
+  snackbarSeverity: SnackbarSeverity;
   setSnackbarSeverity: (severity: SnackbarSeverity) => void;
   setIsSnackbarOpen: (isSnackbarOpen: boolean) => void;
 };
@@ -43,6 +44,7 @@ export const GameCoreProvider = ({ children }: { children: ReactNode }) => {
     setSnackbarMessage,
     setSnackbarSeverity,
     setIsSnackbarOpen,
+    snackbarSeverity,
     playSoundEffect,
   };
 
