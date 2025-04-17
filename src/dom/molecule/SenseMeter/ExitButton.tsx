@@ -1,6 +1,6 @@
 import React from 'react';
 import { isMobile } from '@/../script/utils/platform/mobileDetection';
-import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
+import { SenseSectionType } from '../../../../script/utils/play/senseMeterTypes';
 
 
 interface ExitButtonProps {

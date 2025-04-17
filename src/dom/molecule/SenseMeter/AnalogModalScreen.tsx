@@ -5,10 +5,10 @@ import { TopSection } from './TopSection';
 import { MiddleSection } from './MiddleSection';
 import { BottomSection } from './BottomSection';
 import { ExitButton } from './ExitButton';
-import { normalizeRotation, buttonColors, buttonTypes } from '@/../script/helpers/analogHelpers';
+import { normalizeRotation, buttonColors, buttonTypes } from '../../../../script/utils/play/analogHelpers';
 import { useAnalogModal } from './useAnalogModal';
-import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
-import { BewMenuButton } from '@/dom/atom/BewMenuButton';
+import { SenseSectionType } from '../../../../script/utils/play/senseMeterTypes';
+import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 
 export const AnalogModalScreen = ({
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onSend,
@@ -200,11 +200,11 @@ export const AnalogModalScreen = ({
 {!shouldShowMiddleSection && !shouldShowBottomSection &&
       !shouldShowTopRightSection && (<>
       <div className='py-8' >
-        <BewMenuButton classOverride='pointer' onClick={() => {
+        <KeyboardBtn classOverride='pointer' onClick={() => {
           setActiveSection("natural")
         }}>
           <div>Continue</div>
-        </BewMenuButton>
+        </KeyboardBtn>
 
       </div>
       </>)}
@@ -214,11 +214,11 @@ export const AnalogModalScreen = ({
       {!shouldShowMiddleSection && !shouldShowBottomSection && 
 shouldShowTopRightSection && (<>
       <div className='py-8 ' >
-        <BewMenuButton classOverride='pointer' onClick={() => {
+        <KeyboardBtn classOverride='pointer' onClick={() => {
           setActiveSection("light")
         }}>
           <div>Continue</div>
-        </BewMenuButton>
+        </KeyboardBtn>
 
       </div>
       </>)}
@@ -229,11 +229,11 @@ shouldShowTopRightSection && (<>
 {shouldShowMiddleSection && !shouldShowBottomSection && 
 shouldShowTopRightSection && (<>
       <div className='pt-1 ' >
-        <BewMenuButton classOverride='pointer' onClick={() => {
+        <KeyboardBtn classOverride='pointer' onClick={() => {
           setActiveSection("meter")
         }}>
           <div>Continue</div>
-        </BewMenuButton>
+        </KeyboardBtn>
 
       </div>
       </>)}

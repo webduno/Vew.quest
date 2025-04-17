@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BewMenuButton } from '../../dom/atom/BewMenuButton';
+import { KeyboardBtn } from '../../dom/atom/button/KeyboardBtn';
 import { LandingMainMenu } from '@/dom/organ/LandingMainMenu';
 
 export default function Webbew() {

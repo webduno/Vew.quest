@@ -1,5 +1,5 @@
 'use client'
-import { BewMenuButton } from "@/dom/atom/BewMenuButton"
+import { KeyboardBtn } from "@/dom/atom/button/KeyboardBtn"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
@@ -30,10 +30,10 @@ const random10CharString = () => {
   return (<>
     {!!isGameLoading && <>
     <div className="pos-abs bottom-0 left-0 mb-100 z-100">
-      <BewMenuButton 
+      <KeyboardBtn 
       classOverride={"tx-altfont-5 hover-4 ml-2 tx-white "}>
       Loading...
-    </BewMenuButton>
+    </KeyboardBtn>
     </div>
     </>}
   <div className='pos-abs bottom-0 pb-100 w-100 flex-col flex-align-start'
@@ -86,7 +86,7 @@ const random10CharString = () => {
         textShadow: "0 0 10px #996622, 1px 1px 0 #000000",
       }}
       className="ma-2 tx-altfont-5  translate-x-25 mb-0 nodeco" href="/game" onClick={() => setGameLoading(true)}>
-      <BewMenuButton classOverride="hover-jump">Continue</BewMenuButton></Link>)}
+      <KeyboardBtn classOverride="hover-jump">Continue</KeyboardBtn></Link>)}
       {!isGameLoading && !enterUsername &&
 
         <div onClick={() => {
@@ -96,7 +96,7 @@ const random10CharString = () => {
           color: "#111111",
         }} className="pointer " data-href="/game">
 
-        <BewMenuButton><div style={{borderBottom: "1px solid #111111"}}>→ New Game</div></BewMenuButton></div>
+        <KeyboardBtn><div style={{borderBottom: "1px solid #111111"}}>→ New Game</div></KeyboardBtn></div>
 
 
       }
@@ -116,10 +116,10 @@ const random10CharString = () => {
           }}
           style={{ background:"#494644", color: "#ccbbaa" }} value={typedUsername}
           onChange={(e) => { setTypedUsername(sanitizePlayerId(e.target.value)) }} />
-          <BewMenuButton onClick={() => { triggerNewGame() }}
+          <KeyboardBtn onClick={() => { triggerNewGame() }}
             classOverride={"tx-altfont-5 " + (isGameLoading ? " hover-4" : "")}>
             {isGameLoading ? "Loading..." : "ENTER GAME"}
-          </BewMenuButton>
+          </KeyboardBtn>
           </>}
           </div>}
 
@@ -130,16 +130,16 @@ const random10CharString = () => {
           color: "#222222",
         }}
         className=" nodeco" href="/training">
-        <BewMenuButton>Training</BewMenuButton></Link>
+        <KeyboardBtn>Training</KeyboardBtn></Link>
         <Link
         style={{
           color: "#333333",
         }}
           className=" nodeco" href="/config">
-        <BewMenuButton>
+        <KeyboardBtn>
           {/* cog emoji */}
           <span className="">Config</span>
-          </BewMenuButton></Link></>}
+          </KeyboardBtn></Link></>}
 
 
 

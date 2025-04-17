@@ -1,7 +1,7 @@
 import React from 'react';
 import { TopLeftSection } from './TopLeftSection';
 import { TopRightSection } from './TopRightSection';
-import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
+import { SenseSectionType } from '../../../../script/utils/play/senseMeterTypes';
 
 interface TopSectionProps {
   activeButtonIndex: number;

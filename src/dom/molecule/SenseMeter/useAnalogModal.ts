@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { buttonTypes } from '@/../script/helpers/analogHelpers';
-import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
+import { buttonTypes } from '../../../../script/utils/play/analogHelpers';
+import { SenseSectionType } from '../../../../script/utils/play/senseMeterTypes';
 
 export const useAnalogModal = (onSend: (params: {
   type: string;

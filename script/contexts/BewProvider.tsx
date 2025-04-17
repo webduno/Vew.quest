@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState, ReactNode, useRef } from 'react';
 import { useBackgroundMusic } from '@/../script/contexts/BackgroundMusicContext';
-import { HardBadge } from './HardBadge';
-import { HandbookPage } from './HandbookPage';
-import { ErrorSheet } from './ErrorSheet';
-import { PaperSheet } from './PaperSheet';
-import { SuccessBadge } from './SuccessBadge';
-import { WarningBadge } from './WarningBadge';
+import { HardBadge } from '../../src/dom/atom/toast/HardBadge';
+import { HandbookPage } from '../../src/dom/atom/toast/HandbookPage';
+import { ErrorSheet } from '../../src/dom/atom/toast/ErrorSheet';
+import { PaperSheet } from '../../src/dom/atom/toast/PaperSheet';
+import { SuccessBadge } from '../../src/dom/atom/toast/SuccessBadge';
+import { WarningBadge } from '../../src/dom/atom/toast/WarningBadge';
 
 // Define the types for severity
 type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title' | 'handbook';

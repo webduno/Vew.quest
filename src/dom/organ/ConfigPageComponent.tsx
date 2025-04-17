@@ -1,7 +1,7 @@
 "use client";
 
-import { HardBadge } from "@/../script/contexts/HardBadge";
-import { BewLogo } from "../atom/BewLogo";
+import { HardBadge } from "@/dom/atom/toast/HardBadge";
+import { BewLogo } from "../atom/logo/BewLogo";
 
 export const ConfigPageComponent = () => {
   return <div className="w-100 flex-col">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ControlButton } from './parts/ControlButton';
-import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
+import { SenseSectionType } from '../../../../script/utils/play/senseMeterTypes';
 
 interface TopLeftSectionProps {
   activeButtonIndex: number;

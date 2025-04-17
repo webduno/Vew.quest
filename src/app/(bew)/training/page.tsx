@@ -2,10 +2,10 @@
 
 import { useState, useCallback } from 'react';
 import { AnalogModalScreen } from '@/dom/molecule/SenseMeter/AnalogModalScreen';
-import { calculateAccuracy } from '@/../script/utils/calculateAccuracy';
-import { BewLogo } from '@/dom/atom/BewLogo';
-import { BewMenuButton } from '@/dom/atom/BewMenuButton';
-import { PaperSheet } from '@/../script/contexts/PaperSheet';
+import { calculateAccuracy } from '../../../../script/utils/play/calculateAccuracy';
+import { BewLogo } from '@/dom/atom/logo/BewLogo';
+import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
+import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import { useVibeverse } from '@/../script/hooks/useVibeverse';
 type GameState = 'initial' | 'playing' | 'results';
 
@@ -233,7 +233,7 @@ export default function TrainingPage() {
               setSentObject(null);
             }}
           >
-            <BewMenuButton>Go Back</BewMenuButton>
+            <KeyboardBtn>Go Back</KeyboardBtn>
           </button>
       </div>
       
@@ -249,7 +249,7 @@ export default function TrainingPage() {
           }}
           onClick={handleStart}
         >
-          <BewMenuButton>Start Training</BewMenuButton>
+          <KeyboardBtn>Start Training</KeyboardBtn>
         </button>
         <button 
           className="mt-2 tx-lg bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
@@ -261,7 +261,7 @@ export default function TrainingPage() {
             handleRequestCRV();
           }}
         >
-          <BewMenuButton>Request CRV</BewMenuButton>
+          <KeyboardBtn>Request CRV</KeyboardBtn>
         </button>
         <button 
           className="mt-2 tx-mdl bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
@@ -273,7 +273,7 @@ export default function TrainingPage() {
             handleMyRequests();
           }}
         >
-          <BewMenuButton>{isLoadingMyRequests ? 'Loading...' : 'My Requests'}</BewMenuButton>
+          <KeyboardBtn>{isLoadingMyRequests ? 'Loading...' : 'My Requests'}</KeyboardBtn>
         </button>
         {successRequest && (myRequests?.length === 0  || !myRequests) && (
           <div className="tx-white tx-center">
@@ -383,7 +383,7 @@ Averaged Score:
             className="noborder bg-trans tx-white pointer mt-4 tx-altfont-1" 
             onClick={handleTryAgain}
           >
-            <BewMenuButton>Try Again</BewMenuButton>
+            <KeyboardBtn>Try Again</KeyboardBtn>
           </button>
         </div>
       )}

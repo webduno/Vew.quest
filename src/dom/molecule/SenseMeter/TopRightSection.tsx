@@ -1,6 +1,6 @@
 import React from 'react';
 import { GaugeDial } from './parts/GaugeDial';
-import { SenseSectionType } from '../../../../script/utils/platform/senseMeterTypes';
+import { SenseSectionType } from '../../../../script/utils/play/senseMeterTypes';
 
 interface TopRightSectionProps {
   activeSection: SenseSectionType;
