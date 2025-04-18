@@ -28,6 +28,13 @@ export const useAnalogModal = (onSend: (params: {
   // Add ref for the large meter to get its dimensions
   const meterRef = useRef<HTMLDivElement>(null);
 
+  // Update hasCompletedLoop when activeSection changes
+  useEffect(() => {
+    if (activeSection === 'send') {
+      setHasCompletedLoop(true);
+    }
+  }, [activeSection]);
+
   // Handle wheel event globally to ensure it works
   useEffect(() => {
     const handleGlobalWheel = (e: WheelEvent) => {

@@ -21,7 +21,9 @@ export const SliderBar = ({
     const percentage = 100 - ((clickY - 5) / (rect.height - 10) * 100);
     const clampedValue = Math.max(0, Math.min(100, percentage));
     
-    onSliderClick(clampedValue);
+    // round value to integer
+    const roundedValue = Math.round(clampedValue);
+    onSliderClick(roundedValue);
   };
 
   // Convert sliderPosition (0-100) to percentage of available height
@@ -30,26 +32,23 @@ export const SliderBar = ({
   const bottomPosition = Math.min(availableHeight, (sliderPosition / 100) * availableHeight);
 
   return (
-    <div 
+    <div  className='pos-rel'
       style={{
         width: `${width}px`,
         height: `${height}px`,
-        background: '#333',
-        position: 'relative',
+        background: 'linear-gradient(90deg, #555555 40%, #222222 50%, #555555 60%)',
+        boxShadow: 'inset 2px 2px 6px #222222',
         cursor: onSliderClick ? 'pointer' : 'default'
       }}
       onClick={handleClick}
     >
-      {/* <div className={`pos-abs bottom-0 left-0 translate-xy--100 px-1 `}>
-              ⚠️
-            </div> */}
-      <div style={{
-        position: 'absolute',
+      <div className='pos-abs left-0' style={{
         bottom: `${bottomPosition}px`,
-        left: '0',
         width: `${width}px`,
         height: `${sliderHeightPx}px`,
-        background: '#666'
+        background: '#cccccc',
+        borderRadius: '2px',
+        boxShadow: 'inset -1px -1px 3px #444444, inset 2px 2px 1px #ffffff'
       }}></div>
     </div>
   );

@@ -67,8 +67,9 @@ export const ExitButton: React.FC<ExitButtonProps> = ({
         SEND
       </div>
       {activeSection === 'send' && !isMobile() &&
-        <div className='tx-xs tx-shadow-5 tx-center  bord-r-5  pt-1'
+        <div className='tx-xs tx-shadow-5 tx-center  bord-r-5  '
         style={{
+          paddingTop: '2px',
           color: '#00ff00',
         }}
         >

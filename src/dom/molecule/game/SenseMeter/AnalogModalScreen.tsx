@@ -106,8 +106,8 @@ export const AnalogModalScreen = ({
 
     
 
-    <div className='flex-col w-200px bord-r-5 pa-2' style={{
-      background: '#9aa39a',
+    <div className='flex-col w-200px bord-r-5 pa-2 tx-altfont-1' style={{
+      background: 'linear-gradient(-45deg, #7a837a, #9aa39a)',
       border: '8px solid #565956',
     }}>
 
@@ -115,8 +115,8 @@ export const AnalogModalScreen = ({
     {!shouldShowMiddleSection && !shouldShowBottomSection &&
           !shouldShowTopRightSection && (<>
           
-          <div className='tx-center tx-altfont-1 opaci-75 w-100 tx-black flex-col w-100'>
-            <div>What kind of &apos;thing&apos; do you sense the target is?</div>
+          <div className='tx-center tx-smd tx-altfont-1 opaci-75 w-100 tx-black flex-col w-100'>
+            <div>{"1)"} What &apos;type&apos; of target are you sensing?</div>
             {/* <div className='flex-wrap gap-1 tx-altfont-5 w-150px  pt-2 flex-justify-center w-100'>
               <div className='tx-center'>Object</div>
               <div className='tx-center'>Entity</div>

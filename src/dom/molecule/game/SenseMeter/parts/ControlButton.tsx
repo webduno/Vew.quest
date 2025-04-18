@@ -10,49 +10,45 @@ export const ControlButton = ({
   isActive?: boolean;
   onClick?: () => void;
 }) => {
-  // Extract the active button information from isActive
-  // The circle will show based on this condition, regardless of which section is active
   
   return (
-    <div
+    <div className='flex-col pointer gap-1 pa-1 bord-r-5'
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '5px',
-        cursor: 'pointer',
-        padding: '5px',
         background: isActive ? '#444' : 'transparent',
-        borderRadius: '5px'
       }}
       onClick={onClick}
     >
-      <div style={{
-        width: '15px',
-        height: '15px',
-        borderRadius: '50%',
-        background: color,
-        border: `2px solid ${isActive ? '#ffffff' : '#3e3e3e'}`
-      }}></div>
-      <div style={{
+      <div className='flex-col pos-rel' style={{
+        padding: '3px',
         width: '10px',
         height: '10px',
-        borderRadius: '50%',
+        background: "#aaaaaa",
+        // borderRadius: '3px',
+        clipPath: "polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%)"
+        // border: `2px solid ${isActive ? '#ffffff' : '#3e3e3e'}`
+      }}>
+        <div className='pos-abs  bord-r-100' style={{
+          margin: !isActive ? '-5px 0 0 0' : '5px 0 0 0',
+          padding: '4px',
+          background: color,
+          boxShadow: !isActive ? (
+            "inset -2px -2px 2px #00000077, 0 4px 0 -2px #eeeeee, 0 6px 0 -2px #cccccc"
+          ) : (
+            "inset -2px -2px 2px #00000077, 0 -4px 0 -2px #eeeeee, 0 -6px 0 -2px #cccccc"
+          ),
+          // display: isActive ? 'block' : 'none'
+        }}></div>
+      </div>
+      <div className="flex-col pos-rel bord-r-100" style={{
+        width: '10px',
+        height: '10px',
         background: '#222',
         border: '1px solid #111',
-        position: 'relative'
       }}>
-        <div style={{
-          position: 'absolute',
-          width: '4px',
-          height: '4px',
-          borderRadius: '50%',
+        <div className='pos-abs bord-r-100' style={{
+          padding: '2px',
           background: color,
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          // Show the inner circle always when the button is selected
-          // This makes it visible even when other sections are active
+          boxShadow: `0 0 10px 2px ${color}`,
           display: isActive ? 'block' : 'none'
         }}></div>
       </div>

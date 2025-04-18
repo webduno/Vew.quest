@@ -4,21 +4,21 @@ import React from 'react';
 // Meter Component
 
 export const CircularMeter = ({
-  size = 24, needleRotation = 0, background = '#f0f0c0'
+  size = 24, needleRotation = 0,
+  background = '#f0f0c0'
 }: {
   size?: number;
   needleRotation?: number;
   background?: string;
 }) => {
   return (
-    <div style={{
+    <div className='pos-rel noverflow' style={{
       width: `${size}px`,
       height: `${size}px`,
       borderRadius: '50%',
       background,
-      border: '3px solid #3e3e3e',
-      position: 'relative',
-      overflow: 'hidden'
+      boxShadow: 'inset 0 0 6px #777777, 0 0 1px 2px #777777, 1px 1px 0 3px #333333, -1px -1px 0 2px #cccccc',
+      // border: '3px solid #3e3e3e',
     }}>
       <div style={{
         position: 'absolute',

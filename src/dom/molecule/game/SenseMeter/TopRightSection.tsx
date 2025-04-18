@@ -18,11 +18,13 @@ export const TopRightSection: React.FC<TopRightSectionProps> = ({
   modalRef
 }) => {
   return (
-    <div className='flex-row gap-1'
+    <div className='flex-row gap-1 pa-1'
     style={{
-      background: "#5a5a5a",
-      padding: "5px",
-      borderRadius: "5px"
+      // background: "#aaaaaa",
+      background: "linear-gradient(-45deg, #727272, #929292)",
+      boxShadow: "inset -2px -2px 1px 0 #444444, inset 2px 2px 1px 0 #bbbbbb, 2px 2px 3px #666666",
+      borderRadius: "3px"
+      
     }}
     
     >
@@ -35,9 +37,13 @@ export const TopRightSection: React.FC<TopRightSectionProps> = ({
           }
         }}
       >
-        <div className='tx-xs tx-white mb-1 flex-row' style={{gap:"2px"}}>
+        <div className='tx-xs tx-black mb- flex-col' style={{gap:"2px"}}>
           <div className='opaci-50'>Natural</div>
-          <div>{gaugeValues[0]}</div>
+          <div className="px-1 bord-r-100"
+           style={{color: '#229922',background:"#444444"}}>
+            {/* show percentage based on 360 */}
+            {Math.round(gaugeValues[0] / 360 * 100)} %
+            </div>
         </div>
         <div>
           <GaugeDial 
@@ -68,9 +74,13 @@ export const TopRightSection: React.FC<TopRightSectionProps> = ({
           }
         }}
       >
-        <div className='tx-xs tx-white mb-1 flex-row' style={{gap:"2px"}}>
-          <div className='opaci-50'>Temp</div>
-          <div>{gaugeValues[1]}</div>
+        <div className='tx-xs tx-black mb- flex-col' style={{gap:"2px"}}>
+          <div className='opaci-50'>Temperature</div>
+          <div className="px-1 bord-r-100"
+           style={{color: '#229922',background:"#444444"}}>
+            {/* show percentage based on 360 */}
+            {Math.round(gaugeValues[1] / 360 * 100)} %
+            </div>
         </div>
         <div>
           <GaugeDial 

@@ -5,7 +5,7 @@ import React from 'react';
 
 export const GaugeDial = ({
   size = 40, needleRotation = 45,
-  borderWidth = 4,
+  borderWidth = 2,
   needleHeight = 20, isActive = false,
   onChange
 }: {
@@ -36,27 +36,22 @@ export const GaugeDial = ({
   };
 
   return (
-    <div 
+    <div className='flex-col pointer pos-rel bord-r-100'
       onClick={handleClick}
       style={{
         width: `${size}px`,
         height: `${size}px`,
-        borderRadius: '50%',
-        background: '#f5f5f5',
-        border: `${borderWidth}px solid ${isActive ? '#ff5555' : '#3e3e3e'}`,
-        position: 'relative',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        cursor: 'pointer'
+        background: 'radial-gradient(#ffffff 30%,#c0c0b0, #ff9900)',
+        border: `${borderWidth}px solid #555555`,
+        boxShadow: `1px 1px 2px #000000, inset ${borderWidth}px ${borderWidth}px 10px ${isActive ? '#ff5555' : '#777777'}`,
       }}>
-      <div style={{
-        position: 'absolute',
+      <div className='pos-abs' style={{
         bottom: '50%',
-        width: '2px',
+        width: '4px',
         height: `${needleHeight}px`,
-        background: 'grey',
+        background: isActive ? 'linear-gradient(90deg, #000000, red)' : 'linear-gradient(90deg, #000000, #ffffff)' ,
         transform: `rotate(${needleRotation}deg)`,
+        clipPath: "polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%)",
         transformOrigin: 'bottom center'
       }}></div>
     </div>

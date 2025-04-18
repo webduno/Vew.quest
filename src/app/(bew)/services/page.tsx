@@ -74,6 +74,10 @@ export default function TrainingPage() {
       confidence: number;
     }
   }>(null);
+  const [selectedTargetInfo, setSelectedTargetInfo] = useState<null | {
+    id: string;
+    description: string;
+  }>(null);
   const [overallAccuracy, setOverallAccuracy] = useState<number>(0);
   const [results, setResults] = useState<null | {
     natural: number;
@@ -83,6 +87,7 @@ export default function TrainingPage() {
     solid: number;
     confidence: number;
   }>(null);
+  const [showImageModal, setShowImageModal] = useState(false);
 
   const random10CharString = () => {
     return Math.random().toString(36).substring(2, 15);
@@ -104,14 +109,48 @@ export default function TrainingPage() {
       }
     };
   }
-  const handleTryAgain = () => {
-    setGameState('initial');
-    setResults(null);
-    setSentObject(null);
+
+  async function fetchRandomFromCocoDatabase() {
+    try {
+      const response = await fetch('/data/targets_1.json');
+      const data = await response.json();
+      
+      // Get random key from the object
+      const keys = Object.keys(data);
+      const randomKey = keys[Math.floor(Math.random() * keys.length)];
+      const targetData = data[randomKey];
+      
+      // Split the data into description and values
+      const [description, valuesStr] = targetData.split('\n');
+      const [type, natural, temp, light, color, solid, confidence] = valuesStr.split(',').map(Number);
+      
+      // Update the selected target info
+      setSelectedTargetInfo({
+        id: randomKey,
+        description: description.trim()
+      });
+      
+      return {
+        code: randomKey,
+        values: {
+          natural,
+          temp,
+          light,
+          color,
+          solid,
+          confidence
+        }
+      };
+    } catch (error) {
+      console.error('Error fetching from COCO database:', error);
+      // Fallback to random generation if there's an error
+      return generateRandomTarget();
+    }
   }
 
-  const handleStart = () => {
-    setTarget(generateRandomTarget());
+  const handleStart = async () => {
+    const newTarget = await fetchRandomFromCocoDatabase();
+    setTarget(newTarget);
     setGameState('playing');
     setResults(null);
     setSentObject(null);
@@ -180,6 +219,12 @@ export default function TrainingPage() {
       setIsSubmitting(false);
     }
   };
+
+  const handleTryAgain = () => {
+    setGameState('initial');
+    setResults(null);
+    setSentObject(null);
+  }
 
   return (
     <div className="h-100vh w-100vw flex-col flex-center bg-dark">
@@ -296,9 +341,31 @@ export default function TrainingPage() {
       {gameState === 'playing' && target && (myRequests?.length === 0 || !myRequests) && (
         <div className="flex-col flex-center">
           <div className="tx-white tx-center mb-8">
-            {/* <div className="tx-md tx-altfont-5 opaci-50">Target Code</div> */}
             <div className="tx-xxl tx-altfont-8 opaci-75 tx-ls-5">#{target.code}</div>
           </div>
+          
+          {showImageModal && (
+            <div className="pos-abs bg-b-90 bg-glass-10" style={{ zIndex: 10000 }}>
+              <div className="flex-col flex-center bg-dark-50 pa-4 bord-r-5" style={{ maxWidth: '80vw', maxHeight: '80vh' }}>
+                <div className="flex-row flex-justify-end w-100">
+                  <button 
+                    className="tx-white tx-lg pointer noborder bg-trans"
+                    onClick={() => setShowImageModal(false)}
+                  >
+                    ×
+                  </button>
+                </div>
+                <img 
+                  src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
+                  alt={selectedTargetInfo?.description}
+                  style={{ maxWidth: '100%', maxHeight: '70vh', objectFit: 'contain' }}
+                />
+                <div className="tx-white tx-center mt-2">
+                  {selectedTargetInfo?.description}
+                </div>
+              </div>
+            </div>
+          )}
           
           <div className="flex-col pos-rel">
             <AnalogModalScreen
@@ -309,6 +376,16 @@ export default function TrainingPage() {
               onSend={handleSend}
             />
           </div>
+          
+            <button 
+              className="mt-2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-1 underline" 
+              style={{
+                color: "#999999",
+              }}
+              onClick={() => setShowImageModal(true)}
+            >
+              <div>Show Target Image</div>
+            </button>
         </div>
       )}
 
