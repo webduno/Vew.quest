@@ -5,11 +5,23 @@ import { useState, useEffect } from "react";
 
 
 export function usePlayerStats() {
-  const [LS_firstTime, setLS_firstTime] = useState<boolean>(true);
+  const [LS_firstTime, setLS_firstTime] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return true;
+    const alreadyPlayed = localStorage.getItem('VB_ALREADY_PLAYED');
+    return !alreadyPlayed;
+  });
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const [typedUsername, setTypedUsername] = useState("");
-  const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(false);
-  const [LS_ultraGraphics, setLS_ultraGraphics] = useState<boolean>(false);
+  const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const legacyGraphics = localStorage.getItem('VB_LEGACY_GRAPHICS');
+    return legacyGraphics === '1';
+  });
+  const [LS_ultraGraphics, setLS_ultraGraphics] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const ultraGraphics = localStorage.getItem('VB_ULTRA_GRAPHICS');
+    return ultraGraphics === '1';
+  });
   const [LS_hasFirstKey, setLS_hasFirstKey] = useState<boolean>(false);
   const [mindStats, setMindStats] = useState<{ 
     color: number,

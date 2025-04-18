@@ -36,7 +36,7 @@ interface CRVRequest {
 }
 
 export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingRequest }: BewPreMainSceneProps) => {
-  const { LS_playerId, updateMindStats, mindStats } = usePlayerStats();
+  const { LS_playerId, updateMindStats, mindStats, LS_ultraGraphics } = usePlayerStats();
   const { playSoundEffect } = useGameCore();
   const [crvObjects, setCrvObjects] = useState<CRVObject[]>([]);
   const [scoreboardObjects, setScoreboardObjects] = useState<CRVObject[]>([]);
@@ -231,21 +231,17 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
 
       <pointLight position={[0, 2, -10]} intensity={1}  castShadow
         color="#fff7f0" 
-
         distance={8}
-
         shadow-mapSize-blurSamples={2}
         shadow-mapSize-radius={.2}
-    
-        shadow-mapSize-width={16}
-        shadow-mapSize-height={16}
-            shadow-camera-near={1}
-            shadow-camera-far={4}
+        shadow-mapSize-width={LS_ultraGraphics ? 64 : 16}
+        shadow-mapSize-height={LS_ultraGraphics ? 64 : 16}
+        shadow-camera-near={1}
+        shadow-camera-far={4}
         shadow-camera-left={-4}
         shadow-camera-right={4}
         shadow-camera-top={4}
         shadow-camera-bottom={-4}
-
        />
 
 

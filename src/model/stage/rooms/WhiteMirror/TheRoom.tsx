@@ -26,7 +26,7 @@ export const TheRoom = ({
 }: TheRoomProps) => {
 
   const { playSoundEffect } = useGameCore();
-  const { hasExploredZone, updateExploredStatus, mindStats } = usePlayerStats();
+  const { hasExploredZone, updateExploredStatus, mindStats, LS_ultraGraphics } = usePlayerStats();
   
   return (<>
   
@@ -146,10 +146,20 @@ hasExploredZone("credits") && (<CreditsCube />)}
 
 
 const CreditsCube = () => {
+  const { LS_ultraGraphics } = usePlayerStats();
+  
   return (<>
   
   <pointLight position={[0, 2, -30]} intensity={15}
          distance={5} color="#ffffff" castShadow
+         shadow-mapSize-width={LS_ultraGraphics ? 64 : 16}
+         shadow-mapSize-height={LS_ultraGraphics ? 64 : 16}
+         shadow-camera-near={1}
+         shadow-camera-far={4}
+         shadow-camera-left={-4}
+         shadow-camera-right={4}
+         shadow-camera-top={4}
+         shadow-camera-bottom={-4}
          />
          <Plane args={[4, 2]} position={[0, 2, -27.51]} rotation={[0, Math.PI, 0]}>
           <meshStandardMaterial color="#ffffff" 

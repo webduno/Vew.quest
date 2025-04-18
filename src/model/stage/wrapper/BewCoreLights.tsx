@@ -34,7 +34,7 @@ const lightGreenEmissiveMaterial = new MeshStandardMaterial({
 export const BewCoreLights = ({ 
   showWhiteMirror = false 
  }) => {
-  const { LS_lowGraphics } = usePlayerStats()
+  const { LS_lowGraphics, LS_ultraGraphics } = usePlayerStats()
   const spotLightTarget1 = useRef<any>(null);
   const spotLightTarget2 = useRef<any>(null);
   const spotLightTarget3 = useRef<any>(null);
@@ -96,18 +96,15 @@ export const BewCoreLights = ({
         color="#f7ffe7" castShadow
         target={spotLightTarget3.current}
         distance={10}
-
           
-        shadow-mapSize-width={256}
-        shadow-mapSize-height={256}
+        shadow-mapSize-width={LS_ultraGraphics ? 1024 : 256}
+        shadow-mapSize-height={LS_ultraGraphics ? 1024 : 256}
         shadow-mapSize-blurSamples={2}
         shadow-mapSize-radius={.2}
         shadow-camera-near={1}
         shadow-camera-far={8}
         shadow-camera-left={-8}
         shadow-camera-right={8}
-
-
         shadow-camera-top={2}
         shadow-camera-bottom={-5}
       />
@@ -126,51 +123,39 @@ export const BewCoreLights = ({
           intensity={10} 
           castShadow 
           target={spotLightTarget1.current} 
-
           
-          shadow-mapSize-width={128}
-          shadow-mapSize-height={128}
+          shadow-mapSize-width={LS_ultraGraphics ? 512 : 128}
+          shadow-mapSize-height={LS_ultraGraphics ? 512 : 128}
           shadow-mapSize-blurSamples={2}
           shadow-mapSize-radius={.2}
-        shadow-camera-near={1}
-        shadow-camera-far={8}
+          shadow-camera-near={1}
+          shadow-camera-far={8}
           shadow-camera-left={-8}
-          shadow-camera-right={8}
           shadow-camera-top={2}
           shadow-camera-bottom={-5}
-
-        distance={5}
+          distance={5}
         />
 
 
         <spotLight 
           position={[0, 3.3, -2.25]} 
           angle={1.6} 
-          
           color="#fff7e7"
           penumbra={1} 
           intensity={10} 
           castShadow 
           target={spotLightTarget2.current} 
-
-
-
-
-          shadow-mapSize-width={128}
-          shadow-mapSize-height={128}
+          
+          shadow-mapSize-width={LS_ultraGraphics ? 512 : 128}
+          shadow-mapSize-height={LS_ultraGraphics ? 512 : 128}
           shadow-mapSize-blurSamples={2}
           shadow-mapSize-radius={.2}
-        shadow-camera-near={1}
-        shadow-camera-far={8}
+          shadow-camera-near={1}
+          shadow-camera-far={8}
           shadow-camera-left={-8}
-          shadow-camera-right={8}
-
-
-
-          
           shadow-camera-top={2}
           shadow-camera-bottom={-5}
-        distance={8}
+          distance={5}
         />
       </>
     )}

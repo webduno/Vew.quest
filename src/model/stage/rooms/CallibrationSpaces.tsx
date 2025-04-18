@@ -12,7 +12,7 @@ import { useGameCore } from '@/../script/state/hook/useGameCore';
 
 export const CallibrationSpaces = () => {
   const { showSnackbar, playSoundEffect } = useGameCore();
-  const { hasExploredZone, updateExploredStatus } = usePlayerStats();
+  const { hasExploredZone, updateExploredStatus, LS_ultraGraphics } = usePlayerStats();
   const [colorCalibrationStarted, setColorCalibrationStarted] = useState(false)
   const [solidCalibrationStarted, setSolidCalibrationStarted] = useState(false)
 
@@ -132,8 +132,8 @@ colorCalibrationStarted={colorCalibrationStarted} setColorCalibrationStarted={se
   <pointLight position={[-5, 2, 8.25]} intensity={.5} color="#ffffff" 
   castShadow
   distance={9}
-  shadow-mapSize-width={32}
-  shadow-mapSize-height={32}
+  shadow-mapSize-width={LS_ultraGraphics ? 128 : 32}
+  shadow-mapSize-height={LS_ultraGraphics ? 128 : 32}
   shadow-camera-near={1}
   shadow-camera-far={9}
   shadow-camera-left={-9}
