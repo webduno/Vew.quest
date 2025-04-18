@@ -8,6 +8,7 @@ export const AnalysisScreen = ({
   targetResults,
   submitted,
   rewardAmount,
+  setShowImageModal,
   onReset
 }: {
   analysisResult: string;
@@ -16,6 +17,7 @@ export const AnalysisScreen = ({
   submitted: any;
   rewardAmount: any;
   onReset: () => void;
+  setShowImageModal: (show: boolean) => void;
 }) => {
   const toFixedObject = useMemo(() => {
     return (obj: Record<string, any>) => {
@@ -64,21 +66,41 @@ ${targetResults.type}           ${formattedAccuracy.naturalityAccuracy}%        
 
 
 
-    <Text font={"/fonts/wallpoet.ttf"} fontSize={0.2} color={"#202020"}
-      anchorX="center" anchorY="top" textAlign="center"
-      letterSpacing={.2}
-      rotation={[0, Math.PI, 0]}
-      position={[-3, -.2, 10.9]}
-    >
-      {`NEW TARGET`}
-    </Text>
+<Text font={"/fonts/wallpoet.ttf"} fontSize={0.2} color={"#202020"}
+  anchorX="center" anchorY="top" textAlign="center"
+  letterSpacing={.2}
+  rotation={[0, Math.PI, 0]}
+  position={[-3, -.2, 10.9]}
+>
+  {`NEW TARGET`}
+</Text>
 <Cylinder position={[-3, -1.2, 10.9]} onClick={onReset} 
 rotation={[Math.PI/2, 0, 0]}
 receiveShadow
 args={[.7, .6, .1]}
 >
-  <meshStandardMaterial color={"#ffcccc"}
-   />
+<meshStandardMaterial color={"#ffcccc"}
+/>
+</Cylinder>
+
+
+
+<Text font={"/fonts/wallpoet.ttf"} fontSize={0.2} color={"#181818"}
+  anchorX="center" anchorY="top" textAlign="center"
+  letterSpacing={.2}
+  rotation={[0, Math.PI, 0]}
+  position={[3, 0, 10.9]}
+>
+  {`SHOW
+  TARGET IMAGE`}
+</Text>
+<Cylinder position={[3, -1.2, 10.9]} onClick={() => setShowImageModal(true)} 
+rotation={[Math.PI/2, 0, 0]}
+receiveShadow
+args={[.7, .6, .1]}
+>
+<meshStandardMaterial color={"#ccffcc"}
+/>
 </Cylinder>
   </>);
 };

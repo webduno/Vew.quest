@@ -35,7 +35,7 @@ export const ExitButton: React.FC<ExitButtonProps> = ({
   modalRef
 }) => {
   return (
-    <div className='pos-abs top-0 right-0 mr-4 pt-4 flex-col flex-justify-end flex-align-end'>
+    <div className='pos-abs top-0 right-0 mr-2 pt-2 flex-col flex-justify-end flex-align-end'>
       <div 
         className=' px-2 bord-r-5 border-white opaci-chov--50'
         onClick={() => {

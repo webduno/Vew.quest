@@ -369,8 +369,8 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
     if (!hasExploredZone("white_mirror_room")) {
       updateExploredStatus('white_mirror_room', true);
       setIsCutSceneOpen(true);
-      showSnackbar(`You've entered the white mirror room... Sit down.`, 'title');
-      playSoundEffect("/sfx/tutorial/sitdown.ogg")
+      showSnackbar(`White Mirror Training Room`, 'title');
+      playSoundEffect("/sfx/tutorials/whitemirror.ogg")
 
         
       setTimeout(() => {
@@ -691,12 +691,6 @@ setIsTakingRequest(null);
           {!!code1 && !!code2 && (<>
           
           
-        <Plane args={[4, 2]} position={[0, 2, -26.5]} rotation={[0, 0, 0]} receiveShadow>
-          <meshStandardMaterial color="#bbbbbb"
-            // emissive="#555555"
-            roughness={0.15} 
-            />
-        </Plane>
           
           <TheRoom analysisResult={analysisResult}
           isTransitioning={isTransitioning}
@@ -740,6 +734,7 @@ setIsTakingRequest(null);
          (<>
           <group position={[0,3,-26.48]} rotation={[0,-0,0]}>
             <AnalysisScreen analysisResult={analysisResult} 
+            setShowImageModal={setShowImageModal}
             submitted={submitted}
             targetResults={crvTargetObject}
             accuracyResult={accuracyResult}

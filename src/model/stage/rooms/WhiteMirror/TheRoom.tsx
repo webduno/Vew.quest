@@ -105,7 +105,7 @@ export const TheRoom = ({
         position={[4, 2.5, -27]} />
         <SolidBox color="#eeeeee"
         size={[4,1, 1]}
-        position={[0, 3.75, -27]} />
+        position={[0, 3.5, -27]} />
 
 
 {!(
@@ -118,7 +118,7 @@ export const TheRoom = ({
 ) &&
  (<>
 <SolidBox color="#eeeeee"
-        size={[4, 2, .9]}
+        size={[4, 2, 1]}
         position={[0, 2, -27]} />
 </>)}
 {!!analysisResult && !hasExploredZone("credits") && (<>
