@@ -299,7 +299,7 @@ export default function TrainingPage() {
       </>
       )}
       {gameState === 'initial' && ( myRequests?.length === 0 || !myRequests) && (<>
-        <button 
+        {/* <button 
           className="tx-lg bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
           style={{
             color: "#999999",
@@ -307,7 +307,7 @@ export default function TrainingPage() {
           onClick={handleStart}
         >
           <KeyboardBtn>Remote Viewing Training</KeyboardBtn>
-        </button>
+        </button> */}
         <button 
           className="mt-2 tx-lg bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
           style={{
