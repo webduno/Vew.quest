@@ -241,7 +241,7 @@ shouldShowTopRightSection && (<>
 
 
       {(!shouldShowMiddleSection || !shouldShowBottomSection ||
-      !shouldShowTopRightSection) && isMobile() && (<>
+      !shouldShowTopRightSection) && !isMobile() && (<>
       
 <hr className='w-100 opaci-20 my-1' />
 <div className='tx-xs mt-1 tx-ls- 1 tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
