@@ -12,6 +12,8 @@ type PlayerStatsContextType = {
   sanitizePlayerId: (playerId: string) => string;
   LS_lowGraphics: boolean;
   toggleLowGraphics: () => void;
+  LS_ultraGraphics: boolean;
+  toggleUltraGraphics: () => void;
   LS_firstTime: boolean;
   disableFirstTime: () => void;
   LS_hasFirstKey: boolean;
@@ -30,6 +32,8 @@ export const PlayerStatsContext = createContext<PlayerStatsContextType>({
   sanitizePlayerId: (playerId: string) => playerId,
   LS_lowGraphics: false,
   toggleLowGraphics: () => {},
+  LS_ultraGraphics: false,
+  toggleUltraGraphics: () => {},
   LS_firstTime: true,
   disableFirstTime: () => {},
   LS_hasFirstKey: false,

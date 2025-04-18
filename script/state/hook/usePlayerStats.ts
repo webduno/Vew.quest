@@ -9,6 +9,7 @@ export function usePlayerStats() {
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const [typedUsername, setTypedUsername] = useState("");
   const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(false);
+  const [LS_ultraGraphics, setLS_ultraGraphics] = useState<boolean>(false);
   const [LS_hasFirstKey, setLS_hasFirstKey] = useState<boolean>(false);
   const [mindStats, setMindStats] = useState<{ 
     color: number,
@@ -82,6 +83,20 @@ export function usePlayerStats() {
     const newValue = !LS_lowGraphics;
     setLS_lowGraphics(newValue);
     localStorageProxy.VB_LEGACY_GRAPHICS = newValue ? '1' : '0';
+    if (newValue) {
+      setLS_ultraGraphics(false);
+      localStorageProxy.VB_ULTRA_GRAPHICS = '0';
+    }
+  };
+
+  const toggleUltraGraphics = () => {
+    const newValue = !LS_ultraGraphics;
+    setLS_ultraGraphics(newValue);
+    localStorageProxy.VB_ULTRA_GRAPHICS = newValue ? '1' : '0';
+    if (newValue) {
+      setLS_lowGraphics(false);
+      localStorageProxy.VB_LEGACY_GRAPHICS = '0';
+    }
   };
 
   const updateMindStats = (type: 'color' | 'solid' | 'cash' | 'firstaid_pr', value: number) => {
@@ -143,6 +158,11 @@ export function usePlayerStats() {
     const legacyGraphics: string | null = localStorageProxy.VB_LEGACY_GRAPHICS;
     if (legacyGraphics !== null) {
       setLS_lowGraphics(legacyGraphics === '1');
+    }
+
+    const ultraGraphics: string | null = localStorageProxy.VB_ULTRA_GRAPHICS;
+    if (ultraGraphics !== null) {
+      setLS_ultraGraphics(ultraGraphics === '1');
     }
 
     const alreadyPlayed: any = localStorageProxy.VB_ALREADY_PLAYED;
@@ -246,6 +266,8 @@ export function usePlayerStats() {
     formatPortalUrl,
     LS_lowGraphics,
     toggleLowGraphics,
+    LS_ultraGraphics,
+    toggleUltraGraphics,
     LS_firstTime,
     disableFirstTime,
     LS_hasFirstKey,
