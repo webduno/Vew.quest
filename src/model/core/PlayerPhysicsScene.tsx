@@ -93,7 +93,7 @@ function PlayerCylinder({
   )
 }
 
-export function BewPhysicsScene({ 
+export function PlayerPhysicsScene({ 
   isCutSceneOpen,
   position, 
   onExit, 

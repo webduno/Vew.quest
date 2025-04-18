@@ -3,11 +3,11 @@ import { Box, Text } from '@react-three/drei';
 import { StyledWall } from '@/model/core/StyledWall';
 import { useState, useEffect } from 'react';
 import { ColorCallibrationArcade } from '@/model/minigames/ColorCallibrationArcade';
-import { SummoningCircle } from '../bits/SummoningCircle';
-import { SolidBox } from '../core/SolidBox';
+import { SummoningCircle } from '../../byte/SummoningCircle';
+import { SolidBox } from '../../core/SolidBox';
 import { SolidCallibrationArcade } from '@/model/minigames/SolidCallibrationArcade';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
-import { CollisionBox } from '../core/CollisionBox';
+import { CollisionBox } from '../../core/CollisionBox';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
 
 export const CallibrationSpaces = () => {

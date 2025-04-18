@@ -1,9 +1,9 @@
 'use client';
 import { Box, Cylinder, Torus, Text } from '@react-three/drei';
-import { SolidBox } from '../core/SolidBox';
+import { SolidBox } from '../../core/SolidBox';
 import { useState, useEffect } from 'react';
 import { VendingMachine } from './VendingMachine';
-import { CollisionBox } from '../core/CollisionBox';
+import { CollisionBox } from '../../core/CollisionBox';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
 export const CommonArea = () => {

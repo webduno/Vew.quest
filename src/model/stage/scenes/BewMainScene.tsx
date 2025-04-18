@@ -5,19 +5,17 @@ import { Box, Cylinder, Text } from '@react-three/drei';
 
 import { SolidBox } from '../../core/SolidBox';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
+import { CallibrationSpaces } from '../rooms/CallibrationSpaces';
+import { MainHallway } from '../rooms/MainHallway';
+import { CommonArea } from '../rooms/CommonArea';
+import { ESPLobby } from '../rooms/ESPLobby';
+import { PsionicHallway } from '../rooms/PsionicHallway';
+import { PortalRoom } from '../rooms/PortalRoom';
+import { BewPortal } from '../../core/BewPortal';
+import { ZuckHead } from '../../byte/ZuckHead';
+import { ABDoorPortals } from '../doorwalls/ABDoorPortals';
+import { BCDoorPortals } from '../doorwalls/BCDoorPortals';
 
-import { ABDoorPortals } from '../../doorwalls/ABDoorPortals';
-import { CallibrationSpaces } from '../../rooms/CallibrationSpaces';
-import { BCDoorPortals } from '../../doorwalls/BCDoorPortals';
-
-import { MainHallway } from '../../rooms/MainHallway';
-import { CommonArea } from '../../rooms/CommonArea';
-import { ESPLobby } from '../../rooms/ESPLobby';
-import { PsionicHallway } from '../../rooms/PsionicHallway';
-import { PortalRoom } from '../../rooms/PortalRoom';
-
-import { BewPortal } from '../../portal/BewPortal';
-import { ZuckHead } from '../../bits/ZuckHead';
 
 export const BewMainScene = ({ setPlayerPosition,
   code1,

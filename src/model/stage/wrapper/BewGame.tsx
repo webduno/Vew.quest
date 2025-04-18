@@ -9,23 +9,23 @@ import { isMobile } from '@/../script/utils/platform/mobileDetection';
 import { calculateAccuracy } from "@/../script/utils/play/calculateAccuracy";
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
-import { BewMainScene } from '@/model/bew/scenes/BewMainScene';
+import { BewMainScene } from '@/model/stage/scenes/BewMainScene';
 import { MobileControlOverlay } from '@/dom/molecule/game/MobileControlOverlay';
-import { PersonSilhouette } from '../bits/PersonSilhouette';
+import { PersonSilhouette } from '../../bit/PersonSilhouette';
 import { TheRoom } from '../rooms/WhiteMirror/TheRoom';
 import { AnalogModalScreen } from '@/dom/molecule/game/SenseMeter/AnalogModalScreen';
-import { BewPhysicsScene } from '../core/BewPhysicsScene';
-import { SolidBox } from '../core/SolidBox';
+import { SolidBox } from '../../core/SolidBox';
 import { BgMusicToggle } from '@/dom/molecule/notification/BgMusicToggle';
 import { PerformanceStats } from '@/dom/molecule/notification/PerformanceStats';
-import { RotatingBar } from '../bits/RotatingBar';
-import { AnalysisScreen } from '../bits/AnalysisScreen';
+import { RotatingBar } from '../../byte/RotatingBar';
+import { AnalysisScreen } from '../item/AnalysisScreen';
 import { MindStats } from '@/dom/molecule/notification/MindStats';
 import { TheWhiteMirror } from '../rooms/WhiteMirror/TheWhiteMirror';
-import { PhysicalFloor } from '../core/PhysicalFloor';
-import { PhysicalCeiling } from '../core/PhysicalFloor';
-import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
+import { PhysicalFloor } from '../../core/PhysicalFloor';
+import { PhysicalCeiling } from '../../core/PhysicalFloor';
 import { BewCoreLights } from './BewCoreLights';
+import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
+import { PlayerPhysicsScene } from '../../core/PlayerPhysicsScene';
 
 export const BewGame = () => {
   const {
@@ -740,7 +740,7 @@ setIsTakingRequest(null);
 
 
           
-          <BewPhysicsScene
+          <PlayerPhysicsScene
             isCutSceneOpen={isCutSceneOpen}
             playerHeight={1.8}
             playerRadius={0.4}

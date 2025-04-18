@@ -1,9 +1,9 @@
 'use client';
 import { Box, Plane, Text } from '@react-three/drei';
-import { CardboardBox } from '../bits/CardboardBox';
-import { StyledWall } from '../core/StyledWall';
-import { SolidBox } from '../core/SolidBox';
-import { CollisionBox } from '../core/CollisionBox';
+import { CardboardBox } from '../../bit/CardboardBox';
+import { StyledWall } from '../../core/StyledWall';
+import { SolidBox } from '../../core/SolidBox';
+import { CollisionBox } from '../../core/CollisionBox';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 

@@ -1,6 +1,6 @@
 'use client';
-import { SolidBox } from '../../core/SolidBox';
-import { CollisionBox } from '../../core/CollisionBox';
+import { SolidBox } from '../../../core/SolidBox';
+import { CollisionBox } from '../../../core/CollisionBox';
 import { TheChair } from './TheChair';
 import { TheTable } from './TheTable';
 import { Box, Plane, Text, Text3D } from '@react-three/drei';

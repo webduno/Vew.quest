@@ -1,6 +1,6 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { SolidBox } from '../core/SolidBox';
+import { SolidBox } from '../../core/SolidBox';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
 export const MainHallway = () => {

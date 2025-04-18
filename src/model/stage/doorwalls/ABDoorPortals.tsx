@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import { CollisionBox } from '@/model/core/CollisionBox';
 import { SolidBox } from '@/model/core/SolidBox';
 import { StyledWall } from '@/model/core/StyledWall';
-import { RegularKey } from '@/model/bits/RegularKey';
+import { RegularKey } from '@/model/bit/RegularKey';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
 
 

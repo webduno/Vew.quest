@@ -1,6 +1,6 @@
 'use client';
 import { Box, Text, Sphere, Cylinder, Plane } from '@react-three/drei';
-import { SolidBox } from '../core/SolidBox';
+import { SolidBox } from '../../core/SolidBox';
 import { useState } from 'react';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
 

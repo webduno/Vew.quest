@@ -1,9 +1,9 @@
 'use client';
 import { Box, GradientTexture, Text } from '@react-three/drei';
-import { StyledWall } from '../core/StyledWall';
+import { StyledWall } from '../../core/StyledWall';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
-import { SolidBox } from '../core/SolidBox';
+import { SolidBox } from '../../core/SolidBox';
 
 
 export const PortalRoom = () => {
