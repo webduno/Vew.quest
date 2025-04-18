@@ -1,13 +1,15 @@
 'use client';
-import { Box } from '@react-three/drei';
-import { SolidBox } from '../../core/SolidBox';
 import { useEffect, useState } from 'react';
+import { Box } from '@react-three/drei';
+
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
+import { Scoreboard } from './Scoreboard';
 import { PublicRequests } from './PublicRequests';
 import { YourRequests } from './YourRequests';
-import { Scoreboard } from './Scoreboard';
 import { DailyQuota } from './DailyQuota';
+import { SolidBox } from '@/model/core/SolidBox';
+
 
 interface BewPreMainSceneProps {
   setPlayerPosition?: (position: [number, number, number]) => void;
