@@ -306,7 +306,7 @@ export default function TrainingPage() {
           }}
           onClick={handleStart}
         >
-          <KeyboardBtn>Remote Viewing <br /> Training Tool</KeyboardBtn>
+          <KeyboardBtn>Start <br /> Remote Viewing <br /> Training Tool</KeyboardBtn>
         </button>
         </>)}
 
