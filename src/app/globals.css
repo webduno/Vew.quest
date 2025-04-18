@@ -170,6 +170,7 @@ body, html {
 
 
 .key-btn {
+  cursor: pointer;
   background: linear-gradient(160deg, #2F2E29, #4F4E49, #66665A);
   box-shadow: inset 1px 1px 1px #ffffff33, inset -5px -5px 10px #00000077, inset 0 -4px 1px 6px #52534B;
 }
