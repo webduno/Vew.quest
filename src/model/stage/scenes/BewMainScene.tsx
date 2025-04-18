@@ -8,7 +8,7 @@ import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { CallibrationSpaces } from '../rooms/CallibrationSpaces';
 import { MainHallway } from '../rooms/MainHallway';
 import { CommonArea } from '../rooms/CommonArea';
-import { ESPLobby } from '../rooms/ESPLobby';
+import { ESPLobby } from '../rooms/ScoreLobby/ESPLobby';
 import { PsionicHallway } from '../rooms/PsionicHallway';
 import { PortalRoom } from '../rooms/PortalRoom';
 import { BewPortal } from '../../core/BewPortal';

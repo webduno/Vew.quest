@@ -16,79 +16,87 @@
      - Performance stats (optional)
 
   2. **Core Components**
-     - `BewCoreLights` - Handles game lighting
-     - `BewPhysicsScene` - Manages player movement and physics
-     - `BewMobileOverlay` - Mobile controls (conditional)
+     - `BewCoreLights` - Handles game lighting with dynamic light targets
+     - `PlayerPhysicsScene` - Manages player movement, physics, and interactions
+     - `MobileControlOverlay` - Mobile controls (conditional)
 
   3. **Scene Management**
      - `BewMainScene` - Main game scene containing:
-       - Hallways
-       - Common areas
+       - Hallways and common areas
        - ESP Lobby
        - Psionic Zone
        - Portal Room
-       - Various door portals (AB, BC, CD)
+       - Door portals (CD)
+     - Scene transition management
+     - Background music changes based on zones
 
   4. **Room Components**
      - `TheRoom` (White Mirror Room)
-       - `TheTable`
-       - `TheChair`
-       - Physical walls and triggers
+       - `TheTable` - Interactive table component
+       - `TheChair` - Sittable chair with collision detection
+       - Physical walls and collision triggers
+       - Credits cube (conditional based on mind stats)
      - `TheWhiteMirror`
-       - Crystal ball interaction
-       - Target display
-       - Analysis screen
+       - Crystal orb interaction
+       - Target display system
+       - Analysis interface
 
   5. **UI Elements**
-     - `MindStats`
-     - `BackgroundMusic`
-     - Performance Stats (optional)
+     - `MindStats` - Player statistics display
+     - `BgMusicToggle` - Music control interface
+     - `PerformanceStats` - Optional performance monitoring
      - Crosshair
-     - Code input interfaces
      - Analysis results display
+     - Transition screens
 
 ## Key Features
 1. **Movement System**
-   - Physics-based player movement
-   - Teleportation system
-   - Mobile controls support
+   - Physics-based player movement with configurable parameters
+   - Position and rotation tracking
+   - Mobile-responsive controls
+   - Movement locking system
 
 2. **Interaction System**
-   - Door portals with code requirements
+   - Door portal interactions
    - Chair sitting mechanics
-   - Crystal ball interaction
+   - Crystal orb interaction
    - Analysis submission system
+   - Sound effect triggers
 
 3. **Room Access Control**
-   - Code-based door system (CODE_1, CODE_2, CODE_3)
+   - Code-based door system
    - Zone exploration tracking
-   - Progressive unlocking system
+   - Progressive unlocking based on mind stats
+   - Transition management
 
 4. **Analysis System**
-   - CRV (Controlled Remote Viewing) reporting
-   - Accuracy calculations
-   - Reward system
-   - Analysis result display
+   - Target display and tracking
+   - Analysis result processing
+   - Reward calculations
+   - Mind stats progression
 
 ## Context Providers
 1. **GameCoreProvider**
-   - Manages game state
-   - Handles snackbar notifications
-   - Controls cutscenes
-   - Manages sound effects
+   - Manages game state and cutscenes
+   - Controls snackbar notifications
+   - Handles sound effects
+   - Manages background music changes
 
 2. **PlayerStatsProvider**
-   - Player ID management
-   - Graphics settings
-   - Zone exploration status
-   - Mind stats tracking
+   - Player ID and username management
+   - Graphics settings control
+   - Zone exploration status tracking
+   - Mind stats progression
+   - First-time user experience
 
 3. **BackgroundMusicProvider**
-   - Music playback control
-   - Sound effect management
+   - Background music playback control
+   - Sound effects management
+   - Volume control
+   - Audio state persistence
 
 ## Mobile Support
-- Responsive controls
-- Touch-based movement system
-- Mobile-specific overlay
-- Optimized performance settings 
+- Responsive touch controls
+- Mobile-specific overlay interface
+- Performance optimization settings
+- Device-specific interaction adaptations 
