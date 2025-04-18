@@ -178,7 +178,11 @@ export const AnalogModalScreen = ({
 {shouldShowMiddleSection && shouldShowBottomSection &&
 shouldShowTopRightSection && !isMobile() && (<>
 
-<div className='tx-xs mb-1 tx-ls- 1 tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
+<div className='tx-xs mb-1 tx-ls- 1 tx-center tx-white pa-1 bord-r-5 ' 
+style={{
+  background: '#2d302d',
+  boxShadow: 'inset -1px -1px 0 0px #111111, inset 1px 1px 0 0px #888888'
+  }}>
         USE SCROLL / TAB TO NAVIGATE SETTINGS
       </div>
       </>)}
@@ -310,8 +314,7 @@ shouldShowTopRightSection && (<>
 <hr className='w-100 opaci-20 my-1' />
 <div className='tx-xs mt-1 tx-ls- 1 tx-center tx-white pa-1 bord-r-5 ' style={{ 
   background: '#2d302d',
-  boxShadow: 'inset -1px -1px 0 0px #000000'
-
+boxShadow: 'inset -1px -1px 0 0px #111111, inset 1px 1px 0 0px #888888'
 }}>
         USE SCROLL / TAB TO NAVIGATE SETTINGS
       </div>
