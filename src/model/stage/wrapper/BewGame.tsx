@@ -75,6 +75,7 @@ export const BewGame = () => {
   const [isLocked, setIsLocked] = useState(false)
   const [teleportTrigger, setTeleportTrigger] = useState(0);
   const [showCodeInput, setShowCodeInput] = useState(false);
+  const [attemptShowTargetImage, setAttemptShowTargetImage] = useState(0);
   const [wasFirstDoorOpened, setWasFirstDoorOpened] = useState(false);
   const [wasPsionicHallwayEntered, setWasPsionicHallwayEntered] = useState(false);
   // const wasFirstDoorOpened = useRef(false);
@@ -605,7 +606,14 @@ setIsTakingRequest(null);
             style={{
               color: "#999999",
             }}
-            onClick={() => setShowImageModal(true)}
+            onClick={() => {
+              setAttemptShowTargetImage(prev => prev+1)
+              if (attemptShowTargetImage === 0) {
+                playSoundEffect("/sfx/tutorials/avoid.ogg")
+                return
+              }
+              setShowImageModal(true)
+            }}
           >
             <div>Show Target Image</div>
           </button>
