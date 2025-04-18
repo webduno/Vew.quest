@@ -73,14 +73,20 @@ export const AnalogModalScreen = ({
     onClick={handleModalClick}
     tabIndex={0}
     ref={modalRef}
-    style={{ outline: 'none', zIndex: 1000 }}
+    style={{ 
+      outline: 'none', zIndex: 1000,
+    }}
     onKeyDown={handleKeyDown}
   >
-    <div className='pos-abs top-0 left-0  translate-y--100 w-100 flex-col'>
+    <div className='pos-abs top-0 left-0  translate-y--100 w-100 flex-col'
+    style={{
+    }}
+    >
       <div className='tx-xs pa-1 px-2 box-shadow-2-t tx-ls-3 '
       style={{
         background: '#444744',
         borderRadius: '5px 5px 0 0',
+        boxShadow: 'inset 1px 2px 3px -1px  #777777'
       }}
       >
         <div className='opaci-25'>SENSE METER</div>
@@ -107,8 +113,10 @@ export const AnalogModalScreen = ({
     
 
     <div className='flex-col w-200px bord-r-5 pa-2 tx-altfont-1' style={{
-      background: 'linear-gradient(-45deg, #7a837a, #9aa39a)',
-      border: '8px solid #565956',
+      background: 'linear-gradient(-45deg, #6a736a, #9aa39a)',
+      // border: '8px solid #565956',
+      boxShadow: `inset 2px 2px 5px 0 #aaaaaa, inset -2px -2px 5px 0 #555555,
+      0px 0px 3px 5px #444744,3px 3px 3px 6px #2a2a2a,  0 0 0 7px #565956`,
     }}>
 
       
@@ -132,10 +140,10 @@ export const AnalogModalScreen = ({
  shouldShowTopRightSection && (<>
       
       <div className='tx-center tx-altfont-1 tx-xsm opaci-75 pos-rel w-100 tx-black pb- flex-col w-100 flex-align-end'>
-        <div>Whats the nature/temperature of the target?</div>
+        <div>{"2)"} Whats the nature/temperature of the target?</div>
         {/* <div className='tx-xsm'>Artificial/Organic | Cold/Hot</div> */}
         
-        <div className='pos-abs tx-xl translate-y-75 pr-4'>↓</div>
+        <div className='pos-abs tx-xl translate-y-50 pr-4'>↓</div>
         </div>
       </>)}
 
@@ -166,6 +174,15 @@ export const AnalogModalScreen = ({
 
       </>)}
 
+      
+{shouldShowMiddleSection && shouldShowBottomSection &&
+shouldShowTopRightSection && !isMobile() && (<>
+
+<div className='tx-xs mb-1 tx-ls- 1 tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
+        USE SCROLL / TAB TO NAVIGATE SETTINGS
+      </div>
+      </>)}
+
       {shouldShowBottomSection && (
         <BottomSection
           activeSection={activeSection}
@@ -183,7 +200,7 @@ export const AnalogModalScreen = ({
           
           <div className='tx-center tx-sm tx-altfont-1 w-100 tx-black flex-col w-100'>
             <div>↑</div>
-            <div>Choose brightness, saturation and solidity</div>
+            <div>{"3)"} Choose brightness, saturation and solidity</div>
             {/* <div className='flex-wrap gap-1 tx-altfont-5 w-150px  pt-2 flex-justify-center w-100'>
               <div className='tx-center'>Object</div>
               <div className='tx-center'>Entity</div>
@@ -199,7 +216,7 @@ export const AnalogModalScreen = ({
       
 {!shouldShowMiddleSection && !shouldShowBottomSection &&
       !shouldShowTopRightSection && (<>
-      <div className='py-8' >
+      <div className='pt-3 mt-8 pb-8' >
         <KeyboardBtn classOverride='pointer' onClick={() => {
           setActiveSection("natural")
         }}>
@@ -213,7 +230,7 @@ export const AnalogModalScreen = ({
       
       {!shouldShowMiddleSection && !shouldShowBottomSection && 
 shouldShowTopRightSection && (<>
-      <div className='py-8 ' >
+      <div className='pt-8 mt-8 pb-8 ' >
         <KeyboardBtn classOverride='pointer' onClick={() => {
           setActiveSection("light")
         }}>
@@ -238,13 +255,64 @@ shouldShowTopRightSection && (<>
       </div>
       </>)}
 
+{shouldShowBottomSection && shouldShowMiddleSection && shouldShowTopRightSection && (<>
+      <div className='pos-abs bottom-0 left-0 flex-row gap-1 pa-3'
+        style={{
+          paddingBottom: "7px"
+        }}
+      >
+        <div className=' bord-r-100 bg-b-90'
+        style={{
+          boxShadow:"-1px -1px 2px #333333, 1px 1px 2px #cccccc",
+          border: "1px solid #77aa77"
+        }}
+        >
+          <div className='flicker-5 _ddg pl-1 pt-1 bord-r-100'></div>
+        </div>
+        <div>
+          <div className='pa-2 bg-b-40 bord-r-100 pos-rel flex-col'
+          style={{boxShadow:"inset -1px -1px 8px #333333"}}
+          >
+            <div className='tx-white pos-abs tx-lg'
+              style={{
+                color: '#aaaaaa',paddingBottom: "4px",
+              }}
+            >+</div>
+          </div>
+        </div>
+      </div>
+      
+      <div className='pos-abs bottom-0 right-0 flex-row gap-1 pa-3'>
+        <div className=' bord-r-100 bg-b-90'
+        style={{boxShadow:"inset -1px -1px 0 #000000"}}
+        >
+          <div className='flicker-3 _ddb pl-1 pt-1 bord-r-100'></div>
+        </div>
+        <div className=' bord-r-100 bg-b-90'
+        style={{boxShadow:"inset -1px -1px 0 #000000"}}
+        >
+          <div className='flicker-5 _ddg pl-1 pt-1 bord-r-100'></div>
+        </div>
+        <div className=' bord-r-100 bg-b-50'
+        style={{boxShadow:"inset -1px -1px 0 #000000"}}
+        >
+          <div className='flicker-2 _ddr pl-1 pt-1 bord-r-100'></div>
+        </div>
+      </div>
+      </>)}
+
+
 
 
       {(!shouldShowMiddleSection || !shouldShowBottomSection ||
       !shouldShowTopRightSection) && !isMobile() && (<>
       
 <hr className='w-100 opaci-20 my-1' />
-<div className='tx-xs mt-1 tx-ls- 1 tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>
+<div className='tx-xs mt-1 tx-ls- 1 tx-center tx-white pa-1 bord-r-5 ' style={{ 
+  background: '#2d302d',
+  boxShadow: 'inset -1px -1px 0 0px #000000'
+
+}}>
         USE SCROLL / TAB TO NAVIGATE SETTINGS
       </div>
       </>)}

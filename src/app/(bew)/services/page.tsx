@@ -66,6 +66,7 @@ export default function TrainingPage() {
   const [target, setTarget] = useState<null | {
     code: string;
     values: {
+      type: string;
       natural: number;
       temp: number;
       light: number;
@@ -80,6 +81,7 @@ export default function TrainingPage() {
   }>(null);
   const [overallAccuracy, setOverallAccuracy] = useState<number>(0);
   const [results, setResults] = useState<null | {
+    type: boolean;
     natural: number;
     temp: number;
     light: number;
@@ -96,10 +98,13 @@ export default function TrainingPage() {
   function generateRandomTarget() {
     // Generate random 8-digit code in format XXXX-XXXX
     const code = `${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}`;
-    
+    // random type 1-4 obejct, entity, place, event
+    const typeNum = Math.floor(Math.random() * 4) + 1;
+    const typeString = ['object', 'entity', 'place', 'event'][typeNum - 1];
     return {
       code,
       values: {
+        type: typeString,
         natural: Math.floor(Math.random() * 100),
         temp: Math.floor(Math.random() * 100),
         light: Math.floor(Math.random() * 100),
@@ -130,9 +135,11 @@ export default function TrainingPage() {
         description: description.trim()
       });
       
+      const typeString = ['object', 'entity', 'place', 'event'][type - 1];
       return {
         code: randomKey,
         values: {
+          type: typeString,
           natural,
           temp,
           light,
@@ -168,6 +175,7 @@ export default function TrainingPage() {
     if (!target) return;
     setSentObject(params);
     const calculatedResults = {
+      type: target.values.type.toLowerCase() === params.type.toLowerCase() ? true : false,
       natural: calculateAccuracy(target.values.natural, params.natural, true, false),
       temp: calculateAccuracy(target.values.temp, params.temp, true, false),
       light: calculateAccuracy(target.values.light, params.light, true, false),
@@ -220,8 +228,10 @@ export default function TrainingPage() {
     }
   };
 
-  const handleTryAgain = () => {
-    setGameState('initial');
+  const handleTryAgain = async () => {
+    const newTarget = await fetchRandomFromCocoDatabase();
+    setTarget(newTarget);
+    setGameState('playing');
     setResults(null);
     setSentObject(null);
   }
@@ -338,34 +348,45 @@ export default function TrainingPage() {
         )}
         </>)}
 
+        {showImageModal  && (myRequests?.length === 0 || !myRequests)  && (
+            <div className="vintage-panel pos-abs  w-max-300px" style={{ zIndex: 10000 }}>
+              <div className="flex-col flex-center bg-dark-50 pa-4 bord-r-5" style={{ maxWidth: '80vw', maxHeight: '80vh' }}>
+                <div className="pos-abs top-0 right-0"
+                style={{
+                  transform: "translate(50%, -50%)"
+                }}
+                >
+                  <KeyboardBtn  styleOverride={{
+                    padding: "0 10px 10px 10px",
+                    color: "#999999",
+                  }}
+                    classOverride="px-0  tx-lg pointer noborder bg-trans"
+                    onClick={() => setShowImageModal(false)}
+                  >
+                    ×
+                  </KeyboardBtn>
+                </div>
+                <img 
+                  src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
+                  alt={selectedTargetInfo?.description}
+                  style={{
+                    borderRadius: "3px",
+                    maxWidth: '100%', maxHeight: '70vh', objectFit: 'contain'
+                  }}
+                />
+                <div className="tx-white tx-center tx-shadow-5 tx-altfont-1 mt-2">
+                  {selectedTargetInfo?.description}
+                </div>
+              </div>
+            </div>
+          )}
+
       {gameState === 'playing' && target && (myRequests?.length === 0 || !myRequests) && (
         <div className="flex-col flex-center">
           <div className="tx-white tx-center mb-8">
             <div className="tx-xxl tx-altfont-8 opaci-75 tx-ls-5">#{target.code}</div>
           </div>
           
-          {showImageModal && (
-            <div className="pos-abs bg-b-90 bg-glass-10" style={{ zIndex: 10000 }}>
-              <div className="flex-col flex-center bg-dark-50 pa-4 bord-r-5" style={{ maxWidth: '80vw', maxHeight: '80vh' }}>
-                <div className="flex-row flex-justify-end w-100">
-                  <button 
-                    className="tx-white tx-lg pointer noborder bg-trans"
-                    onClick={() => setShowImageModal(false)}
-                  >
-                    ×
-                  </button>
-                </div>
-                <img 
-                  src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
-                  alt={selectedTargetInfo?.description}
-                  style={{ maxWidth: '100%', maxHeight: '70vh', objectFit: 'contain' }}
-                />
-                <div className="tx-white tx-center mt-2">
-                  {selectedTargetInfo?.description}
-                </div>
-              </div>
-            </div>
-          )}
           
           <div className="flex-col pos-rel">
             <AnalogModalScreen
@@ -377,15 +398,25 @@ export default function TrainingPage() {
             />
           </div>
           
-            <button 
-              className="mt-2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-1 underline" 
-              style={{
-                color: "#999999",
-              }}
-              onClick={() => setShowImageModal(true)}
-            >
-              <div>Show Target Image</div>
-            </button>
+          <button 
+            className="mt-4 tx-sm bg-trans noborder pa-0 pointer tx-altfont-1 underline" 
+            style={{
+              color: "#999999",
+            }}
+            onClick={() => setShowImageModal(true)}
+          >
+            <div>Show Target Image</div>
+          </button>
+          
+          <button 
+            className="mt-2 tx-sm bg-trans noborder opaci-chov--50 pa-0 pointer tx-altfont-1 " 
+            style={{
+              color: "#999999",
+            }}
+            onClick={() => setGameState('initial')}
+          >
+            <div>Cancel</div>
+          </button>
         </div>
       )}
 
@@ -411,7 +442,16 @@ export default function TrainingPage() {
                  HIT %
               </div>
             </div>
-            <hr className='w-100 opaci-50' />
+            {/* <hr className='w-100 opaci-50' /> */}
+            {/* type match */}
+            <div className="flex-row">
+              <div className="tx-black opaci-50 flex-1 tx-start">
+                Type: ({sentObject?.type.toLowerCase()}/{target.values.type.toLowerCase()})
+              </div>
+              <div className="tx-white">
+                 {results.type ? "🗸" : "🗴"}
+              </div>
+            </div>
             <div className="flex-row">
               <div className="tx-black opaci-50 flex-1 tx-start">Natural: ({sentObject?.natural}/{target.values.natural})</div>
               <div className="tx-white">
@@ -443,7 +483,7 @@ export default function TrainingPage() {
               </div>
             </div>
           </div>          
-          <hr className='w-100 opaci-50' />
+          {/* <hr className='w-100 opaci-50' /> */}
           <div className="flex-row pb-4  ">
 <div className="flex-col">
 <div className="flex-1 tx-center tx-altfont-5 opaci-50">
@@ -457,12 +497,24 @@ Averaged Score:
           </div>
             </div>
           </PaperSheet>
+          <div className="flex-row gap-2">
+          <button 
+              className="mt-2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-1 underline" 
+              style={{
+                color: "#999999",
+              }}
+              onClick={() => setShowImageModal(true)}
+            >
+              <div>Show Target Image</div>
+            </button>
           <button 
             className="noborder bg-trans tx-white pointer mt-4 tx-altfont-1" 
             onClick={handleTryAgain}
           >
             <KeyboardBtn>Try Again</KeyboardBtn>
           </button>
+          
+          </div>
         </div>
       )}
     </div>
