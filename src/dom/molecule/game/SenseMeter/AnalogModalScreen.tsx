@@ -69,7 +69,7 @@ export const AnalogModalScreen = ({
   const normalizedRotation = normalizeRotation(playerRotation.y);
 
   return (<div 
-    className={`${absolute ? 'pos-abs' : ''} tx-white`} 
+    className={`${absolute ? 'pos-abs' : 'pos-rel'} tx-white`} 
     onClick={handleModalClick}
     tabIndex={0}
     ref={modalRef}

@@ -30,7 +30,7 @@ export const useAnalogModal = (onSend: (params: {
 
   // Update hasCompletedLoop when activeSection changes
   useEffect(() => {
-    if (activeSection === 'send') {
+    if (activeSection === 'meter') {
       setHasCompletedLoop(true);
     }
   }, [activeSection]);
@@ -108,7 +108,10 @@ export const useAnalogModal = (onSend: (params: {
           if (prev === 'light') return 'color';
           if (prev === 'color') return 'solid';
           if (prev === 'solid') return 'meter';
-          if (prev === 'meter') return 'send';
+          if (prev === 'meter') {
+            setHasCompletedLoop(true);
+            return 'send';
+          }
           if (prev === 'send') {
             setHasCompletedLoop(true);
             return 'buttons';

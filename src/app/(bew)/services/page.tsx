@@ -6,7 +6,11 @@ import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
 import { BewLogo } from '@/dom/atom/logo/BewLogo';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
+import targetsData from '@/../public/data/targets_1.json';
 
+type TargetsData = {
+  [key: string]: string;
+};
 
 type GameState = 'initial' | 'playing' | 'results';
 
@@ -117,13 +121,10 @@ export default function TrainingPage() {
 
   async function fetchRandomFromCocoDatabase() {
     try {
-      const response = await fetch('/data/targets_1.json');
-      const data = await response.json();
-      
       // Get random key from the object
-      const keys = Object.keys(data);
+      const keys = Object.keys(targetsData as TargetsData);
       const randomKey = keys[Math.floor(Math.random() * keys.length)];
-      const targetData = data[randomKey];
+      const targetData = (targetsData as TargetsData)[randomKey];
       
       // Split the data into description and values
       const [description, valuesStr] = targetData.split('\n');
@@ -149,7 +150,7 @@ export default function TrainingPage() {
         }
       };
     } catch (error) {
-      console.error('Error fetching from COCO database:', error);
+      console.error('Error reading from COCO database:', error);
       // Fallback to random generation if there's an error
       return generateRandomTarget();
     }

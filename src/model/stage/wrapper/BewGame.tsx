@@ -26,6 +26,12 @@ import { PhysicalCeiling } from '../../core/PhysicalFloor';
 import { BewCoreLights } from './BewCoreLights';
 import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
 import { PlayerPhysicsScene } from '../../core/PlayerPhysicsScene';
+import targetsData from '@/../public/data/targets_1.json';
+import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
+
+type TargetsData = {
+  [key: string]: string;
+};
 
 export const BewGame = () => {
   const {
@@ -100,6 +106,11 @@ export const BewGame = () => {
   const [isTakingRequest, setIsTakingRequest] = useState<string | null>(null)
   const [isTransitioning, setIsTransitioning] = useState(false);
   
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [selectedTargetInfo, setSelectedTargetInfo] = useState<null | {
+    id: string;
+    description: string;
+  }>(null);
 
   const sendCRVReport = async (crvData: {
     type: string;
@@ -267,21 +278,28 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
       setTimeout(() => {
       setTimeout(() => {
         
-        //random 8digit code
-        const theTarget = Math.random().toString(9).substring(2, 10);
-        setWhiteRoomTarget(theTarget);
-
-        // Generate random CRV target object
+        // Get random target from targets data
+        const keys = Object.keys(targetsData as TargetsData);
+        const randomKey = keys[Math.floor(Math.random() * keys.length)];
+        const targetData = (targetsData as TargetsData)[randomKey];
+        const [description, valuesStr] = targetData.split('\n');
+        const [type, natural, temp, light, color, solid] = valuesStr.split(',').map(Number);
+        
+        // Set the target object
         const crvTarget = {
-          type: ['object', 'entity', 'place'][Math.floor(Math.random() * 3)],
-          natural: Math.floor(Math.random() * 100),
-          temp: Math.floor(Math.random() * 100),
-          light: Math.floor(Math.random() * 100),
-          color: Math.floor(Math.random() * 100),
-          solid: Math.floor(Math.random() * 100),
+          type: ['object', 'entity', 'place', 'event'][type - 1],
+          natural,
+          temp,
+          light,
+          color,
+          solid,
         };
         setCrvTargetObject(crvTarget);
-        
+        setWhiteRoomTarget(randomKey);
+        setSelectedTargetInfo({
+          id: randomKey,
+          description: description.trim()
+        });
         setShowWhiteMirror(true);
         setIsTransitioning(false);
 
@@ -488,6 +506,39 @@ setIsTakingRequest(null);
         </div>
       )}
 
+      {showImageModal && (
+        <div className="vintage-panel pos-abs w-max-300px" style={{ zIndex: 10000 }}>
+          <div className="flex-col flex-center bg-dark-50 pa-4 bord-r-5" style={{ maxWidth: '80vw', maxHeight: '80vh' }}>
+            <div className="pos-abs top-0 right-0"
+            style={{
+              transform: "translate(50%, -50%)"
+            }}
+            >
+              <KeyboardBtn styleOverride={{
+                padding: "0 10px 10px 10px",
+                color: "#999999",
+              }}
+                classOverride="px-0 tx-lg pointer noborder bg-trans"
+                onClick={() => setShowImageModal(false)}
+              >
+                ×
+              </KeyboardBtn>
+            </div>
+            <img 
+              src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
+              alt={selectedTargetInfo?.description}
+              style={{
+                borderRadius: "3px",
+                maxWidth: '100%', maxHeight: '70vh', objectFit: 'contain'
+              }}
+            />
+            <div className="tx-white tx-center tx-shadow-5 tx-altfont-1 mt-2">
+              {selectedTargetInfo?.description}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className='pos-abs bottom-0 right-0 mb-150 flex-col mr-4 z-100 gap-1 pa-1 pb-2'
       style={{
         zIndex: 1200,
@@ -523,7 +574,9 @@ setIsTakingRequest(null);
 
       {isTakingRequest && !showAnalogModal && focusLevel === 0 && (<>
         
-        <AnalogModalScreen 
+        <div className='pos-abs z-1000 '>
+          {/* for requests */}
+        <AnalogModalScreen absolute={false}
           setEnableLocked={() => {}}
           enableLocked={false}
           playerRotation={{x:0, y:0, z:0}}
@@ -533,16 +586,30 @@ setIsTakingRequest(null);
               return sendCRVRequestAttempt(crvData, isTakingRequest)
             }}
         />
+        </div>
       </>)}
 
 
       {focusLevel !== 0 && showAnalogModal && (
-        <AnalogModalScreen 
+        <div className='pos-abs flex-col z-1000 '>
+          {/* in white mirror room */}
+        <AnalogModalScreen absolute={false}
           setEnableLocked={setEnableLocked}
           enableLocked={enableLocked}
           playerRotation={playerRotation}
           onSend={sendCRVReport}
         />
+        
+        <button 
+            className="mt-4 tx-shadow-5 tx-sm bg-trans noborder pa-0 pointer tx-altfont-1 underline" 
+            style={{
+              color: "#999999",
+            }}
+            onClick={() => setShowImageModal(true)}
+          >
+            <div>Show Target Image</div>
+          </button>
+        </div>
       )}
 
 
@@ -622,36 +689,21 @@ setIsTakingRequest(null);
            setShowAnalogModal={setShowAnalogModal} />
           )}
           {!!code1 && !!code2 && (<>
+          
+          
+        <Plane args={[4, 2]} position={[0, 2, -26.5]} rotation={[0, 0, 0]} receiveShadow>
+          <meshStandardMaterial color="#bbbbbb"
+            // emissive="#555555"
+            roughness={0.15} 
+            />
+        </Plane>
+          
           <TheRoom analysisResult={analysisResult}
           isTransitioning={isTransitioning}
           showWhiteMirror={showWhiteMirror}
           setShowWhiteMirror={setShowWhiteMirror}
            onChairSit={handleChairSit} onRoomEnter={handleRoomEnter} />
           </>)}
-
-
-          {/* double mirror */}
-          <Plane args={[4,2]} position={[0,2,-26.49]} rotation={[0,0,0]} receiveShadow>
-          <meshStandardMaterial color="#cccccc" 
-          roughness={LS_lowGraphics ? undefined : 0.05} 
-         >
-          </meshStandardMaterial>
-        </Plane>
-        {!LS_lowGraphics && (
-<mesh position={[0,2,-26.49]}  >
-  <planeGeometry  args={[4,2]} />
-  <MeshPortalMaterial>
-    <group position={[0,0,-4.5]}>  
-    <pointLight position={[0,0,0]} intensity={.5} />
-    <Box args={[9,3,9 ]} position={[0,0,0]}>
-      <meshStandardMaterial color="#ffffff" emissive={"#222222"} 
-      side={1}
-      />
-    </Box>
-    </group>
-  </MeshPortalMaterial>
-</mesh>
-)}
 
 
 

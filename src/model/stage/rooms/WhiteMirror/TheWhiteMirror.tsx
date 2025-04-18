@@ -92,7 +92,8 @@ export const TheWhiteMirror = ({
       <Text position={[0, -.25, 0]} font={"/fonts/beanie.ttf"} fontSize={1.1} color={"#444444"}
         anchorX="center" anchorY="top" textAlign="left"
       >
-        {`${whiteRoomTarget.slice(0, 4)}-${whiteRoomTarget.slice(4, 8)}`}
+        {`${whiteRoomTarget.slice(0, 8)}${whiteRoomTarget.length > 8 ? '...' : ''}`}
+        {/* {`${whiteRoomTarget.slice(0, 4)}-${whiteRoomTarget.slice(4, 8)}`} */}
       </Text>
     </group>
 

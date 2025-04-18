@@ -104,18 +104,19 @@ export const TheRoom = ({
         size={[4, 3, 1]}
         position={[4, 2.5, -27]} />
         <SolidBox color="#eeeeee"
-        size={[4,1.5, 1]}
-        position={[0, 3.5, -27]} />
+        size={[4,1, 1]}
+        position={[0, 3.75, -27]} />
 
 
 {!(
 
-!!analysisResult &&
+!!analysisResult 
+&&
 !!mindStats?.cash && mindStats?.cash > 10000 &&
 !!mindStats?.color && mindStats?.color > 10 &&
 !!mindStats?.solid && mindStats?.solid > 10 
-
-) && (<>
+) &&
+ (<>
 <SolidBox color="#eeeeee"
         size={[4, 2, .9]}
         position={[0, 2, -27]} />
@@ -134,7 +135,7 @@ export const TheRoom = ({
 !!mindStats?.cash && mindStats?.cash > 10000 &&
 !!mindStats?.color && mindStats?.color > 10 &&
 !!mindStats?.solid && mindStats?.solid > 10 &&
-hasExploredZone("credits") && (<CreditsCube />)}
+(<CreditsCube />)}
 
     </group>
 )}
@@ -145,7 +146,7 @@ hasExploredZone("credits") && (<CreditsCube />)}
 
 
 
-const CreditsCube = () => {
+export const CreditsCube = () => {
   const { LS_ultraGraphics } = usePlayerStats();
   
   return (<>
