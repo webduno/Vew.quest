@@ -9,7 +9,7 @@ import { normalizeRotation, buttonColors, buttonTypes } from '@/../script/utils/
 import { useAnalogModal } from './useAnalogModal';
 import { SenseSectionType } from '@/../script/utils/play/senseMeterTypes';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
-
+import { isMobile } from '@/../script/utils/platform/mobileDetection';
 export const AnalogModalScreen = ({
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onSend,
   absolute = true
@@ -241,7 +241,7 @@ shouldShowTopRightSection && (<>
 
 
       {(!shouldShowMiddleSection || !shouldShowBottomSection ||
-      !shouldShowTopRightSection) && (<>
+      !shouldShowTopRightSection) && isMobile() && (<>
       
 <hr className='w-100 opaci-20 my-1' />
 <div className='tx-xs mt-1 tx-ls- 1 tx-center tx-white pa-1 bord-r-5 ' style={{ background: '#2d302d'}}>

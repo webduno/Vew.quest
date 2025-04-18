@@ -1,12 +1,13 @@
 'use client';
-
 import { useState, useCallback } from 'react';
+
 import { AnalogModalScreen } from '@/dom/molecule/game/SenseMeter/AnalogModalScreen';
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
 import { BewLogo } from '@/dom/atom/logo/BewLogo';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
-import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
+
+
 type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {
@@ -37,7 +38,7 @@ export default function TrainingPage() {
       const data = await response.json();
       
       if (!data.success || !data.data || data.data.length === 0) {
-        alert('No requests found');
+        alert('You dont have any requests!');
         return;
       }
 
@@ -249,7 +250,7 @@ export default function TrainingPage() {
           }}
           onClick={handleStart}
         >
-          <KeyboardBtn>Start Training</KeyboardBtn>
+          <KeyboardBtn>Remote Viewing Training</KeyboardBtn>
         </button>
         <button 
           className="mt-2 tx-lg bg-trans noborder box-shadow-5-b pa-0 pointer tx-altfont-1" 
@@ -273,7 +274,7 @@ export default function TrainingPage() {
             handleMyRequests();
           }}
         >
-          <KeyboardBtn>{isLoadingMyRequests ? 'Loading...' : 'My Requests'}</KeyboardBtn>
+          <KeyboardBtn>{isLoadingMyRequests ? 'Loading...' : 'Dashboard'}</KeyboardBtn>
         </button>
         {successRequest && (myRequests?.length === 0  || !myRequests) && (
           <div className="tx-white tx-center">

@@ -129,8 +129,8 @@ const random10CharString = () => {
         style={{
           color: "#222222",
         }}
-        className=" nodeco" href="/training">
-        <KeyboardBtn>Training</KeyboardBtn></Link>
+        className=" nodeco" href="/services">
+        <KeyboardBtn>Services</KeyboardBtn></Link>
         <Link
         style={{
           color: "#333333",
