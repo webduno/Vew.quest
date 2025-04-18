@@ -1,102 +1,130 @@
-# BEW Game Structure
+# BEW Game Architecture
 
-## Top Level Container
-- `BewGameContainer`
-  - Wraps the game with necessary providers:
-    - `BackgroundMusicProvider`
-    - `PlayerStatsProvider`
-    - `GameCoreProvider`
-  - Contains `BewGame` as the main component
+## Game-Specific Subsystems
 
-## Main Game Component (`BewGame`)
-- Core game component with the following main parts:
-  1. **Canvas & Physics Setup**
-     - Uses `@react-three/fiber` Canvas
-     - Physics engine setup with gravity and collision settings
-     - Performance stats (optional)
+### Player Mechanics
+- State Machine & Animation
+  - Mind stats progression
+  - Zone exploration tracking
+  - Player state management
 
-  2. **Core Components**
-     - `BewCoreLights` - Handles game lighting with dynamic light targets
-     - `PlayerPhysicsScene` - Manages player movement, physics, and interactions
-     - `MobileControlOverlay` - Mobile controls (conditional)
+- Movement & Controls
+  - Physics-based player movement
+  - Position and rotation tracking
+  - Movement locking system
+  - Mobile-responsive controls
 
-  3. **Scene Management**
-     - `BewMainScene` - Main game scene containing:
-       - Hallways and common areas
-       - ESP Lobby
-       - Psionic Zone
-       - Portal Room
-       - Door portals (CD)
-     - Scene transition management
-     - Background music changes based on zones
+### Game Cameras
+- Player-Follow Camera
+- Debug Camera (optional)
 
-  4. **Room Components**
-     - `TheRoom` (White Mirror Room)
-       - `TheTable` - Interactive table component
-       - `TheChair` - Sittable chair with collision detection
-       - Physical walls and collision triggers
-       - Credits cube (conditional based on mind stats)
-     - `TheWhiteMirror`
-       - Crystal orb interaction
-       - Target display system
-       - Analysis interface
+### Game-Specific Rendering
+- Room Components
+  - `TheRoom` (White Mirror Room)
+    - `TheTable` - Interactive table component
+    - `TheChair` - Sittable chair
+  - `TheWhiteMirror` - Crystal orb system
+- Scene Components
+  - `BewCoreLights` - Dynamic lighting system
+  - Portal rendering
+  - Environment mapping
 
-  5. **UI Elements**
-     - `MindStats` - Player statistics display
-     - `BgMusicToggle` - Music control interface
-     - `PerformanceStats` - Optional performance monitoring
-     - Crosshair
-     - Analysis results display
-     - Transition screens
+## Gameplay Foundations
 
-## Key Features
-1. **Movement System**
-   - Physics-based player movement with configurable parameters
-   - Position and rotation tracking
-   - Mobile-responsive controls
-   - Movement locking system
+### Front End
+- HUD Elements
+  - `MindStats` display
+  - Crosshair
+  - Performance stats (optional)
+- In-Game GUI
+  - `BgMusicToggle`
+  - Analysis interface
+  - Transition screens
+- In-Game Menus
+  - Code input interfaces
+  - Settings controls
 
-2. **Interaction System**
-   - Door portal interactions
-   - Chair sitting mechanics
-   - Crystal orb interaction
-   - Analysis submission system
-   - Sound effect triggers
+### Visual Effects
+- Lighting System
+  - Dynamic light targets
+  - Ambient lighting
+  - Portal effects
+- Post-Processing
+  - Transition effects
+  - Analysis screen effects
 
-3. **Room Access Control**
-   - Code-based door system
-   - Zone exploration tracking
-   - Progressive unlocking based on mind stats
-   - Transition management
+### Scene Management
+- `BewMainScene`
+  - Hallways and common areas
+  - ESP Lobby
+  - Psionic Zone
+  - Portal Room
+  - Door portals system
 
-4. **Analysis System**
-   - Target display and tracking
-   - Analysis result processing
-   - Reward calculations
-   - Mind stats progression
+### Physics & Collision
+- `PlayerPhysicsScene`
+  - Collision detection
+  - Physics interactions
+  - Movement constraints
+- Collision Triggers
+  - Door interactions
+  - Zone transitions
+  - Chair sitting mechanics
 
-## Context Providers
+### Online Systems
+- Player Stats Synchronization
+- Analysis System
+  - Target tracking
+  - Result processing
+  - Reward calculations
+
+### Audio
+- Background Music System
+  - Zone-specific music
+  - Volume control
+  - Music state management
+- Sound Effects
+  - Interaction sounds
+  - Environment audio
+  - UI feedback
+
+## Core Systems
+
+### Context Providers
 1. **GameCoreProvider**
-   - Manages game state and cutscenes
-   - Controls snackbar notifications
-   - Handles sound effects
-   - Manages background music changes
+   - Game state management
+   - Cutscene control
+   - Notification system
+   - Sound management
 
 2. **PlayerStatsProvider**
-   - Player ID and username management
-   - Graphics settings control
-   - Zone exploration status tracking
-   - Mind stats progression
-   - First-time user experience
+   - Player identity management
+   - Settings persistence
+   - Progress tracking
+   - First-time experience
 
 3. **BackgroundMusicProvider**
-   - Background music playback control
-   - Sound effects management
-   - Volume control
+   - Audio playback control
+   - Sound effect management
+   - Volume settings
    - Audio state persistence
 
-## Mobile Support
-- Responsive touch controls
-- Mobile-specific overlay interface
-- Performance optimization settings
-- Device-specific interaction adaptations 
+### Resource Management
+- Asset Loading
+  - 3D Models
+  - Textures
+  - Audio files
+  - UI elements
+
+### Platform Independence Layer
+- Mobile Support
+  - Touch controls
+  - Performance optimization
+  - Device-specific adaptations
+
+## Third-Party Integration
+- React Three Fiber (@react-three/fiber)
+- React Three Drei (@react-three/drei)
+- Physics Engine (@react-three/cannon)
+- Audio Processing
+- State Management 
