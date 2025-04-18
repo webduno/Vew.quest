@@ -2,11 +2,11 @@
 import { useState } from 'react';
 import { Box, Text, Sphere } from '@react-three/drei';
 
-import { SolidBox } from '../core/SolidBox';
+import { SolidBox } from '@/model/core/SolidBox';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
-import { CollisionBox } from '../core/CollisionBox';
+import { CollisionBox } from '@/model/core/CollisionBox';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
-import { SolidGameLoop } from '@/model/minigames/SolidGameLoop';
+import { SolidGameLoop } from '@/model/stage/minigames/SolidGameLoop';
 
 
 export const SolidCallibrationArcade = ({ 

@@ -1,11 +1,11 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { SolidBox } from '../core/SolidBox';
+import { SolidBox } from '@/model/core/SolidBox';
 import { useState } from 'react';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
-import { CollisionBox } from '../core/CollisionBox';
+import { CollisionBox } from '@/model/core/CollisionBox';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
-import { ColorGameLoop } from '@/model/minigames/ColorGameLoop';
+import { ColorGameLoop } from '@/model/stage/minigames/ColorGameLoop';
 export const ColorCallibrationArcade = ({ 
   hardMode,
   colorCalibrationStarted,

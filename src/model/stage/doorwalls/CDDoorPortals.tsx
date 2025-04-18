@@ -1,7 +1,7 @@
 'use client';
 import { Box, Text } from '@react-three/drei';
-import { CollisionBox } from '../core/CollisionBox';
-import { SolidBox } from '../core/SolidBox';
+import { CollisionBox } from '../../core/CollisionBox';
+import { SolidBox } from '../../core/SolidBox';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useState } from 'react';
