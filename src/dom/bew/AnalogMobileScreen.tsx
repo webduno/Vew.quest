@@ -273,6 +273,9 @@ export const AnalogMobileScreen = ({
 
 
 <div className='bord-r-10 pa-4 pl-2 opaci-chov--75' 
+onClick={() => {
+  alert("Coming soon!");
+}}
 style={{
   border: "1px solid #E5E5E5",
 }}

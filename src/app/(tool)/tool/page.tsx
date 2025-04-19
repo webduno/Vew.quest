@@ -897,15 +897,30 @@ style={{
         <div className="tx-white tx-center mt-100">
           <div className="tx-lg tx-altfont-2 tx-bold-5"
           style={{
-            color: "#F1CE0D",
+            color: "#FDC908",
           }}
           >Results for  #{target.code}!
           </div>
-          <div className='tx-white bord-r-100 mt-1 py-1'
+          <div className='tx-white bord-r-100 mt-1 py-1 pos-rel'
           style={{
-            background: "#F1CE0D",
+            background: "#E5E5E5",
+            boxShadow: "0 2px 0 #D68800",
+            overflow: "hidden"
           }}
-          >{Number(overallAccuracy).toFixed(3)}%</div>
+          >
+            <div className='pos-abs top-0 left-0 h-100'
+            style={{
+              width: `${overallAccuracy}%`,
+              background: "#FDC908",
+              transition: "width 0.5s ease-out"
+            }}
+            ></div>
+            <div
+            style={{
+              color: "#D68800",
+            }}
+             className='tx-bold pos-rel '>{Number(overallAccuracy).toFixed(3)}%</div>
+          </div>
 
           <div className='w-300px py-3 my-3 px-4 bord-r-15' style={{
             border: "1px solid #E5E5E5",
@@ -938,20 +953,27 @@ style={{
 
             <div className="flex-col bord-r-15 "
             style={{
-              padding: "3px",
+              padding: "3px 3px 6px 3px",
               background: "#7DDB80",
             }}
             >
-              <div className="flex-col flex-1 tx-start tx-white py-1 px-3">
-                <div>Type: {sentObject?.type.toUpperCase()}</div>
+              <div className="flex-col flex-1 tx-start tx-white py-1 flex-justify-between px-3">
+                <div className='flex-col flex-justify-start  tx-center'>
+                  <div className='pb-1'>Sent Type:</div>
+                  <div className='flex-row flex-align-center  gap-1 tx-bold'>
+                    <div>{sentObject?.type.toUpperCase()}</div>
+                    <div className='tx-xs'>{results.type ? "(HIT)" : "(MISS)"}</div>
+                  </div>
+                </div>
               </div>
-              <div className="tx-white py-1 bg-white w-100 bord-r-15 flex-row gap-2"
+              <div className="tx-white py-1 bg-white w-100 bord-r-15 flex-row gap-1"
               style={{
                 color: "#7DDB80"
               }}
               >
+                <div>Target:</div>
                 <div>{target.values.type.toUpperCase()}</div>
-                <div className='tx-'>{results.type ? "(HIT)" : "(MISS)"}</div>
+                
               </div>
             </div>
 
@@ -1239,7 +1261,7 @@ const ResultBadge = ({
                 color: "#4b4b4b"
               }}
               >
-                <div>Sent: {target.values[keyName]}</div>
+                <div>Target: {target.values[keyName]}</div>
                 <div>{Number(results[keyName]).toFixed(3)}%</div>
               </div>
             </div>
