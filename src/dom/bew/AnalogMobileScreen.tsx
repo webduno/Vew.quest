@@ -318,8 +318,8 @@ style={{
 
 {!!isMobile() && (<>
 
-<summary>
-<details className='flex-row gap-2 px-4 w-80 my-2'>
+<details>
+<summary className='flex-row gap-2 px-4 w-80 my-2'>
 
 
 
@@ -339,7 +339,7 @@ style={{
           background: "#E5E5E5",
         }}
       />
-    </details>
+    </summary>
 
 
 
@@ -381,7 +381,7 @@ style={{
       </div>
     </div>
 
-    </summary>
+    </details>
     </>)}
 
 
