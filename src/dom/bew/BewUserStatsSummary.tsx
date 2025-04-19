@@ -377,7 +377,7 @@ export const IconStatsBar = ({streak, points, hearts}: {streak: number, points: 
       </div>
       <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
         data-tooltip-id="points-tooltip"
-        data-tooltip-content="Fuel"
+        data-tooltip-content="Points"
         data-tooltip-place="bottom"
         data-tooltip-variant='info'
       >
