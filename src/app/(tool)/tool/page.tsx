@@ -317,8 +317,8 @@ export default function TrainingPage() {
             <div className='py-2 px-8 tx-white bord-r-10 tx-lgx opaci-chov--75'
             onClick={handleStart}
             style={{
-              backgroundColor: "#6B69CF",
-              boxShadow: "0px 2px 0 0px #2B29AF",
+              backgroundColor: "#807DDB",
+              boxShadow: "0px 4px 0 0px #6B69CF",
             }}
             >Start</div>
           </div>
@@ -381,7 +381,7 @@ style={{borderRight: "1px solid #E5E5E5"}}
 
 
   <div className='flex-1 flex-col flex-align-stretch flex-justify-start h-100'>
-    <div className='flex-row '>
+    {/* <div className='flex-row '>
     <button 
               className="mt- 2 pt-4 pb- tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline" 
               style={{
@@ -393,15 +393,19 @@ style={{borderRight: "1px solid #E5E5E5"}}
             >
               <div>Go back to Main Menu</div>
             </button>
-    </div>
+    </div> */}
     
     <div className='tx-white ma-4 pa-4 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
     style={{
-      background: "#807DDB"
+      background: "#807DDB",
+      boxShadow: "0 4px 0 #6B69CF",
     }}
     >
-<div className='opaci-50 pointer'>Target Code</div>
-<div className='tx-bold tx-lg'>#{target?.code}</div>
+<div               onClick={() => {
+                setGameState('initial');
+              }}
+className='opaci-50 pointer'>← Main Menu</div>
+<div className='tx-bold tx-lg'>Target Code #{target?.code}</div>
     </div>
 <div className='flex-1 tx-altfont-2'>
 
@@ -814,7 +818,7 @@ style={{
             <button 
               style={{
                 background: "#7DDB80",
-                boxShadow: "0px 2px 0 0px #34BE37",
+                boxShadow: "0px 4px 0 0px #34BE37",
               }}
               className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer tx-altfont-2" 
               onClick={handleTryAgain}

@@ -40,7 +40,11 @@ export const MultiOptionInputs = ({
   };
 
   return (<>
-    <div className='flex-col flex-align-stretch gap-  2 tx-altfont-1'>
+    <div className='flex-col flex-align-stretch gap-  2 tx-altfont-1'
+    style={{
+      filter: "hue-rotate(180deg)"
+    }}
+    >
       <div className='pa-2 bord-r-10'>
         <div className="tx-bold mb-2" style={{color:"#afafaf"}}>Type</div>
         <div className='flex-row flex-wrap gap-3'>
@@ -56,7 +60,7 @@ export const MultiOptionInputs = ({
                   background: values.type === type ? '#afafaf' : 'transparent'
                 }}
               />
-              <div style={{color: values.type === type ? '#2B29AF' : '#afafaf', fontWeight: values.type === type ? 'bold' : 'normal'}}>
+              <div style={{color: values.type === type ? '#0079D0' : '#afafaf', fontWeight: values.type === type ? 'bold' : 'normal'}}>
                 {type.charAt(0).toUpperCase() + type.slice(1)}
               </div>
             </div>

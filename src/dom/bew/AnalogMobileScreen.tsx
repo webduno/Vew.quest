@@ -143,8 +143,8 @@ export const AnalogMobileScreen = ({
         <div className='py-2 px-4 bord-r-10 opaci-chov--75 '
           onClick={() => handleInputTypeChange('multi-options')}
           style={{
-            border: selectedInputType === 'multi-options' ? "1px solid #807DDB" : "1px solid #afafaf",
-            color: selectedInputType === 'multi-options' ? "#807DDB" : "#afafaf"
+            border: selectedInputType === 'multi-options' ? "1px solid #FF9600" : "1px solid #afafaf",
+            color: selectedInputType === 'multi-options' ? "#FF9600" : "#afafaf"
           }}
         >
           Multi-Options
@@ -219,7 +219,10 @@ export const AnalogMobileScreen = ({
         <div className='px-4'>
           <div className='tx-white pointer tx-center pa-2 bord-r-10 mt-4'
             onClick={handleSend}
-            style={{ background: "#303DeB" }}
+            style={{ 
+              boxShadow: "0 4px 0 #6B69CF",
+              background: "#807DDB"
+             }}
           >
             <div>End Remote Viewing</div>
           </div>
@@ -228,8 +231,8 @@ export const AnalogMobileScreen = ({
     )}
 
     {!selectedInputType && (
-      <div className='flex-wrap flex-justify-around w-100 pt-100'>
-        <div className='mt-8'>
+      <div className='flex-wrap flex-justify-around w-100 pt-8'>
+        <div className='mt-100'>
           <BewChoiceButton
             secondaryColor="#34BE37"
             mainColor="#7DDB80"
@@ -241,15 +244,15 @@ export const AnalogMobileScreen = ({
 
         <div>
           <BewChoiceButton
-            secondaryColor="#5B59AF"
-            mainColor="#807DDB"
+            secondaryColor="#D07900"
+            mainColor="#FF9600"
             onClick={() => handleInputTypeChange('multi-options')}
             text="Multi-Options"
             image={<div>⭐</div>}
           />
         </div>
 
-        <div className='mt-8'>
+        <div className='mt-100'>
           <BewChoiceButton
             secondaryColor="#C93E3A"
             mainColor="#DB807D"

@@ -82,7 +82,9 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
   }, [onValueChange]);
 
   return (
-    <div ref={containerRef} style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
+    <div ref={containerRef} 
+    className='pos-rel'
+    style={{ display: 'flex', flexDirection: 'column', gap: '8px', width: '100%' }}>
       {dimensions.width > 0 && (
         <CanvasDraw
           ref={canvasRef}
@@ -105,7 +107,7 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
         />
       )}
       <div className='flex-row flex-justify-around'>
-        <button 
+        <button  className='pos-abs right-0 bottom-0 mb-4 mr-2'
           onClick={() => {
             if (canvasRef.current) {
               canvasRef.current.clear();
@@ -122,7 +124,7 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
         >
           Clear
         </button>
-        <button 
+        {/* <button 
           onClick={() => {
             if (canvasRef.current) {
               canvasRef.current.undo();
@@ -139,7 +141,7 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
           }}
         >
           Undo
-        </button>
+        </button> */}
       </div>
     </div>
   );
