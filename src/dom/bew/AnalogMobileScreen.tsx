@@ -340,7 +340,6 @@ style={{
       />
     </div>
 
-    {!!isMobile() && (<> <div> <BewUserStatsSummary minified  /> </div> </> )}
 
 
   <div className='flex-row flex-justify-between tx-altfont-2 mt-2 gap-2'>
@@ -387,6 +386,7 @@ style={{
 
 
 
+    {!!isMobile() && (<> <div> <BewUserStatsSummary minified  /> </div> </> )}
 
 
 
