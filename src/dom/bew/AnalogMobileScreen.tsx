@@ -126,7 +126,7 @@ export const AnalogMobileScreen = ({
 
   return (<>
     {!!selectedInputType && (
-      <div className='flex-row flex-justify-around mb-4'
+      <div className='flex-row flex-justify-around mb-'
         style={{
           color: "#AFAFAF",
         }}
