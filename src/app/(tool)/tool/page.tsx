@@ -183,7 +183,7 @@ export default function TrainingPage() {
     setSentObject(null);
   };
 
-  const handleSend = useCallback((params: {
+  const handleSend = useCallback(async (params: {
     type: string;
     natural: number;
     temp: number;
@@ -200,15 +200,42 @@ export default function TrainingPage() {
       type: target.values.type.toLowerCase() === params.type.toLowerCase() ? true : false,
       natural: calculateAccuracy(target.values.natural, params.natural, true, false),
       temp: calculateAccuracy(target.values.temp, params.temp, true, false),
-      light: calculateAccuracy(target.values.light, params.light, true, false),
-      color: calculateAccuracy(target.values.color, params.color, true, false),
-      solid: calculateAccuracy(target.values.solid, params.solid, true, false),
+      light: calculateAccuracy(target.values.light, params.light, false, false),
+      color: calculateAccuracy(target.values.color, params.color, false, false),
+      solid: calculateAccuracy(target.values.solid, params.solid, false, false),
       confidence: calculateAccuracy(target.values.confidence, params.confidence, true, false),
     };
-    const overallAccuracy = (calculatedResults.natural + calculatedResults.temp + calculatedResults.light + calculatedResults.color + calculatedResults.solid ) / 5;
+    const overallAccuracy = (
+      calculatedResults.natural +
+      calculatedResults.temp +
+      calculatedResults.light +
+      calculatedResults.color +
+      calculatedResults.solid ) / 5;
+
+    console.log('calculatedResults', calculatedResults)
+    console.log('overallAccuracy', overallAccuracy)
+
     setOverallAccuracy(overallAccuracy);
     setResults(calculatedResults);
     setGameState('results');
+
+
+    
+    // save to supabase
+    const saveResponse = await fetch('/api/supabase', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        objList: {
+          sent: params,
+          target: target?.values,
+          ai_sent_guess: "n/a",
+        },
+        storageKey: LS_playerId
+      })
+    });
+    const saveData = await saveResponse.json();
+    console.log('saveData', saveData)
   }, [target]);
 
   const handleRequestCRV = async () => {
@@ -250,7 +277,7 @@ export default function TrainingPage() {
     }
   };
 
-  const handleFullSend = (params: {
+  const handleFullSend = async (params: {
     sketch: any;
     notes: any;
     options: {type: string;
@@ -265,6 +292,7 @@ export default function TrainingPage() {
     setSketchData(params.sketch);
     setNotes(params.notes);
     handleSend(params.options);
+    
   }
 
   const handleTryAgain = async () => {
