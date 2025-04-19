@@ -407,6 +407,8 @@ style={{borderRight: "1px solid #E5E5E5"}}
     >
 <div               onClick={() => {
                 setGameState('initial');
+                setShowImageModal(false);
+                setShowSketchModal(false);
               }}
 className='opaci-50 pointer'>← Main Menu</div>
 <div className='tx-bold tx-lg'>Target Code #{target?.code}</div>
@@ -748,6 +750,11 @@ style={{
 
           {showImageModal &&  (
             <>
+            <div className='bord-r-15 flex-col'
+            style={{
+              minHeight: "300px",
+            }}
+            >
               <img className='block pos-rel'
                 src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
                 alt={selectedTargetInfo?.description}
@@ -766,11 +773,17 @@ style={{
               }}>
                 {selectedTargetInfo?.description}
               </div>
+              </div>
             </>
           )}
 
           {showSketchModal && !showImageModal && sketchData && (
             <>
+              <div className='bord-r-15 flex-col'
+              style={{
+                minHeight: "300px",
+              }}
+              >
               <CanvasDraw
                 disabled
                 hideGrid
@@ -778,9 +791,10 @@ style={{
                 canvasHeight={300}
                 saveData={sketchData}
                 style={{
-                  borderRadius: "3px",
+                  borderRadius: "15px",
                 }}
               />
+              </div>
               <div className="tx-center tx-altfont-2 mt-2"
               style={{
                 color: "#4B4B4B",
@@ -796,23 +810,21 @@ style={{
 
 
           <div className="flex-col flex-justify-center gap-2">
-            <div className="flex-row gap-2">
-
-
+            <div className="flex-row gap-2 ">
+{/* {!!showImageModal || !!showSketchModal && (
             <button 
               className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
               style={{
                 color: "#999999",
               }}
               onClick={() => {
-                // set showImageModal to false
                 setShowImageModal(false);
                 setShowSketchModal(false);
               }}
             >
               <div>{showImageModal || showSketchModal ? "Show Results" : "Hide Results"}</div>
             </button>
-
+)} */}
 
 
             
@@ -845,7 +857,7 @@ style={{
               <div>{showSketchModal ? "Hide Drawing" : "Show Drawing"}</div>
             </button>
             <div  onClick={() => {
-              alert("Notes:\n\n" + notes);
+              alert("Notes:\n\n" + (notes || "No notes found!"));
             }}
             className='tx-sm pa-1 bord-r-15 opaci-chov--50'
             style={{
@@ -855,6 +867,21 @@ style={{
               Notes
             </div>
             </div>
+            <div className='flex-row gap-2'>
+            <button 
+              style={{
+                background: "#807DDB",
+                boxShadow: "0px 4px 0 0px #6B69CF",
+              }}
+              className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer tx-altfont-2" 
+              onClick={() => {
+                setGameState('initial');
+                setShowImageModal(false);
+                setShowSketchModal(false);
+              }}
+            >
+              <div>Main Menu</div>
+            </button>
             <button 
               style={{
                 background: "#7DDB80",
@@ -865,7 +892,8 @@ style={{
             >
               <div>Next Target</div>
             </button>
-            <button 
+            </div>
+            {/* <button 
               className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
               style={{
                 color: "#999999",
@@ -875,7 +903,7 @@ style={{
               }}
             >
               <div>Main Menu</div>
-            </button>
+            </button> */}
           </div>
         </div>
       )}
