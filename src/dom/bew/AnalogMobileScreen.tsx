@@ -268,7 +268,7 @@ export const AnalogMobileScreen = ({
 
 </div>
     {!selectedInputType && (
-      <div className=' pos-abs-bottom  flex-col flex-justify-end pb-4'>
+      <div className=' pos-abs-bottom  flex-col flex-justify-end pb-100'>
         
 
 

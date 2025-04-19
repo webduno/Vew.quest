@@ -348,7 +348,7 @@ export default function TrainingPage() {
           style={{
             color: "#AFAFAF",
           }}
-           href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'><div>@webduno</div></a>
+           href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'><div>dev@webduno</div></a>
         </div>
       </div>
       <div className='flex-wrap gap-8 '
