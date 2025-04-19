@@ -318,7 +318,11 @@ style={{
 
 {!!isMobile() && (<>
 
-<div className='flex-row gap-2 px-4 w-80 mb-4'>
+<div className='flex-row gap-2 px-4 w-80 my-2'>
+
+
+
+
       <div className='flex-1'
         style={{
           height: "2px",
@@ -336,6 +340,7 @@ style={{
       />
     </div>
 
+    {!!isMobile() && (<> <div> <BewUserStatsSummary minified  /> </div> </> )}
 
 
   <div className='flex-row flex-justify-between tx-altfont-2 mt-2 gap-2'>
@@ -382,18 +387,6 @@ style={{
 
 
 
-    {!!isMobile() && (<>
-
-
-    
-<div>
-  <BewUserStatsSummary minified 
-  />
-</div>
-
-
-    </>
-    )}
 
 
 
