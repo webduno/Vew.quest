@@ -240,7 +240,7 @@ style={{
   style={{
     color: "#4B4B4B",
   }}
-  >Lessons</div>
+  >Resources</div>
   <a 
   className='tx-bold px-4 pointer nodeco' 
   href="https://www.reddit.com/r/remoteviewing/wiki/index/"

@@ -233,7 +233,7 @@ export const AnalogMobileScreen = ({
     )}
 
     {!selectedInputType && (
-      <div className='flex-wrap flex-justify-around w-100 pt-8'>
+      <div className='flex-wrap flex-justify-center gap-4 w-100 pt-8'>
         <div className='mt-100'>
           <BewChoiceButton
             secondaryColor="#34BE37"

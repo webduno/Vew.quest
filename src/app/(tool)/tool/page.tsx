@@ -13,6 +13,7 @@ import CanvasDraw from 'react-canvas-draw';
 import { Tooltip } from 'react-tooltip';
 import { BewUserStatsSummary } from '../../../dom/bew/BewUserStatsSummary';
 import { ResultBadge } from '../../../dom/bew/ResultBadge';
+import { isMobile } from '../../../../script/utils/platform/mobileDetection';
 
 type TargetsData = {
   [key: string]: string;
@@ -427,6 +428,7 @@ export default function TrainingPage() {
 
 
 
+{!isMobile() && (<>
 
   <div id="menu-icon-bar" className=' h-100 Q_sm_x'
 style={{borderRight: "1px solid #E5E5E5"}}
@@ -449,7 +451,7 @@ style={{borderRight: "1px solid #E5E5E5"}}
 
     <div className='tx-lgx pa-2 opaci-chov--50'
     data-tooltip-id="lessons-tooltip"
-    data-tooltip-content="Resources"
+    data-tooltip-content="Lessons"
     data-tooltip-place="right"
     onClick={() => {
       alert("Coming soon!");
@@ -508,7 +510,7 @@ style={{borderRight: "1px solid #E5E5E5"}}
       <div className='tx-center'>❓</div>
       </div>
   </div>
-
+</>)}
 
 
 
@@ -623,19 +625,15 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
 
 
 
-
+{!isMobile() && (<>
   <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
-
-
-
 <BewUserStatsSummary />
-
-
-
-
-
-
   </div>
+</>)}
+
+
+
+
 </div>
 </div>
 
