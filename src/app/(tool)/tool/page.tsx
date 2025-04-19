@@ -549,14 +549,35 @@ style={{borderRight: "1px solid #E5E5E5"}}
               }}
 className='opaci-50 pointer'>← Main Menu</div>
 <div className='tx-bold tx-lg'>Target Code #{target?.code}</div>
+
+
+
 <div
+style={{
+  transform: "translate(-100%,-25%)",
+  background: "#fcfcfc",
+  boxShadow: "0 4px 0 #e0e0e0",
+  width: "40px",
+  height: "40px",
+}}
 onClick={() => {
   setShowImageModal( prev => !prev);
 }}
- className='mr-4 opaci-chov--75 flex-row gap-2 bg-b-10 flex-col h-50px w-50px bord-r-100 pos-abs right-0'>
+data-tooltip-id="image-preview-tooltip"
+data-tooltip-content="View Target"
+data-tooltip-place="bottom"
+data-tooltip-variant='light'
+className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs right-0 top-0'>
   {/* eye emoji */}
-  <div className='tx-lg'>👀</div>
+  <div className='tx-mdl'>👀</div>
 </div>
+<Tooltip id="image-preview-tooltip" />
+
+
+
+
+
+
     </div>
 <div className='flex-1 tx-altfont-2 flex-col'>
 

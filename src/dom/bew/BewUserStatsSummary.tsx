@@ -97,6 +97,7 @@ export const BewUserStatsSummary = () => {
         data-tooltip-id="streak-tooltip"
         data-tooltip-content="Streak"
         data-tooltip-place="bottom"
+        data-tooltip-variant='warning'
       >
         {/* fire emoji */}
         <div className='tx-lg tx-center'>🔥</div>
@@ -106,6 +107,7 @@ export const BewUserStatsSummary = () => {
         data-tooltip-id="points-tooltip"
         data-tooltip-content="Fuel"
         data-tooltip-place="bottom"
+        data-tooltip-variant='info'
       >
         {/* diamond emoji */}
         <div className='tx-lg tx-center'>💎</div>
@@ -115,6 +117,7 @@ export const BewUserStatsSummary = () => {
         data-tooltip-id="hearts-tooltip"
         data-tooltip-content="Friends"
         data-tooltip-place="bottom"
+        data-tooltip-variant='error'
       >
         {/* heart emoji */}
         <div className='tx-lg tx-center'>💖</div>
