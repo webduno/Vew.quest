@@ -373,7 +373,7 @@ export default function TrainingPage() {
 
 
 
-        <img src="/bew/starsbg.jpeg"
+        <img src="/bew/starsbg2.jpeg"
         style={{
           
         }}
