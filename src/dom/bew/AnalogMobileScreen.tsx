@@ -342,7 +342,7 @@ style={{
 
 
 
-  <div className='flex-row flex-justify-between tx-altfont-2 mt-2 gap-2'>
+  <div className='flex-row flex-justify-between tx-altfont-2  gap-2'>
       <a href="https://www.reddit.com/r/remoteviewing/wiki/index/"
       target="_blank"
       style={{
