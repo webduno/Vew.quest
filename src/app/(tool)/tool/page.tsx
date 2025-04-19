@@ -274,6 +274,7 @@ export default function TrainingPage() {
     <div className='w-100  flex-col  '>
 {gameState === 'initial' && (<>
       <div className='flex-row w-100 w-max-1080px tx-altfont-2'>
+        <a href="/tool" className='pointer flex-row nodeco'>
         <img src="/bew/bewlogo.png" alt="tool_bg" className='ml-4 w-100px' />
         <div className='tx-bold'
         style={{
@@ -289,6 +290,10 @@ export default function TrainingPage() {
           // color: "#060961",
         }}
         >Bew</div>
+        </a>
+
+
+
         <div className=' px-4 flex-1 flex-row flex-justify-end tx-bold'
         
         >
@@ -360,7 +365,11 @@ style={{borderRight: "1px solid #E5E5E5"}}
     <a href="/tool" className='pointer'>
       <img src="/bew/bewlogo.png" alt="tool_bg" className='px-2 py-4 w-50px' />
       </a>
-    <div className='tx-lgx pa-2 opaci-chov--50'>
+    <div className='tx-lgx pa-2 opaci-chov--50'
+    onClick={() => {
+      setGameState('initial');
+    }}
+    >
       {/* home emoji */}
       <div className='tx-center'>🏠</div>
       </div>
@@ -470,17 +479,17 @@ onClick={() => {
 
   <div className='h-100 w-250px pr-4 Q_sm_x'>
     <div className='flex-row flex-justify-between tx-altfont-2'>
-    <div className='tx- lg pa-2  opaci-chov--50 flex-wrap'>
+    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'>
       {/* fire emoji */}
       <div className='tx-lg tx-center'>🔥</div>
       <div className='tx-bold-5' style={{color: "#FFB02E"}}>169</div>
       </div>
-    <div className='tx- lg pa-2  opaci-chov--50 flex-wrap'>
+    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'>
       {/* diamond emoji */}
         <div className='tx-lg tx-center'>💎</div>
       <div className='tx-bold-5' style={{color:"#00A6ED"}}>1224</div>
       </div>
-    <div className='tx- lg pa-2  opaci-chov--50 flex-wrap'>
+    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'>
       {/* heart emoji */}
       <div className='tx-lg tx-center'>💖</div>
       <div className='tx-bold-5' style={{color:"#F92F60"}}>5</div>
@@ -498,20 +507,32 @@ style={{
       {/* lightning emoji  */}
       <div className='tx-lgx'>✨</div>
     </div>
+  <div className='flex-col flex-align-start gap-2 flex-1'>
   <div className='tx-bold'
   style={{
     color: "#4B4B4B",
   }}
   >Daily Goal</div>
-  </div>
+  <div className='tx-sm bord-r-10 pa-1 w-100 ' style={{
+    boxShadow: "0 2px 0 #D68800",
+    background: "#FDC908",
+    color: "#D68800",
 
+  }}>
+    <div className='flex-row gap-1'>
+      <div>0/5</div>
+      <div>Targets</div>
+    </div>
+  </div>
+  </div>
+  </div>
   <div></div>
 </div>
 
 
 
 
-<div className='bord-r-10 pa-4 pl-2' 
+<div className='bord-r-10 pa-4 pl-2 opaci-chov--75' 
 style={{
   border: "1px solid #E5E5E5",
 }}
@@ -521,11 +542,18 @@ style={{
       {/* sparks emoji  */}
       <div className='tx-lgx'>💥</div>
     </div>
+  <div className='flex-col flex-align-start gap-2'>
   <div className='tx-bold'
   style={{
     color: "#4B4B4B",
   }}
   >Target of the day</div>
+  <div className='tx-sm ' style={{color: "#afafaf"}}>
+    <div className='flex-row gap-1'>
+      <div>Click to see details</div>
+    </div>
+  </div>
+  </div>
   </div>
 
   <div></div>
@@ -535,22 +563,107 @@ style={{
 
 
 
-<div className='bord-r-10 pa-4 pl-2' 
+<div className='bord-r-10 ' 
 style={{
   border: "1px solid #E5E5E5",
 }}
 >
-  <div className='flex-row flex-justify-start gap-2'>
-    <div>
-      {/* sparks emoji  */}
-      <div className='tx-lgx'>🪄</div>
-    </div>
-  <div className='tx-bold'
+  <div className='flex-row  tx-smd flex-justify-between py-4 gap-2'>
+    
+  <div className='tx-bold px-4' 
   style={{
     color: "#4B4B4B",
   }}
   >Lessons</div>
+  <div className='tx-bold px-4 pointer' 
+  style={{
+    color: "#22AEFF",
+  }}
+  >View All</div>
   </div>
+
+  
+
+
+
+
+
+  
+  <div className='flex-row flex-align-start  flex-justify-start pa-2 opaci-chov--75 gap-2'>
+    <div className=''>
+      {/* single book emoji  */}
+      <div className='tx-lgx'>
+      📖
+      </div>
+    </div>
+    <div className='flex-col flex-align-start gap-2'>
+  <div className='tx-bold pt-2'
+  style={{
+    color: "#4B4B4B",
+  }}
+  >Fundamentals</div>
+  <div className='tx-sm flex-col flex-align-start gap-1' style={{color: "#afafaf"}}>
+    <div className='flex-row gap-1 tx-xsm'>
+      <div>- Sensory perception training</div>
+    </div>
+    <div className='flex-row gap-1 tx-xsm'>
+      <div>- Target recognition</div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+
+  
+  <div className='flex-row flex-align-start  flex-justify-start pa-2 opaci-chov--75 gap-2'>
+    <div className=''>
+      {/* tree emoji  */}
+      <div className='tx-lgx'>🌳</div>
+    </div>
+    <div className='flex-col flex-align-start gap-2'>
+  <div className='tx-bold pt-2'
+  style={{
+    color: "#4B4B4B",
+  }}
+  >Astral Projection</div>
+  <div className='tx-sm flex-col flex-align-start gap-1' style={{color: "#afafaf"}}>
+    <div className='flex-row gap-1 tx-xsm'>
+      <div>- Meditation &amp; visualization</div>
+    </div>
+    
+    <div className='flex-row gap-1 tx-xsm'>
+      <div>- Coordinate remote viewing</div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+
+
+
+  
+  <div className='flex-row flex-align-start pb-4 flex-justify-start pa-2 opaci-chov--75 gap-2'>
+    <div className=''>
+      {/* eight ball emoji  */}
+      <div className='tx-lgx'>🎱</div>
+    </div>
+    <div className='flex-col flex-align-start gap-2'>
+  <div className='tx-bold pt-2'
+  style={{
+    color: "#4B4B4B",
+  }}
+  >RNG Basics</div>
+  <div className='tx-sm flex-col flex-align-start gap-1' style={{color: "#afafaf"}}>
+    <div className='flex-row gap-1 tx-xsm'>
+      <div>- Random number generator</div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+
 
   <div></div>
 </div>
