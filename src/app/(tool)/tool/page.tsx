@@ -356,12 +356,14 @@ export default function TrainingPage() {
         height: "70vh",
       }}
       >
-        <div>
+        <div className='flex-col'>
+        <div className='Q_xs_sm py-4'></div>
+
         <img src="/bew/viewlogo.jpeg"
         style={{
           
         }}
-         alt="tool_bg" className='bord-r-50 noverflow block w-300px' />
+         alt="tool_bg" className='bord-r-50 noverflow block w-250px' />
 
         </div>
         <div className=' tx-altfont-2 tx-bold gap-4  flex-col w-300px'
