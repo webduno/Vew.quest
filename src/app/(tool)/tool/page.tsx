@@ -11,6 +11,7 @@ import targetsData from '@/../public/data/targets_1.json';
 import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
 import CanvasDraw from 'react-canvas-draw';
 import { Tooltip } from 'react-tooltip';
+import { BewUserStatsSummary } from '../../../dom/bew/BewUserStatsSummary';
 
 type TargetsData = {
   [key: string]: string;
@@ -596,35 +597,17 @@ onClick={() => {
 
 
   <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
-    <div className='flex-row flex-justify-between tx-altfont-2'>
-    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
-    data-tooltip-id="streak-tooltip"
-    data-tooltip-content="Streak"
-    data-tooltip-place="bottom"
-    >
-      {/* fire emoji */}
-      <div className='tx-lg tx-center'>🔥</div>
-      <div className='tx-bold-5' style={{color: "#FFB02E"}}>169</div>
-      </div>
-    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
-    data-tooltip-id="points-tooltip"
-    data-tooltip-content="Fuel"
-    data-tooltip-place="bottom"
-    >
-      {/* diamond emoji */}
-        <div className='tx-lg tx-center'>💎</div>
-      <div className='tx-bold-5' style={{color:"#00A6ED"}}>1224</div>
-      </div>
-    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
-    data-tooltip-id="hearts-tooltip"
-    data-tooltip-content="Friends"
-    data-tooltip-place="bottom"
-    >
-      {/* heart emoji */}
-      <div className='tx-lg tx-center'>💖</div>
-      <div className='tx-bold-5' style={{color:"#F92F60"}}>5</div>
-      </div>
-    </div>
+
+
+
+<BewUserStatsSummary />
+
+
+
+
+
+
+
     <div className='flex-col flex-align-stretch gap-4'>
 
 <div className='bord-r-10 pa-4 pl-2' 
@@ -655,9 +638,20 @@ style={{
       <div>Targets</div>
     </div>
   </div>
+
   </div>
   </div>
+
+
   <div>
+
+
+
+
+
+
+
+
 
   <div>
             <div className='py-2 mt-4 tx-center tx-white bord-r-10  opaci-chov--75'
@@ -1295,4 +1289,7 @@ const ResultBadge = ({
             </div>
   );
 } 
+
+
+
 
