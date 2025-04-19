@@ -14,6 +14,7 @@ import { BewChoiceButton } from './BewChoiceButton';
 import { MultiOptionInputs } from './MultiOptionInputs';
 import { NotesInputs } from './NotesInputs';
 import { SketchInputs, SketchInputsRef } from './SketchInputs';
+import { BewUserStatsSummary } from './BewUserStatsSummary';
 
 // Define input types for better type safety
 type InputType = 'sketch' | 'multi-options' | 'notes' | '';
@@ -301,6 +302,67 @@ style={{
 
   <div></div>
 </div>
+
+
+{!!isMobile() && (<>
+  <div className='flex-row flex-justify-between tx-altfont-2 mt-2 gap-2'>
+      <a href="https://www.reddit.com/r/remoteviewing/wiki/index/"
+      target="_blank"
+      style={{
+        border: "1px solid #E5E5E5",
+      }}
+      className='tx- lg pa-2 mt -2 bord-r-10  opaci-chov--50 flex-wrap nodeco'
+      >
+        {/* books emoji */}
+        <div className='tx-lg tx-center'>📚</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Lessons"}</div>
+      </a>
+      <div className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      style={{
+        border: "1px solid #E5E5E5",
+      }}
+      onClick={() => {
+        alert("Coming soon!");
+      }}
+      >
+        {/* target emoji */}
+        <div className='tx-lg tx-center'>🎯</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Goals</div>
+      </div>
+      <div className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      style={{
+        border: "1px solid #E5E5E5",
+      }}
+      onClick={() => {
+        alert("Coming soon!");
+      }}
+      >
+        {/* user emoji */}
+        <div className='tx-lg tx-center'>👤</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Profile</div>
+      </div>
+    </div>
+    </>)}
+
+
+
+
+
+
+    {!!isMobile() && (<>
+
+
+    
+<div>
+  <BewUserStatsSummary minified 
+  />
+</div>
+
+
+    </>
+    )}
+
+
 
 
       </div>

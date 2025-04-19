@@ -462,7 +462,7 @@ style={{borderRight: "1px solid #E5E5E5"}}
 
     <div className='tx-lgx pa-2 opaci-chov--50'
     data-tooltip-id="goals-tooltip"
-    data-tooltip-content="Achievements"
+    data-tooltip-content="Goals"
     data-tooltip-place="right"
     onClick={() => {
       alert("Coming soon!");

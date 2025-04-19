@@ -10,7 +10,11 @@ interface CRVObject {
   storage_key: string;  
 }
 
-export const BewUserStatsSummary = () => {
+export const BewUserStatsSummary = ({
+  minified = false
+}: {
+  minified?: boolean;
+}) => {
   const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
   const [crvObjects, setCrvObjects] = useState<CRVObject[]>([]);
 
@@ -91,39 +95,22 @@ export const BewUserStatsSummary = () => {
   const dailyProgress = calculateDailyProgress(crvObjects);
   const dailyGoal = 5; // Target number of views per day
 
+if (minified) {
+  return (
+    <IconStatsBar streak={streak} 
+    points={1224}
+    hearts={5}
+    />
+  )
+}
+
   return (<>
-    <div className='flex-row flex-justify-between tx-altfont-2'>
-      <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
-        data-tooltip-id="streak-tooltip"
-        data-tooltip-content="Streak"
-        data-tooltip-place="bottom"
-        data-tooltip-variant='warning'
-      >
-        {/* fire emoji */}
-        <div className='tx-lg tx-center'>🔥</div>
-        <div className='tx-bold-5' style={{ color: "#FFB02E" }}>{streak}</div>
-      </div>
-      <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
-        data-tooltip-id="points-tooltip"
-        data-tooltip-content="Fuel"
-        data-tooltip-place="bottom"
-        data-tooltip-variant='info'
-      >
-        {/* diamond emoji */}
-        <div className='tx-lg tx-center'>💎</div>
-        <div className='tx-bold-5' style={{ color: "#00A6ED" }}>1224</div>
-      </div>
-      <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
-        data-tooltip-id="hearts-tooltip"
-        data-tooltip-content="Friends"
-        data-tooltip-place="bottom"
-        data-tooltip-variant='error'
-      >
-        {/* heart emoji */}
-        <div className='tx-lg tx-center'>💖</div>
-        <div className='tx-bold-5' style={{ color: "#F92F60" }}>5</div>
-      </div>
-    </div>
+    
+
+    <IconStatsBar streak={streak} 
+    points={1224}
+    hearts={5}
+    />
 
 
 
@@ -218,8 +205,8 @@ style={{
 >
   <div className='flex-row flex-justify-start gap-2'>
     <div>
-      {/* sparks emoji  */}
-      <div className='tx-lgx'>💥</div>
+      {/* calendar emoji  */}
+      <div className='tx-lgx'>📅</div>
     </div>
   <div className='flex-col flex-align-start gap-2'>
   <div className='tx-bold'
@@ -371,4 +358,42 @@ style={{
 
     
   </>);
+};
+
+
+export const IconStatsBar = ({streak, points, hearts}: {streak: number, points: number, hearts: number}) => {
+  return (
+<div className='flex-row flex-justify-between tx-altfont-2'>
+      <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
+        data-tooltip-id="streak-tooltip"
+        data-tooltip-content="Streak"
+        data-tooltip-place="bottom"
+        data-tooltip-variant='warning'
+      >
+        {/* fire emoji */}
+        <div className='tx-lg tx-center'>🔥</div>
+        <div className='tx-bold-5' style={{ color: "#FFB02E" }}>{streak}</div>
+      </div>
+      <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
+        data-tooltip-id="points-tooltip"
+        data-tooltip-content="Fuel"
+        data-tooltip-place="bottom"
+        data-tooltip-variant='info'
+      >
+        {/* diamond emoji */}
+        <div className='tx-lg tx-center'>💎</div>
+        <div className='tx-bold-5' style={{ color: "#00A6ED" }}>1224</div>
+      </div>
+      <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
+        data-tooltip-id="hearts-tooltip"
+        data-tooltip-content="Friends"
+        data-tooltip-place="bottom"
+        data-tooltip-variant='error'
+      >
+        {/* heart emoji */}
+        <div className='tx-lg tx-center'>💖</div>
+        <div className='tx-bold-5' style={{ color: "#F92F60" }}>5</div>
+      </div>
+    </div>
+  );
 };
