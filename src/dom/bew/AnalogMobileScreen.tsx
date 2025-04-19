@@ -318,20 +318,24 @@ style={{
 
 {!isMobile() && (<>
 
-<details>
-<summary className='flex-row gap-2 px-4 w-80 py-4 pointer'>
+<details className='w-80  '>
+<summary className='flex-row gap-2  w-80 py-4 pointer w-100'>
 
 
 
 
-      <div className='flex-1'
+      <div className='flex-1 w-100'
         style={{
           height: "2px",
           background: "#E5E5E5",
         }}
       />
       {(
-        <div style={{ color: "#AFAFAF" }}>Stats &amp; Resources</div>
+        <div 
+        className='tx-bol d'
+        style={{ color: "#AFAFAF" }}>
+          {/* down caret emoji */}
+          ▼ Stats &amp; Resources</div>
       )}
       <div className='flex-1'
         style={{
@@ -343,7 +347,7 @@ style={{
 
 
 
-  <div className='flex-row flex-justify-between tx-altfont-2  gap-2'>
+  <div className='flex-row flex-justify-center tx-altfont-2  gap-2'>
       <a href="https://www.reddit.com/r/remoteviewing/wiki/index/"
       target="_blank"
       style={{
@@ -381,15 +385,9 @@ style={{
       </div>
     </div>
 
-    </details>
-    </>)}
-
-
-
-
-
-
-    {!!isMobile() && (<> <div> <BewUserStatsSummary minified  /> </div> </> )}
+    <div className='flex-col'> <BewUserStatsSummary minified  /> </div>
+    </details> </>
+  )}
 
 
 
