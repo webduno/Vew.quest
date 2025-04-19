@@ -125,6 +125,10 @@ export const AnalogMobileScreen = ({
   };
 
   return (<>
+
+<div className='flex-1 w-100'>
+
+
     {!!selectedInputType && (
       <div className='flex-row flex-justify-around mb-'
         style={{
@@ -160,6 +164,12 @@ export const AnalogMobileScreen = ({
         </div>
       </div>
     )}
+
+
+
+
+
+
 {!selectedInputType && (<>
 
     <div className='flex-row gap-2 px-4 '>
@@ -190,6 +200,13 @@ export const AnalogMobileScreen = ({
 
 
 
+
+
+
+
+
+
+
     {!!selectedInputType && (
       <div className='px-4 py-2'>
         {renderInputComponent()}
@@ -198,23 +215,7 @@ export const AnalogMobileScreen = ({
 
     {!!selectedInputType && (
       <>
-        {/* <div className='flex-row gap-2 px-4 '>
-          <div className='flex-1'
-            style={{
-              height: "2px",
-              background: "#E5E5E5",
-            }}
-          />
-          <div style={{ color: "#AFAFAF" }}>
-            Finish Session
-          </div>
-          <div className='flex-1'
-            style={{
-              height: "2px",
-              background: "#E5E5E5",
-            }}
-          />
-        </div> */}
+      
 
         <div className='px-4'>
           <div className='tx-white pointer tx-center pa-2 bord-r-10 mt-4'
@@ -261,6 +262,44 @@ export const AnalogMobileScreen = ({
             image={<div><span role="img" aria-label="page">📄</span></div>}
           />
         </div>
+      </div>
+    )}
+
+
+</div>
+    {!selectedInputType && (
+      <div className=' pos-abs-bottom  flex-col flex-justify-end pb-4'>
+        
+
+
+<div className='bord-r-10 pa-4 pl-2 opaci-chov--75' 
+style={{
+  border: "1px solid #E5E5E5",
+}}
+>
+  <div className='flex-row flex-justify-start gap-2'>
+    <div>
+      {/* group of people emoji  */}
+      <div className='tx-lgx'>👥</div>
+    </div>
+  <div className='flex-col flex-align-start gap-2'>
+  <div className='tx-bold'
+  style={{
+    color: "#4B4B4B",
+  }}
+  >Invite friends (CRV)</div>
+  <div className='tx-sm ' style={{color: "#afafaf"}}>
+    <div className='flex-row gap-1'>
+      <div>Coordenated Remote Viewing</div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <div></div>
+</div>
+
+
       </div>
     )}
   </>);

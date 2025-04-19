@@ -1,5 +1,6 @@
 'use client';
 import { useState, useCallback } from 'react';
+import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
 import { AnalogModalScreen } from '@/dom/molecule/game/SenseMeter/AnalogModalScreen';
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
@@ -9,6 +10,7 @@ import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import targetsData from '@/../public/data/targets_1.json';
 import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
 import CanvasDraw from 'react-canvas-draw';
+import { Tooltip } from 'react-tooltip';
 
 type TargetsData = {
   [key: string]: string;
@@ -17,6 +19,8 @@ type TargetsData = {
 type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {
+  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
+  const [enterUsername, setEnterUsername] = useState(false);
   const [isLoadingMyRequests, setIsLoadingMyRequests] = useState(false);
   const [myRequests, setMyRequests] = useState<null | {
     description: string;
@@ -163,6 +167,15 @@ export default function TrainingPage() {
   }
 
   const handleStart = async () => {
+    if (!LS_playerId && !typedUsername) {
+      setEnterUsername(true);
+      return;
+    }
+
+    if (!LS_playerId && typedUsername) {
+      setPlayerId(sanitizePlayerId(typedUsername));
+    }
+
     const newTarget = await fetchRandomFromCocoDatabase();
     setTarget(newTarget);
     setGameState('playing');
@@ -323,13 +336,33 @@ export default function TrainingPage() {
         >
           <div className='tx-center tx-lgx'>Gamified <br /> step-by-step lessons for remote viewing</div>
           <div>
-            <div className='py-2 px-8 tx-white bord-r-10 tx-lgx opaci-chov--75'
-            onClick={handleStart}
-            style={{
-              backgroundColor: "#807DDB",
-              boxShadow: "0px 4px 0 0px #6B69CF",
-            }}
-            >Start</div>
+            <div>
+              <input 
+                type="text" 
+                className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3'
+                placeholder='Enter your name'
+                style={{
+                  border: "1px solid #E5E5E5",
+                }}
+                value={typedUsername}
+                onChange={(e) => { setTypedUsername(sanitizePlayerId(e.target.value)) }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleStart();
+                  }
+                }}
+              />
+            </div>
+            <div 
+              className='py-2 px-8 tx-center tx-white bord-r-10 tx-lgx opaci-chov--75'
+              onClick={handleStart}
+              style={{
+                backgroundColor: "#807DDB",
+                boxShadow: "0px 4px 0 0px #6B69CF",
+              }}
+            >
+              Start
+            </div>
           </div>
         </div>
       </div>
@@ -432,7 +465,7 @@ onClick={() => {
   <div className='tx-lg'>👀</div>
 </div>
     </div>
-<div className='flex-1 tx-altfont-2'>
+<div className='flex-1 tx-altfont-2 flex-col'>
 
 
 
@@ -513,7 +546,8 @@ style={{
     color: "#4B4B4B",
   }}
   >Daily Goal</div>
-  <div className='tx-sm bord-r-10 pa-1 w-100 ' style={{
+  <div className='tx-sm tx-bold bord-r-25  w-100 ' style={{
+    padding: "3px 0",
     boxShadow: "0 2px 0 #D68800",
     background: "#FDC908",
     color: "#D68800",
@@ -526,7 +560,26 @@ style={{
   </div>
   </div>
   </div>
-  <div></div>
+  <div>
+
+  <div>
+            <div className='py-2 mt-4 tx-center tx-white bord-r-10  opaci-chov--75'
+            data-tooltip-id="view-profile-tooltip"
+            data-tooltip-content={`${LS_playerId }`}
+            data-tooltip-place="bottom"
+            onClick={()=>{
+              alert("Coming soon!");
+            }}
+            style={{
+              backgroundColor: "#807DDB",
+              boxShadow: "0px 4px 0 0px #6B69CF",
+            }}
+            >View Profile</div>
+            
+          </div>
+          <Tooltip id="view-profile-tooltip" />
+
+  </div>
 </div>
 
 
@@ -1100,3 +1153,4 @@ const ResultBadge = ({
             </div>
   );
 } 
+
