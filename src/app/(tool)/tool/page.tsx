@@ -342,7 +342,7 @@ export default function TrainingPage() {
 
 
 
-        <div className=' px-4 flex-1 flex-row flex-justify-end tx- bold pt-2'
+        <div className=' px-4 flex-1 flex-row flex-justify-end tx- bold pt-3'
         
         >
           <a className='nodeco'
@@ -351,9 +351,10 @@ export default function TrainingPage() {
           data-tooltip-place="bottom"
           style={{
             color: "#AFAFAF",
+            filter: "saturate(0)",
           }}
            href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'>
-            <div>📩 Support</div>
+            <div>📩 Contact</div>
           </a>
           <Tooltip id="support-tooltip" />
         </div>
