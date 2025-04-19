@@ -196,9 +196,9 @@ export const AnalogMobileScreen = ({
       </div>
     )}
 
-    {false && !!selectedInputType && (
+    {!!selectedInputType && (
       <>
-        <div className='flex-row gap-2 px-4 '>
+        {/* <div className='flex-row gap-2 px-4 '>
           <div className='flex-1'
             style={{
               height: "2px",
@@ -214,7 +214,7 @@ export const AnalogMobileScreen = ({
               background: "#E5E5E5",
             }}
           />
-        </div>
+        </div> */}
 
         <div className='px-4'>
           <div className='tx-white pointer tx-center pa-2 bord-r-10 mt-4'

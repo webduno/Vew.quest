@@ -40,14 +40,14 @@ export const MultiOptionInputs = ({
   };
 
   return (<>
-    <div className='flex-col flex-align-stretch gap- 2 tx-altfont-1'>
+    <div className='flex-col flex-align-stretch gap-  2 tx-altfont-1'>
       <div className='pa-2 bord-r-10'>
         <div className="tx-bold mb-2" style={{color:"#afafaf"}}>Type</div>
         <div className='flex-row flex-wrap gap-3'>
           {(['object', 'entity', 'place', 'event'] as InputType[]).map((type) => (
             <div 
               key={type}
-              className='flex-row gap-1 flex-align-center opaci-chov--75 pointer'
+              className='flex-row gap-1 flex-align-around opaci-chov--75 pointer'
               onClick={() => handleChange('type', type)}
             >
               <div className='w-15px h-15px bord-r-3'
@@ -56,7 +56,7 @@ export const MultiOptionInputs = ({
                   background: values.type === type ? '#afafaf' : 'transparent'
                 }}
               />
-              <div style={{color: values.type === type ? '#000000' : '#afafaf'}}>
+              <div style={{color: values.type === type ? '#2B29AF' : '#afafaf', fontWeight: values.type === type ? 'bold' : 'normal'}}>
                 {type.charAt(0).toUpperCase() + type.slice(1)}
               </div>
             </div>
