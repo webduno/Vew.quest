@@ -322,8 +322,8 @@ export default function TrainingPage() {
     <div className='w-100  flex-col  '>
 {gameState === 'initial' && (<>
       <div className='flex-row w-100 w-max-1080px tx-altfont-2'>
-        <a href="/tool" className='pointer flex-row nodeco'>
-        <img src="/bew/bewlogo.png" alt="tool_bg" className='ml-4 w-100px' />
+        <a href="/tool" className='pointer flex-row nodeco pt-4'>
+        <img src="/bew/bewlogo.png" alt="tool_bg" className='ml-4 w-50px' />
         <div className='tx-bold'
         style={{
           // color: "#6B69CF",
@@ -357,10 +357,23 @@ export default function TrainingPage() {
         height: "70vh",
       }}
       >
-        <div className='flex-col'>
+        <div className='flex-col pointer'
+        onClick={() => {
+          setGameState('playing');
+        }}
+        >
         <div className='Q_xs_sm py-4'></div>
 
-        <img src="/bew/viewlogo.jpeg"
+        
+        <img src="/bew/eyes.png"
+        style={{
+          
+        }}
+         alt="tool_bg" className='hover-jump pos-abs noverflow block w-250px' />
+
+
+
+        <img src="/bew/starsbg.jpeg"
         style={{
           
         }}
@@ -434,7 +447,7 @@ export default function TrainingPage() {
 style={{borderRight: "1px solid #E5E5E5"}}
   >
     <a href="/tool" className='pointer'>
-      <img src="/bew/bewlogo.png" alt="tool_bg" className='px-2 py-4 w-50px' />
+      <img src="/bew/bewlogo.png" alt="tool_bg" className='px-2 py-4 ' width="50px" />
       </a>
     <div className='tx-lgx pa-2 opaci-chov--50'
     data-tooltip-id="home-tooltip"

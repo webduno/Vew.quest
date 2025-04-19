@@ -197,3 +197,19 @@ body, html {
   background: linear-gradient(-45deg, #2F2E29, #4F4E49, #66665A);
   box-shadow: inset -2px -2px 1px #1a1a1a, inset 2px 2px 1px #888888;
 }
+
+
+
+
+.hover-10{
+  animation: specialhover 20s; 
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite 
+}
+@keyframes specialhover {
+	0%{transform: translateY(-5px)}
+  25%{transform: translateY(5px) rotate(1deg)}
+	50%{transform: translateY(0px) rotate(-1deg)}
+  75%{transform: translateY(5px) rotate(1deg)}
+  100%{transform: translateY(-5px)}
+}

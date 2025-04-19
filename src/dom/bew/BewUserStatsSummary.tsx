@@ -213,10 +213,11 @@ style={{
   style={{
     color: "#4B4B4B",
   }}
-  >Weekly Object</div>
+  >Weekly Goal</div>
   <div className='tx-sm ' style={{color: "#afafaf"}}>
-    <div className='flex-row gap-1'>
-      <div>Click to see details</div>
+    <div className='flex-col gap-1'>
+      <div>Reddit&apos;s Practice Object</div>
+      {/* <div>Click to see details</div> */}
     </div>
   </div>
   </div>
