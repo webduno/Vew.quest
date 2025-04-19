@@ -392,13 +392,16 @@ export default function TrainingPage() {
 
 
 
-  <div className=' h-100 Q_sm_x'
+  <div id="menu-icon-bar" className=' h-100 Q_sm_x'
 style={{borderRight: "1px solid #E5E5E5"}}
   >
     <a href="/tool" className='pointer'>
       <img src="/bew/bewlogo.png" alt="tool_bg" className='px-2 py-4 w-50px' />
       </a>
     <div className='tx-lgx pa-2 opaci-chov--50'
+    data-tooltip-id="home-tooltip"
+    data-tooltip-content="Home"
+    data-tooltip-place="right"
     onClick={() => {
       setGameState('initial');
     }}
@@ -406,13 +409,67 @@ style={{borderRight: "1px solid #E5E5E5"}}
       {/* home emoji */}
       <div className='tx-center'>🏠</div>
       </div>
-    <div className='tx-lgx pa-2 opaci-chov--50'>
+
+
+    <div className='tx-lgx pa-2 opaci-chov--50'
+    data-tooltip-id="lessons-tooltip"
+    data-tooltip-content="Resources"
+    data-tooltip-place="right"
+    onClick={() => {
+      alert("Coming soon!");
+    }}
+    >
       {/* lessons emoji */}
         <div className='tx-center'>📚</div>
       </div>
-    <div className='tx-lgx pa-2 opaci-chov--50'>
+
+
+    <div className='tx-lgx pa-2 opaci-chov--50'
+    data-tooltip-id="goals-tooltip"
+    data-tooltip-content="Achievements"
+    data-tooltip-place="right"
+    onClick={() => {
+      alert("Coming soon!");
+    }}
+    >
       {/* goals emoji */}
       <div className='tx-center'>🎯</div>
+      </div>
+
+    <div className='tx-lgx pa-2 opaci-chov--50'
+    data-tooltip-id="profile-tooltip"
+    data-tooltip-content="Profile"
+    data-tooltip-place="right"
+    onClick={() => {
+      alert("Coming soon!");
+    }}
+    >
+      {/* profile emoji */}
+      <div className='tx-center'>👤</div>
+      </div>
+
+    <div className='tx-lgx pa-2 opaci-chov--50'
+    data-tooltip-id="settings-tooltip"
+    data-tooltip-content="Settings"
+    data-tooltip-place="right"
+    onClick={() => {
+      alert("Coming soon!");
+    }}
+    >
+      {/* settings emoji */}
+      <div className='tx-center'>⚙️</div>
+      </div>
+
+    <div className='tx-lgx pa-2 opaci-chov--50'
+    data-tooltip-id="help-tooltip"
+    data-tooltip-content="Help"
+    data-tooltip-place="right"
+    onClick={() => {
+      alert("Coming soon!");
+    }}
+    >
+      {/* help emoji */}
+      <div className='tx-center'>❓</div>
       </div>
   </div>
 
@@ -510,19 +567,31 @@ onClick={() => {
 
 
 
-  <div className='h-100 w-250px pr-4 Q_sm_x'>
+  <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
     <div className='flex-row flex-justify-between tx-altfont-2'>
-    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'>
+    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
+    data-tooltip-id="streak-tooltip"
+    data-tooltip-content="Streak"
+    data-tooltip-place="bottom"
+    >
       {/* fire emoji */}
       <div className='tx-lg tx-center'>🔥</div>
       <div className='tx-bold-5' style={{color: "#FFB02E"}}>169</div>
       </div>
-    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'>
+    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
+    data-tooltip-id="points-tooltip"
+    data-tooltip-content="Fuel"
+    data-tooltip-place="bottom"
+    >
       {/* diamond emoji */}
         <div className='tx-lg tx-center'>💎</div>
       <div className='tx-bold-5' style={{color:"#00A6ED"}}>1224</div>
       </div>
-    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'>
+    <div className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
+    data-tooltip-id="hearts-tooltip"
+    data-tooltip-content="Friends"
+    data-tooltip-place="bottom"
+    >
       {/* heart emoji */}
       <div className='tx-lg tx-center'>💖</div>
       <div className='tx-bold-5' style={{color:"#F92F60"}}>5</div>
@@ -578,6 +647,15 @@ style={{
             
           </div>
           <Tooltip id="view-profile-tooltip" />
+          <Tooltip id="home-tooltip" />
+          <Tooltip id="lessons-tooltip" />
+          <Tooltip id="goals-tooltip" />
+          <Tooltip id="profile-tooltip" />
+          <Tooltip id="settings-tooltip" />
+          <Tooltip id="help-tooltip" />
+          <Tooltip id="streak-tooltip" />
+          <Tooltip id="points-tooltip" />
+          <Tooltip id="hearts-tooltip" />
 
   </div>
 </div>
@@ -585,7 +663,9 @@ style={{
 
 
 
-<div className='bord-r-10 pa-4 pl-2 opaci-chov--75' 
+<a target='_blank'
+href="https://www.reddit.com/r/remoteviewing/comments/1k1y0ge/weekly_practice_objective_r16487/"
+className='bord-r-10 pa-4 pl-2 opaci-chov--75 nodeco' 
 style={{
   border: "1px solid #E5E5E5",
 }}
@@ -600,7 +680,7 @@ style={{
   style={{
     color: "#4B4B4B",
   }}
-  >Target of the day</div>
+  >Weekly Object</div>
   <div className='tx-sm ' style={{color: "#afafaf"}}>
     <div className='flex-row gap-1'>
       <div>Click to see details</div>
@@ -610,7 +690,7 @@ style={{
   </div>
 
   <div></div>
-</div>
+</a>
 
 
 
@@ -621,18 +701,21 @@ style={{
   border: "1px solid #E5E5E5",
 }}
 >
-  <div className='flex-row  tx-smd flex-justify-between py-4 gap-2'>
+  <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
     
   <div className='tx-bold px-4' 
   style={{
     color: "#4B4B4B",
   }}
   >Lessons</div>
-  <div className='tx-bold px-4 pointer' 
+  <a 
+  className='tx-bold px-4 pointer nodeco' 
+  href="https://www.reddit.com/r/remoteviewing/wiki/index/"
+  target='_blank'
   style={{
     color: "#22AEFF",
   }}
-  >View All</div>
+  >View All</a>
   </div>
 
   
@@ -642,7 +725,10 @@ style={{
 
 
   
-  <div className='flex-row flex-align-start  flex-justify-start pa-2 opaci-chov--75 gap-2'>
+  <a 
+  href="https://www.reddit.com/r/remoteviewing/comments/184cl9k/start_here_introduction_faq_resources_welcome_to/"
+  target='_blank'
+   className='flex-row flex-align-start nodeco flex-justify-start pa-2 opaci-chov--75 gap-2'>
     <div className=''>
       {/* single book emoji  */}
       <div className='tx-lgx'>
@@ -664,12 +750,15 @@ style={{
     </div>
   </div>
   </div>
-  </div>
+  </a>
 
 
 
   
-  <div className='flex-row flex-align-start  flex-justify-start pa-2 opaci-chov--75 gap-2'>
+  <a
+  href="https://www.reddit.com/r/AstralProjection/comments/n34zh5/astral_projection_quick_start_guide/"
+  target='_blank'
+   className='flex-row flex-align-start nodeco flex-justify-start pa-2 opaci-chov--75 gap-2'>
     <div className=''>
       {/* tree emoji  */}
       <div className='tx-lgx'>🌳</div>
@@ -690,14 +779,17 @@ style={{
     </div>
   </div>
   </div>
-  </div>
+</a>
 
 
 
 
 
   
-  <div className='flex-row flex-align-start pb-4 flex-justify-start pa-2 opaci-chov--75 gap-2'>
+  <a 
+  href="https://chain.link/vrf"
+  target='_blank'
+  className='flex-row flex-align-start nodeco pb-4 flex-justify-start pa-2 opaci-chov--75 gap-2'>
     <div className=''>
       {/* eight ball emoji  */}
       <div className='tx-lgx'>🎱</div>
@@ -714,7 +806,7 @@ style={{
     </div>
   </div>
   </div>
-  </div>
+  </a>
 
 
 
