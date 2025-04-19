@@ -661,7 +661,7 @@ style={{
               }}
               >
                 <div>{target.values.type.toUpperCase()}</div>
-                <div className='tx-lx'>{results.type ? "(HIT)" : "(MISS)"}</div>
+                <div className='tx-'>{results.type ? "(HIT)" : "(MISS)"}</div>
               </div>
             </div>
 
