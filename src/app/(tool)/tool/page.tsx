@@ -98,6 +98,8 @@ export default function TrainingPage() {
   const [showImageModal, setShowImageModal] = useState(false);
   const [showSketchModal, setShowSketchModal] = useState(false);
   const [sketchData, setSketchData] = useState<any>(null);
+  const [notes, setNotes] = useState<any>(null);
+
 
   const random10CharString = () => {
     return Math.random().toString(36).substring(2, 15);
@@ -248,6 +250,7 @@ export default function TrainingPage() {
   }) => {
     console.log("full send" , params);
     setSketchData(params.sketch);
+    setNotes(params.notes);
     handleSend(params.options);
   }
 
@@ -753,7 +756,7 @@ style={{
 
 
             <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-2" 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
               style={{
                 color: "#999999",
               }}
@@ -770,7 +773,7 @@ style={{
 
             
             <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-2" 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
               style={{
                 color: "#999999",
               }}
@@ -784,7 +787,7 @@ style={{
               <div>{showImageModal ? "Hide Image" : "Show Image"}</div>
             </button>
             <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-2" 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
               style={{
                 color: "#999999",
               }}
@@ -797,6 +800,16 @@ style={{
             >
               <div>{showSketchModal ? "Hide Drawing" : "Show Drawing"}</div>
             </button>
+            <div  onClick={() => {
+              alert("Notes:\n\n" + notes);
+            }}
+            className='tx-sm pa-1 bord-r-15 opaci-chov--50'
+            style={{
+              color: "#999999",
+            }}
+            >
+              Notes
+            </div>
             </div>
             <button 
               style={{
@@ -809,7 +822,7 @@ style={{
               <div>Next Target</div>
             </button>
             <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-2" 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
               style={{
                 color: "#999999",
               }}
