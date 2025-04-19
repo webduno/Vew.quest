@@ -357,7 +357,9 @@ export default function TrainingPage() {
   <div className=' h-100 Q_sm_x'
 style={{borderRight: "1px solid #E5E5E5"}}
   >
-    <div className='pointer'><img src="/bew/bewlogo.png" alt="tool_bg" className='px-2 py-4 w-50px' /></div>
+    <a href="/tool" className='pointer'>
+      <img src="/bew/bewlogo.png" alt="tool_bg" className='px-2 py-4 w-50px' />
+      </a>
     <div className='tx-lgx pa-2 opaci-chov--50'>
       {/* home emoji */}
       <div className='tx-center'>🏠</div>
