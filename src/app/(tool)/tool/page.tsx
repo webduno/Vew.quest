@@ -346,10 +346,16 @@ export default function TrainingPage() {
         
         >
           <a className='nodeco'
+          data-tooltip-id="support-tooltip"
+          data-tooltip-content="𝕏 | @webduno"
+          data-tooltip-place="bottom"
           style={{
             color: "#AFAFAF",
           }}
-           href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'><div>𝕏 | @webduno</div></a>
+           href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'>
+            <div>📩 Support</div>
+          </a>
+          <Tooltip id="support-tooltip" />
         </div>
       </div>
       <div className='flex-wrap gap-8 '
