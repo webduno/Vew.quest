@@ -269,8 +269,34 @@ export const AnalogMobileScreen = ({
 
 </div>
     {!selectedInputType && (
-      <div className=' pos-abs-bottom  flex-col flex-justify-end pb-100'>
+      <div className='w-100  pos-abs-bottom  flex-col flex-justify-end pb-8 mb-4'>
         
+
+
+
+
+
+
+        <div className='flex-row gap-2 px-4 w-90 mb-4'>
+      <div className='flex-1'
+        style={{
+          height: "2px",
+          background: "#E5E5E5",
+        }}
+      />
+      {(
+        <div style={{ color: "#AFAFAF" }}>Advanced</div>
+      )}
+      <div className='flex-1'
+        style={{
+          height: "2px",
+          background: "#E5E5E5",
+        }}
+      />
+    </div>
+
+
+
 
 
 <div className='bord-r-10 pa-4 pl-2 opaci-chov--75' 

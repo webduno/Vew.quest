@@ -555,8 +555,8 @@ className='opaci-50 pointer'>← Main Menu</div>
 <div
 style={{
   transform: "translate(-100%,-25%)",
-  background: "#fcfcfc",
-  boxShadow: "0 4px 0 #e0e0e0",
+  background: "#fafafa",
+  boxShadow: "0 4px 0 #cccccc",
   width: "40px",
   height: "40px",
 }}
