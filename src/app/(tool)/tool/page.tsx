@@ -365,7 +365,7 @@ export default function TrainingPage() {
           </Tooltip>
         </div>
       </div>
-      <div className='flex-wrap gap-8 '
+      <div className='flex-wrap gap-8 px-4 '
       style={{
         height: "70vh",
       }}
@@ -383,7 +383,7 @@ export default function TrainingPage() {
         style={{
           
         }}
-         alt="tool_bg" className='pointer hover-jump pos-abs noverflow block w-150px mt-2' />
+         alt="tool_bg" className='pointer hover-jump pos-abs noverflow block w-150px Q_xs_pt-8' />
 
 
 
