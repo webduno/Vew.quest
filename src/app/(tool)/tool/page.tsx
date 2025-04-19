@@ -342,7 +342,7 @@ export default function TrainingPage() {
 
 
 
-        <div className=' px-4 flex-1 flex-row flex-justify-end tx- bold'
+        <div className=' px-4 flex-1 flex-row flex-justify-end tx- bold pt-2'
         
         >
           <a className='nodeco'
