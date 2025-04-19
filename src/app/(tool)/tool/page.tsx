@@ -8,6 +8,7 @@ import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import targetsData from '@/../public/data/targets_1.json';
 import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
+import CanvasDraw from 'react-canvas-draw';
 
 type TargetsData = {
   [key: string]: string;
@@ -95,6 +96,8 @@ export default function TrainingPage() {
     confidence: number;
   }>(null);
   const [showImageModal, setShowImageModal] = useState(false);
+  const [showSketchModal, setShowSketchModal] = useState(false);
+  const [sketchData, setSketchData] = useState<any>(null);
 
   const random10CharString = () => {
     return Math.random().toString(36).substring(2, 15);
@@ -244,17 +247,15 @@ export default function TrainingPage() {
     confidence: number;}
   }) => {
     console.log("full send" , params);
-
-handleSend(params.options);
-
-
-
+    setSketchData(params.sketch);
+    handleSend(params.options);
   }
-
 
   const handleTryAgain = async () => {
     const newTarget = await fetchRandomFromCocoDatabase();
     setShowImageModal(false);
+    setShowSketchModal(false);
+    setSketchData(null);
     setTarget(newTarget);
     setGameState('playing');
     setResults(null);
@@ -585,7 +586,6 @@ style={{
 
 {gameState === 'results' && results && target && (myRequests?.length === 0 || !myRequests) && (
         <div className="tx-white tx-center mt-100">
-
           <div className="tx-lg tx-altfont-2 tx-bold-5"
           style={{
             color: "#F1CE0D",
@@ -598,7 +598,6 @@ style={{
           }}
           >{Number(overallAccuracy).toFixed(3)}%</div>
 
-
           <div className='w-300px py-3 my-3 px-4 bord-r-15' style={{
             border: "1px solid #E5E5E5",
             background: "#f7f7f7",
@@ -607,27 +606,7 @@ style={{
 
 
 
-{!!showImageModal && (<>
-  <img  className='block pos-rel'
-                  src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
-                  alt={selectedTargetInfo?.description}
-                  style={{
-                    overflow: 'hidden',
-                    borderRadius: "3px",
-                    width: '100%',
-                    maxWidth: '300px',
-                    maxHeight: '300px', objectFit: 'contain'
-                  }}
-                />
-                <div className=" tx-center tx-altfont-2 mt-2"
-                style={{
-                  color: "#4B4B4B",
-                }}
-                >
-                  {selectedTargetInfo?.description}
-                </div>
-
-</>)}
+            
 
 
 
@@ -638,7 +617,9 @@ style={{
 
 
 
-{!showImageModal && (<>
+
+
+{!showImageModal && !showSketchModal && (<>
             <div className="flex-col gap-2">  
 
           <div className="flex-wrap gap-2 w-100  flex-align-stretch">
@@ -705,10 +686,130 @@ style={{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+            
+
+          {showImageModal &&  (
+            <>
+              <img className='block pos-rel'
+                src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
+                alt={selectedTargetInfo?.description}
+                style={{
+                  overflow: 'hidden',
+                  borderRadius: "3px",
+                  width: '100%',
+                  maxWidth: '300px',
+                  maxHeight: '300px', 
+                  objectFit: 'contain'
+                }}
+              />
+              <div className="tx-center tx-altfont-2 mt-2"
+              style={{
+                color: "#4B4B4B",
+              }}>
+                {selectedTargetInfo?.description}
+              </div>
+            </>
+          )}
+
+          {showSketchModal && !showImageModal && sketchData && (
+            <>
+              <CanvasDraw
+                disabled
+                hideGrid
+                canvasWidth={300}
+                canvasHeight={300}
+                saveData={sketchData}
+                style={{
+                  borderRadius: "3px",
+                }}
+              />
+              <div className="tx-center tx-altfont-2 mt-2"
+              style={{
+                color: "#4B4B4B",
+              }}
+              >
+                Your Drawing
+              </div>
+            </>
+          )}
+
           </div>
-          <div className="flex-col flex-justify-center  gap-2">
-          <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline" 
+
+
+
+          <div className="flex-col flex-justify-center gap-2">
+            <div className="flex-row gap-2">
+
+
+            <button 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-2" 
+              style={{
+                color: "#999999",
+              }}
+              onClick={() => {
+                // set showImageModal to false
+                setShowImageModal(false);
+                setShowSketchModal(false);
+              }}
+            >
+              <div>{showImageModal || showSketchModal ? "Show Results" : "Hide Results"}</div>
+            </button>
+
+
+
+            
+            <button 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-2" 
+              style={{
+                color: "#999999",
+              }}
+              onClick={() => {
+                setShowImageModal(prev => !prev);
+                if (!showImageModal) {
+                  setShowSketchModal(false);
+                }
+              }}
+            >
+              <div>{showImageModal ? "Hide Image" : "Show Image"}</div>
+            </button>
+            <button 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-2" 
+              style={{
+                color: "#999999",
+              }}
+              onClick={() => {
+                setShowSketchModal(prev => !prev);
+                if (!showSketchModal) {
+                  setShowImageModal(false);
+                }
+              }}
+            >
+              <div>{showSketchModal ? "Hide Drawing" : "Show Drawing"}</div>
+            </button>
+            </div>
+            <button 
+              style={{
+                background: "#7DDB80",
+                boxShadow: "0px 2px 0 0px #34BE37",
+              }}
+              className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer tx-altfont-2" 
+              onClick={handleTryAgain}
+            >
+              <div>Next Target</div>
+            </button>
+            <button 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-2" 
               style={{
                 color: "#999999",
               }}
@@ -718,28 +819,6 @@ style={{
             >
               <div>Main Menu</div>
             </button>
-            <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline" 
-              style={{
-                color: "#999999",
-              }}
-              onClick={() => {
-                setShowImageModal(prev => !prev)
-              }}
-            >
-              <div>{showImageModal ? "Hide Target Image" : "Show Target Image"}</div>
-            </button>
-          <button 
-          style={{
-            background: "#7DDB80",
-            boxShadow: "0px 2px 0 0px #34BE37",
-          }}
-            className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer  tx-altfont-2" 
-            onClick={handleTryAgain}
-          >
-            <div>Next Target</div>
-          </button>
-          
           </div>
         </div>
       )}
