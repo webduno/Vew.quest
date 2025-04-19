@@ -160,6 +160,7 @@ export const AnalogMobileScreen = ({
         </div>
       </div>
     )}
+{!selectedInputType && (<>
 
     <div className='flex-row gap-2 px-4 '>
       <div className='flex-1'
@@ -171,13 +172,13 @@ export const AnalogMobileScreen = ({
       {!selectedInputType && (
         <div style={{ color: "#AFAFAF" }}>Select Input Type</div>
       )}
-      {!!selectedInputType && (
+      {/* {!!selectedInputType && (
         <div style={{ color: "#AFAFAF" }}>
           {selectedInputType === 'sketch' && "Draw anything you see"}
           {selectedInputType === 'multi-options' && "Fill the form"}
           {selectedInputType === 'notes' && "Write your thoughts"}
         </div>
-      )}
+      )} */}
       <div className='flex-1'
         style={{
           height: "2px",
@@ -185,6 +186,9 @@ export const AnalogMobileScreen = ({
         }}
       />
     </div>
+    </>)}
+
+
 
     {!!selectedInputType && (
       <div className='pa-4'>
@@ -192,7 +196,7 @@ export const AnalogMobileScreen = ({
       </div>
     )}
 
-    {!!selectedInputType && (
+    {false && !!selectedInputType && (
       <>
         <div className='flex-row gap-2 px-4 '>
           <div className='flex-1'
