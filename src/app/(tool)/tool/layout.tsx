@@ -21,7 +21,8 @@ export default function RootLayout({
     <html lang="en" style={{ margin: 0, padding: 0 }}>
       <body className={`${inter.className}`}
        style={{ margin: 0, padding: 0,
-        background: "white",
+        // background: "white",
+      //  background: 'radial-gradient(circle, rgb(255, 238, 255), rgb(255, 255, 255), rgb(255, 221, 255))',
 
       //  background: 'radial-gradient(circle, #3E3B34, #1E1B14)',
       // gradient like sunset

@@ -213,3 +213,10 @@ body, html {
   75%{transform: translateY(5px) rotate(1deg)}
   100%{transform: translateY(-5px)}
 }
+
+
+.landing-title {
+  background: -webkit-linear-gradient(90deg, #ffffff, #777777);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

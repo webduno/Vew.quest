@@ -323,7 +323,7 @@ export default function TrainingPage() {
 {gameState === 'initial' && (<>
       <div className='flex-row w-100 w-max-1080px tx-altfont-2'>
         <a href="/tool" className='pointer flex-row nodeco pt-4'>
-        <img src="/bew/bewlogo.png" alt="tool_bg" className='ml-4 w-50px' />
+        <img src="/bew/pnglogo.png" alt="tool_bg" className='ml-4 w-50px' />
         <div className='tx-bold'
         style={{
           // color: "#6B69CF",
@@ -342,14 +342,14 @@ export default function TrainingPage() {
 
 
 
-        <div className=' px-4 flex-1 flex-row flex-justify-end tx-bold'
+        <div className=' px-4 flex-1 flex-row flex-justify-end tx- bold'
         
         >
           <a className='nodeco'
           style={{
             color: "#AFAFAF",
           }}
-           href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'><div>dev@webduno</div></a>
+           href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'><div>𝕏 | @webduno</div></a>
         </div>
       </div>
       <div className='flex-wrap gap-8 '
@@ -381,15 +381,15 @@ export default function TrainingPage() {
 
         </div>
         <div className=' tx-altfont-2 tx-bold gap-4  flex-col w-300px'
-        style={{color: "#4B4B4B",
+        style={{color: "#777777",
         }}
         >
-          <div className='tx-center tx-lgx'>Gamified <br /> step-by-step lessons for remote viewing</div>
+          <div className='tx-center tx-lgx landing -title'>Gamified <br /> step-by-step lessons for remote viewing</div>
           <div>
             <div>
               <input 
                 type="text" 
-                className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3'
+                className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3 tx-center'
                 placeholder='Enter your name'
                 style={{
                   border: "1px solid #E5E5E5",
@@ -447,7 +447,7 @@ export default function TrainingPage() {
 style={{borderRight: "1px solid #E5E5E5"}}
   >
     <a href="/tool" className='pointer'>
-      <img src="/bew/bewlogo.png" alt="tool_bg" className='px-2 py-4 ' width="50px" />
+      <img src="/bew/pnglogo.png" alt="tool_bg" className='px-2 py-4 ' width="50px" />
       </a>
     <div className='tx-lgx pa-2 opaci-chov--50'
     data-tooltip-id="home-tooltip"
