@@ -14,7 +14,7 @@ type TargetsData = {
 
 type GameState = 'initial' | 'playing' | 'results';
 
-export default function TrainingPage() {
+export default function DeprecatedTrainingPage() {
   const [isLoadingMyRequests, setIsLoadingMyRequests] = useState(false);
   const [myRequests, setMyRequests] = useState<null | {
     description: string;
