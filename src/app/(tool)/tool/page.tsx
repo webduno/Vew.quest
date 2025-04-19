@@ -299,20 +299,24 @@ export default function TrainingPage() {
            href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'><div>@webduno</div></a>
         </div>
       </div>
-      <div className='flex-wrap gap-2 '
+      <div className='flex-wrap gap-8 '
       style={{
         height: "70vh",
       }}
       >
         <div>
-        <img src="/bew/bewgraphic2.png" alt="tool_bg" className='w-300px' />
+        <img src="/bew/viewlogo.jpeg"
+        style={{
+          
+        }}
+         alt="tool_bg" className='bord-r-50 noverflow block w-300px' />
 
         </div>
         <div className=' tx-altfont-2 tx-bold gap-4  flex-col w-300px'
         style={{color: "#4B4B4B",
         }}
         >
-          <div className='tx-center tx-lx'>Gamified <br /> step-by-step lessons for remote viewing</div>
+          <div className='tx-center tx-lgx'>Gamified <br /> step-by-step lessons for remote viewing</div>
           <div>
             <div className='py-2 px-8 tx-white bord-r-10 tx-lgx opaci-chov--75'
             onClick={handleStart}
@@ -465,17 +469,17 @@ onClick={() => {
     <div className='tx- lg pa-2  opaci-chov--50 flex-wrap'>
       {/* fire emoji */}
       <div className='tx-lg tx-center'>🔥</div>
-      <div style={{color: "#FFB02E"}}>169</div>
+      <div className='tx-bold-5' style={{color: "#FFB02E"}}>169</div>
       </div>
     <div className='tx- lg pa-2  opaci-chov--50 flex-wrap'>
       {/* diamond emoji */}
         <div className='tx-lg tx-center'>💎</div>
-      <div style={{color:"#00A6ED"}}>1224</div>
+      <div className='tx-bold-5' style={{color:"#00A6ED"}}>1224</div>
       </div>
     <div className='tx- lg pa-2  opaci-chov--50 flex-wrap'>
       {/* heart emoji */}
       <div className='tx-lg tx-center'>💖</div>
-      <div style={{color:"#F92F60"}}>5</div>
+      <div className='tx-bold-5' style={{color:"#F92F60"}}>5</div>
       </div>
     </div>
     <div className='flex-col flex-align-stretch gap-4'>
