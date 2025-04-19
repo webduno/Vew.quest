@@ -316,7 +316,7 @@ style={{
 
 
 
-{!isMobile() && (<>
+{!!isMobile() && (<>
 
 <details className='w-80  '>
 <summary className='flex-row gap-2  w-80 py-4 pointer w-100'>
