@@ -277,24 +277,6 @@ export const AnalogMobileScreen = ({
 
 
 
-        <div className='flex-row gap-2 px-4 w-90 mb-4'>
-      <div className='flex-1'
-        style={{
-          height: "2px",
-          background: "#E5E5E5",
-        }}
-      />
-      {(
-        <div style={{ color: "#AFAFAF" }}>Advanced</div>
-      )}
-      <div className='flex-1'
-        style={{
-          height: "2px",
-          background: "#E5E5E5",
-        }}
-      />
-    </div>
-
 
 
 
@@ -330,7 +312,32 @@ style={{
 </div>
 
 
+
+
+
+
 {!!isMobile() && (<>
+
+<div className='flex-row gap-2 px-4 w-80 mb-4'>
+      <div className='flex-1'
+        style={{
+          height: "2px",
+          background: "#E5E5E5",
+        }}
+      />
+      {(
+        <div style={{ color: "#AFAFAF" }}>Stats &amp; Resources</div>
+      )}
+      <div className='flex-1'
+        style={{
+          height: "2px",
+          background: "#E5E5E5",
+        }}
+      />
+    </div>
+
+
+
   <div className='flex-row flex-justify-between tx-altfont-2 mt-2 gap-2'>
       <a href="https://www.reddit.com/r/remoteviewing/wiki/index/"
       target="_blank"
