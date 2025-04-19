@@ -254,6 +254,7 @@ handleSend(params.options);
 
   const handleTryAgain = async () => {
     const newTarget = await fetchRandomFromCocoDatabase();
+    setShowImageModal(false);
     setTarget(newTarget);
     setGameState('playing');
     setResults(null);
@@ -376,6 +377,19 @@ style={{borderRight: "1px solid #E5E5E5"}}
 
 
   <div className='flex-1 flex-col flex-align-stretch flex-justify-start h-100'>
+    <div className='flex-row '>
+    <button 
+              className="mt- 2 pt-4 pb- tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline" 
+              style={{
+                color: "#999999",
+              }}
+              onClick={() => {
+                setGameState('initial');
+              }}
+            >
+              <div>Go back to Main Menu</div>
+            </button>
+    </div>
     
     <div className='tx-white ma-4 pa-4 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
     style={{
@@ -647,7 +661,7 @@ style={{
               }}
               >
                 <div>{target.values.type.toUpperCase()}</div>
-                <div className='tx-lx'>{results.type ? "🗸" : "🗴"}</div>
+                <div className='tx-lx'>{results.type ? "(HIT)" : "(MISS)"}</div>
               </div>
             </div>
 
@@ -692,8 +706,19 @@ style={{
 
 
           </div>
-          <div className="flex-row flex-justify-center  gap-2">
+          <div className="flex-col flex-justify-center  gap-2">
           <button 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline" 
+              style={{
+                color: "#999999",
+              }}
+              onClick={() => {
+                setGameState('initial');
+              }}
+            >
+              <div>Main Menu</div>
+            </button>
+            <button 
               className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline" 
               style={{
                 color: "#999999",
