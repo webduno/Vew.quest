@@ -342,21 +342,27 @@ export default function TrainingPage() {
 
 
 
-        <div className=' px-4 flex-1 flex-row flex-justify-end tx- bold pt-4'
+        <div className=' px-4 flex-1 flex-row flex-justify-end tx-bold pt-4'
         
         >
-          <a className='nodeco'
+          <div className='nodeco'
           data-tooltip-id="support-tooltip"
-          data-tooltip-content="𝕏 | @webduno"
-          data-tooltip-place="bottom"
+          data-tooltip-place="left"
           style={{
             color: "#AFAFAF",
-            filter: "saturate(0)",
+            // filter: "saturate(0)",
           }}
-           href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'>
-            <div>📩 Contact</div>
-          </a>
-          <Tooltip id="support-tooltip" />
+           >
+            <div>Support</div>
+          </div>
+          <Tooltip id="support-tooltip" clickable >
+            <a href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'
+
+            className='nodeco tx-white tx-altfont-2 nodeco tx-bold-2'
+            >
+              <div>𝕏 | @webduno</div>
+            </a>
+          </Tooltip>
         </div>
       </div>
       <div className='flex-wrap gap-8 '
@@ -364,27 +370,31 @@ export default function TrainingPage() {
         height: "70vh",
       }}
       >
-        <div className='flex-col pointer'
-        onClick={() => {
-          setGameState('playing');
-        }}
+        <div className='flex-col '
+        
         >
         <div className='Q_xs_sm py-4'></div>
 
         
-        <img src="/bew/eyes.png"
+        <img src="/bew/cleaneyes.png"
+        onClick={() => {
+          setGameState('playing');
+        }}
         style={{
           
         }}
-         alt="tool_bg" className='hover-jump pos-abs noverflow block w-250px' />
+         alt="tool_bg" className='pointer hover-jump pos-abs noverflow block w-150px mt-2' />
 
 
 
         <img src="/bew/starsbg2.jpeg"
+        onClick={() => {
+          setGameState('playing');
+        }}
         style={{
           
         }}
-         alt="tool_bg" className='bord-r-50 noverflow block w-250px' />
+         alt="tool_bg" className='pointer bord-r-50 noverflow block w-250px' />
 
         </div>
         <div className=' tx-altfont-2 tx-bold gap-4  flex-col w-300px'
