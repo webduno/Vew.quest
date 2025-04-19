@@ -193,7 +193,7 @@ export default function TrainingPage() {
     color: number;
     solid: number;
     confidence: number;
-  }) => {
+  }, noteData: any, drawingData: any) => {
     if (!target) return;
     console.log("target" , target);
     console.log("send" , params);
@@ -229,7 +229,11 @@ export default function TrainingPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         objList: {
-          sent: params,
+          sent: {
+            ...params,
+          },
+          notes: noteData,
+          sketch: drawingData,
           target: target?.values,
           ai_sent_guess: "n/a",
         },
@@ -293,7 +297,7 @@ export default function TrainingPage() {
     console.log("full send" , params);
     setSketchData(params.sketch);
     setNotes(params.notes);
-    handleSend(params.options);
+    handleSend(params.options, params.notes, params.sketch);
     
   }
 
