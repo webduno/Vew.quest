@@ -316,10 +316,10 @@ style={{
 
 
 
-{!!isMobile() && (<>
+{!isMobile() && (<>
 
 <details>
-<summary className='flex-row gap-2 px-4 w-80 my-2'>
+<summary className='flex-row gap-2 px-4 w-80 py-4 pointer'>
 
 
 
