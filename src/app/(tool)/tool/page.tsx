@@ -395,7 +395,7 @@ style={{borderRight: "1px solid #E5E5E5"}}
             </button>
     </div> */}
     
-    <div className='tx-white ma-4 pa-4 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
+    <div className='pos-rel tx-white ma-4 pa-4 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
     style={{
       background: "#807DDB",
       boxShadow: "0 4px 0 #6B69CF",
@@ -406,6 +406,14 @@ style={{borderRight: "1px solid #E5E5E5"}}
               }}
 className='opaci-50 pointer'>← Main Menu</div>
 <div className='tx-bold tx-lg'>Target Code #{target?.code}</div>
+<div
+onClick={() => {
+  setShowImageModal( prev => !prev);
+}}
+ className='mr-4 opaci-chov--75 flex-row gap-2 bg-b-10 flex-col h-50px w-50px bord-r-100 pos-abs right-0'>
+  {/* eye emoji */}
+  <div className='tx-lg'>👀</div>
+</div>
     </div>
 <div className='flex-1 tx-altfont-2'>
 
@@ -561,9 +569,37 @@ style={{
 
 
 
-
-
-
+      {gameState !== 'results' && showImageModal && (<>
+      <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10  z-200'>
+<div className='flex-col px-8  flex-align-center tx-altfont-2 gap-2  bg-white box-shadow-2-b bord-r-15 pa-4'>
+  <div className='flex-col w-100'>
+    <div onClick={() => {
+      setShowImageModal(false);
+    }}
+    className='opaci-chov--75 tx-bold tx-lg pb-2 '>
+      <div className='opaci-25 underline'>Close Target Image</div>
+    </div>
+  </div>
+      <img className='block pos-rel bord-r-15'
+                src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
+                alt={selectedTargetInfo?.description}
+                style={{
+                  overflow: 'hidden',
+                  width: '100%',
+                  maxWidth: '300px',
+                  maxHeight: '300px', 
+                  objectFit: 'contain'
+                }}
+              />
+              <div className="tx-center tx-altfont-2 mt-2 w-250px"
+              style={{
+                color: "#4B4B4B",
+              }}>
+                {selectedTargetInfo?.description}
+              </div>
+              </div>
+              </div>
+</>)}
 
 
 
