@@ -300,9 +300,10 @@ style={{
     color: "#4B4B4B",
   }}
   >Invite friends (CRV)</div>
-  <div className='tx-sm ' style={{color: "#afafaf"}}>
+  
+  <div className='tx-sm Q_sm_x' style={{color: "#afafaf"}}>
     <div className='flex-row gap-1'>
-      <div>Coordenated Remote Viewing</div>
+      <div>Coordinated Remote Viewing</div>
     </div>
   </div>
   </div>

@@ -33,8 +33,8 @@ export const PreLessonsContainer = () => {
       title: "Remote Viewing Protocols",
       emoji: "📋",
       href: "http://www.remoteviewed.com/remote-viewing-protocols/",
-      backgroundColor: "#aD8574",
-      boxShadowColor: "#7D5544",
+      backgroundColor: "#E8A874",
+      boxShadowColor: "#bB733E",
       actionText: "Practice"
     },
     {
