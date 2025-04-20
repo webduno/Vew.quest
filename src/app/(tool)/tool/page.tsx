@@ -687,7 +687,6 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
 
 
 
-<div className="tx-red">{crvObjects.length}asd</div>
 {!isMobile() && crvObjects.length > 0 && (<>
   <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
 <BewUserStatsSummary />
