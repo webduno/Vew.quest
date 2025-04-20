@@ -25,11 +25,16 @@ type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {
   const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, refetchStats } = useFetchedStats();
+  const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
 
   useEffect(() => {
     if (isLoading) { return; }
     if (crvObjects.length === 0) { return; }
-    console.log("crvObjects", crvObjects);
+    // console.log("crvObjects 22", crvObjects);
+    // console.log("initiallyAutoLoaded", initiallyAutoLoaded);
+    if (initiallyAutoLoaded) { return; }
+
+    setInitiallyAutoLoaded(true);
     handleStart();
 
   }, [isLoading]);
