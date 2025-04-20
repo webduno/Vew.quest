@@ -583,7 +583,7 @@ export default function TrainingPage() {
         <div className=' px-4 flex-1 flex-row flex-justify-end tx-bold pt-4'
         
         >
-          <div className='nodeco'
+          <button className='nodeco tx-bold'
           data-tooltip-id="support-tooltip"
           data-tooltip-place="left"
           style={{
@@ -592,7 +592,7 @@ export default function TrainingPage() {
           }}
            >
             <div>Support</div>
-          </div>
+          </button>
           <Tooltip id="support-tooltip" clickable >
             <a href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'
 
@@ -664,8 +664,8 @@ export default function TrainingPage() {
                 }}
               />
             </div>
-            <div 
-              className='py-2 px-8 tx-center tx-white bord-r-10 tx-lgx opaci-chov--75'
+            <button 
+              className='py-2 px-8 tx-center tx-bold tx-white bord-r-10 tx-lgx opaci-chov--75'
               onClick={handleStart}
               style={{
                 backgroundColor: "#807DDB",
@@ -673,7 +673,7 @@ export default function TrainingPage() {
               }}
             >
               Start
-            </div>
+            </button>
           </div>
 
 </>)}
