@@ -30,6 +30,7 @@ export default function TrainingPage() {
     if (crvObjects.length === 0) { return; }
     console.log("crvObjects", crvObjects);
     handleStart();
+
   }, [isLoading]);
 
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
@@ -686,7 +687,8 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
 
 
 
-{!isMobile() && (<>
+<div className="tx-red">{crvObjects.length}asd</div>
+{!isMobile() && crvObjects.length > 0 && (<>
   <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
 <BewUserStatsSummary />
   </div>

@@ -307,7 +307,7 @@ function ResultsDisplay({
 
 export default function TrainingPage() {
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
-  const { mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
+  const { crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
   const [enterUsername, setEnterUsername] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successRequest, setSuccessRequest] = useState(false);
@@ -643,7 +643,10 @@ export default function TrainingPage() {
           {
           (<>
           <div className='flex-col _dd r'>
+                {crvObjects.length > 0 && (<>
                 <BewUserStatsSummary minified />
+                </>
+                )}
           <div>
               <input 
                 type="text" 
