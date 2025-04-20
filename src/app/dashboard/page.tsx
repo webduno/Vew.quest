@@ -397,7 +397,7 @@ export default function TrainingPage() {
 
         
         
-    <div className='flex-col px-8 pos-rel w-100'
+    <div className='flex-col px-8 pos-rel '
         
         >
         {!isMobile() && (<>
@@ -426,7 +426,7 @@ export default function TrainingPage() {
 <div className=' py-4 w-100 flex-col '>
             
 
-            <div className='tx-center  w-100 flex-col bord-r-25  '
+            <div className='tx-center  px-4 flex-col bord-r-25  '
                 style={{
                     alignContent: "center",
                   background: "#FAeFa5",
