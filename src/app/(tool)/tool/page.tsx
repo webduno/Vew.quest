@@ -264,6 +264,8 @@ export default function TrainingPage() {
     
     // Refetch stats after saving new data
     await refetchStats();
+    // image modal
+    setShowImageModal(true);
   }, [target, LS_playerId, refetchStats]);
 
   const handleRequestCRV = async () => {
@@ -956,7 +958,25 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
 )} */}
 
 
-            
+            {(!!showImageModal || !!showSketchModal) && (<>
+
+              <button 
+              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
+              style={{
+                color: "#999999",
+              }}
+              onClick={() => {
+                setShowImageModal(prev => !prev);
+                if (!showImageModal) {
+                  setShowSketchModal(false);
+                }
+              }}
+            >
+              <div>Show Results</div>
+            </button>
+            </>
+            )}
+            {!showImageModal && (
             <button 
               className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
               style={{
@@ -971,6 +991,8 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
             >
               <div>{showImageModal ? "Hide Image" : "Show Image"}</div>
             </button>
+            )}
+
             <button 
               className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
               style={{
