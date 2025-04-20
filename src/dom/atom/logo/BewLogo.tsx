@@ -13,7 +13,7 @@ export const BewLogo = () => {
       }}
       tabIndex={-1}
       >
-        <div>W</div>
+        <div>Bew</div>
         {/* <div className='tx-altfont-1 '>|</div> */}
         <div style={{ transform: "scaleX(-1)" }}>WEB</div>
       </Link>

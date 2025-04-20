@@ -85,7 +85,7 @@ const random10CharString = () => {
         color: "#cc8822",
         textShadow: "0 0 10px #996622, 1px 1px 0 #000000",
       }}
-      className="ma-2 tx-altfont-5  translate-x-25 mb-0 nodeco" href="/game" onClick={() => setGameLoading(true)}>
+      className="ma-2 tx-altfont-5  translate-x-25 mb-0 nodeco" href="/game/play" onClick={() => setGameLoading(true)}>
       <KeyboardBtn classOverride="hover-jump">Continue</KeyboardBtn></Link>)}
       {!isGameLoading && !enterUsername &&
 

@@ -71,6 +71,7 @@ body, html {
 
 
 .hover-jump{animation: hoverjump 10s;  animation-iteration-count: infinite }
+.hover-jump-12{animation: hoverjump 12s;  animation-iteration-count: infinite }
 
 
 @keyframes hoverjump {
@@ -215,8 +216,28 @@ body, html {
 }
 
 
+.hover-bird{
+  animation: hover-bird 15s; 
+  animation-timing-function: linear;
+  animation-iteration-count: infinite 
+}
+@keyframes hover-bird {
+	0%{transform: translateY(-15px) scale(1)}
+	50%{transform: translateY(0px) scale(.85)}
+  100%{transform: translateY(-15px) scale(1)}
+}
+
+
 .landing-title {
-  background: -webkit-linear-gradient(90deg, #ffffff, #777777);
+  background: -webkit-linear-gradient(90deg, #a76900, #FDC908);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.hover-bird {
+  transition: all 0.1s ease;
+}
+
+.hover-bird:hover {
+  transform: translateY(-2px) scale(1.1);
 }
