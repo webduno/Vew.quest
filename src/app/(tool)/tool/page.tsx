@@ -437,13 +437,13 @@ export default function TrainingPage() {
             </div>
             <div 
               className='py-2 px-8 tx-center tx-white bord-r-10 tx-lgx opaci-chov--75'
-              onClick={handleStart}
+              onClick={isLoading ? undefined : handleStart}
               style={{
-                backgroundColor: "#807DDB",
+                backgroundColor: isLoading ? "#cccccc" : "#807DDB",
                 boxShadow: "0px 4px 0 0px #6B69CF",
               }}
             >
-              Start
+              {isLoading ? "Loading..." : "Start"}
             </div>
             {/* <div className='tx-center mt-4 hover-jump-12 w-100 flex-col bord-r-25 '
             style={{
