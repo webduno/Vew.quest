@@ -454,7 +454,7 @@ export default function TrainingPage() {
         
         </div>
         <hr className='w-100 opaci-20 mt-100'  />
-        <div className='w-100 w-max-1080px flex-row  pt-8  flex-justify-center flex-align-start gap-4'>
+        <div className='w-100 w-max-1080px flex-col  pt-8  flex-justify-center flex-align-start gap-4'>
 
         <div className='tx-center  w-100 flex-col bord-r-25 mt-0 mb-8 ' id="resources"
                 style={{
