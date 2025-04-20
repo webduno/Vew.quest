@@ -341,14 +341,14 @@ export default function TrainingPage() {
           color: "#2B29AF",
           // color: "#060961",
         }}
-        >W</div>
+        >Bew</div>
         <div className='tx-bold'
         style={{
           color: "#6B69CF",
           // color: "#2B29AF",
           // color: "#060961",
         }}
-        >Bew</div>
+        >.quest</div>
         </a>
 
 

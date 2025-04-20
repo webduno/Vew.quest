@@ -348,14 +348,14 @@ export default function TrainingPage() {
           color: "#2B29AF",
           // color: "#060961",
         }}
-        >W</div>
+        >Bew</div>
         <div className='tx-bold'
         style={{
           color: "#6B69CF",
           // color: "#2B29AF",
           // color: "#060961",
         }}
-        >Bew</div>
+        >.quest</div>
         </a>
 
 
@@ -436,7 +436,7 @@ export default function TrainingPage() {
                   boxShadow: "0px 4px 0 0px #F7CB28",
                 }}
                 >
-                <a href="/tool" className='landing-title py-4 tx-altfont-2 tx-bold-4 w-100 block tx-center'
+                <a href="/tool" className='landing-title py-4 tx-altfont-2 tx-bold-4 w-100 block tx-center nodeco'
                 style={{
                 }}
                 >
