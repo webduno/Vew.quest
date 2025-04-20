@@ -29,6 +29,7 @@ interface FetchedStatsContextType {
   isLoadingMailbox: boolean;
   mailboxError: string | null;
   fetchMailboxRequests: () => Promise<void>;
+  refetchStats: () => Promise<void>;
 }
 
 const FetchedStatsContext = createContext<FetchedStatsContextType | undefined>(undefined);
@@ -80,37 +81,43 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
     }
   }, [lastFetchTime]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const storageKey = localStorage.getItem('VB_PLAYER_ID');
-        if (!storageKey) {
-          setIsLoading(false);
-          return;
-        }
-
-        const response = await fetch(`/api/supabase?storageKey=${storageKey}`, {
-          headers: {
-            'Cache-Control': 'no-store, no-cache, must-revalidate',
-            'Pragma': 'no-cache'
-          },
-          cache: 'no-store'
-        });
-        const data = await response.json();
-        
-        if (data.success) {
-          setCrvObjects(data.data);
-        }
-      } catch (error) {
-        console.error('Error fetching CRV objects:', error);
-        setError('Failed to fetch user stats');
-      } finally {
+  const fetchData = async () => {
+    try {
+      const storageKey = localStorage.getItem('VB_PLAYER_ID');
+      if (!storageKey) {
         setIsLoading(false);
+        return;
       }
-    };
 
+      const response = await fetch(`/api/supabase?storageKey=${storageKey}`, {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+          'Pragma': 'no-cache'
+        },
+        cache: 'no-store'
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        setCrvObjects(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching CRV objects:', error);
+      setError('Failed to fetch user stats');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, []);
+
+  // Add refetchStats function
+  const refetchStats = async () => {
+    setIsLoading(true);
+    await fetchData();
+  };
 
   const calculateStreak = (objects: CRVObject[]) => {
     if (objects.length === 0) return 0;
@@ -166,7 +173,8 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
       mailboxRequests,
       isLoadingMailbox,
       mailboxError,
-      fetchMailboxRequests
+      fetchMailboxRequests,
+      refetchStats
     }}>
       {children}
     </FetchedStatsContext.Provider>

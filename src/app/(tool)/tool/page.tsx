@@ -23,8 +23,7 @@ type TargetsData = {
 type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {
-  const { isLoading,crvObjects,mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
-
+  const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, refetchStats } = useFetchedStats();
 
   useEffect(() => {
     if (isLoading) { return; }
@@ -187,7 +186,10 @@ export default function TrainingPage() {
     }
 
     if (!LS_playerId && typedUsername) {
-      setPlayerId(sanitizePlayerId(typedUsername));
+      const sanitizedId = sanitizePlayerId(typedUsername);
+      setPlayerId(sanitizedId);
+      localStorage.setItem('VB_PLAYER_ID', sanitizedId);
+      await refetchStats();
     }
 
     const newTarget = await fetchRandomFromCocoDatabase();
@@ -233,8 +235,6 @@ export default function TrainingPage() {
     setResults(calculatedResults);
     setGameState('results');
 
-
-    
     // save to supabase
     const saveResponse = await fetch('/api/supabase', {
       method: 'POST',
@@ -253,8 +253,11 @@ export default function TrainingPage() {
       })
     });
     const saveData = await saveResponse.json();
-    console.log('saveData', saveData)
-  }, [target]);
+    console.log('saveData', saveData);
+    
+    // Refetch stats after saving new data
+    await refetchStats();
+  }, [target, LS_playerId, refetchStats]);
 
   const handleRequestCRV = async () => {
     const newRequestDescription = prompt('Enter a new CRV request description:');
