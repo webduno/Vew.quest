@@ -281,7 +281,7 @@ export const AnalogMobileScreen = ({
 
 
 
-<div className='bord-r-15 py-1 px-4 opaci-chov--75' 
+<button className='bord-r-15 py-1 px-4 opaci-chov--75' 
 onClick={() => {
   alert("Coming soon!");
 }}
@@ -309,8 +309,12 @@ style={{
   </div>
   </div>
 
-  <div></div>
-</div>
+  <div>
+
+
+    
+  </div>
+</button>
 
 
 
@@ -336,7 +340,7 @@ style={{
         className='tx-bol d'
         style={{ color: "#AFAFAF" }}>
           {/* down caret emoji */}
-          ▼ Stats</div>
+          ▼ View More</div>
       )}
       <div className='flex-1'
         style={{
