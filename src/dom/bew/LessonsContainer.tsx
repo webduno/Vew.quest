@@ -66,7 +66,7 @@ export const LessonsContainer = () => {
   ];
 
   return (
-    <div className="flex-wrap w-100 gap-8 w-max-700px pb-100" id="lessonsList-container">
+    <div className="flex-wrap w-100 gap-8 w-max-700px" id="lessonsList-container">
       {lessonsList.map((lesson, index) => (
         <LessonCard 
           styleOverride={{

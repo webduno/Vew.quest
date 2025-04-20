@@ -389,7 +389,7 @@ export default function TrainingPage() {
     <div>
             <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>DASHBOARD</div>
           </div>
-    <div className='w-100 w-max-1080px flex-wrap  pt-8  flex-justify-center flex-align-start gap-4'>
+    <div className='w-100 w-max-1080px Q_xs_sm_flex-col flex-row-r  pt-8  flex-justify-center flex-align-center gap- 4'>
 
         
 
@@ -397,11 +397,14 @@ export default function TrainingPage() {
 
         
         
-    <div className='flex-col px-8 pos-rel '
+    <div className='flex-col px-4 gap-4 pos-rel'
+    style={{
+      alignSelf: "center",
+    }}
         
         >
         {!isMobile() && (<>
-          <div className='bord-r-15 mb-4 pb-2 px-4' style={{
+          <div className='bord-r-15  pb-2 px-4' style={{
             border: "1px solid #f0f0f0",
           }}>
             <BewUserStatsSummary minified />
@@ -423,7 +426,7 @@ export default function TrainingPage() {
 )}
 
 
-<div className=' py-4 w-100 flex-col '>
+<div className=' w-100 flex-col '>
             
 
             <div className='tx-center  px-4 flex-col bord-r-25  '
@@ -446,10 +449,13 @@ export default function TrainingPage() {
             </div>
     
         </div>
-
+        <div className='Q_xs_md block w-100  py-4'></div>
         <LessonsContainer />
-        <hr className='w-100 opaci-20'  />
         
+        </div>
+        <hr className='w-100 opaci-20 mt-100'  />
+        <div className='w-100 w-max-1080px flex-row  pt-8  flex-justify-center flex-align-start gap-4'>
+
         <div className='tx-center  w-100 flex-col bord-r-25 mt-0 mb-8 ' id="resources"
                 style={{
                     alignContent: "center",
