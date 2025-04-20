@@ -30,6 +30,7 @@ interface FetchedStatsContextType {
   mailboxError: string | null;
   fetchMailboxRequests: () => Promise<void>;
   refetchStats: () => Promise<void>;
+  averageResult: number;
 }
 
 const FetchedStatsContext = createContext<FetchedStatsContextType | undefined>(undefined);
@@ -147,6 +148,13 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
     return streak;
   };
 
+  const calculateAverageResult = (objects: CRVObject[]) => {
+    if (objects.length === 0) return 0;
+    
+    const totalResult = objects.reduce((sum, obj) => sum + obj.result, 0);
+    return totalResult / objects.length;
+  };
+
   const calculateDailyProgress = (objects: CRVObject[]) => {
     if (objects.length === 0) return 0;
     
@@ -161,6 +169,7 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   const streak = calculateStreak(crvObjects);
   const dailyProgress = calculateDailyProgress(crvObjects);
   const dailyGoal = 5;
+  const averageResult = calculateAverageResult(crvObjects);
 
   return (
     <FetchedStatsContext.Provider value={{
@@ -174,7 +183,8 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
       isLoadingMailbox,
       mailboxError,
       fetchMailboxRequests,
-      refetchStats
+      refetchStats,
+      averageResult
     }}>
       {children}
     </FetchedStatsContext.Provider>

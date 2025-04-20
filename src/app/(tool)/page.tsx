@@ -714,16 +714,16 @@ export default function TrainingPage() {
   <div id="menu-icon-bar" className=' h-100 Q_sm_x'
 style={{borderRight: "1px solid #E5E5E5"}}
   >
-    <a href="/tool" className='pointer'>
+    <a href="/dashboard" className='pointer'>
       <img src="/bew/pnglogo.png" alt="tool_bg9" className='px-2 py-4 ' width="50px" />
       </a>
     <div className='tx-lgx pa-2 opaci-chov--50'
     data-tooltip-id="home-tooltip"
-    data-tooltip-content="Home"
+    data-tooltip-content="Dashboard"
     data-tooltip-place="right"
-    onClick={() => {
-      setGameState('initial');
-    }}
+    // onClick={() => {
+    //   setGameState('initial');
+    // }}
     >
       {/* home emoji */}
       <div className='tx-center'>🏠</div>

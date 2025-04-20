@@ -7,15 +7,15 @@ export const PreLessonsContainer = () => {
   const lessonsList = [
     {
       title: "Remote Viewing Wiki",
-      emoji: "🔮",
+      emoji: "🌐",
       href: "https://www.reddit.com/r/remoteviewing/wiki/index/",
-      backgroundColor: "#807DDB",
-      boxShadowColor: "#6B69CF",
-      actionText: "Learn"
+      backgroundColor: "#1094dE",
+      boxShadowColor: "#006699",
+      actionText: "Open"
     },
     {
       title: "What is Remote Viewing?",
-      emoji: "❓",
+      emoji: "🤔",
       href: "https://www.reddit.com/r/remoteviewing/wiki/basics/whatisremoteviewing",
       backgroundColor: "#807DDB",
       boxShadowColor: "#6B69CF",
@@ -23,26 +23,26 @@ export const PreLessonsContainer = () => {
     },
     {
       title: "Remote Viewing History",
-      emoji: "👁️",
+      emoji: "📜",
       href: "http://www.remoteviewed.com/remote-viewing-history/",
-      backgroundColor: "#7DDB80",
-      boxShadowColor: "#6B9F6D",
+      backgroundColor: "#FFB6C1",
+      boxShadowColor: "#FF69B4",
       actionText: "Explore"
     },
     {
       title: "Remote Viewing Protocols",
-      emoji: "🎯",
+      emoji: "📋",
       href: "http://www.remoteviewed.com/remote-viewing-protocols/",
-      backgroundColor: "#5B9FE3",
-      boxShadowColor: "#4A83BD",
+      backgroundColor: "#aD8574",
+      boxShadowColor: "#7D5544",
       actionText: "Practice"
     },
     {
       title: "Remote Viewing Beginner's Guide",
-      emoji: "🧘",
+      emoji: "🧑🏻‍🏫",
       href: "https://www.reddit.com/r/remoteviewing/wiki/guide",
-      backgroundColor: "#9C7DDB",
-      boxShadowColor: "#7E65B2",
+      backgroundColor: "#7DDB80",
+      boxShadowColor: "#6B9F6D",
       actionText: "Begin"
     },
     {

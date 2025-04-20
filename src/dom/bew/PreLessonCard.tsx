@@ -19,13 +19,6 @@ export const PreLessonCard = ({
     >
       <div className='tx-center pt-2 landing -title tx-xxxl'>{emoji}</div>
       <div className='tx-center tx-mdl landing -title pb-'>{title}</div>
-      <div className="tx-center tx-smd landing -title tx-bold-4 w-150px" style={{
-        color: "#22AEFF",
-        wordWrap: 'break-word',
-        overflowWrap: 'break-word'
-      }}>
-        {href.replace("https://", "").replace("http://", "").replace("www.", "")}
-      </div>
       <div>
         <div
           className='py-2  px-8 nodeco tx-center tx-white bord-r-10 tx-lgx '
@@ -36,6 +29,13 @@ export const PreLessonCard = ({
         >
           {actionText}
         </div>
+      </div>
+      <div className="tx-center tx-smd landing -title tx-bold-4 w-150px" style={{
+        color: "#22AEFF",
+        wordWrap: 'break-word',
+        overflowWrap: 'break-word'
+      }}>
+        {href.replace("https://", "").replace("http://", "").replace("www.", "")}
       </div>
     </a>
   );

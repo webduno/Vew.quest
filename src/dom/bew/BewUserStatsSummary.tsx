@@ -8,7 +8,7 @@ export const BewUserStatsSummary = ({
   minified?: boolean;
 }) => {
   const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
-  const { streak, dailyProgress, dailyGoal, isLoading, error } = useFetchedStats();
+  const { streak, dailyProgress, dailyGoal, isLoading, error, crvObjects, averageResult } = useFetchedStats();
 
   if (isLoading) {
     return <div 
@@ -25,16 +25,16 @@ export const BewUserStatsSummary = ({
   if (minified) {
     return (
       <IconStatsBar streak={streak} 
-      points={1224}
-      hearts={5}
+      points={crvObjects.length}
+      hearts={Math.round(averageResult)}
       />
     );
   }
 
   return (<>
     <IconStatsBar streak={streak} 
-    points={1224}
-    hearts={5}
+    points={crvObjects.length}
+    hearts={Math.round(averageResult)}
     />
 
     <div className='flex-col flex-align-stretch gap-4'>
@@ -238,16 +238,16 @@ export const IconStatsBar = ({streak, points, hearts}: {streak: number, points: 
         data-tooltip-variant='info'
       >
         <div className='tx-lg tx-center'>💎</div>
-        <div className='tx-bold-5' style={{ color: "#00A6ED" }}>1224</div>
+        <div className='tx-bold-5' style={{ color: "#00A6ED" }}>{points}</div>
       </button>
       <button className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
         data-tooltip-id="hearts-tooltip"
-        data-tooltip-content="Friends"
+        data-tooltip-content="Average"
         data-tooltip-place="bottom"
         data-tooltip-variant='error'
       >
         <div className='tx-lg tx-center'>💖</div>
-        <div className='tx-bold-5' style={{ color: "#F92F60" }}>5</div>
+        <div className='tx-bold-5' style={{ color: "#F92F60" }}>{hearts}</div>
       </button>
     </div>
   );

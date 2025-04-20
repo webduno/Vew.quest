@@ -494,82 +494,46 @@ export default function TrainingPage() {
   <div id="menu-icon-bar" className=' h-100 Q_sm_x'
 style={{borderRight: "1px solid #E5E5E5"}}
   >
-    <a href="/dashboard" className='pointer'>
+    <a href="/" className='pointer'>
       <img src="/bew/pnglogo.png" alt="tool_bg7" className='px-2 py-4 ' width="50px" />
       </a>
-    <div className='tx-lgx pa-2 opaci-chov--50'
-    data-tooltip-id="home-tooltip"
-    data-tooltip-content="Dashboard"
-    data-tooltip-place="right"
-    onClick={() => {
-      setGameState('initial');
-    }}
-    >
-      {/* home emoji */}
-      <div className='tx-center'>🏠</div>
-      </div>
 
+      <MenuBarItem 
+    href="/dashboard"
+    emoji="🏠"
+    tooltip="Dashboard"
+    />
+    
+    
+    <MenuBarItem 
+    href="/dashboard#resources"
+    emoji="📚"
+    tooltip="Resources"
+    />
 
-    <div className='tx-lgx pa-2 opaci-chov--50'
-    data-tooltip-id="lessons-tooltip"
-    data-tooltip-content="Lessons"
-    data-tooltip-place="right"
-    onClick={() => {
-      alert("Coming soon!");
-    }}
-    >
-      {/* lessons emoji */}
-        <div className='tx-center'>📚</div>
-      </div>
+    <MenuBarItem 
+    href="#"
+    emoji="🎯"
+    tooltip="Goals"
+    />
 
+    <MenuBarItem 
+    href="#"
+    emoji="👤"
+    tooltip="Profile"
+    />
 
-    <div className='tx-lgx pa-2 opaci-chov--50'
-    data-tooltip-id="goals-tooltip"
-    data-tooltip-content="Goals"
-    data-tooltip-place="right"
-    onClick={() => {
-      alert("Coming soon!");
-    }}
-    >
-      {/* goals emoji */}
-      <div className='tx-center'>🎯</div>
-      </div>
+    <MenuBarItem 
+    href="#"
+    emoji="⚙️"
+    tooltip="Settings"
+    />
 
-    <div className='tx-lgx pa-2 opaci-chov--50'
-    data-tooltip-id="profile-tooltip"
-    data-tooltip-content="Profile"
-    data-tooltip-place="right"
-    onClick={() => {
-      alert("Coming soon!");
-    }}
-    >
-      {/* profile emoji */}
-      <div className='tx-center'>👤</div>
-      </div>
-
-    <div className='tx-lgx pa-2 opaci-chov--50'
-    data-tooltip-id="settings-tooltip"
-    data-tooltip-content="Settings"
-    data-tooltip-place="right"
-    onClick={() => {
-      alert("Coming soon!");
-    }}
-    >
-      {/* settings emoji */}
-      <div className='tx-center'>⚙️</div>
-      </div>
-
-    <div className='tx-lgx pa-2 opaci-chov--50'
-    data-tooltip-id="help-tooltip"
-    data-tooltip-content="Help"
-    data-tooltip-place="right"
-    onClick={() => {
-      alert("Coming soon!");
-    }}
-    >
-      {/* help emoji */}
-      <div className='tx-center'>❓</div>
-      </div>
+    <MenuBarItem 
+    href="#"
+    emoji="❓"
+    tooltip="Help"
+    />
   </div>
 </>)}
 
@@ -611,7 +575,7 @@ style={{borderRight: "1px solid #E5E5E5"}}
 //                 setShowImageModal(false);
 //                 setShowSketchModal(false);
 //               }}
-className='opaci-50 nodeco pointer'>← Dashboard</a>
+className='opaci-50 nodeco pointer'>← Go to Dashboard</a>
 <div className='tx-bold tx-lg'>Target Code #{target?.code}</div>
 
 
@@ -1112,4 +1076,24 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
   );
 } 
 
+
+
+export const MenuBarItem = ({ href, emoji, tooltip }: { href: string, emoji: string, tooltip: string }) => {
+  return (<>
+    <div className='tx-lgx flex-col opaci-chov--50'
+    data-tooltip-id={`${tooltip}-tooltip`}
+    data-tooltip-content={tooltip}
+    data-tooltip-place="right"
+    onClick={() => {
+      if (href === "#") {
+        alert("Coming soon!");
+      } 
+    }}
+    >
+      {/* home emoji */}
+      <a href={href} className='nodeco pa-2 tx-center'>{emoji}</a>
+      </div>
+      <Tooltip id={`${tooltip}-tooltip`} className='z-100' />
+      </>);
+};
 
