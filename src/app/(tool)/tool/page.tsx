@@ -15,6 +15,7 @@ import { BewUserStatsSummary } from '../../../dom/bew/BewUserStatsSummary';
 import { ResultBadge } from '../../../dom/bew/ResultBadge';
 import { isMobile } from '../../../../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
+import { MenuBarItem } from '@/dom/bew/MenuBarItem';
 
 type TargetsData = {
   [key: string]: string;
@@ -1077,23 +1078,4 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
 } 
 
 
-
-export const MenuBarItem = ({ href, emoji, tooltip }: { href: string, emoji: string, tooltip: string }) => {
-  return (<>
-    <div className='tx-lgx flex-col opaci-chov--50'
-    data-tooltip-id={`${tooltip}-tooltip`}
-    data-tooltip-content={tooltip}
-    data-tooltip-place="right"
-    onClick={() => {
-      if (href === "#") {
-        alert("Coming soon!");
-      } 
-    }}
-    >
-      {/* home emoji */}
-      <a href={href} className='nodeco pa-2 tx-center'>{emoji}</a>
-      </div>
-      <Tooltip id={`${tooltip}-tooltip`} className='z-100' />
-      </>);
-};
 
