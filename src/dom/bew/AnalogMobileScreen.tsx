@@ -281,7 +281,7 @@ export const AnalogMobileScreen = ({
 
 
 
-<div className='bord-r-10 pa-4 pl-2 opaci-chov--75' 
+<div className='bord-r-15 py-1 px-4 opaci-chov--75' 
 onClick={() => {
   alert("Coming soon!");
 }}
@@ -292,7 +292,7 @@ style={{
   <div className='flex-row flex-justify-start gap-2'>
     <div>
       {/* group of people emoji  */}
-      <div className='tx-lgx'>👥</div>
+      <div className='tx-lgx pb-2'>👥</div>
     </div>
   <div className='flex-col flex-align-start gap-2'>
   <div className='tx-bold'
@@ -336,7 +336,7 @@ style={{
         className='tx-bol d'
         style={{ color: "#AFAFAF" }}>
           {/* down caret emoji */}
-          ▼ Stats &amp; Resources</div>
+          ▼ Stats</div>
       )}
       <div className='flex-1'
         style={{
@@ -349,7 +349,7 @@ style={{
 
 
   <div className='flex-row flex-justify-center tx-altfont-2  gap-2'>
-      <a href="https://www.reddit.com/r/remoteviewing/wiki/index/"
+      <a href="/dashboard#resources"
       target="_blank"
       style={{
         border: "1px solid #E5E5E5",
@@ -358,7 +358,7 @@ style={{
       >
         {/* books emoji */}
         <div className='tx-lg tx-center'>📚</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Lessons"}</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Resources"}</div>
       </a>
       <div className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
