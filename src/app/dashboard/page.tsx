@@ -384,7 +384,7 @@ export default function TrainingPage() {
         </div>
       </div>
 
-    <div className='Q_xs py-8'></div>
+    <div className='Q_xs py-2'></div>
         
     <div>
             <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>DASHBOARD</div>
@@ -397,19 +397,16 @@ export default function TrainingPage() {
 
         
         
-    <div className='flex-col px-8 pos-rel'
+    <div className='flex-col px-8 pos-rel w-100'
         
         >
+        {!isMobile() && (<>
           <div className='bord-r-15 mb-4 pb-2 px-4' style={{
             border: "1px solid #f0f0f0",
           }}>
             <BewUserStatsSummary minified />
           </div>
-        
         <img src="/bew/birds.png"
-        onClick={() => {
-        //   setGameState('playing');
-        }}
         style={{
           filter: "blur(0px)",
         }}
@@ -418,13 +415,13 @@ export default function TrainingPage() {
 
 
         <img src="/bew/landscape1.jpeg"
-        onClick={() => {
-        //   setGameState('playing');
-        }}
         style={{
           
         }}
          alt="tool_bg1" className=' bord-r-50 noverflow block w-250px' />
+</>
+)}
+
 
 <div className=' py-4 w-100 flex-col '>
             

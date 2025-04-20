@@ -440,7 +440,7 @@ export default function TrainingPage() {
               onClick={isLoading ? undefined : handleStart}
               style={{
                 backgroundColor: isLoading ? "#cccccc" : "#807DDB",
-                boxShadow: "0px 4px 0 0px #6B69CF",
+                boxShadow: isLoading ? "0px 4px 0 0px #999999" : "0px 4px 0 0px #6B69CF",
               }}
             >
               {isLoading ? "Loading..." : "Start"}
