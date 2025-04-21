@@ -7,6 +7,7 @@ import { BewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { LessonCard } from '@/dom/bew/LessonCard';
 import { BewChoiceButton } from '@/dom/bew/BewChoiceButton';
+import { isMobile } from '../../../script/utils/platform/mobileDetection';
 
 export default function ProfilePage() {
   const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
@@ -83,7 +84,6 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        <div className='Q_xs py-8'></div>
         
         <div>
           <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>PROFILE</div>
@@ -93,7 +93,7 @@ export default function ProfilePage() {
 
           
         
-          <div className='flex-wrap  flex-align-start gap-4 pb-100 pos-rel tx-altfont-2 '
+          <div className='flex-wrap Q_xs_sm_flex-col flex-align-center gap-4 pb-100 pos-rel tx-altfont-2 '
           style={{
             color: "#777777",
           }}
@@ -102,7 +102,7 @@ export default function ProfilePage() {
 
 {/* <img src="/bew/birds.png" style={{ filter: "blur(0px)" }} alt="tool_bg2" className='hover-bird pos-abs noverflow block w-150px Q_xs_pt-8 pb-100' /> */}
 <img src="/bew/pfp/row-4-column-1.png" alt="pfp" className='bord-r-50 noverflow block w-250px' />
-<div className='bord-r-15  pb-2 ' style={{ border: "1px solid #f0f0f0" }}>
+<div className='bord-r-15 mb-4 pb-2 ' style={{ border: "1px solid #f0f0f0" }}>
               <BewUserStatsSummary minified />
               <hr className='w-100 opaci-10 '  />
               <details className='w-150px px-2'>
@@ -121,8 +121,20 @@ export default function ProfilePage() {
               </div>
               </details>
             </div>
+
+                
+            {!isMobile() && crvObjects.some(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]) ? 
+                 <LessonCard
+                 title="Viewed Today"
+                 emoji="✅"
+                 href="/"
+                 actionText={"Details"}
+                 
+                 />
+                : ''}            
 </div>
-<div className='flex-wrap flex-align-start flex-justify-start gap-4 flex-1'>
+
+<div className='flex-wrap px-4 flex-align-start flex-justify-start gap-4 flex-1'>
             
             <div className='bord-r-15  pb-2 pt-4 px-4 ' 
             // style={{ border: "1px solid #f0f0f0" }}
@@ -159,10 +171,12 @@ export default function ProfilePage() {
             </div>
 
 
-
-            <div className='w-max-600px '>
+            <div className='w-100 '>
               <div className='tx-bold tx-lg mb-2 px-4'>Badges</div>
               <div className='flex-wrap flex-align-start flex-justify-start gap-4'>
+
+
+
 {/* Badges */}
 {hasMoreThan14Days && (
 <LessonCard 
@@ -267,16 +281,17 @@ backgroundColor='#FF9600'
             text={"Latest View: "+ new Date().toISOString().split('T')[0]}
             image={<div>⭐</div>}
           />
-<div className='tx-altfont-2 w-max-600px opaci-50 mt-100 pb-8'>
+<div className='tx-altfont-2 w-max-600px px-4 opaci-50 mt-100 pb-8'>
 <div className='tx-bold tx-lg pb-4'>Arborization</div>
-<div className='tx-altfont-2'>
+<div className='tx-altfont-2 px-4'>
 The specific order on which you made your requests is important.
 <br />
 Let the algorithm generate a story based on your viewing history.
 </div>
 
 </div>
-
+<div className="px-8">
+  
 <LessonCard
 title="Arborization"
 emoji="🌳"
@@ -288,6 +303,7 @@ backgroundColor='#71B44F'
 
 />
 
+</div>
         </div>
       </div>
       </div>
