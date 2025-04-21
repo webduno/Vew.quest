@@ -180,10 +180,14 @@ export default function ProfilePage() {
 {/* Badges */}
 {hasMoreThan14Days && (
 <LessonCard 
+styleOverride={{
+  width: "100px",
+  fontSize: "12px",
+}}
 title="Regular Viewer"
 emoji="🔥"
 href="/"
-actionText={"Details"}
+actionText={""}
 
 boxShadowColor="#bb4444"
 backgroundColor='#ff7755'

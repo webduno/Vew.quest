@@ -23,6 +23,7 @@ export const LessonCard = ({
     >
       <div className='tx-center pt-2 landing -title tx-xl'>{emoji}</div>
       <div className='tx-center tx-mdl landing -title pb-'>{title}</div>
+      {!!actionText && (
       <div>
         <div
           className='py-2 px-2  nodeco tx-center tx-white bord-r-10 tx- w-100px lg '
@@ -34,6 +35,7 @@ export const LessonCard = ({
           {actionText}
         </div>
       </div>
+      )}
     </a>
   );
 };
