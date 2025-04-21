@@ -354,7 +354,6 @@ style={{
 
   <div className='flex-row flex-justify-center tx-altfont-2  gap-2'>
       <a href="/dashboard#resources"
-      target="_blank"
       style={{
         border: "1px solid #E5E5E5",
       }}
@@ -362,20 +361,19 @@ style={{
       >
         {/* books emoji */}
         <div className='tx-lg tx-center'>📚</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Lessons"}</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Assets"}</div>
       </a>
-      <button className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      <a 
+      href="/world"
+      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
         border: "1px solid #E5E5E5",
-      }}
-      onClick={() => {
-        alert("Coming soon!");
       }}
       >
         {/* target emoji */}
         <div className='tx-lg tx-center'>🛣️</div>
         <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>3D World</div>
-      </button>
+      </a>
       <a 
       href="/leaderboard"
       className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
