@@ -621,7 +621,7 @@ export default function TrainingPage() {
         style={{
           
         }}
-         alt="tool_bg3" className='pointer hover-jump pos-abs noverflow block w-150px Q_xs_pt-8' />
+         alt="tool_bg3" className={'pointer hover-jump pos-abs noverflow block  Q_xs_pt-8 '+ (isMobile() ? 'w-100px' : 'w-150px')} />
 
 
 
@@ -632,10 +632,10 @@ export default function TrainingPage() {
         style={{
           
         }}
-         alt="tool_bg4" className='pointer bord-r-50 noverflow block w-250px' />
+         alt="tool_bg4" className={'pointer bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
 
         </div>
-        <div className=' tx-altfont-2 tx-bold _dd b flex-col gap-2    flex-col w-300px'
+        <div className= {' tx-altfont-2 tx-bold _dd b flex-col gap-2    flex-col w-300px'}
         style={{color: "#777777",
         }}
         >
@@ -644,7 +644,10 @@ export default function TrainingPage() {
           (<>
           <div className='flex-col _dd r'>
                 {crvObjects.length > 0 && (<>
+                <div className="flex-row flex-justify-between flex-align-center">
                 <BewUserStatsSummary minified />
+                {/* <div className='px-2'></div> */}
+                </div>
                 </>
                 )}
           <div>
@@ -664,6 +667,29 @@ export default function TrainingPage() {
                 }}
               />
             </div>
+            <div className="flex-row">
+            <a href="/profile"
+              className='py-1 px-2 mx-2 tx-center tx-bold tx-white bord-r-10 tx-lgx opaci-chov--75'
+              onClick={handleStart}
+              style={{
+                backgroundColor: "#80DB7D",
+                boxShadow: "0px 4px 0 0px #4BaF49",
+              }}
+            >
+              
+              {crvObjects.length > 0 && (<>
+              <a href="/profile" className='nodeco tx-lg bord-r-100  bord-r-100 pointer noverflow block pa-1 '
+          
+          >
+            <img
+            style={{
+              paddingTop: "1px",
+            }}
+             src="/bew/pfp/row-4-column-1.png" alt="profile" width="30px" className=' bg-white bord-r-100 pointer noverflow block' />
+          </a>
+            </>)}
+            </a>
+            
             <button 
               className='py-2 px-8 tx-center tx-bold tx-white bord-r-10 tx-lgx opaci-chov--75'
               onClick={handleStart}
@@ -674,6 +700,8 @@ export default function TrainingPage() {
             >
               Start
             </button>
+            
+          </div>
           </div>
 
 </>)}
@@ -909,6 +937,7 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
 {!isMobile() && (<>
   <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
 <BewUserStatsSummary />
+
   </div>
 </>)}
 

@@ -560,12 +560,11 @@ style={{borderRight: "1px solid #E5E5E5"}}
     {<div className='Q_xs flex-row px-4'>
        <BewUserStatsSummary minified  />
        <div className='flex-1 flex-col flex-align-end '>
-          <a href="/profile" className='nodeco tx-lg pa-1 bord-r-100 opaci-50 hover-jump'
-          style={{
-            filter: "saturate(0)",
-            border: "1px solid #777777",
-          }}
-          >👤</a>
+          <a href="/profile" className='nodeco tx-lg bord-r-100 hover-jump bord-r-100 pointer noverflow block pa-1 pt-3'
+          
+          >
+            <img src="/bew/pfp/row-4-column-1.png" alt="profile" width="36px bord-r-100 pointer noverflow block" />
+          </a>
        </div>
     </div>}
     {<div className='Q_sm_x py-2 '> </div>}

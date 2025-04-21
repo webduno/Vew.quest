@@ -136,9 +136,23 @@ export default function ProfilePage() {
             <div className='flex-col  px-2 pos-rel '>
 
 {/* <img src="/bew/birds.png" style={{ filter: "blur(0px)" }} alt="tool_bg2" className='hover-bird pos-abs noverflow block w-150px Q_xs_pt-8 pb-100' /> */}
+<div className="pos-rel">
+<button className='pos-abs bottom-0 right-0 mb-8 bg-white bord-r-10 px-2 py-1 tx-bold pointer '
+onClick={() => {
+  // coming soon
+  alert('Coming soon!');
+}}
+style={{
+  color: "#aaaaaa",
+  border: "1px solid #f0f0f0",
+}}
+>
+  Change
+</button>
 <img src="/bew/pfp/row-4-column-1.png"
  alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
-<div className='bord-r-15 mb-4 pb-2 ' style={{ border: "1px solid #f0f0f0" }}>
+ </div>
+<div className='bord-r-15 mb-4 pb-2 flex-col ' style={{ border: "1px solid #f0f0f0" }}>
               <BewUserStatsSummary minified />
               <hr className='w-100 opaci-10 '  />
               <details className='w-150px px-2'>
@@ -236,7 +250,7 @@ backgroundColor='#ff7755'
 title="Seer"
 actionText={"Details"}
 emoji="👀"
-href="/"
+href="#"
 />
 )}
 
@@ -245,7 +259,7 @@ href="/"
 <LessonCard 
 title="Fortnighter"
 emoji="🏆"
-href="/"
+href="#"
 actionText={"Details"}
 
 boxShadowColor="#964400"
