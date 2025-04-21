@@ -282,6 +282,10 @@ title="Arborization"
 emoji="🌳"
 href="/"
 actionText="Start"
+
+boxShadowColor="#4C8A55"
+backgroundColor='#71B44F'
+
 />
 
         </div>
