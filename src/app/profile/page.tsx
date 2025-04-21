@@ -9,6 +9,7 @@ import { LessonCard } from '@/dom/bew/LessonCard';
 import { BewChoiceButton } from '@/dom/bew/BewChoiceButton';
 import { isMobile } from '../../../script/utils/platform/mobileDetection';
 import CanvasDraw from 'react-canvas-draw';
+import { BewWorldLogo } from '../../dom/bew/BewWorldLogo';
 
 const NotesCheck = ({ content }: { content: any }) => {
   return content.notes ? <div className='tx-lx pointer'
@@ -100,11 +101,7 @@ export default function ProfilePage() {
     <>
       <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
         <div className='flex-row w-100 w-max-1080px  tx-altfont-2'>
-          <a href="/" className='pointer flex-row nodeco pos-rel pt-4'>
-            <img src="/bew/pnglogo.png" alt="tool_bg" className='ml-4 w-50px' />
-            <div className='tx-bold' style={{ color: "#2B29AF" }}>Bew</div>
-            <div className='tx-bold' style={{ color: "#6B69CF" }}>.quest</div>
-          </a>
+          <BewWorldLogo />
 
           <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
             
@@ -153,7 +150,8 @@ style={{
   border: "1px solid #f0f0f0",
 }}
 >
-  Change
+  <div className='Q_sm_x'>Change</div>
+  <div className='Q_xs'>🔄</div>
 </button>
 <img src="/bew/pfp/row-4-column-1.png"
  alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
@@ -515,3 +513,4 @@ backgroundColor='#71B44F'
     </>
   );
 } 
+

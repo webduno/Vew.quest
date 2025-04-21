@@ -17,11 +17,12 @@ interface BackgroundMusicContextType {
   setShouldPlayOnFocus: (shouldPlayOnFocus: boolean) => void;
   audioRef: MutableRefObject<HTMLAudioElement | null>;
   soundEffectsRef: MutableRefObject<{ [key: string]: HTMLAudioElement }>;
+  isWorldGame: boolean;
 }
 
 const BackgroundMusicContext = createContext<BackgroundMusicContextType | undefined>(undefined);
 
-export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
+export function BackgroundMusicProvider({ children, isWorldGame = false }: { children: ReactNode, isWorldGame?: boolean }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [shouldPlayOnFocus, setShouldPlayOnFocus] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -36,7 +37,8 @@ export function BackgroundMusicProvider({ children }: { children: ReactNode }) {
         shouldPlayOnFocus,
         setShouldPlayOnFocus,
         audioRef,
-        soundEffectsRef
+        soundEffectsRef,
+        isWorldGame
       }}>
       {children}
     </BackgroundMusicContext.Provider>
@@ -56,7 +58,8 @@ export function useBackgroundMusic() {
     shouldPlayOnFocus,
     setShouldPlayOnFocus,
     audioRef,
-    soundEffectsRef
+    soundEffectsRef,
+    isWorldGame
   } = context;
 
   useEffect(() => {

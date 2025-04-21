@@ -129,13 +129,13 @@ const random10CharString = () => {
         style={{
           color: "#222222",
         }}
-        className=" nodeco" href="/services">
+        className=" nodeco" href="/game/services">
         <KeyboardBtn>Services</KeyboardBtn></Link>
         <Link
         style={{
           color: "#333333",
         }}
-          className=" nodeco" href="/config">
+          className=" nodeco" href="/game/config">
         <KeyboardBtn>
           {/* cog emoji */}
           <span className="">Config</span>

@@ -34,8 +34,8 @@ export const SolidBox = ({
   return (
     <mesh ref={ref as React.Ref<Mesh>} onClick={onClick}
     receiveShadow castShadow={castShadow}>
-      <boxGeometry args={boxSize} />
-      <meshStandardMaterial color={color} />
+      <boxGeometry args={boxSize}  />
+      <meshStandardMaterial color={color}  />
     </mesh>
   );
 };
