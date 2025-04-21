@@ -35,7 +35,7 @@ function CityHall({ tokensArrayArray, state, calls }: any) {
 
       {/* Text */}
       <group position={new Vector3(-0.1, 0.04, 0.045)} >
-        <group position={new Vector3(-0.1, 0.02, -0.)}>
+        <group position={new Vector3(-0.1, -0.08, -0.05)}>
           <Text fontSize={0.12}
             color={!!tokensArrayArray ? state?.tokenColor : "#292222"}
             position={new Vector3(0.1, 0.4, 0.01)}
@@ -48,7 +48,7 @@ function CityHall({ tokensArrayArray, state, calls }: any) {
 
       <group position={new Vector3(-0.1, 0, -0.2)} >
         {/* BUILDING BASE - Wider */}
-        <Cylinder args={[0.4, 0.45, 0.2, 6]} position={[0.0, -0.3, -0.02]}
+        <Cylinder args={[0.4, 0.45, 0.1, 6]} position={[0.0, -0.3, -0.02]}
           receiveShadow castShadow
           rotation={[0, Math.PI / 6, 0]}
         >
@@ -72,17 +72,17 @@ function CityHall({ tokensArrayArray, state, calls }: any) {
         </group>
 
         {/* PILLARS - Fewer but larger pillars */}
-        <Cylinder args={[0.03, 0.04, 0.7, 6]} position={[-0.25, 0.05, 0.17]}
+        <Cylinder args={[0.02, 0.04, 0.7, 6]} position={[-0.25, 0.05, 0.17]}
           receiveShadow castShadow rotation={[0, Math.PI / 6, 0]}
         >
           <meshStandardMaterial color={"#ffffff"} />
         </Cylinder>
-        <Cylinder args={[0.03, 0.04, 0.7, 6]} position={[0.25, 0.05, 0.17]} 
+        <Cylinder args={[0.02, 0.04, 0.7, 6]} position={[0.25, 0.05, 0.17]} 
           receiveShadow castShadow rotation={[0, Math.PI / 6, 0]}
         >
           <meshStandardMaterial color={"#ffffff"} />
         </Cylinder>
-        <Cylinder args={[0.03, 0.04, 0.7, 6]} position={[0.0, 0.05, 0.17]} 
+        <Cylinder args={[0.02, 0.04, 0.7, 6]} position={[0.0, 0.05, 0.17]} 
           receiveShadow castShadow rotation={[0, Math.PI / 6, 0]}
         >
           <meshStandardMaterial color={"#ffffff"} />
@@ -90,17 +90,17 @@ function CityHall({ tokensArrayArray, state, calls }: any) {
 
         {/* PILLAR BASES */}
         <group position={[0, -0.22, 0]}>
-          <Cylinder args={[0.045, 0.05, 0.05, 6]} position={[-0.25, 0.04, 0.17]} 
+          <Cylinder args={[0.045, 0.05, 0.05, 6]} position={[-0.25, -0.02, 0.17]} 
             receiveShadow castShadow rotation={[0, Math.PI / 6, 0]}
           >
             <meshStandardMaterial color={"#eeeeee"} />
           </Cylinder>
-          <Cylinder args={[0.045, 0.05, 0.05, 6]} position={[0.0, 0.04, 0.17]} 
+          <Cylinder args={[0.045, 0.05, 0.05, 6]} position={[0.0, -0.02, 0.17]} 
             receiveShadow castShadow rotation={[0, Math.PI / 6, 0]}
           >
             <meshStandardMaterial color={"#eeeeee"} />
           </Cylinder>
-          <Cylinder args={[0.045, 0.05, 0.05, 6]} position={[0.25, 0.04, 0.17]} 
+          <Cylinder args={[0.045, 0.05, 0.05, 6]} position={[0.25, -0.02, 0.17]} 
             receiveShadow castShadow rotation={[0, Math.PI / 6, 0]}
           >
             <meshStandardMaterial color={"#eeeeee"} />

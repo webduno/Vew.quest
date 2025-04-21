@@ -226,7 +226,7 @@ style={{
 
           <PlayerPhysicsScene
             isCutSceneOpen={isCutSceneOpen}
-            playerHeight={1.8}
+            playerHeight={1.2}
             playerRadius={0.4}
             moveSpeed={focusStageRef.current === 0 ? 8 : 0}
             jumpForce={focusStageRef.current === 0 ? 8 : 0}
