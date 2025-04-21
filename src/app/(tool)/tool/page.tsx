@@ -560,7 +560,7 @@ style={{borderRight: "1px solid #E5E5E5"}}
     {<div className='Q_xs flex-row px-4'>
        <BewUserStatsSummary minified  />
        <div className='flex-1 flex-col flex-align-end '>
-          <a href="/profile" className='nodeco tx-lg pa-1 bord-r-100 opaci-50'
+          <a href="/profile" className='nodeco tx-lg pa-1 bord-r-100 opaci-50 hover-jump'
           style={{
             filter: "saturate(0)",
             border: "1px solid #777777",

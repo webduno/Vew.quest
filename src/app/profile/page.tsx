@@ -163,8 +163,8 @@ export default function ProfilePage() {
                  <LessonCard
                  title="Viewed Today"
                  emoji="✅"
-                 href="/"
-                 actionText={"Details"}
+                 href="/tool"
+                 actionText={"New Target"}
                  
                  />
                 : ''}            
