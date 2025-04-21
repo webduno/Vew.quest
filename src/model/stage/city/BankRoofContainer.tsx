@@ -8,7 +8,9 @@ extend({ ExtrudeGeometry, ExtrudeBufferGeometry: ExtrudeGeometry })
 
 
 
-export default function BankRoofContainer({ position=[0,0,0], points=null,  length, width, wallWidth, roofWidth }:any) {
+export default function BankRoofContainer({ 
+    color="#ffffff",
+    position=[0,0,0], points=null,  length, width, wallWidth, roofWidth }:any) {
     const { viewport } = useThree();
 
     const roofShape = [
@@ -72,7 +74,7 @@ export default function BankRoofContainer({ position=[0,0,0], points=null,  leng
         ref={meshRef} // geometry={new THREE.BufferGeometry().setFromPoints(vertices)} material={basic_material}
     >
         <extrudeBufferGeometry attach="geometry" args={[shape, extrudeSettings]} />
-        <meshStandardMaterial color="#ffffff" side={DoubleSide} />
+        <meshStandardMaterial color={color} side={DoubleSide} />
 
     </mesh>    
     )

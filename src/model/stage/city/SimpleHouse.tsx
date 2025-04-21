@@ -10,17 +10,18 @@ function SimpleHouse() {
         {/* BUILDING BODY */}
         <mesh castShadow receiveShadow position={[0.1, 0, 0]}>
           <boxGeometry args={[0.4, 0.35, 0.3]} />
-          <meshStandardMaterial color={"#e6e6e6"} />
+          <meshStandardMaterial color={"#ffe0b6"} />
         </mesh>
 
         {/* ROOF */}
-        <group scale={[0.24, 0.12, 0.24]} position={[0.23, -0.1, 0.5]}>
+        <group scale={[0.24, 0.12, 0.24]} position={[0.23, -0.1, 0.48]}>
           <BankRoofContainer 
-            roofWidth={0.05} 
+          color="#ff9999"
+            roofWidth={0.1} 
             width={0.5} 
-            position={[-0.5, 2, -3]} 
+            position={[-0.5, 2, -2.8]} 
             wallWidth={0.05}
-            length={2}
+            length={1.6}
           />
         </group>
       </group>

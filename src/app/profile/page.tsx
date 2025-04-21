@@ -76,6 +76,15 @@ export default function ProfilePage() {
   const [showSketch, setShowSketch] = useState<any>(null);
 
   useEffect(() => {
+    // Handle hash navigation after page load
+    if (window.location.hash) {
+      const element = document.getElementById(window.location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
+  useEffect(() => {
     if (crvObjects.length > 0) {
       const today = new Date().toISOString().split('T')[0];
       const todayObjects = crvObjects.filter(obj => 

@@ -4,7 +4,7 @@ import { Box, Cylinder, Sphere } from '@react-three/drei';
 import { Vector3, Object3D } from 'three';
 import { useRef } from 'react';
 import Bank from '../city/Bank';
-import CityHall from '../city/CityHall';
+import CityHall, { TechHall } from '../city/CityHall';
 import SimpleHouse from '../city/SimpleHouse';
 import { Tree } from '../nature/Tree';
 import { CollisionBox } from '@/model/core/CollisionBox';
@@ -40,6 +40,10 @@ shadow-camera-bottom={-50}
     <group scale={[10,10,10]} rotation={[0, -Math.PI/2, 0]} position={[6,4.5,-15]}>
       <CityHall position={[0,0,0]} />
     </group>
+<group position={[12,2,-8]}>
+<TechHall />
+</group>
+
 
     <group position={[-8,4.5,-12.75]} scale={[10,10,10]} rotation={[0, Math.PI/2, 0]}>
       <SimpleHouse />
@@ -62,18 +66,73 @@ shadow-camera-bottom={-50}
 
 
     <group position={[0, 0, 0]}>
-      <Box args={[10, .1, 10]} castShadow  receiveShadow>
-        <meshStandardMaterial color="#99ff99" />
-      </Box>
 
-      <Box args={[10, .1, 10]} 
-position={[0,0,-12]}
+    <Box args={[5, .1, 42]}
+        position={[3.2,0,0]}
+         castShadow  receiveShadow>
+          <meshStandardMaterial  color="#dddddd" />
+        </Box>
+        
+        
+    <Box args={[.2, .11, 3]}
+        position={[3.2,0,0]}
+           receiveShadow>
+          <meshStandardMaterial  color="#ffffff" />
+        </Box>
+        
+        <Box args={[.2, .11, 3]}
+            position={[3.2,0,8]}
+               receiveShadow>
+              <meshStandardMaterial  color="#ffffff" />
+            </Box>
+            
+        <Box args={[.2, .11, 3]}
+            position={[3.2,0,-8]}
+               receiveShadow>
+              <meshStandardMaterial  color="#ffffff" />
+            </Box>
+        
+        <Box args={[.2, .11, 3]}
+            position={[3.2,0,16]}
+               receiveShadow>
+              <meshStandardMaterial  color="#ffffff" />
+            </Box>
+            
+        <Box args={[.2, .11, 3]}
+            position={[3.2,0,-16]}
+               receiveShadow>
+              <meshStandardMaterial  color="#ffffff" />
+            </Box>
+        
+
+
+
+        <Box args={[5, .1, 10]}
+        position={[-3,0,0]}
+         castShadow  receiveShadow>
+          <meshStandardMaterial  color="#99ff99" />
+        </Box>
+
+        <Box args={[5, .1, 10]} 
+  position={[-3,0,-12]}
+  castShadow  receiveShadow>
+    <meshStandardMaterial color="#99ff99" />
+  </Box>
+
+<Box args={[5, .1, 10]} 
+position={[-3,0,12]}
 castShadow  receiveShadow>
   <meshStandardMaterial color="#99ff99" />
 </Box>
 
 
 
+
+
+
+
+{/* Tree */}
+<Tree position={[-12, 0, -3]} />
 
 {/* main point of interest */}
 <Box args={[10, .1, 10]} 
@@ -82,8 +141,6 @@ castShadow  receiveShadow>
   <meshStandardMaterial color="#99ff99" />
 </Box>
 
-{/* Tree */}
-<Tree position={[-12, 0, -3]} />
 
 
 
@@ -102,6 +159,9 @@ position={[-10,0,-10]}
 castShadow  receiveShadow>
   <meshStandardMaterial color="#99ff99" />
 </Box>
+
+
+
 
 {/* water */}
 <Box args={[10, .1, 24]} 
@@ -132,11 +192,6 @@ castShadow receiveShadow>
   <meshStandardMaterial color="#dddddd" />
 </Box>
 
-<Box args={[10, .1, 10]} 
-position={[0,0,12]}
-castShadow  receiveShadow>
-  <meshStandardMaterial color="#99ff99" />
-</Box>
 
     </group>
 
@@ -151,6 +206,9 @@ export const BewWorldPlazaWithPlayer = () => {
       <Cylinder args={[26.4,26,1]} position={[0,-.501,-2]} receiveShadow>
         <meshStandardMaterial color="#ffffff" />
       </Cylinder>
+
+      <SolidBox size={[0.9,5,0.9]} position={[10,0,-4.5]} visible={false} />
+      <SolidBox size={[0.9,5,0.9]} position={[14,0,-4.5]} visible={false} />
 
 
       <CollisionBox position={[12,0,-16]} size={[2,2,2]}

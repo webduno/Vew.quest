@@ -20,7 +20,23 @@ export const LessonsContainer = () => {
       href: "/profile",
       backgroundColor: "#5BA386",
       boxShadowColor: "#4A856D",
-      actionText: "Open Goal & Progress Board"
+      actionText: "Open Your Profile"
+    },
+    {
+      title: "Your Journey",
+      emoji: "💭",
+      href: "/profile#journey",
+      backgroundColor: "#C3B4D0",
+      boxShadowColor: "#9F86A8",
+      actionText: "Review History"
+    },
+    {
+      title: "3D World",
+      emoji: "🏝️",
+      href: "/world",
+      backgroundColor: "#96C34A",
+      boxShadowColor: "#66a31A",
+      actionText: "Enter Main Plaza & Play"
     },
     {
       title: "Global Ranking",
@@ -29,22 +45,6 @@ export const LessonsContainer = () => {
       backgroundColor: "#aD8574",
       boxShadowColor: "#7D5544",
       actionText: "Public Leaderboard"
-    },
-    {
-      title: "Your Journey",
-      emoji: "💭",
-      href: "/profile#journey",
-      backgroundColor: "#C3B4D0",
-      boxShadowColor: "#9F86A8",
-      actionText: "Review Logs & Viewing History"
-    },
-    {
-      title: "Daily Goals",
-      emoji: "🧠",
-      href: "#",
-      backgroundColor: "#FFB6C1",
-      boxShadowColor: "#FF69B4",
-      actionText: "Check Goals"
     },
     {
       title: "Weekly Challenges",

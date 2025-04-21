@@ -56,7 +56,7 @@ function Bank({ tokensArrayArray, state, calls }: any) {
         {/* BUILDING BODY */}
         <mesh castShadow receiveShadow position={[0.0, 0.13, -0.23]} >
           <boxGeometry args={[0.44, 0.5, 0.32]} />
-          <meshStandardMaterial color={"#cccccc"}
+          <meshStandardMaterial color={"#ffffff"} emissive={"#111111"} 
           />
         </mesh>
       </group>
@@ -67,7 +67,7 @@ function Bank({ tokensArrayArray, state, calls }: any) {
           receiveShadow castShadow
           rotation={[0, Math.PI / 4 * 3, 0]}
         >
-          <meshStandardMaterial color={"#ccc4c0"} />
+          <meshStandardMaterial color={"#dddddd"} />
         </Cylinder>
         {/* STAIRS */}
         <group position={new Vector3(-0.17, -0.07, -0.)} >
@@ -132,30 +132,30 @@ function Bank({ tokensArrayArray, state, calls }: any) {
           <Cylinder args={[0.035, 0.04, 0.05, 4]} position={[-0.2, 0.04, 0.17]} 
             receiveShadow castShadow rotation={[0, Math.PI / 4 * 3, 0]}
           >
-            <meshStandardMaterial color={"#eeeeee"} />
+            <meshStandardMaterial color={"#f5f5f5"} />
           </Cylinder>
           <Cylinder args={[0.035, 0.04, 0.05, 4]} position={[-0.1, 0.04, 0.17]} 
             receiveShadow castShadow rotation={[0, Math.PI / 4 * 3, 0]}
           >
-            <meshStandardMaterial color={"#eeeeee"} />
+            <meshStandardMaterial color={"#f5f5f5"} />
           </Cylinder>
 
 
           <Cylinder args={[0.035, 0.04, 0.05, 4]} position={[0.0, 0.04, 0.17]} 
             receiveShadow castShadow rotation={[0, Math.PI / 4 * 3, 0]}
           >
-            <meshStandardMaterial color={"#eeeeee"} />
+            <meshStandardMaterial color={"#f5f5f5"} />
           </Cylinder>
           <Cylinder args={[0.035, 0.04, 0.05, 4]} position={[0.1, 0.04, 0.17]} 
             receiveShadow castShadow rotation={[0, Math.PI / 4 * 3, 0]}
           >
-            <meshStandardMaterial color={"#eeeeee"} />
+            <meshStandardMaterial color={"#f5f5f5"} />
           </Cylinder>
 
           <Cylinder args={[0.035, 0.04, 0.05, 4]} rotation={[0, Math.PI / 4 * 3, 0]} 
             position={[0.2, 0.04, 0.17]} receiveShadow castShadow
           >
-            <meshStandardMaterial color={"#eeeeee"} />
+            <meshStandardMaterial color={"#f5f5f5"} />
           </Cylinder>
         </group>
       </group>
