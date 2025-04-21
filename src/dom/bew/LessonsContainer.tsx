@@ -17,7 +17,7 @@ export const LessonsContainer = () => {
     {
       title: "Your Achievements",
       emoji: "⚡",
-      href: "/tool",
+      href: "/profile",
       backgroundColor: "#5BA386",
       boxShadowColor: "#4A856D",
       actionText: "Open Goal & Progress Board"
@@ -33,7 +33,7 @@ export const LessonsContainer = () => {
     {
       title: "Your Journey",
       emoji: "💭",
-      href: "#",
+      href: "/profile#journey",
       backgroundColor: "#C3B4D0",
       boxShadowColor: "#9F86A8",
       actionText: "Review Logs & Viewing History"
