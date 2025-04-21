@@ -372,7 +372,7 @@ backgroundColor='#71B44F'
       >
         Remote Viewing History
       </div>
-      <div className='tx-altfont-2 opaci-50 tx-md flex-row px-4'>
+      <div className='tx-altfont-2 opaci-50 tx-xsm flex-row px-4 '>
         <div className=''>Date</div>
         <div className='flex-1 pl-8'>Report</div>
         <div className=''>Result/Sketch/Notes</div>
