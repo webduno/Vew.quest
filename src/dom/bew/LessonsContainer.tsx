@@ -32,7 +32,7 @@ export const LessonsContainer = () => {
     },
     {
       title: "3D World",
-      emoji: "🏝️",
+      emoji: "🛣️",
       href: "/world",
       backgroundColor: "#96C34A",
       boxShadowColor: "#66a31A",
