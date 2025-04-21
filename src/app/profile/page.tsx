@@ -409,9 +409,10 @@ backgroundColor='#71B44F'
             </div>
             <div className=''><SketchCheck onClick={() => {
               setCurrentSketch(obj.content.sketch);
+              console.log(obj.content);
               if (obj.content.target) {
                 setCurrentImage({
-                  id: obj.content.target.code,
+                  id: obj.content?.target_id || "default",
                   description: obj.content.target.description || ''
                 });
               }
@@ -477,20 +478,21 @@ backgroundColor='#71B44F'
                   }}
                 />
               )}
-              {modalView === 'image' && currentImage && (
-                <img className='block pos-rel'
-                  src={`/data/image/${currentImage.id.padStart(12, '0')}.jpg`}
-                  alt={currentImage.description}
-                  style={{
-                    overflow: 'hidden',
-                    borderRadius: "3px",
-                    width: '100%',
-                    maxWidth: '300px',
-                    maxHeight: '300px',
-                    objectFit: 'contain'
-                  }}
-                />
-              )}
+              {modalView === 'image' && currentImage && (<>
+              {/* {JSON.stringify(currentImage)} */}
+                 <img className='block pos-rel'
+                   src={`/data/image/${currentImage.id == "default" ? "default" : currentImage.id.padStart(12, '0')}.jpg`}
+                   alt={currentImage.description}
+                   style={{
+                     overflow: 'hidden',
+                     borderRadius: "3px",
+                     width: '100%',
+                     maxWidth: '300px',
+                     maxHeight: '300px',
+                     objectFit: 'contain'
+                   }}
+                 />
+                </>)}
             </div>
             <div className="tx-center tx-altfont-2 mt-2 w-250px"
               style={{

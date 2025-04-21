@@ -255,6 +255,7 @@ export default function TrainingPage() {
           sketch: drawingData,
           target: target?.values,
           ai_sent_guess: "n/a",
+          target_id: selectedTargetInfo?.id.padStart(12, '0'),
         },
         storageKey: LS_playerId
       })
@@ -321,7 +322,7 @@ export default function TrainingPage() {
     console.log("full send" , params);
     setSketchData(params.sketch);
     setNotes(params.notes);
-    handleSend(params.options, params.notes, params.sketch);
+    handleSend(params.options, params.notes, params.sketch, );
     
   }
 
