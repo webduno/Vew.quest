@@ -30,6 +30,7 @@ import targetsData from '@/../public/data/targets_1.json';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { BewWorldPlaza, BewWorldPlazaWithPlayer } from './BewWorldPlaza';
 import { SolidBox } from '@/model/core/SolidBox';
+import { WorldMobileControlOverlay } from '@/dom/molecule/game/WorldMobileControlOverlay';
 
 type TargetsData = {
   [key: string]: string;
@@ -254,7 +255,7 @@ style={{
 
 
 
-      {isMobileDevice && <MobileControlOverlay />}
+      {isMobileDevice && <WorldMobileControlOverlay />}
       <div id="crosshair" 
       className='pos-fix top-50p left-50p opaci-20 noclick block bord-r-100 tx-white tx-shadow-5'
       style={{
