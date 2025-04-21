@@ -7,6 +7,7 @@ import Bank from '../city/Bank';
 import CityHall from '../city/CityHall';
 import SimpleHouse from '../city/SimpleHouse';
 import { Tree } from '../nature/Tree';
+import { CollisionBox } from '@/model/core/CollisionBox';
 
 export const BewWorldPlaza = () => {
 
@@ -150,6 +151,17 @@ export const BewWorldPlazaWithPlayer = () => {
       <Cylinder args={[26.4,26,1]} position={[0,-.501,-2]} receiveShadow>
         <meshStandardMaterial color="#ffffff" />
       </Cylinder>
+
+
+      <CollisionBox position={[12,0,-16]} size={[2,2,2]}
+      onCollide={() => {
+        window.location.href = '/game/play';
+      }}
+        />
+
+      <SolidBox color='#eeeeee' position={[12,1,-14]} size={[5,3,1]}  />
+      <SolidBox color='#ffffff' position={[12,2.2,-16]} size={[5.5,1,6]}  />
+      <SolidBox color='#eeeeee' position={[12,1,-18]} size={[5,3,1]}  />
 
       
 <group>
