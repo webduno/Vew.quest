@@ -37,7 +37,7 @@ function CityHall({ tokensArrayArray, state, calls }: any) {
       {/* Text */}
       <group position={new Vector3(-0.1, 0.04, 0.036)} >
         <group position={new Vector3(-0.1, -0.08, -0.05)}>
-          <Text fontSize={0.09} font="/fonts/raleway.ttf"
+          <Text fontSize={0.08} font="/fonts/raleway.ttf"
             color={!!tokensArrayArray ? state?.tokenColor : "#292222"}
             position={new Vector3(0.1, 0.4, 0.01)}
             rotation={[0, 0, 0]}
