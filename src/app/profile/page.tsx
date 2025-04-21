@@ -302,8 +302,7 @@ backgroundColor='#FF9600'
         }}
             secondaryColor="#D07900"
             mainColor="#FF9600"
-            // onClick={() => handleInputTypeChange('multi-options')}
-            text={"First View: "+ new Date().toLocaleDateString()}
+            text={"First View: "+ (userStats.firstRequestDate ? new Date(userStats.firstRequestDate).toLocaleDateString() : 'No views yet')}
             image={<div>⭐</div>}
           />
           <div className="w-100 flex-justify-center mt-4 mb-8 ">
@@ -313,7 +312,7 @@ backgroundColor='#FF9600'
           </div>
           <div className='flex-col gap-2 w-100'>
             <div className='tx-altfont-2 w-max-300px opaci-50'>
-            You made your first remote viewing on {new Date().toDateString()}  with an high accuracy.
+            {userStats.firstRequestDate ? `You made your first remote viewing on ${new Date(userStats.firstRequestDate).toDateString()} with an high accuracy.` : 'No remote viewings yet.'}
             <br />
             <br />
             And have made {userStats.totalRequests} requests since then.
@@ -334,8 +333,7 @@ backgroundColor='#FF9600'
         }}
             secondaryColor="#6366f1"
             mainColor="#8a8af7"
-            // onClick={() => handleInputTypeChange('multi-options')}
-            text={"Latest View: "+ new Date().toISOString().split('T')[0]}
+            text={"Latest View: "+ (crvObjects.length > 0 ? crvObjects[0].created_at.split('T')[0] : 'No views yet')}
             image={<div>⭐</div>}
           />
 <div className='tx-altfont-2 w-max-600px px-4 opaci-50 mt-100 pb-8'>
