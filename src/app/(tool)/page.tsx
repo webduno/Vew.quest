@@ -668,6 +668,8 @@ export default function TrainingPage() {
               />
             </div>
             <div className="flex-row">
+              
+              {crvObjects.length > 0 && (<>
               <Tooltip id="profile-tooltip" />
             <a href="/profile"
             data-tooltip-id="profile-tooltip"
@@ -682,8 +684,7 @@ export default function TrainingPage() {
               }}
             >
               
-              {crvObjects.length > 0 && (<>
-              <a href="/profile" className='nodeco tx-lg bord-r-100  bord-r-100 pointer noverflow block pa-1 '
+              <div className='nodeco tx-lg bord-r-100  bord-r-100 pointer noverflow block pa-1 '
           
           >
             <img
@@ -691,9 +692,9 @@ export default function TrainingPage() {
               paddingTop: "1px",
             }}
              src="/bew/pfp/row-4-column-1.png" alt="profile" width="30px" className=' bg-white bord-r-100 pointer noverflow block' />
-          </a>
-            </>)}
+          </div>
             </a>
+            </>)}
             
             <button 
               className='py-2 px-8 tx-center tx-bold tx-white bord-r-10 tx-lgx opaci-chov--75'
