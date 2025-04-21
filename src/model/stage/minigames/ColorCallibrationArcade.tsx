@@ -188,7 +188,6 @@ export const ColorCallibrationArcade = ({
         misses={misses}
         onRound={
           (roundNumber) => {
-            console.log("roundNumber", roundNumber);
             setTimeout(() => {
               playSoundEffect("/sfx/short/passbip.mp3");
             }, 100);

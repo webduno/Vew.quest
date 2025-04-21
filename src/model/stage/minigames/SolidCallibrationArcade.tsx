@@ -90,7 +90,6 @@ export const SolidCallibrationArcade = ({
      position={[-11, !solidCalibrationStarted? 1.05: 0.95, 13.6]} 
      rotation={[0, 0, 0]} args={[.5, .2, .2]}
       onClick={()=>{
-        console.log("clicked");
         handleStart();
       }}
     >
@@ -177,7 +176,6 @@ export const SolidCallibrationArcade = ({
         misses={misses}
         onRound={
           (roundNumber) => {
-            console.log("roundNumber", roundNumber);
             setTimeout(() => {
               playSoundEffect("/sfx/short/passbip.mp3");
             }, 100);

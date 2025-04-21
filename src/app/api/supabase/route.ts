@@ -34,7 +34,6 @@ export async function GET(request: Request) {
       .is('request_id', null)
       .order('created_at', { ascending: false });
 
-    console.log("crv_object data list", data)
 
     if (error) {
       console.error('Supabase database error:', error);

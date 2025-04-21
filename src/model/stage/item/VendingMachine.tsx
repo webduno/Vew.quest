@@ -45,7 +45,6 @@ export const VendingMachine = () => {
     
     localStorage.setItem('VB_MINDSTATS', JSON.stringify(newStats));
     window.postMessage('localStorageChanged', '*');
-    console.log(`Bought ${items[selectedItem].name}`);
   };
 
   return (

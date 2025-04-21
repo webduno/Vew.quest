@@ -414,7 +414,6 @@ backgroundColor='#71B44F'
             </div>
             <div className=''><SketchCheck onClick={() => {
               setCurrentSketch(obj.content.sketch);
-              console.log(obj.content);
               if (obj.content.target) {
                 setCurrentImage({
                   id: obj.content?.target_id || "default",

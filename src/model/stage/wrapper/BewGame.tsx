@@ -80,7 +80,6 @@ export const BewGame = () => {
   const [wasPsionicHallwayEntered, setWasPsionicHallwayEntered] = useState(false);
   // const wasFirstDoorOpened = useRef(false);
   const handleFirstDoorOpened = useCallback(() => {
-    console.log("handleFirstDoorOpened")
     setWasFirstDoorOpened(true);
   }, []);
   // const [showStats, setShowStats] = useState(true);
@@ -164,7 +163,6 @@ export const BewGame = () => {
       accuracyres.colorAccuracy +
       accuracyres.solidAccuracy) )
       console.table(accuracyres)
-      console.log('rewardAmount', rewardAmount)
     setLastCashReward(rewardAmount * 3)
     const currentCash = mindStats.cash || 0;
     updateMindStats('cash', currentCash + rewardAmount * 3)
@@ -193,7 +191,6 @@ const secondPart = wholeResponse.split(' ').slice(6,12).join(' ') || ''
 const thirdPart = wholeResponse.split(' ').slice(12,18).join(' ') || ''
 const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
       
-      console.log('saving to supabase')
       const saveResponse = await fetch('/api/supabase', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -207,7 +204,6 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
         })
       });
       const saveData = await saveResponse.json();
-      console.log('saveData', saveData)
 
 
       setTimeout(() => {
@@ -265,7 +261,6 @@ const restPart = wholeResponse.split(' ').slice(18).join(' ') || ''
     // Deduct 1 solid calibration point
     updateMindStats('solid', mindStats.solid - 1);
 
-    console.log("handleChairSit")
     // Set initial position to chair position
     setInitialPosition([2.5, 0, -21.5])
     // Set current position to chair position
@@ -419,15 +414,6 @@ const sendCRVRequestAttempt = async ( crvData: {
   solid: number;
 }, requestId?: string) => {
 
-console.log('sendCRVRequestAttempt', crvData,
-  {
-    objList: {
-      sent: crvData,
-    },
-    storageKey: LS_playerId,
-    requestId: requestId
-  }
-)
 
 // send to supabase
 const response = await fetch('/api/supabase', {
@@ -583,7 +569,6 @@ setIsTakingRequest(null);
           playerRotation={{x:0, y:0, z:0}}
           onSend={
             (crvData, requestId)=>{
-              console.log('onSend', crvData, requestId)
               return sendCRVRequestAttempt(crvData, isTakingRequest)
             }}
         />

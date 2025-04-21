@@ -72,7 +72,6 @@ export const BewWorldGame = () => {
   const [wasFirstDoorOpened, setWasFirstDoorOpened] = useState(false);
   // const wasFirstDoorOpened = useRef(false);
   const handleFirstDoorOpened = useCallback(() => {
-    console.log("handleFirstDoorOpened")
     setWasFirstDoorOpened(true);
   }, []);
   // const [showStats, setShowStats] = useState(true);
@@ -163,16 +162,14 @@ style={{
 </div>
 
 
-      <Canvas camera={{ fov: 85, position: [-25,25,25] }} 
+ 
+
+        {isMapView &&<>
+      <Canvas camera={{ fov: 40, position: [-45,45,45] }} 
       // shadows={LS_lowGraphics ? false : true}
       shadows={true}
 
       >
-        {/* Performance stats component inside Canvas */}
-        {showStats && <PerformanceStats onStatsUpdate={setPerformanceStats} />}
- 
-
-        {isMapView &&<>
       <MapControls ref={mapControlsRef}
       maxPolarAngle={Math.PI / 2.05}
       target={[0, 0, 0]}
@@ -184,17 +181,23 @@ style={{
       {/* <Plane args={[60, 60]} receiveShadow rotation-x={-Math.PI/2} position={[0,0,0]}>
         <meshStandardMaterial color="white" />
       </Plane> */}
-      <Cylinder args={[26,10,11,9]} position={[0,-5.501,-2]}>
+      <Cylinder args={[26,19,11,9]} position={[0,-5.501,-2]} receiveShadow>
         <meshStandardMaterial color="#ffffff" />
       </Cylinder>
       <Torus scale={[1,1,6]} args={[26,.2,4,9]} position={[0,1,-2]} rotation={[Math.PI/2,0,0.18]}>
         <meshStandardMaterial color="#ffffff" />
       </Torus>
+      </Canvas>
       </>
       }
       
 {isPlayerView &&   !isMapView &&       <>
         
+      <Canvas camera={{ fov: 125, position: [-30,30,30] }} 
+      // shadows={LS_lowGraphics ? false : true}
+      shadows={true}
+
+      >
         {/* <Fisheye >
         <ambientLight intensity={.1} /> */}
         <Physics
@@ -246,8 +249,11 @@ style={{
 
         </Physics>
         {/* </Fisheye> */}
-        </> }
       </Canvas>
+        </> }
+
+
+
       {isMobileDevice && <MobileControlOverlay />}
       <div id="crosshair" 
       className='pos-fix top-50p left-50p opaci-20 noclick block bord-r-100 tx-white tx-shadow-5'

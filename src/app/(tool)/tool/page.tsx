@@ -216,8 +216,6 @@ export default function TrainingPage() {
     confidence: number;
   }, noteData: any, drawingData: any) => {
     if (!target) return;
-    console.log("target" , target);
-    console.log("send" , params);
     setSentObject(params);
     const calculatedResults = {
       type: target.values.type.toLowerCase() === params.type.toLowerCase() ? true : false,
@@ -235,8 +233,6 @@ export default function TrainingPage() {
       calculatedResults.color +
       calculatedResults.solid ) / 5;
 
-    console.log('calculatedResults', calculatedResults)
-    console.log('overallAccuracy', overallAccuracy)
 
     setOverallAccuracy(overallAccuracy);
     setResults(calculatedResults);
@@ -261,7 +257,6 @@ export default function TrainingPage() {
       })
     });
     const saveData = await saveResponse.json();
-    console.log('saveData', saveData);
     
     // Refetch stats after saving new data
     await refetchStats();
@@ -319,7 +314,6 @@ export default function TrainingPage() {
     solid: number;
     confidence: number;}
   }) => {
-    console.log("full send" , params);
     setSketchData(params.sketch);
     setNotes(params.notes);
     handleSend(params.options, params.notes, params.sketch, );

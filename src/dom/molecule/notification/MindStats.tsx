@@ -23,7 +23,6 @@ export const MindStats = () => {
 
   useEffect(() => {
     const handleStorageChange = (e: MessageEvent) => {
-      console.log("storage changed");
       setToggleChangeSomething(prev => !prev);
       if (e.data === 'localStorageChanged') {
         const savedStats = localStorage.getItem('VB_MINDSTATS');

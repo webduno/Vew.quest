@@ -119,7 +119,6 @@ export const ESPLobby = ({ setPlayerPosition, isTakingRequest, setIsTakingReques
     if (newRequestDescription && !isSubmitting) {
       handleSubmitRequest({newRequestDescription, newRequestBounty: newRequestBounty || ""});
     } else {
-      console.log('no description')
       setIsTakingRequest(null);
     }
   }

@@ -1,16 +1,17 @@
 'use client';
 import { SolidBox } from '@/model/core/SolidBox';
-import { Box, Cylinder } from '@react-three/drei';
+import { Box, Cylinder, Sphere } from '@react-three/drei';
 import { Vector3, Object3D } from 'three';
 import { useRef } from 'react';
 import Bank from '../city/Bank';
 import CityHall from '../city/CityHall';
 import SimpleHouse from '../city/SimpleHouse';
+import { Tree } from '../nature/Tree';
 
 export const BewWorldPlaza = () => {
 
   return (<>
-    <ambientLight intensity={.25} />
+    <ambientLight intensity={.75} />
 {/* sun light */}
 <directionalLight intensity={.75} position={[-25, 25, -25]} castShadow
 shadow-mapSize-blurSamples={2}
@@ -64,10 +65,70 @@ shadow-camera-bottom={-50}
         <meshStandardMaterial color="#99ff99" />
       </Box>
 
-<Box args={[10, .1, 10]} 
+      <Box args={[10, .1, 10]} 
 position={[0,0,-12]}
 castShadow  receiveShadow>
   <meshStandardMaterial color="#99ff99" />
+</Box>
+
+
+
+
+{/* main point of interest */}
+<Box args={[10, .1, 10]} 
+position={[-12,0,0]}
+castShadow  receiveShadow>
+  <meshStandardMaterial color="#99ff99" />
+</Box>
+
+{/* Tree */}
+<Tree position={[-12, 0, -3]} />
+
+
+
+
+
+
+
+<Box args={[6, .1, 6]} 
+position={[-10,0,10]}
+castShadow  receiveShadow>
+  <meshStandardMaterial color="#99ff99" />
+</Box>
+
+<Box args={[6, .1, 6]} 
+position={[-10,0,-10]}
+castShadow  receiveShadow>
+  <meshStandardMaterial color="#99ff99" />
+</Box>
+
+{/* water */}
+<Box args={[10, .1, 24]} 
+position={[12,0,3.5]}
+castShadow  receiveShadow>
+  <meshStandardMaterial color="#aaeeff" />
+</Box>
+
+{/* water barriers */}
+<Box  args={[10.5, .25, .75]} 
+position={[12,0.25,-8.5]}
+castShadow receiveShadow>
+  <meshStandardMaterial color="#dddddd" />
+</Box>
+<Box args={[10.5, .25, .75]} 
+position={[12,0.25,15.5]}
+castShadow receiveShadow>
+  <meshStandardMaterial color="#dddddd" />
+</Box>
+<Box args={[.6, .5, 24]} 
+position={[7.25,0.25,3.5]}
+castShadow receiveShadow>
+  <meshStandardMaterial color="#dddddd" />
+</Box>
+<Box args={[.6, .5, 24]} 
+position={[16.75,0.25,3.5]}
+castShadow receiveShadow>
+  <meshStandardMaterial color="#dddddd" />
 </Box>
 
 <Box args={[10, .1, 10]} 

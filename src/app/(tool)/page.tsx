@@ -479,7 +479,6 @@ export default function TrainingPage() {
       })
     });
     const saveData = await saveResponse.json();
-    console.log('saveData', saveData)
   }, [target]);
 
   const handleRequestCRV = async () => {
