@@ -41,7 +41,7 @@ export const LessonsContainer = () => {
     {
       title: "Global Ranking",
       emoji: "🏆",
-      href: "#",
+      href: "/leaderboard",
       backgroundColor: "#aD8574",
       boxShadowColor: "#7D5544",
       actionText: "Public Leaderboard"

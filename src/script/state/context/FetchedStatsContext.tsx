@@ -17,6 +17,12 @@ interface MailboxRequest {
   created_at: string;
 }
 
+interface LeaderboardEntry {
+  storage_key: string;
+  total_score: number;
+  rank: number;
+}
+
 interface FetchedStatsContextType {
   crvObjects: CRVObject[];
   streak: number;
@@ -31,6 +37,11 @@ interface FetchedStatsContextType {
   fetchMailboxRequests: () => Promise<void>;
   refetchStats: () => Promise<void>;
   averageResult: number;
+  // Leaderboard states
+  leaderboard: LeaderboardEntry[] | null;
+  isLoadingLeaderboard: boolean;
+  leaderboardError: string | null;
+  fetchLeaderboard: () => Promise<void>;
 }
 
 const FetchedStatsContext = createContext<FetchedStatsContextType | undefined>(undefined);
@@ -45,6 +56,11 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   const [isLoadingMailbox, setIsLoadingMailbox] = useState(false);
   const [mailboxError, setMailboxError] = useState<string | null>(null);
   const [lastFetchTime, setLastFetchTime] = useState<number>(0);
+
+  // Leaderboard states
+  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[] | null>(null);
+  const [isLoadingLeaderboard, setIsLoadingLeaderboard] = useState(false);
+  const [leaderboardError, setLeaderboardError] = useState<string | null>(null);
 
   const fetchMailboxRequests = useCallback(async () => {
     const storageKey = localStorage.getItem('VB_PLAYER_ID');
@@ -81,6 +97,31 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
       setIsLoadingMailbox(false);
     }
   }, [lastFetchTime]);
+
+  const fetchLeaderboard = useCallback(async () => {
+    try {
+      setIsLoadingLeaderboard(true);
+      const response = await fetch('/api/supabase/leaderboard', {
+        headers: {
+          'Cache-Control': 'no-store, no-cache, must-revalidate',
+          'Pragma': 'no-cache'
+        },
+        cache: 'no-store'
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        setLeaderboard(data.data);
+      } else {
+        setLeaderboardError('Failed to fetch leaderboard');
+      }
+    } catch (error) {
+      console.error('Error fetching leaderboard:', error);
+      setLeaderboardError('Failed to fetch leaderboard');
+    } finally {
+      setIsLoadingLeaderboard(false);
+    }
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -184,7 +225,11 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
       mailboxError,
       fetchMailboxRequests,
       refetchStats,
-      averageResult
+      averageResult,
+      leaderboard,
+      isLoadingLeaderboard,
+      leaderboardError,
+      fetchLeaderboard
     }}>
       {children}
     </FetchedStatsContext.Provider>
