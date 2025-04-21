@@ -85,6 +85,7 @@ export default function ProfilePage() {
         </div>
 
         
+        <div className='Q_xs_py-2'></div>
         <div>
           <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>PROFILE</div>
         </div>
@@ -101,7 +102,8 @@ export default function ProfilePage() {
             <div className='flex-col  px-2 pos-rel '>
 
 {/* <img src="/bew/birds.png" style={{ filter: "blur(0px)" }} alt="tool_bg2" className='hover-bird pos-abs noverflow block w-150px Q_xs_pt-8 pb-100' /> */}
-<img src="/bew/pfp/row-4-column-1.png" alt="pfp" className='bord-r-50 noverflow block w-250px' />
+<img src="/bew/pfp/row-4-column-1.png"
+ alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
 <div className='bord-r-15 mb-4 pb-2 ' style={{ border: "1px solid #f0f0f0" }}>
               <BewUserStatsSummary minified />
               <hr className='w-100 opaci-10 '  />
