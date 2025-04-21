@@ -110,7 +110,7 @@ export default function ProfilePage() {
 
 
               <div className='flex-col flex-align-start  pt-2 w-150px'>
-                <div className='py-2'>🔥 → Streak (Completed Remote Viewings in a row)</div>
+                <div className='py-2'>🔥 → Streak (Daily Remote Viewings in a row)</div>
                 <div className='py-2'
                 style={{
                   borderTop: "1px solid #f0f0f0",
