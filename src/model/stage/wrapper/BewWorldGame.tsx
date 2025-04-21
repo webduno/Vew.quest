@@ -133,7 +133,7 @@ const handleEnterWorld = useCallback(() => {
     }}
     >
 
-<div className='pos-abs top-0 right-0  flex-col pa-4'>
+<div className='pos-abs bottom-0 mb-100 right-0  flex-col pa-4'>
   {isMapView &&
 <button className='bord-r-10 px-2  z-1000 py-1 tx-white'
 style={{
