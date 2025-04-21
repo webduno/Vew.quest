@@ -380,7 +380,7 @@ backgroundColor='#71B44F'
       <hr className='w-100 opaci-10 '  />
       <div className='flex-col  gap-2 w-100'>
         {crvObjects.map((obj) => (
-          <div key={obj.id} className='tx-altfont-2 w-100  flex-row tx-md pb-4 pt-2'
+          <div key={obj.id} className='tx-altfont-2 w-100  flex-row tx-md pb-4 pt-2 pr-4'
           style={{
             borderBottom: "1px solid #e5e5e5",
           }}
@@ -390,7 +390,7 @@ backgroundColor='#71B44F'
               </div>
             <div className='flex-1'>
               <div className='tx-bold'>
-                <div className='tx-altfont-2  tx-md flex-wrap gap-1'>
+                <div className='tx-altfont-2  tx-md flex-wrap gap-1 px-3'>
                   {obj.content && obj.content.sent && Object.entries(obj.content.sent).map(([key, value]) => (
                     <div
                     style={{
