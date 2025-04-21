@@ -8,6 +8,33 @@ import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { LessonCard } from '@/dom/bew/LessonCard';
 import { BewChoiceButton } from '@/dom/bew/BewChoiceButton';
 import { isMobile } from '../../../script/utils/platform/mobileDetection';
+import CanvasDraw from 'react-canvas-draw';
+
+const NotesCheck = ({ content }: { content: any }) => {
+  return content.notes ? <div className='tx-lx pointer'
+  onClick={() => {
+    if (content.notes) {
+      navigator.clipboard.writeText(content.notes);
+      alert('Copied to clipboard: \n' + content.notes);
+    }
+  }}
+  >💬</div> : '❌';
+};
+
+const SketchCheck = ({ content, onClick }: { content: any, onClick: () => void }) => {
+  try {
+    const parsedContent = typeof content === 'string' ? JSON.parse(content) : content;
+    // sketch emoji 
+
+    return parsedContent.sketch ? (
+      <div className='tx-lx pointer'
+      onClick={onClick}
+      >🎨</div>
+    ) : '❌';
+  } catch (e) {
+    return '❌';
+  }
+};
 
 export default function ProfilePage() {
   const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
@@ -34,11 +61,18 @@ export default function ProfilePage() {
     }
   });
 
+  const [showSketchModal, setShowSketchModal] = useState(false);
+  const [currentSketch, setCurrentSketch] = useState<any>(null);
+  const [currentImage, setCurrentImage] = useState<{id: string, description: string} | null>(null);
+  const [modalView, setModalView] = useState<'sketch' | 'image'>('sketch');
+
   const hasMoreThan14Days = useMemo(() => {
     // get unique days
     const uniqueDays = Array.from(new Set(crvObjects.map(obj => obj.created_at.split('T')[0])));
     return uniqueDays.length > 2;
   }, [crvObjects]);
+
+  const [showSketch, setShowSketch] = useState<any>(null);
 
   useEffect(() => {
     if (crvObjects.length > 0) {
@@ -157,8 +191,8 @@ export default function ProfilePage() {
   <div className='flex-col gap-2 flex-align-start'>
     <div>Completed: {crvObjects.filter(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]).length >= 5 ? '✅' : "❌"} ({userStats.dailyGoals.requests} / 5)</div>
     <div>Requests: {userStats.dailyGoals.requests}</div>
-    <div>Avg Accuracy: {userStats.dailyGoals.accuracy}%</div>
-    <div>Best Accuracy Today: {userStats.dailyGoals.bestAccuracy.toFixed(1)}%</div>
+    <div>Avg Accuracy: {userStats.dailyGoals.accuracy.toFixed(3)}%</div>
+    <div>Best Accuracy Today: {userStats.dailyGoals.bestAccuracy.toFixed(3)}%</div>
   </div>
 </div>
 
@@ -167,8 +201,8 @@ export default function ProfilePage() {
               <div className='flex-col gap-2 flex-align-start'>
                 <div>Total Requests: {userStats.totalRequests}</div>
                 <div>First Request: {userStats.firstRequestDate ? new Date(userStats.firstRequestDate).toLocaleDateString() : 'No requests yet'}</div>
-                <div>Average Accuracy: {userStats.averageAccuracy.toFixed(1)}%</div>
-                <div>Best Accuracy: {userStats.bestAccuracy.toFixed(1)}%</div>
+                <div>Average Accuracy: {userStats.averageAccuracy.toFixed(3)}%</div>
+                <div>Best Accuracy: {userStats.bestAccuracy.toFixed(3)}%</div>
               </div>
             </div>
 
@@ -310,9 +344,150 @@ backgroundColor='#71B44F'
 />
 
 </div>
+
+
+<hr className='w-100 opaci-10 '  />
+
+<div className='flex-col flex-align-start gap-2 '>
+  <div className='tx-bold tx-lg w-100'>
+    <div>
+      <div className='tx-bold tx-lg tx-center pt-8 pb-4'
+      style={{
+        color: "#4b4b4b",
+      }}
+      >
+        Remote Viewing History
+      </div>
+      <div className='tx-altfont-2 opaci-50 tx-md flex-row px-4'>
+        <div className=''>Date</div>
+        <div className='flex-1 pl-8'>Report</div>
+        <div className=''>Result/Sketch/Notes</div>
+      </div>
+      <hr className='w-100 opaci-10 '  />
+      <div className='flex-col  gap-2 w-100'>
+        {crvObjects.map((obj) => (
+          <div key={obj.id} className='tx-altfont-2 w-100  flex-row tx-md pb-4 pt-2'
+          style={{
+            borderBottom: "1px solid #e5e5e5",
+          }}
+          >
+            <div className='w-50px tx-bold-2 pl-4 opaci-25'>
+              {obj.created_at.split('T')[0].replaceAll("-","\n")}
+              </div>
+            <div className='flex-1'>
+              <div className='tx-bold'>
+                <div className='tx-altfont-2  tx-md flex-wrap gap-1'>
+                  {obj.content && obj.content.sent && Object.entries(obj.content.sent).map(([key, value]) => (
+                    <div
+                    style={{
+                      border: "1px solid #e5e5e5",
+                      color: "#aaaaaa",
+                    }}
+                    className='flex-row tx-bold-4 bord-r-10 px-2 py-1 tx-sm  border'
+                     key={key}>{key}: {String(value)}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="flex-col">
+            <div className='tx-sm opaci-50'>{obj.result.toFixed(3)}%</div>
+            <div className='tx-lg'>{obj.result > 50 ? '🏆' : '💎'}</div>
+            </div>
+            <div className=''><SketchCheck onClick={() => {
+              setCurrentSketch(obj.content.sketch);
+              if (obj.content.target) {
+                setCurrentImage({
+                  id: obj.content.target.code,
+                  description: obj.content.target.description || ''
+                });
+              }
+              setShowSketchModal(true);
+            }} content={obj.content} /></div>
+            <div className=''><NotesCheck content={obj.content} /></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+
         </div>
       </div>
       </div>
+      {showSketchModal && (currentSketch || currentImage) && (
+        <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10 z-200'>
+          <div className='flex-col px-8 flex-align-center tx-altfont-2 gap-2 bg-white box-shadow-2-b bord-r-15 pa-4'>
+            <div className='flex-col w-100'>
+              <div onClick={() => {
+                setShowSketchModal(false);
+                setCurrentSketch(null);
+                setCurrentImage(null);
+                setModalView('sketch');
+              }}
+              className='opaci-chov--75 tx-bold tx-lg pb-2'>
+                <div className='opaci-25 underline'>Close</div>
+              </div>
+            </div>
+            
+            {/* Tab buttons */}
+            <div className='flex-row gap-2 w-100'>
+              <button 
+                className={`tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1 ${modalView === 'sketch' ? 'opaci-100' : 'opaci-50'}`}
+                onClick={() => setModalView('sketch')}
+              >
+                <div>Drawing</div>
+              </button>
+              <button 
+                className={`tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1 ${modalView === 'image' ? 'opaci-100' : 'opaci-50'}`}
+                onClick={() => setModalView('image')}
+              >
+                <div>Image</div>
+              </button>
+            </div>
+
+            <div className='bord-r-15 flex-col'
+              style={{
+                minHeight: "300px",
+              }}
+            >
+              {modalView === 'sketch' && currentSketch && (
+                <CanvasDraw
+                  disabled
+                  hideGrid
+                  canvasWidth={300}
+                  canvasHeight={300}
+                  saveData={currentSketch}
+                  style={{
+                    borderRadius: "15px",
+                  }}
+                />
+              )}
+              {modalView === 'image' && currentImage && (
+                <img className='block pos-rel'
+                  src={`/data/image/${currentImage.id.padStart(12, '0')}.jpg`}
+                  alt={currentImage.description}
+                  style={{
+                    overflow: 'hidden',
+                    borderRadius: "3px",
+                    width: '100%',
+                    maxWidth: '300px',
+                    maxHeight: '300px',
+                    objectFit: 'contain'
+                  }}
+                />
+              )}
+            </div>
+            <div className="tx-center tx-altfont-2 mt-2 w-250px"
+              style={{
+                color: "#4B4B4B",
+              }}
+            >
+              {modalView === 'sketch' ? 'Your Drawing' : currentImage?.description}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 } 

@@ -340,7 +340,7 @@ style={{
         className='tx-bol d'
         style={{ color: "#AFAFAF" }}>
           {/* down caret emoji */}
-          ▼ View More</div>
+          ▼ More Options</div>
       )}
       <div className='flex-1'
         style={{
@@ -389,7 +389,6 @@ style={{
       </a>
     </div>
 
-    <div className='flex-col'> <BewUserStatsSummary minified  /> </div>
     </details> </>
   )}
 
