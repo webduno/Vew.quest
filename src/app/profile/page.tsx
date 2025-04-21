@@ -94,7 +94,7 @@ export default function ProfilePage() {
       const stats = {
         totalRequests: crvObjects.length,
         firstRequestDate: crvObjects[crvObjects.length - 1]?.created_at || null,
-        averageAccuracy: 10,
+        averageAccuracy: crvObjects.reduce((acc, obj) => acc + (obj.result || 0), 0) / crvObjects.length,
         bestAccuracy: Math.max(...crvObjects.map(obj => obj.result || 0)),
         dailyGoals: {
           requests: todayObjects.length,
