@@ -172,7 +172,7 @@ style={{
                   borderTop: "1px solid #f0f0f0",
                   borderBottom: "1px solid #f0f0f0",
                 }}
-                >💎 → Points (Completed Remote Viewings)</div>
+                >💎 → Points (Total Completed Remote Viewings)</div>
                 <div className='py-2'>💖 → Hearts (Accuracy Average)</div>
               </div>
               </details>
