@@ -668,7 +668,12 @@ export default function TrainingPage() {
               />
             </div>
             <div className="flex-row">
+              <Tooltip id="profile-tooltip" />
             <a href="/profile"
+            data-tooltip-id="profile-tooltip"
+
+            data-tooltip-place="bottom"
+            data-tooltip-content={typedUsername + "'s Profile"}
               className='py-1 px-2 mx-2 tx-center tx-bold tx-white bord-r-10 tx-lgx opaci-chov--75'
               onClick={handleStart}
               style={{
