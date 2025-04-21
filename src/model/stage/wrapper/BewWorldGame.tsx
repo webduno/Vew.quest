@@ -133,15 +133,18 @@ const handleEnterWorld = useCallback(() => {
     }}
     >
 
-<div className='pos-abs bottom-0 mb-100 right-0  flex-col pa-4'>
-  {isMapView &&
+{isMapView &&
+  <div className='pos-abs bottom-0 mb-100 right-0  flex-col pa-4'>
 <button className='bord-r-10 px-2  z-1000 py-1 tx-white'
 style={{
   backgroundColor: '#77cc77',
   boxShadow: '0 4px 0 #44aa44'
 }}
  onClick={handleEnterWorld}>Enter World</button>
+</div>
 }
+
+<div className='pos-abs top-0 right-0  flex-col pa-4'>
 {isPlayerView &&
 <button className='bg-white bord-r-10 px-2 tx-gray z-1000 block py-1' onClick={(e) => {
   // setCurrentPosition([-25,25,25])
