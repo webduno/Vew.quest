@@ -133,7 +133,7 @@ const handleEnterWorld = useCallback(() => {
     }}
     >
 
-<div className='pos-abs top-0 right-0  flex-col pa-2'>
+<div className='pos-abs top-0 right-0  flex-col pa-4'>
   {isMapView &&
 <button className='bord-r-10 px-2  z-1000 py-1 tx-white'
 style={{
@@ -255,7 +255,7 @@ style={{
 
 
 
-      {isMobileDevice && <WorldMobileControlOverlay />}
+      {isMobileDevice && isPlayerView && <WorldMobileControlOverlay />}
       <div id="crosshair" 
       className='pos-fix top-50p left-50p opaci-20 noclick block bord-r-100 tx-white tx-shadow-5'
       style={{

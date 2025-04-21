@@ -26,10 +26,12 @@ export const WorldMobileControlOverlay = () => {
         }}>
         
       <div  
-      className={"key-btn noborder px-2 py-1 bord-r-5 noverflow tx-lg tx-altfont-1  noclick"}
+      className={" noborder px-2 py-1 bord-r-5 noverflow tx-lg tx-altfont-1  noclick"}
       style={{
-        color:"#aFaEa9",
-      }}
+        color:"#ffffff",
+        background: "#77cc77",
+  boxShadow: '0 4px 0 #44aa44'
+}}
       >
       JUMP
     </div>
