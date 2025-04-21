@@ -45,8 +45,8 @@ export default function ProfilePage() {
 
   return (
     <>
-      <div className='w-100 autoverflow-y h-100vh flex-col flex-justify-start'>
-        <div className='flex-row w-100 w-max-1080px tx-altfont-2'>
+      <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
+        <div className='flex-row w-100 w-max-1080px  tx-altfont-2'>
           <a href="/" className='pointer flex-row nodeco pos-rel pt-4'>
             <img src="/bew/pnglogo.png" alt="tool_bg" className='ml-4 w-50px' />
             <div className='tx-bold' style={{ color: "#2B29AF" }}>Bew</div>
@@ -71,8 +71,10 @@ export default function ProfilePage() {
           <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>PROFILE</div>
         </div>
 
-        <div className='w-100 w-max-1080px flex-wrap pt-8 flex-justify-center flex-align-start gap-4'>
-          <div className='flex-col px-8 pos-rel'>
+        <div className='w-100 _ddg w-max-1080px flex-row pt-8 flex-justify-center flex-align-start gap-4'>
+          
+          
+          <div className='flex-wrap _ddb px-8 pos-rel w-100'>
             <div className='bord-r-15 mb-4 pb-2 px-4' style={{ border: "1px solid #f0f0f0" }}>
               <BewUserStatsSummary minified />
             </div>
@@ -98,6 +100,12 @@ export default function ProfilePage() {
                 <div>Target Accuracy: {userStats.dailyGoals.accuracy}%</div>
               </div>
             </div>
+          </div>
+
+
+
+          
+          <div className='flex-col _ddr px-2 pos-rel w-100'>
 
             <img src="/bew/birds.png" style={{ filter: "blur(0px)" }} alt="tool_bg2" className='hover-bird pos-abs noverflow block w-150px Q_xs_pt-8 pb-100' />
             <img src="/bew/landscape1.jpeg" alt="tool_bg1" className='bord-r-50 noverflow block w-250px' />

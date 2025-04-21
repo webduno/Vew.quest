@@ -68,20 +68,17 @@ export const BewUserStatsSummary = ({
         </div>
 
         <div>
-          <div>
+          <a href="/profile" className='nodeco'>
             <div className='py-2 mt-4 tx-center tx-white bord-r-10  opaci-chov--75'
             data-tooltip-id="view-profile-tooltip"
             data-tooltip-content={`${LS_playerId}`}
             data-tooltip-place="bottom"
-            onClick={()=>{
-              alert("Coming soon!");
-            }}
             style={{
               backgroundColor: "#807DDB",
               boxShadow: "0px 4px 0 0px #6B69CF",
             }}
             >View Profile</div>
-          </div>
+          </a>
           <Tooltip id="view-profile-tooltip" />
           <Tooltip id="home-tooltip" />
           <Tooltip id="lessons-tooltip" />

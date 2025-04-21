@@ -98,7 +98,7 @@ export const ConfigPageComponent = () => {
 
 <div className="flex-col mt-4 pointer tx-white tx-altfont-1">
   <KeyboardBtn onClick={() => {
-    window.location.href = "/";
+    window.location.href = "/dashboard";
   }}>
     Back to Main Menu
   </KeyboardBtn>

@@ -526,7 +526,7 @@ style={{borderRight: "1px solid #E5E5E5"}}
     />
 
     <MenuBarItem 
-    href="#"
+    href="/profile"
     emoji="👤"
     tooltip="Profile"
     />
@@ -557,19 +557,7 @@ style={{borderRight: "1px solid #E5E5E5"}}
 
 
   <div className='flex-1 flex-col flex-align-stretch flex-justify-start h-100'>
-    {/* <div className='flex-row '>
-    <button 
-              className="mt- 2 pt-4 pb- tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline" 
-              style={{
-                color: "#999999",
-              }}
-              onClick={() => {
-                setGameState('initial');
-              }}
-            >
-              <div>Go back to Main Menu</div>
-            </button>
-    </div> */}
+   
     
     <div className='pos-rel tx-white ma-4 pa-4 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
     style={{
@@ -1026,9 +1014,7 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
               }}
               className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer tx-altfont-2" 
               onClick={() => {
-                setGameState('initial');
-                setShowImageModal(false);
-                setShowSketchModal(false);
+                window.location.href = "/dashboard";
               }}
             >
               <div>Main Menu</div>
@@ -1044,17 +1030,6 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
               <div>Next Target</div>
             </button>
             </div>
-            {/* <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
-              style={{
-                color: "#999999",
-              }}
-              onClick={() => {
-                setGameState('initial');
-              }}
-            >
-              <div>Main Menu</div>
-            </button> */}
           </div>
         </div>
       )}

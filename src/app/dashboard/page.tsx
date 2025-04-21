@@ -456,7 +456,8 @@ export default function TrainingPage() {
         <hr className='w-100 opaci-20 mt-100'  />
         <div className='w-100 w-max-1080px flex-col  pt-8  flex-justify-center flex-align-start gap-4'>
 
-        <div className='tx-center  w-100 flex-col bord-r-25 mt-0 mb-8 ' id="resources"
+<div className='flex-col w-100'>
+        <div className='tx-center  w-80 flex-col bord-r-25 mt-0 mb-8 ' id="resources"
                 style={{
                     alignContent: "center",
                   background: "#a09DfB",
@@ -472,6 +473,7 @@ export default function TrainingPage() {
                     borderBottom: "2px solid #6B69CF",
                   }}
                   className=' tx-bold'>Training Tool</span> */}
+                </div>
                 </div>
                 </div>
                 <PreLessonsContainer />

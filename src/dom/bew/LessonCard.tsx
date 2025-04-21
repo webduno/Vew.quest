@@ -14,7 +14,7 @@ export const LessonCard = ({
           return;
         }
       }}
-      className='pb-6 nodeco opaci-chov--75 tx-altfont-2 tx-bold gap-4  flex-col w-200px  bord-r-25'
+      className='pb-6 nodeco opaci-chov--75 tx-altfont-2 tx-bold gap-4  flex-col w-150px  bord-r-25'
       style={{
         border: "1px solid #E5E5E5",
         color: "#777777",
@@ -25,7 +25,7 @@ export const LessonCard = ({
       <div className='tx-center tx-mdl landing -title pb-'>{title}</div>
       <div>
         <div
-          className='py-2   nodeco tx-center tx-white bord-r-10 tx- w-150px lgx '
+          className='py-2 px-2  nodeco tx-center tx-white bord-r-10 tx- w-100px lg '
           style={{
             backgroundColor,
             boxShadow: `0px 4px 0 0px ${boxShadowColor}`,

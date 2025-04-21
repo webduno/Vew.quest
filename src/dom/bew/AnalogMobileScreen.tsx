@@ -364,7 +364,7 @@ style={{
         <div className='tx-lg tx-center'>📚</div>
         <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Resources"}</div>
       </a>
-      <div className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      <button className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
         border: "1px solid #E5E5E5",
       }}
@@ -375,19 +375,18 @@ style={{
         {/* target emoji */}
         <div className='tx-lg tx-center'>🎯</div>
         <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Goals</div>
-      </div>
-      <div className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      </button>
+      <a 
+      href="/profile"
+      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
         border: "1px solid #E5E5E5",
-      }}
-      onClick={() => {
-        alert("Coming soon!");
       }}
       >
         {/* user emoji */}
         <div className='tx-lg tx-center'>👤</div>
         <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Profile</div>
-      </div>
+      </a>
     </div>
 
     <div className='flex-col'> <BewUserStatsSummary minified  /> </div>
