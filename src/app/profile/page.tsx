@@ -360,7 +360,7 @@ backgroundColor='#71B44F'
 </div>
 
 
-<hr className='w-100 opaci-10 '  />
+<hr className='w-100 opaci-10  mt-100 '  />
 
 <div className='flex-col flex-align-start gap-2 '>
   <div className='tx-bold tx-lg w-100'>
