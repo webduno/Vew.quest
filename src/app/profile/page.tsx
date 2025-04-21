@@ -485,7 +485,8 @@ backgroundColor='#71B44F'
                    alt={currentImage.description}
                    style={{
                      overflow: 'hidden',
-                     borderRadius: "3px",
+                     borderRadius: "15x",
+                     border: "1px solid #e5e5e5",
                      width: '100%',
                      maxWidth: '300px',
                      maxHeight: '300px',
