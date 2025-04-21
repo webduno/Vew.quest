@@ -373,11 +373,11 @@ style={{
       }}
       >
         {/* target emoji */}
-        <div className='tx-lg tx-center'>🎯</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Goals</div>
+        <div className='tx-lg tx-center'>🛣️</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>3D World</div>
       </button>
       <a 
-      href="/profile"
+      href="/leaderboard"
       className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
         border: "1px solid #E5E5E5",
@@ -385,7 +385,7 @@ style={{
       >
         {/* user emoji */}
         <div className='tx-lg tx-center'>👤</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Profile</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Leaderboard</div>
       </a>
     </div>
 

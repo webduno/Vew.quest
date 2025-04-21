@@ -515,9 +515,9 @@ style={{borderRight: "1px solid #E5E5E5"}}
     />
 
     <MenuBarItem 
-    href="#"
-    emoji="🎯"
-    tooltip="Goals"
+    href="/leaderboard"
+    emoji="🏆"
+    tooltip="Leaderboard"
     />
 
     <MenuBarItem 
