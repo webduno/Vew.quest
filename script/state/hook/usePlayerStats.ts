@@ -49,13 +49,20 @@ export function usePlayerStats() {
   // const pathname = usePathname()
 
   // Create a proxy for localStorage
-  const localStorageProxy = new Proxy(localStorage, {
+  const localStorageProxy = typeof window !== 'undefined' ? new Proxy(localStorage, {
     set: function(target, key, value) {
       target.setItem(key as string, value);
       window.postMessage('localStorageChanged', '*');
       return true;
     }
-  });
+  }) : {
+    getItem: () => null,
+    setItem: () => {},
+    removeItem: () => {},
+    clear: () => {},
+    key: () => null,
+    length: 0
+  };
 
   const disableFirstTime = () => {
     setLS_firstTime(false);

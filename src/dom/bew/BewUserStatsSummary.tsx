@@ -1,14 +1,21 @@
 'use client';
 import { Tooltip } from 'react-tooltip';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
+import { useState, useEffect } from 'react';
 
 export const BewUserStatsSummary = ({
   minified = false
 }: {
   minified?: boolean;
 }) => {
-  const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
+  const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const { streak, dailyProgress, dailyGoal, isLoading, error, crvObjects, averageResult } = useFetchedStats();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setLS_playerId(localStorage.getItem('VB_PLAYER_ID'));
+    }
+  }, []);
 
   if (isLoading) {
     return <div 
