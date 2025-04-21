@@ -362,7 +362,7 @@ style={{
       >
         {/* books emoji */}
         <div className='tx-lg tx-center'>📚</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Resources"}</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Lessons"}</div>
       </a>
       <button className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
@@ -384,8 +384,8 @@ style={{
       }}
       >
         {/* user emoji */}
-        <div className='tx-lg tx-center'>👤</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Leaderboard</div>
+        <div className='tx-lg tx-center'>🏆</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Ranking</div>
       </a>
     </div>
 
