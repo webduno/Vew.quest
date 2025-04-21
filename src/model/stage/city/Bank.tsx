@@ -18,12 +18,13 @@ function Bank({ tokensArrayArray, state, calls }: any) {
       <group position={new Vector3(-0.1, 0.04, 0.045)} >
         <group position={new Vector3(-0.1, 0.02, -0.)}>
           { // north facing
-            <Text  fontSize={0.09}
+            <Text  fontSize={0.05} font="/fonts/raleway.ttf"
               color={!!tokensArrayArray ? state?.tokenColor : "#292222"}
-              position={new Vector3(0.1, 0.235, 0.01)}
+              position={new Vector3(0.1, 0.25, 0.01)}
+               textAlign="center"
               rotation={[0, 0, 0]}
             >
-              Bank
+              {"Bank of\nMemories"}
             </Text>
           }
         </group>
