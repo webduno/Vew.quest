@@ -403,12 +403,13 @@ export default function TrainingPage() {
     }}
         
         >
-        {!isMobile() && (<>
           <div className='bord-r-15  pb-2 px-4' style={{
             border: "1px solid #f0f0f0",
           }}>
             <BewUserStatsSummary minified />
           </div>
+        {!isMobile() && (<>
+          
         <img src="/bew/birds.png"
         style={{
           filter: "blur(0px)",
