@@ -178,7 +178,10 @@ style={{
                  title="Viewed Today"
                  emoji="✅"
                  href="/tool"
-                 actionText={"New Target"}
+                 styleOverride={{
+                  width: "200px",
+                 }}
+                 actionText={"Continue Viewing"}
                  
                  />
                 : ''}            
