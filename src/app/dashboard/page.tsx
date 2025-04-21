@@ -360,7 +360,7 @@ export default function TrainingPage() {
 
 
 
-        <div className=' px-4 flex-1 flex-row flex-justify-end tx-bold pt-4'
+        <div className=' px-4 flex-1 flex-row gap-3 flex-justify-end tx-bold pt-4'
         
         >
           <div className='nodeco'
@@ -373,6 +373,9 @@ export default function TrainingPage() {
            >
             <div>Support</div>
           </div>
+            <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
+              <div>Profile</div>
+            </a>
           <Tooltip id="support-tooltip" clickable >
             <a href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'
 

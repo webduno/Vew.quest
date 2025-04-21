@@ -106,7 +106,10 @@ export default function ProfilePage() {
             <div className='tx-bold' style={{ color: "#6B69CF" }}>.quest</div>
           </a>
 
-          <div className='px-4 flex-1 flex-row flex-justify-end tx-bold pt-4'>
+          <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
+            
+
+            
             <div className='nodeco' data-tooltip-id="support-tooltip" data-tooltip-place="left" style={{ color: "#AFAFAF" }}>
               <div>Support</div>
             </div>
@@ -115,6 +118,9 @@ export default function ProfilePage() {
                 <div>𝕏 | @webduno</div>
               </a>
             </Tooltip>
+            <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
+              <div>Dashboard</div>
+            </a>
           </div>
         </div>
 
