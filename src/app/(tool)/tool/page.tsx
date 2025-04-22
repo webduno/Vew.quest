@@ -517,14 +517,18 @@ export default function TrainingPage() {
 
 
         {gameState === 'results' && results && target && (myRequests?.length === 0 || !myRequests) && (<>
-        <div className='flex-col z-1000 w-100 pos-abs top-0 left-0 '>
-        <a href="/" className='pointer flex-col nodeco pos-rel pt-4'>
+        <div className='flex-col z-1000 w-100 pos-abs top-0 left-0 pt-4'
+        style={{
+          filter: "hue-rotate(160deg) brightness(1.5)",
+        }}
+        >
+      <a href="/" className='pointer flex-col nodeco pos-rel '>
       <div className="flex-row">
-      <div className='tx-bold' style={{ color: "#2B29AF" }}>Bew</div>
-      <div className='tx-bold' style={{ color: "#6B69CF" }}>.quest</div>
+      <div className='tx-bold' style={{ color: "#6B69CF" }}>Bew</div>
+      <div className='tx-bold' style={{ color: "#2B29AF" }}>.quest</div>
       </div>
-      <img src="/bew/pnglogo.png" alt="tool_bg" className=' w-50px' />
 
+      <img src="/bew/pnglogo.png" alt="tool_bg" width="50px" className='opaci-50 ' />
     </a>
           
 
