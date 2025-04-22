@@ -65,7 +65,7 @@ export function LeaderboardTable({ leaderboard, isLoading, error, currentPlayerI
             )}
           </div>
           <a className='flex-1 tx-grey nodeco opaci-chov--50 py-2'
-            href={`/profile?friend=${entry.storage_key}#guest`}
+            href={`/u?friend=${entry.storage_key}`}
           >
             <div className='tx-bold'
               style={{
