@@ -80,8 +80,8 @@ export default function UserProfilePage() {
     <>
       <div className='w-100 autoverflow-y h-100vh flex-col flex-justify-start'>
         <NavigationHeaderBar linkList={<>
-        <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>About</div>
+        <a href="/leaderboard" className='nodeco' style={{ color: "#AFAFAF" }}>
+          <div>Leaderboard</div>
         </a>
         <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
           <div>Profile</div>
@@ -92,6 +92,7 @@ export default function UserProfilePage() {
         <div className='w-100 w-max-1080px flex-row Q_xs_flex-col-r pt-8 flex-justify-center flex-align-start gap-4'>
           <UserProfileHeader
             showTrueSummary={false}
+            potentialStreak={userStats?.potentialStreak}
             guestStats={{
               streak: userStats?.streak,
               points: userStats?.totalRequests || 0,

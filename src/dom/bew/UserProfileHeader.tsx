@@ -12,10 +12,11 @@ interface UserProfileHeaderProps {
   onCopyUsername: () => void;
   showTrueSummary?: boolean;
   guestStats: any;
+  potentialStreak?: number;
 }
 
 export function UserProfileHeader({ playerId, userStats, crvObjects, onCopyUsername,
-   showTrueSummary = true, guestStats }: UserProfileHeaderProps) {
+   showTrueSummary = true, guestStats, potentialStreak }: UserProfileHeaderProps) {
   return (
     <div className='flex-wrap Q_xs_sm_flex-col flex-align-center gap-4 pb-100 pos-rel tx-altfont-2'
       style={{
@@ -50,7 +51,8 @@ export function UserProfileHeader({ playerId, userStats, crvObjects, onCopyUsern
         <div className='bord-r-15 mb-4 pb-2 flex-col ' style={{ border: "1px solid #f0f0f0" }}>
           {!showTrueSummary && (<>
           <IconStatsBar 
-          streak={guestStats.streak || 0}
+          streak={guestStats.streak}
+          potentialStreak={potentialStreak}
           points={guestStats.points || 0}
           hearts={guestStats.hearts || 0}
            />
