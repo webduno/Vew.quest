@@ -331,8 +331,8 @@ export default function TrainingPage() {
     <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
 
       <NavigationHeaderBar linkList={<>
-        <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>Dashboard</div>
+        <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
+          <div>Profile</div>
         </a>
         <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
           <div>About</div>

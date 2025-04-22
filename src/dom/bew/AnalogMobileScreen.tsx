@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TopSection } from '../molecule/game/SenseMeter/TopSection';
 import { MiddleSection } from '../molecule/game/SenseMeter/MiddleSection';
 import { BottomSection } from '../molecule/game/SenseMeter/BottomSection';
@@ -54,6 +54,7 @@ export const AnalogMobileScreen = ({
   }, requestId?: string) => void;
   absolute?: boolean;
 }) => {
+
   // State management for input types and their values
   const [selectedInputType, setSelectedInputType] = useState<InputType>('');
   const { playSoundEffect } = useBackgroundMusic();
@@ -95,7 +96,16 @@ export const AnalogMobileScreen = ({
       }
     });
   };
-
+  const [isfriendinurl, setIsFriendInUrl] = useState(false);
+  const [friendid, setFriendId] = useState('');
+useEffect(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const friendId = urlParams.get('friend');
+  if (friendId) {
+    setIsFriendInUrl(true);
+    setFriendId(friendId);
+  }
+}, []);
   // Render the appropriate input component based on selected type
   const renderInputComponent = () => {
     switch (selectedInputType) {
@@ -304,45 +314,8 @@ export const AnalogMobileScreen = ({
 
 
 
-
-
-
-
-
-<button className='bord-r-15 py-1 px-4 opaci-chov--75' 
-onClick={() => {
-  alert("Coming soon!");
-}}
-style={{
-  border: "1px solid #E5E5E5",
-}}
->
-  <div className='flex-row flex-justify-start gap-2'>
-    <div>
-      {/* group of people emoji  */}
-      <div className='tx-lgx pb-2'>👥</div>
-    </div>
-  <div className='flex-col flex-align-start gap-2'>
-  <div className='tx-bold'
-  style={{
-    color: "#4B4B4B",
-  }}
-  >Invite friends (CRV)</div>
-  
-  <div className='tx-sm Q_sm_x' style={{color: "#afafaf"}}>
-    <div className='flex-row gap-1'>
-      <div>Coordinated Remote Viewing</div>
-    </div>
-  </div>
-  </div>
-  </div>
-
-  <div>
-
-
-    
-  </div>
-</button>
+{!isfriendinurl && (<InviteFriendCard />)}
+  {!!isfriendinurl && (<FriendCard friendid={friendid} />)}
 
 
 
@@ -428,3 +401,69 @@ style={{
 
 
 
+
+const InviteFriendCard = () => {
+  return (
+    
+
+
+
+
+<button className='bord-r-15 py-1 px-4 opaci-chov--75' 
+onClick={() => {
+  
+  const guestid = prompt("Enter friend ID");
+  if (!guestid) {
+    alert("Please enter a friend ID");
+    return;
+  }
+
+  
+  
+  window.location.href = "/tool?friend=" + guestid
+}}
+style={{
+  border: "1px solid #E5E5E5",
+}}
+>
+  <div className='flex-row flex-justify-start gap-2'>
+    <div>
+      {/* group of people emoji  */}
+      <div className='tx-lgx pb-2'>👥</div>
+    </div>
+  <div className='flex-col flex-align-start gap-2'>
+  <div className='tx-bold'
+  onClick={() => {
+  }}
+  style={{
+    color: "#4B4B4B",
+  }}
+  >Invite friends (CRV)</div>
+  
+  <div className='tx-sm Q_sm_x' style={{color: "#afafaf"}}>
+    <div className='flex-row gap-1'>
+      <div>Coordinated Remote Viewing</div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <div>
+
+
+    
+  </div>
+</button>
+  )
+}
+
+const FriendCard = ({friendid}: {friendid: string}) => {
+  return (
+    <div>
+      <div>Friend</div>
+      <div className='tx-sm'>
+      {friendid}
+      </div>
+    </div>
+  )
+}

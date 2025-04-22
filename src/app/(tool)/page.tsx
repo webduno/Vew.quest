@@ -101,10 +101,17 @@ export default function TrainingPage() {
                 </>)}
                 <div >
 
-                <BewPurpleBtn 
-              
+                <BewPurpleBtn text="Start" onClick={handleStart}  />
                 
-                 text="Start" onClick={handleStart}  />
+                <div>
+                    <a href="/dashboard" className='nodeco tx-center  block py-4'
+                    style={{
+                      color: "#777777",
+                    }}
+                    >
+                      Dashboard
+                    </a>
+                 </div>
                 </div>
                 </div>
             </div>
