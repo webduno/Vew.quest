@@ -92,7 +92,7 @@ export default function TrainingPage() {
                 />
               </div>
 
-              <div className="flex-row"
+              <div className="flex-row flex-align-start"
               >
                 {crvObjects.length > 0 && (<>
                 <div  className='flex-row'>
@@ -103,7 +103,8 @@ export default function TrainingPage() {
 
                 <BewPurpleBtn text="Start" onClick={handleStart}  />
                 
-                <div>
+                {!crvObjects.length && (<>
+                  <div>
                     <a href="/dashboard" className='nodeco tx-center  block py-4'
                     style={{
                       color: "#777777",
@@ -112,6 +113,7 @@ export default function TrainingPage() {
                       Dashboard
                     </a>
                  </div>
+                </>)}
                 </div>
                 </div>
             </div>
