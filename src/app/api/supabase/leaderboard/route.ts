@@ -21,6 +21,7 @@ interface PlayerScores {
 export async function GET() {
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
+    console.log('Fetching leaderboard data...');
     const { data, error } = await supabase
       .from('crv_object')
       .select('storage_key, result, created_at, request_id')
@@ -33,6 +34,8 @@ export async function GET() {
         { status: 500 }
       );
     }
+
+    console.log('Raw data from Supabase:', data?.slice(0, 2)); // Log first two entries as sample
 
     // Calculate total scores and average accuracy per player
     const playerScores = (data as CRVObject[]).reduce((acc: any, obj) => {
@@ -48,37 +51,50 @@ export async function GET() {
       acc[obj.storage_key].total_score += obj.result;
       acc[obj.storage_key].total_accuracy += obj.result;
       acc[obj.storage_key].count += 1;
+      
       // Only add date if it's a viewing attempt (request_id is null)
       if (obj.request_id === null) {
         const date = new Date(obj.created_at);
-        acc[obj.storage_key].dates.add(date.toISOString().split('T')[0]);
+        const dateStr = date.toISOString().split('T')[0];
+        console.log(`Adding date ${dateStr} for player ${obj.storage_key}`);
+        acc[obj.storage_key].dates.add(dateStr);
+      } else {
+        console.log(`Skipping date for player ${obj.storage_key} - not a viewing attempt`);
       }
+
       if (obj.result > acc[obj.storage_key].highest_accuracy) {
         acc[obj.storage_key].highest_accuracy = obj.result;
       }
       return acc;
     }, {});
 
+    // Log the accumulated dates for each player
+    Object.entries(playerScores).forEach(([key, stats]: [string, any]) => {
+      console.log(`Player ${key} dates:`, Array.from(stats.dates));
+    });
+
     // Calculate streak for each player
     Object.entries(playerScores).forEach(([key, stats]: [string, any]) => {
-      console.log('Processing player:', key);
-      console.log('Dates in set:', stats.dates);
+      console.log('\nProcessing streak for player:', key);
       
-      const sortedDates = Array.from(stats.dates as Set<string>).sort((a, b) => 
-        new Date(b).getTime() - new Date(a).getTime()
-      );
+      const sortedDates = Array.from(stats.dates as Set<string>).sort((a, b) => b.localeCompare(a));
       console.log('Sorted dates:', sortedDates);
       
       let streak = 0;
       const now = new Date();
       const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      console.log('Current date:', currentDate.toISOString());
+      const currentDateStr = currentDate.toISOString().split('T')[0];
+      console.log('Current date:', currentDateStr);
+      
+      // Check if they have an entry for today
+      const hasToday = sortedDates[0] === currentDateStr;
+      console.log('Has entry for today:', hasToday);
       
       for (let i = 0; i < sortedDates.length; i++) {
         const targetDate = new Date(currentDate);
-        targetDate.setDate(currentDate.getDate() - i);
+        targetDate.setDate(currentDate.getDate() - (hasToday ? i : i + 1));
         const targetStr = targetDate.toISOString().split('T')[0];
-        const dateStr = sortedDates[i]; // Already in YYYY-MM-DD format
+        const dateStr = sortedDates[i];
         
         console.log(`Comparing date ${dateStr} with target ${targetStr}`);
         
