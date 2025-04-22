@@ -40,12 +40,12 @@ export const MultiOptionInputs = ({
   };
 
   return (<>
-    <div className='flex-col flex-align-stretch gap-  2 tx-altfont-1'
+    <div className='flex-col flex-align-stretch gap-  2 tx-altfont-2'
     style={{
       filter: "hue-rotate(180deg)"
     }}
     >
-      <div className='pa-2 bord-r-10'>
+      <div className='pa-2 Q_xs_py-1 bord-r-10 tx-'>
         <div className="tx-bold mb-2" style={{color:"#afafaf"}}>Target Type</div>
         <div className='flex-row flex-wrap gap-3'>
           {(['object', 'entity', 'place', 'event'] as InputType[]).map((type) => (
@@ -54,13 +54,11 @@ export const MultiOptionInputs = ({
               className='flex-row gap-1 flex-align-around opaci-chov--75 pointer'
               onClick={() => handleChange('type', type)}
             >
-              <div className='w-15px h-15px bord-r-3'
-                style={{
-                  border: '2px solid #afafaf',
-                  background: values.type === type ? '#afafaf' : 'transparent'
-                }}
-              />
-              <div style={{color: values.type === type ? '#0079D0' : '#afafaf', fontWeight: values.type === type ? 'bold' : 'normal'}}>
+              <div className='' 
+              style={{
+                borderBottom: '2px solid '+(values.type === type ? '#0079D0' : '#afafaf'),
+                color: values.type === type ? '#0079D0' : '#afafaf', 
+                fontWeight: values.type === type ? 'bold' : 'normal'}}>
                 {type.charAt(0).toUpperCase() + type.slice(1)}
               </div>
             </div>
@@ -68,8 +66,8 @@ export const MultiOptionInputs = ({
         </div>
       </div>
 
-      <div className='pa-2 bord-r-10'>
-        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+      <div className='pa-2 Q_xs_py-1 bord-r-10 tx-xs'>
+        <div className=" flex-row flex-justify-between" style={{color:"#afafaf"}}>
           <div>Natural or Organic</div>
           <div>Artificial or Synthetic</div>
         </div>
@@ -80,8 +78,8 @@ export const MultiOptionInputs = ({
           />
         </div>
       </div>
-      <div className='pa-2 bord-r-10'>
-        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+      <div className='pa-2 Q_xs_py-1 bord-r-10 tx-xs'>
+        <div className=" flex-row flex-justify-between" style={{color:"#afafaf"}}>
           <div>Hot or Warm</div>
           <div>Cold or Chilly</div>
         </div>
@@ -92,8 +90,8 @@ export const MultiOptionInputs = ({
           />
         </div>
       </div>
-      <div className='pa-2 bord-r-10'>
-        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+      <div className='pa-2 Q_xs_py-1 bord-r-10 tx-xs'>
+        <div className=" flex-row flex-justify-between" style={{color:"#afafaf"}}>
           <div>Dark or Dim</div>
           <div>Light or Bright</div>
         </div>
@@ -104,8 +102,8 @@ export const MultiOptionInputs = ({
           />
         </div>
       </div>
-      <div className='pa-2 bord-r-10'>
-        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+      <div className='pa-2 Q_xs_py-1 bord-r-10 tx-xs'>
+        <div className=" flex-row flex-justify-between" style={{color:"#afafaf"}}>
           <div>Monochrome or Gray</div>
           <div>Colorful or Vivid</div>
         </div>
@@ -116,8 +114,8 @@ export const MultiOptionInputs = ({
           />
         </div>
       </div>
-      <div className='pa-2 bord-r-10'>
-        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+      <div className='pa-2 Q_xs_py-1 bord-r-10 tx-xs'>
+        <div className=" flex-row flex-justify-between" style={{color:"#afafaf"}}>
           <div>Ethereal or Wispy</div>
           <div>Solid or Dense</div>
         </div>

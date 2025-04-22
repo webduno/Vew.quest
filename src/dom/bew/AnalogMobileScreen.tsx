@@ -16,6 +16,7 @@ import { NotesInputs } from './NotesInputs';
 import { SketchInputs, SketchInputsRef } from './SketchInputs';
 import { BewUserStatsSummary } from './BewUserStatsSummary';
 import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
+import { InputTabs } from './InputTabs';
 
 // Define input types for better type safety
 type InputType = 'sketch' | 'multi-options' | 'notes' | '';
@@ -149,52 +150,14 @@ useEffect(() => {
 
 <div className='flex-1 w-100'>
 
-
+<div className='flex-col'>
     {!!selectedInputType && (
-      <div className='flex-row flex-justify-around mb-'
-        style={{
-          color: "#AFAFAF",
-        }}
-      >
-        <div className='py-2 px-4 bord-r-10 opaci-chov--75 '
-          onClick={() => {
-            playSoundEffect("/sfx/short/passbip.mp3")
-            handleInputTypeChange('sketch')
-          }}
-          style={{
-            border: selectedInputType === 'sketch' ? "1px solid #7DDB80" : "1px solid #afafaf",
-            color: selectedInputType === 'sketch' ? "#7DDB80" : "#afafaf"
-          }}
-        >
-          Sketch
-        </div>
-        <div className='py-2 px-4 bord-r-10 opaci-chov--75 '
-          onClick={() => {
-            playSoundEffect("/sfx/short/passbip.mp3")
-            handleInputTypeChange('multi-options')
-          }}
-          style={{
-            border: selectedInputType === 'multi-options' ? "1px solid #FF9600" : "1px solid #afafaf",
-            color: selectedInputType === 'multi-options' ? "#FF9600" : "#afafaf"
-          }}
-        >
-          Multi-Options
-        </div>
-        <div className='py-2 px-4 bord-r-10 opaci-chov--75 '
-          onClick={() => {
-            playSoundEffect("/sfx/short/passbip.mp3")
-            handleInputTypeChange('notes')
-          }}
-          style={{
-            border: selectedInputType === 'notes' ? "1px solid #DB807D" : "1px solid #afafaf",
-            color: selectedInputType === 'notes' ? "#DB807D" : "#afafaf"
-          }}
-        >
-          Notes
-        </div>
-      </div>
+      <InputTabs 
+        selectedInputType={selectedInputType}
+        onInputTypeChange={handleInputTypeChange}
+      />
     )}
-
+</div>
 
 
 
