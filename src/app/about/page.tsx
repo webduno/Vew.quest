@@ -30,13 +30,13 @@ export default function AboutPage() {
           <div className='bord-r-15 w-max-700px' >
             {/* <div className='tx-bold tx-lg mb-4 px-4'>The Project</div> */}
             <div className='tx-altfont-2 flex-col'>
-              <p className='mb-4 tx-lg px-4'
+              <p className='mb-4 tx-lg mt-8 px-4'
               style={{
                 color: "#777777",
                 lineHeight: "1.5",
               }}
               >
-                Bew Quest is a gamified remote viewing platform designed to be accessible from any device.
+                Vew-Quest is a gamified remote viewing platform designed to be accessible from any device.
                 It combines the precision of scientific methodology with an engaging gaming experience.
                 Whether you're a seasoned practitioner or just ready to <a
                 style={{
@@ -46,7 +46,7 @@ export default function AboutPage() {
               </p>
               
               <p className='mb-4 tx-sm px-8'>
-                Bew provides a seamless and intuitive interface for your remote viewing sessions.                
+                Vew.quest provides a seamless and intuitive interface for your remote viewing sessions.                
                 The platform will remain free forever with no login requirements while
                 committed to accessibility and community growth.
                 The platform is <a
@@ -67,7 +67,7 @@ export default function AboutPage() {
                 style={{
                   color: "#22AEFF",
                 }}
-                href="https://bew.quest" target="_blank" rel="noopener noreferrer" className='tx-lgx block py-4 tx-white'>bew.quest</a>
+                href="https://Vew.quest" target="_blank" rel="noopener noreferrer" className='tx-lgx block py-4 tx-white'>Vew.quest</a>
               </p>
             </div>
           </div>
