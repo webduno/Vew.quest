@@ -42,6 +42,7 @@ const [ telegram_id, s__telegram_id] = useState<string | null>(null);
     console.log("wwwTg")
     console.log(wwwTg)
     s__wndwTg(wwwTg)
+    // @ts-ignore: expect error cuz of unkonwn telegram object inside window context
     s__telegram_id(wwwTg?.initDataUnsafe?.user?.id)
     console.log("wwwTg?.initDataUnsafe?.user?.id")
     console.log(wwwTg?.initDataUnsafe?.user?.id)
