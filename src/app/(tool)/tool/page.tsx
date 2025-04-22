@@ -230,7 +230,8 @@ export default function TrainingPage() {
     // Refetch stats after saving new data
     await refetchStats();
     // image modal
-    setShowImageModal(true);
+    // setShowImageModal(true);
+    setShowSketchModal(true);
   }, [target, LS_playerId, refetchStats]);
 
   const handleRequestCRV = async () => {

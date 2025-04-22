@@ -1,6 +1,7 @@
 'use client';
 import { ResultBadge } from '@/dom/bew/ResultBadge';
 import CanvasDraw from 'react-canvas-draw';
+import { useRef } from 'react';
 
 
 export const ToolResultsCard = ({
@@ -49,6 +50,8 @@ export const ToolResultsCard = ({
     description: string;
   } | null;
 }) => {
+  const canvasRef = useRef<CanvasDraw>(null);
+  
   return (
     <div className="tx-white tx-center mt-100">
       <div className="tx-lg tx-altfont-2 tx-bold-5"
@@ -174,6 +177,7 @@ export const ToolResultsCard = ({
               }}
             >
               <CanvasDraw
+                ref={canvasRef}
                 disabled
                 hideGrid
                 canvasWidth={300}
@@ -183,13 +187,90 @@ export const ToolResultsCard = ({
                   borderRadius: "15px",
                 }} />
             </div>
-            <div className="tx-center tx-altfont-2 mt-2"
+            {/* <div className="tx-center tx-altfont-2 mt-2"
               style={{
                 color: "#4B4B4B",
               }}
             >
-              Your Drawing
-            </div>
+              Download Your Drawing / Target Image
+            </div> */}
+            <button
+              className="mt-2 tx-sm bg-trans bord-r-10 pb-1 noborder pa-0 pointer tx-altfont-2 px-1"
+              style={{
+                color: "#22a2f2",
+                border: "1px solid #22a2f2",
+              }}
+              onClick={() => {
+                if (canvasRef.current) {
+                  const drawingCanvas = (canvasRef.current as any).canvas.drawing;
+                  const targetImage = new Image();
+                  const logoImage = new Image();
+                  targetImage.crossOrigin = 'anonymous';
+                  logoImage.crossOrigin = 'anonymous';
+                  targetImage.src = `/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`;
+                  logoImage.src = '/bew/pnglogo.png';
+                  
+                  Promise.all([
+                    new Promise(resolve => targetImage.onload = resolve),
+                    new Promise(resolve => logoImage.onload = resolve)
+                  ]).then(() => {
+                    const combinedCanvas = document.createElement('canvas');
+                    const ctx = combinedCanvas.getContext('2d');
+                    
+                    // Set canvas size to fit both images side by side with padding and logo
+                    combinedCanvas.width = 600
+                    // combinedCanvas.width = 620; // 300px for each image + 20px padding
+                    combinedCanvas.height = 350; // 300px for images + 50px for logo
+                    
+                    if (ctx) {
+                      // Draw white background
+                      ctx.fillStyle = 'white';
+                      ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
+                      
+                      // Draw logo at the top
+                      const logoHeight = 40;
+                      const logoWidth = (logoImage.width * logoHeight) / logoImage.height;
+                      // unsaturated and rotate 180 degrees
+                      ctx.filter = 'saturate(0) opacity(0.5)';
+                      ctx.drawImage(logoImage, 20, 2, logoWidth, logoHeight);
+                      ctx.filter = 'saturate(1) ';
+                      ctx.drawImage(logoImage, 540, 2, logoWidth, logoHeight);
+                      // saturate back to 1
+
+                      // draw title bew.quest in middle top
+                      ctx.fillStyle = '#4B4B4B';
+                      ctx.font = '20px Consolas';
+                      ctx.textAlign = 'center';
+                      // ctx.fillText('bew.quest', combinedCanvas.width/2+15, 30);
+
+                      const playerId = localStorage.getItem('VB_PLAYER_ID');
+                      ctx.fillText(selectedTargetInfo?.id ? "bew.quest viewer:"+playerId +' #'+selectedTargetInfo?.id : 'n/a', combinedCanvas.width/2, 30);
+                      
+                      // Draw the drawing on the left with padding
+                      ctx.drawImage(drawingCanvas, 10, 50, 300, 300);
+                      
+                      // Draw the target image on the right with padding
+                      ctx.drawImage(targetImage, 310, 50, 300, 300);
+                      
+                      // Add labels
+                      ctx.fillStyle = '#4B4B4B';
+                      ctx.font = '14px Arial';
+                      ctx.textAlign = 'center';
+                      ctx.fillText('Your Drawing', 160, 360);
+                      ctx.fillText('Target Image', 460, 360);
+                      
+                      // Create download link
+                      const link = document.createElement('a');
+                      link.download = 'drawing_comparison.png';
+                      link.href = combinedCanvas.toDataURL('image/png');
+                      link.click();
+                    }
+                  });
+                }
+              }}
+            >
+              <div>📂 Download Your <br /> Drawing / Target Image</div>
+            </button>
           </>
         )}
       </div>
