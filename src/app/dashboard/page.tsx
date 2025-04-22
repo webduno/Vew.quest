@@ -339,7 +339,7 @@ export default function TrainingPage() {
         </a>
       </>} />
       
-      <BewPageHeader title={"Dashboard"} />
+      <BewPageHeader title={"DASHBOARD"} />
       
     <div className='w-100 w-max-1080px Q_xs_sm_flex-col flex-row-r  pt-8  flex-justify-center flex-align-center gap- 4'>
 

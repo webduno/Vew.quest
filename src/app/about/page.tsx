@@ -24,7 +24,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-<BewPageHeader title={"About"} />
+<BewPageHeader title={"ABOUT"} />
 
         <div className='w-100 w-max-1080px flex-col pt-8 gap-4 flex-align-start'>
           <div className='bord-r-15 w-max-700px' >

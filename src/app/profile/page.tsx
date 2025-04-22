@@ -159,7 +159,7 @@ export default function ProfilePage() {
     return (
       <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
         <NavigationHeaderBar />
-        <BewPageHeader title={"Profile"} />
+        <BewPageHeader title={"PROFILE"} />
 
         
         <div className='flex-col pt-100 w-80 tx-altfont-2'>
@@ -192,7 +192,7 @@ export default function ProfilePage() {
 
 
         
-        <BewPageHeader title={"Profile"} />
+        <BewPageHeader title={"PROFILE"} />
 
         <div className='w-100  w-max-1080px flex-row Q_xs_flex-col-r pt-8 flex-justify-center flex-align-start gap-4'>
 
