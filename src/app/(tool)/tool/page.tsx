@@ -16,14 +16,15 @@ import { ResultBadge } from '../../../dom/bew/ResultBadge';
 import { isMobile } from '../../../../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { MenuBarItem } from '@/dom/bew/MenuBarItem';
-import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 import { random10CharString } from '../../../../script/utils/platform/random10CharString';
+import { InitialToolLogin } from '@/dom/bew/InitialToolLogin';
+import { generateRandomTargetRandomized } from '../../../../script/utils/platform/generateRandomTargetRandomized';
 
 type TargetsData = {
   [key: string]: string;
 };
 
-type GameState = 'initial' | 'playing' | 'results';
+export type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {
   const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, refetchStats } = useFetchedStats();
@@ -40,7 +41,7 @@ export default function TrainingPage() {
     setInitiallyAutoLoaded(true);
     if (crvObjects.length === 0) { 
 
-      setGameState('playing');
+      generateNewRound()
       return; 
     }
     // console.log("crvObjects 22", crvObjects);
@@ -49,6 +50,15 @@ export default function TrainingPage() {
     handleStart();
 
   }, [isLoading]);
+
+
+  const generateNewRound = async () => {
+    const newTarget = await fetchRandomFromCocoDatabase();
+    setTarget(newTarget);
+    setGameState('playing');
+    setResults(null);
+    setSentObject(null);
+  }
 
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const [enterUsername, setEnterUsername] = useState(false);
@@ -60,37 +70,6 @@ export default function TrainingPage() {
     solved: number;
     created_at: string;
   }[]>(null);
-  const handleMyRequests = async () => {
-    const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
-    if (!LS_playerId) {
-      alert('No player ID found');
-      return;
-    }
-
-    try {
-      setIsLoadingMyRequests(true);
-      const response = await fetch(`/api/supabase/crvmailbox?playerId=${LS_playerId}`, {
-        headers: {
-          'Cache-Control': 'no-store, no-cache, must-revalidate',
-          'Pragma': 'no-cache'
-        },
-        cache: 'no-store'
-      });
-      const data = await response.json();
-      
-      if (!data.success || !data.data || data.data.length === 0) {
-        alert('You dont have any requests!');
-        return;
-      }
-
-      setMyRequests(data.data);
-    } catch (error) {
-      console.error('Error fetching my requests:', error);
-      alert('Error fetching requests');
-    } finally {
-      setIsLoadingMyRequests(false);
-    }
-  }
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [enableLocked, setEnableLocked] = useState(false);
   const [gameState, setGameState] = useState<GameState>('initial');
@@ -136,25 +115,7 @@ export default function TrainingPage() {
   const [notes, setNotes] = useState<any>(null);
 
 
-  function generateRandomTarget() {
-    // Generate random 8-digit code in format XXXX-XXXX
-    const code = `${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}`;
-    // random type 1-4 obejct, entity, place, event
-    const typeNum = Math.floor(Math.random() * 4) + 1;
-    const typeString = ['object', 'entity', 'place', 'event'][typeNum - 1];
-    return {
-      code,
-      values: {
-        type: typeString,
-        natural: Math.floor(Math.random() * 100),
-        temp: Math.floor(Math.random() * 100),
-        light: Math.floor(Math.random() * 100),
-        color: Math.floor(Math.random() * 100),
-        solid: Math.floor(Math.random() * 100),
-        confidence: Math.floor(Math.random() * 100),
-      }
-    };
-  }
+  
 
   async function fetchRandomFromCocoDatabase() {
     try {
@@ -189,7 +150,7 @@ export default function TrainingPage() {
     } catch (error) {
       console.error('Error reading from COCO database:', error);
       // Fallback to random generation if there's an error
-      return generateRandomTarget();
+      return generateRandomTargetRandomized();
     }
   }
 
@@ -222,6 +183,7 @@ export default function TrainingPage() {
     solid: number;
     confidence: number;
   }, noteData: any, drawingData: any) => {
+    console.log("target", target);
     if (!target) return;
     setSentObject(params);
     const calculatedResults = {
@@ -340,367 +302,148 @@ export default function TrainingPage() {
 
   return (
     <div className='w-100 h-100  flex-col flex-justify-start'>
+      <div className='w-100  flex-col  '>
+        {gameState === 'initial' && (
+          <InitialToolLogin
+            gameState={gameState}
+            setGameState={setGameState}
+            typedUsername={typedUsername}
+            setTypedUsername={setTypedUsername}
+            isLoading={isLoading}
+            handleStart={handleStart}
+            sanitizePlayerId={sanitizePlayerId}
+          />
+        )}
 
+        {gameState === 'playing' && (
+          <div className='flex-col w-100 h-100vh'>
+            <div className='flex-row w-100 flex-justify-stretch h-100'>
+              {!isMobile() && (<>
+                <div id="menu-icon-bar" className=' h-100 Q_sm_x'
+                style={{borderRight: "1px solid #E5E5E5"}}
+                >
+                  <a href="/" className='pointer'>
+                    <img src="/bew/pnglogo.png" alt="tool_bg7" className='px-2 py-4 ' width="50px" />
+                  </a>
 
+                  <MenuBarItem 
+                href="/dashboard"
+                emoji="🏠"
+                tooltip="Dashboard"
+                />
+                
+                
+                <MenuBarItem 
+                href="/dashboard#resources"
+                emoji="📚"
+                tooltip="Resources"
+                />
 
+                <MenuBarItem 
+                href="/leaderboard"
+                emoji="🏆"
+                tooltip="Leaderboard"
+                />
 
-    <div className='w-100  flex-col  '>
-{gameState === 'initial' && (<>
+                <MenuBarItem 
+                href="/profile"
+                emoji="👤"
+                tooltip="Profile"
+                />
 
-      <NavigationHeaderBar linkList={<>
-        <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>About</div>
-        </a>
-      </>} />
-      <div className='flex-wrap gap-8 px-4 '
-      style={{
-        height: "70vh",
-      }}
-      >
-        <div className='flex-col '
-        
-        >
-        <div className='Q_xs_sm py-4'></div>
+                <MenuBarItem 
+                href="#"
+                emoji="⚙️"
+                tooltip="Settings"
+                />
 
-        
-        <img src="/bew/cleaneyes.png"
-        onClick={() => {
-          setGameState('playing');
-        }}
-        style={{
-          
-        }}
-         alt="tool_bg2" className='pointer hover-jump pos-abs noverflow block w-150px Q_xs_pt-8' />
+                <MenuBarItem 
+                href="#"
+                emoji="❓"
+                tooltip="Help"
+                />
+              </div>
+              </>)}
 
-
-
-        <img src="/bew/starsbg2.jpeg"
-        onClick={() => {
-          setGameState('playing');
-        }}
-        style={{
-          
-        }}
-         alt="tool_bg1" className='pointer bord-r-50 noverflow block w-250px' />
-
-        </div>
-        <div className=' tx-altfont-2 tx-bold gap-4  flex-col w-300px'
-        style={{color: "#777777",
-        }}
-        >
-          <div className='tx-center tx-lgx landing -title'>Gamified <br /> step-by-step lessons for remote viewing</div>
-          <div>
-            <div>
-              <input 
-                type="text" 
-                className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3 tx-center'
-                placeholder='Enter your name'
+              <div className='flex-1 flex-col flex-align-stretch flex-justify-start h-100'>
+                {<div className='Q_xs flex-row px-4'>
+                   <BewUserStatsSummary minified  />
+                   <div className='flex-1 flex-col flex-align-end '>
+                      <a href="/profile" className='nodeco tx-lg bord-r-100 hover-jump bord-r-100 pointer noverflow block pa-1 pt-3'
+                      
+                      >
+                        <img src="/bew/pfp/row-4-column-1.png" alt="profile" width="36px bord-r-100 pointer noverflow block" />
+                      </a>
+                   </div>
+                </div>}
+                {<div className='Q_sm_x py-2 '> </div>}
+               
+                
+                <div className='pos-rel tx-white ma-4 pa-4 mt-0 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
                 style={{
-                  border: "1px solid #E5E5E5",
+                  background: "#807DDB",
+                  boxShadow: "0 4px 0 #6B69CF",
                 }}
-                value={typedUsername}
-                onChange={(e) => { setTypedUsername(sanitizePlayerId(e.target.value)) }}
-                onKeyDown={(e) => {
-                  if (!typedUsername) {
-                    return;
-                  }
-                  if (e.key === "Enter") {
-                    handleStart();
-                  }
-                }}
-              />
-            </div>
-            <div 
-              className='py-2 px-8 tx-center tx-white bord-r-10 tx-lgx opaci-chov--75'
-              onClick={isLoading ? undefined : ()=>{
-                if (!typedUsername) {
-                  const randomId = random10CharString();
-                  setTypedUsername(randomId);
-                  localStorage.setItem('VB_PLAYER_ID', randomId);
-                  window.location.reload(); 
-                  return;
-                }
-                handleStart();
-              }}
-              style={{
-                backgroundColor: isLoading ? "#cccccc" : "#807DDB",
-                boxShadow: isLoading ? "0px 4px 0 0px #999999" : "0px 4px 0 0px #6B69CF",
-              }}
-            >
-              {isLoading ? "Loading..." : "Start"}
-            </div>
-            {/* <div className='tx-center mt-4 hover-jump-12 w-100 flex-col bord-r-25 '
-            style={{
-              background: "#FAeFa5",
-              boxShadow: "0px 4px 0 0px #F7CB28",
-            }}
-            >
-            <a href="/" className='landing-title py-4 tx-altfont-2 tx-bold-4 w-150px block tx-center'
-            style={{
-            }}
-            >
-              Click here to go to new url <span style={{
-                borderBottom: "2px solid #F7CB28",
-              }}
-              className=' tx-bold'>bew.quest</span>
-            </a>
-            </div> */}
-          </div>
-        </div>
-      </div>
-</>)}
+                >
+                <a href="/dashboard"           style={{color: "#fafafa"}}     
+                className='opaci-50 nodeco pointer'>← Go to Dashboard</a>
+                <div className='tx-bold tx-lg'>Target Code #{target?.code}</div>
 
 
 
-      {gameState === 'playing' && (<>
-
-
-
-
-
-
-
-
-
-
-
-
-      
-<div className='flex-col w-100 h-100vh'>
-<div className='flex-row w-100 flex-justify-stretch h-100'>
-
-
-
-
-
-{!isMobile() && (<>
-
-  <div id="menu-icon-bar" className=' h-100 Q_sm_x'
-style={{borderRight: "1px solid #E5E5E5"}}
-  >
-    <a href="/" className='pointer'>
-      <img src="/bew/pnglogo.png" alt="tool_bg7" className='px-2 py-4 ' width="50px" />
-      </a>
-
-      <MenuBarItem 
-    href="/dashboard"
-    emoji="🏠"
-    tooltip="Dashboard"
-    />
-    
-    
-    <MenuBarItem 
-    href="/dashboard#resources"
-    emoji="📚"
-    tooltip="Resources"
-    />
-
-    <MenuBarItem 
-    href="/leaderboard"
-    emoji="🏆"
-    tooltip="Leaderboard"
-    />
-
-    <MenuBarItem 
-    href="/profile"
-    emoji="👤"
-    tooltip="Profile"
-    />
-
-    <MenuBarItem 
-    href="#"
-    emoji="⚙️"
-    tooltip="Settings"
-    />
-
-    <MenuBarItem 
-    href="#"
-    emoji="❓"
-    tooltip="Help"
-    />
-  </div>
-</>)}
-
-
-
-
-
-
-
-
-
-
-
-
-  <div className='flex-1 flex-col flex-align-stretch flex-justify-start h-100'>
-    {<div className='Q_xs flex-row px-4'>
-       <BewUserStatsSummary minified  />
-       <div className='flex-1 flex-col flex-align-end '>
-          <a href="/profile" className='nodeco tx-lg bord-r-100 hover-jump bord-r-100 pointer noverflow block pa-1 pt-3'
-          
-          >
-            <img src="/bew/pfp/row-4-column-1.png" alt="profile" width="36px bord-r-100 pointer noverflow block" />
-          </a>
-       </div>
-    </div>}
-    {<div className='Q_sm_x py-2 '> </div>}
-   
-    
-    <div className='pos-rel tx-white ma-4 pa-4 mt-0 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
-    style={{
-      background: "#807DDB",
-      boxShadow: "0 4px 0 #6B69CF",
-    }}
-    >
-<a href="/dashboard"           style={{color: "#fafafa"}}     
-// onClick={() => {
-//                 setGameState('initial');
-//                 setShowImageModal(false);
-//                 setShowSketchModal(false);
-//               }}
-className='opaci-50 nodeco pointer'>← Go to Dashboard</a>
-<div className='tx-bold tx-lg'>Target Code #{target?.code}</div>
-
-
-
-<div
-style={{
-  transform: "translate(-100%,-25%)",
-  background: "#fafafa",
-  boxShadow: "0 4px 0 #cccccc",
-  width: "40px",
-  height: "40px",
-}}
-onClick={() => {
-  setShowImageModal( prev => !prev);
-}}
-data-tooltip-id="image-preview-tooltip"
-data-tooltip-content="View Target"
-data-tooltip-place="bottom"
-data-tooltip-variant='light'
-className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs right-0 top-0'>
-  {/* eye emoji */}
-  <div className='tx-mdl'>👀</div>
-</div>
-<Tooltip id="image-preview-tooltip" />
-
-
-
-
-
-
-    </div>
-<div className='flex-1 tx-altfont-2 flex-col'>
-
-
-
-
-
-  
-
-
-  
-<AnalogMobileScreen
-        setEnableLocked={setEnableLocked}
-        enableLocked={enableLocked}
-        onFullSend={handleFullSend}
-      />
-
-
-
-
-
-</div>
-
-
-
-
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{!isMobile() && crvObjects.length > 0 && (<>
-  <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
-<BewUserStatsSummary />
-  </div>
-</>)}
-
-
-
-
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-      </>)}
-
-
-
-
-      {gameState !== 'results' && showImageModal && (<>
-      <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10  z-200'>
-<div className='flex-col px-8  flex-align-center tx-altfont-2 gap-2  bg-white box-shadow-2-b bord-r-15 pa-4'>
-  <div className='flex-col w-100'>
-    <div onClick={() => {
-      setShowImageModal(false);
-    }}
-    className='opaci-chov--75 tx-bold tx-lg pb-2 '>
-      <div className='opaci-25 underline'>Close Target Image</div>
-    </div>
-  </div>
-      <img className='block pos-rel bord-r-15'
-                src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
-                alt={selectedTargetInfo?.description}
+                <div
                 style={{
-                  overflow: 'hidden',
-                  width: '100%',
-                  maxWidth: '300px',
-                  maxHeight: '300px', 
-                  objectFit: 'contain'
+                  transform: "translate(-100%,-25%)",
+                  background: "#fafafa",
+                  boxShadow: "0 4px 0 #cccccc",
+                  width: "40px",
+                  height: "40px",
                 }}
-              />
-              <div className="tx-center tx-altfont-2 mt-2 w-250px"
-              style={{
-                color: "#4B4B4B",
-              }}>
-                {selectedTargetInfo?.description}
+                onClick={() => {
+                  setShowImageModal( prev => !prev);
+                }}
+                data-tooltip-id="image-preview-tooltip"
+                data-tooltip-content="View Target"
+                data-tooltip-place="bottom"
+                data-tooltip-variant='light'
+                className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs right-0 top-0'>
+                  {/* eye emoji */}
+                  <div className='tx-mdl'>👀</div>
+                </div>
+                <Tooltip id="image-preview-tooltip" />
+
+
+
+
+
+
+                </div>
+                <div className='flex-1 tx-altfont-2 flex-col'>
+
+
+
+
+
+              
+
+
+              
+                <AnalogMobileScreen
+                      setEnableLocked={setEnableLocked}
+                      enableLocked={enableLocked}
+                      onFullSend={handleFullSend}
+                    />
+
+
+
+
+
+                </div>
+
+
+
+
               </div>
-              </div>
-              </div>
-</>)}
-
-
-
-
-
-
-
-
-
-
-{gameState === 'results' && (<>
 
 
 
@@ -717,309 +460,382 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
 
 
 
-{gameState === 'results' && results && target && (myRequests?.length === 0 || !myRequests) && (
-        <div className="tx-white tx-center mt-100">
-          <div className="tx-lg tx-altfont-2 tx-bold-5"
-          style={{
-            color: "#FDC908",
-          }}
-          >Results for  #{target.code}!
+
+
+              {!isMobile() && crvObjects.length > 0 && (<>
+                <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
+                <BewUserStatsSummary />
+                </div>
+              </>)}
+
+
+
+
+            </div>
           </div>
-          <div className='tx-white bord-r-100 mt-1 py-1 pos-rel'
-          style={{
-            background: "#E5E5E5",
-            boxShadow: "0 2px 0 #D68800",
-            overflow: "hidden"
-          }}
-          >
-            <div className='pos-abs top-0 left-0 h-100'
-            style={{
-              width: `${overallAccuracy}%`,
-              background: "#FDC908",
-              transition: "width 0.5s ease-out"
+        )}
+
+        {gameState !== 'results' && showImageModal && (<>
+        <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10  z-200'>
+        <div className='flex-col px-8  flex-align-center tx-altfont-2 gap-2  bg-white box-shadow-2-b bord-r-15 pa-4'>
+          <div className='flex-col w-100'>
+            <div onClick={() => {
+              setShowImageModal(false);
             }}
-            ></div>
-            <div
-            style={{
-              color: "#D68800",
-            }}
-             className='tx-bold pos-rel '>{Number(overallAccuracy).toFixed(3)}%</div>
+            className='opaci-chov--75 tx-bold tx-lg pb-2 '>
+              <div className='opaci-25 underline'>Close Target Image</div>
+            </div>
           </div>
-
-          <div className='w-300px py-3 my-3 px-4 bord-r-15' style={{
-            border: "1px solid #E5E5E5",
-            background: "#f7f7f7",
-          }}>
-
-
-
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-{!showImageModal && !showSketchModal && (<>
-            <div className="flex-col gap-2">  
-
-          <div className="flex-wrap gap-2 w-100  flex-align-stretch">
-          
+            <img className='block pos-rel bord-r-15'
+                      src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
+                      alt={selectedTargetInfo?.description}
+                      style={{
+                        overflow: 'hidden',
+                        width: '100%',
+                        maxWidth: '300px',
+                        maxHeight: '300px', 
+                        objectFit: 'contain'
+                      }}
+                    />
+                    <div className="tx-center tx-altfont-2 mt-2 w-250px"
+                    style={{
+                      color: "#4B4B4B",
+                    }}>
+                      {selectedTargetInfo?.description}
+                    </div>
+                    </div>
+                    </div>
+        </>)}
 
 
 
-            <div className="flex-col bord-r-15 "
-            style={{
-              padding: "3px 3px 6px 3px",
-              background: "#7DDB80",
-            }}
-            >
-              <div className="flex-col flex-1 tx-start tx-white py-1 flex-justify-between px-3">
-                <div className='flex-col flex-justify-start  tx-center'>
-                  <div className='pb-1'>Sent Type:</div>
-                  <div className='flex-row flex-align-center  gap-1 tx-bold'>
-                    <div>{sentObject?.type.toUpperCase()}</div>
-                    <div className='tx-xs'>{results.type ? "(HIT)" : "(MISS)"}</div>
+
+
+
+
+
+
+
+        {gameState === 'results' && (<>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {gameState === 'results' && results && target && (myRequests?.length === 0 || !myRequests) && (
+                <div className="tx-white tx-center mt-100">
+                  <div className="tx-lg tx-altfont-2 tx-bold-5"
+                  style={{
+                    color: "#FDC908",
+                  }}
+                  >Results for  #{target.code}!
                   </div>
+                  <div className='tx-white bord-r-100 mt-1 py-1 pos-rel'
+                  style={{
+                    background: "#E5E5E5",
+                    boxShadow: "0 2px 0 #D68800",
+                    overflow: "hidden"
+                  }}
+                  >
+                    <div className='pos-abs top-0 left-0 h-100'
+                    style={{
+                      width: `${overallAccuracy}%`,
+                      background: "#FDC908",
+                      transition: "width 0.5s ease-out"
+                    }}
+                    ></div>
+                    <div
+                    style={{
+                      color: "#D68800",
+                    }}
+                     className='tx-bold pos-rel '>{Number(overallAccuracy).toFixed(3)}%</div>
+                  </div>
+
+                  <div className='w-300px py-3 my-3 px-4 bord-r-15' style={{
+                    border: "1px solid #E5E5E5",
+                    background: "#f7f7f7",
+                  }}>
+
+
+
+
+                  
+
+
+
+
+
+
+
+
+
+
+
+
+                  {!showImageModal && !showSketchModal && (<>
+                  <div className="flex-col gap-2">  
+
+                <div className="flex-wrap gap-2 w-100  flex-align-stretch">
+                
+
+
+
+                  <div className="flex-col bord-r-15 "
+                  style={{
+                    padding: "3px 3px 6px 3px",
+                    background: "#7DDB80",
+                  }}
+                  >
+                    <div className="flex-col flex-1 tx-start tx-white py-1 flex-justify-between px-3">
+                      <div className='flex-col flex-justify-start  tx-center'>
+                        <div className='pb-1'>Sent Type:</div>
+                        <div className='flex-row flex-align-center  gap-1 tx-bold'>
+                          <div>{sentObject?.type.toUpperCase()}</div>
+                          <div className='tx-xs'>{results.type ? "(HIT)" : "(MISS)"}</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="tx-white py-1 bg-white w-100 bord-r-15 flex-row gap-1"
+                    style={{
+                      color: "#7DDB80"
+                    }}
+                    >
+                      <div>Target:</div>
+                      <div>{target.values.type.toUpperCase()}</div>
+                      
+                    </div>
+                  </div>
+
+
+
+                  
+
+                  <ResultBadge 
+                  label="Natural"
+                  keyName="natural"
+                  sentObject={sentObject} target={target} results={results} />
+
+  <ResultBadge 
+                  label="Temperature"
+                  keyName="temp"
+                  sentObject={sentObject} target={target} results={results} />
+
+  <ResultBadge 
+                  label="Light"
+                  keyName="light"
+                  sentObject={sentObject} target={target} results={results} />
+
+  <ResultBadge 
+                  label="Color"
+                  keyName="color"
+                  sentObject={sentObject} target={target} results={results} />
+
+
+  <ResultBadge 
+                  label="Solid"
+                  keyName="solid"
+                  sentObject={sentObject} target={target} results={results} />
+
+
+                </div>      
+                  </div>
+                  </>)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+                {showImageModal &&  (
+                  <>
+                  <div className='bord-r-15 flex-col'
+                  style={{
+                    minHeight: "300px",
+                  }}
+                  >
+                    <img className='block pos-rel'
+                      src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
+                      alt={selectedTargetInfo?.description}
+                      style={{
+                        overflow: 'hidden',
+                        borderRadius: "3px",
+                        width: '100%',
+                        maxWidth: '300px',
+                        maxHeight: '300px', 
+                        objectFit: 'contain'
+                      }}
+                    />
+                    <div className="tx-center tx-altfont-2 mt-2"
+                    style={{
+                      color: "#4B4B4B",
+                    }}>
+                      {selectedTargetInfo?.description}
+                    </div>
+                    </div>
+                  </>
+                )}
+
+                {showSketchModal && !showImageModal && sketchData && (
+                  <>
+                    <div className='bord-r-15 flex-col'
+                    style={{
+                      minHeight: "300px",
+                    }}
+                    >
+                    <CanvasDraw
+                      disabled
+                      hideGrid
+                      canvasWidth={300}
+                      canvasHeight={300}
+                      saveData={sketchData}
+                      style={{
+                        borderRadius: "15px",
+                      }}
+                    />
+                    </div>
+                    <div className="tx-center tx-altfont-2 mt-2"
+                    style={{
+                      color: "#4B4B4B",
+                    }}
+                    >
+                      Your Drawing
+                    </div>
+                  </>
+                )}
+
+                </div>
+
+
+
+                <div className="flex-col flex-justify-center gap-2">
+                  <div className="flex-row gap-2 ">
+  {/* {!!showImageModal || !!showSketchModal && (
+                  <button 
+                    className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
+                    style={{
+                      color: "#999999",
+                    }}
+                    onClick={() => {
+                      setShowImageModal(false);
+                      setShowSketchModal(false);
+                    }}
+                  >
+                    <div>{showImageModal || showSketchModal ? "Show Results" : "Hide Results"}</div>
+                  </button>
+  )} */}
+
+
+                  {(!!showImageModal || !!showSketchModal) && (<>
+
+                  <button 
+                  className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
+                  style={{
+                    color: "#999999",
+                  }}
+                  onClick={() => {
+                    setShowImageModal(prev => !prev);
+                    if (!showImageModal) {
+                      setShowSketchModal(false);
+                    }
+                  }}
+                >
+                  <div>Show Results</div>
+                </button>
+                </>
+                )}
+                {!showImageModal && (
+                <button 
+                  className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
+                  style={{
+                    color: "#999999",
+                  }}
+                  onClick={() => {
+                    setShowImageModal(prev => !prev);
+                    if (!showImageModal) {
+                      setShowSketchModal(false);
+                    }
+                  }}
+                >
+                  <div>{showImageModal ? "Hide Image" : "Show Image"}</div>
+                </button>
+                )}
+
+                <button 
+                  className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
+                  style={{
+                    color: "#999999",
+                  }}
+                  onClick={() => {
+                    setShowSketchModal(prev => !prev);
+                    if (!showSketchModal) {
+                      setShowImageModal(false);
+                    }
+                  }}
+                >
+                  <div>{showSketchModal ? "Hide Drawing" : "Show Drawing"}</div>
+                </button>
+                <button  onClick={() => {
+                  alert("Notes:\n\n" + (notes || "No notes found!"));
+                }}
+                className='tx-sm pa-1 bord-r-15 opaci-chov--50'
+                style={{
+                  color: "#999999",
+                }}
+                >
+                  Notes
+                </button>
+                </div>
+                <div className='flex-row gap-2'>
+                <button 
+                  style={{
+                    background: "#807DDB",
+                    boxShadow: "0px 4px 0 0px #6B69CF",
+                  }}
+                  className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer tx-altfont-2" 
+                  onClick={() => {
+                    window.location.href = "/dashboard";
+                  }}
+                >
+                  <div>Main Menu</div>
+                </button>
+                <button 
+                  style={{
+                    background: "#7DDB80",
+                    boxShadow: "0px 4px 0 0px #34BE37",
+                  }}
+                  className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer tx-altfont-2" 
+                  onClick={handleTryAgain}
+                >
+                  <div>Next Target</div>
+                </button>
                 </div>
               </div>
-              <div className="tx-white py-1 bg-white w-100 bord-r-15 flex-row gap-1"
-              style={{
-                color: "#7DDB80"
-              }}
-              >
-                <div>Target:</div>
-                <div>{target.values.type.toUpperCase()}</div>
-                
-              </div>
             </div>
-
-
-
-            
-
-            <ResultBadge 
-            label="Natural"
-            keyName="natural"
-            sentObject={sentObject} target={target} results={results} />
-
-<ResultBadge 
-            label="Temperature"
-            keyName="temp"
-            sentObject={sentObject} target={target} results={results} />
-
-<ResultBadge 
-            label="Light"
-            keyName="light"
-            sentObject={sentObject} target={target} results={results} />
-
-<ResultBadge 
-            label="Color"
-            keyName="color"
-            sentObject={sentObject} target={target} results={results} />
-
-
-<ResultBadge 
-            label="Solid"
-            keyName="solid"
-            sentObject={sentObject} target={target} results={results} />
-
-
-          </div>      
-            </div>
-            </>)}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-
-          {showImageModal &&  (
-            <>
-            <div className='bord-r-15 flex-col'
-            style={{
-              minHeight: "300px",
-            }}
-            >
-              <img className='block pos-rel'
-                src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
-                alt={selectedTargetInfo?.description}
-                style={{
-                  overflow: 'hidden',
-                  borderRadius: "3px",
-                  width: '100%',
-                  maxWidth: '300px',
-                  maxHeight: '300px', 
-                  objectFit: 'contain'
-                }}
-              />
-              <div className="tx-center tx-altfont-2 mt-2"
-              style={{
-                color: "#4B4B4B",
-              }}>
-                {selectedTargetInfo?.description}
-              </div>
-              </div>
-            </>
           )}
-
-          {showSketchModal && !showImageModal && sketchData && (
-            <>
-              <div className='bord-r-15 flex-col'
-              style={{
-                minHeight: "300px",
-              }}
-              >
-              <CanvasDraw
-                disabled
-                hideGrid
-                canvasWidth={300}
-                canvasHeight={300}
-                saveData={sketchData}
-                style={{
-                  borderRadius: "15px",
-                }}
-              />
-              </div>
-              <div className="tx-center tx-altfont-2 mt-2"
-              style={{
-                color: "#4B4B4B",
-              }}
-              >
-                Your Drawing
-              </div>
-            </>
-          )}
-
-          </div>
-
-
-
-          <div className="flex-col flex-justify-center gap-2">
-            <div className="flex-row gap-2 ">
-{/* {!!showImageModal || !!showSketchModal && (
-            <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
-              style={{
-                color: "#999999",
-              }}
-              onClick={() => {
-                setShowImageModal(false);
-                setShowSketchModal(false);
-              }}
-            >
-              <div>{showImageModal || showSketchModal ? "Show Results" : "Hide Results"}</div>
-            </button>
-)} */}
-
-
-            {(!!showImageModal || !!showSketchModal) && (<>
-
-              <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
-              style={{
-                color: "#999999",
-              }}
-              onClick={() => {
-                setShowImageModal(prev => !prev);
-                if (!showImageModal) {
-                  setShowSketchModal(false);
-                }
-              }}
-            >
-              <div>Show Results</div>
-            </button>
-            </>
-            )}
-            {!showImageModal && (
-            <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
-              style={{
-                color: "#999999",
-              }}
-              onClick={() => {
-                setShowImageModal(prev => !prev);
-                if (!showImageModal) {
-                  setShowSketchModal(false);
-                }
-              }}
-            >
-              <div>{showImageModal ? "Hide Image" : "Show Image"}</div>
-            </button>
-            )}
-
-            <button 
-              className="mt- 2 tx-sm bg-trans noborder pa-0 pointer tx-altfont-2 underline px-1" 
-              style={{
-                color: "#999999",
-              }}
-              onClick={() => {
-                setShowSketchModal(prev => !prev);
-                if (!showSketchModal) {
-                  setShowImageModal(false);
-                }
-              }}
-            >
-              <div>{showSketchModal ? "Hide Drawing" : "Show Drawing"}</div>
-            </button>
-            <button  onClick={() => {
-              alert("Notes:\n\n" + (notes || "No notes found!"));
-            }}
-            className='tx-sm pa-1 bord-r-15 opaci-chov--50'
-            style={{
-              color: "#999999",
-            }}
-            >
-              Notes
-            </button>
-            </div>
-            <div className='flex-row gap-2'>
-            <button 
-              style={{
-                background: "#807DDB",
-                boxShadow: "0px 4px 0 0px #6B69CF",
-              }}
-              className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer tx-altfont-2" 
-              onClick={() => {
-                window.location.href = "/dashboard";
-              }}
-            >
-              <div>Main Menu</div>
-            </button>
-            <button 
-              style={{
-                background: "#7DDB80",
-                boxShadow: "0px 4px 0 0px #34BE37",
-              }}
-              className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer tx-altfont-2" 
-              onClick={handleTryAgain}
-            >
-              <div>Next Target</div>
-            </button>
-            </div>
-          </div>
-        </div>
-      )}
 
 
 
