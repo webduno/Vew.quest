@@ -50,7 +50,8 @@ export async function GET() {
       acc[obj.storage_key].count += 1;
       // Only add date if it's a viewing attempt (request_id is null)
       if (obj.request_id === null) {
-        acc[obj.storage_key].dates.add(new Date(obj.created_at).toLocaleDateString('en-US'));
+        const date = new Date(obj.created_at);
+        acc[obj.storage_key].dates.add(date.toISOString().split('T')[0]);
       }
       if (obj.result > acc[obj.storage_key].highest_accuracy) {
         acc[obj.storage_key].highest_accuracy = obj.result;
@@ -59,31 +60,38 @@ export async function GET() {
     }, {});
 
     // Calculate streak for each player
-    Object.entries(playerScores).forEach(([_, stats]: [string, any]) => {
+    Object.entries(playerScores).forEach(([key, stats]: [string, any]) => {
+      console.log('Processing player:', key);
+      console.log('Dates in set:', stats.dates);
+      
       const sortedDates = Array.from(stats.dates as Set<string>).sort((a, b) => 
         new Date(b).getTime() - new Date(a).getTime()
       );
+      console.log('Sorted dates:', sortedDates);
       
       let streak = 0;
       const now = new Date();
       const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      console.log('Current date:', currentDate.toISOString());
       
       for (let i = 0; i < sortedDates.length; i++) {
-        const date = new Date(sortedDates[i]);
         const targetDate = new Date(currentDate);
         targetDate.setDate(currentDate.getDate() - i);
-        
-        // Compare dates without time
-        const dateStr = date.toISOString().split('T')[0];
         const targetStr = targetDate.toISOString().split('T')[0];
+        const dateStr = sortedDates[i]; // Already in YYYY-MM-DD format
+        
+        console.log(`Comparing date ${dateStr} with target ${targetStr}`);
         
         if (dateStr === targetStr) {
           streak++;
+          console.log('Streak increased to:', streak);
         } else {
+          console.log('Streak broken, dates did not match');
           break;
         }
       }
       
+      console.log('Final streak for player:', streak);
       stats.streak = streak;
     });
 
