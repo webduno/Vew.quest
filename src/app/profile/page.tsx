@@ -377,7 +377,7 @@ backgroundColor='#FF9600'
           
         </div>
         
-              {guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId &&
+              {!!guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId &&
             <div className='bord-r-15  pb-2 pt- 4 px-4  pb-4 mb-100' 
             style={{
               border: "1px solid #f0f0f0",
@@ -404,7 +404,7 @@ backgroundColor='#FF9600'
                   }
                  }}
  alt="pfp" className={'bord-r-50 noverflow block pointer w-max-600px w-100'} /></div>
-              {crvObjects.length > 0 && guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId && (
+              {crvObjects.length > 0 && !!guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId && (
                  <div className='tx-md mt-2 hover-jump py-2 px-4 bord-r-8  pointer opaci-chov--50'
                  style={{
                   color: "#ffffff",
@@ -567,7 +567,7 @@ backgroundColor='#71B44F'
         </div>
       </div>
       </div>
-      {showGuestModal && guestUrlUsernameParam && (
+      {showGuestModal && !!guestUrlUsernameParam && (
         <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10 z-200'>
           <div className='flex-col px-8 flex-align-center tx-altfont-2 gap-2 bg-white box-shadow-2-b bord-r-15 pa-4'>
             <div className='flex-col w-100'>
