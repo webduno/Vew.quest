@@ -38,30 +38,34 @@ export default function LeaderboardPage() {
           <BewWorldLogo />
 
           <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
-            <div className='nodeco' data-tooltip-id="support-tooltip" data-tooltip-place="left" style={{ color: "#AFAFAF" }}>
-              <div>Support</div>
-            </div>
-            <Tooltip id="support-tooltip" clickable>
-              <a href="https://x.com/webduno" target='_blank' rel='noopener noreferrer' className='nodeco tx-white tx-altfont-2 nodeco tx-bold-2'>
-                <div>𝕏 | @webduno</div>
-              </a>
-            </Tooltip>
-            <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
+            
+          <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
               <div>Dashboard</div>
+            </a>
+            
+            <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
+              <div>About</div>
             </a>
           </div>
         </div>
 
         <div className='flex-col flex-align-stretch w-max-700px w-100'>
           <div className='tx-bold tx-lg  flex-col px-4  flex-align-stretch'>
-              <div className='tx-bold tx-lg tx-center pt-8 pb-4'
-                style={{
-                  color: "#4b4b4b",
-                }}
-              >
-                {/* trophy emoji */}
-                🏆 Global Leaderboard
-              </div>
+
+
+
+
+
+            
+    <div className='flex-col mb-100'>
+            <div className='tx-lg tx-altfont-2 tx-bold  tx-ls-1'
+            style={{
+              color: "#777777",
+            }}
+            >🏆 Global Leaderboard</div>
+          </div>
+
+              
               <div className='tx-altfont-2 opaci-50 tx-xsm flex-row px-2'>
                 <div className='w-50px'>Rank</div>
                 <div className='flex-1 pl-4'>Player ID</div>

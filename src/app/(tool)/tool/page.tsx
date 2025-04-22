@@ -363,24 +363,10 @@ export default function TrainingPage() {
         <div className=' px-4 flex-1 flex-row flex-justify-end tx-bold pt-4'
         
         >
-          <div className='nodeco'
-          data-tooltip-id="support-tooltip"
-          data-tooltip-place="left"
-          style={{
-            color: "#AFAFAF",
-            // filter: "saturate(0)",
-          }}
-           >
-            <div>Support</div>
-          </div>
-          <Tooltip id="support-tooltip" clickable >
-            <a href="https://x.com/webduno" target='_blank' rel='noopener noreferrer'
-
-            className='nodeco tx-white tx-altfont-2 nodeco tx-bold-2'
-            >
-              <div>𝕏 | @webduno</div>
+          
+          <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
+              <div>About</div>
             </a>
-          </Tooltip>
         </div>
       </div>
       <div className='flex-wrap gap-8 px-4 '

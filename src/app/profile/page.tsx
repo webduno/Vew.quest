@@ -114,18 +114,11 @@ export default function ProfilePage() {
 
           <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
             
-
-            
-            <div className='nodeco' data-tooltip-id="support-tooltip" data-tooltip-place="left" style={{ color: "#AFAFAF" }}>
-              <div>Support</div>
-            </div>
-            <Tooltip id="support-tooltip" clickable>
-              <a href="https://x.com/webduno" target='_blank' rel='noopener noreferrer' className='nodeco tx-white tx-altfont-2 nodeco tx-bold-2'>
-                <div>𝕏 | @webduno</div>
-              </a>
-            </Tooltip>
             <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
               <div>Dashboard</div>
+            </a>
+            <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
+              <div>About</div>
             </a>
           </div>
         </div>
@@ -160,7 +153,7 @@ style={{
 }}
 >
   <div className='Q_sm_x'>Change</div>
-  <div className='Q_xs'>🔄</div>
+  <div className='Q_xs_sm'>🔄</div>
 </button>
 <img src="/bew/pfp/row-4-column-1.png"
  alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
@@ -186,7 +179,20 @@ style={{
             </div>
 
                 
-            {!isMobile() && crvObjects.some(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]) ? 
+            { crvObjects.some(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]) ?  <>
+            {!!isMobile() && (<>
+            <div className=' tx-l g mb-2'>Viewed Today ✅</div>
+              <a href="/tool"
+          className='py-2 px-2 mb-4 pointer tx-bold nodeco tx-center tx-white bord-r-10 tx- w-100px lg '
+          style={{
+            backgroundColor: "#807DDB",
+            boxShadow: `0px 4px 0 0px #6B69CF`,
+          }}
+        >
+          {"Continue Viewing"}
+        </a>
+            </>)}
+              {!isMobile() && (<>
                  <LessonCard
                  title="Viewed Today"
                  emoji="✅"
@@ -197,7 +203,8 @@ style={{
                  actionText={"Continue Viewing"}
                  
                  />
-                : ''}            
+                 </>)}
+                 </>    : ''}            
 </div>
 
 <div className='flex-wrap px-4 flex-align-start flex-justify-start gap-4 flex-1'>
@@ -273,10 +280,11 @@ href="#"
 {/* Badges */}
 {hasMoreThan14Days && (
 <LessonCard 
-title="Fortnighter"
+title="Ranked"
 emoji="🏆"
-href="#"
-actionText={"Details"}
+href="/leaderboard"
+actionText={"Check Leaderboard"}
+
 
 boxShadowColor="#964400"
 backgroundColor='#FF9600'
@@ -302,7 +310,7 @@ backgroundColor='#FF9600'
       <div id="journey"></div>  
       <div className='pb-100 flex-col flex-align-start tx-altfont-2 gap-4 w-100 w-max-1080px'
       >
-        <div className="tx-xl opaci-40 tx-altfont-6">Your Journey</div>
+        <div className="tx-xl opaci-40 tx-altfont-6 px-4">Your Journey</div>
         <div className="w-max-600px py-4 ">
           
         <BewChoiceButton

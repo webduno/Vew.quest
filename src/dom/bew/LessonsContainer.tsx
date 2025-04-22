@@ -58,7 +58,7 @@ export const LessonsContainer = () => {
       title: "Report a Bug",
       // warning sign
       emoji: "⚠️",
-      href: "#",
+      href: "/feedback",
       backgroundColor: "#FFc04E",
       boxShadowColor: "#dF900E",
       actionText: "Submit Issue"
