@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
-import { calculateStreak } from '@/script/utils/streak';
+import { calculateStreak, calculatePotentialStreak } from '@/script/utils/streak';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -60,13 +60,15 @@ export async function GET() {
       const total_score = objects.reduce((sum, obj) => sum + obj.result, 0);
       const highest_accuracy = Math.max(...objects.map(obj => obj.result));
       const streak = calculateStreak(objects);
+      const potential_streak = calculatePotentialStreak(objects);
 
       acc[key] = {
         total_score,
         total_accuracy: total_score,
         count: objects.length,
         highest_accuracy,
-        streak
+        streak,
+        potential_streak
       };
       return acc;
     }, {});
@@ -79,6 +81,7 @@ export async function GET() {
         average_accuracy: stats.total_accuracy / stats.count,
         highest_accuracy: stats.highest_accuracy,
         streak: stats.streak,
+        potential_streak: stats.potential_streak,
         rank: 0 // Will be set after sorting
       }))
       .sort((a, b) => b.total_score - a.total_score)

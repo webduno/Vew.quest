@@ -56,7 +56,7 @@ export default function ProfilePage() {
   const [guestUrlUsernameParam, setGuestUrlUsernameParam] = useState<string | null>(null);
   
   useEffect(() => {
-    const username = searchParams.get('username');
+    const username = searchParams.get('friend');
     if (username) {
       setGuestUrlUsernameParam(username);
     }
@@ -67,6 +67,8 @@ export default function ProfilePage() {
     firstRequestDate: null,
     averageAccuracy: 0,
     bestAccuracy: 0,
+    potentialStreak: 0,
+    streak: 0,
     dailyGoals: {
       requests: 0,
       accuracy: 0,
@@ -82,12 +84,14 @@ export default function ProfilePage() {
   const [guestStats, setGuestStats] = useState<{
     crvObjects: any[];
     streak: number;
+    potentialStreak: number;
     averageResult: number;
     isLoading: boolean;
     error: string | null;
   }>({
     crvObjects: [],
     streak: 0,
+    potentialStreak: 0,
     averageResult: 0,
     isLoading: true,
     error: null
@@ -102,12 +106,18 @@ export default function ProfilePage() {
   useEffect(() => {
     // Handle hash navigation after page load
     if (window.location.hash) {
+      console.log('hash', window.location.hash);
       const element = document.getElementById(window.location.hash.substring(1));
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
+        if (window.location.hash.substring(1) === 'guest' && LS_playerId !== guestUrlUsernameParam) {
+          setTimeout(() => {
+            setShowGuestModal(true);
+          }, 200);
+        }
       }
     }
-  }, []);
+  }, [LS_playerId]);
 
   useEffect(() => {
     if (crvObjects.length > 0) {
@@ -143,23 +153,43 @@ export default function ProfilePage() {
       fetchGuestStats();
     }
   }, [guestUrlUsernameParam]);
+  const submitStatus = "success"
+  const isSubmitting = false
+  if (!LS_playerId) {
+    return (
+      <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
+        <NavigationHeaderBar />
+        <BewPageHeader title={"Profile"} />
+
+        
+        <div className='flex-col pt-100 w-80 tx-altfont-2'>
+          <div className='tx-bold tx-lg mb-2 opaci-75'>
+            Username not found!
+          </div>
+        <img src="/bew/pfp/row-4-column-1.png"
+ alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
+        <a href="/tool"  
+             className={`nodeco bord-r-25 py-4 tx-altfont-2 tx-bold-4 w-100 w-max-600px tx-bold block tx-center ${isSubmitting ? 'opaci-50' : ''}`}
+            style={{
+              color: submitStatus === 'success' ? "#22cc22" : submitStatus === 'error' ? "#cc2222" : "#ff9900",
+              background: submitStatus === 'success' ? "#e5ffe5" : submitStatus === 'error' ? "#ffe5e5" : "#FAeFa5",
+              boxShadow: `0px 4px 0 0px ${submitStatus === 'success' ? "#22aa22" : submitStatus === 'error' ? "#aa2222" : "#F7CB28"}`,
+              cursor: isSubmitting ? 'not-allowed' : 'pointer',
+            }}
+            >
+              {isSubmitting ? 'Sending...' : submitStatus === 'success' ? 'Create Profile' : submitStatus === 'error' ? 'Error Sending' : 'Send Feedback'}
+            </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
       <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
-        <div className='flex-row w-100 w-max-1080px  tx-altfont-2'>
-          <BewWorldLogo />
+        
+        <NavigationHeaderBar />
 
-          <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
-            
-            <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
-              <div>Dashboard</div>
-            </a>
-            <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-              <div>About</div>
-            </a>
-          </div>
-        </div>
 
         
         <BewPageHeader title={"Profile"} />
@@ -287,6 +317,7 @@ style={{
             <div className='bord-r-15  pb-2 pt-4 px-4' style={{ border: "1px solid #f0f0f0" }}>
               <div className='tx-bold tx-lg mb-2 '>RV Stats</div>
               <div className='flex-col gap-2 flex-align-start'>
+                <div>Streak Potential: {userStats.streak || userStats.potentialStreak}</div>
     <div>Days of practice: {uniqueDays.length}</div>
     <div>Total Requests: {userStats.totalRequests}</div>
                 <div>First Request: {userStats.firstRequestDate ? new Date(userStats.firstRequestDate).toLocaleDateString() : 'No requests yet'}</div>
@@ -376,6 +407,8 @@ backgroundColor='#FF9600'
 
           
         </div>
+
+        <div id="guest"></div>  
         
               {!!guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId &&
             <div className='bord-r-15  pb-2 pt- 4 px-4  pb-4 mb-100' 
@@ -423,6 +456,7 @@ backgroundColor='#FF9600'
                  )}
             </div>
                  }
+            
       <div id="journey"></div>  
       <div className='pb-100 flex-col flex-align-start tx-altfont-2 gap-4 w-100 w-max-1080px'
       >
@@ -598,6 +632,7 @@ backgroundColor='#71B44F'
                     <div className='bord-r-15 pb-2 pt-4 px-4' style={{ border: "1px solid #f0f0f0" }}>
                       <div className='tx-bold tx-lg mb-2'>RV Stats</div>
                       <div className='flex-col gap-2 flex-align-start'>
+                        <div>Streak Potential: {guestStats.streak || guestStats.potentialStreak}</div>
                         <div>Total Requests: {guestStats.crvObjects.length}</div>
                         <div>First Request: {guestStats.crvObjects.length > 0 ? new Date(guestStats.crvObjects[guestStats.crvObjects.length - 1].created_at).toLocaleDateString() : 'No requests yet'}</div>
                         <div>Average Accuracy: {guestStats.averageResult.toFixed(3)}%</div>
@@ -697,3 +732,21 @@ backgroundColor='#71B44F'
   );
 } 
 
+
+const NavigationHeaderBar = () => {
+  return (
+    <div className='flex-row w-100 w-max-1080px  tx-altfont-2'>
+    <BewWorldLogo />
+
+    <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
+      
+      <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
+        <div>Dashboard</div>
+      </a>
+      <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
+        <div>About</div>
+      </a>
+    </div>
+  </div>
+  );
+};

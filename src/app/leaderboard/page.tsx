@@ -5,10 +5,12 @@ import { BewWorldLogo } from '../../dom/bew/BewWorldLogo';
 import { Tooltip } from 'react-tooltip';
 import { clean } from 'profanity-cleaner';
 import { BewPageHeader } from '@/dom/bew/BewPageHeader';
+import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
 export default function LeaderboardPage() {
   const { leaderboard, isLoadingLeaderboard, leaderboardError, fetchLeaderboard } = useFetchedStats();
   const [cleanedLeaderboard, setCleanedLeaderboard] = useState<any[]>([]);
+  const { LS_playerId } = usePlayerStats();
 
   useEffect(() => {
     fetchLeaderboard();
@@ -24,9 +26,15 @@ export default function LeaderboardPage() {
           }).includes("***")
         )
         .sort((a, b) => {
-          // First sort by streak
+          // First sort by actual streak
           if (b.streak !== a.streak) {
             return b.streak - a.streak;
+          }
+          // Then by potential streak if actual streaks are equal
+          const potentialStreakA = a.potential_streak || 0;
+          const potentialStreakB = b.potential_streak || 0;
+          if (potentialStreakB !== potentialStreakA) {
+            return potentialStreakB - potentialStreakA;
           }
           // Then by highest accuracy
           const accuracyA = parseInt(a.highest_accuracy?.toString() || '0');
@@ -47,12 +55,12 @@ export default function LeaderboardPage() {
         <BewWorldLogo />
 
         <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
-          <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
-            <div>Dashboard</div>
-          </a>
           
           <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
             <div>About</div>
+          </a>
+          <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
+            <div>Profile</div>
           </a>
         </div>
       </div>
@@ -65,16 +73,16 @@ export default function LeaderboardPage() {
             <div className='tx-altfont-2 opaci-50 tx-xsm flex-row px-2 mt-8 w-100'>
               <div className='w-50px'>Rank</div>
               <div className='flex-1 pl-4'>Player ID</div>
-              <div className=''>Score</div>
+              <div className='pl-2'>Score</div>
+              <div className=' pl-2'>Highest</div>
               <Tooltip id="accuracy-tooltip" />
               <div
                 data-tooltip-id="accuracy-tooltip"
-                data-tooltip-content="Current Streak"
+                data-tooltip-content="Streak / Potential"
                 className='pl-2'
               >
-                🔥
+                🔥/<span className='tx-bold-2' style={{ filter: "grayscale(100%)" }}>🔥</span>
               </div>
-              <div className=' pl-2'>Highest</div>
               </div>
             <hr className='w-100 opaci-10' />
             <div className='flex-col gap-2 w-100 pb-100'>
@@ -87,6 +95,7 @@ export default function LeaderboardPage() {
                   <div key={entry.storage_key} className='tx-altfont-2 w-100 flex-row tx-md pb-2 pr-4'
                     style={{
                       borderBottom: "1px solid #e5e5e5",
+                      background: entry.storage_key === LS_playerId ? 'linear-gradient(90deg, rgba(255,255,0,0.1) 0%, rgba(255,255,0,0.05) 100%)' : 'transparent'
                     }}
                   >
                     <div className='w-50px tx-bold-2 pl-4 tx-grey'>
@@ -103,7 +112,7 @@ export default function LeaderboardPage() {
                     <a className='flex-1 tx-grey nodeco opaci-chov--50 py-2'
                     style={{
                     }}
-                    href={`/profile?username=${entry.storage_key}`}
+                    href={`/profile?friend=${entry.storage_key}#guest`}
                     >
                       <div className='tx-bold'
                         style={{
@@ -119,10 +128,14 @@ export default function LeaderboardPage() {
                       {parseInt(entry.total_score.toString())}
                     </div>
                     <div className='tx-bold-2 pl-2'>
-                      {entry.streak}
+                      {parseInt(entry.highest_accuracy?.toString() || '0')}%
                     </div>
                     <div className='tx-bold-2 pl-2'>
-                      {parseInt(entry.highest_accuracy?.toString() || '0')}%
+                      {entry.streak > 0 ? (
+                        <span className='tx-bold-8' style={{ color: "#dd902E" }}>🔥{entry.streak}</span>
+                      ) : (
+                        <span className='tx-bold-2' style={{ filter: "grayscale(100%)" }}>🔥{entry.potential_streak || 0}</span>
+                      )}
                     </div>
                   </div>
                 ))

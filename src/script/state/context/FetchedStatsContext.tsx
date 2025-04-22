@@ -37,6 +37,7 @@ interface LeaderboardEntry {
   total_score: number;
   rank: number;
   streak: number;
+  potential_streak: number;
   highest_accuracy: number;
 }
 

@@ -5,6 +5,8 @@ export interface UserStats {
   firstRequestDate: string | null;
   averageAccuracy: number;
   bestAccuracy: number;
+  potentialStreak: number;
+  streak: number;
   dailyGoals: {
     requests: number;
     accuracy: number;
@@ -29,6 +31,8 @@ export const calculateUserStats = (crvObjects: CRVObject[]): UserStats => {
     firstRequestDate: crvObjects[crvObjects.length - 1]?.created_at || null,
     averageAccuracy: crvObjects.reduce((acc, obj) => acc + (obj.result || 0), 0) / crvObjects.length,
     bestAccuracy: Math.max(...crvObjects.map(obj => obj.result || 0)),
+    potentialStreak: calculatePotentialStreak(crvObjects),
+    streak: calculateStreak(crvObjects),
     dailyGoals: {
       requests: todayObjects.length,
       accuracy: todayObjects.reduce((acc, obj) => acc + (obj.result || 0), 0) / todayObjects.length,
@@ -70,6 +74,7 @@ export const getTodayObjects = (crvObjects: CRVObject[]): CRVObject[] => {
 
 export const calculateGuestStats = (crvObjects: CRVObject[]) => {
   const streak = calculateStreak(crvObjects);
+  const potentialStreak = calculatePotentialStreak(crvObjects);
   const averageResult = crvObjects.length > 0 
     ? crvObjects.reduce((sum: number, obj: any) => sum + obj.result, 0) / crvObjects.length 
     : 0;
@@ -77,6 +82,7 @@ export const calculateGuestStats = (crvObjects: CRVObject[]) => {
   return {
     crvObjects,
     streak,
+    potentialStreak,
     averageResult,
     isLoading: false,
     error: null
@@ -84,4 +90,4 @@ export const calculateGuestStats = (crvObjects: CRVObject[]) => {
 };
 
 // Import this from your existing streak.ts file
-import { calculateStreak } from './streak'; 
+import { calculatePotentialStreak, calculateStreak } from './streak'; 
