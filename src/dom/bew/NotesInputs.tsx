@@ -24,7 +24,7 @@ export const NotesInputs = ({
   return (<>
     <div className='flex-col flex-align-stretch tx-altfont-2'>
       <textarea className='flex-1 bord-r-15 pa-4' 
-        rows={20}
+        rows={12}
         value={value}
         onChange={handleChange}
         style={{
