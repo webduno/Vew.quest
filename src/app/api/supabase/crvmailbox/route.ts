@@ -27,7 +27,7 @@ export async function GET(request: Request) {
     const { data, error } = await supabase
       .from('crv_request')
       .select('*')
-      .eq('creator_id', playerId)
+      .ilike('creator_id', playerId)
       .order('created_at', { ascending: false });
 
     if (error) {

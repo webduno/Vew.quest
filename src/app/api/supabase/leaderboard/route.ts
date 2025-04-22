@@ -40,14 +40,15 @@ export async function GET() {
 
     // Group data by player and ensure dates are in UTC
     const playerData = (data as CRVObject[]).reduce((acc: { [key: string]: CRVObject[] }, obj) => {
-      if (!acc[obj.storage_key]) {
-        acc[obj.storage_key] = [];
+      const storageKey = obj.storage_key.toLowerCase();
+      if (!acc[storageKey]) {
+        acc[storageKey] = [];
       }
       // Only add viewing attempts (request_id is null)
       if (obj.request_id === null) {
         // Ensure created_at is in UTC
         const utcDate = new Date(obj.created_at);
-        acc[obj.storage_key].push({
+        acc[storageKey].push({
           ...obj,
           created_at: utcDate.toISOString() // Store as UTC ISO string
         });

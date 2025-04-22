@@ -31,6 +31,7 @@ export default function TrainingPage() {
     if (isLoading) { return; }
     if (initiallyAutoLoaded) { return; }
     console.log("crvObjects", crvObjects.length);
+    setInitiallyAutoLoaded(true);
     if (crvObjects.length === 0) { 
       setGameState('playing');
       return; 
@@ -38,7 +39,6 @@ export default function TrainingPage() {
     // console.log("crvObjects 22", crvObjects);
     // console.log("initiallyAutoLoaded", initiallyAutoLoaded);
 
-    setInitiallyAutoLoaded(true);
     handleStart();
 
   }, [isLoading]);

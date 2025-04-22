@@ -504,7 +504,7 @@ backgroundColor='#FF9600'
         }}
             secondaryColor="#6366f1"
             mainColor="#8a8af7"
-            text={"Latest View: "+ (crvObjects.length > 0 ? crvObjects[0].created_at.split('T')[0] : 'No views yet')}
+            text={"Latest View: "+ (crvObjects.length > 0 ? new Date(crvObjects[0].created_at).toLocaleDateString() : 'No views yet')}
             image={<div>⭐</div>}
           />
 <div className='tx-altfont-2 w-max-600px px-4 opaci-50 mt-100 pb-8'>

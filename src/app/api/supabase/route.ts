@@ -30,7 +30,7 @@ export async function GET(request: Request) {
     const { data, error } = await supabase
       .from('crv_object')
       .select()
-      .eq('storage_key', storageKey)
+      .ilike('storage_key', storageKey)
       .is('request_id', null)
       .order('created_at', { ascending: false });
 
