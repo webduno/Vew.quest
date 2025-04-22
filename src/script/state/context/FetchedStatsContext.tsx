@@ -21,6 +21,8 @@ interface LeaderboardEntry {
   storage_key: string;
   total_score: number;
   rank: number;
+  streak: number;
+  highest_accuracy: number;
 }
 
 interface FetchedStatsContextType {
@@ -126,12 +128,17 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   const fetchData = async () => {
     try {
       const storageKey = localStorage.getItem('VB_PLAYER_ID');
-      if (!storageKey) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const urlUsername = searchParams.get("username");
+      
+      // Use either the storage key or URL username
+      const identifier = storageKey || urlUsername;
+      if (!identifier) {
         setIsLoading(false);
         return;
       }
 
-      const response = await fetch(`/api/supabase?storageKey=${storageKey}`, {
+      const response = await fetch(`/api/supabase?storageKey=${identifier}`, {
         headers: {
           'Cache-Control': 'no-store, no-cache, must-revalidate',
           'Pragma': 'no-cache'

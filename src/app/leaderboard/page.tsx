@@ -22,12 +22,27 @@ export default function LeaderboardPage() {
 
   useEffect(() => {
     if (leaderboard) {
-      const cleaned = leaderboard.filter(entry => 
-        !clean(entry.storage_key, {
-          exceptions: ["funk"],
-          customBadWords: ["webduno"],
-        }).includes("***")
-      );
+      const cleaned = leaderboard
+        .filter(entry => 
+          !clean(entry.storage_key, {
+            exceptions: ["funk"],
+            customBadWords: ["webduno"],
+          }).includes("***")
+        )
+        .sort((a, b) => {
+          // First sort by streak
+          if (b.streak !== a.streak) {
+            return b.streak - a.streak;
+          }
+          // Then by highest accuracy
+          const accuracyA = parseInt(a.highest_accuracy?.toString() || '0');
+          const accuracyB = parseInt(b.highest_accuracy?.toString() || '0');
+          if (accuracyB !== accuracyA) {
+            return accuracyB - accuracyA;
+          }
+          // Finally by total score
+          return parseInt(b.total_score.toString()) - parseInt(a.total_score.toString());
+        });
       setCleanedLeaderboard(cleaned);
     }
   }, [leaderboard]);
@@ -60,17 +75,17 @@ export default function LeaderboardPage() {
               <Tooltip id="accuracy-tooltip" />
               <div
                 data-tooltip-id="accuracy-tooltip"
-                data-tooltip-content="Average Accuracy"
+                data-tooltip-content="Current Streak"
                 className='pl-2'
               >
-                Acrcy
+                🔥
               </div>
               <div className=' pl-2'>Highest</div>
               </div>
             <hr className='w-100 opaci-10' />
             <div className='flex-col gap-2 w-100 pb-100'>
               {isLoading || isLoadingLeaderboard ? (
-                <div className='tx-center py-8'>Loading leaderboard...</div>
+                <div className='tx-center py-8 opaci-20'>Loading leaderboard...</div>
               ) : leaderboardError ? (
                 <div className='tx-center py-8 tx-red'>{leaderboardError}</div>
               ) : cleanedLeaderboard && cleanedLeaderboard.length > 0 ? (
@@ -106,7 +121,7 @@ export default function LeaderboardPage() {
                       {parseInt(entry.total_score.toString())}
                     </div>
                     <div className='tx-bold-2 pl-2'>
-                      {parseInt(entry.average_accuracy.toString())}%
+                      {entry.streak}
                     </div>
                     <div className='tx-bold-2 pl-2'>
                       {parseInt(entry.highest_accuracy?.toString() || '0')}%

@@ -251,7 +251,7 @@ export const IconStatsBar = ({streak, points, hearts}: {streak: number, points: 
         data-tooltip-variant='error'
       >
         <div className='tx-lg tx-center'>💖</div>
-        <div className='tx-bold-5' style={{ color: "#F92F60" }}>{hearts}</div>
+        <div className='tx-bold-5' style={{ color: "#F92F60" }}>{hearts}%</div>
       </button>
     </div>
   );

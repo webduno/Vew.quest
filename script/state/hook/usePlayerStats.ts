@@ -172,6 +172,13 @@ export function usePlayerStats() {
     if (playerId) {
       setLS_playerId(playerId);
       setTypedUsername(playerId);
+    } else {
+      // Check for username URL parameter when no player ID exists
+      const urlUsername = searchParams.get("username");
+      if (urlUsername) {
+        setTypedUsername(urlUsername);
+        // Don't set LS_playerId to maintain view-only mode
+      }
     }
 
     const legacyGraphics: string | null = localStorageProxy.VB_LEGACY_GRAPHICS;
