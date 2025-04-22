@@ -46,7 +46,7 @@ export const MultiOptionInputs = ({
     }}
     >
       <div className='pa-2 bord-r-10'>
-        <div className="tx-bold mb-2" style={{color:"#afafaf"}}>Type</div>
+        <div className="tx-bold mb-2" style={{color:"#afafaf"}}>Target Type</div>
         <div className='flex-row flex-wrap gap-3'>
           {(['object', 'entity', 'place', 'event'] as InputType[]).map((type) => (
             <div 
@@ -69,7 +69,10 @@ export const MultiOptionInputs = ({
       </div>
 
       <div className='pa-2 bord-r-10'>
-        <div className="tx-bold" style={{color:"#afafaf"}}>Natural</div>
+        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+          <div>Natural or Organic</div>
+          <div>Artificial or Synthetic</div>
+        </div>
         <div className='w-100'>
           <input className='w-100' type="range" 
             value={values.natural}
@@ -78,7 +81,10 @@ export const MultiOptionInputs = ({
         </div>
       </div>
       <div className='pa-2 bord-r-10'>
-        <div className="tx-bold" style={{color:"#afafaf"}}>Temperature</div>
+        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+          <div>Hot or Warm</div>
+          <div>Cold or Chilly</div>
+        </div>
         <div className='w-100'>
           <input className='w-100' type="range" 
             value={values.temp}
@@ -87,7 +93,10 @@ export const MultiOptionInputs = ({
         </div>
       </div>
       <div className='pa-2 bord-r-10'>
-        <div className="tx-bold" style={{color:"#afafaf"}}>Light</div>
+        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+          <div>Dark or Dim</div>
+          <div>Light or Bright</div>
+        </div>
         <div className='w-100'>
           <input className='w-100' type="range" 
             value={values.light}
@@ -96,7 +105,10 @@ export const MultiOptionInputs = ({
         </div>
       </div>
       <div className='pa-2 bord-r-10'>
-        <div className="tx-bold" style={{color:"#afafaf"}}>Color</div>
+        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+          <div>Monochrome or Gray</div>
+          <div>Colorful or Vivid</div>
+        </div>
         <div className='w-100'>
           <input className='w-100' type="range" 
             value={values.color}
@@ -105,7 +117,10 @@ export const MultiOptionInputs = ({
         </div>
       </div>
       <div className='pa-2 bord-r-10'>
-        <div className="tx-bold" style={{color:"#afafaf"}}>Solid</div>
+        <div className="tx-bold flex-row flex-justify-between" style={{color:"#afafaf"}}>
+          <div>Ethereal or Wispy</div>
+          <div>Solid or Dense</div>
+        </div>
         <div className='w-100'>
           <input className='w-100' type="range" 
             value={values.solid}
