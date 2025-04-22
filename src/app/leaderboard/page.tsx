@@ -84,7 +84,7 @@ export default function LeaderboardPage() {
                 <div className='tx-center py-8 tx-red'>{leaderboardError}</div>
               ) : cleanedLeaderboard && cleanedLeaderboard.length > 0 ? (
                 cleanedLeaderboard.map((entry, index) => (
-                  <div key={entry.storage_key} className='tx-altfont-2 w-100 flex-row tx-md pb-4 pt-2 pr-4'
+                  <div key={entry.storage_key} className='tx-altfont-2 w-100 flex-row tx-md pb-2 pr-4'
                     style={{
                       borderBottom: "1px solid #e5e5e5",
                     }}
@@ -100,7 +100,9 @@ export default function LeaderboardPage() {
                         <div className='tx-bold-2'>#{index + 1}</div>
                       )}
                     </div>
-                    <a className='flex-1 tx-grey'
+                    <a className='flex-1 tx-grey nodeco opaci-chov--50 py-2'
+                    style={{
+                    }}
                     href={`/profile?username=${entry.storage_key}`}
                     >
                       <div className='tx-bold'
