@@ -22,7 +22,6 @@ export default function LeaderboardPage() {
         .filter(entry => 
           !clean(entry.storage_key, {
             exceptions: ["funk"],
-            customBadWords: ["webduno"],
           }).includes("***")
         )
         .sort((a, b) => {
