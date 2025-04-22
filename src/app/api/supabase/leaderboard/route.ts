@@ -65,13 +65,19 @@ export async function GET() {
       );
       
       let streak = 0;
-      let currentDate = new Date();
+      const now = new Date();
+      const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       
       for (let i = 0; i < sortedDates.length; i++) {
         const date = new Date(sortedDates[i]);
-        const diffDays = Math.floor((currentDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+        const targetDate = new Date(currentDate);
+        targetDate.setDate(currentDate.getDate() - i);
         
-        if (diffDays === i) {
+        // Compare dates without time
+        const dateStr = date.toISOString().split('T')[0];
+        const targetStr = targetDate.toISOString().split('T')[0];
+        
+        if (dateStr === targetStr) {
           streak++;
         } else {
           break;
