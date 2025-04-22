@@ -56,10 +56,12 @@ export const ToolResultsCard = ({
   
   useEffect(() => {
     confettiRef.current = new JSConfetti();
-    confettiRef.current.addConfetti({
-      confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
-      confettiNumber: 50,
-    });
+    setTimeout(() => {
+      confettiRef?.current?.addConfetti({
+        confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
+        confettiNumber: 50,
+      });
+    }, 200);
   }, []);
 
   const handleDownloadDrawing = () => {
@@ -89,9 +91,9 @@ export const ToolResultsCard = ({
           const logoHeight = 40;
           const logoWidth = (logoImage.width * logoHeight) / logoImage.height;
           ctx.filter = 'saturate(0) opacity(0.5)';
-          ctx.drawImage(logoImage, 20, 2, logoWidth, logoHeight);
+          // ctx.drawImage(logoImage, 20, 2, logoWidth, logoHeight);
           ctx.filter = 'saturate(1) ';
-          ctx.drawImage(logoImage, 540, 2, logoWidth, logoHeight);
+          // ctx.drawImage(logoImage, 540, 2, logoWidth, logoHeight);
 
           ctx.fillStyle = '#4B4B4B';
           ctx.font = '20px Consolas';
