@@ -19,6 +19,9 @@ export default function TrainingPage() {
   const { crvObjects, fetchMailboxRequests } = useFetchedStats();
   
 
+  
+const [ wndwTg, s__wndwTg] = useState<any>(null);
+const [ telegram_id, s__telegram_id] = useState<string | null>(null);
 
   const handleStart = async () => {
 
@@ -33,11 +36,23 @@ export default function TrainingPage() {
     window.location.href = '/tool';
   };
 
-
+  const setTelegram = async () => {
+    // @ts-ignore: expect error cuz of unkonwn telegram object inside window context
+    const wwwTg = window?.Telegram?.WebApp
+    s__wndwTg(wwwTg)
+    s__telegram_id(wwwTg?.initDataUnsafe?.user?.id)
+    if (!wwwTg?.initDataUnsafe?.user?.id) {
+      return;
+    }
+      setTypedUsername(wwwTg?.initDataUnsafe?.user?.id)
+      setPlayerId(wwwTg?.initDataUnsafe?.user?.id)
+}
 
 
   useEffect(() => {
-    if (!LS_playerId) { return }
+    if (!LS_playerId) {
+      setTelegram();
+      return }
     fetchMailboxRequests();
   }, [LS_playerId, fetchMailboxRequests]);
 

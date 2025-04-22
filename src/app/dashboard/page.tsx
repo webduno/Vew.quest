@@ -418,7 +418,7 @@ export default function TrainingPage() {
         <hr className='w-100 opaci-20 mt-100'  />
         <div className='w-100 w-max-1080px flex-col  pt-8  flex-justify-center flex-align-start gap-4'>
 
-<div className='flex-col w-100'>
+<div className='flex-col w-100 '>
         <div className='tx-center  w-80 flex-col bord-r-25 mt-0 mb-8 ' id="resources"
                 style={{
                     alignContent: "center",
@@ -439,10 +439,10 @@ export default function TrainingPage() {
                 </div>
                 </div>
                 <PreLessonsContainer />
-                <div className='mt-8'>
+                <div className='mt-8 pb-100'>
 
 
-                <div className='bord-r-10 px-4' 
+                <div className='bord-r-10  mb-8 px-4' 
       style={{
         border: "1px solid #E5E5E5",
       }}
