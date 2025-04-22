@@ -282,7 +282,18 @@ style={{
                  />
                  </>)}
                  </>    : <>
-
+                 {!isMobile() && (<>
+                 <LessonCard
+                 title="Did not view today"
+                 emoji="❌"
+                 href="/tool"
+                 styleOverride={{
+                  width: "200px",
+                 }}
+                 actionText={"Start Viewing"}
+                 
+                 />
+                 </>)}
                  {crvObjects.length > 0 && !!isMobile() && (<>
             <div className=' tx-l g mb-2'>Did not view today ❌</div>
               <a href="/tool"
