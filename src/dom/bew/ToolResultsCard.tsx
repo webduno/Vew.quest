@@ -314,10 +314,8 @@ export const ToolResultsCard = ({
                 color: "#999999",
               }}
               onClick={() => {
-                setShowImageModal(!showImageModal);
-                if (!showImageModal) {
-                  setShowSketchModal(false);
-                }
+                setShowImageModal(false);
+                setShowSketchModal(false);
               }}
             >
               <div>Show Results</div>
