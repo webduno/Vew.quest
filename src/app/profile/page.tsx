@@ -600,6 +600,14 @@ backgroundColor='#71B44F'
 
         </div>
       </div>
+<div className='opaci-50  pb-100'>
+        <button className='tx-red' onClick={() => {
+          localStorage.removeItem('VB_PLAYER_ID');
+          window.location.href = '/';
+        }}>
+          Click here to Logout
+        </button>
+      </div>
       </div>
       {showGuestModal && !!guestUrlUsernameParam && (
         <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10 z-200'>
@@ -653,6 +661,10 @@ backgroundColor='#71B44F'
           </div>
         </div>
       )}
+
+      
+
+
       {showSketchModal && (currentSketch || currentImage) && (
         <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10 z-200'>
           <div className='flex-col px-8 flex-align-center tx-altfont-2 gap-2 bg-white box-shadow-2-b bord-r-15 pa-4'>

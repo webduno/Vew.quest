@@ -29,10 +29,14 @@ export default function TrainingPage() {
 
   useEffect(() => {
     if (isLoading) { return; }
-    if (crvObjects.length === 0) { return; }
+    if (initiallyAutoLoaded) { return; }
+    console.log("crvObjects", crvObjects.length);
+    if (crvObjects.length === 0) { 
+      setGameState('playing');
+      return; 
+    }
     // console.log("crvObjects 22", crvObjects);
     // console.log("initiallyAutoLoaded", initiallyAutoLoaded);
-    if (initiallyAutoLoaded) { return; }
 
     setInitiallyAutoLoaded(true);
     handleStart();

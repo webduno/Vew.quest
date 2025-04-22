@@ -410,10 +410,10 @@ export default function TrainingPage() {
   }
 
   const handleStart = async () => {
-    if (!LS_playerId && !typedUsername) {
-      setEnterUsername(true);
-      return;
-    }
+    // if (!LS_playerId && !typedUsername) {
+    //   setEnterUsername(true);
+    //   return;
+    // }
 
     if ( typedUsername) {
       setPlayerId(sanitizePlayerId(typedUsername));
