@@ -12,6 +12,7 @@ import CanvasDraw from 'react-canvas-draw';
 import { BewWorldLogo } from '../../dom/bew/BewWorldLogo';
 import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 import { useSearchParams } from 'next/navigation';
+import { calculateStreak } from '@/script/utils/streak';
 
 const NotesCheck = ({ content }: { content: any }) => {
   return content.notes ? <div className='tx-lx pointer'
@@ -78,6 +79,19 @@ export default function ProfilePage() {
   const [currentImage, setCurrentImage] = useState<{id: string, description: string} | null>(null);
   const [modalView, setModalView] = useState<'sketch' | 'image'>('sketch');
   const [showGuestModal, setShowGuestModal] = useState(false);
+  const [guestStats, setGuestStats] = useState<{
+    crvObjects: any[];
+    streak: number;
+    averageResult: number;
+    isLoading: boolean;
+    error: string | null;
+  }>({
+    crvObjects: [],
+    streak: 0,
+    averageResult: 0,
+    isLoading: true,
+    error: null
+  });
 
   const hasMoreThanFirstDays = useMemo(() => {
     // get unique days
@@ -126,6 +140,47 @@ export default function ProfilePage() {
     return uniqueDays.length >= 3;
   }, [uniqueDays]);
 
+  useEffect(() => {
+    const fetchGuestStats = async () => {
+      if (!guestUrlUsernameParam) return;
+      
+      try {
+        setGuestStats(prev => ({ ...prev, isLoading: true }));
+        const response = await fetch(`/api/supabase?storageKey=${guestUrlUsernameParam}`, {
+          headers: {
+            'Cache-Control': 'no-store, no-cache, must-revalidate',
+            'Pragma': 'no-cache'
+          },
+          cache: 'no-store'
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          const crvObjects = data.data;
+          const streak = calculateStreak(crvObjects);
+          const averageResult = crvObjects.length > 0 
+            ? crvObjects.reduce((sum: number, obj: any) => sum + obj.result, 0) / crvObjects.length 
+            : 0;
+          
+          setGuestStats({
+            crvObjects,
+            streak,
+            averageResult,
+            isLoading: false,
+            error: null
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching guest stats:', error);
+        setGuestStats(prev => ({ ...prev, error: 'Failed to fetch guest stats', isLoading: false }));
+      }
+    };
+
+    if (guestUrlUsernameParam) {
+      fetchGuestStats();
+    }
+  }, [guestUrlUsernameParam]);
+
   return (
     <>
       <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
@@ -172,6 +227,18 @@ style={{
   <div className='Q_sm_x'>Change</div>
   <div className='Q_xs_sm'>🔄</div>
 </button>
+
+              <div className='tx-mdl pt- 4 pointer tx-center'
+              onClick={() => {
+                navigator.clipboard.writeText(LS_playerId || '');
+                alert('Copied to clipboard');
+              }}
+              >
+                {/* <div className='tx-bold tx-lg mb-'>Username:</div> */}
+                 {/* <br />  */}
+                 <div className='tx-altfont-2 tx-lgx'>{LS_playerId || 'Not set'}</div> 
+                 {/* 📋 */}
+                 </div>
 <img src="/bew/pfp/row-4-column-1.png"
  alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
  </div>
@@ -241,21 +308,13 @@ style={{
 
 <div className='flex-wrap px-4 flex-align-start flex-justify-start gap-4 flex-1'>
             
-            <div className='bord-r-15  pb-2 pt- 4 px-4 ' 
+              {guestUrlUsernameParam && 
+            <div className='bord-r-15  pb-2 pt- 4 px-4  pb-4' 
+            style={{
+              border: "1px solid #f0f0f0",
+            }}
             >
-              
-              <div className='tx-mdl pt- 4 pointer'
-              onClick={() => {
-                navigator.clipboard.writeText(LS_playerId || '');
-                alert('Copied to clipboard');
-              }}
-              >
-                <div className='tx-bold tx-lg mb-'>Username:</div>
-                 {/* <br />  */}
-                 <i className='tx-altfont-1 underline'>{LS_playerId || 'Not set'}</i> 
-                 📋
-                 </div>
-              <div className='tx-mdl pt-4 pointer'
+              <div className='tx-mdl pt-4 pointer flex-col'
               
               >
                 <div className='tx-bold tx-lg mb-'>Guest name:</div>
@@ -265,10 +324,17 @@ style={{
                   setShowGuestModal(true);
                 }
               }} className='tx-altfont-1 underline opaci-chov--50'>{guestUrlUsernameParam  || 'Not set'}</i> 
-                 {guestUrlUsernameParam && '👁️'}
+                 {/* {guestUrlUsernameParam && '👁️'} */}
                  
                  </div>
-                 
+                 <div className='flex-col'>
+                 <img src="/bew/pfp/row-4-column-2.png"
+                 onClick={() => {
+                  if (guestUrlUsernameParam) {
+                    setShowGuestModal(true);
+                  }
+                 }}
+ alt="pfp" className={'bord-r-50 noverflow block pointer '+(isMobile() ? 'w-150px' : 'w-100px')} /></div>
               {crvObjects.length > 0 && guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId && (
                  <div className='tx-md mt-2 hover-jump py-2 px-4 bord-r-8  pointer opaci-chov--50'
                  style={{
@@ -287,6 +353,7 @@ style={{
                  </div>
                  )}
             </div>
+                 }
         
 
 <div className='bord-r-15  pt-4 pb-2 px-4' style={{ border: "1px solid #f0f0f0" }}>
@@ -540,10 +607,8 @@ backgroundColor='#71B44F'
         <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10 z-200'>
           <div className='flex-col px-8 flex-align-center tx-altfont-2 gap-2 bg-white box-shadow-2-b bord-r-15 pa-4'>
             <div className='flex-col w-100'>
-              <div onClick={() => {
-                setShowGuestModal(false);
-              }}
-              className='opaci-chov--75 tx-bold tx-lg pb-2'>
+              <div onClick={() => setShowGuestModal(false)}
+                className='opaci-chov--75 tx-bold tx-lg pb-2'>
                 <div className='opaci-25 underline'>Close</div>
               </div>
             </div>
@@ -551,18 +616,40 @@ backgroundColor='#71B44F'
               style={{
                 width: '90vw',
                 maxWidth: '800px',
-                height: '80vh'
+                minHeight: '300px'
               }}
             >
-              <iframe 
-                src={`https://bew.quest/profile?username=${guestUrlUsernameParam}`}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  border: 'none',
-                  borderRadius: '15px'
-                }}
-              />
+              {guestStats.isLoading ? (
+                <div className='flex-col flex-align-center flex-justify-center h-100'>
+                  <div className='tx-ls-3'>Loading...</div>
+                </div>
+              ) : guestStats.error ? (
+                <div className='flex-col flex-align-center flex-justify-center h-100'>
+                  <div className='tx-ls-3'>{guestStats.error}</div>
+                </div>
+              ) : (
+                <div className='flex-col gap-4'>
+                  <div className='tx-bold tx-lg'>Guest Stats: {guestUrlUsernameParam}</div>
+                  <div className='flex-row gap-4 flex-wrap'>
+                    <div className='bord-r-15 pb-2 pt-4 px-4' style={{ border: "1px solid #f0f0f0" }}>
+                      <div className='tx-bold tx-lg mb-2'>RV Stats</div>
+                      <div className='flex-col gap-2 flex-align-start'>
+                        <div>Total Requests: {guestStats.crvObjects.length}</div>
+                        <div>First Request: {guestStats.crvObjects.length > 0 ? new Date(guestStats.crvObjects[guestStats.crvObjects.length - 1].created_at).toLocaleDateString() : 'No requests yet'}</div>
+                        <div>Average Accuracy: {guestStats.averageResult.toFixed(3)}%</div>
+                        <div>Personal Record: {guestStats.crvObjects.length > 0 ? Math.max(...guestStats.crvObjects.map((obj: any) => obj.result)).toFixed(3) : 0}%</div>
+                      </div>
+                    </div>
+                    <div className='bord-r-15 pt-4 pb-2 px-4' style={{ border: "1px solid #f0f0f0" }}>
+                      <div className='tx-bold tx-lg mb-2'>Daily Goals</div>
+                      <div className='flex-col gap-2 flex-align-start'>
+                        <div>Current Streak: {guestStats.streak}</div>
+                        <div>Viewed Today: {guestStats.crvObjects.filter((obj: any) => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]).length}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
