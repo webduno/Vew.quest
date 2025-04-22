@@ -1,5 +1,6 @@
 'use client';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { calculateStreak } from '@/script/utils/streak';
 
 interface CRVObject {
   id: string;
@@ -56,34 +57,6 @@ export function UserStatsProvider({ children }: { children: ReactNode }) {
 
     fetchData();
   }, []);
-
-  const calculateStreak = (objects: CRVObject[]) => {
-    if (objects.length === 0) return 0;
-    
-    const uniqueDates = new Set(
-      objects.map(obj => new Date(obj.created_at).toLocaleDateString('en-US'))
-    );
-    
-    const sortedDates = Array.from(uniqueDates).sort((a, b) => 
-      new Date(b).getTime() - new Date(a).getTime()
-    );
-    
-    let streak = 0;
-    let currentDate = new Date();
-    
-    for (let i = 0; i < sortedDates.length; i++) {
-      const date = new Date(sortedDates[i]);
-      const diffDays = Math.floor((currentDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-      
-      if (diffDays === i) {
-        streak++;
-      } else {
-        break;
-      }
-    }
-    
-    return streak;
-  };
 
   const calculateDailyProgress = (objects: CRVObject[]) => {
     if (objects.length === 0) return 0;

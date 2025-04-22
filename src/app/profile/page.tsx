@@ -11,6 +11,7 @@ import { isMobile } from '../../../script/utils/platform/mobileDetection';
 import CanvasDraw from 'react-canvas-draw';
 import { BewWorldLogo } from '../../dom/bew/BewWorldLogo';
 import { BewPageHeader } from '@/dom/bew/BewPageHeader';
+import { useSearchParams } from 'next/navigation';
 
 const NotesCheck = ({ content }: { content: any }) => {
   return content.notes ? <div className='tx-lx pointer'
@@ -39,8 +40,17 @@ const SketchCheck = ({ content, onClick }: { content: any, onClick: () => void }
 };
 
 export default function ProfilePage() {
-  const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
+  const { streak, isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
+  const searchParams = useSearchParams();
+  const [guestUrlUsernameParam, setGuestUrlUsernameParam] = useState<string | null>(null);
+  useEffect(() => {
+    const username = searchParams.get('username');
+    if (username) {
+      setGuestUrlUsernameParam(username);
+    }
+  }, [searchParams]);
+  
   const [userStats, setUserStats] = useState<{
     totalRequests: number;
     firstRequestDate: string | null;
@@ -67,6 +77,7 @@ export default function ProfilePage() {
   const [currentSketch, setCurrentSketch] = useState<any>(null);
   const [currentImage, setCurrentImage] = useState<{id: string, description: string} | null>(null);
   const [modalView, setModalView] = useState<'sketch' | 'image'>('sketch');
+  const [showGuestModal, setShowGuestModal] = useState(false);
 
   const hasMoreThanFirstDays = useMemo(() => {
     // get unique days
@@ -230,37 +241,73 @@ style={{
 
 <div className='flex-wrap px-4 flex-align-start flex-justify-start gap-4 flex-1'>
             
-            <div className='bord-r-15  pb-2 pt-4 px-4 ' 
-            // style={{ border: "1px solid #f0f0f0" }}
+            <div className='bord-r-15  pb-2 pt- 4 px-4 ' 
             >
-              <div className='tx-bold tx-lg mb-2'>Username</div>
-              <div className='tx-mdl'>{typedUsername || 'Not set'}</div>
-              <div className='tx-mdl pt-4 pointer'
+              
+              <div className='tx-mdl pt- 4 pointer'
               onClick={() => {
                 navigator.clipboard.writeText(LS_playerId || '');
                 alert('Copied to clipboard');
               }}
-              >Local name: <br /> <i className='tx-altfont-1 underline'>{LS_playerId || 'Not set'}</i> 📋</div>
+              >
+                <div className='tx-bold tx-lg mb-'>Username:</div>
+                 {/* <br />  */}
+                 <i className='tx-altfont-1 underline'>{LS_playerId || 'Not set'}</i> 
+                 📋
+                 </div>
+              <div className='tx-mdl pt-4 pointer'
+              
+              >
+                <div className='tx-bold tx-lg mb-'>Guest name:</div>
+                 {/* <br />  */}
+                 <i onClick={() => {
+                if (guestUrlUsernameParam) {
+                  setShowGuestModal(true);
+                }
+              }} className='tx-altfont-1 underline opaci-chov--50'>{guestUrlUsernameParam  || 'Not set'}</i> 
+                 {guestUrlUsernameParam && '👁️'}
+                 
+                 </div>
+                 
+              {crvObjects.length > 0 && guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId && (
+                 <div className='tx-md mt-2 hover-jump py-2 px-4 bord-r-8  pointer opaci-chov--50'
+                 style={{
+                  color: "#ffffff",
+                  backgroundColor: "#7Ce360",
+                  boxShadow: "0px 4px 0 0px #5CC310",
+
+                 }}
+                 onClick={() => {
+                  // navigator.clipboard.writeText(guestUrlUsernameParam || '');
+                  alert('Coming soon!');
+                 }}
+                 >
+                  {/* party emoji */}
+                  Join Party 🎉
+                 </div>
+                 )}
             </div>
         
 
 <div className='bord-r-15  pt-4 pb-2 px-4' style={{ border: "1px solid #f0f0f0" }}>
   <div className='tx-bold tx-lg mb-2'>Daily Goals</div>
   <div className='flex-col gap-2 flex-align-start'>
-    <div>Completed: {crvObjects.filter(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]).length >= 5 ? '✅' : "❌"} ({userStats.dailyGoals.requests} / 5)</div>
-    <div>Requests: {userStats.dailyGoals.requests}</div>
-    <div>Avg Accuracy: {userStats.dailyGoals.accuracy.toFixed(3)}%</div>
-    <div>Best Accuracy Today: {userStats.dailyGoals.bestAccuracy.toFixed(3)}%</div>
+    <div>Current Streak: {streak}</div>
+    <div>Completed Goal: {crvObjects.filter(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]).length >= 5 ? '✅' : "❌"} ({userStats.dailyGoals.requests > 5 ? 5 : userStats.dailyGoals.requests} / 5)</div>
+    <div>Viewed Today: {userStats.dailyGoals.requests}</div>
+    <div>Avg Accuracy: {userStats.dailyGoals.accuracy > 0 ? userStats.dailyGoals.accuracy.toFixed(3) : 'N/A'}%</div>
+    <div>Best Today: {userStats.dailyGoals.bestAccuracy > 0 ? userStats.dailyGoals.bestAccuracy.toFixed(3) : 'N/A'}%</div>
   </div>
 </div>
 
             <div className='bord-r-15  pb-2 pt-4 px-4' style={{ border: "1px solid #f0f0f0" }}>
               <div className='tx-bold tx-lg mb-2 '>RV Stats</div>
               <div className='flex-col gap-2 flex-align-start'>
-                <div>Total Requests: {userStats.totalRequests}</div>
+    <div>Days of practice: {uniqueDays.length}</div>
+    <div>Total Requests: {userStats.totalRequests}</div>
                 <div>First Request: {userStats.firstRequestDate ? new Date(userStats.firstRequestDate).toLocaleDateString() : 'No requests yet'}</div>
                 <div>Average Accuracy: {userStats.averageAccuracy.toFixed(3)}%</div>
-                <div>Best Accuracy: {userStats.bestAccuracy.toFixed(3)}%</div>
+                <div>Personal Record: {userStats.bestAccuracy.toFixed(3)}%</div>
               </div>
             </div>
 
@@ -320,7 +367,7 @@ forcedClick={() => {
 {/* Badges */}
 {userStats.averageAccuracy >= 40 && (
 <LessonCard 
-title="High Accuracy"
+title="High Accuracy Viewer"
 emoji="🏆"
 href="/leaderboard"
 actionText={"Check Leaderboard"}
@@ -489,6 +536,37 @@ backgroundColor='#71B44F'
         </div>
       </div>
       </div>
+      {showGuestModal && guestUrlUsernameParam && (
+        <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10 z-200'>
+          <div className='flex-col px-8 flex-align-center tx-altfont-2 gap-2 bg-white box-shadow-2-b bord-r-15 pa-4'>
+            <div className='flex-col w-100'>
+              <div onClick={() => {
+                setShowGuestModal(false);
+              }}
+              className='opaci-chov--75 tx-bold tx-lg pb-2'>
+                <div className='opaci-25 underline'>Close</div>
+              </div>
+            </div>
+            <div className='bord-r-15 flex-col'
+              style={{
+                width: '90vw',
+                maxWidth: '800px',
+                height: '80vh'
+              }}
+            >
+              <iframe 
+                src={`https://bew.quest/profile?username=${guestUrlUsernameParam}`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  border: 'none',
+                  borderRadius: '15px'
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       {showSketchModal && (currentSketch || currentImage) && (
         <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10 z-200'>
           <div className='flex-col px-8 flex-align-center tx-altfont-2 gap-2 bg-white box-shadow-2-b bord-r-15 pa-4'>
