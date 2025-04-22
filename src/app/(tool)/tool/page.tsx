@@ -51,6 +51,22 @@ export default function TrainingPage() {
     handleStart();
 
   }, [isLoading]);
+  const [ wndwTg, s__wndwTg] = useState<any>(null);
+  const [ telegram_id, s__telegram_id] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+      s__wndwTg(window.Telegram.WebApp);
+      const thenewid = window.Telegram.WebApp.initDataUnsafe?.user?.id || null;
+      s__telegram_id(thenewid);
+      if (thenewid) {
+        setPlayerId(thenewid);
+        localStorage.setItem('VB_PLAYER_ID', thenewid);
+        generateNewRound()
+
+      }
+    }
+  }, []);
 
 
   const generateNewRound = async () => {
