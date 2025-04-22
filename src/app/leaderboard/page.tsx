@@ -100,7 +100,9 @@ export default function LeaderboardPage() {
                         <div className='tx-bold-2'>#{index + 1}</div>
                       )}
                     </div>
-                    <div className='flex-1 tx-grey'>
+                    <a className='flex-1 tx-grey'
+                    href={`/profile?username=${entry.storage_key}`}
+                    >
                       <div className='tx-bold'
                         style={{
                           color: "#777777",
@@ -110,7 +112,7 @@ export default function LeaderboardPage() {
                           exceptions: ["funk"]
                         })}
                       </div>
-                    </div>
+                    </a>
                     <div className='tx-bold-2'>
                       {parseInt(entry.total_score.toString())}
                     </div>

@@ -320,9 +320,9 @@ backgroundColor='#ff7755'
 
 {hasMoreThanFirstDaysValue && (
 <LessonCard 
-title="♾️"
+title="First Viewer"
 // number one emoji
-emoji="1️⃣"
+emoji="♾️"
 href="#"
 forcedClick={() => {
   alert('Congratulations, you are a regular viewer!\n\nYou have made been here since the first days!');
