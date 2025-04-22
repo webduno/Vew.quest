@@ -27,7 +27,7 @@ export async function GET() {
     console.log('Fetching leaderboard data...');
     const { data, error } = await supabase
       .from('crv_object')
-      .select('*')  // Select all fields to match CRVObject type
+      .select('*')
       .order('created_at', { ascending: false });
 
     if (error) {
@@ -38,14 +38,19 @@ export async function GET() {
       );
     }
 
-    // Group data by player
+    // Group data by player and ensure dates are in UTC
     const playerData = (data as CRVObject[]).reduce((acc: { [key: string]: CRVObject[] }, obj) => {
       if (!acc[obj.storage_key]) {
         acc[obj.storage_key] = [];
       }
       // Only add viewing attempts (request_id is null)
       if (obj.request_id === null) {
-        acc[obj.storage_key].push(obj);
+        // Ensure created_at is in UTC
+        const utcDate = new Date(obj.created_at);
+        acc[obj.storage_key].push({
+          ...obj,
+          created_at: utcDate.toISOString() // Store as UTC ISO string
+        });
       }
       return acc;
     }, {});

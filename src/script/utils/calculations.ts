@@ -13,10 +13,16 @@ export interface UserStats {
 }
 
 export const calculateUserStats = (crvObjects: CRVObject[]): UserStats => {
-  const today = new Date().toISOString().split('T')[0];
-  const todayObjects = crvObjects.filter(obj => 
-    obj.created_at.split('T')[0] === today
-  );
+  // Get today's date at midnight UTC
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+  const todayStr = today.toISOString().split('T')[0];
+
+  const todayObjects = crvObjects.filter(obj => {
+    const date = new Date(obj.created_at);
+    date.setUTCHours(0, 0, 0, 0);
+    return date.toISOString().split('T')[0] === todayStr;
+  });
   
   return {
     totalRequests: crvObjects.length,
@@ -32,7 +38,13 @@ export const calculateUserStats = (crvObjects: CRVObject[]): UserStats => {
 };
 
 export const getUniqueDays = (crvObjects: CRVObject[]): string[] => {
-  return Array.from(new Set(crvObjects.map(obj => obj.created_at.split('T')[0])));
+  return Array.from(new Set(
+    crvObjects.map(obj => {
+      const date = new Date(obj.created_at);
+      date.setUTCHours(0, 0, 0, 0);
+      return date.toISOString().split('T')[0];
+    })
+  ));
 };
 
 export const hasMoreThanFirstDays = (crvObjects: CRVObject[]): boolean => {
@@ -45,8 +57,15 @@ export const hasMoreThan3DaysStreak = (uniqueDays: string[]): boolean => {
 };
 
 export const getTodayObjects = (crvObjects: CRVObject[]): CRVObject[] => {
-  const today = new Date().toISOString().split('T')[0];
-  return crvObjects.filter(obj => obj.created_at.split('T')[0] === today);
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+  const todayStr = today.toISOString().split('T')[0];
+
+  return crvObjects.filter(obj => {
+    const date = new Date(obj.created_at);
+    date.setUTCHours(0, 0, 0, 0);
+    return date.toISOString().split('T')[0] === todayStr;
+  });
 };
 
 export const calculateGuestStats = (crvObjects: CRVObject[]) => {
