@@ -15,6 +15,7 @@ import { MultiOptionInputs } from './MultiOptionInputs';
 import { NotesInputs } from './NotesInputs';
 import { SketchInputs, SketchInputsRef } from './SketchInputs';
 import { BewUserStatsSummary } from './BewUserStatsSummary';
+import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
 
 // Define input types for better type safety
 type InputType = 'sketch' | 'multi-options' | 'notes' | '';
@@ -55,7 +56,7 @@ export const AnalogMobileScreen = ({
 }) => {
   // State management for input types and their values
   const [selectedInputType, setSelectedInputType] = useState<InputType>('');
-  
+  const { playSoundEffect } = useBackgroundMusic();
   // Maintain separate states for each input type
   const [sketchValue, setSketchValue] = useState<string>('');
   const [notesValue, setNotesValue] = useState<string>('');
@@ -102,21 +103,30 @@ export const AnalogMobileScreen = ({
         return (
           <SketchInputs 
             ref={sketchRef} 
-            onValueChange={setSketchValue}
+            onValueChange={(e)=>{
+              
+              setSketchValue(e)
+            }}
             initialValue={sketchValue} 
           />
         );
       case 'multi-options':
         return (
           <MultiOptionInputs 
-            onValuesChange={setOptionsValue}
+            onValueChange={(e)=>{
+              
+              setOptionsValue(e)
+            }}
             initialValues={optionsValue}
           />
         );
       case 'notes':
         return (
           <NotesInputs 
-            onValueChange={setNotesValue}
+            onValueChange={(e)=>{
+              
+              setNotesValue(e)
+            }}
             initialValue={notesValue}
           />
         );
@@ -137,7 +147,10 @@ export const AnalogMobileScreen = ({
         }}
       >
         <div className='py-2 px-4 bord-r-10 opaci-chov--75 '
-          onClick={() => handleInputTypeChange('sketch')}
+          onClick={() => {
+            playSoundEffect("/sfx/short/passbip.mp3")
+            handleInputTypeChange('sketch')
+          }}
           style={{
             border: selectedInputType === 'sketch' ? "1px solid #7DDB80" : "1px solid #afafaf",
             color: selectedInputType === 'sketch' ? "#7DDB80" : "#afafaf"
@@ -146,7 +159,10 @@ export const AnalogMobileScreen = ({
           Sketch
         </div>
         <div className='py-2 px-4 bord-r-10 opaci-chov--75 '
-          onClick={() => handleInputTypeChange('multi-options')}
+          onClick={() => {
+            playSoundEffect("/sfx/short/passbip.mp3")
+            handleInputTypeChange('multi-options')
+          }}
           style={{
             border: selectedInputType === 'multi-options' ? "1px solid #FF9600" : "1px solid #afafaf",
             color: selectedInputType === 'multi-options' ? "#FF9600" : "#afafaf"
@@ -155,7 +171,10 @@ export const AnalogMobileScreen = ({
           Multi-Options
         </div>
         <div className='py-2 px-4 bord-r-10 opaci-chov--75 '
-          onClick={() => handleInputTypeChange('notes')}
+          onClick={() => {
+            playSoundEffect("/sfx/short/passbip.mp3")
+            handleInputTypeChange('notes')
+          }}
           style={{
             border: selectedInputType === 'notes' ? "1px solid #DB807D" : "1px solid #afafaf",
             color: selectedInputType === 'notes' ? "#DB807D" : "#afafaf"
@@ -238,7 +257,10 @@ export const AnalogMobileScreen = ({
           <BewChoiceButton
             secondaryColor="#34BE37"
             mainColor="#7DDB80"
-            onClick={() => handleInputTypeChange('sketch')}
+            onClick={() => {
+              playSoundEffect("/sfx/short/passbip.mp3")
+              handleInputTypeChange('sketch')
+            }}
             text="Sketch"
             image={<div><span role="img" aria-label="pen">🖌️</span></div>}
           />
@@ -248,7 +270,10 @@ export const AnalogMobileScreen = ({
           <BewChoiceButton
             secondaryColor="#D07900"
             mainColor="#FF9600"
-            onClick={() => handleInputTypeChange('multi-options')}
+            onClick={() => {
+              playSoundEffect("/sfx/short/passbip.mp3")
+              handleInputTypeChange('multi-options')
+            }}
             text="Multi-Options"
             image={<div>⭐</div>}
           />
@@ -258,7 +283,10 @@ export const AnalogMobileScreen = ({
           <BewChoiceButton
             secondaryColor="#C93E3A"
             mainColor="#DB807D"
-            onClick={() => handleInputTypeChange('notes')}
+            onClick={() => {
+              playSoundEffect("/sfx/short/passbip.mp3")
+              handleInputTypeChange('notes')
+            }}
             text="Notes"
             image={<div><span role="img" aria-label="page">📄</span></div>}
           />

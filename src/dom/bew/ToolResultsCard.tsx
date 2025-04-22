@@ -1,7 +1,8 @@
 'use client';
 import { ResultBadge } from '@/dom/bew/ResultBadge';
 import CanvasDraw from 'react-canvas-draw';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import JSConfetti from 'js-confetti';
 
 
 export const ToolResultsCard = ({
@@ -51,7 +52,16 @@ export const ToolResultsCard = ({
   } | null;
 }) => {
   const canvasRef = useRef<CanvasDraw>(null);
+  const confettiRef = useRef<JSConfetti | null>(null);
   
+  useEffect(() => {
+    confettiRef.current = new JSConfetti();
+    confettiRef.current.addConfetti({
+      confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
+      confettiNumber: 50,
+    });
+  }, []);
+
   const handleDownloadDrawing = () => {
     if (canvasRef.current) {
       const drawingCanvas = (canvasRef.current as any).canvas.drawing;

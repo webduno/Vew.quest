@@ -10,16 +10,18 @@ import { random10CharString } from "../../../script/utils/platform/random10CharS
 import { LandingProfileActionButton } from '@/dom/bew/LandingProfileActionButton';
 import { BewPurpleBtn } from '@/dom/bew/BewBtns';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
-
+import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
 
 
 export default function TrainingPage() {
+  const { playSoundEffect } = useBackgroundMusic();
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const { crvObjects, fetchMailboxRequests } = useFetchedStats();
   
 
 
   const handleStart = async () => {
+
 
     if ( typedUsername) {
       setPlayerId(sanitizePlayerId(typedUsername));
@@ -28,7 +30,6 @@ export default function TrainingPage() {
       setTypedUsername(randomId);
       localStorage.setItem('VB_PLAYER_ID', randomId);
     }
-
     window.location.href = '/tool';
   };
 
@@ -91,13 +92,21 @@ export default function TrainingPage() {
                 />
               </div>
 
-              <div className="flex-row">
+              <div className="flex-row"
+              >
                 {crvObjects.length > 0 && (<>
-                  <LandingProfileActionButton typedUsername={typedUsername} handleStart={handleStart} />
+                <div  className='flex-row'>
+                <LandingProfileActionButton typedUsername={typedUsername} handleStart={handleStart} />
+                </div>
                 </>)}
+                <div >
+
+                <BewPurpleBtn 
+              
                 
-                <BewPurpleBtn text="Start" onClick={handleStart}  />
-              </div>
+                 text="Start" onClick={handleStart}  />
+                </div>
+                </div>
             </div>
           </div>
         </div>

@@ -178,6 +178,7 @@ export function useBackgroundMusic() {
     // Play the sound effect
     soundEffect.play().catch(error => {
       console.error(`Error playing sound effect ${soundPath}:`, error);
+      soundEffect.pause();
     });
     
     // Remove the sound effect from the ref after it finishes playing

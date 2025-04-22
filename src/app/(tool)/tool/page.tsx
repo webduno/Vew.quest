@@ -19,6 +19,7 @@ import { InitialToolLogin } from '@/dom/bew/InitialToolLogin';
 import { generateRandomTargetRandomized } from '../../../../script/utils/platform/generateRandomTargetRandomized';
 import { ToolResultsCard } from '../../../dom/bew/ToolResultsCard';
 import { BewWorldLogo } from '@/dom/bew/BewWorldLogo';
+import { useBackgroundMusic } from '../../../../script/state/context/BackgroundMusicContext';
 
 type TargetsData = {
   [key: string]: string;
@@ -29,7 +30,7 @@ export type GameState = 'initial' | 'playing' | 'results';
 export default function TrainingPage() {
   const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, refetchStats } = useFetchedStats();
   const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
-
+  const { playSoundEffect } = useBackgroundMusic();
   useEffect(() => {
     if (isLoading) { return; }
     if (initiallyAutoLoaded) { return; }
@@ -118,6 +119,9 @@ export default function TrainingPage() {
   
 
   async function fetchRandomFromCocoDatabase() {
+    // check if user has ability to play audio and cliiked anything or interacted with the page
+    
+
     try {
       // Get random key from the object
       const keys = Object.keys(targetsData as TargetsData);
@@ -227,8 +231,10 @@ export default function TrainingPage() {
     });
     const saveData = await saveResponse.json();
     
+    playSoundEffect("/sfx/short/sssccc.mp3")
     // Refetch stats after saving new data
     await refetchStats();
+
     // image modal
     // setShowImageModal(true);
     setShowSketchModal(true);
@@ -284,6 +290,7 @@ export default function TrainingPage() {
     solid: number;
     confidence: number;}
   }) => {
+    // playSoundEffect("/sfx/short/sssccc.mp3")
     setSketchData(params.sketch);
     setNotes(params.notes);
     handleSend(params.options, params.notes, params.sketch, );
@@ -291,7 +298,9 @@ export default function TrainingPage() {
   }
 
   const handleTryAgain = async () => {
+    playSoundEffect("/sfx/short/passbip.mp3")
     const newTarget = await fetchRandomFromCocoDatabase();
+    setTimeout(async () => {
     setShowImageModal(false);
     setShowSketchModal(false);
     setSketchData(null);
@@ -299,7 +308,8 @@ export default function TrainingPage() {
     setGameState('playing');
     setResults(null);
     setSentObject(null);
-  }
+  }, 200);
+}
 
   return (
     <div className='w-100 h-100  flex-col flex-justify-start'>
@@ -401,6 +411,7 @@ export default function TrainingPage() {
                   height: "40px",
                 }}
                 onClick={() => {
+                  playSoundEffect("/sfx/short/chairsit.mp3")
                   setShowImageModal( prev => !prev);
                 }}
                 data-tooltip-id="image-preview-tooltip"

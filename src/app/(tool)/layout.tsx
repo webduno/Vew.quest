@@ -6,6 +6,7 @@ import '@/app/globals.css'
 import '@/app/bew.css'
 // import { ClientLayout } from '@/dom/organ/ClientLayout'
 import { FetchedStatsProvider } from '@/script/state/context/FetchedStatsContext';
+import { BackgroundMusicProvider } from '../../../script/state/context/BackgroundMusicContext';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -30,9 +31,11 @@ export default function RootLayout({
       // background: 'linear-gradient(-45deg, #ffba6e , #aad0f4 , #6aa0f4 )',
         height: '100vh', overflow: 'hidden' }}>
         {/* <ClientLayout> */}
+        <BackgroundMusicProvider>
         <FetchedStatsProvider>
         {children}
         </FetchedStatsProvider>
+        </BackgroundMusicProvider>
         {/* </ClientLayout> */}
         <Analytics mode="production" />
       </body>

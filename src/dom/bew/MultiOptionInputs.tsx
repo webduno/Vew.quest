@@ -13,7 +13,7 @@ type OptionsValues = {
 };
 
 export const MultiOptionInputs = ({ 
-  onValuesChange,
+  onValueChange,
   initialValues = {
     type: 'object' as InputType,
     natural: 0,
@@ -23,7 +23,7 @@ export const MultiOptionInputs = ({
     solid: 0
   }
 }: { 
-  onValuesChange: (values: OptionsValues) => void;
+  onValueChange: (values: OptionsValues) => void;
   initialValues?: OptionsValues;
 }) => {
   const [values, setValues] = useState<OptionsValues>(initialValues);
@@ -36,7 +36,7 @@ export const MultiOptionInputs = ({
   const handleChange = (key: keyof OptionsValues, value: number | InputType) => {
     const newValues = { ...values, [key]: value };
     setValues(newValues);
-    onValuesChange(newValues);
+    onValueChange(newValues);
   };
 
   return (<>
