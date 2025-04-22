@@ -404,6 +404,9 @@ export default function TrainingPage() {
                 value={typedUsername}
                 onChange={(e) => { setTypedUsername(sanitizePlayerId(e.target.value)) }}
                 onKeyDown={(e) => {
+                  if (!typedUsername) {
+                    return;
+                  }
                   if (e.key === "Enter") {
                     handleStart();
                   }
@@ -412,7 +415,16 @@ export default function TrainingPage() {
             </div>
             <div 
               className='py-2 px-8 tx-center tx-white bord-r-10 tx-lgx opaci-chov--75'
-              onClick={isLoading ? undefined : handleStart}
+              onClick={isLoading ? undefined : ()=>{
+                if (!typedUsername) {
+                  const randomId = random10CharString();
+                  setTypedUsername(randomId);
+                  localStorage.setItem('VB_PLAYER_ID', randomId);
+                  window.location.reload(); 
+                  return;
+                }
+                handleStart();
+              }}
               style={{
                 backgroundColor: isLoading ? "#cccccc" : "#807DDB",
                 boxShadow: isLoading ? "0px 4px 0 0px #999999" : "0px 4px 0 0px #6B69CF",
