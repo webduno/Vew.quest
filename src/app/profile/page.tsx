@@ -13,6 +13,15 @@ import { BewWorldLogo } from '../../dom/bew/BewWorldLogo';
 import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 import { useSearchParams } from 'next/navigation';
 import { calculateStreak } from '@/script/utils/streak';
+import { 
+  calculateUserStats, 
+  calculateGuestStats,
+  hasMoreThanFirstDays,
+  hasMoreThan3DaysStreak,
+  getUniqueDays,
+  getTodayObjects,
+  type UserStats 
+} from '@/script/utils/calculations';
 
 const NotesCheck = ({ content }: { content: any }) => {
   return content.notes ? <div className='tx-lx pointer'
@@ -45,6 +54,7 @@ export default function ProfilePage() {
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const searchParams = useSearchParams();
   const [guestUrlUsernameParam, setGuestUrlUsernameParam] = useState<string | null>(null);
+  
   useEffect(() => {
     const username = searchParams.get('username');
     if (username) {
@@ -52,24 +62,14 @@ export default function ProfilePage() {
     }
   }, [searchParams]);
   
-  const [userStats, setUserStats] = useState<{
-    totalRequests: number;
-    firstRequestDate: string | null;
-    averageAccuracy: number;
-    bestAccuracy: number;
-    dailyGoals: {
-      requests: number;
-      accuracy: number;
-      bestAccuracy: number;
-    };
-  }>({
+  const [userStats, setUserStats] = useState<UserStats>({
     totalRequests: 0,
     firstRequestDate: null,
     averageAccuracy: 0,
     bestAccuracy: 0,
     dailyGoals: {
-      requests: 3,
-      accuracy: 70,
+      requests: 0,
+      accuracy: 0,
       bestAccuracy: 0
     }
   });
@@ -93,11 +93,9 @@ export default function ProfilePage() {
     error: null
   });
 
-  const hasMoreThanFirstDays = useMemo(() => {
-    // get unique days
-    const uniqueDays = Array.from(new Set(crvObjects.map(obj => obj.created_at.split('T')[0])));
-    return uniqueDays.length >= 3;
-  }, [crvObjects]);
+  const hasMoreThanFirstDaysValue = useMemo(() => hasMoreThanFirstDays(crvObjects), [crvObjects]);
+  const uniqueDays = useMemo(() => getUniqueDays(crvObjects), [crvObjects]);
+  const hasMoreThan3DaysStreakValue = useMemo(() => hasMoreThan3DaysStreak(uniqueDays), [uniqueDays]);
 
   const [showSketch, setShowSketch] = useState<any>(null);
 
@@ -110,35 +108,12 @@ export default function ProfilePage() {
       }
     }
   }, []);
+
   useEffect(() => {
     if (crvObjects.length > 0) {
-      const today = new Date().toISOString().split('T')[0];
-      const todayObjects = crvObjects.filter(obj => 
-        obj.created_at.split('T')[0] === today
-      );
-      
-      const stats = {
-        totalRequests: crvObjects.length,
-        firstRequestDate: crvObjects[crvObjects.length - 1]?.created_at || null,
-        averageAccuracy: crvObjects.reduce((acc, obj) => acc + (obj.result || 0), 0) / crvObjects.length,
-        bestAccuracy: Math.max(...crvObjects.map(obj => obj.result || 0)),
-        dailyGoals: {
-          requests: todayObjects.length,
-          accuracy: todayObjects.reduce((acc, obj) => acc + (obj.result || 0), 0) / todayObjects.length,
-          bestAccuracy: todayObjects.length > 0 ? Math.max(...todayObjects.map(obj => obj.result || 0)) : 0
-        }
-      };
-      setUserStats(stats);
+      setUserStats(calculateUserStats(crvObjects));
     }
   }, [crvObjects]);
-  const uniqueDays = useMemo(() => {
-    return Array.from(new Set(crvObjects.map(obj => obj.created_at.split('T')[0])));
-  }, [crvObjects]);
-
-  const hasMoreThan3DaysStreak = useMemo(() => {
-    // get unique days
-    return uniqueDays.length >= 3;
-  }, [uniqueDays]);
 
   useEffect(() => {
     const fetchGuestStats = async () => {
@@ -156,19 +131,7 @@ export default function ProfilePage() {
         const data = await response.json();
         
         if (data.success) {
-          const crvObjects = data.data;
-          const streak = calculateStreak(crvObjects);
-          const averageResult = crvObjects.length > 0 
-            ? crvObjects.reduce((sum: number, obj: any) => sum + obj.result, 0) / crvObjects.length 
-            : 0;
-          
-          setGuestStats({
-            crvObjects,
-            streak,
-            averageResult,
-            isLoading: false,
-            error: null
-          });
+          setGuestStats(calculateGuestStats(data.data));
         }
       } catch (error) {
         console.error('Error fetching guest stats:', error);
@@ -336,7 +299,7 @@ style={{
 {/* Badges */}
 
             
-{hasMoreThan3DaysStreak && (
+{hasMoreThan3DaysStreakValue && (
 <LessonCard 
 styleOverride={{
   width: "100px",
@@ -355,9 +318,9 @@ backgroundColor='#ff7755'
 />
 )}
 
-{hasMoreThanFirstDays && (
+{hasMoreThanFirstDaysValue && (
 <LessonCard 
-title="First Viewer"
+title="♾️"
 // number one emoji
 emoji="1️⃣"
 href="#"

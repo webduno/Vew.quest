@@ -7,28 +7,40 @@ import { CRVObject } from '@/script/state/context/FetchedStatsContext';
  */
 export const calculateStreak = (objects: CRVObject[]): number => {
   if (objects.length === 0) return 0;
-  
-  const uniqueDates = new Set(
-    objects.map(obj => new Date(obj.created_at).toLocaleDateString('en-US'))
-  );
-  
-  const sortedDates = Array.from(uniqueDates).sort((a, b) => 
-    new Date(b).getTime() - new Date(a).getTime()
-  );
+
+  // Get today's date at midnight for consistent comparison
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Get unique dates and convert them to midnight timestamps
+  const uniqueDates = Array.from(new Set(
+    objects.map(obj => {
+      const date = new Date(obj.created_at);
+      date.setHours(0, 0, 0, 0);
+      return date.getTime();
+    })
+  )).sort((a, b) => b - a); // Sort in descending order (newest first)
+
+  // Check if there's an entry for today
+  const hasToday = uniqueDates[0] === today.getTime();
   
   let streak = 0;
-  let currentDate = new Date();
-  
-  for (let i = 0; i < sortedDates.length; i++) {
-    const date = new Date(sortedDates[i]);
-    const diffDays = Math.floor((currentDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
-    
-    if (diffDays === i) {
+  let expectedDate = today.getTime();
+
+  // If no entry today, start checking from yesterday
+  if (!hasToday) {
+    expectedDate = today.getTime() - (24 * 60 * 60 * 1000);
+  }
+
+  // Count consecutive days
+  for (const timestamp of uniqueDates) {
+    if (timestamp === expectedDate) {
       streak++;
+      expectedDate -= 24 * 60 * 60 * 1000; // Move to previous day
     } else {
-      break;
+      break; // Break the streak if we find a gap
     }
   }
-  
+
   return streak;
 }; 
