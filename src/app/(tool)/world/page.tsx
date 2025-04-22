@@ -16,7 +16,7 @@ export default function NewGamePage() {
           <a href="/" className='pointer flex-row nodeco pos-rel tx-xsm py-1 px-2 '>
       <img src="/bew/pnglogo.png" alt="tool_bg" width={"20px"} className='mr-1' />
       
-      <div className='tx-bold' style={{ color: "#2B29AF" }}>Bew</div>
+      <div className='tx-bold' style={{ color: "#2B29AF" }}>Vew</div>
       <div className='tx-bold' style={{ color: "#6B69CF" }}>.quest</div>
       {/* <div className='tx-bold' style={{ color: "#2B29AF" }}>/world</div> */}
       </a>
