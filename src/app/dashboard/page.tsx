@@ -18,6 +18,7 @@ import { LessonsContainer } from '../../dom/bew/LessonsContainer';
 import { PreLessonsContainer } from "@/dom/bew/PreLessonsContainer";
 import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
+import { random10CharString } from '../../../script/utils/platform/random10CharString';
 
 type TargetsData = {
   [key: string]: string;
@@ -130,10 +131,6 @@ export default function TrainingPage() {
   const [sketchData, setSketchData] = useState<any>(null);
   const [notes, setNotes] = useState<any>(null);
 
-
-  const random10CharString = () => {
-    return Math.random().toString(36).substring(2, 15);
-  };
 
   function generateRandomTarget() {
     // Generate random 8-digit code in format XXXX-XXXX

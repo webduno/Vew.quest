@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { usePlayerStats } from "@/../script/state/hook/usePlayerStats"
+import { random10CharString } from "../../../script/utils/platform/random10CharString"
 
 export const LandingMainMenu = () => {
 
@@ -11,9 +12,7 @@ export const LandingMainMenu = () => {
      sanitizePlayerId, LS_lowGraphics, toggleLowGraphics } = usePlayerStats()
   const [enterUsername, setEnterUsername] = useState(false)
   const [isGameLoading, setGameLoading] = useState(false)
-const random10CharString = () => {
-  return Math.random().toString(36).substring(2, 15) 
-}
+
 
   const router = useRouter()
   const triggerNewGame = () => {

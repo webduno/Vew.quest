@@ -7,6 +7,7 @@ import { BewLogo } from '@/dom/atom/logo/BewLogo';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import targetsData from '@/../public/data/targets_1.json';
+import { random10CharString } from '../../../../script/utils/platform/random10CharString';
 
 type TargetsData = {
   [key: string]: string;
@@ -94,10 +95,6 @@ export default function TrainingPage() {
     confidence: number;
   }>(null);
   const [showImageModal, setShowImageModal] = useState(false);
-
-  const random10CharString = () => {
-    return Math.random().toString(36).substring(2, 15);
-  };
 
   function generateRandomTarget() {
     // Generate random 8-digit code in format XXXX-XXXX
