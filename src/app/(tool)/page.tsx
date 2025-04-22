@@ -49,9 +49,12 @@ const [ telegram_id, s__telegram_id] = useState<string | null>(null);
 }
 
 
+useEffect(() => {
+  setTelegram();
+}, [])
+
   useEffect(() => {
     if (!LS_playerId) {
-      setTelegram();
       return }
     fetchMailboxRequests();
   }, [LS_playerId, fetchMailboxRequests]);
