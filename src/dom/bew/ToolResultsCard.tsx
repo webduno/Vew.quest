@@ -265,7 +265,7 @@ export const ToolResultsCard = ({
                 disabled
                 hideGrid
                 canvasWidth={300}
-                canvasHeight={300}
+                canvasHeight={200}
                 saveData={sketchData}
                 style={{
                   borderRadius: "15px",
