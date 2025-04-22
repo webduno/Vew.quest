@@ -61,10 +61,10 @@ export default function LeaderboardPage() {
           <div>Profile</div>
         </a>
       </>} />
+            <BewPageHeader title="Leaderboard" />
       <div className='flex-col flex-align-stretch w-max-700px w-100'>
         <div className='tx-bold tx-lg flex-col px-4 flex-align-stretch'>
           <div className='flex-col mb-100'>
-            <BewPageHeader title="Leaderboard" />
               
             <div className='tx-altfont-2 opaci-50 tx-xsm flex-row px-2 mt-8 w-100'>
               <div className='w-50px'>Rank</div>

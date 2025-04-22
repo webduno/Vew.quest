@@ -16,6 +16,7 @@ import { ResultBadge } from '../../../dom/bew/ResultBadge';
 import { isMobile } from '../../../../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { MenuBarItem } from '@/dom/bew/MenuBarItem';
+import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 
 type TargetsData = {
   [key: string]: string;
@@ -30,9 +31,14 @@ export default function TrainingPage() {
   useEffect(() => {
     if (isLoading) { return; }
     if (initiallyAutoLoaded) { return; }
+    if (!LS_playerId) {
+      // setEnterUsername(true);
+      return;
+    }
     console.log("crvObjects", crvObjects.length);
     setInitiallyAutoLoaded(true);
     if (crvObjects.length === 0) { 
+
       setGameState('playing');
       return; 
     }
@@ -343,36 +349,12 @@ export default function TrainingPage() {
 
     <div className='w-100  flex-col  '>
 {gameState === 'initial' && (<>
-      <div className='flex-row w-100 w-max-1080px tx-altfont-2'>
-        <a href="/" className='pointer flex-row nodeco pt-4'>
-        <img src="/bew/pnglogo.png" alt="tool_bg" className='ml-4 w-50px' />
-        <div className='tx-bold'
-        style={{
-          // color: "#6B69CF",
-          color: "#2B29AF",
-          // color: "#060961",
-        }}
-        >Bew</div>
-        <div className='tx-bold'
-        style={{
-          color: "#6B69CF",
-          // color: "#2B29AF",
-          // color: "#060961",
-        }}
-        >.quest</div>
+
+      <NavigationHeaderBar linkList={<>
+        <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
+          <div>About</div>
         </a>
-
-
-
-        <div className=' px-4 flex-1 flex-row flex-justify-end tx-bold pt-4'
-        
-        >
-          
-          <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-              <div>About</div>
-            </a>
-        </div>
-      </div>
+      </>} />
       <div className='flex-wrap gap-8 px-4 '
       style={{
         height: "70vh",
