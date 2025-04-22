@@ -8,16 +8,10 @@ import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 
 export default function LeaderboardPage() {
   const { leaderboard, isLoadingLeaderboard, leaderboardError, fetchLeaderboard } = useFetchedStats();
-  const [isLoading, setIsLoading] = useState(true);
   const [cleanedLeaderboard, setCleanedLeaderboard] = useState<any[]>([]);
 
   useEffect(() => {
-    const loadLeaderboard = async () => {
-      setIsLoading(true);
-      await fetchLeaderboard();
-      setIsLoading(false);
-    };
-    loadLeaderboard();
+    fetchLeaderboard();
   }, [fetchLeaderboard]);
 
   useEffect(() => {
@@ -84,7 +78,7 @@ export default function LeaderboardPage() {
               </div>
             <hr className='w-100 opaci-10' />
             <div className='flex-col gap-2 w-100 pb-100'>
-              {isLoading || isLoadingLeaderboard ? (
+              {isLoadingLeaderboard ? (
                 <div className='tx-center py-8 opaci-20'>Loading leaderboard...</div>
               ) : leaderboardError ? (
                 <div className='tx-center py-8 tx-red'>{leaderboardError}</div>

@@ -30,13 +30,7 @@ export async function GET() {
       console.error('Supabase database error:', error);
       return NextResponse.json(
         { error: error.message },
-        { 
-          status: 500,
-          headers: {
-            'Cache-Control': 'no-store, no-cache, must-revalidate',
-            'Pragma': 'no-cache'
-          }
-        }
+        { status: 500 }
       );
     }
 

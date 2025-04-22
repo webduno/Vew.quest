@@ -103,13 +103,7 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   const fetchLeaderboard = useCallback(async () => {
     try {
       setIsLoadingLeaderboard(true);
-      const response = await fetch('/api/supabase/leaderboard', {
-        headers: {
-          'Cache-Control': 'no-store, no-cache, must-revalidate',
-          'Pragma': 'no-cache'
-        },
-        cache: 'no-store'
-      });
+      const response = await fetch('/api/supabase/leaderboard');
       const data = await response.json();
       
       if (data.success) {
