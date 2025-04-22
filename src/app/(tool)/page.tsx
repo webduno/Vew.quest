@@ -39,8 +39,12 @@ const [ telegram_id, s__telegram_id] = useState<string | null>(null);
   const setTelegram = async () => {
     // @ts-ignore: expect error cuz of unkonwn telegram object inside window context
     const wwwTg = window?.Telegram?.WebApp
+    console.log("wwwTg")
+    console.log(wwwTg)
     s__wndwTg(wwwTg)
     s__telegram_id(wwwTg?.initDataUnsafe?.user?.id)
+    console.log("wwwTg?.initDataUnsafe?.user?.id")
+    console.log(wwwTg?.initDataUnsafe?.user?.id)
     if (!wwwTg?.initDataUnsafe?.user?.id) {
       return;
     }
