@@ -308,52 +308,6 @@ style={{
 
 <div className='flex-wrap px-4 flex-align-start flex-justify-start gap-4 flex-1'>
             
-              {guestUrlUsernameParam && 
-            <div className='bord-r-15  pb-2 pt- 4 px-4  pb-4' 
-            style={{
-              border: "1px solid #f0f0f0",
-            }}
-            >
-              <div className='tx-mdl pt-4 pointer flex-col'
-              
-              >
-                <div className='tx-bold tx-lg mb-'>Guest name:</div>
-                 {/* <br />  */}
-                 <i onClick={() => {
-                if (guestUrlUsernameParam) {
-                  setShowGuestModal(true);
-                }
-              }} className='tx-altfont-1 underline opaci-chov--50'>{guestUrlUsernameParam  || 'Not set'}</i> 
-                 {/* {guestUrlUsernameParam && '👁️'} */}
-                 
-                 </div>
-                 <div className='flex-col'>
-                 <img src="/bew/pfp/row-4-column-2.png"
-                 onClick={() => {
-                  if (guestUrlUsernameParam) {
-                    setShowGuestModal(true);
-                  }
-                 }}
- alt="pfp" className={'bord-r-50 noverflow block pointer '+(isMobile() ? 'w-150px' : 'w-100px')} /></div>
-              {crvObjects.length > 0 && guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId && (
-                 <div className='tx-md mt-2 hover-jump py-2 px-4 bord-r-8  pointer opaci-chov--50'
-                 style={{
-                  color: "#ffffff",
-                  backgroundColor: "#7Ce360",
-                  boxShadow: "0px 4px 0 0px #5CC310",
-
-                 }}
-                 onClick={() => {
-                  // navigator.clipboard.writeText(guestUrlUsernameParam || '');
-                  alert('Coming soon!');
-                 }}
-                 >
-                  {/* party emoji */}
-                  Join Party 🎉
-                 </div>
-                 )}
-            </div>
-                 }
         
 
 <div className='bord-r-15  pt-4 pb-2 px-4' style={{ border: "1px solid #f0f0f0" }}>
@@ -459,6 +413,53 @@ backgroundColor='#FF9600'
 
           
         </div>
+        
+              {guestUrlUsernameParam && 
+            <div className='bord-r-15  pb-2 pt- 4 px-4  pb-4 mb-100' 
+            style={{
+              border: "1px solid #f0f0f0",
+            }}
+            >
+              <div className='tx-mdl pt-4 pointer flex-col'
+              
+              >
+                <div className='tx-bold tx-lg mb-'>Guest name:</div>
+                 {/* <br />  */}
+                 <i onClick={() => {
+                if (guestUrlUsernameParam) {
+                  setShowGuestModal(true);
+                }
+              }} className='pt-2 tx-altfont-1 underline opaci-chov--50'>{guestUrlUsernameParam  || 'Not set'}{"'s details"}</i> 
+                 {/* {guestUrlUsernameParam && '👁️'} */}
+                 
+                 </div>
+                 <div className='flex-col'>
+                 <img src="/bew/pfp/row-4-column-2.png"
+                 onClick={() => {
+                  if (guestUrlUsernameParam) {
+                    setShowGuestModal(true);
+                  }
+                 }}
+ alt="pfp" className={'bord-r-50 noverflow block pointer w-max-600px w-100'} /></div>
+              {crvObjects.length > 0 && guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId && (
+                 <div className='tx-md mt-2 hover-jump py-2 px-4 bord-r-8  pointer opaci-chov--50'
+                 style={{
+                  color: "#ffffff",
+                  backgroundColor: "#7Ce360",
+                  boxShadow: "0px 4px 0 0px #5CC310",
+
+                 }}
+                 onClick={() => {
+                  // navigator.clipboard.writeText(guestUrlUsernameParam || '');
+                  alert('Coming soon!');
+                 }}
+                 >
+                  {/* party emoji */}
+                  Join Party 🎉
+                 </div>
+                 )}
+            </div>
+                 }
       <div id="journey"></div>  
       <div className='pb-100 flex-col flex-align-start tx-altfont-2 gap-4 w-100 w-max-1080px'
       >
