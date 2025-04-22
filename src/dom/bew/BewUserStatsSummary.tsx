@@ -9,7 +9,8 @@ export const BewUserStatsSummary = ({
   minified?: boolean;
 }) => {
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
-  const { streak, dailyProgress, dailyGoal, isLoading, error, crvObjects, averageResult } = useFetchedStats();
+  const { potentialStreak,
+    streak, dailyProgress, dailyGoal, isLoading, error, crvObjects, averageResult } = useFetchedStats();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -31,7 +32,7 @@ export const BewUserStatsSummary = ({
 
   if (minified) {
     return (
-      <IconStatsBar streak={streak} 
+      <IconStatsBar potentialStreak={potentialStreak}  streak={streak}
       points={crvObjects.length}
       hearts={Math.round(averageResult)}
       />
@@ -39,7 +40,7 @@ export const BewUserStatsSummary = ({
   }
 
   return (<>
-    <IconStatsBar streak={streak} 
+    <IconStatsBar potentialStreak={potentialStreak}  streak={streak}
     points={crvObjects.length}
     hearts={Math.round(averageResult)}
     />
@@ -223,7 +224,9 @@ export const BewUserStatsSummary = ({
   </>);
 };
 
-export const IconStatsBar = ({streak, points, hearts}: {streak: number, points: number, hearts: number}) => {
+export const IconStatsBar = ({
+  potentialStreak, streak, points, hearts
+}: {potentialStreak?: number, streak: number, points: number, hearts: number}) => {
   return (
     <div className='flex-row flex-justify-between tx-altfont-2'>
       <button className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
@@ -232,8 +235,16 @@ export const IconStatsBar = ({streak, points, hearts}: {streak: number, points: 
         data-tooltip-place="bottom"
         data-tooltip-variant='warning'
       >
+        {!streak ? 
+        <div className='tx-lg tx-center'
+        style={{
+          filter: "grayscale(100%)",
+        }}
+        >🔥</div>
+        :
         <div className='tx-lg tx-center'>🔥</div>
-        <div className='tx-bold-5' style={{ color: "#FFB02E" }}>{streak}</div>
+        }
+        <div className='tx-bold-5' style={{ color: "#FFB02E" }}>{streak || potentialStreak}</div>
       </button>
       <button className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
         data-tooltip-id="points-tooltip"

@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
-import { calculateStreak } from '@/script/utils/streak';
+import { calculateStreak, calculatePotentialStreak } from '@/script/utils/streak';
 
 export interface CRVObject {
   id: string;
@@ -43,6 +43,7 @@ interface LeaderboardEntry {
 interface FetchedStatsContextType {
   crvObjects: CRVObject[];
   streak: number;
+  potentialStreak: number;
   dailyProgress: number;
   dailyGoal: number;
   isLoading: boolean;
@@ -196,6 +197,7 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   };
 
   const streak = calculateStreak(crvObjects);
+  const potentialStreak = calculatePotentialStreak(crvObjects);
   const dailyProgress = calculateDailyProgress(crvObjects);
   const dailyGoal = 5;
   const averageResult = calculateAverageResult(crvObjects);
@@ -204,6 +206,7 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
     <FetchedStatsContext.Provider value={{
       crvObjects,
       streak,
+      potentialStreak,
       dailyProgress,
       dailyGoal,
       isLoading,
