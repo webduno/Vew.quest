@@ -17,6 +17,7 @@ import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { LessonsContainer } from '../../dom/bew/LessonsContainer';
 import { PreLessonsContainer } from "@/dom/bew/PreLessonsContainer";
 import { BewPageHeader } from '@/dom/bew/BewPageHeader';
+import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 
 type TargetsData = {
   [key: string]: string;
@@ -332,40 +333,14 @@ export default function TrainingPage() {
   return(<>
     <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
 
-
-    <div className='flex-row w-100 w-max-1080px tx-altfont-2'>
-        <a href="/" className='pointer flex-row nodeco pos-rel pt-4'>
-        <img src="/bew/pnglogo.png" alt="tool_bg" className='ml-4 w-50px' />
-        <div className='tx-bold'
-        style={{
-          // color: "#6B69CF",
-          color: "#2B29AF",
-          // color: "#060961",
-        }}
-        >Bew</div>
-        <div className='tx-bold'
-        style={{
-          color: "#6B69CF",
-          // color: "#2B29AF",
-          // color: "#060961",
-        }}
-        >.quest</div>
+      <NavigationHeaderBar linkList={<>
+        <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
+          <div>Dashboard</div>
         </a>
-
-
-
-        <div className=' px-4 flex-1 flex-row gap-3 flex-justify-end tx-bold pt-4'
-        
-        >
-        <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>Profile</div>
+        <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
+          <div>About</div>
         </a>
-            <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-              <div>About</div>
-            </a>
-        </div>
-      </div>
-      
+      </>} />
       
       <BewPageHeader title={"Dashboard"} />
       

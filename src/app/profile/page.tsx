@@ -9,7 +9,6 @@ import { LessonCard } from '@/dom/bew/LessonCard';
 import { BewChoiceButton } from '@/dom/bew/BewChoiceButton';
 import { isMobile } from '../../../script/utils/platform/mobileDetection';
 import CanvasDraw from 'react-canvas-draw';
-import { BewWorldLogo } from '../../dom/bew/BewWorldLogo';
 import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 import { useSearchParams } from 'next/navigation';
 import { calculateStreak } from '@/script/utils/streak';
@@ -22,6 +21,7 @@ import {
   getTodayObjects,
   type UserStats 
 } from '@/script/utils/calculations';
+import { NavigationHeaderBar } from '../../dom/bew/NavigationHeaderBar';
 
 const NotesCheck = ({ content }: { content: any }) => {
   return content.notes ? <div className='tx-lx pointer'
@@ -756,20 +756,4 @@ backgroundColor='#71B44F'
 } 
 
 
-const NavigationHeaderBar = () => {
-  return (
-    <div className='flex-row w-100 w-max-1080px  tx-altfont-2'>
-    <BewWorldLogo />
 
-    <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
-      
-      <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
-        <div>Dashboard</div>
-      </a>
-      <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-        <div>About</div>
-      </a>
-    </div>
-  </div>
-  );
-};

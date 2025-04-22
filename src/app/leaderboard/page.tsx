@@ -6,6 +6,7 @@ import { Tooltip } from 'react-tooltip';
 import { clean } from 'profanity-cleaner';
 import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
+import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 
 export default function LeaderboardPage() {
   const { leaderboard, isLoadingLeaderboard, leaderboardError, fetchLeaderboard } = useFetchedStats();
@@ -51,20 +52,15 @@ export default function LeaderboardPage() {
 
   return (
     <div className='w-100 autoverflow-y h-100vh flex-col flex-justify-start'>
-      <div className='flex-row w-100 w-max-1080px tx-altfont-2'>
-        <BewWorldLogo />
-
-        <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
-          
-          <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-            <div>About</div>
-          </a>
-          <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
-            <div>Profile</div>
-          </a>
-        </div>
-      </div>
-
+      
+      <NavigationHeaderBar linkList={<>
+        <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
+          <div>About</div>
+        </a>
+        <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
+          <div>Profile</div>
+        </a>
+      </>} />
       <div className='flex-col flex-align-stretch w-max-700px w-100'>
         <div className='tx-bold tx-lg flex-col px-4 flex-align-stretch'>
           <div className='flex-col mb-100'>

@@ -5,6 +5,8 @@ import { BewWorldLogo } from '../../dom/bew/BewWorldLogo';
 import { Tooltip } from 'react-tooltip';
 import { clean } from 'profanity-cleaner';
 import { LessonCard } from '@/dom/bew/LessonCard';
+import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
+import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 
 export default function AboutPage() {
   const [title, setTitle] = useState('');
@@ -61,22 +63,17 @@ export default function AboutPage() {
   return (
     <>
       <div className='w-100 autoverflow-y h-100vh flex-col flex-justify-start'>
-        <div className='flex-row w-100 w-max-1080px tx-altfont-2'>
-          <BewWorldLogo />
-          <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
-            
+        <NavigationHeaderBar linkList={<>
+        
+          <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
+              <div>Dashboard</div>
+            </a>
           <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
               <div>Profile</div>
             </a>
-            <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
-              <div>Dashboard</div>
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>FEEDBACK</div>
-        </div>
+        </>} />
+        
+        <BewPageHeader title={"Feedback"} />
 
         <div className='w-100 w-max-1080px flex-col pt-8 gap-4 flex-align-start'>
           
