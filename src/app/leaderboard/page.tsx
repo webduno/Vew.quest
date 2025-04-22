@@ -95,7 +95,7 @@ export default function LeaderboardPage() {
                   <div key={entry.storage_key} className='tx-altfont-2 w-100 flex-row tx-md pb-2 pr-4'
                     style={{
                       borderBottom: "1px solid #e5e5e5",
-                      background: entry.storage_key === LS_playerId ? 'linear-gradient(90deg, rgba(255,255,0,0.1) 0%, rgba(255,255,0,0.05) 100%)' : 'transparent'
+                      background: entry.storage_key.toLowerCase() === LS_playerId?.toLowerCase() ? 'linear-gradient(90deg, rgba(255,255,0,0.1) 0%, rgba(255,255,0,0.05) 100%)' : 'transparent'
                     }}
                   >
                     <div className='w-50px tx-bold-2 pl-4 tx-grey'>

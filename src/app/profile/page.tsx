@@ -421,7 +421,7 @@ backgroundColor='#FF9600'
 
         <div id="guest"></div>  
         
-              {!!guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId &&
+              {!!guestUrlUsernameParam && guestUrlUsernameParam.toLowerCase() !== LS_playerId.toLowerCase() &&
             <div className='bord-r-15  pb-2 pt- 4 px-4  pb-4 mb-100' 
             style={{
               border: "1px solid #f0f0f0",
@@ -448,7 +448,7 @@ backgroundColor='#FF9600'
                   }
                  }}
  alt="pfp" className={'bord-r-50 noverflow block pointer w-max-600px w-100'} /></div>
-              {crvObjects.length > 0 && !!guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId && (
+              {crvObjects.length > 0 && !!guestUrlUsernameParam && guestUrlUsernameParam.toLowerCase() !== LS_playerId.toLowerCase() && (
                  <div className='tx-md mt-2 hover-jump py-2 px-4 bord-r-8  pointer opaci-chov--50'
                  style={{
                   color: "#ffffff",
