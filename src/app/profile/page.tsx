@@ -377,7 +377,7 @@ backgroundColor='#FF9600'
           
         </div>
         
-              {guestUrlUsernameParam && 
+              {guestUrlUsernameParam && guestUrlUsernameParam !== LS_playerId &&
             <div className='bord-r-15  pb-2 pt- 4 px-4  pb-4 mb-100' 
             style={{
               border: "1px solid #f0f0f0",
