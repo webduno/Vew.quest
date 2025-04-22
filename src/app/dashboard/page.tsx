@@ -19,6 +19,8 @@ import { PreLessonsContainer } from "@/dom/bew/PreLessonsContainer";
 import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 import { random10CharString } from '../../../script/utils/platform/random10CharString';
+import { LeaderboardTable } from '@/dom/bew/LeaderboardTable';
+import { sortAndFilterLeaderboard } from '@/script/utils/leaderboard/sortLeaderboard';
 
 type TargetsData = {
   [key: string]: string;
@@ -27,7 +29,7 @@ type TargetsData = {
 type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {
-  const { isLoading,crvObjects,mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
+  const { isLoading,crvObjects,mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, leaderboard, isLoadingLeaderboard, leaderboardError, fetchLeaderboard } = useFetchedStats();
 
   useEffect(() => {
     if (isLoading) { return; }
@@ -45,6 +47,10 @@ export default function TrainingPage() {
       }
     }
   }, []);
+
+  useEffect(() => {
+    fetchLeaderboard();
+  }, [fetchLeaderboard]);
 
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const [enterUsername, setEnterUsername] = useState(false);
@@ -433,7 +439,39 @@ export default function TrainingPage() {
                 </div>
                 </div>
                 <PreLessonsContainer />
+                <div className='mt-8'>
 
+
+                <div className='bord-r-10 px-4' 
+      style={{
+        border: "1px solid #E5E5E5",
+      }}
+      >
+        <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
+          <div className='tx-bold px-4' 
+          style={{
+            color: "#4B4B4B",
+          }}
+          >Top Players</div>
+          <a 
+          className='tx-bold px-4 pointer nodeco' 
+          href="/leaderboard"
+          style={{
+            color: "#22AEFF",
+          }}
+          >View All</a>
+        </div>
+
+
+
+                  <LeaderboardTable 
+                    leaderboard={leaderboard ? sortAndFilterLeaderboard(leaderboard).slice(0, 10) : []}
+                    isLoading={isLoadingLeaderboard}
+                    error={leaderboardError}
+                    currentPlayerId={LS_playerId}
+                  />
+                </div>
+    </div>
     </div>
 
 
