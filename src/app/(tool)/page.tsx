@@ -417,6 +417,10 @@ export default function TrainingPage() {
 
     if ( typedUsername) {
       setPlayerId(sanitizePlayerId(typedUsername));
+    } else {
+      const randomId = random10CharString();
+      setTypedUsername(randomId);
+      localStorage.setItem('VB_PLAYER_ID', randomId);
     }
 
     
@@ -662,7 +666,9 @@ export default function TrainingPage() {
             data-tooltip-place="bottom"
             data-tooltip-content={typedUsername + "'s Profile"}
               className='py-1 px-2 mx-2 tx-center tx-bold tx-white bord-r-10 tx-lgx opaci-chov--75'
-              onClick={handleStart}
+              onClick={()=>{
+                handleStart();
+              }}
               style={{
                 backgroundColor: "#80DB7D",
                 boxShadow: "0px 4px 0 0px #4BaF49",
