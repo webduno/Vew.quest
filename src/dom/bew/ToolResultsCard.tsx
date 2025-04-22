@@ -3,7 +3,25 @@ import { ResultBadge } from '@/dom/bew/ResultBadge';
 import CanvasDraw from 'react-canvas-draw';
 import { useRef, useEffect } from 'react';
 import JSConfetti from 'js-confetti';
+import { useSearchParams } from 'next/navigation';
 
+interface TelegramWebApp {
+  ready: () => void;
+  sendData: (data: string) => void;
+  initDataUnsafe?: {
+    user?: {
+      id: string;
+    };
+  };
+}
+
+declare global {
+  interface Window {
+    Telegram?: {
+      WebApp: TelegramWebApp;
+    };
+  }
+}
 
 export const ToolResultsCard = ({
   target, results, sentObject, overallAccuracy, showImageModal, setShowImageModal, showSketchModal, setShowSketchModal, sketchData, notes, handleTryAgain, selectedTargetInfo
@@ -64,7 +82,82 @@ export const ToolResultsCard = ({
     }, 200);
   }, []);
 
-  const handleDownloadDrawing = () => {
+  const handleDownloadDrawing = () => 
+    {
+    if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+      alert('Downloading is not available in Telegram Mini App');
+      return;
+    }
+
+    const searchParams = useSearchParams();
+    const isTelegramMiniApp = () => {
+      if (typeof window === 'undefined') return false;
+      const tgWebAppStartParam = searchParams.get('tgWebAppStartParam');
+      const tgWebAppPlatform = searchParams.get('tgWebAppPlatform');
+      return tgWebAppStartParam !== null || tgWebAppPlatform !== null;
+    };
+
+    if (isTelegramMiniApp()) {
+      // Telegram Mini App specific handling
+      if (canvasRef.current) {
+        const drawingCanvas = (canvasRef.current as any).canvas.drawing;
+        const targetImage = new Image();
+        targetImage.crossOrigin = 'anonymous';
+        targetImage.src = `/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`;
+        
+        targetImage.onload = () => {
+          const combinedCanvas = document.createElement('canvas');
+          const ctx = combinedCanvas.getContext('2d');
+          
+          combinedCanvas.width = 600;
+          combinedCanvas.height = 350;
+          
+          if (ctx) {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, combinedCanvas.width, combinedCanvas.height);
+            
+            ctx.fillStyle = '#4B4B4B';
+            ctx.font = '20px Consolas';
+            ctx.textAlign = 'center';
+            const playerId = localStorage.getItem('VB_PLAYER_ID');
+            ctx.fillText(selectedTargetInfo?.id ? "Vew.quest | @"+playerId +' | #'+selectedTargetInfo?.id : 'n/a', combinedCanvas.width/2, 30);
+            
+            ctx.drawImage(drawingCanvas, 10, 50, 300, 300);
+            ctx.drawImage(targetImage, 310, 50, 300, 300);
+            
+            ctx.fillStyle = '#4B4B4B';
+            ctx.font = '14px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Your Drawing', 160, 360);
+            ctx.fillText('Target Image', 460, 360);
+            
+            // In Telegram Mini App, we can use the WebApp.ready() method to share the image
+            try {
+              if (window.Telegram?.WebApp) {
+                window.Telegram.WebApp.ready();
+                window.Telegram.WebApp.sendData(combinedCanvas.toDataURL('image/png'));
+              } else {
+                // Fallback to regular download
+                const link = document.createElement('a');
+                link.download = 'drawing_comparison.png';
+                link.href = combinedCanvas.toDataURL('image/png');
+                link.click();
+              }
+            } catch (e) {
+              console.error('Error sharing in Telegram:', e);
+              // Fallback to regular download
+              const link = document.createElement('a');
+              link.download = 'drawing_comparison.png';
+              link.href = combinedCanvas.toDataURL('image/png');
+              link.click();
+            }
+          }
+        };
+      }
+      return;
+    }
+
+    // Regular web browser handling
     if (canvasRef.current) {
       const drawingCanvas = (canvasRef.current as any).canvas.drawing;
       const targetImage = new Image();

@@ -7,6 +7,7 @@ import '@/app/bew.css'
 // import { ClientLayout } from '@/dom/organ/ClientLayout'
 import { FetchedStatsProvider } from '@/script/state/context/FetchedStatsContext';
 import { BackgroundMusicProvider } from '../../../script/state/context/BackgroundMusicContext';
+import Script from 'next/script';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -21,6 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" style={{ margin: 0, padding: 0 }}>
+      <head>
+      <Script
+          src="https://telegram.org/js/telegram-web-app.js"
+          // strategy="beforeInteractive" // ensures the script loads before the page renders
+        />
+        </head>
       <body className={`${inter.className}`}
        style={{ margin: 0, padding: 0,
         background: "white",
