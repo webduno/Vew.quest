@@ -11,6 +11,7 @@ export interface LessonCardProps {
   styleOverride?: React.CSSProperties;
   actionText?: string;
   actionStyle?: React.CSSProperties;
+  forcedClick?: () => void;
 }
 
 export const LessonsContainer = () => {

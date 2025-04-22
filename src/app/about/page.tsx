@@ -5,6 +5,7 @@ import { BewWorldLogo } from '../../dom/bew/BewWorldLogo';
 import { Tooltip } from 'react-tooltip';
 import { clean } from 'profanity-cleaner';
 import { LessonCard } from '@/dom/bew/LessonCard';
+import { BewPageHeader } from '../../dom/bew/BewPageHeader';
 
 export default function AboutPage() {
   return (
@@ -23,14 +24,11 @@ export default function AboutPage() {
           </div>
         </div>
 
-<div className='Q_xs_sm py-8'></div>
-        <div>
-          <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>ABOUT</div>
-        </div>
+<BewPageHeader title={"About"} />
 
         <div className='w-100 w-max-1080px flex-col pt-8 gap-4 flex-align-start'>
           <div className='bord-r-15 w-max-700px' >
-            <div className='tx-bold tx-lg mb-4 px-4'>The Project</div>
+            {/* <div className='tx-bold tx-lg mb-4 px-4'>The Project</div> */}
             <div className='tx-altfont-2 flex-col'>
               <p className='mb-4 tx-lg px-4'
               style={{
@@ -263,4 +261,6 @@ export default function AboutPage() {
     </>
   );
 } 
+
+
 

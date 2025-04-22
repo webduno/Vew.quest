@@ -38,20 +38,32 @@ export async function GET() {
       );
     }
 
-    // Calculate total scores per player
-    const playerScores = (data as CRVObject[]).reduce((acc: PlayerScores, obj) => {
+    // Calculate total scores and average accuracy per player
+    const playerScores = (data as CRVObject[]).reduce((acc: any, obj) => {
       if (!acc[obj.storage_key]) {
-        acc[obj.storage_key] = 0;
+        acc[obj.storage_key] = {
+          total_score: 0,
+          total_accuracy: 0,
+          count: 0,
+          highest_accuracy: 0
+        };
       }
-      acc[obj.storage_key] += obj.result;
+      acc[obj.storage_key].total_score += obj.result;
+      acc[obj.storage_key].total_accuracy += obj.result;
+      acc[obj.storage_key].count += 1;
+      if (obj.result > acc[obj.storage_key].highest_accuracy) {
+        acc[obj.storage_key].highest_accuracy = obj.result;
+      }
       return acc;
     }, {});
 
     // Create leaderboard entries
     const leaderboard = Object.entries(playerScores)
-      .map(([storage_key, total_score]) => ({
+      .map(([storage_key, stats]: [string, any]) => ({
         storage_key,
-        total_score,
+        total_score: stats.total_score,
+        average_accuracy: stats.total_accuracy / stats.count,
+        highest_accuracy: stats.highest_accuracy,
         rank: 0 // Will be set after sorting
       }))
       .sort((a, b) => b.total_score - a.total_score)

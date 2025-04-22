@@ -13,10 +13,10 @@ import CanvasDraw from 'react-canvas-draw';
 import { Tooltip } from 'react-tooltip';
 import { BewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';
 import { ResultBadge } from '../../dom/bew/ResultBadge';
-import { isMobile } from '../../../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { LessonsContainer } from '../../dom/bew/LessonsContainer';
 import { PreLessonsContainer } from "@/dom/bew/PreLessonsContainer";
+import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 
 type TargetsData = {
   [key: string]: string;
@@ -365,12 +365,10 @@ export default function TrainingPage() {
             </a>
         </div>
       </div>
-
-    <div className='Q_xs py-2'></div>
-        
-    <div>
-            <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>DASHBOARD</div>
-          </div>
+      
+      
+      <BewPageHeader title={"Dashboard"} />
+      
     <div className='w-100 w-max-1080px Q_xs_sm_flex-col flex-row-r  pt-8  flex-justify-center flex-align-center gap- 4'>
 
         
@@ -390,7 +388,7 @@ export default function TrainingPage() {
           }}>
             <BewUserStatsSummary minified />
           </div>
-        {!isMobile() && (<>
+        { (<>
           
         <img src="/bew/birds.png"
         style={{

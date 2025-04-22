@@ -10,6 +10,7 @@ import { BewChoiceButton } from '@/dom/bew/BewChoiceButton';
 import { isMobile } from '../../../script/utils/platform/mobileDetection';
 import CanvasDraw from 'react-canvas-draw';
 import { BewWorldLogo } from '../../dom/bew/BewWorldLogo';
+import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 
 const NotesCheck = ({ content }: { content: any }) => {
   return content.notes ? <div className='tx-lx pointer'
@@ -67,10 +68,10 @@ export default function ProfilePage() {
   const [currentImage, setCurrentImage] = useState<{id: string, description: string} | null>(null);
   const [modalView, setModalView] = useState<'sketch' | 'image'>('sketch');
 
-  const hasMoreThan14Days = useMemo(() => {
+  const hasMoreThanFirstDays = useMemo(() => {
     // get unique days
     const uniqueDays = Array.from(new Set(crvObjects.map(obj => obj.created_at.split('T')[0])));
-    return uniqueDays.length > 2;
+    return uniqueDays.length >= 3;
   }, [crvObjects]);
 
   const [showSketch, setShowSketch] = useState<any>(null);
@@ -105,6 +106,14 @@ export default function ProfilePage() {
       setUserStats(stats);
     }
   }, [crvObjects]);
+  const uniqueDays = useMemo(() => {
+    return Array.from(new Set(crvObjects.map(obj => obj.created_at.split('T')[0])));
+  }, [crvObjects]);
+
+  const hasMoreThan3DaysStreak = useMemo(() => {
+    // get unique days
+    return uniqueDays.length >= 3;
+  }, [uniqueDays]);
 
   return (
     <>
@@ -124,10 +133,7 @@ export default function ProfilePage() {
         </div>
 
         
-        <div className='Q_xs_py-2'></div>
-        <div>
-          <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>PROFILE</div>
-        </div>
+        <BewPageHeader title={"Profile"} />
 
         <div className='w-100  w-max-1080px flex-row Q_xs_flex-col-r pt-8 flex-justify-center flex-align-start gap-4'>
 
@@ -204,7 +210,22 @@ style={{
                  
                  />
                  </>)}
-                 </>    : ''}            
+                 </>    : <>
+
+                 {crvObjects.length > 0 && !!isMobile() && (<>
+            <div className=' tx-l g mb-2'>Did not view today ❌</div>
+              <a href="/tool"
+          className='py-2 px-2 mb-4 pointer tx-bold nodeco tx-center tx-white bord-r-10 tx- w-100px lg '
+          style={{
+            backgroundColor: "#807DDB",
+            boxShadow: `0px 4px 0 0px #6B69CF`,
+          }}
+        >
+          {"Start Viewing"}
+        </a>
+            </>)}
+                 
+                 </>}            
 </div>
 
 <div className='flex-wrap px-4 flex-align-start flex-justify-start gap-4 flex-1'>
@@ -244,14 +265,10 @@ style={{
             </div>
 
 
-            <div className='w-100 '>
-              <div className='tx-bold tx-lg mb-2 px-4'>Badges</div>
-              <div className='flex-wrap flex-align-start flex-justify-start gap-4'>
-
-
-
 {/* Badges */}
-{hasMoreThan14Days && (
+
+            
+{hasMoreThan3DaysStreak && (
 <LessonCard 
 styleOverride={{
   width: "100px",
@@ -259,28 +276,51 @@ styleOverride={{
 }}
 title="Regular Viewer"
 emoji="🔥"
-href="/"
+href="#"
 actionText={""}
-
+forcedClick={() => {
+  alert('Congratulations, you are a regular viewer!\n\nYou have made more than 3 days in a row!');
+}}
 boxShadowColor="#bb4444"
 backgroundColor='#ff7755'
 
 />
 )}
 
-{userStats.totalRequests >= 9 && (
+{hasMoreThanFirstDays && (
 <LessonCard 
-title="Seer"
-actionText={"Details"}
-emoji="👀"
+title="First Viewer"
+// number one emoji
+emoji="1️⃣"
 href="#"
+forcedClick={() => {
+  alert('Congratulations, you are a regular viewer!\n\nYou have made been here since the first days!');
+}}
+
+boxShadowColor="#964400"
+backgroundColor='#FF9600'
+actionText={""}
+
 />
 )}
 
-{/* Badges */}
-{hasMoreThan14Days && (
+{userStats.totalRequests >= 9 && (
 <LessonCard 
-title="Ranked"
+title="Seer Achievement"
+actionText={"Details"}
+emoji="👀"
+href="#"
+forcedClick={() => {
+  alert('Congratulations, you are a seer!\n\nYou have performed more than  9 remote viewings!');
+}}
+/>
+)}
+
+
+{/* Badges */}
+{userStats.averageAccuracy >= 40 && (
+<LessonCard 
+title="High Accuracy"
 emoji="🏆"
 href="/leaderboard"
 actionText={"Check Leaderboard"}
@@ -292,9 +332,7 @@ backgroundColor='#FF9600'
 />
 )}
 
-</div>
 
-</div>
 
 
 

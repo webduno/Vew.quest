@@ -4,12 +4,13 @@ import { LessonCardProps } from "./LessonsContainer";
 
 export const LessonCard = ({ 
   actionStyle = {}, 
+  forcedClick,
   title, href, emoji, backgroundColor = "#807DDB", boxShadowColor = "#6B69CF", styleOverride = {}, actionText = "Start"
 }: LessonCardProps) => {
   return (
     <a
       href={href}
-      onClick={() => {
+      onClick={typeof forcedClick === 'function' ? forcedClick : () => {
         if (href === "#") {
           alert("Coming soon!");
           return;

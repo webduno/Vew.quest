@@ -987,7 +987,7 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
             >
               <div>{showSketchModal ? "Hide Drawing" : "Show Drawing"}</div>
             </button>
-            <div  onClick={() => {
+            <button  onClick={() => {
               alert("Notes:\n\n" + (notes || "No notes found!"));
             }}
             className='tx-sm pa-1 bord-r-15 opaci-chov--50'
@@ -996,7 +996,7 @@ className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs rig
             }}
             >
               Notes
-            </div>
+            </button>
             </div>
             <div className='flex-row gap-2'>
             <button 
