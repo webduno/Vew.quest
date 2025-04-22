@@ -23,15 +23,16 @@ export default function AboutPage() {
           </div>
         </div>
 
+<div className='Q_xs_sm py-8'></div>
         <div>
           <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>ABOUT</div>
         </div>
 
         <div className='w-100 w-max-1080px flex-col pt-8 gap-4 flex-align-start'>
           <div className='bord-r-15 w-max-700px' >
-            <div className='tx-bold tx-lg mb-4'>The Project</div>
+            <div className='tx-bold tx-lg mb-4 px-4'>The Project</div>
             <div className='tx-altfont-2 flex-col'>
-              <p className='mb-4 tx-lg '
+              <p className='mb-4 tx-lg px-4'
               style={{
                 color: "#777777",
                 lineHeight: "1.5",
@@ -46,7 +47,7 @@ export default function AboutPage() {
                 href="/tool">start your journey.</a>
               </p>
               
-              <p className='mb-4 tx-sm'>
+              <p className='mb-4 tx-sm px-8'>
                 Bew provides a seamless and intuitive interface for your remote viewing sessions.                
                 The platform will remain free forever with no login requirements while
                 committed to accessibility and community growth.
@@ -60,15 +61,15 @@ export default function AboutPage() {
             </div>
           </div>
 
-          <div className='bord-r-15 px-4 py-4' style={{ border: "1px solid #f0f0f0" }}>
-            <div className='tx-bold tx-lg mb-4'>Official Links</div>
+          <div className='bord-r-15  ml-4 py-4' style={{ border: "1px solid #f0f0f0" }}>
+            <div className='tx-bold tx-lg mb-4 px-4'>Official Links</div>
             <div className='tx-altfont-2'>
-              <p className='mb-4'>
-                Main Website Application: <a 
+              <p className='mb-4 px-4' >
+                Main Website Application: <br /> <a 
                 style={{
                   color: "#22AEFF",
                 }}
-                href="https://bew.quest" target="_blank" rel="noopener noreferrer" className='tx-white'>bew.quest</a>
+                href="https://bew.quest" target="_blank" rel="noopener noreferrer" className='tx-lgx block py-4 tx-white'>bew.quest</a>
               </p>
             </div>
           </div>
@@ -77,42 +78,50 @@ export default function AboutPage() {
 
 
           <div className='bord-r-15 pb-100'>
-            <div className='tx-bold tx-lg mb-4'>Feedback</div>
+            <div className='tx-bold tx-lg mb-4 px-4'>Feedback</div>
             <div className='tx-altfont-2'>
-              <p className='mb-4'>
+              <p className='mb-4 px-4'>
                 If you get some inconsistent results or data that doesn't match, or if an image isn't loading, please let me know so I can fix them as soon as possible. Also, if you have any ideas on how to improve it or what features to add, please leave a comment so I can work on them. I'm trying to make it as useful as possible besides being a gamified tool.
               </p>
             </div>
             <div>
-            <div className="flex-wrap gap-2 flex-align-start flex-justify-start">
+            <div className="flex-wrap gap-2 px-4 flex-align-start flex-justify-start">
     <LessonCard 
   styleOverride={{
-    // width: "300px"
+    width: "120px"
+    
   }}
-  title={"Send Anonymous Feedback"} 
+  actionStyle={{
+    width: "80px",
+  }}
+  title={"Anonymous Feedback"} 
   // question mark emoji
   emoji={"❓"}
   backgroundColor={"#fB404D"} 
   boxShadowColor={"#B52F38"}
   href={"/feedback"} 
-  actionText={"Submit"}
+  actionText={"Send"}
 />
         <LessonCard 
+  actionStyle={{
+    width: "80px",
+  }}
       styleOverride={{
+    width: "120px"
         // width: "300px"
       }}
-      title={"Contact Developer"} 
+      title={"Message Developer"} 
       // developer emoji
       emoji={"👨‍💻"}
       href={"https://x.com/webduno"} 
       backgroundColor={"#404DfB"} 
       boxShadowColor={"#2F38B5"}
-      actionText={"Submit"}
+      actionText={"Contact"}
     />
 {/* report issue */}
 <LessonCard 
   styleOverride={{
-    // width: "300px"
+    width: "250px"
   }}
   href={"/feedback"} 
   title={"Report Issue"} 
@@ -132,10 +141,10 @@ export default function AboutPage() {
 
 
           <div className='bord-r-15 '>
-            <div className='tx-bold tx-lg mb -4'>Technical Details</div>
+            <div className='tx-bold tx-lg mb-4 px-4'>Technical Details</div>
           </div>
           
-          <div className='mt -4'>
+          <div className='mt -4 px-4'>
             <p className='mb-4 pa-0'>
             Target images are sourced from the Common Objects in Context dataset (<a style={{ color: "#22AEFF" }} href="https://cocodataset.org/" target="_blank" rel="noopener noreferrer" className='tx-white'>cocodataset.org</a>) (COCO-val2017), a comprehensive computer vision dataset. 
             The COCO dataset is one of the most widely-used computer vision datasets, featuring:
@@ -151,7 +160,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className='bord-r-15 mt-4 px-4 py-4' style={{ border: "1px solid #f0f0f0" }}>
+          <div className='bord-r-15 mt-4 px-4 mx-4 py-4' style={{ border: "1px solid #f0f0f0" }}>
             <div className='tx-bold tx-lg mb-4 mt-8'>Processed Target Image List</div>
             <div className='tx-altfont-2'>
               <p className='mb-4'>
@@ -194,7 +203,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <div className='bord-r-15 mb-100 ' style={{ border: "1px solid #f0f0f0" }}>
+          <div className='bord-r-15 mb-100 mx-4' style={{ border: "1px solid #f0f0f0" }}>
             <div className='tx-bold tx-lg mb-4 px-8 pt-8 py-4'>Roadmap</div>
             <div className='tx-altfont-2 pb-4'>
               <div className='px-4'>

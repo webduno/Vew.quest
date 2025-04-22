@@ -10,6 +10,7 @@ export interface LessonCardProps {
   boxShadowColor?: string;
   styleOverride?: React.CSSProperties;
   actionText?: string;
+  actionStyle?: React.CSSProperties;
 }
 
 export const LessonsContainer = () => {

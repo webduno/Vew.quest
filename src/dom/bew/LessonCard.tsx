@@ -2,7 +2,8 @@
 import { LessonCardProps } from "./LessonsContainer";
 
 
-export const LessonCard = ({
+export const LessonCard = ({ 
+  actionStyle = {}, 
   title, href, emoji, backgroundColor = "#807DDB", boxShadowColor = "#6B69CF", styleOverride = {}, actionText = "Start"
 }: LessonCardProps) => {
   return (
@@ -30,6 +31,7 @@ export const LessonCard = ({
           style={{
             backgroundColor,
             boxShadow: `0px 4px 0 0px ${boxShadowColor}`,
+            ...actionStyle
           }}
         >
           {actionText}
