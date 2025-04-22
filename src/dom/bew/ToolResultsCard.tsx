@@ -115,6 +115,9 @@ export const ToolResultsCard = ({
           link.href = combinedCanvas.toDataURL('image/png');
           link.click();
         }
+      }).catch(err => {
+        alert('Error downloading drawing (See console for details)');
+        console.error('Error downloading drawing:', err);
       });
     }
   };

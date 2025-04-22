@@ -1,66 +1,25 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { Box, MeshPortalMaterial, Plane, PositionalAudio, Sphere, Fisheye, MapControls, Cylinder, Torus } from '@react-three/drei';
+import { MapControls, Cylinder, Torus } from '@react-three/drei';
 import { Physics } from '@react-three/cannon';
 import { Canvas } from '@react-three/fiber';
-import { useState, useEffect, useCallback, useRef, useContext } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 import { isMobile } from '@/../script/utils/platform/mobileDetection';
-import { calculateAccuracy } from "@/../script/utils/play/calculateAccuracy";
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useGameCore } from '@/../script/state/hook/useGameCore';
-import { BewMainScene } from '@/model/stage/scenes/BewMainScene';
-import { MobileControlOverlay } from '@/dom/molecule/game/MobileControlOverlay';
-import { PersonSilhouette } from '../../bit/PersonSilhouette';
-import { TheRoom } from '../rooms/WhiteMirror/TheRoom';
-import { AnalogModalScreen } from '@/dom/molecule/game/SenseMeter/AnalogModalScreen';
-// import { SolidBox } from '../../core/SolidBox';
-import { BgMusicToggle } from '@/dom/molecule/notification/BgMusicToggle';
-import { PerformanceStats } from '@/dom/molecule/notification/PerformanceStats';
-import { RotatingBar } from '../../byte/RotatingBar';
-import { AnalysisScreen } from '../item/AnalysisScreen';
-import { MindStats } from '@/dom/molecule/notification/MindStats';
-import { TheWhiteMirror } from '../rooms/WhiteMirror/TheWhiteMirror';
-import { PhysicalFloor } from '../../core/PhysicalFloor';
-import { PhysicalCeiling } from '../../core/PhysicalFloor';
-import { BewCoreLights } from './BewCoreLights';
-import { CDDoorPortals } from '../doorwalls/CDDoorPortals';
 import { PlayerPhysicsScene } from '../../core/PlayerPhysicsScene';
-import targetsData from '@/../public/data/targets_1.json';
-import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { BewWorldPlaza, BewWorldPlazaWithPlayer } from './BewWorldPlaza';
 import { SolidBox } from '@/model/core/SolidBox';
 import { WorldMobileControlOverlay } from '@/dom/molecule/game/WorldMobileControlOverlay';
 
-type TargetsData = {
-  [key: string]: string;
-};
-
 export const BewWorldGame = () => {
   const {
-    LS_playerId,
-    LS_lowGraphics,
-    LS_firstTime,
-    disableFirstTime,
-    updateExploredStatus,
-    hasExploredZone,
-    updateMindStats,
-    mindStats
-  } =  usePlayerStats()
-  // const { updateExploredStatus, hasExploredZone } = usePlayerStats();
-
-  const {
     isCutSceneOpen,
-    showSnackbar,
-    closeSnackbar,
-    setIsCutSceneOpen,
-    playSoundEffect,
-    changeBackgroundMusic
   } = useGameCore();
   const [isMobileDevice, setIsMobileDevice] = useState(false);
   const [isEverythingLoading, setIsEverythingLoading] = useState(true);
   const focusStageRef = useRef<any>(0);
-  const [enableLocked, setEnableLocked] = useState(true)
   const [initialPosition, setInitialPosition] = useState<[number, number, number]>(
     // [-3, 0, -19]
     // [-1.5, 0, 1]
@@ -70,20 +29,8 @@ export const BewWorldGame = () => {
   const [playerRotation, setPlayerRotation] = useState({ x: 0, y: 0, z: 0 })
   const [isLocked, setIsLocked] = useState(false)
   const [teleportTrigger, setTeleportTrigger] = useState(0);
-  const [wasFirstDoorOpened, setWasFirstDoorOpened] = useState(false);
-  // const wasFirstDoorOpened = useRef(false);
-  const handleFirstDoorOpened = useCallback(() => {
-    setWasFirstDoorOpened(true);
-  }, []);
-  // const [showStats, setShowStats] = useState(true);
-  const searchParams = useSearchParams();
-  const showStats = searchParams.get('stats') === 'true';
-  const [performanceStats, setPerformanceStats] = useState({
-    drawCalls: 0,
-    objectCount: 0,
-    fps: 0,
-    frameTime: 0
-  });
+
+
   
   
 
