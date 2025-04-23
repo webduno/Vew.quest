@@ -529,7 +529,7 @@ const handleRefresh = async ()=>{
                 <a href="/tool"           style={{color: "#964800"}}     
                 className='opaci-50 nodeco pointer'>← Go to Single Player</a>
                 
-                <div className='tx-bold tx-lg pt-1'>Shared target #{target?.code}</div>
+                <div className='tx-bold tx-lg pt-1'>Shared target #{sharedIdState[0]}</div>
                 <div className='w-100  flex-row flex-align-end flex-justify-end '>
                 <a href={"/party/"+friendId}                style={{color: "#ffffff"}}     
                 className=' px-4  Q_sm_x nodeco pointer'>
