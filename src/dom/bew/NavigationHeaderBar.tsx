@@ -1,6 +1,6 @@
 'use client';
 import { BewWorldLogo } from '@/dom/bew/BewWorldLogo';
-
+import { VersionTag } from './VersionTag';
 
 
 export const NavigationHeaderBar = ({
@@ -18,10 +18,12 @@ export const NavigationHeaderBar = ({
           <div>Dashboard</div>
         </a>
         <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>About</div>
+          <div>About <VersionTag /></div>
         </a>
         </> : linkList}
       </div>
     </div>
   );
 };
+
+

@@ -11,13 +11,15 @@ import { LandingProfileActionButton } from '@/dom/bew/LandingProfileActionButton
 import { BewPurpleBtn } from '@/dom/bew/BewBtns';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
+import { VersionTag } from '@/dom/bew/VersionTag';
 
 
 export default function TrainingPage() {
   const { playSoundEffect } = useBackgroundMusic();
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const { crvObjects, fetchMailboxRequests } = useFetchedStats();
-  
+
+  const version = process.env.VEW_PUBLIC_VERSION 
 
   
 const [ wndwTg, s__wndwTg] = useState<any>(null);
@@ -70,7 +72,7 @@ const [ telegram_id, s__telegram_id] = useState<string | null>(null);
         
         <NavigationHeaderBar linkList={<>
             <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-              <div>About</div>
+              <div>About <VersionTag /></div>
             </a>
           </>}
         />

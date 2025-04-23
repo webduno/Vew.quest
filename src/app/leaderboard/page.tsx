@@ -8,6 +8,7 @@ import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 import { LeaderboardTable } from '@/dom/bew/LeaderboardTable';
 import { sortAndFilterLeaderboard } from '@/script/utils/leaderboard/sortLeaderboard';
+import { VersionTag } from '@/dom/bew/VersionTag';
 
 export default function LeaderboardPage() {
   const { leaderboard, isLoadingLeaderboard, leaderboardError, fetchLeaderboard } = useFetchedStats();
@@ -28,11 +29,11 @@ export default function LeaderboardPage() {
   return (
     <div className='w-100 autoverflow-y h-100vh flex-col flex-justify-start'>
       <NavigationHeaderBar linkList={<>
-        <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>About</div>
-        </a>
         <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
           <div>Profile</div>
+        </a>
+        <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
+          <div>About <VersionTag /></div>
         </a>
       </>} />
       <BewPageHeader title="Leaderboard" />

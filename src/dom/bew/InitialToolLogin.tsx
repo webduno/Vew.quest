@@ -2,6 +2,7 @@
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 import { random10CharString } from '../../../script/utils/platform/random10CharString';
 import { GameState } from '@/app/(tool)/tool/page';
+import { VersionTag } from './VersionTag';
 
 export interface InitialToolLoginProps {
   gameState: GameState;
@@ -15,11 +16,12 @@ export interface InitialToolLoginProps {
 export const InitialToolLogin: React.FC<InitialToolLoginProps> = ({
   gameState, setGameState, typedUsername, setTypedUsername, isLoading, handleStart, sanitizePlayerId
 }) => {
+  const version = process.env.VEW_PUBLIC_VERSION 
   return (
     <>
       <NavigationHeaderBar linkList={<>
         <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>About</div>
+          <div>About <VersionTag /></div>
         </a>
       </>} />
       <div className='flex-wrap gap-8 px-4 '

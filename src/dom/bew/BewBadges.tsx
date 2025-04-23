@@ -50,10 +50,7 @@ export const BewBadges = ({
             });
             triggerSnackbar((<div className='tx-center flex-col'>
             <div>
-              Congratulations, you are a regular viewer!
-            </div>
-            <div>
-              You have made more than 3 days in a row!
+              Regular viewers viewed <br /> more than 3 days in a row!
             </div>
             </div>), 'warning');
             setTimeout(() => {
@@ -79,12 +76,12 @@ export const BewBadges = ({
             });
             triggerSnackbar((<div className='tx-center flex-col'>
               <div>
-                Congratulations, you are a first viewer!
+                Congratulations,  you are a first viewer!
               </div>
               <div>
-                You have made been here since the first days!
+                You've been here since the first days! ❤️
               </div>
-            </div>), 'warning');
+            </div>), 'info');
           }}
           boxShadowColor="#964400"
           backgroundColor='#FF9600'
@@ -101,17 +98,17 @@ export const BewBadges = ({
           forcedClick={() => {
             playSoundEffect('/sfx/short/myst.mp3');
             confettiRef.current?.addConfetti({
-              confettiColors: ['#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7'],
+              confettiColors: ['#ff99ff', '#f9aac7'],
               confettiNumber: 100,
             });
             triggerSnackbar((<div className='tx-center flex-col'>
               <div>
-                Congratulations, you are a seer!
+                You are a 👀 seer!
               </div>
               <div>
-                You have performed more than 9 remote viewings!
+                You've performed more than <br /> 9 remote viewings!
               </div>
-            </div>), 'warning');
+            </div>), 'info');
           }}
         />
       )}
@@ -130,10 +127,12 @@ export const BewBadges = ({
             });
             triggerSnackbar((<div className='tx-center flex-col'>
               <div>
-                Congratulations, you are a high accuracy viewer!
+              🏆 High accuracy viewer! <br /> (Your avg is above 40%!)
               </div>
               <div>
-                Your accuracy is above 40%!
+                <a href="/leaderboard" className='tx-bold pointer tx-white pt-2 z-1000 block'>
+                  View Leaderboard
+                </a>
               </div>
             </div>), 'warning');
           }}

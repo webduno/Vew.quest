@@ -30,7 +30,7 @@ export const ProfileSnackbarNotif = () => {
         clearTimeout(autoCloseTimeoutRef.current);
       }
     };
-  }, [isSnackbarOpen, setIsSnackbarOpen, autoCloseTimeoutRef]);
+  }, [isSnackbarOpen, setIsSnackbarOpen, autoCloseTimeoutRef, snackbarMessage]);
 
   if (!isSnackbarOpen) return null;
 
@@ -57,7 +57,7 @@ export const ProfileSnackbarNotif = () => {
     <div
       className="pos-fix z-1000 top-0 right-0 w-100 flex-center pa-4"
       style={{
-        pointerEvents: 'none',
+        // pointerEvents: 'none',
       }}
     >
       <div

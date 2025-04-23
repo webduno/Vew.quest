@@ -21,6 +21,7 @@ import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 import { random10CharString } from '../../../script/utils/platform/random10CharString';
 import { LeaderboardTable } from '@/dom/bew/LeaderboardTable';
 import { sortAndFilterLeaderboard } from '@/script/utils/leaderboard/sortLeaderboard';
+import { VersionTag } from '@/dom/bew/VersionTag';
 
 type TargetsData = {
   [key: string]: string;
@@ -341,7 +342,7 @@ export default function TrainingPage() {
           <div>Profile</div>
         </a>
         <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>About</div>
+          <div>About <VersionTag /></div>
         </a>
       </>} />
       
