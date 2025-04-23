@@ -23,6 +23,7 @@ import {
 } from '@/script/utils/calculations';
 import { NavigationHeaderBar } from '../../dom/bew/NavigationHeaderBar';
 import { RemoteViewingHistory } from '@/dom/bew/RemoteViewingHistory';
+import { BewBadges } from '@/dom/bew/BewBadges';
 
 const NotesCheck = ({ content }: { content: any }) => {
   return content.notes ? <div className='tx-lx pointer'
@@ -342,69 +343,12 @@ style={{
 {/* Badges */}
 
             
-{hasMoreThan3DaysStreakValue && (
-<LessonCard 
-styleOverride={{
-  width: "100px",
-  fontSize: "12px",
-}}
-title="Regular Viewer"
-emoji="🔥"
-href="#"
-actionText={""}
-forcedClick={() => {
-  alert('Congratulations, you are a regular viewer!\n\nYou have made more than 3 days in a row!');
-}}
-boxShadowColor="#bb4444"
-backgroundColor='#ff7755'
-
+<BewBadges 
+  hasMoreThan3DaysStreakValue={hasMoreThan3DaysStreakValue}
+  hasMoreThanFirstDaysValue={hasMoreThanFirstDaysValue}
+  totalRequests={userStats.totalRequests}
+  averageAccuracy={userStats.averageAccuracy}
 />
-)}
-
-{hasMoreThanFirstDaysValue && (
-<LessonCard 
-title="First Viewer"
-// number one emoji
-emoji="♾️"
-href="#"
-forcedClick={() => {
-  alert('Congratulations, you are a regular viewer!\n\nYou have made been here since the first days!');
-}}
-
-boxShadowColor="#964400"
-backgroundColor='#FF9600'
-actionText={""}
-
-/>
-)}
-
-{userStats.totalRequests >= 9 && (
-<LessonCard 
-title="Seer Achievement"
-actionText={"Details"}
-emoji="👀"
-href="#"
-forcedClick={() => {
-  alert('Congratulations, you are a seer!\n\nYou have performed more than  9 remote viewings!');
-}}
-/>
-)}
-
-
-{/* Badges */}
-{userStats.averageAccuracy >= 40 && (
-<LessonCard 
-title="High Accuracy Viewer"
-emoji="🏆"
-href="/leaderboard"
-actionText={"Check Leaderboard"}
-
-
-boxShadowColor="#964400"
-backgroundColor='#FF9600'
-
-/>
-)}
 
 
 
