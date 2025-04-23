@@ -84,9 +84,9 @@ export const calculatePotentialStreak = (objects: CRVObject[]): number => {
 
   if (!uniqueDates.length) return 0;
 
-  // Check if already completed today
+  // If already completed today, return current streak since that's the minimum potential
   if (uniqueDates[0] === todayTime) {
-    return 0; // No potential streak if already completed today
+    return calculateStreak(objects);
   }
 
   // Calculate days since most recent activity
