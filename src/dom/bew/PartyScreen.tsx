@@ -287,7 +287,7 @@ useEffect(() => {
       
 
         <div className='px-4 flex-row  gap-4'>
-          <div className='tx-white pointer tx-center pa-2 bord-r-10 mt-4 flex-1'
+          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
             onClick={() => {
               handleRefresh();
               setRefreshCounter(prev => prev + 1);
@@ -300,7 +300,7 @@ useEffect(() => {
           >
             <div>Refresh</div>
           </div>
-          <div className='tx-white pointer tx-center pa-2 bord-r-10 mt-4 flex-1'
+          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
             onClick={handleSend}
             style={{ 
               boxShadow: "0 4px 0 #6B69CF",
@@ -358,7 +358,7 @@ useEffect(() => {
 
 
 </div>
-    {!selectedInputType && (
+    {true && (
       <div className='w-100  pos-abs-bottom  flex-col flex-justify-end pb-8 mb-4'>
         
 
@@ -374,7 +374,7 @@ useEffect(() => {
 
 
 
-{!!isMobile() && false && (<>
+{true && (<>
 
 <details className='w-80  '>
 <summary className='flex-row gap-2  w-80 py-4 pointer w-100'>
@@ -413,30 +413,30 @@ useEffect(() => {
       className='tx- lg pa-2 mt -2 bord-r-10  opaci-chov--50 flex-wrap nodeco'
       >
         {/* books emoji */}
-        <div className='tx-lg tx-center'>📚</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Assets"}</div>
+        {/* <div className='tx-l tx-center'>🔄</div> */}
+        <div className='tx-bold-5 tx-center' style={{ color: "#4b4b4b" }}>Auto <br /> Refresh</div>
       </a>
       <a 
       href="/world"
-      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
         border: "1px solid #E5E5E5",
       }}
       >
-        {/* target emoji */}
-        <div className='tx-lg tx-center'>🛣️</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>3D World</div>
+        {/* plus emoji */}
+        {/* <div className='tx-l tx-center'>➕</div> */}
+        <div className='tx-bold-5 tx-center' style={{ color: "#4b4b4b" }}>New <br /> Target</div>
       </a>
       <a 
       href="/leaderboard"
-      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
         border: "1px solid #E5E5E5",
       }}
       >
         {/* user emoji */}
-        <div className='tx-lg tx-center'>🏆</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>Ranking</div>
+        {/* <div className='tx-l tx-center'>👑</div> */}
+        <div className='tx-bold-5 tx-center' style={{ color: "#4b4b4b" }}>Friend&apos;s <br /> Profile</div>
       </a>
     </div>
 
