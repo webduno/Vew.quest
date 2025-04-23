@@ -54,24 +54,24 @@ export default function PartyPage() {
   const [ wndwTg, s__wndwTg] = useState<any>(null);
   const [ telegram_id, s__telegram_id] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      console.log("window.Telegram", window.Telegram);
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     console.log("window.Telegram", window.Telegram);
 
-    }
-      if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-      s__wndwTg(window.Telegram.WebApp);
-      const thenewid = window.Telegram.WebApp.initDataUnsafe?.user?.id || null;
-      console.log("thenewid", thenewid);
-      s__telegram_id(thenewid);
-      if (thenewid) {
-        setPlayerId(thenewid);
-        localStorage.setItem('VB_PLAYER_ID', thenewid);
-        generateNewRound()
+  //   }
+  //     if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+  //     s__wndwTg(window.Telegram.WebApp);
+  //     const thenewid = window.Telegram.WebApp.initDataUnsafe?.user?.id || null;
+  //     console.log("thenewid", thenewid);
+  //     s__telegram_id(thenewid);
+  //     if (thenewid) {
+  //       setPlayerId(thenewid);
+  //       localStorage.setItem('VB_PLAYER_ID', thenewid);
+  //       generateNewRound()
 
-      }
-    }
-  }, []);
+  //     }
+  //   }
+  // }, []);
 
 
   const generateNewRound = async () => {
