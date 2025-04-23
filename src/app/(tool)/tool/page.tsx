@@ -369,7 +369,7 @@ emojiSize:25,
 
                   <MenuBarItem 
                 href="/dashboard"
-                emoji="🏠"
+                emoji="🧮"
                 tooltip="Dashboard"
                 />
                 
