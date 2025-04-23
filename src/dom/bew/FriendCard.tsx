@@ -13,6 +13,9 @@ export const FriendCard = ({ friendid }: { friendid: string; }) => {
       >Friend: {friendid}</div> */}
       <div className='tx-sm'>
         <LessonCard
+        styleOverride={{
+          width: '200px',
+        }}
         title={`Party with ${friendid}`}
         href="#"
         forcedClick={() => {
