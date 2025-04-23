@@ -8,6 +8,7 @@ import '@/app/bew.css'
 import { FetchedStatsProvider } from '@/script/state/context/FetchedStatsContext';
 import { BackgroundMusicProvider } from '../../../script/state/context/BackgroundMusicContext';
 import Script from 'next/script';
+import { ProfileSnackbarProvider } from '../../../script/state/context/ProfileSnackbarProvider';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -40,7 +41,9 @@ export default function RootLayout({
         {/* <ClientLayout> */}
         <BackgroundMusicProvider>
         <FetchedStatsProvider>
+        <ProfileSnackbarProvider>
         {children}
+        </ProfileSnackbarProvider>
         </FetchedStatsProvider>
         </BackgroundMusicProvider>
         {/* </ClientLayout> */}

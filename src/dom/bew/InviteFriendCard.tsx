@@ -23,7 +23,7 @@ export const InviteFriendCard = () => {
 
 
 
-        window.location.href = "/tool?friend=" + guestid;
+        window.location.href = "/party/" + guestid;
       }}
       style={{
         border: "1px solid #E5E5E5",

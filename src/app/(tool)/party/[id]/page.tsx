@@ -10,51 +10,68 @@ import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import targetsData from '@/../public/data/targets_1.json';
 import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
 import { Tooltip } from 'react-tooltip';
-import { BewUserStatsSummary } from '../../../dom/bew/BewUserStatsSummary';
-import { isMobile } from '../../../../script/utils/platform/mobileDetection';
+import { BewUserStatsSummary } from '../../../../dom/bew/BewUserStatsSummary';
+import { isMobile } from '../../../../../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { MenuBarItem } from '@/dom/bew/MenuBarItem';
-import { random10CharString } from '../../../../script/utils/platform/random10CharString';
+import { random10CharString } from '../../../../../script/utils/platform/random10CharString';
 import { InitialToolLogin } from '@/dom/bew/InitialToolLogin';
-import { generateRandomTargetRandomized } from '../../../../script/utils/platform/generateRandomTargetRandomized';
-import { ToolResultsCard } from '../../../dom/bew/ToolResultsCard';
+import { generateRandomTargetRandomized } from '../../../../../script/utils/platform/generateRandomTargetRandomized';
+import { ToolResultsCard } from '../../../../dom/bew/ToolResultsCard';
 import { BewWorldLogo } from '@/dom/bew/BewWorldLogo';
-import { useBackgroundMusic } from '../../../../script/state/context/BackgroundMusicContext';
-import JSConfetti from 'js-confetti';
+import { useBackgroundMusic } from '../../../../../script/state/context/BackgroundMusicContext';
 import { MenuIconBar } from '@/dom/bew/MenuIconBar';
+import { PartyScreen, WaitingRoom } from '@/dom/bew/PartyScreen';
+import { PartyToolLogin } from '@/dom/bew/PartyToolLogin';
+import { useParams } from 'next/navigation';
 
 type TargetsData = {
   [key: string]: string;
 };
 
-export type GameState = 'initial' | 'playing' | 'results';
+export type PartyGameState = 'initial' | 'playing' | 'results' | 'waiting';
 
-export default function TrainingPage() {
+export default function PartyPage() {
   const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, refetchStats } = useFetchedStats();
   const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
   const { playSoundEffect } = useBackgroundMusic();
+  const params = useParams<{ id: string }>()
   useEffect(() => {
     if (isLoading) { return; }
     if (initiallyAutoLoaded) { return; }
+    // console.log("222222222211111111111222", );
     if (!LS_playerId) {
       // setEnterUsername(true);
       return;
     }
-    console.log("crvObjects", crvObjects.length);
-    setInitiallyAutoLoaded(true);
-    if (crvObjects.length === 0) { 
-
-      generateNewRound()
-      return; 
+    // console.log("2222222222222", params);
+    // if not friend id
+    if (!params.id) {
+      return
     }
+    // console.log("fffffffffffffffffffff", crvObjects.length);
+    setInitiallyAutoLoaded(true);
+    // if (crvObjects.length === 0) { 
+
+    //   generateNewRound()
+    //   return; 
+    // }
     // console.log("crvObjects 22", crvObjects);
     // console.log("initiallyAutoLoaded", initiallyAutoLoaded);
 
-    handleStart();
+    // handleStart();
+    console.log("waiting", crvObjects.length);
+    setGameState('waiting');
 
-  }, [isLoading]);
+  }, [isLoading, params.id]);
   const [ wndwTg, s__wndwTg] = useState<any>(null);
   const [ telegram_id, s__telegram_id] = useState<string | null>(null);
+
+const [reloadingParty, setReloadingParty] = useState(false);
+
+  const handlePartyStart = () => {
+    console.log("handlePartyStart");
+  }
 
   // useEffect(() => {
   //   if (typeof window !== 'undefined') {
@@ -96,8 +113,14 @@ export default function TrainingPage() {
   }[]>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [enableLocked, setEnableLocked] = useState(false);
-  const [gameState, setGameState] = useState<GameState>('initial');
+  const [gameState, setGameState] = useState<PartyGameState>('initial');
   const [successRequest, setSuccessRequest] = useState(false);
+  const [fullPartyData, setFullPartyData] = useState<null | {
+    id: string;
+    target_code: string;
+    friend_list: string[];
+    live_data: any
+  }>(null);
   const [sentObject, setSentObject] = useState<null | {
     type: string;
     natural: number;
@@ -137,22 +160,14 @@ export default function TrainingPage() {
   const [showSketchModal, setShowSketchModal] = useState(false);
   const [sketchData, setSketchData] = useState<any>(null);
   const [notes, setNotes] = useState<any>(null);
-
-
+const sharedIdState = useState<string | null>(null);
+  const friendId = params.id;
   
 
   async function fetchRandomFromCocoDatabase() {
     // check if user has ability to play audio and cliiked anything or interacted with the page
     
 
-    const confetti = new JSConfetti();
-    confetti.addConfetti({
-      // confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
-      // different question mark emojis
-emojiSize:50,
-      emojis: ["❔"],
-      confettiNumber: 15,
-    });
     try {
       // Get random key from the object
       const keys = Object.keys(targetsData as TargetsData);
@@ -189,6 +204,35 @@ emojiSize:50,
     }
   }
 
+  function getValuesFromCocoTarget(targetCode: string) {
+    try {
+      const targetData = (targetsData as TargetsData)[targetCode];
+      if (!targetData) return null;
+      
+      const [desc, valuesStr] = targetData.split('\n');
+      const [type, natural, temp, light, color, solid, confidence] = valuesStr.split(',').map(Number);
+
+      setSelectedTargetInfo({
+        id: targetCode,
+        description: desc
+      });
+      
+      const typeString = ['object', 'entity', 'place', 'event'][type - 1];
+      return {
+        type: typeString,
+        natural,
+        temp,
+        light,
+        color,
+        solid,
+        confidence
+      };
+    } catch (error) {
+      console.error('Error getting values from COCO target:', error);
+      return null;
+    }
+  }
+
   const handleStart = async () => {
     if (!LS_playerId && !typedUsername) {
       setEnterUsername(true);
@@ -208,6 +252,42 @@ emojiSize:50,
     setResults(null);
     setSentObject(null);
   };
+
+const handleUpdate = async (e:any)=>{
+  console.log("handleUpdate", e);
+  if (!sharedIdState[0]) return;
+
+  try {
+    const response = await fetch('/api/party/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: sharedIdState[0],
+        live_data: e
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update party data');
+    }
+
+    const data = await response.json();
+    setFullPartyData(data);
+  } catch (error) {
+    console.error('Error updating party:', error);
+  }
+}
+const handleRefresh = async ()=>{
+  setReloadingParty(true);
+  console.log("handleRefresh", );
+
+  // fetchpartydata again
+
+  await fetchPartyData();
+  setReloadingParty(false);
+}
 
   const handleSend = useCallback(async (params: {
     type: string;
@@ -271,6 +351,51 @@ emojiSize:50,
     setShowSketchModal(true);
   }, [target, LS_playerId, refetchStats]);
 
+  useEffect(() => {
+    if (!sharedIdState[0]) { return }
+
+    const initializeParty = async () => {
+      await fetchPartyData();
+      setGameState('playing');
+    };
+
+    initializeParty();
+  }, [sharedIdState[0]]);
+
+  const fetchPartyData = async () => {
+    try {
+      const response = await fetch(`/api/party/get?id=${sharedIdState[0]}`);
+      if (!response.ok) {
+        console.error('Failed to fetch party data');
+        return;
+      }
+      const data = await response.json();
+      console.log("fetchPartyData data", data);
+
+      const targetValues = getValuesFromCocoTarget(data.target_code);
+      console.log("targetValues", targetValues);
+      
+      if (targetValues) {
+        setTarget({
+          code: data.target_code,
+          values: {
+            type: targetValues.type || 'object',
+            natural: targetValues.natural || 0,
+            temp: targetValues.temp || 0,
+            light: targetValues.light || 0,
+            color: targetValues.color || 0,
+            solid: targetValues.solid || 0,
+            confidence: targetValues.confidence || 0
+          }
+        });
+      }
+      
+      setFullPartyData(data);
+    } catch (error) {
+      console.error('Error fetching party data:', error);
+    }
+  }
+
   const handleRequestCRV = async () => {
     const newRequestDescription = prompt('Enter a new CRV request description:');
     const newRequestBounty = prompt('Enter a bounty (OPTIONAL)');
@@ -329,7 +454,9 @@ emojiSize:50,
   }
 
   const handleTryAgain = async () => {
+    playSoundEffect("/sfx/short/passbip.mp3")
     const newTarget = await fetchRandomFromCocoDatabase();
+    setTimeout(async () => {
     setShowImageModal(false);
     setShowSketchModal(false);
     setSketchData(null);
@@ -337,8 +464,6 @@ emojiSize:50,
     setGameState('playing');
     setResults(null);
     setSentObject(null);
-    setTimeout(async () => {
-      playSoundEffect("/sfx/short/cling.mp3")
   }, 200);
 }
 
@@ -346,16 +471,28 @@ emojiSize:50,
     <div className='w-100 h-100  flex-col flex-justify-start'>
       <div className='w-100  flex-col  '>
         {gameState === 'initial' && (
-          <InitialToolLogin
+          <PartyToolLogin
             gameState={gameState}
             setGameState={setGameState}
             typedUsername={typedUsername}
             setTypedUsername={setTypedUsername}
             isLoading={isLoading}
-            handleStart={handleStart}
+            handleStart={() => {
+              handlePartyStart()
+            }}
             sanitizePlayerId={sanitizePlayerId}
           />
         )}
+        {gameState === 'waiting' && (<>
+        <WaitingRoom 
+        friendListString={[typedUsername, friendId].join(">>>")}
+        sharedIdState={sharedIdState}
+        friendList={
+          [typedUsername, friendId]
+        }
+
+        />
+        </>)}
 
         {gameState === 'playing' && (
           <div className='flex-col w-100 h-100vh'>
@@ -363,6 +500,7 @@ emojiSize:50,
               <MenuIconBar 
                 playSoundEffect={playSoundEffect}
               />
+
 
               <div className='flex-1 flex-col flex-align-stretch flex-justify-start h-100'>
                 {<div className='Q_xs flex-row px-4'>
@@ -380,13 +518,13 @@ emojiSize:50,
                 
                 <div className='pos-rel tx-white ma-4 pa-4 mt-0 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
                 style={{
-                  background: "#807DDB",
-                  boxShadow: "0 4px 0 #6B69CF",
+                  background: "#FDC908",
+                  boxShadow: "0 4px 0 #D68800",
                 }}
                 >
-                <a href="/dashboard"           style={{color: "#fafafa"}}     
-                className='opaci-50 nodeco pointer'>← Go to Dashboard</a>
-                <div className='tx-bold tx-lg'>Target Code #{target?.code}</div>
+                <a href="/tool"           style={{color: "#964800"}}     
+                className='opaci-50 nodeco pointer'>← Go to Single Player</a>
+                <div className='tx-bold tx-lg'>Shared target #{target?.code}</div>
 
 
 
@@ -428,13 +566,19 @@ emojiSize:50,
 
 
               
-                <AnalogMobileScreen
+                {!reloadingParty && (<>
+                  <PartyScreen 
+                sharedIdState={sharedIdState}
+                fullPartyData={fullPartyData}
                       setEnableLocked={setEnableLocked}
                       enableLocked={enableLocked}
-                      onFullSend={handleFullSend}
+                      onFullSend={handleUpdate}
+
+
+                      handleRefresh={handleRefresh}
+                      
                     />
-
-
+                </>)}
 
 
 
