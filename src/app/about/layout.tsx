@@ -10,7 +10,7 @@ import { BackgroundMusicProvider } from '../../../script/state/context/Backgroun
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'WBEW',
+  title: 'Vew.quest',
   description: 'Web Brain Extrasensorial Witness Program',
 }
 

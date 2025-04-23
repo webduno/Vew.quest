@@ -14,7 +14,6 @@ export const calculateStreak = (objects: CRVObject[]): number => {
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
   const todayTime = today.getTime();
-  const yesterdayTime = todayTime - (24 * 60 * 60 * 1000);
 
   // Get unique dates and convert them to midnight UTC timestamps
   const uniqueDates = Array.from(new Set(
@@ -25,31 +24,32 @@ export const calculateStreak = (objects: CRVObject[]): number => {
     })
   )).sort((a, b) => b - a); // Sort in descending order (newest first)
 
-  // If no activity today or yesterday, no current streak
-  if (!uniqueDates.length || uniqueDates[0] < yesterdayTime) {
+  if (!uniqueDates.length) return 0;
+
+  // Check if the most recent activity is too old (more than 1 missed day from today)
+  const daysSinceLastActivity = (todayTime - uniqueDates[0]) / (24 * 60 * 60 * 1000);
+  if (daysSinceLastActivity > 2) { // More than one missed day
     return 0;
   }
 
-  let streak = 0;
-  let expectedDate = todayTime;
+  let streak = 1;
+  let expectedDate = uniqueDates[0];
   let missedDay = false;
 
   // Count consecutive days
-  for (const timestamp of uniqueDates) {
-    if (timestamp === expectedDate) {
+  for (let i = 1; i < uniqueDates.length; i++) {
+    const currentDate = uniqueDates[i];
+    const dayDiff = (expectedDate - currentDate) / (24 * 60 * 60 * 1000);
+
+    if (dayDiff === 1) {
       streak++;
-      expectedDate -= 24 * 60 * 60 * 1000;
+      expectedDate = currentDate;
       missedDay = false;
-    } else if (!missedDay) {
+    } else if (dayDiff === 2 && !missedDay) {
       // Allow one missed day
+      streak++;
+      expectedDate = currentDate;
       missedDay = true;
-      expectedDate -= 24 * 60 * 60 * 1000;
-      if (timestamp === expectedDate) {
-        streak++;
-        expectedDate -= 24 * 60 * 60 * 1000;
-      } else {
-        break;
-      }
     } else {
       break;
     }
@@ -61,9 +61,9 @@ export const calculateStreak = (objects: CRVObject[]): number => {
 /**
  * Calculates the potential streak from yesterday, ignoring today's activity
  * Uses UTC dates to ensure consistent calculation across timezones
- * Only returns a non-zero value if there's an active streak that would be lost by missing today
+ * Returns what the streak would be if the user completes an activity today
  * @param objects Array of CRVObject containing viewing attempts
- * @returns The number of consecutive days with viewing attempts from yesterday, or 0 if no active streak
+ * @returns The potential streak if user completes an activity today
  */
 export const calculatePotentialStreak = (objects: CRVObject[]): number => {
   if (objects.length === 0) return 0;
@@ -72,8 +72,6 @@ export const calculatePotentialStreak = (objects: CRVObject[]): number => {
   const today = new Date();
   today.setUTCHours(0, 0, 0, 0);
   const todayTime = today.getTime();
-  const yesterdayTime = todayTime - (24 * 60 * 60 * 1000);
-  const twoDaysAgoTime = yesterdayTime - (24 * 60 * 60 * 1000);
 
   // Get unique dates and convert them to midnight UTC timestamps
   const uniqueDates = Array.from(new Set(
@@ -84,46 +82,44 @@ export const calculatePotentialStreak = (objects: CRVObject[]): number => {
     })
   )).sort((a, b) => b - a); // Sort in descending order (newest first)
 
-  // Check if there's an entry for today
-  const hasToday = uniqueDates[0] === todayTime;
-  if (hasToday) return 0;
+  if (!uniqueDates.length) return 0;
 
-  // Get the most recent activity date
-  const mostRecentDate = uniqueDates[0];
+  // Check if already completed today
+  if (uniqueDates[0] === todayTime) {
+    return 0; // No potential streak if already completed today
+  }
+
+  // Calculate days since most recent activity
+  const daysSinceLastActivity = (todayTime - uniqueDates[0]) / (24 * 60 * 60 * 1000);
   
-  // If most recent activity is from two days ago, return 1 as potential streak
-  if (mostRecentDate === twoDaysAgoTime) {
-    return 1;
+  // If last activity was more than 2 days ago, no potential streak
+  if (daysSinceLastActivity > 2) {
+    return 0;
   }
 
-  // If most recent activity is from yesterday, count the streak
-  if (mostRecentDate === yesterdayTime) {
-    let streak = 1;
-    let expectedDate = yesterdayTime - (24 * 60 * 60 * 1000);
-    let missedDay = false;
+  // If we get here, completing today would count, so start with 1
+  let potentialStreak = 1;
+  let expectedDate = uniqueDates[0];
+  let missedDay = daysSinceLastActivity === 2; // If last activity was 2 days ago, we're using our missed day
 
-    // Count consecutive days
-    for (let i = 1; i < uniqueDates.length; i++) {
-      if (uniqueDates[i] === expectedDate) {
-        streak++;
-        expectedDate -= 24 * 60 * 60 * 1000;
-        missedDay = false;
-      } else if (!missedDay) {
-        // Allow one missed day
-        missedDay = true;
-        expectedDate -= 24 * 60 * 60 * 1000;
-        if (uniqueDates[i] === expectedDate) {
-          streak++;
-          expectedDate -= 24 * 60 * 60 * 1000;
-        } else {
-          break;
-        }
-      } else {
-        break;
-      }
+  // Count consecutive days
+  for (let i = 1; i < uniqueDates.length; i++) {
+    const currentDate = uniqueDates[i];
+    const dayDiff = (expectedDate - currentDate) / (24 * 60 * 60 * 1000);
+
+    if (dayDiff === 1) {
+      potentialStreak++;
+      expectedDate = currentDate;
+      missedDay = false;
+    } else if (dayDiff === 2 && !missedDay) {
+      // Allow one missed day
+      potentialStreak++;
+      expectedDate = currentDate;
+      missedDay = true;
+    } else {
+      break;
     }
-    return streak;
   }
 
-  return 0;
-}; 
+  return potentialStreak + 1; // Add 1 for today's potential activity
+};

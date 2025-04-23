@@ -84,7 +84,7 @@ export function usePlayerStats() {
 
     const new_url = new URL(parsedUrl)
     new_url.searchParams.set("username", url_username)
-    new_url.searchParams.set("ref", "https://wbew.vercel.app/game")
+    new_url.searchParams.set("ref", "https://vew.quest")
     return new_url.toString()
   };
 

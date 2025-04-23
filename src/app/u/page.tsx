@@ -17,7 +17,7 @@ import CanvasDraw from 'react-canvas-draw';
 export default function UserProfilePage() {
   const { LS_playerId } = usePlayerStats();
   const searchParams = useSearchParams();
-  const friendId = searchParams.get('friend');
+  const friendId = searchParams.get('friend') || searchParams.get('f');
   const [showSketchModal, setShowSketchModal] = useState(false);
   const [currentSketch, setCurrentSketch] = useState<any>(null);
   const [currentImage, setCurrentImage] = useState<{id: string, description: string} | null>(null);
@@ -29,6 +29,14 @@ export default function UserProfilePage() {
     isLoading,
     error
   } = useUserProfile(friendId);
+
+  useEffect(() => {
+    if (friendId) {
+      document.title = `/u?f=${friendId} | Vew.quest`;
+    } else {
+      document.title = "Profile | Vew.quest";
+    }
+  }, [friendId]);
 
   const hasMoreThanFirstDaysValue = useMemo(() => hasMoreThanFirstDays(crvObjects), [crvObjects]);
   const uniqueDays = useMemo(() => getUniqueDays(crvObjects), [crvObjects]);
