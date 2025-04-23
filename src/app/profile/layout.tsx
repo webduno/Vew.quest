@@ -7,6 +7,7 @@ import '@/app/bew.css'
 // import { ClientLayout } from '@/dom/organ/ClientLayout'
 import { FetchedStatsProvider } from '@/script/state/context/FetchedStatsContext';
 import { BackgroundMusicProvider } from '../../../script/state/context/BackgroundMusicContext';
+import { ProfileSnackbarProvider } from '../../../script/state/context/ProfileSnackbarProvider';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -32,11 +33,13 @@ export default function RootLayout({
         // height: '100vh',
         overflow: 'hidden' }}>
         {/* <ClientLayout> */}
+        <ProfileSnackbarProvider>
         <BackgroundMusicProvider>
         <FetchedStatsProvider>
         {children}
         </FetchedStatsProvider>
         </BackgroundMusicProvider>
+        </ProfileSnackbarProvider>
         {/* </ClientLayout> */}
         <Analytics mode="production" />
       </body>

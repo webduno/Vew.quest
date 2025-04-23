@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useContext } from 'react';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { BewLogo } from '@/dom/atom/logo/BewLogo';
 import { Tooltip } from 'react-tooltip';
@@ -24,6 +24,7 @@ import {
 import { NavigationHeaderBar } from '../../dom/bew/NavigationHeaderBar';
 import { RemoteViewingHistory } from '@/dom/bew/RemoteViewingHistory';
 import { BewBadges } from '@/dom/bew/BewBadges';
+import { ProfileSnackbarContext, SnackbarSeverity } from '../../../script/state/context/ProfileSnackbarProvider';
 
 const NotesCheck = ({ content }: { content: any }) => {
   return content.notes ? <div className='tx-lx pointer'
@@ -56,6 +57,11 @@ export default function ProfilePage() {
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const searchParams = useSearchParams();
   const [guestUrlUsernameParam, setGuestUrlUsernameParam] = useState<string | null>(null);
+  const snackbarContext = useContext(ProfileSnackbarContext);
+  if (!snackbarContext) {
+    throw new Error('ProfileSnackbarContext must be used within a ProfileSnackbarProvider');
+  }
+  const { setSnackbarMessage, setSnackbarSeverity, setIsSnackbarOpen, triggerSnackbar } = snackbarContext;
   
   useEffect(() => {
     const username = searchParams.get('friend');
@@ -155,6 +161,8 @@ export default function ProfilePage() {
       fetchGuestStats();
     }
   }, [guestUrlUsernameParam]);
+
+
   const submitStatus = "success"
   const isSubmitting = false
   if (!LS_playerId) {
