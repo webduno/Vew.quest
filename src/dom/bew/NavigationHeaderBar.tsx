@@ -16,7 +16,7 @@ export const NavigationHeaderBar = ({
 
   return (
     <div className='flex-row w-100 w-max-1080px  tx-altfont-2'>
-      <div className='py-8  w-100 mb-4 '></div>
+      <div className='py-8  w-100 mb-2 '></div>
 
     <div className='pos-fix top-0 z-1000 flex-row w-100 w-max-1080px  tx-altfont-2'>
       <div className=''>
