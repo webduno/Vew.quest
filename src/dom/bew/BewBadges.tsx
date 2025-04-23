@@ -50,9 +50,9 @@ export const BewBadges = ({
             });
             triggerSnackbar((<div className='tx-center flex-col'>
             <div>
-              Regular viewers viewed <br /> more than 3 days in a row!
+             Regular viewers viewed <br /> more than 3<span className='tx-shadow-5'>🔥</span> days in a row!
             </div>
-            </div>), 'warning');
+            </div>), 'handbook');
             setTimeout(() => {
               // alert('Congratulations, you are a regular viewer!\n\nYou have made more than 3 days in a row!');
             }, 500);
@@ -127,7 +127,7 @@ export const BewBadges = ({
             });
             triggerSnackbar((<div className='tx-center flex-col'>
               <div>
-              🏆 High accuracy viewer! <br /> (Your avg is above 40%!)
+              <span className='tx-shadow-5'>🏆</span> High accuracy viewer! <br /> (Your avg is above 40%!)
               </div>
               <div>
                 <a href="/leaderboard" className='tx-bold pointer tx-white pt-2 z-1000 block'>

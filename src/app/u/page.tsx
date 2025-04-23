@@ -104,7 +104,7 @@ export default function UserProfilePage() {
           <div>Leaderboard</div>
         </a>
         <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>Profile</div>
+          <div>My Profile</div>
         </a>
       </>}  />
         <BewPageHeader title={"FRIEND'S PROFILE"} />
