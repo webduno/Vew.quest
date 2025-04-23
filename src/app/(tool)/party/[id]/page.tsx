@@ -264,7 +264,7 @@ const handleUpdate = async (e:any)=>{
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: sharedIdState[0],
+        id: sharedIdState[0].toLowerCase(),
         live_data: e
       })
     });
@@ -364,7 +364,11 @@ const handleRefresh = async ()=>{
 
   const fetchPartyData = async () => {
     try {
-      const response = await fetch(`/api/party/get?id=${sharedIdState[0]}`);
+      if (!sharedIdState[0]) {
+        console.error('No party ID available');
+        return;
+      }
+      const response = await fetch(`/api/party/get?id=${sharedIdState[0].toLowerCase()}`);
       if (!response.ok) {
         console.error('Failed to fetch party data');
         return;
