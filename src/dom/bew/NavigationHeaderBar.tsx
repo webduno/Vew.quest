@@ -74,7 +74,7 @@ export const NavigationHeaderBar = ({
       )}
       {!isCurrentPage('/about') && (
         <a href="/about" className='nodeco noselect pa-1 px-4 block  opaci-chov--75 pb-2  z-1000' style={{ color: "#ffffff" }}>
-          <div className="nowrap">About <VersionTag /> <span className='px-1 pr-2' style={{ filter: 'saturate(0) brightness(100)' }}>ℹ</span></div>
+          <div className="nowrap">About <VersionTag /> <span className='' style={{ filter: 'saturate(0) brightness(100)' }}>❓</span></div>
         </a>
       )}
       
