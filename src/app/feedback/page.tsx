@@ -73,9 +73,9 @@ export default function AboutPage() {
             </a>
         </>} />
         
-        <BewPageHeader title={"Feedback"} />
+        <BewPageHeader title={"Feedback"} isBigScreenOnly={true} />
 
-        <div className='w-100 w-max-1080px flex-col pt-8 gap-4 flex-align-start'>
+        <div className='w-90 w-max-1080px flex-col pt-4 gap-4 flex-align-start'>
           
 
           <div className='tx-altfont-2 bord-r-15  py-4' style={{ border: "1px solid #f0f0f0" }}>
@@ -98,7 +98,7 @@ export default function AboutPage() {
           </div>
 
           <div className='w-100 flex-col flex-align-stretch'>
-              <textarea className=' bord-r-15 px-4 py-2 tx-lg  tx-altfont-2'
+              <textarea className='pt-4 bord-r-15 px-4 py-2 tx-lg  tx-altfont-2'
               placeholder='Feedback Message'
               value={content}
               onChange={(e) => setContent(e.target.value)}

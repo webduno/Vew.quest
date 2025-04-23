@@ -32,8 +32,9 @@ export function LeaderboardTable({ leaderboard, isLoading, error, currentPlayerI
   return (
     <div className='flex-col gap-2 w-100 '>
       <div className='tx-altfont-2 opaci-50 tx-xsm flex-row px-2 mt-8 w-100'>
-        <div className='w-50px'>Rank</div>
-        <div className='flex-1 pl-4'>Player ID</div>
+        <div className='flex-1 Q_xs_md'>Leaderboard</div>
+        <div className='flex-1 Q_md_x'>Rank / Player ID</div>
+        {/* <div className='flex-1 pl-4'>Player ID</div> */}
         <div className='pl-2'>Score</div>
         <div className=' pl-2'>Highest</div>
         <Tooltip id="accuracy-tooltip" />

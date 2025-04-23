@@ -15,9 +15,9 @@ export default function AboutPage() {
         
         <NavigationHeaderBar />
 
-<BewPageHeader title={"ABOUT"} />
+<BewPageHeader title={"ABOUT"} isBigScreenOnly={true} />
 
-        <div className='w-100 w-max-1080px flex-col pt-8 gap-4 flex-align-start'>
+        <div className='w-100 w-max-1080px flex-col pt-4 gap-4 flex-align-start'>
           <div className='bord-r-15 w-max-700px' >
             {/* <div className='tx-bold tx-lg mb-4 px-4'>The Project</div> */}
             <div className='tx-altfont-2 flex-col'>

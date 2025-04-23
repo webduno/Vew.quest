@@ -16,7 +16,7 @@ export const NavigationHeaderBar = ({
 
   return (
     <div className='flex-row w-100 w-max-1080px  tx-altfont-2'>
-      <div className='py-8  w-100 mb-2 '></div>
+      <div className='py-8  w-100  '></div>
 
     <div className='pos-fix top-0 z-1000 flex-row w-100 w-max-1080px  tx-altfont-2'>
       <div className=''>
@@ -41,14 +41,14 @@ export const NavigationHeaderBar = ({
     }}
     >
       
-      <div className='flex-col bg-glass-10  z-1000 mt-2 m r-4 bord-r-10 noverflow flex-align-end'
+      <div className='flex-col pb-2 bg-glass-10  z-1000 mt-2 m r-4 bord-r-10 noverflow flex-align-end'
       style={{
         background: "#8080f0",
         boxShadow: "0 4px 0 #6060f0",
       }}
       >
       {!isCurrentPage('/tool') && (
-        <a href="/tool" className='nodeco noselect pa-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+        <a href="/tool" className='nodeco noselect pa-1 px-4 block  opaci-chov--75  pt-3 z-1000' style={{ color: "#ffffff" }}>
           <div className="nowrap"> Tool <span style={{ filter: 'saturate(0) brightness(1)' }}>👁️</span></div>
         </a>
       )}
@@ -73,7 +73,7 @@ export const NavigationHeaderBar = ({
         </a>
       )}
       {!isCurrentPage('/about') && (
-        <a href="/about" className='nodeco noselect pa-1 px-4 block  opaci-chov--75 pb-2  z-1000' style={{ color: "#ffffff" }}>
+        <a href="/about" className='nodeco noselect pa-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
           <div className="nowrap">About <VersionTag /> <span className='' style={{ filter: 'saturate(0) brightness(100)' }}>❓</span></div>
         </a>
       )}

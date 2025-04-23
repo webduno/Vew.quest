@@ -1,11 +1,13 @@
 'use client';
 
 
-export const BewPageHeader = ({ title }: { title: string; }) => {
+export const BewPageHeader = ({ title, isBigScreenOnly = false }: { title: string; isBigScreenOnly?: boolean }) => {
   return (<>
-    <div className='Q_xs_sm py-8'></div>
+    {!isBigScreenOnly && <div className='Q_xs_sm py-8'></div>}
     <div>
-      <div className='tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1'>{title}</div>
+      <div className={
+        'tx-lg tx-altfont-2 tx-bold opaci-25 tx-ls-1 '+ (isBigScreenOnly ? 'Q_md_x' : '')
+      }>{title}</div>
     </div>
   </>
   );

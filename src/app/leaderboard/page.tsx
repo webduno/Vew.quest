@@ -36,7 +36,7 @@ export default function LeaderboardPage() {
           <div>About <VersionTag /></div>
         </a>
       </>} />
-      <BewPageHeader title="Leaderboard" />
+      <BewPageHeader title="Leaderboard" isBigScreenOnly={true} />
       <div className='flex-col flex-align-stretch w-max-700px w-100'>
         <div className='tx-bold tx-lg flex-col px-4 flex-align-stretch'>
           <div className='flex-col mb-100'>
