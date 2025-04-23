@@ -109,6 +109,7 @@ export default function ProfilePage() {
   const hasMoreThanFirstDaysValue = useMemo(() => hasMoreThanFirstDays(crvObjects), [crvObjects]);
   const uniqueDays = useMemo(() => getUniqueDays(crvObjects), [crvObjects]);
   const hasMoreThan3DaysStreakValue = useMemo(() => hasMoreThan3DaysStreak(uniqueDays), [uniqueDays]);
+  const didViewToday = useMemo(() => crvObjects.some(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]), [crvObjects]);
 
   const [showSketch, setShowSketch] = useState<any>(null);
 
@@ -274,7 +275,7 @@ style={{
             </div>
 
                 
-            { crvObjects.some(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]) ?  <>
+            { !!didViewToday ?  <>
             {!!isMobile() && (<>
             <div className=' tx-l g mb-2'>Viewed Today ✅</div>
               <a href="/tool"
@@ -287,7 +288,7 @@ style={{
           {"Continue Viewing"}
         </a>
             </>)}
-              {!isMobile() && (<>
+              {!isMobile() && !!didViewToday && (<>
                  <LessonCard
                  title="Viewed Today"
                  emoji="✅"
@@ -300,7 +301,7 @@ style={{
                  />
                  </>)}
                  </>    : <>
-                 {!isMobile() && !crvObjects.length && (<>
+                 {!isMobile() && !didViewToday && (<>
                  <div className='pb-2'>Did not view today ❌</div>
                   <a href="/tool" className='tx-bold tx-lg mb-2'
                   style={{
@@ -308,7 +309,7 @@ style={{
                   }}
                   >Start Viewing</a>
                  </>)}
-                 {crvObjects.length > 0 && !!isMobile() && (<>
+                 {!didViewToday && !!isMobile() && (<>
             <div className=' tx-l g mb-2'>Did not view today ❌</div>
               <a href="/tool"
           className='py-2 px-2 mb-4 pointer tx-bold nodeco tx-center tx-white bord-r-10 tx- w-100px lg '

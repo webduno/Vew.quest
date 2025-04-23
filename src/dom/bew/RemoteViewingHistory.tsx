@@ -72,7 +72,7 @@ export const RemoteViewingHistory = ({ authorId, crvObjects, onSketchClick, high
                           color: "#aaaaaa",
                         }}
                         className='flex-row tx-bold-4 bord-r-10 px-2 py-1 tx-sm  border'
-                        key={key}>{key}: {String(value)}</div>
+                        key={key}>{key}: {parseInt(String(value))}</div>
                       ))}
                     </div>
                   </div>
