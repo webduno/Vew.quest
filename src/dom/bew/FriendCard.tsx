@@ -17,10 +17,10 @@ export const FriendCard = ({ friendid }: { friendid: string; }) => {
           width: '200px',
         }}
         title={`Party with ${friendid}`}
-        href="#"
-        forcedClick={() => {
-          alert('Coming soon!');
-        }}
+        href={`/party/${friendid}`}
+        // forcedClick={() => {
+        //   alert('Coming soon!');
+        // }}
         actionText='Go to Party'
         emoji=""
         />
