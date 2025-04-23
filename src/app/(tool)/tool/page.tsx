@@ -148,9 +148,9 @@ export default function TrainingPage() {
     confetti.addConfetti({
       // confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
       // different question mark emojis
-emojiSize:25,
-      emojis: ["🤔","❓"],
-      confettiNumber: 25,
+emojiSize:50,
+      emojis: ["❔"],
+      confettiNumber: 15,
     });
     try {
       // Get random key from the object
@@ -328,7 +328,6 @@ emojiSize:25,
   }
 
   const handleTryAgain = async () => {
-    playSoundEffect("/sfx/short/qqqqq.mp3")
     const newTarget = await fetchRandomFromCocoDatabase();
     setTimeout(async () => {
     setShowImageModal(false);
@@ -338,7 +337,10 @@ emojiSize:25,
     setGameState('playing');
     setResults(null);
     setSentObject(null);
+    setTimeout(async () => {
+      playSoundEffect("/sfx/short/cling.mp3")
   }, 200);
+}, 200);
 }
 
   return (
@@ -391,17 +393,17 @@ emojiSize:25,
                 emoji="👤"
                 tooltip="Profile"
                 />
-
+{/* 
                 <MenuBarItem 
                 href="#"
                 emoji="⚙️"
                 tooltip="Settings"
-                />
+                /> */}
 
                 <MenuBarItem 
-                href="#"
+                href="/about"
                 emoji="❓"
-                tooltip="Help"
+                tooltip="About"
                 />
               </div>
               </>)}

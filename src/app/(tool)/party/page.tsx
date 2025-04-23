@@ -382,17 +382,17 @@ export default function PartyPage() {
                 emoji="👤"
                 tooltip="Profile"
                 />
-
+{/* 
                 <MenuBarItem 
                 href="#"
                 emoji="⚙️"
                 tooltip="Settings"
-                />
+                /> */}
 
                 <MenuBarItem 
-                href="#"
+                href="/about"
                 emoji="❓"
-                tooltip="Help"
+                tooltip="About"
                 />
               </div>
               </>)}

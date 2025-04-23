@@ -204,7 +204,7 @@ export default function ProfilePage() {
 
 
         
-        <BewPageHeader title={"PROFILE"} isBigScreenOnly={true} />
+        <BewPageHeader title={"YOUR PROFILE"} isBigScreenOnly={true} />
 
         <div className='w-100  w-max-1080px flex-row Q_xs_flex-col-r pt-8 flex-justify-center flex-align-start gap-4'>
 
