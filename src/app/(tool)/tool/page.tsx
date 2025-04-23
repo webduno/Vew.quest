@@ -20,6 +20,7 @@ import { generateRandomTargetRandomized } from '../../../../script/utils/platfor
 import { ToolResultsCard } from '../../../dom/bew/ToolResultsCard';
 import { BewWorldLogo } from '@/dom/bew/BewWorldLogo';
 import { useBackgroundMusic } from '../../../../script/state/context/BackgroundMusicContext';
+import JSConfetti from 'js-confetti';
 
 type TargetsData = {
   [key: string]: string;
@@ -143,6 +144,14 @@ export default function TrainingPage() {
     // check if user has ability to play audio and cliiked anything or interacted with the page
     
 
+    const confetti = new JSConfetti();
+    confetti.addConfetti({
+      // confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
+      // different question mark emojis
+emojiSize:25,
+      emojis: ["🤔","❓"],
+      confettiNumber: 25,
+    });
     try {
       // Get random key from the object
       const keys = Object.keys(targetsData as TargetsData);
@@ -319,7 +328,7 @@ export default function TrainingPage() {
   }
 
   const handleTryAgain = async () => {
-    playSoundEffect("/sfx/short/passbip.mp3")
+    playSoundEffect("/sfx/short/qqqqq.mp3")
     const newTarget = await fetchRandomFromCocoDatabase();
     setTimeout(async () => {
     setShowImageModal(false);

@@ -25,7 +25,7 @@ import { NavigationHeaderBar } from '../../dom/bew/NavigationHeaderBar';
 import { RemoteViewingHistory } from '@/dom/bew/RemoteViewingHistory';
 import { BewBadges } from '@/dom/bew/BewBadges';
 import { ProfileSnackbarContext, SnackbarSeverity } from '../../../script/state/context/ProfileSnackbarProvider';
-
+import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
 const NotesCheck = ({ content }: { content: any }) => {
   return content.notes ? <div className='tx-lx pointer'
   onClick={() => {
@@ -56,6 +56,7 @@ export default function ProfilePage() {
   const { streak, isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const searchParams = useSearchParams();
+  const { playSoundEffect } = useBackgroundMusic();
   const [guestUrlUsernameParam, setGuestUrlUsernameParam] = useState<string | null>(null);
   const snackbarContext = useContext(ProfileSnackbarContext);
   if (!snackbarContext) {
@@ -220,7 +221,14 @@ export default function ProfilePage() {
 <button className='pos-abs bottom-0 right-0 mb-8 bg-white bord-r-10 px-2 py-1 tx-bold pointer '
 onClick={() => {
   // coming soon
-  alert('Coming soon!');
+  // alert('Coming soon!');
+  playSoundEffect('/sfx/short/errorbip.mp3');
+  triggerSnackbar(<div className='tx-center py-1'>
+    <div className=''>
+      Change of username <br /> is coming soon!
+    </div>
+  </div>, "errorwarning");
+
 }}
 style={{
   color: "#aaaaaa",

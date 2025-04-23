@@ -1,5 +1,7 @@
 'use client';
 
+import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
+import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
 import { LessonCard } from "./LessonCard";
 
 export interface LessonCardProps {
@@ -15,6 +17,8 @@ export interface LessonCardProps {
 }
 
 export const LessonsContainer = () => {
+  const { playSoundEffect } = useBackgroundMusic();
+  const { triggerSnackbar } = useProfileSnackbar();
   const lessonsList = [
     {
       title: "Your Achievements",
@@ -53,6 +57,14 @@ export const LessonsContainer = () => {
       emoji: "📅",
       href: "#",
       backgroundColor: "#1094dE",
+      forcedClick: () => {
+        playSoundEffect('/sfx/short/errorbip.mp3');
+  triggerSnackbar(<div className='tx-center py-1'>
+    <div className=''>
+    Weekly Challenges <br /> are coming soon!
+    </div>
+  </div>, "errorwarning");
+      },
       boxShadowColor: "#006699",
       actionText: "View Challenges"
     },
@@ -82,6 +94,7 @@ export const LessonsContainer = () => {
           backgroundColor={lesson.backgroundColor} 
           boxShadowColor={lesson.boxShadowColor}
           actionText={lesson.actionText}
+          forcedClick={lesson.forcedClick}
         />
       ))}
     </div>

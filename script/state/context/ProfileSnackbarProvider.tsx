@@ -4,7 +4,7 @@ import React, { createContext, useState, ReactNode, useRef } from 'react';
 import { ProfileSnackbarNotif } from '../../../dom/molecule/notification/ProfileSnackbarNotif';
 
 // Define the types for severity
-export type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title' | 'handbook';
+export type SnackbarSeverity = 'success' | 'error' | 'info' | 'warning' | 'title' | 'handbook' | 'errorwarning';
 
 // Define the context type
 type ProfileSnackbarContextType = {

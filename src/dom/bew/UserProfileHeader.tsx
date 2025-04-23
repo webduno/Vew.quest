@@ -4,7 +4,8 @@ import { BewUserStatsSummary } from '@/dom/bew/BewUserStatsSummary';
 import { isMobile } from '@/script/utils/platform/mobileDetection';
 import { UserStats } from '@/script/utils/calculations';
 import { IconStatsBar } from './IconStatsBar';
-
+import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
+import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
 interface UserProfileHeaderProps {
   playerId: string | null;
   userStats: UserStats;
@@ -18,6 +19,9 @@ interface UserProfileHeaderProps {
 
 export function UserProfileHeader({ playerId, userStats, crvObjects, onCopyUsername,
    showTrueSummary = true, guestStats, potentialStreak, pfp }: UserProfileHeaderProps) {
+  const { setSnackbarMessage, setSnackbarSeverity, setIsSnackbarOpen, triggerSnackbar } = useProfileSnackbar();
+  const { playSoundEffect } = useBackgroundMusic();
+  
   return (
     <div className='flex-wrap Q_xs_sm_flex-col flex-align-center gap-4 pb-100 pos-rel tx-altfont-2'
       style={{
@@ -29,7 +33,8 @@ export function UserProfileHeader({ playerId, userStats, crvObjects, onCopyUsern
           {!!showTrueSummary && (
             <button className='pos-abs bottom-0 right-0 mb-8 bg-white bord-r-10 px-2 py-1 tx-bold pointer '
               onClick={() => {
-                alert('Coming soon!');
+                // alert('Coming soon!');
+                triggerSnackbar("Coming soon!", "info");
               }}
             style={{
               color: "#aaaaaa",

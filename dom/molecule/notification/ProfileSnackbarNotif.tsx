@@ -44,6 +44,8 @@ export const ProfileSnackbarNotif = () => {
         return '#ff9800';
       case 'info':
         return '#2196f3';
+      case 'errorwarning':
+        return 'linear-gradient(45deg, #f47366, #ff9800)';
       case 'title':
         return '#9c27b0';
       case 'handbook':
@@ -63,7 +65,7 @@ export const ProfileSnackbarNotif = () => {
       <div
         className="bord-r-8 px-4 py-2 tx-white tx-altfont-2"
         style={{
-          backgroundColor: getBackgroundColor(),
+          background: getBackgroundColor(),
           boxShadow: 'inset 0 -4px 0 rgba(0,0,0,0.2)',
           maxWidth: '90%',
           wordBreak: 'break-word',
