@@ -448,7 +448,7 @@ export default function TrainingPage() {
         border: "1px solid #E5E5E5",
       }}
       >
-        <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
+        <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 '>
           <div className='tx-bold px-4' 
           style={{
             color: "#4B4B4B",

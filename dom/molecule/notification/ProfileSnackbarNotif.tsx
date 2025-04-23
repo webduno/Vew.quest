@@ -57,14 +57,14 @@ export const ProfileSnackbarNotif = () => {
 
   return (
     <div
-      className="pos-fix  top-0 right-0 w-100 flex-center pt-100"
+      className="pos-fix  bottom-0 right-0 w-100 flex-center pb-100"
       style={{
         zIndex: 10000,
         // pointerEvents: 'none',
       }}
     >
       <div
-        className="bord-r-8 px-4 py-2 tx-white tx-altfont-2"
+        className="bord-r-8 px-6 py-4 tx-white tx-altfont-2"
         style={{
           background: getBackgroundColor(),
           boxShadow: 'inset 0 -4px 0 rgba(0,0,0,0.2)',

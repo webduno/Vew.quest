@@ -48,32 +48,32 @@ export const NavigationHeaderBar = ({
       }}
       >
       {!isCurrentPage('/tool') && (
-        <a href="/tool" className='nodeco noselect pa-1 px-4 block  opaci-chov--75  pt-3 z-1000' style={{ color: "#ffffff" }}>
+        <a href="/tool" className='nodeco noselect py-2 px-4 block  opaci-chov--75  pt-3 z-1000' style={{ color: "#ffffff" }}>
           <div className="nowrap"> Tool <span style={{ filter: 'saturate(0) brightness(1)' }}>👁️</span></div>
         </a>
       )}
       {!isCurrentPage('/profile') && (
-        <a href="/profile" className='nodeco noselect pa-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
+        <a href="/profile" className='nodeco noselect py-2 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
           <div className="nowrap">Profile <span style={{ filter: 'saturate(0) brightness(100)' }}>👤</span></div>
         </a>
       )}
       {!isCurrentPage('/dashboard') && (
-        <a href="/dashboard" className='nodeco noselect pa-1 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
+        <a href="/dashboard" className='nodeco noselect py-2 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
           <div className="nowrap">Dashboard <span style={{ filter: 'saturate(0) brightness(100)' }}>🧮</span></div>
         </a>
       )}
       {!isCurrentPage('/leaderboard') && (
-        <a href="/leaderboard" className='nodeco noselect pa-1 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
+        <a href="/leaderboard" className='nodeco noselect py-2 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
           <div className="nowrap">Leaderboard <span style={{ filter: 'saturate(0) brightness(100)' }}>🏆</span></div>
         </a>
       )}
       {!isCurrentPage('/') && (
-        <a href="/" className='nodeco noselect pa-1 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
+        <a href="/" className='nodeco noselect py-2 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
           <div className="nowrap">Home Page <span style={{ filter: 'saturate(0) brightness(100)' }}>🏠</span></div>
         </a>
       )}
       {!isCurrentPage('/about') && (
-        <a href="/about" className='nodeco noselect pa-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
+        <a href="/about" className='nodeco noselect py-2 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
           <div className="nowrap">About <VersionTag /> <span className='' style={{ filter: 'saturate(0) brightness(100)' }}>❓</span></div>
         </a>
       )}
