@@ -255,17 +255,18 @@ const sharedIdState = useState<string | null>(null);
   };
 
 const handleUpdate = async (e:any)=>{
-  console.log("handleUpdate", e);
+  console.log("handleUpdate", e, sharedIdState[0]);
   if (!sharedIdState[0]) return;
 
   try {
+  console.log("handleUpdate 2222", e, sharedIdState[0]);
     const response = await fetch('/api/party/update', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id: sharedIdState[0].toLowerCase(),
+        id: sharedIdState[0],
         live_data: e
       })
     });
