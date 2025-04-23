@@ -128,17 +128,7 @@ const [ telegram_id, s__telegram_id] = useState<string | null>(null);
 
                 <BewPurpleBtn text="Start" onClick={handleStart}  />
                 
-                {!crvObjects.length && (<>
-                  <div>
-                    <a href="/dashboard" className='nodeco tx-center  block py-4'
-                    style={{
-                      color: "#777777",
-                    }}
-                    >
-                      Dashboard
-                    </a>
-                 </div>
-                </>)}
+                
                 </div>
                 </div>
             </div>
