@@ -49,18 +49,18 @@ export const NavigationHeaderBar = ({
         <a href="/profile" className='nodeco noselect pa-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
           <div>Profile</div>
         </a>
-        <a href="/about" className='nodeco noselect pa-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
-          <div>About <VersionTag /></div>
-        </a>
-      <a href="/dashboard" className='nodeco noselect pa-1 px-4 block  opaci-chov--75 pb-2   z-1000' style={{ color: "#ffffff" }}>
+      <a href="/dashboard" className='nodeco noselect pa-1 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
         <div>Dashboard</div>
       </a>
-      <a href="/leaderboard" className='nodeco noselect pa-1 px-4 block  opaci-chov--75 pb-2   z-1000' style={{ color: "#ffffff" }}>
+      <a href="/leaderboard" className='nodeco noselect pa-1 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
         Leaderboard
       </a>
-      <a href="/" className='nodeco noselect pa-1 px-4 block  opaci-chov--75 pb-2   z-1000' style={{ color: "#ffffff" }}>
+      <a href="/" className='nodeco noselect pa-1 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
         Home Page
       </a>
+        <a href="/about" className='nodeco noselect pa-1 px-4 block  opaci-chov--75 pb-2  z-1000' style={{ color: "#ffffff" }}>
+          <div>About <VersionTag /></div>
+        </a>
       
       </div>
     </div>
