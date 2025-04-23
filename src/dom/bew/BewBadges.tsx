@@ -76,10 +76,10 @@ export const BewBadges = ({
             });
             triggerSnackbar((<div className='tx-center flex-col'>
               <div>
-                Congratulations,  you are a first viewer!
+                First of Viewers Badge!
               </div>
               <div>
-                You've been here since the first days! ❤️
+                You've been here <br /> since the first days! ❤️
               </div>
             </div>), 'info');
           }}
