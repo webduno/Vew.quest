@@ -110,6 +110,7 @@ export default function UserProfilePage() {
 
         <div className='w-100 w-max-1080px flex-row Q_xs_flex-col-r pt-8 flex-justify-center flex-align-start gap-4'>
           <UserProfileHeader
+          pfp={"/bew/pfp/row-4-column-3.png"}
             showTrueSummary={false}
             potentialStreak={userStats?.potentialStreak}
             guestStats={{

@@ -13,10 +13,11 @@ interface UserProfileHeaderProps {
   showTrueSummary?: boolean;
   guestStats: any;
   potentialStreak?: number;
+  pfp?: string;
 }
 
 export function UserProfileHeader({ playerId, userStats, crvObjects, onCopyUsername,
-   showTrueSummary = true, guestStats, potentialStreak }: UserProfileHeaderProps) {
+   showTrueSummary = true, guestStats, potentialStreak, pfp }: UserProfileHeaderProps) {
   return (
     <div className='flex-wrap Q_xs_sm_flex-col flex-align-center gap-4 pb-100 pos-rel tx-altfont-2'
       style={{
@@ -45,7 +46,7 @@ export function UserProfileHeader({ playerId, userStats, crvObjects, onCopyUsern
           >
             <div className='tx-altfont-2 tx-lgx'>{playerId || 'Not set'}</div>
           </div>
-          <img src="/bew/pfp/row-4-column-1.png"
+          <img src={pfp || "/bew/pfp/row-4-column-1.png"}
             alt="pfp" className={'bord-r-50 noverflow block ' + (isMobile() ? 'w-150px' : 'w-250px')} />
         </div>
         <div className='bord-r-15 mb-4 pb-2 flex-col ' style={{ border: "1px solid #f0f0f0" }}>
