@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
     const { searchParams } = new URL(request.url);
-    const roomKey = searchParams.get('room_key');
+    const roomKey = searchParams.get('room_key')?.toLowerCase();
 
     if (!roomKey) {
       return NextResponse.json(
@@ -32,7 +32,7 @@ export async function GET(request: Request) {
       );
     }
 
-    const reverseRoomKey = getReverseRoomKey(roomKey);
+    const reverseRoomKey = getReverseRoomKey(roomKey)?.toLowerCase();
 
     // Try to find an existing party with either room key orientation
     const { data: existingParty, error: findError } = await supabase
