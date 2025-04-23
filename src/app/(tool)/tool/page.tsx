@@ -329,7 +329,6 @@ emojiSize:50,
 
   const handleTryAgain = async () => {
     const newTarget = await fetchRandomFromCocoDatabase();
-    setTimeout(async () => {
     setShowImageModal(false);
     setShowSketchModal(false);
     setSketchData(null);
@@ -340,7 +339,6 @@ emojiSize:50,
     setTimeout(async () => {
       playSoundEffect("/sfx/short/cling.mp3")
   }, 200);
-}, 200);
 }
 
   return (
