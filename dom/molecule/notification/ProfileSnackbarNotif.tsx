@@ -57,7 +57,7 @@ export const ProfileSnackbarNotif = () => {
 
   return (
     <div
-      className="pos-fix  top-0 right-0 w-100 flex-center pa-4"
+      className="pos-fix  top-0 right-0 w-100 flex-center pt-6"
       style={{
         zIndex: 10000,
         // pointerEvents: 'none',
