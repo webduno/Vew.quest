@@ -63,6 +63,7 @@ export default function PartyPage() {
     console.log("waiting", crvObjects.length);
     setGameState('waiting');
 
+
   }, [isLoading, params.id]);
   const [ wndwTg, s__wndwTg] = useState<any>(null);
   const [ telegram_id, s__telegram_id] = useState<string | null>(null);
@@ -280,12 +281,12 @@ const handleUpdate = async (e:any)=>{
   }
 }
 const handleRefresh = async ()=>{
+  if (!sharedIdState[0]) { return }
   setReloadingParty(true);
   console.log("handleRefresh", );
-
   // fetchpartydata again
 
-  await fetchPartyData();
+  await fetchPartyData(sharedIdState[0]);
   setReloadingParty(false);
 }
 
@@ -352,23 +353,29 @@ const handleRefresh = async ()=>{
   }, [target, LS_playerId, refetchStats]);
 
   useEffect(() => {
+    console.log("sharedIdState[0]", sharedIdState[0]);
     if (!sharedIdState[0]) { return }
+    console.log("sharedIdState[0]22222", sharedIdState[0]);
+    // if (!!target?.code) { return }
+    // console.log("sharedIdState[0]33333", sharedIdState[0]);
 
-    const initializeParty = async () => {
-      await fetchPartyData();
+    const initializeParty = async (byId: string) => {
+      await fetchPartyData(byId);
+      console.log("sharedIdState[0]44444", target);
       setGameState('playing');
     };
 
-    initializeParty();
+    initializeParty( sharedIdState[0]);
   }, [sharedIdState[0]]);
 
-  const fetchPartyData = async () => {
+  const fetchPartyData = async (byId: string) => {
     try {
-      if (!sharedIdState[0]) {
+      if (!byId) {
         console.error('No party ID available');
         return;
       }
-      const response = await fetch(`/api/party/get?id=${sharedIdState[0].toLowerCase()}`);
+      console.log("fetchPartyData", byId);
+      const response = await fetch(`/api/party/get?id=${byId}`);
       if (!response.ok) {
         console.error('Failed to fetch party data');
         return;
@@ -489,6 +496,7 @@ const handleRefresh = async ()=>{
         )}
         {gameState === 'waiting' && (<>
         <WaitingRoom 
+        
         friendListString={[typedUsername, friendId].join(">>>")}
         sharedIdState={sharedIdState}
         friendList={
@@ -529,7 +537,7 @@ const handleRefresh = async ()=>{
                 <a href="/tool"           style={{color: "#964800"}}     
                 className='opaci-50 nodeco pointer'>← Go to Single Player</a>
                 
-                <div className='tx-bold tx-lg pt-1'>Shared target #{sharedIdState[0]}</div>
+                <div className='tx-bold tx-lg pt-1'>Shared target #{target?.code}</div>
                 <div className='w-100  flex-row flex-align-end flex-justify-end '>
                 <a href={"/party/"+friendId}                style={{color: "#ffffff"}}     
                 className=' px-4  Q_sm_x nodeco pointer'>
