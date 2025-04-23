@@ -38,6 +38,17 @@ export default function UserProfilePage() {
     }
   }, [friendId]);
 
+  useEffect(() => {
+    // Handle hash navigation after page load
+    if (window.location.hash) {
+      console.log('hash 123', window.location.hash);
+      const element = document.getElementById(window.location.hash.substring(1));
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        
+      }
+    }
+  }, [crvObjects]);
   const hasMoreThanFirstDaysValue = useMemo(() => hasMoreThanFirstDays(crvObjects), [crvObjects]);
   const uniqueDays = useMemo(() => getUniqueDays(crvObjects), [crvObjects]);
   const hasMoreThan3DaysStreakValue = useMemo(() => hasMoreThan3DaysStreak(uniqueDays), [uniqueDays]);
@@ -190,6 +201,8 @@ export default function UserProfilePage() {
         <div className='pb-100 flex-col flex-align-start tx-altfont-2 gap-4 w-100 w-max-1080px'>
           <div className="w-max-600px py-4">
             <RemoteViewingHistory
+              highlightTarget={window.location.hash.substring(1)}
+              authorId={friendId}
               crvObjects={crvObjects}
               onSketchClick={(sketch, image) => {
                 setCurrentSketch(sketch);

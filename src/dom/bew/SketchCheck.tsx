@@ -8,11 +8,21 @@ interface SketchCheckProps {
 export const SketchCheck = ({ content, onClick }: SketchCheckProps) => {
   try {
     const parsedContent = typeof content === 'string' ? JSON.parse(content) : content;
-    return parsedContent.sketch ? (
-      <div className='tx-lx pointer'
-      onClick={onClick}
-      >🎨</div>
-    ) : '❌';
+    if (parsedContent.sketch) {
+      return (
+        <div className='tx-lx pointer'
+        onClick={onClick}
+        >🎨</div>
+      );
+    }
+    if (parsedContent.target) {
+      return (
+        <div className='tx-lx pointer'
+        onClick={onClick}
+        >🖼️</div>
+      );
+    }
+    return '❌';
   } catch (e) {
     return '❌';
   }

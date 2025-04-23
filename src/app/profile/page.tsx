@@ -547,6 +547,7 @@ backgroundColor='#71B44F'
 <hr className='w-100 opaci-10  mt-100 '  />
 
 <RemoteViewingHistory 
+  authorId={LS_playerId}
   crvObjects={crvObjects}
   onSketchClick={(sketch, image) => {
     setCurrentSketch(sketch);
