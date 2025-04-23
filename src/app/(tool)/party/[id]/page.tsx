@@ -447,6 +447,7 @@ const handleRefresh = async ()=>{
     }
   };
 
+  const [selectedInputType, setSelectedInputType] = useState<any>('notes');
   const handleFullSend = async (params: {
     sketch: any;
     notes: any;
@@ -536,12 +537,12 @@ const handleRefresh = async ()=>{
                 }}
                 >
                 <a href="/tool"           style={{color: "#964800"}}     
-                className='opaci-50 nodeco pointer'>← Go to Single Player</a>
+                className='opaci-50 nodeco pointer '>← Go to Single Player</a>
                 
                 <div className='tx-bold tx-lg pt-1'>Shared target #{target?.code}</div>
                 <div className='w-100  flex-row flex-align-end flex-justify-end '>
                 <a href={"/party/"+friendId}                style={{color: "#ffffff"}}     
-                className=' px-4  Q_sm_x nodeco pointer'>
+                className=' px-4  Q_xs_pt-2 nodeco pointer'>
                   <span className='tx-sm pr-1 ' style={{filter: "brightness(10)"}}>🔗</span>
                   Partying with {friendId}
                   </a>
@@ -588,6 +589,8 @@ const handleRefresh = async ()=>{
               
                 {!reloadingParty && (<>
                   <PartyScreen 
+                selectedInputType={selectedInputType}
+                setSelectedInputType={setSelectedInputType}
                 sharedIdState={sharedIdState}
                 fullPartyData={fullPartyData}
                       setEnableLocked={setEnableLocked}

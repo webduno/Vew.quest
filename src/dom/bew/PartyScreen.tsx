@@ -36,12 +36,15 @@ type OptionsState = {
 };
 
 export const PartyScreen = ({
+  selectedInputType, setSelectedInputType,
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onFullSend,
   absolute = true,
   sharedIdState,
   fullPartyData,
   handleRefresh,
 }: {
+  selectedInputType: InputType;
+  setSelectedInputType: (inputType: InputType) => void;
   setEnableLocked: (enableLocked: boolean) => void;
   enableLocked: boolean;
   playerRotation?: { x: number, y: number, z: number };
@@ -72,7 +75,6 @@ export const PartyScreen = ({
   const [sharedId, setSharedId] = sharedIdState;
 
   // State management for input types and their values
-  const [selectedInputType, setSelectedInputType] = useState<InputType>('notes');
   const { playSoundEffect } = useBackgroundMusic();
   // Add refresh counter
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -108,7 +110,7 @@ export const PartyScreen = ({
     // Set initial input type if there's live data
     const { sketch, notes, options } = liveData;
     if (sketch) {
-      setSelectedInputType('sketch');
+      // setSelectedInputType('sketch');
       setSketchValue(sketch);
     }
     if (options) {
@@ -120,7 +122,7 @@ export const PartyScreen = ({
       setNotesValue(notes);
     }
 
-    setSelectedInputType('notes')
+    // setSelectedInputType('notes')
   }, [fullPartyData]);
 
   // Update input states when fullPartyData changes or refresh is clicked
