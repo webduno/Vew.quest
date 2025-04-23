@@ -98,7 +98,7 @@ export const BewBadges = ({
           forcedClick={() => {
             playSoundEffect('/sfx/short/myst.mp3');
             confettiRef.current?.addConfetti({
-              confettiColors: ['#ff99ff', '#f9aac7'],
+              confettiColors: ['#99ff99', '#aaf9c7'],
               confettiNumber: 100,
             });
             triggerSnackbar((<div className='tx-center flex-col'>
@@ -108,7 +108,7 @@ export const BewBadges = ({
               <div>
                 You've performed more than <br /> 9 remote viewings!
               </div>
-            </div>), 'info');
+            </div>), 'success');
           }}
         />
       )}

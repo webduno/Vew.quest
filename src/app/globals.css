@@ -69,6 +69,46 @@ body, html {
 
 
 
+.hover-5{animation: hover 5s;  animation-iteration-count: infinite }
+.hover-6{animation: hover 6s;  animation-iteration-count: infinite }
+.hover-7{animation: hover 7s;  animation-iteration-count: infinite }
+.hover-8{animation: hover 8s;  animation-iteration-count: infinite }
+.hover-9{animation: hover 9s;  animation-iteration-count: infinite }
+.hover-10{animation: hover 10s;  animation-iteration-count: infinite }
+.hover-11{animation: hover 11s;  animation-iteration-count: infinite }
+.hover-12{animation: hover 12s;  animation-iteration-count: infinite }
+.hover-13{animation: hover 13s;  animation-iteration-count: infinite }
+.hover-14{animation: hover 14s;  animation-iteration-count: infinite }
+.hover-15{animation: hover 15s;  animation-iteration-count: infinite }
+.hover-16{animation: hover 16s;  animation-iteration-count: infinite }
+.hover-17{animation: hover 17s;  animation-iteration-count: infinite }
+.hover-18{animation: hover 18s;  animation-iteration-count: infinite }
+
+
+.hover-snack-1{animation: hoversnack 1s;  animation-iteration-count: infinite }
+.hover-snack-2{animation: hoversnack 2s;  animation-iteration-count: infinite }
+.hover-snack-3{animation: hoversnack 3s;  animation-iteration-count: infinite }
+.hover-snack-4{animation: hoversnack 4s;  animation-iteration-count: infinite }
+.hover-snack-5{animation: hoversnack 5s;  animation-iteration-count: infinite }
+.hover-snack-6{animation: hoversnack 6s;  animation-iteration-count: infinite }
+.hover-snack-7{animation: hoversnack 7s;  animation-iteration-count: infinite }
+.hover-snack-8{animation: hoversnack 8s;  animation-iteration-count: infinite }
+.hover-snack-9{animation: hoversnack 9s;  animation-iteration-count: infinite }
+.hover-snack-10{animation: hoversnack 10s;  animation-iteration-count: infinite }
+.hover-snack-11{animation: hoversnack 11s;  animation-iteration-count: infinite }
+.hover-snack-12{animation: hoversnack 12s;  animation-iteration-count: infinite }
+.hover-snack-13{animation: hoversnack 13s;  animation-iteration-count: infinite }
+.hover-snack-14{animation: hoversnack 14s;  animation-iteration-count: infinite }
+.hover-snack-15{animation: hoversnack 15s;  animation-iteration-count: infinite }
+.hover-snack-16{animation: hoversnack 16s;  animation-iteration-count: infinite }
+.hover-snack-17{animation: hoversnack 17s;  animation-iteration-count: infinite }
+.hover-snack-18{animation: hoversnack 18s;  animation-iteration-count: infinite }
+@keyframes hoversnack {
+	0%{transform: translateY(10px)}50%{transform: translateY(-10px)}100%{transform: translateY(10px)}
+}
+
+
+
 
 .hover-jump{animation: hoverjump 10s;  animation-iteration-count: infinite }
 .hover-jump-12{animation: hoverjump 12s;  animation-iteration-count: infinite }

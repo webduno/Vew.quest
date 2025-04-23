@@ -64,7 +64,7 @@ export const ProfileSnackbarNotif = () => {
       }}
     >
       <div
-        className="bord-r-8 px-6 py-4 tx-white tx-altfont-2"
+        className="bord-r-8 hover-snack-6 px-6 py-4 tx-white tx-altfont-2"
         style={{
           background: getBackgroundColor(),
           boxShadow: 'inset 0 -4px 0 rgba(0,0,0,0.2)',
