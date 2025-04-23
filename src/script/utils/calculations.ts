@@ -57,7 +57,7 @@ export const hasMoreThanFirstDays = (crvObjects: CRVObject[]): boolean => {
 };
 
 export const hasMoreThan3DaysStreak = (uniqueDays: string[]): boolean => {
-  return uniqueDays.length >= 3;
+  return uniqueDays.length >= 2;
 };
 
 export const getTodayObjects = (crvObjects: CRVObject[]): CRVObject[] => {

@@ -125,6 +125,7 @@ export default function UserProfilePage() {
             onCopyUsername={() => {
               navigator.clipboard.writeText(friendId);
               alert('Copied to clipboard');
+              // showSnackbar('Copied to clipboard');
             }}
           />
 
