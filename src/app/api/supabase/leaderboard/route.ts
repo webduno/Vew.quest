@@ -86,6 +86,7 @@ export async function GET() {
         rank: 0 // Will be set after sorting
       }))
       .sort((a, b) => b.total_score - a.total_score)
+      .slice(0, 77)
       .map((entry, index) => ({
         ...entry,
         rank: index + 1
