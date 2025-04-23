@@ -6,23 +6,14 @@ import { Tooltip } from 'react-tooltip';
 import { clean } from 'profanity-cleaner';
 import { LessonCard } from '@/dom/bew/LessonCard';
 import { BewPageHeader } from '../../dom/bew/BewPageHeader';
+import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 
 export default function AboutPage() {
   return (
     <>
       <div className='w-100 autoverflow-y h-100vh flex-col flex-justify-start'>
-        <div className='flex-row w-100 w-max-1080px tx-altfont-2'>
-          <BewWorldLogo />
-          <div className='px-4 gap-3 flex-1 flex-row flex-justify-end tx-bold pt-4'>
-            
-        <a href="/dashboard" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>Dashboard</div>
-        </a>
-            <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
-              <div>Profile</div>
-            </a>
-          </div>
-        </div>
+        
+        <NavigationHeaderBar />
 
 <BewPageHeader title={"ABOUT"} />
 
