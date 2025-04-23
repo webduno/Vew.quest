@@ -58,12 +58,16 @@ export const BewBadges = ({
           forcedClick={() => {
             playSoundEffect('/sfx/short/rewi.mp3');
             confettiRef.current?.addConfetti({
-              confettiColors: ['#00ff00', '#00cc00', '#009900', '#006600', '#003300'],
-              confettiNumber: 50,
+              // confettiColors: ['#029DE0', '#00cc00', '#009900', '#006600', '#003300'],
+              emojis: ['🌀', '♾️'],
+              emojiSize: 25,
+
+              // confettiColors: ['#00ff00', '#00cc00', '#009900', '#006600', '#003300'],
+              confettiNumber: 100,
             });
             setTimeout(() => {
-              alert('Congratulations, you are a regular viewer!\n\nYou have made been here since the first days!');
-            }, 500);
+              alert('Congratulations, you are a first viewer!\n\nYou have made been here since the first days!');
+            }, 2000);
           }}
           boxShadowColor="#964400"
           backgroundColor='#FF9600'
