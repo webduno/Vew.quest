@@ -449,7 +449,7 @@ export const PartyScreen = ({
 
         <div className='tx-bold-5 tx-center' style={{ color: "#2baa2b" }}> 
           <span role="img" aria-label="check">✅</span>
-          Get new Target
+          New Target
         </div> 
       </a>
       {/* <a href="/dashboard#resources"

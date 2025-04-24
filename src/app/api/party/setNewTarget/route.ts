@@ -61,6 +61,10 @@ export async function POST(request: Request) {
     const [type, natural, temp, light, color, solid, confidence] = valuesStr.split(',').map(Number);
     const typeString = ['object', 'entity', 'place', 'event'][type - 1];
 
+
+    // get unix
+    const partyEndTimestamp = new Date().getTime()
+    const uniquePartyId = partyData.room_key+"@@@"+partyEndTimestamp
     // Parse friend list from room key
     const friendList = partyData.room_key.split('>>>');
     
@@ -98,6 +102,7 @@ export async function POST(request: Request) {
       }
 
       const objList = {
+        target_id: randomTargetCode.padStart(12, '0'),
         target: {
           type: typeString,
           natural,
@@ -125,6 +130,7 @@ export async function POST(request: Request) {
           content: JSON.stringify(objList),
           result: overallAccuracy,
           storage_key: friendId,
+          party_id: uniquePartyId,
           created_at: new Date().toISOString()
         }]);
 
