@@ -495,7 +495,7 @@ backgroundColor='#71B44F'
 <div className='opaci-50  pb-100'>
         <button className='tx-red' onClick={() => {
           localStorage.removeItem('VB_PLAYER_ID');
-          window.location.href = '/';
+          window.location.href = '/tool';
         }}>
           Click here to Logout
         </button>

@@ -58,7 +58,7 @@ export const InitialToolLogin: React.FC<InitialToolLoginProps> = ({
           }}
         >
           <div className='tx-center tx-lgx landing -title'>Gamified <br /> step-by-step lessons for remote viewing</div>
-          <div>
+          <div className='flex-col '>
             <div>
               <input
                 type="text"
