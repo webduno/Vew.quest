@@ -1,6 +1,6 @@
 "use client"
 import { Box } from "@react-three/drei";
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useRef, useState, useEffect } from "react";
 import MiniGameStage from "./MiniGameStage";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import ModelGameStage from "./ModelGameStage";
@@ -11,13 +11,20 @@ interface SpaceWorldContainerProps {
 export default function SpaceWorldContainer({ children }: SpaceWorldContainerProps) {
   const { triggerSnackbar } = useProfileSnackbar();
   const gameStageRef = useRef<"loading" | "starting" | "playing" | "ended">("loading")
-  const onGreenClicked = (e:any) => {
-    // console.log("Green clicked");
-    triggerSnackbar("Session started!", "success");
-    gameStageRef.current = "starting"
-    startGameProcess()
-  }
+  const [showHelper, setShowHelper] = useState(false)
   const [randomCoord1LatLan, setRandomCoord1LatLan] = useState({lat:0,lng:0})
+
+  // Generate initial target
+  useEffect(() => {
+    startGameProcess()
+  }, [])
+
+  const onGreenClicked = (e:any) => {
+    setShowHelper(!showHelper)
+  }
+
+  const [attempts, setAttempts] = useState(0)
+  const [winAttempts, setWinAttempts] = useState(0)
   const startGameProcess = () => {
     const randomCoord1LatLan = {
       lat: Math.random() * 180 - 90,
@@ -25,17 +32,19 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
     }
     setRandomCoord1LatLan(randomCoord1LatLan)
   }
+
   const onTargetFound = () => {
     console.log("Target found")
     triggerSnackbar("Target found", "success")
-    // gameStageRef.current = "playing"
+    setWinAttempts(winAttempts + 1)
     startGameProcess()
   }
   return (
-    <ModelGameStage onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
+    <ModelGameStage attempts={attempts} setAttempts={setAttempts} winAttempts={winAttempts} setWinAttempts={setWinAttempts} onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
     onTargetFound={onTargetFound}
     gameData={{
-      randomCoord1LatLan
+      randomCoord1LatLan,
+      showHelper
     }}
     >
       <>

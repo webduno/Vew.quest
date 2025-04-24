@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import { Vector3, Quaternion } from "three";
 
-export const WorldModelTextured = ({state, targetCoords, onTargetFound}:any) => {
+export const WorldModelTextured = ({state, targetCoords, onTargetFound, showHelper, clickedHandler  }:any) => {
   const $cloudsWireframe:any = useRef()
   const $light:any = useRef()
   const $whole:any = useRef()
@@ -69,7 +69,7 @@ export const WorldModelTextured = ({state, targetCoords, onTargetFound}:any) => 
     <Sphere args={[.74,16,6,2]} castShadow receiveShadow ref={$cloudsWireframe} >
       <meshStandardMaterial wireframe={true}  color={"#777777"} />
     </Sphere>
-      <EarthTextured />
+      <EarthTextured clickedHandler={clickedHandler} />
       {targetCoords && (
         <group position={[
           latLngToCartesian(targetCoords.lat, targetCoords.lng).x,
@@ -87,37 +87,42 @@ export const WorldModelTextured = ({state, targetCoords, onTargetFound}:any) => 
               emissive="#00ff00" 
               emissiveIntensity={0.3} 
               transparent={true} 
-              opacity={0.6} 
+              opacity={showHelper ? 0.1 : 0} 
             />
           </Sphere>
-          <Text
-            fontSize={0.1}
-            color="#ffffff"
-            anchorX="center"
-            anchorY="bottom"
-            outlineWidth={0.02}
-            outlineColor="#000000"
-            position={[
-              getTextPosition(targetCoords.lat, targetCoords.lng).x,
-              getTextPosition(targetCoords.lat, targetCoords.lng).y,
-              getTextPosition(targetCoords.lat, targetCoords.lng).z
-            ]}
-            quaternion={getTextOrientation(targetCoords.lat, targetCoords.lng)}
-          >
-            {`${targetCoords.lat.toFixed(1)}°, ${targetCoords.lng.toFixed(1)}°`}
-          </Text>
+          {showHelper && (
+            <Text
+              fontSize={0.1}
+              color="#ffffff"
+              anchorX="center"
+              anchorY="bottom"
+              outlineWidth={0.02}
+              outlineColor="#000000"
+              position={[
+                getTextPosition(targetCoords.lat, targetCoords.lng).x,
+                getTextPosition(targetCoords.lat, targetCoords.lng).y,
+                getTextPosition(targetCoords.lat, targetCoords.lng).z
+              ]}
+              quaternion={getTextOrientation(targetCoords.lat, targetCoords.lng)}
+            >
+              {`${targetCoords.lat.toFixed(1)}°, ${targetCoords.lng.toFixed(1)}°`}
+            </Text>
+          )}
         </group>
       )}
     </group>
   </>);
 };
 
-export const EarthTextured = () => {
+export const EarthTextured = ({clickedHandler}:{clickedHandler:(e:any)=>void}) => {
   const bump2 = useTexture("./textures/bump2.jpg");
   const earth_jpg = useTexture("./textures/earthmap1k.jpg");
   
   return (<>
-    <Sphere args={[0.7, 64, 64]} onClick={(e) => e.stopPropagation()}>
+    <Sphere args={[0.7, 64, 64]} onClick={(e) => {
+      e.stopPropagation();
+      clickedHandler(e);
+    }}>
       <meshStandardMaterial map={earth_jpg} displacementScale={.32} displacementMap={bump2} />
     </Sphere>
   </>);

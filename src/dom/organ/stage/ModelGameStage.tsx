@@ -1,5 +1,5 @@
 "use client"
-import { Box, Cylinder, OrbitControls, Sphere } from "@react-three/drei";
+import { Box, Cylinder, OrbitControls, Sphere, Text } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { ReactNode, useEffect, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
@@ -22,9 +22,19 @@ const latLngToCartesian = (lat: number, lng: number, radius: number = 1) => {
   };
 };
 
-export default function ModelGameStage({onGreenClicked,children,gameStageRef,gameData,onTargetFound}:{onGreenClicked:(e:any)=>void,children:ReactNode,gameStageRef:React.MutableRefObject<"loading" | "starting" | "playing" | "ended">,gameData:any,onTargetFound:()=>void    }) {
+export default function ModelGameStage({ attempts, setAttempts, winAttempts, setWinAttempts, onGreenClicked,children,gameStageRef,gameData,onTargetFound}:{
+  attempts:number,
+  setAttempts:(attempts:number)=>void,
+  winAttempts:number,
+  setWinAttempts:(winAttempts:number)=>void,
+  onGreenClicked:(e:any)=>void,
+  children:ReactNode,
+  gameStageRef:React.MutableRefObject<"loading" | "starting" | "playing" | "ended">,
+  gameData:any,
+  onTargetFound:()=>void
+}) {
   const { triggerSnackbar } = useProfileSnackbar();
-  const {randomCoord1LatLan} = gameData
+  const {randomCoord1LatLan, showHelper} = gameData
   const searchParams = useSearchParams()
   const isDOF = searchParams.has('dof')
   const noAutoRotate = searchParams.has('norotate') || false
@@ -35,20 +45,21 @@ export default function ModelGameStage({onGreenClicked,children,gameStageRef,gam
   }, []);
 
   const clickedHandler = (coordsLatLan:any) => {
-    console.log(coordsLatLan)
-    // alert("clicked")
-    // consloe log how ner it was from the randomCoord1LatLan
-    const distance = Math.sqrt(Math.pow(coordsLatLan.lat - randomCoord1LatLan.lat, 2) + Math.pow(coordsLatLan.lng - randomCoord1LatLan.lng, 2))
-    console.log(distance)
-    // if distance is less than 10, then show a message
-    if (distance < 10) {
-      // triggerSnackbar("You are close to the target", "success")
-    // generate new randomCoord1LatLan thru parent props
-    onTargetFound()
-      return
-    }
-    // onTargetFound()
+    console.log("Clicked coordinates:", coordsLatLan)
+    // console.log("Target coordinates:", randomCoord1LatLan)
+    setAttempts(attempts + 1)
   }
+  
+  // const old_clickedHandler = (coordsLatLan:any) => {
+  //   console.log("Clicked coordinates:", coordsLatLan)
+  //   console.log("Target coordinates:", randomCoord1LatLan)
+  //   const distance = Math.sqrt(Math.pow(coordsLatLan.lat - randomCoord1LatLan.lat, 2) + Math.pow(coordsLatLan.lng - randomCoord1LatLan.lng, 2))
+  //   console.log("Distance:", distance)
+  //   if (distance < 10) {
+  //     onTargetFound()
+  //     return
+  //   }
+  // }
   useEffect(() => {
     if (gameStageRef.current === "starting") {
       
@@ -73,8 +84,10 @@ export default function ModelGameStage({onGreenClicked,children,gameStageRef,gam
         />
         {isDOF && <TiltShiftEffects />}
         <WorldModelTextured 
-          targetCoords={gameStageRef.current === "starting" ? randomCoord1LatLan : null}
+          clickedHandler={clickedHandler}
+          targetCoords={randomCoord1LatLan}
           onTargetFound={onTargetFound}
+          showHelper={showHelper}
         />
         <ambientLight intensity={0.02} />
         <pointLight position={[2,2,2]} />
@@ -86,12 +99,23 @@ export default function ModelGameStage({onGreenClicked,children,gameStageRef,gam
             onGreenClicked(e)
           }}>
           <Cylinder args={[0,0.5,1,4]}  position={[0,0.54,0]} >
-            <meshStandardMaterial color={gameStageRef.current === "starting" ? "#ff9999" : "#aaffaa"} side={1} />
+            <meshStandardMaterial color={showHelper ? "#ff9999" : "#aaffaa"} side={1} />
           </Cylinder>
           <Cylinder args={[.5,0,1,4]}  position={[0,-.54,0]} >
-            <meshStandardMaterial color={gameStageRef.current === "starting" ? "#ff9999" : "#aaffaa"} />
+            <meshStandardMaterial color={showHelper ? "#ff9999" : "#aaffaa"} />
           </Cylinder>
+
           </group>    
+          {attempts > 0 && (
+            <Text fontSize={0.4} color="#ff4400"  position={[0,2.2,0]}>
+              {attempts}
+            </Text>
+          )}
+          {winAttempts > 0 && (
+            <Text fontSize={0.3} color="#44ff00"  position={[0,1.3,0]}>
+              {winAttempts}
+            </Text>
+          )}
           <group position={[0,-3, 0]} > <WormHoleModel /> </group>
           </group>    
         </group>
