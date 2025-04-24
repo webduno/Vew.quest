@@ -210,7 +210,40 @@ useEffect(() => {
       </div>
     )}
 
-    {!!selectedInputType && (
+{selectedInputType === 'sketch' && (
+      optionsValue.natural === 0 && optionsValue.temp === 0 && optionsValue.light === 0 && optionsValue.color === 0 && optionsValue.solid === 0
+    ) && (
+      <>
+      
+
+        <div className='px-4'>
+          <div className='tx-white pointer tx-center pa-2 bord-r-10 mt-4'
+            onClick={()=>{
+              // early return and triggersnackbar if multi-options are 0
+              // if(selectedInputType !== 'multi-options' && optionsValue.natural === 0 && optionsValue.temp === 0 && optionsValue.light === 0 && optionsValue.color === 0 && optionsValue.solid === 0){
+              //   triggerSnackbar("Please, attempt to fill the multi-options form", "error")
+                setSelectedInputType('multi-options')
+              //   return
+              // }
+              
+              
+              // handleSend()
+            }}
+            style={{ 
+              boxShadow: "0 4px 0 #6B69CF",
+              background: "#807DDB"
+             }}
+          >
+            <div>Continue</div>
+          </div>
+        </div>
+      </>
+    )}
+
+
+{!(selectedInputType === 'sketch' && (
+      optionsValue.natural === 0 && optionsValue.temp === 0 && optionsValue.light === 0 && optionsValue.color === 0 && optionsValue.solid === 0
+    )) && (
       <>
       
 

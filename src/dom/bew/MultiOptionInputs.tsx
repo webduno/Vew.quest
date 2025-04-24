@@ -46,6 +46,24 @@ export const MultiOptionInputs = ({
     }}
     >
       <div className='pa-2 Q_xs_py-1 bord-r-10 tx-'>
+        <button className="tx-bold mb-2 pointer pos-abs right-0 top-0 "
+        onClick={()=>{
+          const newValues = {
+            ...values,
+            natural: Math.floor(Math.random() * 100),
+            temp: Math.floor(Math.random() * 100),
+            light: Math.floor(Math.random() * 100),
+            color: Math.floor(Math.random() * 100),
+            solid: Math.floor(Math.random() * 100)
+          };
+          setValues(newValues);
+          onValueChange(newValues);
+        }}
+         style={{
+          borderBottom: "1px solid #ffae2e",
+          color:"#ffae2e"}}>
+          <div>Randomize All</div>
+        </button>
         <div className="tx-bold mb-2" style={{color:"#afafaf"}}>Target Type</div>
         <div className='flex-row flex-wrap gap-3'>
           {(['object', 'entity', 'place', 'event'] as InputType[]).map((type) => (
