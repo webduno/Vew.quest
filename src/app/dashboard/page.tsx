@@ -2,23 +2,13 @@
 import { useState, useCallback, useEffect } from 'react';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
-import { AnalogModalScreen } from '@/dom/molecule/game/SenseMeter/AnalogModalScreen';
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
-import { BewLogo } from '@/dom/atom/logo/BewLogo';
-import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
-import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import targetsData from '@/../public/data/targets_1.json';
-import { AnalogMobileScreen } from '@/dom/organ/vew_tool/VewPanelTool';
-import CanvasDraw from 'react-canvas-draw';
-import { Tooltip } from 'react-tooltip';
-import { BewUserStatsSummary, WrappedBewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';
-import { ResultBadge } from '../../dom/bew/ResultBadge';
+import { WrappedBewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { LessonsContainer } from '../../dom/bew/LessonsContainer';
 import { PreLessonsContainer } from "@/dom/bew/PreLessonsContainer";
-import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
-import { random10CharString } from '../../../script/utils/platform/random10CharString';
 import { LeaderboardTable } from '@/dom/bew/LeaderboardTable';
 import { VersionTag } from '@/dom/bew/VersionTag';
 
