@@ -102,6 +102,7 @@ export async function POST(request: Request) {
       }
 
       const objList = {
+        result: overallAccuracy,
         target_id: randomTargetCode.padStart(12, '0'),
         target: {
           type: typeString,
