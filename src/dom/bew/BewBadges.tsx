@@ -64,7 +64,7 @@ export const BewBadges = ({
       )}
 
       {hasMoreThanFirstDaysValue && (
-        <LessonCard 
+        <BadgeCard 
           title="First Viewer"
           emoji="♾️"
           href="#"

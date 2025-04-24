@@ -91,7 +91,7 @@ export const BewUserStatsSummary = ({
               color: "#D68800",
             }}>
               <div className='flex-row gap-1'>
-                <div>{dailyProgress}/{dailyGoal}</div>
+                <div>{dailyProgress || 0}/{dailyGoal || 3}</div>
                 <div>Targets</div>
               </div>
             </div>
@@ -108,7 +108,7 @@ export const BewUserStatsSummary = ({
               backgroundColor: "#807DDB",
               boxShadow: "0px 4px 0 0px #6B69CF",
             }}
-            >View Profile</div>
+            >{LS_playerId?.slice(0, 9) + ((LS_playerId || "")?.length > 9 ? "..." : "")}{"'s Profile"}</div>
           </a>
           <Tooltip id="view-profile-tooltip" />
           <Tooltip id="home-tooltip" />

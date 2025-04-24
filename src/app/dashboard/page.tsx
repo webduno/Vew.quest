@@ -320,6 +320,42 @@ export default function TrainingPage() {
         
         </div>
         <hr className='w-100 opaci-20 mt-100'  />
+
+        
+        <div className='mt-8 pb- '>
+
+
+<div className='bord-r-10  mb-8 px-4' 
+style={{
+border: "1px solid #E5E5E5",
+}}
+>
+<div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 '>
+<div className='tx-bold px-4' 
+style={{
+color: "#4B4B4B",
+}}
+>Top Players</div>
+<a 
+className='tx-bold px-4 pointer nodeco' 
+href="/leaderboard"
+style={{
+color: "#22AEFF",
+}}
+>View All</a>
+</div>
+
+
+
+  <LeaderboardTable 
+    leaderboard={leaderboard || []}
+    isLoading={isLoadingLeaderboard}
+    error={leaderboardError}
+    currentPlayerId={LS_playerId}
+  />
+</div>
+</div>
+        <hr className='w-100 opaci-20 mt-1 00'  />
         <div className='w-100 w-max-1080px flex-col  pt-8  flex-justify-center flex-align-start gap-4'>
 
 <div className='flex-col w-100 '>
@@ -343,39 +379,6 @@ export default function TrainingPage() {
                 </div>
                 </div>
                 <PreLessonsContainer />
-                <div className='mt-8 pb-100'>
-
-
-                <div className='bord-r-10  mb-8 px-4' 
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
-      >
-        <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 '>
-          <div className='tx-bold px-4' 
-          style={{
-            color: "#4B4B4B",
-          }}
-          >Top Players</div>
-          <a 
-          className='tx-bold px-4 pointer nodeco' 
-          href="/leaderboard"
-          style={{
-            color: "#22AEFF",
-          }}
-          >View All</a>
-        </div>
-
-
-
-                  <LeaderboardTable 
-                    leaderboard={leaderboard || []}
-                    isLoading={isLoadingLeaderboard}
-                    error={leaderboardError}
-                    currentPlayerId={LS_playerId}
-                  />
-                </div>
-    </div>
     </div>
 
 
