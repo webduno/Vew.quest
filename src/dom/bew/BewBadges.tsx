@@ -34,7 +34,7 @@ export const BewBadges = ({
   return (
     <>
       {hasMoreThan3DaysStreakValue && (
-        <LessonCard 
+        <BadgeCard 
           styleOverride={{
             width: "100px",
             fontSize: "12px",
@@ -49,9 +49,9 @@ export const BewBadges = ({
               confettiColors: ['#FFB02E', '#FF6723', '#333333'],
               confettiNumber: 50,
             });
-            triggerSnackbar((<div className='tx-center flex-col'>
+            triggerSnackbar((<div className='tx-center tx-shadow-2 flex-col'>
             <div>
-             Regular viewers viewed <br /> more than 3<span className='tx-shadow-5'>🔥</span> days in a row!
+             Regular viewers club <br /> more than 2<span className='tx-shadow-5'>🔥</span> days in a row!
             </div>
             </div>), 'handbook');
             setTimeout(() => {
