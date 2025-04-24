@@ -86,10 +86,25 @@ export function LeaderboardTable({ leaderboard, isLoading, error, currentPlayerI
           </div>
           <div className='tx-bold-2 pl-2'>
             {entry.streak > 0 ? (
-              <span className='tx-bold-8' style={{ color: "#dd902E" }}>🔥{entry.streak}</span>
+              <>
+              {entry.streak >= entry.potential_streak ? (
+                <span className='tx-bold-8' style={{ color: "#dd902E" }}>🔥{entry.streak}</span>
+              ) : (
+                <span className='tx-bold-8' style={{ color: "#dd902E", filter: "grayscale(100%)" }}>🔥{entry.streak}</span>
+              )}
+              </>
             ) : (
-              <span className='tx-bold-2' style={{ filter: "grayscale(100%)" }}>🔥{entry.potential_streak || 0}</span>
+              <>
+              <span className='tx-bold-2' style={{ filter: "grayscale(100%)" }}>🔥{entry.potential_streak}</span>
+              </>
             )}
+              {/* <span className='tx-bold-2' style={{ filter: "grayscale(100%)" }}>
+                🔥
+                {entry.potential_streak}
+                /
+                {entry.streak}
+                </span> */}
+
           </div>
         </div>
       ))}
