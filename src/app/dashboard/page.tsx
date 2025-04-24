@@ -20,7 +20,6 @@ import { BewPageHeader } from '@/dom/bew/BewPageHeader';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 import { random10CharString } from '../../../script/utils/platform/random10CharString';
 import { LeaderboardTable } from '@/dom/bew/LeaderboardTable';
-import { sortAndFilterLeaderboard } from '@/script/utils/leaderboard/sortLeaderboard';
 import { VersionTag } from '@/dom/bew/VersionTag';
 
 type TargetsData = {
@@ -50,7 +49,7 @@ export default function TrainingPage() {
   }, []);
 
   useEffect(() => {
-    fetchLeaderboard();
+    fetchLeaderboard(true );
   }, [fetchLeaderboard]);
 
   const { LS_playerId, typedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
@@ -250,9 +249,9 @@ export default function TrainingPage() {
         </a>
       </>} />
       
-      <BewPageHeader title={"DASHBOARD"} />
+      {/* <BewPageHeader title={"DASHBOARD"} /> */}
       
-    <div className='w-100 w-max-1080px Q_xs_sm_flex-col flex-row-r  pt-8  flex-justify-center flex-align-center gap- 4'>
+    <div className='w-100 w-max-1080px Q_xs_sm_flex-col flex-row  pt- 8  flex-justify-center flex-align-center gap- 4'>
 
         
 
@@ -280,7 +279,7 @@ export default function TrainingPage() {
         style={{
           filter: "blur(0px)",
         }}
-         alt="tool_bg2" className=' hover-bird pos-abs noverflow block w-150px Q_xs_pt- 8 pb-100' />
+         alt="tool_bg2" className='Q_sm_x hover-bird pos-abs noverflow block w-150px Q_xs_pt- 8 pb-100' />
 
 
 
@@ -288,7 +287,7 @@ export default function TrainingPage() {
         style={{
           
         }}
-         alt="tool_bg1" className=' bord-r-50 noverflow block w-250px' />
+         alt="tool_bg1" className='Q_sm_x bord-r-50 noverflow block w-250px' />
 </>
 )}
 
@@ -370,7 +369,7 @@ export default function TrainingPage() {
 
 
                   <LeaderboardTable 
-                    leaderboard={leaderboard ? sortAndFilterLeaderboard(leaderboard).slice(0, 10) : []}
+                    leaderboard={leaderboard || []}
                     isLoading={isLoadingLeaderboard}
                     error={leaderboardError}
                     currentPlayerId={LS_playerId}

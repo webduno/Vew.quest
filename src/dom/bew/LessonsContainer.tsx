@@ -15,6 +15,17 @@ export interface LessonCardProps {
   actionStyle?: React.CSSProperties;
   forcedClick?: () => void;
 }
+export interface BadgeCardProps {
+  title: string;
+  href: string;
+  emoji: string;
+  backgroundColor?: string;
+  boxShadowColor?: string;
+  styleOverride?: React.CSSProperties;
+  actionText?: string;
+  actionStyle?: React.CSSProperties;
+  forcedClick?: () => void;
+}
 
 export const LessonsContainer = () => {
   const { playSoundEffect } = useBackgroundMusic();

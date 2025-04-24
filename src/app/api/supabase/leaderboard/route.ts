@@ -1,6 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 import { calculateStreak, calculatePotentialStreak } from '@/script/utils/streak';
+import { sortAndFilterLeaderboard } from '@/script/utils/leaderboard/sortLeaderboard';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -21,9 +22,12 @@ interface PlayerScores {
   [key: string]: number;
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
+    const { searchParams } = new URL(request.url);
+    const topOnly = searchParams.get('topOnly') === 'true';
+    
     console.log('Fetching leaderboard data...');
     const { data, error } = await supabase
       .from('crv_object')
@@ -84,9 +88,11 @@ export async function GET() {
         streak: stats.streak,
         potential_streak: stats.potential_streak,
         rank: 0 // Will be set after sorting
-      }))
-      .sort((a, b) => b.total_score - a.total_score)
-      .slice(0, 77)
+      }));
+
+    // Sort and filter the leaderboard
+    const sortedLeaderboard = sortAndFilterLeaderboard(leaderboard)
+      .slice(0, topOnly ? 12 : 77)
       .map((entry, index) => ({
         ...entry,
         rank: index + 1
@@ -94,7 +100,7 @@ export async function GET() {
 
     return NextResponse.json({ 
       success: true, 
-      data: leaderboard
+      data: sortedLeaderboard
     }, {
       headers: {
         'Cache-Control': 'no-store, no-cache, must-revalidate',

@@ -3,6 +3,7 @@ import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusi
 import JSConfetti from 'js-confetti';
 import { useRef, useEffect, useContext } from 'react';
 import { ProfileSnackbarContext } from '../../../script/state/context/ProfileSnackbarProvider';
+import { BadgeCard } from './BadgeCard';
 
 interface BewBadgesProps {
   hasMoreThan3DaysStreakValue: boolean;
@@ -90,9 +91,11 @@ export const BewBadges = ({
       )}
 
       {totalRequests >= 9 && (
-        <LessonCard 
+        <BadgeCard 
           title="Seer Achievement"
           actionText={"Details"}
+          backgroundColor="#80DB7D"
+          boxShadowColor="#40aB3D"
           emoji="👀"
           href="#"
           forcedClick={() => {

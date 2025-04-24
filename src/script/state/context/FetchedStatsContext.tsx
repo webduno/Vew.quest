@@ -60,7 +60,7 @@ interface FetchedStatsContextType {
   leaderboard: LeaderboardEntry[] | null;
   isLoadingLeaderboard: boolean;
   leaderboardError: string | null;
-  fetchLeaderboard: () => Promise<void>;
+  fetchLeaderboard: (topOnly?: boolean) => Promise<void>;
 }
 
 const FetchedStatsContext = createContext<FetchedStatsContextType | undefined>(undefined);
@@ -117,10 +117,10 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
     }
   }, [lastFetchTime]);
 
-  const fetchLeaderboard = useCallback(async () => {
+  const fetchLeaderboard = useCallback(async (topOnly: boolean = false) => {
     try {
       setIsLoadingLeaderboard(true);
-      const response = await fetch('/api/supabase/leaderboard');
+      const response = await fetch(`/api/supabase/leaderboard?topOnly=${topOnly}`);
       const data = await response.json();
       
       if (data.success) {
