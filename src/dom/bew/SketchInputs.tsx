@@ -129,8 +129,12 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
         <button  className='z-1000 '
           onClick={() => {
             if (canvasRef.current) {
-              canvasRef.current.clear();
-              onValueChange('');
+              try {
+                canvasRef.current.clear();
+                onValueChange('');
+              } catch (e) {
+                console.warn('Failed to clear canvas:', e);
+              }
             }
           }}
           style={{
