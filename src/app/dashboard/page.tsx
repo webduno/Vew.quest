@@ -8,7 +8,7 @@ import { BewLogo } from '@/dom/atom/logo/BewLogo';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import targetsData from '@/../public/data/targets_1.json';
-import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
+import { AnalogMobileScreen } from '@/dom/organ/vew_tool/VewPanelTool';
 import CanvasDraw from 'react-canvas-draw';
 import { Tooltip } from 'react-tooltip';
 import { BewUserStatsSummary, WrappedBewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';

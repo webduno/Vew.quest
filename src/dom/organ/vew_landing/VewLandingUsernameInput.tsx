@@ -5,7 +5,7 @@ interface LandingUsernameInputProps {
   handleStart: () => void;
 }
 
-export function LandingUsernameInput({ typedUsername, setTypedUsername, handleStart }: LandingUsernameInputProps) {
+export function VewLandingUsernameInput({ typedUsername, setTypedUsername, handleStart }: LandingUsernameInputProps) {
   return (
     <div>
       <input 

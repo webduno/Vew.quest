@@ -1,8 +1,8 @@
 'use client';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
-import { random10CharString } from '../../../script/utils/platform/random10CharString';
+import { random10CharString } from '../../../../script/utils/platform/random10CharString';
 import { GameState } from '@/app/(tool)/tool/page';
-import { VersionTag } from './VersionTag';
+import { VersionTag } from '../../bew/VersionTag';
 
 export interface InitialToolLoginProps {
   gameState: GameState;
@@ -13,7 +13,7 @@ export interface InitialToolLoginProps {
   handleStart: () => void;
   sanitizePlayerId: (id: string) => string;
 }
-export const InitialToolLogin: React.FC<InitialToolLoginProps> = ({
+export const VewToolLogin: React.FC<InitialToolLoginProps> = ({
   gameState, setGameState, typedUsername, setTypedUsername, isLoading, handleStart, sanitizePlayerId
 }) => {
   const version = process.env.VEW_PUBLIC_VERSION 

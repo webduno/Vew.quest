@@ -5,11 +5,11 @@ import { useLSPlayerId } from '@/../script/state/hook/usePlayerStats';
 import { random10CharString } from "@/../script/utils/platform/random10CharString";
 
 import { BewUserStatsSummary } from '@/dom/bew/BewUserStatsSummary';
-import { LandingProfileActionButton } from '@/dom/organ/vew/LandingProfileActionButton';
-import { LandingUsernameInput } from '@/dom/organ/vew/LandingUsernameInput';
+import { VewLandingProfileActionButton } from '@/dom/organ/vew_landing/VewLandingProfileActionButton';
+import { VewLandingUsernameInput } from '@/dom/organ/vew_landing/VewLandingUsernameInput';
 import { BewPurpleBtn } from '@/dom/bew/BewBtns';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
-import { VewLandingGraphic } from '@/dom/organ/vew/VewLandingGraphic.tsx';
+import { VewLandingGraphic } from '@/dom/organ/vew_landing/VewLandingGraphic.tsx';
 
 
 export default function TrainingPage() {
@@ -83,7 +83,7 @@ export default function TrainingPage() {
                 </div>
               </>)}
               
-              <LandingUsernameInput 
+              <VewLandingUsernameInput 
                 typedUsername={typedUsername}
                 setTypedUsername={setTypedUsername}
                 handleStart={handleStart}
@@ -92,7 +92,7 @@ export default function TrainingPage() {
               <div className="flex-row flex-align-start">
                 {userExists > 0 && (
                   <div className='flex-row'>
-                    <LandingProfileActionButton typedUsername={typedUsername} handleStart={handleStart} />
+                    <VewLandingProfileActionButton typedUsername={typedUsername} handleStart={handleStart} />
                   </div>
                 )}
                 <div>

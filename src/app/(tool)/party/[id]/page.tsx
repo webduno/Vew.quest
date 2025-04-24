@@ -1,24 +1,15 @@
 'use client';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
-import { AnalogModalScreen } from '@/dom/molecule/game/SenseMeter/AnalogModalScreen';
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
-import { BewLogo } from '@/dom/atom/logo/BewLogo';
-import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
-import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import targetsData from '@/../public/data/targets_1.json';
-import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
 import { Tooltip } from 'react-tooltip';
-import { BewUserStatsSummary, WrappedBewUserStatsSummary } from '../../../../dom/bew/BewUserStatsSummary';
+import { WrappedBewUserStatsSummary } from '../../../../dom/bew/BewUserStatsSummary';
 import { isMobile } from '../../../../../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
-import { MenuBarItem } from '@/dom/bew/MenuBarItem';
-import { random10CharString } from '../../../../../script/utils/platform/random10CharString';
-import { InitialToolLogin } from '@/dom/bew/InitialToolLogin';
 import { generateRandomTargetRandomized } from '../../../../../script/utils/platform/generateRandomTargetRandomized';
 import { ToolResultsCard } from '../../../../dom/bew/ToolResultsCard';
-import { BewWorldLogo } from '@/dom/bew/BewWorldLogo';
 import { useBackgroundMusic } from '../../../../../script/state/context/BackgroundMusicContext';
 import { MenuIconBar } from '@/dom/bew/MenuIconBar';
 import { PartyScreen, WaitingRoom } from '@/dom/bew/PartyScreen';

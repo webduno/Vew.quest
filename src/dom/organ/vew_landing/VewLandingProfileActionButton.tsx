@@ -1,6 +1,6 @@
 import { Tooltip } from "react-tooltip";
 
-export const LandingProfileActionButton = ({typedUsername, handleStart}: {typedUsername: string, handleStart: () => void}) => {
+export const VewLandingProfileActionButton = ({typedUsername, handleStart}: {typedUsername: string, handleStart: () => void}) => {
     return (<>
       <Tooltip id="profile-tooltip" />
               <a href="/profile"

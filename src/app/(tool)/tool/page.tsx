@@ -1,27 +1,25 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
-import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
-
-import { AnalogModalScreen } from '@/dom/molecule/game/SenseMeter/AnalogModalScreen';
-import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
-import { BewLogo } from '@/dom/atom/logo/BewLogo';
-import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
-import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
-import targetsData from '@/../public/data/targets_1.json';
-import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
 import { Tooltip } from 'react-tooltip';
-import { BewUserStatsSummary, WrappedBewUserStatsSummary } from '../../../dom/bew/BewUserStatsSummary';
-import { isMobile } from '../../../../script/utils/platform/mobileDetection';
-import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
-import { MenuBarItem } from '@/dom/bew/MenuBarItem';
-import { random10CharString } from '../../../../script/utils/platform/random10CharString';
-import { InitialToolLogin } from '@/dom/bew/InitialToolLogin';
-import { generateRandomTargetRandomized } from '../../../../script/utils/platform/generateRandomTargetRandomized';
-import { ToolResultsCard } from '../../../dom/bew/ToolResultsCard';
-import { BewWorldLogo } from '@/dom/bew/BewWorldLogo';
-import { useBackgroundMusic } from '../../../../script/state/context/BackgroundMusicContext';
 import JSConfetti from 'js-confetti';
+
+import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
+import { useBackgroundMusic } from '@/../script/state/context/BackgroundMusicContext';
+import { generateRandomTargetRandomized } from '@/../script/utils/platform/generateRandomTargetRandomized';
+import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
+import { isMobile } from '@/../script/utils/platform/mobileDetection';
+import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
+
+import targetsData from '@/../public/data/targets_1.json';
+import { VewPanelTool } from '@/dom/organ/vew_tool/VewPanelTool';
+import { WrappedBewUserStatsSummary } from '../../../dom/bew/BewUserStatsSummary';
+import { VewToolLogin } from '@/dom/organ/vew_tool/VewToolLogin';
+import { ToolResultsCard } from '../../../dom/bew/ToolResultsCard';
 import { MenuIconBar } from '@/dom/bew/MenuIconBar';
+import { VewMobileHeader } from '@/dom/organ/vew_tool/VewMobileHeader';
+import { VewToolTitleNav } from '@/dom/organ/vew_tool/VewToolTitleNav';
+import { VewPreviewImage } from '../../../dom/organ/vew_tool/VewPreviewImage';
+import { VewAltLogo } from '../../../dom/organ/vew_tool/VewAltLogo';
 
 type TargetsData = {
   [key: string]: string;
@@ -310,7 +308,7 @@ emojiSize:50,
       
       <div className='w-100  flex-col  '>
         {gameState === 'initial' && (
-          <InitialToolLogin
+          <VewToolLogin
             gameState={gameState}
             setGameState={setGameState}
             typedUsername={typedUsername}
@@ -324,105 +322,30 @@ emojiSize:50,
         {gameState === 'playing' && (
           <div className='flex-col w-100 '>
             <div className='flex-row w-100 flex-justify-stretch flex-align-start'>
-              <MenuIconBar 
-                playSoundEffect={playSoundEffect}
-              />
+
+              <MenuIconBar  playSoundEffect={playSoundEffect} />
 
               <div className='flex-1 flex-col flex-align-stretch  flex-justify-start '>
-                {<div className='Q_xs flex-row px-4'>
-                   <WrappedBewUserStatsSummary  minified={true} />
-                   <div className='flex-1 flex-col flex-align-end '>
-                      <a href="/profile" className='nodeco tx-lg bord-r-100 hover-jump bord-r-100 pointer noverflow block pa-1 pt-3'
-                      
-                      >
-                        <img src="/bew/pfp/row-4-column-1.png" alt="profile" width="36px bord-r-100 pointer noverflow block" />
-                      </a>
-                   </div>
-                </div>}
-                {<div className='Q_sm_x py-2 '> </div>}
-               
                 
-                <div className='pos-rel tx-white ma-4 pa-4 mt-0 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
-                style={{
-                  background: "#807DDB",
-                  boxShadow: "0 4px 0 #6B69CF",
-                }}
-                >
-                <a href="/dashboard"           style={{color: "#fafafa"}}     
-                className='opaci-50 nodeco pointer'>← Go to Dashboard</a>
-                <div className='tx-bold tx-lg'>Target Code #{target?.code}</div>
+                <VewMobileHeader />
 
+                {<div className='Q_sm_x py-2 '> </div>}
+                
+                <VewToolTitleNav target={target} setShowImageModal={setShowImageModal}
+                  playSoundEffect={playSoundEffect}
+                 />
 
-
-                <div
-                style={{
-                  transform: "translate(-100%,-25%)",
-                  background: "#fafafa",
-                  boxShadow: "0 4px 0 #cccccc",
-                  width: "40px",
-                  height: "40px",
-                }}
-                onClick={() => {
-                  playSoundEffect("/sfx/short/chairsit.mp3")
-                  setShowImageModal( prev => !prev);
-                }}
-                data-tooltip-id="image-preview-tooltip"
-                data-tooltip-content="View Target"
-                data-tooltip-place="bottom"
-                data-tooltip-variant='light'
-                className='m r-4 pointer flex-row gap-2 bg-b-10 flex-col  bord-r-100 pos-abs right-0 top-0'>
-                  {/* eye emoji */}
-                  <div className='tx-mdl'>👀</div>
-                </div>
-                <Tooltip id="image-preview-tooltip" />
-
-
-
-
-
-
-                </div>
                 <div className='flex-1 tx-altfont-2 flex-col '>
 
-
-
-
-
-              
-
-
-              
-                <AnalogMobileScreen
+                  <VewPanelTool
                       setEnableLocked={setEnableLocked}
                       enableLocked={enableLocked}
                       onFullSend={handleFullSend}
                     />
 
-
-
-
-
                 </div>
 
-
-
-
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -434,49 +357,18 @@ emojiSize:50,
 
 
 
-
             </div>
           </div>
         )}
 
         {gameState !== 'results' && showImageModal && (<>
         <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10  z-200'>
-        <div className='flex-col px-8  flex-align-center tx-altfont-2 gap-2  bg-white box-shadow-2-b bord-r-15 pa-4'>
-          <div className='flex-col w-100'>
-            <div onClick={() => {
-              setShowImageModal(false);
-            }}
-            className='opaci-chov--75 tx-bold tx-lg pb-2 '>
-              <div className='opaci-25 underline'>Close Target Image</div>
-            </div>
-          </div>
-            <img className='block pos-rel bord-r-15'
-                      src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
-                      alt={selectedTargetInfo?.description}
-                      style={{
-                        overflow: 'hidden',
-                        width: '100%',
-                        maxWidth: '300px',
-                        maxHeight: '300px', 
-                        objectFit: 'contain'
-                      }}
-                    />
-                    <div className="tx-center tx-altfont-2 mt-2 w-250px"
-                    style={{
-                      color: "#4B4B4B",
-                    }}>
-                      {selectedTargetInfo?.description}
-                    </div>
-                    </div>
+        <VewPreviewImage selectedTargetInfo={selectedTargetInfo} 
+          setShowImageModal={setShowImageModal} 
+        />
+
                     </div>
         </>)}
-
-
-
-
-
-
-
 
 
 
@@ -486,14 +378,7 @@ emojiSize:50,
           filter: "hue-rotate(160deg) brightness(1.5)",
         }}
         >
-      <a href="/" className='pointer flex-col nodeco pos-rel '>
-      <div className="flex-row">
-      <div className='tx-bold' style={{ color: "#6B69CF" }}>Vew</div>
-      <div className='tx-bold' style={{ color: "#2B29AF" }}>.quest</div>
-      </div>
-
-      <img src="/bew/pnglogo.png" alt="tool_bg" width="50px" className='opaci-50 ' />
-    </a>
+      <VewAltLogo />
           
 
         </div>
@@ -513,34 +398,14 @@ emojiSize:50,
           />
         </>)}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
     </div>
   );
 } 
+
+
+
+
 
 
 
