@@ -24,11 +24,11 @@ export const BadgeCard = ({
         ...styleOverride
       }}
     >
-      <div className='pos-abs pa-5 mb-4 bg-b-40'
+      <div className='pos-abs pa-5 mb-4 bg-b-20 z-100'
       style={{filter:"blur(10px)"}}
       >
       </div>
-      <div className={`tx-center pt-2 landing hover-${Math.floor(Math.random() * 20)} -title tx-xl`}>{emoji}</div>
+      <div className={`tx-center pt-2 z-200 landing hover-${Math.floor(Math.random() * 20)} -title tx-xl`}>{emoji}</div>
       <div className='tx-center tx-mdl landing -title pb-'>{title}</div>
       {!!actionText && (
       <div>

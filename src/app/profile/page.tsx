@@ -412,7 +412,13 @@ style={{
           const journeyElement = document.getElementById('journey');
           if (journeyElement) {
             journeyElement.scrollIntoView({ behavior: 'smooth' });
-            alert('Date: \n ' + new Date().toISOString().split('T')[0]);
+            triggerSnackbar(<div className='tx-center py-1 flex-col'>
+              {/* full date and time human readable */}
+              <div>First Remote Viewing</div>
+              <div className=''>
+                {new Date().toLocaleString()}
+              </div>
+            </div>, "warning");
           }
         }}
             secondaryColor="#D07900"
@@ -427,7 +433,7 @@ style={{
           </div>
           <div className='flex-col gap-2 w-100'>
             <div className='tx-altfont-2 w-max-300px opaci-50'>
-            {userStats.firstRequestDate ? `You made your first remote viewing on ${new Date(userStats.firstRequestDate).toDateString()} with an high accuracy.` : 'No remote viewings yet.'}
+            {userStats.firstRequestDate ? `You made your first remote viewing on ${new Date(userStats.firstRequestDate).toDateString()} with a high accuracy.` : 'No remote viewings yet.'}
             <br />
             <br />
             And have made {userStats.totalRequests} requests since then.
@@ -443,7 +449,13 @@ style={{
           const journeyElement = document.getElementById('journey');
           if (journeyElement) {
             journeyElement.scrollIntoView({ behavior: 'smooth' });
-            alert('Date: \n ' + new Date().toISOString().split('T')[0]);
+            triggerSnackbar(<div className='tx-center py-1 flex-col'>
+              {/* full date and time human readable */}
+              <div>Last Remote Viewing</div>
+              <div className=''>
+                {new Date().toLocaleString()}
+              </div>
+            </div>, "purple");
           }
         }}
             secondaryColor="#6366f1"
@@ -465,7 +477,12 @@ Let the algorithm generate a story based on your viewing history.
 <LessonCard
 title="Arborization"
 emoji="🌳"
-href="/"
+href="#"
+forcedClick={() => {
+  triggerSnackbar(<div className='tx-center py-1'>
+    <div>Arborization is <br /> coming soon!</div>
+  </div>, "success");
+}}
 actionText="Start"
 
 boxShadowColor="#4C8A55"
