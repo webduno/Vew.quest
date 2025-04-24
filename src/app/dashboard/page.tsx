@@ -11,7 +11,7 @@ import targetsData from '@/../public/data/targets_1.json';
 import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
 import CanvasDraw from 'react-canvas-draw';
 import { Tooltip } from 'react-tooltip';
-import { BewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';
+import { BewUserStatsSummary, WrappedBewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';
 import { ResultBadge } from '../../dom/bew/ResultBadge';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { LessonsContainer } from '../../dom/bew/LessonsContainer';
@@ -30,7 +30,7 @@ type TargetsData = {
 type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {
-  const { isLoading,crvObjects,mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, leaderboard, isLoadingLeaderboard, leaderboardError, fetchLeaderboard } = useFetchedStats();
+  const { isLoading,crvObjects,leaderboard, isLoadingLeaderboard, leaderboardError, fetchLeaderboard } = useFetchedStats();
 
   useEffect(() => {
     if (isLoading) { return; }
@@ -53,7 +53,7 @@ export default function TrainingPage() {
     fetchLeaderboard();
   }, [fetchLeaderboard]);
 
-  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
+  const { LS_playerId, typedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const [enterUsername, setEnterUsername] = useState(false);
   const [isLoadingMyRequests, setIsLoadingMyRequests] = useState(false);
   const [myRequests, setMyRequests] = useState<null | {
@@ -63,37 +63,6 @@ export default function TrainingPage() {
     solved: number;
     created_at: string;
   }[]>(null);
-  const handleMyRequests = async () => {
-    const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
-    if (!LS_playerId) {
-      alert('No player ID found');
-      return;
-    }
-
-    try {
-      setIsLoadingMyRequests(true);
-      const response = await fetch(`/api/supabase/crvmailbox?playerId=${LS_playerId}`, {
-        headers: {
-          'Cache-Control': 'no-store, no-cache, must-revalidate',
-          'Pragma': 'no-cache'
-        },
-        cache: 'no-store'
-      });
-      const data = await response.json();
-      
-      if (!data.success || !data.data || data.data.length === 0) {
-        alert('You dont have any requests!');
-        return;
-      }
-
-      setMyRequests(data.data);
-    } catch (error) {
-      console.error('Error fetching my requests:', error);
-      alert('Error fetching requests');
-    } finally {
-      setIsLoadingMyRequests(false);
-    }
-  }
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [enableLocked, setEnableLocked] = useState(false);
   const [gameState, setGameState] = useState<GameState>('initial');
@@ -264,75 +233,10 @@ export default function TrainingPage() {
         storageKey: LS_playerId
       })
     });
-    const saveData = await saveResponse.json();
   }, [target]);
 
-  const handleRequestCRV = async () => {
-    const newRequestDescription = prompt('Enter a new CRV request description:');
-    const newRequestBounty = prompt('Enter a bounty (OPTIONAL)');
 
-    if (!newRequestDescription?.trim() || isSubmitting) return;
-    const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
-    const creator_id = LS_playerId || random10CharString();
-    
-    // Save the generated ID if it's new
-    if (!LS_playerId) {
-      localStorage.setItem('VB_PLAYER_ID', creator_id);
-    }
-    
-    setIsSubmitting(true);
-    try {
-      const response = await fetch('/api/supabase/requests', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-store, no-cache, must-revalidate',
-          'Pragma': 'no-cache'
-        },
-        body: JSON.stringify({
-          description: newRequestDescription.trim(),
-          creator_id,
-          bounty: newRequestBounty
-        }),
-        cache: 'no-store'
-      });
 
-      const data = await response.json();
-      setSuccessRequest(data.success);
-    } catch (error) {
-      console.error('Error submitting request:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleFullSend = async (params: {
-    sketch: any;
-    notes: any;
-    options: {type: string;
-    natural: number;
-    temp: number;
-    light: number;
-    color: number;
-    solid: number;
-    confidence: number;}
-  }) => {
-    setSketchData(params.sketch);
-    setNotes(params.notes);
-    handleSend(params.options, params.notes, params.sketch);
-    
-  }
-
-  const handleTryAgain = async () => {
-    const newTarget = await fetchRandomFromCocoDatabase();
-    setShowImageModal(false);
-    setShowSketchModal(false);
-    setSketchData(null);
-    setTarget(newTarget);
-    setGameState('playing');
-    setResults(null);
-    setSentObject(null);
-  }
 
   return(<>
     <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
@@ -366,7 +270,7 @@ export default function TrainingPage() {
           <div className='bord-r-15  pb-2 px-4' style={{
             border: "1px solid #f0f0f0",
           }}>
-            <BewUserStatsSummary minified />
+            <WrappedBewUserStatsSummary minified={true} />
           </div>
         </>
         )}

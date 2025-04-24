@@ -40,11 +40,11 @@ export default function RootLayout({
         height: '100vh', overflow: 'hidden' }}>
         {/* <ClientLayout> */}
         <BackgroundMusicProvider>
-        <FetchedStatsProvider>
+        {/* <FetchedStatsProvider> */}
         <ProfileSnackbarProvider>
         {children}
         </ProfileSnackbarProvider>
-        </FetchedStatsProvider>
+        {/* </FetchedStatsProvider> */}
         </BackgroundMusicProvider>
         {/* </ClientLayout> */}
         <Analytics mode="production" />

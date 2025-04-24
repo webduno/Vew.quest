@@ -4,14 +4,36 @@ import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { useState, useEffect } from 'react';
 import { IconStatsBar } from './IconStatsBar';
 
+
+export const WrappedBewUserStatsSummary = ({ minified = false }: { minified?: boolean }) => {
+  const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
+  return <BewUserStatsSummary minified={minified}
+  crvObjects_length={crvObjects.length}
+  calculatedStats={{
+    potentialStreak: potentialStreak,
+    streak: streak,
+    averageResult: averageResult,
+  }} />
+}
 export const BewUserStatsSummary = ({
-  minified = false
+  minified = false,
+  calculatedStats,
+  crvObjects_length = 0
 }: {
   minified?: boolean;
+  calculatedStats?: any;
+  crvObjects_length?: number;
 }) => {
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
-  const { potentialStreak,
-    streak, dailyProgress, dailyGoal, isLoading, error, crvObjects, averageResult } = useFetchedStats();
+  const { potentialStreak, streak, dailyProgress, dailyGoal, isLoading, error,  averageResult } = (calculatedStats || {
+    potentialStreak: 0,
+    streak: 0,
+    dailyProgress: 0,
+    dailyGoal: 0,
+    isLoading: false,
+    error: null,
+    averageResult: 0
+  })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -34,7 +56,7 @@ export const BewUserStatsSummary = ({
   if (minified) {
     return (
       <IconStatsBar potentialStreak={potentialStreak}  streak={streak}
-      points={crvObjects.length}
+      points={crvObjects_length}
       hearts={Math.round(averageResult)}
       />
     );
@@ -42,7 +64,7 @@ export const BewUserStatsSummary = ({
 
   return (<>
     <IconStatsBar potentialStreak={potentialStreak}  streak={streak}
-    points={crvObjects.length}
+    points={crvObjects_length}
     hearts={Math.round(averageResult)}
     />
 

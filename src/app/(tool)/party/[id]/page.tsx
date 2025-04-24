@@ -10,7 +10,7 @@ import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import targetsData from '@/../public/data/targets_1.json';
 import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
 import { Tooltip } from 'react-tooltip';
-import { BewUserStatsSummary } from '../../../../dom/bew/BewUserStatsSummary';
+import { BewUserStatsSummary, WrappedBewUserStatsSummary } from '../../../../dom/bew/BewUserStatsSummary';
 import { isMobile } from '../../../../../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { MenuBarItem } from '@/dom/bew/MenuBarItem';
@@ -33,7 +33,7 @@ type TargetsData = {
 export type PartyGameState = 'initial' | 'playing' | 'results' | 'waiting';
 
 export default function PartyPage() {
-  const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, refetchStats } = useFetchedStats();
+  const { isLoading, crvObjects, refetchStats } = useFetchedStats();
   const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
   const { triggerSnackbar } = useProfileSnackbar();
   const { playSoundEffect } = useBackgroundMusic();
@@ -96,13 +96,6 @@ const [reloadingParty, setReloadingParty] = useState(false);
   // }, []);
 
 
-  const generateNewRound = async () => {
-    const newTarget = await fetchRandomFromCocoDatabase();
-    setTarget(newTarget);
-    setGameState('playing');
-    setResults(null);
-    setSentObject(null);
-  }
 
   const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const [enterUsername, setEnterUsername] = useState(false);
@@ -236,25 +229,6 @@ const sharedIdState = useState<string | null>(null);
     }
   }
 
-  const handleStart = async () => {
-    if (!LS_playerId && !typedUsername) {
-      setEnterUsername(true);
-      return;
-    }
-
-    if (!LS_playerId && typedUsername) {
-      const sanitizedId = sanitizePlayerId(typedUsername);
-      setPlayerId(sanitizedId);
-      localStorage.setItem('VB_PLAYER_ID', sanitizedId);
-      await refetchStats();
-    }
-
-    const newTarget = await fetchRandomFromCocoDatabase();
-    setTarget(newTarget);
-    setGameState('playing');
-    setResults(null);
-    setSentObject(null);
-  };
 
 const handleUpdate = async (e:any)=>{
   console.log("handleUpdate", e, sharedIdState[0]);
@@ -361,7 +335,6 @@ const handleRefresh = async ()=>{
         storageKey: LS_playerId
       })
     });
-    const saveData = await saveResponse.json();
     
     playSoundEffect("/sfx/short/sssccc.mp3")
     // Refetch stats after saving new data
@@ -427,77 +400,9 @@ const handleRefresh = async ()=>{
     }
   }
 
-  const handleRequestCRV = async () => {
-    const newRequestDescription = prompt('Enter a new CRV request description:');
-    const newRequestBounty = prompt('Enter a bounty (OPTIONAL)');
-
-    if (!newRequestDescription?.trim() || isSubmitting) return;
-    const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
-    const creator_id = LS_playerId || random10CharString();
-    
-    // Save the generated ID if it's new
-    if (!LS_playerId) {
-      localStorage.setItem('VB_PLAYER_ID', creator_id);
-    }
-    
-    setIsSubmitting(true);
-    try {
-      const response = await fetch('/api/supabase/requests', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-store, no-cache, must-revalidate',
-          'Pragma': 'no-cache'
-        },
-        body: JSON.stringify({
-          description: newRequestDescription.trim(),
-          creator_id,
-          bounty: newRequestBounty
-        }),
-        cache: 'no-store'
-      });
-
-      const data = await response.json();
-      setSuccessRequest(data.success);
-    } catch (error) {
-      console.error('Error submitting request:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const [selectedInputType, setSelectedInputType] = useState<any>('notes');
-  const handleFullSend = async (params: {
-    sketch: any;
-    notes: any;
-    options: {type: string;
-    natural: number;
-    temp: number;
-    light: number;
-    color: number;
-    solid: number;
-    confidence: number;}
-  }) => {
-    // playSoundEffect("/sfx/short/sssccc.mp3")
-    setSketchData(params.sketch);
-    setNotes(params.notes);
-    handleSend(params.options, params.notes, params.sketch, );
-    
-  }
 
-  const handleTryAgain = async () => {
-    playSoundEffect("/sfx/short/passbip.mp3")
-    const newTarget = await fetchRandomFromCocoDatabase();
-    setTimeout(async () => {
-    setShowImageModal(false);
-    setShowSketchModal(false);
-    setSketchData(null);
-    setTarget(newTarget);
-    setGameState('playing');
-    setResults(null);
-    setSentObject(null);
-  }, 200);
-}
 
   const handleNewTarget = async (params: any) => {
     console.log("handleNewTarget", fullPartyData);
@@ -590,7 +495,7 @@ const handleRefresh = async ()=>{
 
               <div className='flex-1 flex-col flex-align-stretch flex-justify-start h-100'>
                 {<div className='Q_xs flex-row px-4'>
-                   <BewUserStatsSummary minified  />
+                   <WrappedBewUserStatsSummary minified={true} />
                    <div className='flex-1 flex-col flex-align-end '>
                       <a href="/profile" className='nodeco tx-lg bord-r-100 hover-jump bord-r-100 pointer noverflow block pa-1 pt-3'
                       

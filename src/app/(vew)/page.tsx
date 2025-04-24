@@ -1,6 +1,6 @@
 'use client';
 import { useState, useCallback, useEffect } from 'react';
-import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
+import { useLSPlayerId, usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 
 import { Tooltip } from 'react-tooltip';
@@ -10,20 +10,41 @@ import { random10CharString } from "../../../script/utils/platform/random10CharS
 import { LandingProfileActionButton } from '@/dom/bew/LandingProfileActionButton';
 import { BewPurpleBtn } from '@/dom/bew/BewBtns';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
-import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
 import { VersionTag } from '@/dom/bew/VersionTag';
 
 
 export default function TrainingPage() {
-  const { playSoundEffect } = useBackgroundMusic();
-  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
-  const { crvObjects, fetchMailboxRequests } = useFetchedStats();
+  const { typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = useLSPlayerId();
+  // const { crvObjects } = useFetchedStats();
 
-  const version = process.env.VEW_PUBLIC_VERSION 
 
   
 const [ wndwTg, s__wndwTg] = useState<any>(null);
 const [ telegram_id, s__telegram_id] = useState<string | null>(null);
+const [userExists, setUserExists] = useState(0);
+const [streak, setStreak] = useState(0);
+const [potentialStreak, setPotentialStreak] = useState(0);
+const [avgResult, setAvgResult] = useState(0);
+
+useEffect(() => {
+  const fetchUserCount = async () => {
+    if (!typedUsername) return;
+    try {
+      const response = await fetch(`/api/supabase/count?storageKey=${typedUsername}`);
+      const data = await response.json();
+      if (data.success) {
+        setUserExists(data.count);
+        setStreak(data.streak);
+        setPotentialStreak(data.potential_streak);
+        setAvgResult(data.avg_result);
+      }
+    } catch (error) {
+      console.error('Error fetching user count:', error);
+    }
+  };
+
+  fetchUserCount();
+}, [typedUsername]);
 
   const handleStart = async () => {
 
@@ -38,33 +59,17 @@ const [ telegram_id, s__telegram_id] = useState<string | null>(null);
     window.location.href = '/tool';
   };
 
-  const setTelegram = async () => {
-    // @ts-ignore: expect error cuz of unkonwn telegram object inside window context
-    const wwwTg = window?.Telegram?.WebApp
-    console.log("wwwTg")
-    console.log(wwwTg)
-    s__wndwTg(wwwTg)
-    // @ts-ignore: expect error cuz of unkonwn telegram object inside window context
-    s__telegram_id(wwwTg?.initDataUnsafe?.user?.id)
-    console.log("wwwTg?.initDataUnsafe?.user?.id")
-    console.log(wwwTg?.initDataUnsafe?.user?.id)
-    if (!wwwTg?.initDataUnsafe?.user?.id) {
-      return;
-    }
-      setTypedUsername(wwwTg?.initDataUnsafe?.user?.id)
-      setPlayerId(wwwTg?.initDataUnsafe?.user?.id)
-}
 
 
 // useEffect(() => {
 //   setTelegram();
 // }, [])
 
-  useEffect(() => {
-    if (!LS_playerId) {
-      return }
-    fetchMailboxRequests();
-  }, [LS_playerId, fetchMailboxRequests]);
+  // useEffect(() => {
+  //   if (!LS_playerId) {
+  //     return }
+  //   fetchMailboxRequests();
+  // }, [LS_playerId, fetchMailboxRequests]);
 
   return (
     <div className='w-100 h-100  flex-col flex-justify-start'>
@@ -94,9 +99,19 @@ const [ telegram_id, s__telegram_id] = useState<string | null>(null);
           >
             <div className='flex-col _dd g tx-center tx-lgx landing -title'>Gamified <br /> step-by-step lessons for remote viewing</div>
             <div className='flex-col _dd r'>
-              {crvObjects.length > 0 && (<>
+              {userExists > 0 && (<>
                 <div className="flex-row flex-justify-between flex-align-center">
-                  <BewUserStatsSummary minified />
+                  <BewUserStatsSummary minified calculatedStats={{
+                    potentialStreak: potentialStreak,
+                    streak: streak,
+                    dailyProgress: 0,
+                    dailyGoal: 0,
+                    isLoading: false,
+                    error: null,
+                    averageResult: avgResult
+                  }} 
+                  crvObjects_length={userExists}
+                  />
                 </div>
               </>)}
               <div>
@@ -119,7 +134,7 @@ const [ telegram_id, s__telegram_id] = useState<string | null>(null);
 
               <div className="flex-row flex-align-start"
               >
-                {crvObjects.length > 0 && (<>
+                {userExists > 0 && (<>
                 <div  className='flex-row'>
                 <LandingProfileActionButton typedUsername={typedUsername} handleStart={handleStart} />
                 </div>

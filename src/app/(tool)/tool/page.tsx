@@ -10,7 +10,7 @@ import { PaperSheet } from '@/dom/atom/toast/PaperSheet';
 import targetsData from '@/../public/data/targets_1.json';
 import { AnalogMobileScreen } from '@/dom/bew/AnalogMobileScreen';
 import { Tooltip } from 'react-tooltip';
-import { BewUserStatsSummary } from '../../../dom/bew/BewUserStatsSummary';
+import { BewUserStatsSummary, WrappedBewUserStatsSummary } from '../../../dom/bew/BewUserStatsSummary';
 import { isMobile } from '../../../../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { MenuBarItem } from '@/dom/bew/MenuBarItem';
@@ -30,7 +30,7 @@ type TargetsData = {
 export type GameState = 'initial' | 'playing' | 'results';
 
 export default function TrainingPage() {
-  const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, refetchStats } = useFetchedStats();
+  const { isLoading, crvObjects, refetchStats } = useFetchedStats();
   const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
   const { playSoundEffect } = useBackgroundMusic();
   useEffect(() => {
@@ -260,7 +260,6 @@ emojiSize:50,
         storageKey: LS_playerId
       })
     });
-    const saveData = await saveResponse.json();
     
     playSoundEffect("/sfx/short/sssccc.mp3")
     // Refetch stats after saving new data
@@ -271,44 +270,6 @@ emojiSize:50,
     setShowSketchModal(true);
   }, [target, LS_playerId, refetchStats]);
 
-  const handleRequestCRV = async () => {
-    const newRequestDescription = prompt('Enter a new CRV request description:');
-    const newRequestBounty = prompt('Enter a bounty (OPTIONAL)');
-
-    if (!newRequestDescription?.trim() || isSubmitting) return;
-    const LS_playerId = localStorage.getItem('VB_PLAYER_ID');
-    const creator_id = LS_playerId || random10CharString();
-    
-    // Save the generated ID if it's new
-    if (!LS_playerId) {
-      localStorage.setItem('VB_PLAYER_ID', creator_id);
-    }
-    
-    setIsSubmitting(true);
-    try {
-      const response = await fetch('/api/supabase/requests', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-store, no-cache, must-revalidate',
-          'Pragma': 'no-cache'
-        },
-        body: JSON.stringify({
-          description: newRequestDescription.trim(),
-          creator_id,
-          bounty: newRequestBounty
-        }),
-        cache: 'no-store'
-      });
-
-      const data = await response.json();
-      setSuccessRequest(data.success);
-    } catch (error) {
-      console.error('Error submitting request:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const handleFullSend = async (params: {
     sketch: any;
@@ -366,7 +327,7 @@ emojiSize:50,
 
               <div className='flex-1 flex-col flex-align-stretch flex-justify-start h-100'>
                 {<div className='Q_xs flex-row px-4'>
-                   <BewUserStatsSummary minified  />
+                   <WrappedBewUserStatsSummary  minified={true} />
                    <div className='flex-1 flex-col flex-align-end '>
                       <a href="/profile" className='nodeco tx-lg bord-r-100 hover-jump bord-r-100 pointer noverflow block pa-1 pt-3'
                       
@@ -464,7 +425,7 @@ emojiSize:50,
 
               {!isMobile() && crvObjects.length > 0 && (<>
                 <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
-                <BewUserStatsSummary />
+                <WrappedBewUserStatsSummary />
                 </div>
               </>)}
 

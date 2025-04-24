@@ -2,16 +2,51 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
+export function useLSPlayerId() {
+  const [LS_playerId, setLS_playerId] = useState<string | null>(null);
+  const [typedUsername, setTypedUsername] = useState("");
+  const searchParams = useSearchParams();
 
+  const setPlayerId = (playerId: string) => {
+    localStorage.VB_PLAYER_ID = playerId;
+    setLS_playerId(playerId);
+  };
+
+  const sanitizePlayerId = (playerId: string) => {
+    return playerId.replace(/[^a-zA-Z0-9@._-]/g, '');
+  };
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const playerId: string | null = localStorage.VB_PLAYER_ID;
+    if (playerId) {
+      setLS_playerId(playerId);
+      setTypedUsername(playerId);
+    } else {
+      const urlUsername = searchParams.get("username");
+      if (urlUsername) {
+        setTypedUsername(urlUsername);
+      }
+    }
+  }, []);
+
+  return {
+    LS_playerId,
+    typedUsername,
+    setTypedUsername,
+    setPlayerId,
+    sanitizePlayerId
+  };
+}
 
 export function usePlayerStats() {
+  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = useLSPlayerId();
   const [LS_firstTime, setLS_firstTime] = useState<boolean>(() => {
     if (typeof window === 'undefined') return true;
     const alreadyPlayed = localStorage.getItem('VB_ALREADY_PLAYED');
     return !alreadyPlayed;
   });
-  const [LS_playerId, setLS_playerId] = useState<string | null>(null);
-  const [typedUsername, setTypedUsername] = useState("");
   const [LS_lowGraphics, setLS_lowGraphics] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     const legacyGraphics = localStorage.getItem('VB_LEGACY_GRAPHICS');
@@ -77,25 +112,13 @@ export function usePlayerStats() {
   const formatPortalUrl = (url: string) => {
     const local_username = localStorageProxy.VB_PLAYER_ID || ""
     const url_username = searchParams.get("username") || local_username
-    // if (!url_username) { return url }
 
-    // if it doesnt have a protocol, add https://
     const parsedUrl = !url.startsWith("http") ? "https://" + url : url
 
     const new_url = new URL(parsedUrl)
     new_url.searchParams.set("username", url_username)
     new_url.searchParams.set("ref", "https://vew.quest")
     return new_url.toString()
-  };
-
-  const setPlayerId = (playerId: string) => {
-    localStorageProxy.VB_PLAYER_ID = playerId;
-    setLS_playerId(playerId);
-  };
-
-  const sanitizePlayerId = (playerId: string) => {
-    // only allow alphanumeric characters plus @ . - and underscore
-    return playerId.replace(/[^a-zA-Z0-9@._-]/g, '');
   };
 
   const toggleLowGraphics = () => {
@@ -133,7 +156,6 @@ export function usePlayerStats() {
   };
 
   const hasCompletedTutorial = (tutorialId: string) => {
-    // Get directly from localStorage to ensure we have the latest value
     const savedTutorials = localStorageProxy.VB_TUTORIALS;
     if (!savedTutorials) return false;
     
@@ -168,19 +190,6 @@ export function usePlayerStats() {
   useEffect(() => {
     if (!localStorageProxy) { return; }
 
-    const playerId: string | null = localStorageProxy.VB_PLAYER_ID;
-    if (playerId) {
-      setLS_playerId(playerId);
-      setTypedUsername(playerId);
-    } else {
-      // Check for username URL parameter when no player ID exists
-      const urlUsername = searchParams.get("username");
-      if (urlUsername) {
-        setTypedUsername(urlUsername);
-        // Don't set LS_playerId to maintain view-only mode
-      }
-    }
-
     const legacyGraphics: string | null = localStorageProxy.VB_LEGACY_GRAPHICS;
     if (legacyGraphics !== null) {
       setLS_lowGraphics(legacyGraphics === '1');
@@ -199,7 +208,6 @@ export function usePlayerStats() {
       setLS_hasFirstKey(hasFirstKey === '1');
     }
 
-    // Function to update mindStats from localStorage
     const updateMindStatsFromStorage = () => {
       const savedStats = localStorageProxy.VB_MINDSTATS;
       if (savedStats) {
@@ -221,10 +229,8 @@ export function usePlayerStats() {
       }
     };
 
-    // Initial load of mindStats
     updateMindStatsFromStorage();
 
-    // Load tutorials first before any other operations
     const savedTutorials = localStorageProxy.VB_TUTORIALS;
     if (savedTutorials) {
       try {
@@ -245,7 +251,6 @@ export function usePlayerStats() {
       setTutorials({});
     }
 
-    // Load explored zones
     const savedExplored = localStorageProxy.VB_EXPLORED;
     if (savedExplored) {
       try {
@@ -266,12 +271,10 @@ export function usePlayerStats() {
       setExplored({});
     }
 
-    // Listen for localStorage changes
     const handleStorageChange = (e: MessageEvent) => {
       if (e.data === 'localStorageChanged') {
         updateMindStatsFromStorage();
         
-        // Also check and update hasFirstKey
         const hasFirstKey: string | null = localStorageProxy.VB_HAS_FIRST_KEY;
         if (hasFirstKey !== null) {
           setLS_hasFirstKey(hasFirstKey === '1');

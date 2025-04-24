@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo, useContext } from 'react';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { BewLogo } from '@/dom/atom/logo/BewLogo';
 import { Tooltip } from 'react-tooltip';
-import { BewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';
+import { BewUserStatsSummary, WrappedBewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { LessonCard } from '@/dom/bew/LessonCard';
 import { BewChoiceButton } from '@/dom/bew/BewChoiceButton';
@@ -26,35 +26,11 @@ import { RemoteViewingHistory } from '@/dom/bew/RemoteViewingHistory';
 import { BewBadges } from '@/dom/bew/BewBadges';
 import { ProfileSnackbarContext, SnackbarSeverity } from '../../../script/state/context/ProfileSnackbarProvider';
 import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
-const NotesCheck = ({ content }: { content: any }) => {
-  return content.notes ? <div className='tx-lx pointer'
-  onClick={() => {
-    if (content.notes) {
-      navigator.clipboard.writeText(content.notes);
-      alert('Copied to clipboard: \n' + content.notes);
-    }
-  }}
-  >💬</div> : '❌';
-};
 
-const SketchCheck = ({ content, onClick }: { content: any, onClick: () => void }) => {
-  try {
-    const parsedContent = typeof content === 'string' ? JSON.parse(content) : content;
-    // sketch emoji 
-
-    return parsedContent.sketch ? (
-      <div className='tx-lx pointer'
-      onClick={onClick}
-      >🎨</div>
-    ) : '❌';
-  } catch (e) {
-    return '❌';
-  }
-};
 
 export default function ProfilePage() {
-  const { streak, isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests } = useFetchedStats();
-  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
+  const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
+  const { LS_playerId } = usePlayerStats();
   const searchParams = useSearchParams();
   const { playSoundEffect } = useBackgroundMusic();
   const [guestUrlUsernameParam, setGuestUrlUsernameParam] = useState<string | null>(null);
@@ -62,7 +38,7 @@ export default function ProfilePage() {
   if (!snackbarContext) {
     throw new Error('ProfileSnackbarContext must be used within a ProfileSnackbarProvider');
   }
-  const { setSnackbarMessage, setSnackbarSeverity, setIsSnackbarOpen, triggerSnackbar } = snackbarContext;
+  const { triggerSnackbar } = snackbarContext;
   
   useEffect(() => {
     const username = searchParams.get('friend');
@@ -255,7 +231,7 @@ style={{
  alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
  </div>
 <div className='bord-r-15 mb-4 pb-2 flex-col ' style={{ border: "1px solid #f0f0f0" }}>
-              <BewUserStatsSummary minified />
+              <WrappedBewUserStatsSummary minified />
               <hr className='w-100 opaci-10 '  />
               <details className='w-150px px-2'>
                 <summary className='tx-bold pointer'>More info</summary>
