@@ -484,7 +484,6 @@ const handleRefresh = async ()=>{
 
         />
         </>)}
-{gameState}
         {gameState === 'playing' && (
           <div className='flex-col w-100 h-100vh'>
             <div className='flex-row w-100 flex-justify-stretch h-100'>
