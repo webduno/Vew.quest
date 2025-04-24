@@ -218,7 +218,6 @@ emojiSize:50,
     solid: number;
     confidence: number;
   }, noteData: any, drawingData: any) => {
-    console.log("target", target);
     if (!target) return;
     setSentObject(params);
     const calculatedResults = {

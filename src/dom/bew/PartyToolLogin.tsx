@@ -29,7 +29,6 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
  
   useEffect(() => {
     // Get friend username from route parameters
-    console.log(params.id);
     const friend = params.id;
     if (friend && typeof friend === 'string') {
       setFriendUsername(sanitizePlayerId(friend));

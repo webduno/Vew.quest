@@ -24,7 +24,7 @@ export default function PartyPage() {
       // setEnterUsername(true);
       return;
     }
-    console.log("crvObjects", crvObjects.length);
+    // console.log("crvObjects", crvObjects.length);
     setInitiallyAutoLoaded(true);
     if (crvObjects.length === 0) { 
 
@@ -41,7 +41,7 @@ export default function PartyPage() {
   const [ telegram_id, s__telegram_id] = useState<string | null>(null);
 
   const handlePartyStartSetup = (friendUsername?: string) => {
-    console.log("handlePartyStartSetup");
+    // console.log("handlePartyStartSetup");
 
     // redirect to /party/id
     router.push(`/party/${friendUsername}`);

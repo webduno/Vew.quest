@@ -25,7 +25,6 @@ export const calculateUserStats = (crvObjects: CRVObject[]): UserStats => {
     date.setUTCHours(0, 0, 0, 0);
     return date.toISOString().split('T')[0] === todayStr;
   });
-  console.log("calculatePotentialStreak");
   return {
     totalRequests: crvObjects.length,
     firstRequestDate: crvObjects[crvObjects.length - 1]?.created_at || null,

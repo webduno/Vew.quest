@@ -42,7 +42,6 @@ export default function UserProfilePage() {
   useEffect(() => {
     // Handle hash navigation after page load
     if (window.location.hash) {
-      console.log('hash 123', window.location.hash);
       const element = document.getElementById(window.location.hash.substring(1));
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });

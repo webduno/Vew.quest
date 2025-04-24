@@ -28,7 +28,6 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const topOnly = searchParams.get('topOnly') === 'true';
     
-    console.log('Fetching leaderboard data...');
     const { data, error } = await supabase
       .from('crv_object')
       .select('*')

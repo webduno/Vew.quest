@@ -172,7 +172,6 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (hasInitialFetch.current) { return }
     hasInitialFetch.current = true;
-    console.log("fetching data");
     fetchData();
   }, []);
 

@@ -62,7 +62,7 @@ export default function PartyPage() {
     // console.log("initiallyAutoLoaded", initiallyAutoLoaded);
 
     // handleStart();
-    console.log("waiting", crvObjects.length);
+    // console.log("waiting", crvObjects.length);
     setGameState('waiting');
 
 
@@ -73,7 +73,7 @@ export default function PartyPage() {
 const [reloadingParty, setReloadingParty] = useState(false);
 
   const handlePartyStart = () => {
-    console.log("handlePartyStart");
+    // console.log("handlePartyStart");
     if (gameState === 'waiting') { return }
     setGameState('waiting');
   }
@@ -233,12 +233,12 @@ const sharedIdState = useState<string | null>(null);
 
 
 const handleUpdate = async (e:any)=>{
-  console.log("handleUpdate", e, sharedIdState[0]);
+  // console.log("handleUpdate", e, sharedIdState[0]);
   if (!sharedIdState[0]) return;
   playSoundEffect("/sfx/short/cling.mp3")
 
   try {
-  console.log("handleUpdate 2222", e, sharedIdState[0]);
+  // console.log("handleUpdate 2222", e, sharedIdState[0]);
     const response = await fetch('/api/party/update', {
       method: 'POST',
       headers: {
@@ -267,7 +267,6 @@ const handleUpdate = async (e:any)=>{
 const handleRefresh = async ()=>{
   if (!sharedIdState[0]) { return }
   setReloadingParty(true);
-  console.log("handleRefresh", );
   // fetchpartydata again
   playSoundEffect("/sfx/short/goodcode.mp3")
   setTimeout(async ()=>{
@@ -285,78 +284,12 @@ const handleRefresh = async ()=>{
 }, 500);
 }
 
-  const handleSend = useCallback(async (params: {
-    type: string;
-    natural: number;
-    temp: number;
-    light: number;
-    color: number;
-    solid: number;
-    confidence: number;
-  }, noteData: any, drawingData: any) => {
-    console.log("target rrrrrrrrrrrrrr", target);
-    if (!target) return;
-    setSentObject(params);
-    const calculatedResults = {
-      type: target.values.type.toLowerCase() === params.type.toLowerCase() ? true : false,
-      natural: calculateAccuracy(target.values.natural, params.natural, true, false),
-      temp: calculateAccuracy(target.values.temp, params.temp, true, false),
-      light: calculateAccuracy(target.values.light, params.light, false, false),
-      color: calculateAccuracy(target.values.color, params.color, false, false),
-      solid: calculateAccuracy(target.values.solid, params.solid, false, false),
-      confidence: calculateAccuracy(target.values.confidence, params.confidence, true, false),
-    };
-    const overallAccuracy = (
-      calculatedResults.natural +
-      calculatedResults.temp +
-      calculatedResults.light +
-      calculatedResults.color +
-      calculatedResults.solid ) / 5;
-
-      console.log("target rrrrrrrrrrrrrr", target);
-
-    setOverallAccuracy(overallAccuracy);
-    setResults(calculatedResults);
-    setGameState('results');
-
-    // save to supabase
-    const saveResponse = await fetch('/api/supabase', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        objList: {
-          sent: {
-            ...params,
-          },
-          notes: noteData,
-          sketch: drawingData,
-          target: target?.values,
-          ai_sent_guess: "n/a",
-          target_id: selectedTargetInfo?.id.padStart(12, '0'),
-        },
-        storageKey: LS_playerId
-      })
-    });
-    
-    playSoundEffect("/sfx/short/sssccc.mp3")
-    // Refetch stats after saving new data
-    await refetchStats();
-
-    // image modal
-    // setShowImageModal(true);
-    setShowSketchModal(true);
-  }, [target, LS_playerId, refetchStats]);
 
   useEffect(() => {
-    console.log("sharedIdState[0]", sharedIdState[0]);
     if (!sharedIdState[0]) { return }
-    console.log("sharedIdState[0]22222", sharedIdState[0]);
-    // if (!!target?.code) { return }
-    // console.log("sharedIdState[0]33333", sharedIdState[0]);
 
     const initializeParty = async (byId: string) => {
       await fetchPartyData(byId);
-      console.log("sharedIdState[0]44444", target);
       setGameState('playing');
     };
 
@@ -369,17 +302,14 @@ const handleRefresh = async ()=>{
         console.error('No party ID available');
         return;
       }
-      console.log("fetchPartyData", byId);
       const response = await fetch(`/api/party/get?id=${byId}`);
       if (!response.ok) {
         console.error('Failed to fetch party data');
         return;
       }
       const data = await response.json();
-      console.log("fetchPartyData data", data);
 
       const targetValues = getValuesFromCocoTarget(data.target_code);
-      console.log("targetValues", targetValues);
       
       if (targetValues) {
         setTarget({
