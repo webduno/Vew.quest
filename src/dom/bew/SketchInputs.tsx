@@ -106,25 +106,9 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
           immediateLoading={true}
         />
       )}
-      <div className='flex-row flex-justify-around'>
-        <button  className='pos-abs right-0 bottom-0 mb-4 mr-2'
-          onClick={() => {
-            if (canvasRef.current) {
-              canvasRef.current.clear();
-              onValueChange('');
-            }
-          }}
-          style={{
-            padding: '8px 16px',
-            backgroundColor: '#e5e7eb',
-            borderRadius: '4px',
-            border: 'none',
-            cursor: 'pointer'
-          }}
-        >
-          Clear
-        </button>
-        {/* <button 
+      <div className='flex-col flex-align-end pos-abs right-0 bottom-0 mb-8 mr-2 gap-2'>
+        <button 
+          className=' z-1000'
           onClick={() => {
             if (canvasRef.current) {
               canvasRef.current.undo();
@@ -141,7 +125,24 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
           }}
         >
           Undo
-        </button> */}
+        </button>
+        <button  className='z-1000 '
+          onClick={() => {
+            if (canvasRef.current) {
+              canvasRef.current.clear();
+              onValueChange('');
+            }
+          }}
+          style={{
+            padding: '8px 16px',
+            backgroundColor: '#e5e7eb',
+            borderRadius: '4px',
+            border: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          Reset
+        </button>
       </div>
     </div>
   );

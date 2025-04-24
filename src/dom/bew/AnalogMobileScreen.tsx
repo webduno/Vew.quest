@@ -19,6 +19,7 @@ import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusi
 import { InputTabs } from './InputTabs';
 import { FriendCard } from './FriendCard';
 import { InviteFriendCard } from './InviteFriendCard';
+import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 
 // Define input types for better type safety
 type InputType = 'sketch' | 'multi-options' | 'notes' | '';
@@ -99,6 +100,7 @@ export const AnalogMobileScreen = ({
       }
     });
   };
+  const { triggerSnackbar } = useProfileSnackbar();
   const [isfriendinurl, setIsFriendInUrl] = useState(false);
   const [friendid, setFriendId] = useState('');
 useEffect(() => {
@@ -214,7 +216,17 @@ useEffect(() => {
 
         <div className='px-4'>
           <div className='tx-white pointer tx-center pa-2 bord-r-10 mt-4'
-            onClick={handleSend}
+            onClick={()=>{
+              // early return and triggersnackbar if multi-options are 0
+              // if(selectedInputType !== 'multi-options' && optionsValue.natural === 0 && optionsValue.temp === 0 && optionsValue.light === 0 && optionsValue.color === 0 && optionsValue.solid === 0){
+              //   triggerSnackbar("Please, attempt to fill the multi-options form", "error")
+              //   setSelectedInputType('multi-options')
+              //   return
+              // }
+              
+              
+              handleSend()
+            }}
             style={{ 
               boxShadow: "0 4px 0 #6B69CF",
               background: "#807DDB"

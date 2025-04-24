@@ -265,9 +265,12 @@ emojiSize:50,
     // Refetch stats after saving new data
     await refetchStats();
 
-    // image modal
-    // setShowImageModal(true);
-    setShowSketchModal(true);
+    // image if sketch is not null modal
+    if (sketchData) {
+      setShowSketchModal(true);
+    } else {
+      setShowImageModal(true);
+    }
   }, [target, LS_playerId, refetchStats]);
 
 

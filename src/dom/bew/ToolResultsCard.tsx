@@ -346,23 +346,30 @@ export const ToolResultsCard = ({
           </>
         )}
 
-        {showSketchModal && !showImageModal && sketchData && (
+        {showSketchModal && !showImageModal && (
           <>
             <div className='bord-r-15 flex-col'
               style={{
                 minHeight: "300px",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
               }}
             >
-              <CanvasDraw
-                ref={canvasRef}
-                disabled
-                hideGrid
-                canvasWidth={300}
-                canvasHeight={200}
-                saveData={sketchData}
-                style={{
-                  borderRadius: "15px",
-                }} />
+              {sketchData ? (
+                <CanvasDraw
+                  ref={canvasRef}
+                  disabled
+                  hideGrid
+                  canvasWidth={300}
+                  canvasHeight={200}
+                  saveData={sketchData}
+                  style={{
+                    borderRadius: "15px",
+                  }} />
+              ) : (
+                <div className="tx-center tx-altfont-2 tx-black opaci-50">Drawing not found</div>
+              )}
             </div>
             <div className="flex-row gap-2 justify-center mt-2">
               
