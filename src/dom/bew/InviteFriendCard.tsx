@@ -41,11 +41,11 @@ export const InviteFriendCard = () => {
             style={{
               color: "#4B4B4B",
             }}
-          >Join Party Room</div>
+          >Join Party Room (CRV)</div>
 
           <div className='tx-sm Q_sm_x' style={{ color: "#afafaf" }}>
             <div className='flex-col flex-align-start gap-1'>
-              <div>Invite friend for</div>
+              <div>Invite friend and start a new</div>
               <div>Coordinated Remote Viewing</div>
             </div>
           </div>
