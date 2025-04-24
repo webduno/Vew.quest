@@ -4,12 +4,14 @@ import { ReactNode, useRef, useState, useEffect } from "react";
 import MiniGameStage from "./MiniGameStage";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import ModelGameStage from "./ModelGameStage";
+import { useBackgroundMusic } from "../../../../script/state/context/BackgroundMusicContext";
 interface SpaceWorldContainerProps {
   children: ReactNode;
 }
 
 export default function SpaceWorldContainer({ children }: SpaceWorldContainerProps) {
   const { triggerSnackbar } = useProfileSnackbar();
+  const { playSoundEffect } = useBackgroundMusic();
   const gameStageRef = useRef<"loading" | "starting" | "playing" | "ended">("loading")
   const [showHelper, setShowHelper] = useState(false)
   const [randomCoord1LatLan, setRandomCoord1LatLan] = useState({lat:0,lng:0})
@@ -38,9 +40,14 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
     triggerSnackbar("Target found", "success")
     setWinAttempts(winAttempts + 1)
     startGameProcess()
+    playSoundEffect("/sfx/short/myst.mp3")
+  }
+  const changeSetAttempts = (attempts:number) => {
+    playSoundEffect("/sfx/short/goodbip.wav")
+    setAttempts(attempts)
   }
   return (
-    <ModelGameStage attempts={attempts} setAttempts={setAttempts} winAttempts={winAttempts} setWinAttempts={setWinAttempts} onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
+    <ModelGameStage attempts={attempts} setAttempts={changeSetAttempts} winAttempts={winAttempts} setWinAttempts={setWinAttempts} onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
     onTargetFound={onTargetFound}
     gameData={{
       randomCoord1LatLan,
