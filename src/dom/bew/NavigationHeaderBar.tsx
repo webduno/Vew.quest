@@ -94,8 +94,8 @@ export const NavigationHeaderBar = ({
         
         {!isCurrentPage('/about') && (
           <a href="/about" className='nodeco noselect py- py-1 pr-4 px-1 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
-            <div className="py-1 pl-2 nowrap">About
-               {/* <VersionTag /> <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(100)' }}>❓</span> */}
+            <div className="py-1 pl-2 nowrap">About <VersionTag />
+               {/*  <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(100)' }}>❓</span> */}
                </div>
           </a>
         )}
