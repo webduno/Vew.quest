@@ -606,7 +606,7 @@ const handleRefresh = async ()=>{
 
               {!isMobile() && crvObjects.length > 0 && (<>
                 <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
-                <BewUserStatsSummary />
+                <WrappedBewUserStatsSummary />
                 </div>
               </>)}
 
