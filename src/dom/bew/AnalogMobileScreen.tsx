@@ -249,17 +249,7 @@ useEffect(() => {
 
         <div className='px-4'>
           <div className='tx-white pointer tx-center pa-2 bord-r-10 mt-4'
-            onClick={()=>{
-              // early return and triggersnackbar if multi-options are 0
-              // if(selectedInputType !== 'multi-options' && optionsValue.natural === 0 && optionsValue.temp === 0 && optionsValue.light === 0 && optionsValue.color === 0 && optionsValue.solid === 0){
-              //   triggerSnackbar("Please, attempt to fill the multi-options form", "error")
-              //   setSelectedInputType('multi-options')
-              //   return
-              // }
-              
-              
-              handleSend()
-            }}
+            onClick={handleSend}
             style={{ 
               boxShadow: "0 4px 0 #6B69CF",
               background: "#807DDB"
@@ -317,7 +307,7 @@ useEffect(() => {
 
 </div>
     {!selectedInputType && (
-      <div className='w-100  pos-abs-bottom  flex-col flex-justify-end pb-8 mb-4'>
+      <div className='    flex-col flex-justify-end mt-100'>
         
 
 
@@ -327,14 +317,17 @@ useEffect(() => {
 {!isfriendinurl && (<InviteFriendCard />)}
   {!!isfriendinurl && (<FriendCard friendid={friendid} />)}
 
+  </div>
+    )}
 
 
 
 
 
-{!!isMobile() && (<>
+      <div className='w-100    flex-col flex-justify-end pb-8 mb-4'>
+      {!!isMobile() && (<>
 
-<details className='w-80  '>
+<details className='w-80  flex-col pos-rel'>
 <summary className='flex-row gap-2  w-80 py-4 pointer w-100'>
 
 
@@ -351,7 +344,7 @@ useEffect(() => {
         className='tx-bol d'
         style={{ color: "#AFAFAF" }}>
           {/* down caret emoji */}
-          ▼ More Options</div>
+          ▲ More Options</div>
       )}
       <div className='flex-1'
         style={{
@@ -363,7 +356,12 @@ useEffect(() => {
 
 
 
-  <div className='flex-row flex-justify-center tx-altfont-2  gap-2'>
+  <div className='flex-row flex-justify-center pa-2 bord-r-10 tx-altfont-2 left-50p    top-0 bg-white gap-2 pos-abs z-1000'
+  style={{
+    border: "1px solid #E5E5E5",
+    transform: "translate(-50%, -100%)",
+  }}
+  >
       <a href="/dashboard#resources"
       style={{
         border: "1px solid #E5E5E5",
@@ -383,7 +381,7 @@ useEffect(() => {
       >
         {/* target emoji */}
         <div className='tx-lg tx-center'>🛣️</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>3D World</div>
+        <div className='nowrap tx-bold-5' style={{ color: "#4b4b4b" }}>3D World</div>
       </a>
       <a 
       href="/leaderboard"
@@ -405,7 +403,6 @@ useEffect(() => {
 
 
       </div>
-    )}
   </>);
 };
 

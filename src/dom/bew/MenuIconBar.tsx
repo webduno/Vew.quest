@@ -6,7 +6,7 @@ interface MenuIconBarProps {
 
 export const MenuIconBar = ({  playSoundEffect }: MenuIconBarProps) => {
   return (
-    <div id="menu-icon-bar" className='h-100 Q_sm_x'
+    <div id="menu-icon-bar" className='h-100vh Q_sm_x'
       style={{ borderRight: "1px solid #E5E5E5" }}
     >
       <a href="/" className='pointer'>

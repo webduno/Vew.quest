@@ -18,7 +18,6 @@ import { BewUserStatsSummary } from './BewUserStatsSummary';
 import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
 import { InputTabs } from './InputTabs';
 import { FriendCard } from './FriendCard';
-import { InviteFriendCard } from './InviteFriendCard';
 
 // Define input types for better type safety
 type InputType = 'sketch' | 'multi-options' | 'notes' | '';

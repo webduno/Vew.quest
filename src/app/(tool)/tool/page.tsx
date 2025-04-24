@@ -322,13 +322,13 @@ emojiSize:50,
         )}
 
         {gameState === 'playing' && (
-          <div className='flex-col w-100 h-100vh'>
+          <div className='flex-col w-100 '>
             <div className='flex-row w-100 flex-justify-stretch h-100'>
               <MenuIconBar 
                 playSoundEffect={playSoundEffect}
               />
 
-              <div className='flex-1 flex-col flex-align-stretch flex-justify-start h-100'>
+              <div className='flex-1 h-100vh flex-col flex-align-stretch flex-justify-start h-100'>
                 {<div className='Q_xs flex-row px-4'>
                    <WrappedBewUserStatsSummary  minified={true} />
                    <div className='flex-1 flex-col flex-align-end '>
@@ -382,7 +382,7 @@ emojiSize:50,
 
 
                 </div>
-                <div className='flex-1 tx-altfont-2 flex-col'>
+                <div className='flex-1 tx-altfont-2 flex-col '>
 
 
 
@@ -427,7 +427,7 @@ emojiSize:50,
 
 
               {!isMobile() && crvObjects.length > 0 && (<>
-                <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
+                <div className='h-100 h-100vh w-250px pr-4 Q_sm_x' id="user-stats-bar">
                 <WrappedBewUserStatsSummary />
                 </div>
               </>)}

@@ -64,7 +64,7 @@ export const MultiOptionInputs = ({
           color:"#ffae2e"}}>
           <div>Randomize All</div>
         </button>
-        <div className="tx-bold mb-2" style={{color:"#afafaf"}}>Target Type</div>
+        <div className="tx-bold mb-2 mt-4" style={{color:"#afafaf"}}>Target Type</div>
         <div className='flex-row flex-wrap gap-3'>
           {(['object', 'entity', 'place', 'event'] as InputType[]).map((type) => (
             <div 
