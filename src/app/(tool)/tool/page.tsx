@@ -307,7 +307,7 @@ emojiSize:50,
 }
 
   return (
-    <div className='w-100 h-100  flex-col flex-justify-start'>
+    <div className='w-100  flex-col flex-justify-start'>
       <div className='w-100  flex-col  '>
         {gameState === 'initial' && (
           <InitialToolLogin
@@ -323,12 +323,12 @@ emojiSize:50,
 
         {gameState === 'playing' && (
           <div className='flex-col w-100 '>
-            <div className='flex-row w-100 flex-justify-stretch h-100'>
+            <div className='flex-row w-100 flex-justify-stretch flex-align-start'>
               <MenuIconBar 
                 playSoundEffect={playSoundEffect}
               />
 
-              <div className='flex-1 h-100vh flex-col flex-align-stretch flex-justify-start h-100'>
+              <div className='flex-1 flex-col flex-align-stretch  flex-justify-start '>
                 {<div className='Q_xs flex-row px-4'>
                    <WrappedBewUserStatsSummary  minified={true} />
                    <div className='flex-1 flex-col flex-align-end '>
