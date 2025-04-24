@@ -230,7 +230,7 @@ export const ToolResultsCard = ({
   };
 
   return (
-    <div className="tx-white tx-center mt-100">
+    <div className="tx-white tx-center mt-100 pb-4">
       <div className="tx-lg tx-altfont-2 tx-bold-5"
         style={{
           color: "#FDC908",
