@@ -318,7 +318,7 @@ const handleRefresh = async ()=>{
     solid: number;
     confidence: number;
   }, noteData: any, drawingData: any) => {
-    console.log("target", target);
+    console.log("target rrrrrrrrrrrrrr", target);
     if (!target) return;
     setSentObject(params);
     const calculatedResults = {
@@ -337,6 +337,7 @@ const handleRefresh = async ()=>{
       calculatedResults.color +
       calculatedResults.solid ) / 5;
 
+      console.log("target rrrrrrrrrrrrrr", target);
 
     setOverallAccuracy(overallAccuracy);
     setResults(calculatedResults);
@@ -498,6 +499,59 @@ const handleRefresh = async ()=>{
   }, 200);
 }
 
+  const handleNewTarget = async (params: any) => {
+    console.log("handleNewTarget", fullPartyData);
+    if (!fullPartyData?.id) return;
+    
+    try {
+      const response = await fetch('/api/party/setNewTarget', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          partyId: fullPartyData.id
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to set new target');
+      }
+
+      // Calculate results based on current state
+      console.log("target && sentObject", target, sentObject, params);
+      if (target && params?.options) {
+        const calculatedResults = {
+          type: target.values.type.toLowerCase() === params?.options.type.toLowerCase() ? true : false,
+          natural: calculateAccuracy(target.values.natural, params?.options.natural, true, false),
+          temp: calculateAccuracy(target.values.temp, params?.options.temp, true, false),
+          light: calculateAccuracy(target.values.light, params?.options.light, false, false),
+          color: calculateAccuracy(target.values.color, params?.options.color, false, false),
+          solid: calculateAccuracy(target.values.solid, params?.options.solid, false, false),
+          confidence: calculateAccuracy(target.values.confidence, params?.options.confidence, true, false),
+        };
+        const overallAccuracy = (
+          calculatedResults.natural +
+          calculatedResults.temp +
+          calculatedResults.light +
+          calculatedResults.color +
+          calculatedResults.solid
+        ) / 5;
+
+        // Set sketch and notes data
+        setSketchData(params.sketch);
+        setNotes(params.notes);
+        setSentObject(params.options);
+        
+        setOverallAccuracy(overallAccuracy);
+        setResults(calculatedResults);
+        setGameState('results');
+      }
+    } catch (error) {
+      console.error('Error setting new target:', error);
+    }
+  };
+
   return (
     <div className='w-100 h-100  flex-col flex-justify-start'>
       <div className='w-100  flex-col  '>
@@ -525,7 +579,7 @@ const handleRefresh = async ()=>{
 
         />
         </>)}
-
+{gameState}
         {gameState === 'playing' && (
           <div className='flex-col w-100 h-100vh'>
             <div className='flex-row w-100 flex-justify-stretch h-100'>
@@ -611,14 +665,12 @@ const handleRefresh = async ()=>{
                 setSelectedInputType={setSelectedInputType}
                 sharedIdState={sharedIdState}
                 fullPartyData={fullPartyData}
-                      setEnableLocked={setEnableLocked}
-                      enableLocked={enableLocked}
-                      onFullSend={handleUpdate}
-
-
-                      handleRefresh={handleRefresh}
-                      
-                    />
+                setEnableLocked={setEnableLocked}
+                enableLocked={enableLocked}
+                onFullSend={handleUpdate}
+                handleRefresh={handleRefresh}
+                handleNewTarget={handleNewTarget}
+                />
                 </>)}
 
 
@@ -729,7 +781,9 @@ const handleRefresh = async ()=>{
             setShowSketchModal={setShowSketchModal}
             sketchData={sketchData}
             notes={notes}
-            handleTryAgain={handleTryAgain}
+            handleTryAgain={()=>{
+              setGameState('playing');
+            }}
             selectedTargetInfo={selectedTargetInfo}
           />
         </>)}

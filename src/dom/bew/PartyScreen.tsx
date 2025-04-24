@@ -43,6 +43,7 @@ export const PartyScreen = ({
   fullPartyData,
   handleRefresh,
   friendid,
+  handleNewTarget,
 }: {
   selectedInputType: InputType;
   setSelectedInputType: (inputType: InputType) => void;
@@ -72,6 +73,7 @@ export const PartyScreen = ({
   } | null
   handleRefresh: () => void;
   friendid: string;
+  handleNewTarget: any;
 }) => {
 
   const [sharedId, setSharedId] = sharedIdState;
@@ -175,6 +177,25 @@ export const PartyScreen = ({
       }
     });
   };
+
+  const handleSendNewTarget = () => {
+    // Get the appropriate sketch data
+    const currentSketchData = selectedInputType === 'sketch' && sketchRef.current 
+      ? sketchRef.current.getCurrentData() 
+      : sketchValue;
+    
+    handleNewTarget({
+      sketch: currentSketchData,
+      notes: notesValue,
+      options: {
+        ...optionsValue,
+        confidence: 100
+      }
+    });
+  };
+
+
+
   const [isfriendinurl, setIsFriendInUrl] = useState(false);
 // useEffect(() => {
 //   const urlParams = new URLSearchParams(window.location.search);
@@ -220,31 +241,6 @@ export const PartyScreen = ({
         );
       default:
         return null;
-    }
-  };
-
-  const handleNewTarget = async () => {
-    if (!fullPartyData?.id) return;
-    
-    try {
-      const response = await fetch('/api/party/setNewTarget', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          partyId: fullPartyData.id
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to set new target');
-      }
-
-      // Reload the page to get the new target
-      window.location.reload();
-    } catch (error) {
-      console.error('Error setting new target:', error);
     }
   };
 
@@ -415,7 +411,7 @@ export const PartyScreen = ({
       }}
       onClick={(e) => {
         e.preventDefault();
-        handleNewTarget();
+        handleSendNewTarget();
       }}
       >
         {/* plus emoji */}
@@ -433,15 +429,14 @@ export const PartyScreen = ({
         {/* <div className='tx-l tx-center'>👑</div> */}
         <div className='tx-bold-5 tx-center' style={{ color: "#4b4b4b" }}>Friend&apos;s <br /> Profile</div>
       </a>
-      <a 
-      href="/world"
+      <div 
       className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
         border: "1px solid #45af45",
       }}
       onClick={(e) => {
         e.preventDefault();
-        handleNewTarget();
+        handleSendNewTarget();
       }}
       >
         {/* green checkmark emoji */}
@@ -451,7 +446,7 @@ export const PartyScreen = ({
           <span role="img" aria-label="check">✅</span>
           New Target
         </div> 
-      </a>
+      </div>
       {/* <a href="/dashboard#resources"
       style={{
         border: "1px solid #E5E5E5",
