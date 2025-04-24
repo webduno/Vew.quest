@@ -324,7 +324,7 @@ export const PartyScreen = ({
               background: "#80DB7D"
              }}
           >
-            <div>⬇️ Refresh</div>
+            <div>⬇️ Re-sync</div>
           </div>
           <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
             onClick={handleSend}
@@ -402,36 +402,26 @@ export const PartyScreen = ({
 
 {true && (<>
 
-<details className='w-80  '>
-<summary className='flex-row gap-2  w-80 py-4 pointer w-100'>
-
-
-
-
-      <div className='flex-1 w-100'
-        style={{
-          height: "2px",
-          background: "#E5E5E5",
-        }}
-      />
-      {(
-        <div 
-        className='tx-bol d'
-        style={{ color: "#AFAFAF" }}>
-          {/* down caret emoji */}
-          ▼ More Options</div>
-      )}
-      <div className='flex-1'
-        style={{
-          height: "2px",
-          background: "#E5E5E5",
-        }}
-      />
-    </summary>
+<div className='w-80  '>
 
 
 
   <div className='flex-row flex-justify-center tx-altfont-2  gap-2'>
+      <a 
+      href="/tool"
+      className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      style={{
+        border: "1px solid #ff9595",
+      }}
+      onClick={(e) => {
+        e.preventDefault();
+        handleNewTarget();
+      }}
+      >
+        {/* plus emoji */}
+        {/* <div className='tx-l tx-center'>➕</div> */}
+        <div className='tx-bold-5 tx-center' style={{ color: "#ff4b4b" }}>❌ End Party</div>
+      </a>
       <a 
       href={"/u?friend=" + friendid}
       className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
@@ -447,16 +437,20 @@ export const PartyScreen = ({
       href="/world"
       className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
-        border: "1px solid #ff9595",
+        border: "1px solid #45af45",
       }}
       onClick={(e) => {
         e.preventDefault();
         handleNewTarget();
       }}
       >
-        {/* plus emoji */}
+        {/* green checkmark emoji */}
         {/* <div className='tx-l tx-center'>➕</div> */}
-        <div className='tx-bold-5 tx-center' style={{ color: "#ff4b4b" }}>❌ End Party &amp; <br /> Get new Target</div>
+
+        <div className='tx-bold-5 tx-center' style={{ color: "#2baa2b" }}> 
+          <span role="img" aria-label="check">✅</span>
+          Get new Target
+        </div> 
       </a>
       {/* <a href="/dashboard#resources"
       style={{
@@ -468,7 +462,7 @@ export const PartyScreen = ({
       </a> */}
     </div>
 
-    </details> </>
+    </div> </>
   )}
 
 
