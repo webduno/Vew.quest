@@ -11,7 +11,7 @@ import The3DPong from "@/model/npc/The3DPong";
 // import { LoadingFullScreen } from "@/model/tools/LoadingFullScreen";
 
 
-export default function MiniGameStage({children}:{children:ReactNode}) {
+export default function MiniGameStage({onGreenClicked,children}:{onGreenClicked:()=>void,children:ReactNode}) {
   const searchParams = useSearchParams()
   const noAutoRotate = searchParams.has('norotate') || false
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
