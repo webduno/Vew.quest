@@ -99,6 +99,21 @@ export async function POST(request: Request) {
           colorAccuracy +
           solidAccuracy
         ) / 5;
+      } else {
+        // Calculate accuracy with all values being 0 when live_data is null
+        const naturalityAccuracy = calculateAccuracy(natural, 0, true, false);
+        const temperatureAccuracy = calculateAccuracy(temp, 0, true, false);
+        const lightAccuracy = calculateAccuracy(light, 0, false, false);
+        const colorAccuracy = calculateAccuracy(color, 0, false, false);
+        const solidAccuracy = calculateAccuracy(solid, 0, false, false);
+        
+        overallAccuracy = (
+          naturalityAccuracy +
+          temperatureAccuracy +
+          lightAccuracy +
+          colorAccuracy +
+          solidAccuracy
+        ) / 5;
       }
 
       const objList = {
