@@ -37,7 +37,8 @@ export default function RootLayout({
       //  background: 'radial-gradient(circle, #3E3B34, #1E1B14)',
       // gradient like sunset
       // background: 'linear-gradient(-45deg, #ffba6e , #aad0f4 , #6aa0f4 )',
-        height: '100vh', overflow: 'hidden' }}>
+        // height: '100vh', overflow: 'hidden'
+         }}>
         {/* <ClientLayout> */}
         <BackgroundMusicProvider>
         {/* <FetchedStatsProvider> */}
