@@ -241,7 +241,7 @@ useEffect(() => {
     )}
 
 
-{!(!!selectedInputType && selectedInputType === 'sketch' && (
+{!!selectedInputType &&!( selectedInputType === 'sketch' && (
       optionsValue.natural === 0 && optionsValue.temp === 0 && optionsValue.light === 0 && optionsValue.color === 0 && optionsValue.solid === 0
     )) && (
       <>
