@@ -6,6 +6,8 @@ import { UserStats } from '@/script/utils/calculations';
 import { IconStatsBar } from './IconStatsBar';
 import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
+import { useRouter } from 'next/navigation';
+import { BewOrangeBtn } from './BewBtns';
 interface UserProfileHeaderProps {
   playerId: string | null;
   userStats: UserStats;
@@ -53,6 +55,12 @@ export function UserProfileHeader({ playerId, userStats, crvObjects, onCopyUsern
           </div>
           <img src={pfp || "/bew/pfp/row-4-column-1.png"}
             alt="pfp" className={'bord-r-50 noverflow block ' + (isMobile() ? 'w-150px' : 'w-250px')} />
+        </div>
+        <div>
+        <a href={`/party/${playerId}`} className='tx-bold pointer mb-4 block'>
+        <BewOrangeBtn text="Start Party" onClick={() => {
+        }}/>
+        </a>
         </div>
         <div className='bord-r-15 mb-4 pb-2 flex-col ' style={{ border: "1px solid #f0f0f0" }}>
           {!showTrueSummary && (<>

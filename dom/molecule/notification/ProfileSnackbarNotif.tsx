@@ -37,13 +37,15 @@ export const ProfileSnackbarNotif = () => {
   const getBackgroundColor = () => {
     switch (snackbarSeverity) {
       case 'success':
-        return '#4CAF50';
+        return '#80DB7D';
       case 'error':
         return '#f44336';
       case 'warning':
         return '#ff9800';
-      case 'info':
-        return '#2196f3';
+        case 'info':
+          return '#2196f3';
+          case 'purple':
+            return '#807DDB';
       case 'errorwarning':
         return 'linear-gradient(45deg, #f47366, #ff9800)';
       case 'title':

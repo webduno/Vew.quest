@@ -24,6 +24,7 @@ import { MenuIconBar } from '@/dom/bew/MenuIconBar';
 import { PartyScreen, WaitingRoom } from '@/dom/bew/PartyScreen';
 import { PartyToolLogin } from '@/dom/bew/PartyToolLogin';
 import { useParams } from 'next/navigation';
+import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 
 type TargetsData = {
   [key: string]: string;
@@ -34,6 +35,7 @@ export type PartyGameState = 'initial' | 'playing' | 'results' | 'waiting';
 export default function PartyPage() {
   const { isLoading, crvObjects, mailboxRequests, isLoadingMailbox, mailboxError, fetchMailboxRequests, refetchStats } = useFetchedStats();
   const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
+  const { triggerSnackbar } = useProfileSnackbar();
   const { playSoundEffect } = useBackgroundMusic();
   const params = useParams<{ id: string }>()
   useEffect(() => {
@@ -257,6 +259,7 @@ const sharedIdState = useState<string | null>(null);
 const handleUpdate = async (e:any)=>{
   console.log("handleUpdate", e, sharedIdState[0]);
   if (!sharedIdState[0]) return;
+  playSoundEffect("/sfx/short/cling.mp3")
 
   try {
   console.log("handleUpdate 2222", e, sharedIdState[0]);
@@ -277,6 +280,10 @@ const handleUpdate = async (e:any)=>{
 
     const data = await response.json();
     setFullPartyData(data);
+    triggerSnackbar(<div className='flex-col gap-2'>
+      <div>Your changes have been saved!</div>
+      <div>🔔 Party data updated</div>
+    </div>, "purple");
   } catch (error) {
     console.error('Error updating party:', error);
   }
@@ -286,9 +293,20 @@ const handleRefresh = async ()=>{
   setReloadingParty(true);
   console.log("handleRefresh", );
   // fetchpartydata again
+  playSoundEffect("/sfx/short/goodcode.mp3")
+  setTimeout(async ()=>{
+  if (!sharedIdState[0]) { return }
 
   await fetchPartyData(sharedIdState[0]);
+  triggerSnackbar(<div className='flex-col gap-2'>
+    <div>Refreshed successfully!</div>
+    <div>⬇️ Syncronization completed</div>
+  </div>, "success");
   setReloadingParty(false);
+  setTimeout(()=>{
+    playSoundEffect("/sfx/short/fff.mp3")
+  }, 200);
+}, 500);
 }
 
   const handleSend = useCallback(async (params: {
@@ -588,7 +606,7 @@ const handleRefresh = async ()=>{
 
               
                 {!reloadingParty && (<>
-                  <PartyScreen 
+                  <PartyScreen friendid={friendId}
                 selectedInputType={selectedInputType}
                 setSelectedInputType={setSelectedInputType}
                 sharedIdState={sharedIdState}
