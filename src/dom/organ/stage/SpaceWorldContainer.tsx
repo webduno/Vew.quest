@@ -5,6 +5,8 @@ import MiniGameStage from "./MiniGameStage";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import ModelGameStage from "./ModelGameStage";
 import { useBackgroundMusic } from "../../../../script/state/context/BackgroundMusicContext";
+import JSConfetti from 'js-confetti';
+
 interface SpaceWorldContainerProps {
   children: ReactNode;
 }
@@ -15,9 +17,11 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
   const gameStageRef = useRef<"loading" | "starting" | "playing" | "ended">("loading")
   const [showHelper, setShowHelper] = useState(false)
   const [randomCoord1LatLan, setRandomCoord1LatLan] = useState({lat:0,lng:0})
+  const confettiRef = useRef<JSConfetti | null>(null);
 
   // Generate initial target
   useEffect(() => {
+    confettiRef.current = new JSConfetti();
     startGameProcess()
   }, [])
 
@@ -41,6 +45,10 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
     setWinAttempts(winAttempts + 1)
     startGameProcess()
     playSoundEffect("/sfx/short/myst.mp3")
+    confettiRef.current?.addConfetti({
+      confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
+      confettiNumber: 50,
+    });
   }
   const changeSetAttempts = (attempts:number) => {
     playSoundEffect("/sfx/short/goodbip.wav")
