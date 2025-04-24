@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback, useRef } from 'react';
 import { calculateStreak, calculatePotentialStreak } from '@/script/utils/streak';
 
 export interface CRVObject {
@@ -69,7 +69,7 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   const [crvObjects, setCrvObjects] = useState<CRVObject[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+  const hasInitialFetch = useRef(false);
   // Mailbox states
   const [mailboxRequests, setMailboxRequests] = useState<MailboxRequest[] | null>(null);
   const [isLoadingMailbox, setIsLoadingMailbox] = useState(false);
@@ -170,6 +170,9 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
+    if (hasInitialFetch.current) { return }
+    hasInitialFetch.current = true;
+    console.log("fetching data");
     fetchData();
   }, []);
 
