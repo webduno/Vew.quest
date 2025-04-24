@@ -307,7 +307,7 @@ emojiSize:50,
 }
 
   return (
-    <div className='w-100  flex-col flex-justify-start'>
+    <div className='w-100  flex-col flex-justify-start autoverflow-y'>
       <div className='w-100  flex-col  '>
         {gameState === 'initial' && (
           <InitialToolLogin
