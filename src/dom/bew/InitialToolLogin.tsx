@@ -26,7 +26,7 @@ export const InitialToolLogin: React.FC<InitialToolLoginProps> = ({
       </>} />
       <div className='flex-wrap gap-8 px-4 '
         style={{
-          height: "70vh",
+          minHeight: "70vh",
         }}
       >
         <div className='flex-col '
@@ -52,7 +52,7 @@ export const InitialToolLogin: React.FC<InitialToolLoginProps> = ({
             alt="tool_bg1" className='pointer bord-r-50 noverflow block w-250px' />
 
         </div>
-        <div className=' tx-altfont-2 tx-bold gap-4  flex-col w-300px'
+        <div className=' tx-altfont-2 tx-bold gap-4 pb-8 flex-col w-300px'
           style={{
             color: "#777777",
           }}

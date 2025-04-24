@@ -62,7 +62,7 @@ export default function TrainingPage() {
         
         <NavigationHeaderBar />
 
-        <div className='flex-wrap gap-8 px-4 ' style={{ height: "70vh", }}>
+        <div className='flex-wrap gap-8 px-4 ' style={{ minHeight: "70vh", }}>
 
           <VewLandingGraphic />
 
