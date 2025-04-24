@@ -6,6 +6,8 @@ import { VersionTag } from './VersionTag';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation'
+import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
+import { BewPurpleBtn } from './BewBtns';
 
 export interface PartyToolLoginProps {
   gameState: GameState;
@@ -21,6 +23,7 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
 }) => {
   const version = process.env.VEW_PUBLIC_VERSION;
   const [friendUsername, setFriendUsername] = useState('');
+  const { triggerSnackbar } = useProfileSnackbar();
   const router = useRouter();
   const params = useParams<{ id: string }>()
  
@@ -70,6 +73,16 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
           }}
         >
           <div className='tx-center tx-lgx landing -title'>Create &amp; Start your <br /> Remote Viewing Party </div>
+
+          {!typedUsername && (<>
+          <a href="/tool" className=''>
+          <BewPurpleBtn text="Login First"
+            onClick={() => {
+              // setTypedUsername('');
+            }} />
+          </a>
+            </>)}
+            {!!typedUsername && (<>
           <div>
             <div>
               <input readOnly disabled
@@ -113,10 +126,12 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
               className='py-2 px-2 tx-center tx-white bord-r-10 tx-lgx opaci-chov--75'
               onClick={isLoading ? undefined : () => {
                 if (!typedUsername) {
-                  const randomId = random10CharString();
-                  setTypedUsername(randomId);
-                  localStorage.setItem('VB_PLAYER_ID', randomId);
-                  window.location.reload();
+                  // const randomId = random10CharString();
+                  // setTypedUsername(randomId);
+                  // localStorage.setItem('VB_PLAYER_ID', randomId);
+                  // window.location.reload();
+                  triggerSnackbar("Please enter your name", "error")
+                  // window.location.href = "/tool"
                   return;
                 }
                 handleStart(friendUsername);
@@ -129,6 +144,8 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
               {isLoading ? "Loading..." : "PARTY"}
             </div>
           </div>
+          </>)}
+
         </div>
       </div>
     </>

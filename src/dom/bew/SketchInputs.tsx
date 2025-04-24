@@ -107,8 +107,7 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
         />
       )}
       <div className='flex-col flex-align-end pos-abs right-0 bottom-0 mb-8 mr-2 gap-2'>
-        <button 
-          className=' z-1000'
+      <button 
           onClick={() => {
             if (canvasRef.current) {
               canvasRef.current.undo();
@@ -126,15 +125,15 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
         >
           Undo
         </button>
-        <button  className='z-1000 '
+      <button  className=''
           onClick={() => {
             if (canvasRef.current) {
               try {
                 canvasRef.current.clear();
-                onValueChange('');
               } catch (e) {
                 console.warn('Failed to clear canvas:', e);
               }
+              onValueChange('{"lines":[]}');
             }
           }}
           style={{
@@ -145,7 +144,7 @@ export const SketchInputs = forwardRef<SketchInputsRef, {
             cursor: 'pointer'
           }}
         >
-          Reset
+          Clear
         </button>
       </div>
     </div>

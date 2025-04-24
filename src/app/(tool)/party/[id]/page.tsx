@@ -74,6 +74,8 @@ const [reloadingParty, setReloadingParty] = useState(false);
 
   const handlePartyStart = () => {
     console.log("handlePartyStart");
+    if (gameState === 'waiting') { return }
+    setGameState('waiting');
   }
 
   // useEffect(() => {
