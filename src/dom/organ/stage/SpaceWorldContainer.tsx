@@ -10,9 +10,14 @@ import { useLSPlayerId } from "../../../../script/state/hook/usePlayerStats";
 
 interface SpaceWorldContainerProps {
   children: ReactNode;
+  clickCounter: number;
+  wincounter: number;
+  setClickCounter: (clickCounter: number) => void;
+  setWincounter: (wincounter: number) => void;
+  timeRemaining: number;
 }
 
-export default function SpaceWorldContainer({ children }: SpaceWorldContainerProps) {
+export default function SpaceWorldContainer({ children, clickCounter, wincounter, setClickCounter, setWincounter, timeRemaining }: SpaceWorldContainerProps) {
   const {LS_playerId} = useLSPlayerId()
   const { triggerSnackbar } = useProfileSnackbar();
   const { playSoundEffect } = useBackgroundMusic();
@@ -20,6 +25,9 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
   const [showHelper, setShowHelper] = useState(false)
   const [randomCoord1LatLan, setRandomCoord1LatLan] = useState({lat:0,lng:0})
   const confettiRef = useRef<JSConfetti | null>(null);
+  const [attempts, setAttempts] = useState(0)
+  const [winAttempts, setWinAttempts] = useState(0)
+  const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Generate initial target
   useEffect(() => {
@@ -31,15 +39,34 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
     setShowHelper(!showHelper)
   }
 
-  const [attempts, setAttempts] = useState(0)
-  const [winAttempts, setWinAttempts] = useState(0)
   const startGameProcess = () => {
     const randomCoord1LatLan = {
       lat: Math.random() * 180 - 90,
       lng: Math.random() * 360 - 180
     }
     setRandomCoord1LatLan(randomCoord1LatLan)
+    
+    // Clear existing timer if any
+    if (timerRef.current) {
+      clearInterval(timerRef.current)
+    }
+    
+    // Start new timer
+    timerRef.current = setInterval(() => {
+      if (timeRemaining <= 1) {
+        clearInterval(timerRef.current!)
+      }
+    }, 1000)
   }
+
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current)
+      }
+    }
+  }, [])
 
   const onTargetFound = () => {
     triggerSnackbar("Target found", "success")
@@ -52,12 +79,14 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
     });
     // Track win and reset attempts
     trackClick(true, attempts);
+    setWincounter(wincounter + 1)
     setAttempts(0);
   }
 
   const changeSetAttempts = (newAttempts:number) => {
     console.log("newAttempts", newAttempts)
     playSoundEffect("/sfx/short/goodbip.wav")
+    setClickCounter(clickCounter + 1)
     setAttempts(newAttempts)
     // Only track attempts when the game is ongoing
     console.log("gameStageRef.current", gameStageRef.current)
@@ -97,7 +126,8 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
     onTargetFound={onTargetFound}
     gameData={{
       randomCoord1LatLan,
-      showHelper
+      showHelper,
+      timeRemaining
     }}
     >
       <>

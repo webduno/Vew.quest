@@ -54,8 +54,32 @@ export async function POST(request: Request) {
         );
       }
 
+      // Fetch the updated record
+      const { data: updatedRecords, error: fetchError } = await supabase
+        .from('vew_click')
+        .select('attempts, win')
+        .eq('player_id', player_id);
+
+      if (fetchError) {
+        console.error('Error fetching updated record:', fetchError);
+        return NextResponse.json(
+          { error: fetchError.message },
+          { status: 500 }
+        );
+      }
+
+      if (!updatedRecords || updatedRecords.length === 0) {
+        return NextResponse.json(
+          { error: 'No records found after update' },
+          { status: 404 }
+        );
+      }
+
+      // Use the first record if multiple exist
+      const updatedRecord = updatedRecords[0];
+
       return NextResponse.json(
-        { success: true },
+        { success: true, data: updatedRecord },
         { status: 200 }
       );
     }
@@ -79,8 +103,32 @@ export async function POST(request: Request) {
       );
     }
 
+    // Fetch the newly created record
+    const { data: newRecords, error: fetchError } = await supabase
+      .from('vew_click')
+      .select('attempts, win')
+      .eq('player_id', player_id);
+
+    if (fetchError) {
+      console.error('Error fetching new record:', fetchError);
+      return NextResponse.json(
+        { error: fetchError.message },
+        { status: 500 }
+      );
+    }
+
+    if (!newRecords || newRecords.length === 0) {
+      return NextResponse.json(
+        { error: 'No records found after creation' },
+        { status: 404 }
+      );
+    }
+
+    // Use the first record if multiple exist
+    const newRecord = newRecords[0];
+
     return NextResponse.json(
-      { success: true },
+      { success: true, data: newRecord },
       { status: 200 }
     );
 
