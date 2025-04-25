@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     const { data: existingClick, error: findError } = await supabase
       .from('vew_click')
       .select('id, attempts, win, player_id')
-      .eq('player_id', player_id)
+      .eq('player_id', player_id.toLowerCase())
       .single();
 
     // console.log("existingClick", existingClick)
