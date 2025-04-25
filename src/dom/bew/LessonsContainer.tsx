@@ -37,7 +37,8 @@ export const LessonsContainer = () => {
       href: "/profile",
       backgroundColor: "#5BA386",
       boxShadowColor: "#4A856D",
-      actionText: "Open Your Profile"
+      actionText: "Open Your Profile",
+      forcedClick: null
     },
     {
       title: "Your Journey",
@@ -45,7 +46,8 @@ export const LessonsContainer = () => {
       href: "/profile#journey",
       backgroundColor: "#C3B4D0",
       boxShadowColor: "#9F86A8",
-      actionText: "Review History"
+      actionText: "Review History",
+      forcedClick: null
     },
     {
       title: "3D World",
@@ -53,7 +55,17 @@ export const LessonsContainer = () => {
       href: "/world",
       backgroundColor: "#96C34A",
       boxShadowColor: "#66a31A",
-      actionText: "Enter Main Plaza & Play"
+      actionText: "Enter Main Plaza & Play",
+      forcedClick: null
+    },
+    {
+      title: "Space Quest",
+      emoji: "🌍",
+      href: "/space",
+      backgroundColor: "#30a4eA",
+      boxShadowColor: "#0074BA",
+      actionText: "Enter Space Quest",
+      forcedClick: null
     },
     {
       title: "Global Ranking",
@@ -61,24 +73,25 @@ export const LessonsContainer = () => {
       href: "/leaderboard",
       backgroundColor: "#aD8574",
       boxShadowColor: "#7D5544",
-      actionText: "Public Leaderboard"
+      actionText: "Public Leaderboard",
+      forcedClick: null
     },
-    {
-      title: "Weekly Challenges",
-      emoji: "📅",
-      href: "#",
-      backgroundColor: "#1094dE",
-      forcedClick: () => {
-        playSoundEffect('/sfx/short/errorbip.mp3');
-  triggerSnackbar(<div className='tx-center py-1'>
-    <div className=''>
-    Weekly Challenges <br /> are coming soon!
-    </div>
-  </div>, "errorwarning");
-      },
-      boxShadowColor: "#006699",
-      actionText: "View Challenges"
-    },
+  //   {
+  //     title: "Weekly Challenges",
+  //     emoji: "📅",
+  //     href: "#",
+  //     backgroundColor: "#1094dE",
+  //     forcedClick: () => {
+  //       playSoundEffect('/sfx/short/errorbip.mp3');
+  // triggerSnackbar(<div className='tx-center py-1'>
+  //   <div className=''>
+  //   Weekly Challenges <br /> are coming soon!
+  //   </div>
+  // </div>, "errorwarning");
+  //     },
+  //     boxShadowColor: "#006699",
+  //     actionText: "View Challenges"
+  //   },
     {
       title: "Report a Bug",
       // warning sign
@@ -86,7 +99,8 @@ export const LessonsContainer = () => {
       href: "/feedback",
       backgroundColor: "#FFc04E",
       boxShadowColor: "#dF900E",
-      actionText: "Submit Issue"
+      actionText: "Submit Issue",
+      forcedClick: null
     },
   ];
 
@@ -105,7 +119,7 @@ export const LessonsContainer = () => {
           backgroundColor={lesson.backgroundColor} 
           boxShadowColor={lesson.boxShadowColor}
           actionText={lesson.actionText}
-          forcedClick={lesson.forcedClick}
+          forcedClick={lesson.forcedClick || undefined}
         />
       ))}
     </div>
