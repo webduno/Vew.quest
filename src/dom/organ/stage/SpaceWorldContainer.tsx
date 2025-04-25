@@ -6,12 +6,14 @@ import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import ModelGameStage from "./ModelGameStage";
 import { useBackgroundMusic } from "../../../../script/state/context/BackgroundMusicContext";
 import JSConfetti from 'js-confetti';
+import { useLSPlayerId } from "../../../../script/state/hook/usePlayerStats";
 
 interface SpaceWorldContainerProps {
   children: ReactNode;
 }
 
 export default function SpaceWorldContainer({ children }: SpaceWorldContainerProps) {
+  const {LS_playerId} = useLSPlayerId()
   const { triggerSnackbar } = useProfileSnackbar();
   const { playSoundEffect } = useBackgroundMusic();
   const gameStageRef = useRef<"loading" | "starting" | "playing" | "ended">("loading")
@@ -49,11 +51,45 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
       confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
       confettiNumber: 50,
     });
+    // Track win and reset attempts
+    trackClick(true, attempts);
+    setAttempts(0);
   }
-  const changeSetAttempts = (attempts:number) => {
+
+  const changeSetAttempts = (newAttempts:number) => {
     playSoundEffect("/sfx/short/goodbip.wav")
-    setAttempts(attempts)
+    setAttempts(newAttempts)
+    // Only track attempts when the game is ongoing
+    console.log("gameStageRef.current", gameStageRef.current)
+    // if (gameStageRef.current === "playing") {
+      trackClick(false, newAttempts);
+    // }
   }
+
+  const trackClick = async (isWin: boolean, attempts: number) => {
+    if (!LS_playerId) return;
+    
+    try {
+      const response = await fetch('/api/click/findOrCreate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          player_id: LS_playerId,
+          isWin,
+          attempts: 1
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('Failed to track click');
+      }
+    } catch (error) {
+      console.error('Error tracking click:', error);
+    }
+  }
+
   return (
     <ModelGameStage attempts={attempts} setAttempts={changeSetAttempts} winAttempts={winAttempts} setWinAttempts={setWinAttempts} onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
     onTargetFound={onTargetFound}
