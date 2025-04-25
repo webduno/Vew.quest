@@ -108,7 +108,7 @@ export const WorldModelTextured = ({state, onGreenClicked, targetCoords, onTarge
           latLngToCartesian(targetCoords.lat, targetCoords.lng).y,
           latLngToCartesian(targetCoords.lat, targetCoords.lng).z
         ]}>
-          <Sphere args={[0.15, 32, 32]} 
+          <Sphere args={[0.3, 32, 32]} 
             onClick={(e) => {
               e.stopPropagation();
               onTargetFound();
