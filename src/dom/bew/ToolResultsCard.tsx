@@ -103,7 +103,7 @@ export const ToolResultsCard = ({
     //     const drawingCanvas = (canvasRef.current as any).canvas.drawing;
     //     const targetImage = new Image();
     //     targetImage.crossOrigin = 'anonymous';
-    //     targetImage.src = `/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`;
+    //     targetImage.src = `https://webduno.com/vew/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`;
         
     //     targetImage.onload = () => {
     //       const combinedCanvas = document.createElement('canvas');
@@ -164,7 +164,7 @@ export const ToolResultsCard = ({
       const logoImage = new Image();
       targetImage.crossOrigin = 'anonymous';
       logoImage.crossOrigin = 'anonymous';
-      targetImage.src = `/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`;
+      targetImage.src = `https://webduno.com/vew/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`;
       logoImage.src = '/bew/pnglogo.png';
       
       Promise.all([
@@ -326,7 +326,7 @@ export const ToolResultsCard = ({
               }}
             >
               <img className='block pos-rel'
-                src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`}
+                src={`https://webduno.com/vew/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`}
                 alt={selectedTargetInfo?.description}
                 style={{
                   overflow: 'hidden',

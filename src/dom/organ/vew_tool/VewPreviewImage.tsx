@@ -15,7 +15,7 @@ export const VewPreviewImage = ({ selectedTargetInfo, setShowImageModal }: { sel
         </div>
       </div>
       <img className='block pos-rel bord-r-15'
-        src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`}
+        src={`https://webduno.com/vew/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`}
         alt={selectedTargetInfo?.description}
         style={{
           overflow: 'hidden',

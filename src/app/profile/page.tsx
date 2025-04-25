@@ -624,7 +624,7 @@ backgroundColor='#71B44F'
               {modalView === 'image' && currentImage && (<>
               {/* {JSON.stringify(currentImage)} */}
                  <img className='block pos-rel'
-                   src={`/data/image/${currentImage.id == "default" ? "default" : currentImage.id.padStart(12, '0')}.jpg`}
+                   src={`https://webduno.com/vew/image/${currentImage.id == "default" ? "default" : currentImage.id.padStart(12, '0')}.jpg`}
                    alt={currentImage.description}
                    style={{
                      overflow: 'hidden',

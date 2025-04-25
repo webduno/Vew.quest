@@ -365,7 +365,7 @@ export default function TrainingPage() {
                   </KeyboardBtn>
                 </div>
                 <img 
-                  src={`/data/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
+                  src={`https://webduno.com/vew/image/${selectedTargetInfo?.id.padStart(12, '0')}.jpg`} 
                   alt={selectedTargetInfo?.description}
                   style={{
                     borderRadius: "3px",
