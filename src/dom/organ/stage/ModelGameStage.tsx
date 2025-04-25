@@ -11,6 +11,7 @@ import { Fog } from "three";
 import TiltShiftEffects from "@/model/tools/tiltshift";
 import { WorldModelTextured } from "@/model/level/WorldModelTextured";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
+import { ComputerModel } from "@/model/core/ComputerModel";
 
 const latLngToCartesian = (lat: number, lng: number, radius: number = 1) => {
   const phi = (90 - lat) * (Math.PI / 180);
@@ -40,13 +41,14 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
   const noAutoRotate = searchParams.has('norotate') || false
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const [mounted, s__Mounted] = useState(false);
+  const [lastClickedCoords, setLastClickedCoords] = useState<{lat: number, lng: number} | null>(null);
   useEffect(() => {
     s__Mounted(true);
   }, []);
 
   const clickedHandler = (coordsLatLan:any) => {
     console.log("Clicked coordinates:", coordsLatLan)
-    // console.log("Target coordinates:", randomCoord1LatLan)
+    setLastClickedCoords(coordsLatLan);
     setAttempts(attempts + 1)
   }
   
@@ -84,10 +86,12 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
         />
         {isDOF && <TiltShiftEffects />}
         <WorldModelTextured 
+          onGreenClicked={onGreenClicked}
           clickedHandler={clickedHandler}
           targetCoords={randomCoord1LatLan}
           onTargetFound={onTargetFound}
           showHelper={showHelper}
+          lastClickedCoords={lastClickedCoords}
         />
         <ambientLight intensity={0.02} />
         <pointLight position={[2,2,2]} />
@@ -107,15 +111,21 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
 
           </group>    
           {attempts > 0 && (
-            <Text fontSize={0.4} color="#ff4400"  position={[0,2.2,0]}>
+            <Text fontSize={0.3} color="#ff4400"  position={[0,2.2,0]}>
               {attempts}
             </Text>
           )}
+          <group position={[0.1,0,-2]}>
+            <Box args={[1.1 ,.08,.6]} position={[0,-0.55,-0.2]}>
+              <meshStandardMaterial color={"#ddbb99"} />
+            </Box>
           {winAttempts > 0 && (
-            <Text fontSize={0.3} color="#44ff00"  position={[0,1.3,0]}>
+            <Text fontSize={0.2} color="#44ff00"  position={[-0.09,-.08,-0.02]}>
               {winAttempts}
             </Text>
           )}
+            <ComputerModel state={{}} tokensArrayArray={[]} />
+          </group>
           <group position={[0,-3, 0]} > <WormHoleModel /> </group>
           </group>    
         </group>

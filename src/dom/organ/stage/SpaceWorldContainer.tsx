@@ -42,7 +42,6 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
   }
 
   const onTargetFound = () => {
-    console.log("Target found")
     triggerSnackbar("Target found", "success")
     setWinAttempts(winAttempts + 1)
     startGameProcess()
@@ -57,6 +56,7 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
   }
 
   const changeSetAttempts = (newAttempts:number) => {
+    console.log("newAttempts", newAttempts)
     playSoundEffect("/sfx/short/goodbip.wav")
     setAttempts(newAttempts)
     // Only track attempts when the game is ongoing
@@ -91,7 +91,9 @@ export default function SpaceWorldContainer({ children }: SpaceWorldContainerPro
   }
 
   return (
-    <ModelGameStage attempts={attempts} setAttempts={changeSetAttempts} winAttempts={winAttempts} setWinAttempts={setWinAttempts} onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
+    <ModelGameStage attempts={attempts} setAttempts={changeSetAttempts} 
+    winAttempts={winAttempts} setWinAttempts={setWinAttempts}
+     onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
     onTargetFound={onTargetFound}
     gameData={{
       randomCoord1LatLan,
