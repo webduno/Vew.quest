@@ -15,19 +15,24 @@ interface SpaceWorldContainerProps {
   setClickCounter: (clickCounter: number) => void;
   setWincounter: (wincounter: number) => void;
   timeRemaining: number;
+  startGameProcess: () => void;
+  timerRef: React.MutableRefObject<NodeJS.Timeout | null>;
+  randomCoord1LatLan: {lat:number,lng:number};
+  setRandomCoord1LatLan: (randomCoord1LatLan: {lat:number,lng:number}) => void;
+  setTimerLimit: (timerLimit: number) => void;
 }
 
-export default function SpaceWorldContainer({ children, clickCounter, wincounter, setClickCounter, setWincounter, timeRemaining }: SpaceWorldContainerProps) {
+export default function SpaceWorldContainer({ 
+  startGameProcess, timerRef, randomCoord1LatLan, setRandomCoord1LatLan,
+  children, clickCounter, wincounter, setClickCounter, setWincounter, timeRemaining, setTimerLimit }: SpaceWorldContainerProps) {
   const {LS_playerId} = useLSPlayerId()
   const { triggerSnackbar } = useProfileSnackbar();
   const { playSoundEffect } = useBackgroundMusic();
   const gameStageRef = useRef<"loading" | "starting" | "playing" | "ended">("loading")
   const [showHelper, setShowHelper] = useState(false)
-  const [randomCoord1LatLan, setRandomCoord1LatLan] = useState({lat:0,lng:0})
   const confettiRef = useRef<JSConfetti | null>(null);
   const [attempts, setAttempts] = useState(0)
-  const [winAttempts, setWinAttempts] = useState(0)
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
+  // const [winAttempts, setWinAttempts] = useState(0)
 
   // Generate initial target
   useEffect(() => {
@@ -39,25 +44,6 @@ export default function SpaceWorldContainer({ children, clickCounter, wincounter
     setShowHelper(!showHelper)
   }
 
-  const startGameProcess = () => {
-    const randomCoord1LatLan = {
-      lat: Math.random() * 180 - 90,
-      lng: Math.random() * 360 - 180
-    }
-    setRandomCoord1LatLan(randomCoord1LatLan)
-    
-    // Clear existing timer if any
-    if (timerRef.current) {
-      clearInterval(timerRef.current)
-    }
-    
-    // Start new timer
-    timerRef.current = setInterval(() => {
-      if (timeRemaining <= 1) {
-        clearInterval(timerRef.current!)
-      }
-    }, 1000)
-  }
 
   // Cleanup timer on unmount
   useEffect(() => {
@@ -70,7 +56,7 @@ export default function SpaceWorldContainer({ children, clickCounter, wincounter
 
   const onTargetFound = () => {
     triggerSnackbar("Target found", "success")
-    setWinAttempts(winAttempts + 1)
+    // setWinAttempts(winAttempts + 1)
     startGameProcess()
     playSoundEffect("/sfx/short/myst.mp3")
     confettiRef.current?.addConfetti({
@@ -81,6 +67,8 @@ export default function SpaceWorldContainer({ children, clickCounter, wincounter
     trackClick(true, attempts);
     setWincounter(wincounter + 1)
     setAttempts(0);
+    // Set new timer limit when target is found
+    setTimerLimit(59); // Reset to 10 seconds when target is found
   }
 
   const changeSetAttempts = (newAttempts:number) => {
@@ -121,7 +109,7 @@ export default function SpaceWorldContainer({ children, clickCounter, wincounter
 
   return (
     <ModelGameStage attempts={attempts} setAttempts={changeSetAttempts} 
-    winAttempts={winAttempts} setWinAttempts={setWinAttempts}
+    winAttempts={wincounter} setWinAttempts={setWincounter}
      onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
     onTargetFound={onTargetFound}
     gameData={{

@@ -1,7 +1,7 @@
 "use client";
 import { Sphere, useTexture, Billboard, Text, Box } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Vector3, Quaternion } from "three";
 import { ComputerModel } from "../core/ComputerModel";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
@@ -12,17 +12,19 @@ export const WorldModelTextured = ({state, onGreenClicked, targetCoords, onTarge
   const $whole:any = useRef()
   const $wholeReversed:any = useRef()
   const { triggerSnackbar } = useProfileSnackbar();
+  const [previousTargets, setPreviousTargets] = useState<Array<{lat: number, lng: number}>>([]);
+
   useFrame(()=>{
-    if (!$cloudsWireframe.current) return
     if (!$light.current) return
     if (!$whole.current) return
-    $cloudsWireframe.current.rotation.y += 0.003
     $light.current.rotation.y += 0.03
     $whole.current.rotation.y += 0.001
     if (!$wholeReversed.current) return
-    $wholeReversed.current.rotation.y -= 0.01
-    $wholeReversed.current.rotation.x -= 0.006
+    $wholeReversed.current.rotation.y -= 0.006
+    // $wholeReversed.current.rotation.x -= 0.01
     $wholeReversed.current.position.y = Math.sin(Date.now()/1000)/10
+    if (!$cloudsWireframe.current) return
+    $cloudsWireframe.current.rotation.y += 0.003
   })
 
   const latLngToCartesian = (lat: number, lng: number, radius: number = 0.65) => {
@@ -59,11 +61,13 @@ export const WorldModelTextured = ({state, onGreenClicked, targetCoords, onTarge
 
   return (<>
   <group ref={$wholeReversed}>
-    <pointLight position={[5,5,5]} intensity={100} />
+    <spotLight
+    penumbra={1}
+     position={[5,5,5]} intensity={500} distance={15} castShadow />
     {/* <Sphere args={[1.1,8,4]}  >
       <meshStandardMaterial wireframe={true} emissive={"#000000"} color={"#000000"} />
     </Sphere> */}
-    <Sphere args={[0.15,8,4]}  position={[0,0,3.3]}  onClick={(e)=>{
+    {/* <Sphere args={[0.15,8,4]}  position={[0,0,3.3]}  onClick={(e)=>{
       e.stopPropagation();
       onGreenClicked()
       triggerSnackbar(<>
@@ -74,76 +78,70 @@ export const WorldModelTextured = ({state, onGreenClicked, targetCoords, onTarge
 
     }}>
       <meshStandardMaterial  color={"#aaaaaa"} />
-    </Sphere>
-    </group>
-    <group position={[0,1.25,-2.2]}>
-      <Box args={[1.1 ,.2,.03]} position={[0,-1,0]}>
-        <meshStandardMaterial color={"#aa8866"} />
-      </Box>
-      {lastClickedCoords && (<>
-        <Text fontSize={0.1} color="#ffffff"  position={[
-        0,-1,0.02
-      ]}>
-        {`Lat: ${lastClickedCoords.lat.toFixed(1)}° (${(targetCoords.lat - lastClickedCoords.lat).toFixed(1)}°)`}
-      </Text>
-      <Text 
-      rotation={[0,Math.PI,0]}
-      fontSize={0.1} color="#ffffff"  position={[
-        0,-1,-0.02
-      ]}>
-        {`Lng: ${lastClickedCoords.lng.toFixed(1)}° (${(targetCoords.lng - lastClickedCoords.lng).toFixed(1)}°)`}
-      </Text>
-      </>)}
+    </Sphere> */}
     </group>
   <group ref={$whole}>
-    <ambientLight intensity={0.5} />
     <group ref={$light}></group>
-    <Sphere args={[.74,16,6,2]} castShadow receiveShadow ref={$cloudsWireframe} >
-      <meshStandardMaterial wireframe={true}  color={"#777777"} />
-    </Sphere>
-      <EarthTextured clickedHandler={clickedHandler} />
-      {targetCoords && (
-        <group position={[
-          latLngToCartesian(targetCoords.lat, targetCoords.lng).x,
-          latLngToCartesian(targetCoords.lat, targetCoords.lng).y,
-          latLngToCartesian(targetCoords.lat, targetCoords.lng).z
-        ]}>
-          <Sphere args={[0.3, 32, 32]} 
-            onClick={(e) => {
-              e.stopPropagation();
-              onTargetFound();
-            }}
+    {previousTargets.map((coords, index) => (
+      <group key={index} position={[
+        latLngToCartesian(coords.lat, coords.lng).x,
+        latLngToCartesian(coords.lat, coords.lng).y,
+        latLngToCartesian(coords.lat, coords.lng).z
+      ]}>
+        <Sphere args={[0.1, 32, 32]}>
+          <meshStandardMaterial 
+            color="#ff00ff" 
+            transparent={true} 
+            opacity={0.5}
+            // emissive="#ff0000" 
+            // emissiveIntensity={0.1}
+          />
+        </Sphere>
+      </group>
+    ))}
+    <EarthTextured clickedHandler={clickedHandler} />
+    {targetCoords && (
+      <group position={[
+        latLngToCartesian(targetCoords.lat, targetCoords.lng).x,
+        latLngToCartesian(targetCoords.lat, targetCoords.lng).y,
+        latLngToCartesian(targetCoords.lat, targetCoords.lng).z
+      ]}>
+        <Sphere args={[0.3, 32, 32]} 
+          onClick={(e) => {
+            e.stopPropagation();
+            setPreviousTargets(prev => [...prev, targetCoords]);
+            onTargetFound();
+          }}
+        >
+          <meshStandardMaterial 
+            color="#00ff00" 
+            emissive="#00ff00" 
+            emissiveIntensity={0.3} 
+            transparent={true} 
+            opacity={showHelper ? 0.1 : 0} 
+          />
+        </Sphere>
+        {showHelper && (
+          <Text
+            fontSize={0.1}
+            color="#ffffff"
+            anchorX="center"
+            anchorY="bottom"
+            outlineWidth={0.02}
+            outlineColor="#000000"
+            position={[
+              getTextPosition(targetCoords.lat, targetCoords.lng).x,
+              getTextPosition(targetCoords.lat, targetCoords.lng).y,
+              getTextPosition(targetCoords.lat, targetCoords.lng).z
+            ]}
+            quaternion={getTextOrientation(targetCoords.lat, targetCoords.lng)}
           >
-            <meshStandardMaterial 
-              color="#00ff00" 
-              emissive="#00ff00" 
-              emissiveIntensity={0.3} 
-              transparent={true} 
-              opacity={showHelper ? 0.1 : 0} 
-            />
-          </Sphere>
-          {showHelper && (
-            <Text
-              fontSize={0.1}
-              color="#ffffff"
-              anchorX="center"
-              anchorY="bottom"
-              outlineWidth={0.02}
-              outlineColor="#000000"
-              position={[
-                getTextPosition(targetCoords.lat, targetCoords.lng).x,
-                getTextPosition(targetCoords.lat, targetCoords.lng).y,
-                getTextPosition(targetCoords.lat, targetCoords.lng).z
-              ]}
-              quaternion={getTextOrientation(targetCoords.lat, targetCoords.lng)}
-            >
-              {`${targetCoords.lat.toFixed(1)}°, ${targetCoords.lng.toFixed(1)}°`}
-            </Text>
-          )}
-        </group>
-      )}
-      
-    </group>
+            {`${targetCoords.lat.toFixed(1)}°, ${targetCoords.lng.toFixed(1)}°`}
+          </Text>
+        )}
+      </group>
+    )}
+  </group>
   </>);
 };
 
@@ -179,7 +177,9 @@ export const EarthTextured = ({clickedHandler}:{clickedHandler:(e:any)=>void}) =
       const coords = cartesianToLatLng(point.x, point.y, point.z);
       clickedHandler(coords);
     }}>
-      <meshStandardMaterial map={earth_jpg} displacementScale={.32} displacementMap={bump2} />
+      <meshStandardMaterial map={earth_jpg} 
+      color={"#ffffff"}
+      displacementScale={.32} displacementMap={bump2} />
     </Sphere>
   </>);
 };

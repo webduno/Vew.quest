@@ -6,8 +6,8 @@ export default function WormHoleModel({sceneState, sceneCalls,  ...props}: any) 
   return (<>
     <group scale={[1,1,1]} position={[0,4,0]}>
       <primitive object={biglandscape01} children-0-material-wireframe={true} 
-        children-0-material-emissive={"#222222"} 
-        children-0-material-color={"#000000"} 
+        children-0-material-emissive={"#ffffff"} 
+        children-0-material-color={"#ffffff"} 
       />
     </group>
   </>)

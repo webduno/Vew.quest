@@ -1,5 +1,5 @@
 "use client"
-import { Box, Cylinder, OrbitControls, Sphere, Text } from "@react-three/drei";
+import { Box, Cylinder, OrbitControls, Plane, Sphere, Text } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { ReactNode, useEffect, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
@@ -76,13 +76,15 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
       <Canvas style={{width:"100vw",height:"100vh"}} shadows 
         camera={{fov:50,position:[isSmallDevice?8:6,1,0]}}
         gl={{ preserveDrawingBuffer: true, }}
-        onCreated={(state)=>{ state.gl.setClearColor("#101319"); state.scene.fog = new Fog("#101319",16,32) }}
+        onCreated={(state)=>{ state.gl.setClearColor("#cccccc"); state.scene.fog = new Fog("#cccccc",16,32) }}
       >
         <OrbitControls
          rotateSpeed={1.75}
           autoRotateSpeed={.25} autoRotate={!noAutoRotate} 
-          dampingFactor={.1} maxPolarAngle={1.75}
+          dampingFactor={.1} maxPolarAngle={1.8}
+          maxDistance={10}
            minPolarAngle={1.025}
+           enablePan={false}
         />
         {isDOF && <TiltShiftEffects />}
         <WorldModelTextured 
@@ -93,40 +95,111 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
           showHelper={showHelper}
           lastClickedCoords={lastClickedCoords}
         />
-        <ambientLight intensity={0.02} />
+    <ambientLight intensity={0.8} />
+    {/* <ambientLight intensity={0.02} /> */}
         <pointLight position={[2,2,2]} />
         <pointLight position={[-1,1,-3]} intensity={0.05} />
         {children}
         <group rotation={[0,0,0]}>
           <group position={[0,0,0]} >
-          <group position={[0,2,0]}  scale={[.7,.5,.7]} onClick={(e:any)=>{
+          <group position={[0,1.5,0]}  scale={[1,.5,1]} onClick={(e:any)=>{
             onGreenClicked(e)
           }}>
-          <Cylinder args={[0,0.5,1,4]}  position={[0,0.54,0]} >
-            <meshStandardMaterial color={showHelper ? "#ff9999" : "#aaffaa"} side={1} />
+          <Cylinder args={[0,0.3,.75,4]}  position={[0,0.45,0]} >
+            <meshStandardMaterial color={showHelper ? "#ff9999" : "#55ff55"} side={1} />
           </Cylinder>
-          <Cylinder args={[.5,0,1,4]}  position={[0,-.54,0]} >
-            <meshStandardMaterial color={showHelper ? "#ff9999" : "#aaffaa"} />
+          <Cylinder args={[.3,0,.75,4]}  position={[0,-.45,0]} >
+            <meshStandardMaterial color={showHelper ? "#ff9999" : "#55ff55"} />
           </Cylinder>
 
           </group>    
+
+
+          
+
+
+          
+          <group position={[0,-.5,0]} rotation={[0,Math.PI/2,0]}>
           {attempts > 0 && (
-            <Text fontSize={0.3} color="#ff4400"  position={[0,2.2,0]}>
-              {attempts}
+            <Text fontSize={0.07} color="#ff4400"  
+            position={[0,-1.02,-0.02]}
+            // position={[0,0,-1]}
+            // position={[0,2.2,0]}
+            >
+              Try #{attempts}
             </Text>
           )}
-          <group position={[0.1,0,-2]}>
-            <Box args={[1.1 ,.08,.6]} position={[0,-0.55,-0.2]}>
+          <group position={[0.1,-1,0]}>
+
+            <Plane args={[100,100]} position={[0,-0.9,0]} rotation={[-Math.PI/2,0,0]} 
+            receiveShadow>
+              <meshStandardMaterial emissive={"#777777"}  color={"#777777"} />
+            </Plane>
+          {/* table top */}
+            <Box args={[1.1 ,.08,.6]} position={[-0.1,-0.55,-0.2]} receiveShadow>
               <meshStandardMaterial color={"#ddbb99"} />
             </Box>
+            {/* Table legs */}
+            <Box args={[.05,.4,.05]} position={[-0.6,-0.75,-0.4]} receiveShadow>
+              <meshStandardMaterial color={"#aa8866"} />
+            </Box>
+            <Box args={[.05,.4,.05]} position={[0.4,-0.75,-0.4]} receiveShadow>
+              <meshStandardMaterial color={"#aa8866"} />
+            </Box>
+            <Box args={[.05,.4,.05]} position={[-0.6,-0.75,0]} receiveShadow>
+              <meshStandardMaterial color={"#aa8866"} />
+            </Box>
+            <Box args={[.05,.4,.05]} position={[0.4,-0.75,0]} receiveShadow>
+              <meshStandardMaterial color={"#aa8866"} />
+            </Box>
+            
           {winAttempts > 0 && (
-            <Text fontSize={0.2} color="#44ff00"  position={[-0.09,-.08,-0.02]}>
-              {winAttempts}
+            <Text fontSize={0.11} color="#44ff00"  position={[-0.1,-.13,-0.02]}>
+              W:{winAttempts}
             </Text>
           )}
             <ComputerModel state={{}} tokensArrayArray={[]} />
+
+
+
+
+
+
+            <Box args={[1.41 ,.2,.03]} position={[-0.1,.25,-.2]}>
+              
+        <meshStandardMaterial color={"#aa8866"} />
+      </Box>
           </group>
-          <group position={[0,-3, 0]} > <WormHoleModel /> </group>
+
+          <group position={[0,.25,-.2]}>
+      {lastClickedCoords && (<>
+        <Text fontSize={0.1} color="#ffffff"  position={[
+        0,-1,0.02
+      ]}>
+        {`Look further ${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "North" : "South"}`}
+        {/* {`Lat: ${lastClickedCoords.lat.toFixed(1)}° (distance ~${(randomCoord1LatLan.lat - lastClickedCoords.lat).toFixed(1)}°)`} */}
+      </Text>
+      <Text 
+      rotation={[0,Math.PI,0]}
+      fontSize={0.1} color="#ffffff"  position={[
+        0,-1,-0.02
+      ]}>
+        {`Look further ${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "North" : "South"}`}
+        {/* {`Look further ${randomCoord1LatLan.lng - lastClickedCoords.lng > 0 ? "East" : "West"}`} */}
+        {/* {`Lng: ${lastClickedCoords.lng.toFixed(1)}° (distance ~${(randomCoord1LatLan.lng - lastClickedCoords.lng).toFixed(1)}°)`} */}
+      </Text>
+      </>)}
+    </group>
+    </group>
+
+
+
+      
+
+
+
+
+          {/* <group position={[0,-3, 0]} > <WormHoleModel /> </group> */}
           </group>    
         </group>
       </Canvas>
