@@ -3,7 +3,7 @@ import { CRVObject } from '@/script/state/context/FetchedStatsContext';
 /**
  * Calculates the streak of consecutive days a user has made remote viewing attempts
  * Uses UTC dates to ensure consistent calculation across timezones
- * Allows for one missed day in the streak
+ * Allows for one missed day between any two dates in the streak
  * @param objects Array of CRVObject containing viewing attempts
  * @returns The number of consecutive days with viewing attempts
  */
@@ -34,40 +34,33 @@ export const calculateStreak = (objects: CRVObject[], potential = false): number
 
   let streak = 1;
   let expectedDate = uniqueDates[0];
-  // if last unique date is not today, add 1 to streak
-  
-  let missedDay = false;
 
-  // if missed today, add 1 to streak
+  // if missed today, add 1 to streak for potential streak calculation
   if (potential && uniqueDates[0] !== todayTime) {
     streak++;
   }
 
   // Count consecutive days
   for (let i = 1; i < uniqueDates.length; i++) {
-
     const currentDate = uniqueDates[i];
     const dayDiff = (expectedDate - currentDate) / (24 * 60 * 60 * 1000);
 
-    
-
     if (dayDiff === 1) {
+      // Consecutive day
       streak++;
       expectedDate = currentDate;
-      missedDay = false;
-    } else if (dayDiff === 2 && !missedDay) {
-      // Allow one missed day
+    } else if (dayDiff === 2) {
+      // One day gap is allowed between any two dates
       streak++;
       expectedDate = currentDate;
-      missedDay = true;
     } else {
+      // More than one day gap, break the streak
       break;
     }
   }
 
   return streak;
 };
-
 
 export const calculatePotentialStreak = (objects: CRVObject[]): number => {
   const streak = calculateStreak(objects, true);
