@@ -28,7 +28,7 @@ export const IconStatsBar = ({
         >
 
         </div>
-        {!streak ?
+        {streak < (potentialStreak || 0) ?
           <div className='tx-lg tx-center '
             style={{
               filter: "grayscale(100%)",
@@ -36,6 +36,7 @@ export const IconStatsBar = ({
           >🔥</div>
           :
           <div className='tx-lg tx-center'>🔥</div>}
+
         <div className='tx-bold-5' style={{ color: "#FFB02E" }}>{streak || potentialStreak}</div>
       </button>
       <button className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
