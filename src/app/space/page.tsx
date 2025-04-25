@@ -80,7 +80,15 @@ export default function ModelPage() {
   return (
     <div>
       <div className="pos-abs top-0 left-0 z-100 ma-2">
-      <BewWorldLogo />  
+      <div className='bg-white bord-r-100'>
+          <a href="/" className='pointer flex-row nodeco pos-rel tx-xsm py-1 px-2 '>
+      <img src="/bew/pnglogo.png" alt="tool_bg" width={"25px"} className='mr -1' />
+      
+      <div className='tx-bold' style={{ color: "#2B29AF" }}>Vew</div>
+      <div className='tx-bold' style={{ color: "#6B69CF" }}>.quest</div>
+      {/* <div className='tx-bold' style={{ color: "#2B29AF" }}>/world</div> */}
+      </a>
+          </div> 
       </div>
       <div className="tx-center py-1 pos-abs top-0 right-0 z-100 tx-white">
         <div className="tx-center py-1">
