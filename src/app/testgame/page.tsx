@@ -11,10 +11,7 @@ export default function Home() {
       backgroundColor: "#ffffff"
     }}
      >
-      <SpaceWorldContainer>
-        <></>
-        {/* Add any additional 3D elements here */}
-      </SpaceWorldContainer>
+      testgame
     </main>
   )
 }
