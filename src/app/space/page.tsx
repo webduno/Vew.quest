@@ -20,7 +20,7 @@ export default function ModelPage() {
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const confettiRef = useRef<JSConfetti | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const [totalClickCounter, setTotalClickCounter] = useState(0);
   const [loadingWin, setLoadingWin] = useState(false)
   const [lastClickedCoords, setLastClickedCoords] = useState<{lat: number, lng: number} | null>(null);
 
@@ -75,7 +75,8 @@ console.log("blur")
 
         if (response.ok) {
           const data = await response.json();
-          setClickCounter(data.data.attempts);
+          // setClickCounter(data.data.attempts);
+          setTotalClickCounter(data.data.attempts);
           setWincounter(data.data.win);
         }
       } catch (error) {
@@ -114,7 +115,7 @@ console.log("blur")
           }
           setRandomCoord1LatLan(newRandomCoord)
           setLastClickedCoords(null)
-          playSoundEffect("/sfx/short/errorbip.mp3")
+          playSoundEffect("/sfx/short/clock.mp3")
           triggerSnackbar("Goal not found, target moved!", "error")
           confettiRef.current?.addConfetti({
             confettiColors: ['#FD0008', '#ffDB80'],
@@ -219,15 +220,10 @@ console.log("blur")
           triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
             {/* <div>Remaining time</div> */}
             {/* eye emoji */}
-            <div className="flex-row pl-2">
-            <div>{" You have"}</div>
-            <div
-        style={{ background:"#FAeeA5", boxShadow:"i, inset -2px -4px 0px #F7CB28, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
-         className="tx-lg py-1 px-1  mb-2 bord-r-100">
-          <div className="pb-1 tx-md r-1" style={{filter:"saturate(0) brightness(3)"}}>👀</div>
-         </div>
-              </div>
             <div className="pb-2">{""+clickCounter + " vew chips"}</div>
+            <div className="pb-2">{" in this session"}</div>
+            <hr className="w-100 opaci-20" />
+            <div className="pb-2">{""+totalClickCounter + " total vew chips"}</div>
           </div>, "yellow")
         }}
          className="pr-2 tx-center flex-row flex-justify-end tx-mdl  pointer tx-bold  py-1 gap-1">
@@ -339,7 +335,8 @@ console.log("blur")
             confettiColors: ['#F7CB28', '#FAEFA5', "#ff9900"],
             confettiNumber: 3,
           })
-    playSoundEffect("/sfx/short/goodbip.wav")
+    playSoundEffect("/sfx/short/passbip.mp3")
+    // playSoundEffect("/sfx/short/goodbip.wav")
           // triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
           //   <div>{" You have"}</div>
           //   <div className="">{""+e + " vew chips"}</div>

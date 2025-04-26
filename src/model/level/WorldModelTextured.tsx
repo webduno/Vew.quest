@@ -1,5 +1,5 @@
 "use client";
-import { Sphere, useTexture, Billboard, Text, Box } from "@react-three/drei";
+import { Sphere, useTexture, Billboard, Text, Box, Cylinder } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef, useState } from "react";
 import { Vector3, Quaternion } from "three";
@@ -23,6 +23,7 @@ export const WorldModelTextured = ({
   const $wholeReversed:any = useRef()
   const { triggerSnackbar } = useProfileSnackbar();
   const [previousTargets, setPreviousTargets] = useState<Array<{lat: number, lng: number}>>([]);
+  const [helperSphereSize, setHelperSphereSize] = useState(0.3);
 
   useFrame(()=>{
     if (!$light.current) return
@@ -100,14 +101,21 @@ export const WorldModelTextured = ({
       <group key={index} position={[
         latLngToCartesian(coords.lat, coords.lng).x,
         latLngToCartesian(coords.lat, coords.lng).y,
-        latLngToCartesian(coords.lat, coords.lng).z
+        latLngToCartesian(coords.lat, coords.lng).z-.25
       ]}>
-        <Sphere args={[0.1, 8, 8]}>
+        <Cylinder args={[0.02,0.02,0.23,8]} rotation={[Math.PI/2,0,0]}
+        position={[0,0,.15]}
+        >
           <meshStandardMaterial 
-            color="#ff00ff" 
-            transparent={true} 
-            opacity={0.5}
-            wireframe={true}
+            color="#ffffff" 
+          />
+        </Cylinder>
+        <Sphere args={[0.05, 8, 8]}>
+          <meshStandardMaterial 
+            color="#ff0000" 
+            // transparent={true} 
+            // opacity={0.5}
+            // wireframe={true}
             // emissive="#ff0000" 
             // emissiveIntensity={0.1}
           />
@@ -123,7 +131,7 @@ export const WorldModelTextured = ({
         latLngToCartesian(targetCoords.lat, targetCoords.lng).y,
         latLngToCartesian(targetCoords.lat, targetCoords.lng).z
       ]}>
-        <Sphere args={[ showHelper ? 0.1 : 0.3, 8, 8]} 
+        <Sphere rotation={[Math.PI/2.6,0,0]} args={[ showHelper ? 0.1 : helperSphereSize, 8, 8]} 
           onClick={(e) => {
             e.stopPropagation();
             if (!!isVfxHappening || state.loadingWin) {
@@ -135,7 +143,7 @@ export const WorldModelTextured = ({
               if (true){
                 playSoundEffect("/sfx/short/chairsit.mp3")
                 triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
-                  <div className="">{"Helper turned off "}</div>
+                  <div className="">{"DONT click the Helper"}</div>
                   <div className="">{"Click again"}</div>
                   <div className="">{"to get the pin"}</div>
                 </div>, "warning")
@@ -145,7 +153,9 @@ export const WorldModelTextured = ({
               return
             };
             setPreviousTargets(prev => [...prev, targetCoords]);
+            clickedHandler(e)
             onTargetFound();
+            setHelperSphereSize(prev => Math.max(0.1, prev - 0.01));
           }}
         >
           <meshStandardMaterial 

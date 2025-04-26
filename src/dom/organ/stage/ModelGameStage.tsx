@@ -69,10 +69,12 @@ const {playSoundEffect} = useBackgroundMusic()
     if (!!hasClickedOnTarget){ 
       return
      } else {
-      triggerSnackbar(<div className="tx-center flex-col">
-        <div className="">{"A random coordinate has been set!"}</div>
-        <div className="">{"Find it! "}</div>
-      </div>, "success")
+      // setTimeout(() => {
+      //   triggerSnackbar(<div className="tx-center flex-col">
+      //     <div className="">{"A random coordinate has been set!"}</div>
+      //     <div className="">{"Find it! "}</div>
+      //   </div>, "success")
+      // }, 2000);
      }
     setHasClickedOnTarget(true);
   }
@@ -100,18 +102,18 @@ const {playSoundEffect} = useBackgroundMusic()
     <div className="flex-col tx-altfont-4  ">
       <div className="flex-col pos-fix bottom-0 z-100 px-8 my-8 py-2 gap-2 noclick noselect">
         {!hasClickedOnTarget && (<>
-          <div className="flex-col bg-white px-8 tx-sm bord-r-15 py-2 noclick noselect "
+          {/* <div className="flex-col bg-white px-8 tx-sm bord-r-15 py-2 noclick noselect "
           style={{color:"#007700",background:"#d0ffd0",borderBottom:"4px solid #70af70"}}
           >
             <div className="flex-row gap-1">Click the green <div style={{transform:"rotate(45deg)"}}>🟩</div></div>
             
-            <div>to toggle the helper</div>
-          </div>
+            <div>to turn ON/OFF the helper</div>
+          </div> */}
           <div className="flex-col bg-white gap-1 px-8  bord-r-15 py-3 noclick noselect "
           style={{color:"#afafaf"}}
           >
-            <div>Click the globe to</div>
-            <div>start guessing</div>
+            <div>Aliens are coming</div>
+            <div>find target pin! </div>
           </div>
           </>)}
           </div>
@@ -133,15 +135,25 @@ const {playSoundEffect} = useBackgroundMusic()
         // gl={{ preserveDrawingBuffer: true, }}
         onCreated={(state)=>{ state.gl.setClearColor("#cccccc"); state.scene.fog = new Fog("#cccccc",16,32) }}
       >
-        
+{/*         
         <Plane args={[100,100]} position={[0,-2.4,0]} rotation={[-Math.PI/2,0,0]} 
             receiveShadow>
               <meshStandardMaterial emissive={"#777777"}  color={"#777777"} />
-            </Plane>
+            </Plane> */}
+
+            <Sphere args={[20,16,16]} position={[-0.3,-12.3,0]} 
+            scale={[1.6,1.6,.5]}
+            rotation={[-Math.PI/2,0,0]} 
+            receiveShadow>
+              <meshStandardMaterial emissive={"#777777"}  color={"#777777"} />
+            </Sphere>
+
+
+
         <OrbitControls
          rotateSpeed={1.75}
           autoRotateSpeed={.25} autoRotate={!noAutoRotate} 
-          dampingFactor={.1} maxPolarAngle={1.8}
+          dampingFactor={.1} maxPolarAngle={1.99}
           maxDistance={10}
            minPolarAngle={1.025}
            enablePan={false}
