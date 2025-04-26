@@ -50,13 +50,13 @@ export const NavigationHeaderBar = ({
       >
       {!isCurrentPage('/space') && (
       <a href="/space" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
-        <div className="py-1 pl-2 nowrap"> Geo-RV</div>
+        <div className="py-1 pl-2 nowrap">Space RV</div>
       </a>
       )}
 
       {!isCurrentPage('/world') && (
       <a href="/world" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
-        <div className="py-1 pl-2 nowrap"> 3D World</div>
+        <div className="py-1 pl-2 nowrap"> 3D Worlds</div>
       </a>
       )}
       

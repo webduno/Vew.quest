@@ -67,6 +67,7 @@ export async function POST(request: Request) {
     prevSpent.spent.chip += chip;
     // // Optionally update pin if provided
     // if (typeof pin === 'number') prevSpent.spent.pin = pin;
+    console.log("boughtboughtbought", bought, )
     // Add bought item(s)
     if (Array.isArray(bought)) {
       prevSpent.bought.push(...bought);

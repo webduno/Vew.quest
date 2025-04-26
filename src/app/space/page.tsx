@@ -238,7 +238,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         body: JSON.stringify({
           player_id: LS_playerId,
           chip: SHOP_ITEM_COST,
-          bought: newBought,
+          bought: [item],
         }),
       });
       if (!response.ok) {
@@ -247,6 +247,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       }
       setBoughtItems(newBought);
       setShopMessage(`You bought ${item}!`);
+
 
       // refetch the data
       fetchSetInitialClicks();
