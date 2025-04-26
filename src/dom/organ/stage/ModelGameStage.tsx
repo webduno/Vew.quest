@@ -24,7 +24,11 @@ const latLngToCartesian = (lat: number, lng: number, radius: number = 1) => {
   };
 };
 
-export default function ModelGameStage({ setShowHelper, attempts, setAttempts, winAttempts, setWinAttempts, onGreenClicked,children,gameStageRef,gameData,onTargetFound}:{
+export default function ModelGameStage({ 
+  lastClickedCoords, setLastClickedCoords,
+  setShowHelper, attempts, setAttempts, winAttempts, setWinAttempts, onGreenClicked,children,gameStageRef,gameData,onTargetFound}:{
+  lastClickedCoords:any,
+  setLastClickedCoords:any,
   setShowHelper:(showHelper:boolean)=>void,
   attempts:number,
   setAttempts:(attempts:number)=>void,
@@ -44,7 +48,6 @@ export default function ModelGameStage({ setShowHelper, attempts, setAttempts, w
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const [mounted, s__Mounted] = useState(false);
   const [hasClickedOnTarget, setHasClickedOnTarget] = useState(false);
-  const [lastClickedCoords, setLastClickedCoords] = useState<{lat: number, lng: number} | null>(null);
   useEffect(() => {
     s__Mounted(true);
   }, []);
@@ -120,6 +123,11 @@ const {playSoundEffect} = useBackgroundMusic()
         gl={{ preserveDrawingBuffer: true, }}
         onCreated={(state)=>{ state.gl.setClearColor("#cccccc"); state.scene.fog = new Fog("#cccccc",16,32) }}
       >
+        
+        <Plane args={[100,100]} position={[0,-2.4,0]} rotation={[-Math.PI/2,0,0]} 
+            receiveShadow>
+              <meshStandardMaterial emissive={"#777777"}  color={"#777777"} />
+            </Plane>
         <OrbitControls
          rotateSpeed={1.75}
           autoRotateSpeed={.25} autoRotate={!noAutoRotate} 
@@ -142,7 +150,7 @@ const {playSoundEffect} = useBackgroundMusic()
           showHelper={showHelper}
           lastClickedCoords={lastClickedCoords}
         />
-    <ambientLight intensity={0.8} />
+    <ambientLight intensity={0.85} />
     {/* <ambientLight intensity={0.02} /> */}
         <pointLight position={[2,2,2]} />
         <pointLight position={[-1,1,-3]} intensity={0.05} />
@@ -189,10 +197,6 @@ const {playSoundEffect} = useBackgroundMusic()
           )}
           <group position={[0.1,-1,0]}>
 
-            <Plane args={[100,100]} position={[0,-0.9,0]} rotation={[-Math.PI/2,0,0]} 
-            receiveShadow>
-              <meshStandardMaterial emissive={"#777777"}  color={"#777777"} />
-            </Plane>
           {/* table top */}
             <Box args={[1.1 ,.08,.6]} position={[-0.1,-0.55,-0.2]} receiveShadow>
               <meshStandardMaterial color={"#ddbb99"} />

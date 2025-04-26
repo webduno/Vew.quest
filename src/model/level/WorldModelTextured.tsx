@@ -193,14 +193,14 @@ export const EarthTextured = ({clickedHandler}:{clickedHandler:(e:any)=>void}) =
   };
 
   return (<>
-    <Sphere args={[0.7, 64, 64]} onClick={(e) => {
+    <Sphere args={[0.7, 64, 64]} castShadow  onClick={(e) => {
       e.stopPropagation();
       const point = e.point;
       const coords = cartesianToLatLng(point.x, point.y, point.z);
       clickedHandler(coords);
     }}>
       <meshStandardMaterial map={earth_jpg}  side={2}
-      color={"#ffffff"}
+      color={"#ffffff"} emissive={"#112233"}
       displacementScale={.32} displacementMap={bump2} />
     </Sphere>
   </>);

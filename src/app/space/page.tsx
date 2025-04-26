@@ -21,6 +21,7 @@ export default function ModelPage() {
   const confettiRef = useRef<JSConfetti | null>(null);
 
   const [loadingWin, setLoadingWin] = useState(false)
+  const [lastClickedCoords, setLastClickedCoords] = useState<{lat: number, lng: number} | null>(null);
 
 
 const {playSoundEffect} = useBackgroundMusic()
@@ -83,6 +84,7 @@ const {playSoundEffect} = useBackgroundMusic()
             lng: Math.random() * 360 - 180
           }
           setRandomCoord1LatLan(newRandomCoord)
+          setLastClickedCoords(null)
           playSoundEffect("/sfx/short/errorbip.mp3")
           triggerSnackbar("Goal not found, target moved!", "error")
           confettiRef.current?.addConfetti({
@@ -244,6 +246,8 @@ const {playSoundEffect} = useBackgroundMusic()
       <SpaceWorldContainer  
         showHelper={showHelper}
         setShowHelper={setShowHelper}
+        lastClickedCoords={lastClickedCoords}
+        setLastClickedCoords={setLastClickedCoords}
         randomCoord1LatLan={randomCoord1LatLan}
         setRandomCoord1LatLan={setRandomCoord1LatLan}
         timerRef={timerRef}

@@ -25,9 +25,12 @@ interface SpaceWorldContainerProps {
   showHelper: boolean;
   setShowHelper: (showHelper: boolean) => void;
   loadingWin: boolean;
+  lastClickedCoords: {lat: number, lng: number} | null;
+  setLastClickedCoords: (lastClickedCoords: {lat: number, lng: number} | null) => void;
 }
 
 export default function SpaceWorldContainer({ 
+  lastClickedCoords, setLastClickedCoords,
   startGameProcess, timerRef, randomCoord1LatLan, setRandomCoord1LatLan, trackClick,
   showHelper, setShowHelper,
   children, clickCounter, wincounter, setClickCounter, setWincounter, timeRemaining, 
@@ -102,7 +105,10 @@ export default function SpaceWorldContainer({
 
 
   return (
-    <ModelGameStage setShowHelper={setShowHelper} attempts={attempts} setAttempts={changeSetAttempts} 
+    <ModelGameStage
+    lastClickedCoords={lastClickedCoords}
+    setLastClickedCoords={setLastClickedCoords}
+      setShowHelper={setShowHelper} attempts={attempts} setAttempts={changeSetAttempts} 
     winAttempts={wincounter} setWinAttempts={setWincounter}
      onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
     onTargetFound={onTargetFound}
