@@ -35,11 +35,32 @@ export const NavigationHeaderBar = ({
   </button>
   </summary>
 
-    <div className='pos-abs bottom-0 right-0 z-1000'
+    <div className='pos-abs gap-2 flex-align-start flex-row bottom-0 right-0 z-1000'
     style={{
       transform: "translate(-0%, 100%)",
     }}
     >
+      
+      {!isCurrentPage('/dashboard') && (
+      <div className='flex-col flex-justify-end pb-2 bg-glass-10  z-1000 mt-2 m r-4 bord-r-10 noverflow flex-align-end tx-white'
+      style={{
+        background: "#8080f0",
+        boxShadow: "0 4px 0 #6060f0",
+      }}
+      >
+        
+        <a href="/leaderboard" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+          <div className="py-1 pl-2 nowrap"> Leaderboard</div>
+        </a>
+        <a href="/space" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+          <div className="py-1 pl-2 nowrap"> Space Quest</div>
+        </a>
+        <a href="/world" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+          <div className="py-1 pl-2 nowrap"> 3D World</div>
+        </a>
+        
+      </div>
+      )}
       
       <div className='flex-col pb-2 bg-glass-10  z-1000 mt-2 m r-4 bord-r-10 noverflow flex-align-end'
       style={{

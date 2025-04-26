@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     // Try to find existing click record
     const { data: existingClick, error: findError } = await supabase
       .from('vew_click')
-      .select('id, attempts, win, player_id')
+      .select('id, attempts, win, player_id, spent')
       .eq('player_id', player_id.toLowerCase())
       .single();
 
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
       // Fetch the updated record
       const { data: updatedRecords, error: fetchError } = await supabase
         .from('vew_click')
-        .select('attempts, win')
+        .select('attempts, win, spent')
         .eq('player_id', player_id);
 
       if (fetchError) {
@@ -107,7 +107,7 @@ export async function POST(request: Request) {
     // Fetch the newly created record
     const { data: newRecords, error: fetchError } = await supabase
       .from('vew_click')
-      .select('attempts, win')
+      .select('attempts, win, spent')
       .eq('player_id', player_id);
 
     if (fetchError) {

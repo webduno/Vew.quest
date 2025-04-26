@@ -99,18 +99,18 @@ export const WorldModelTextured = ({
     <group ref={$light}></group>
     {previousTargets.map((coords, index) => (
       <group key={index} position={[
-        latLngToCartesian(coords.lat, coords.lng).x,
-        latLngToCartesian(coords.lat, coords.lng).y,
-        latLngToCartesian(coords.lat, coords.lng).z-.25
+        latLngToCartesian(coords.lat, coords.lng,.75).x,
+        latLngToCartesian(coords.lat, coords.lng,.75).y,
+        latLngToCartesian(coords.lat, coords.lng,.75).z
       ]}>
-        <Cylinder args={[0.02,0.02,0.23,8]} rotation={[Math.PI/2,0,0]}
+        {/* <Cylinder args={[0.02,0.02,0.23,8]} rotation={[Math.PI/2,0,0]}
         position={[0,0,.15]}
         >
           <meshStandardMaterial 
             color="#ffffff" 
           />
-        </Cylinder>
-        <Sphere args={[0.05, 8, 8]}>
+        </Cylinder> */}
+        <Sphere args={[0.035, 8, 8]}>
           <meshStandardMaterial 
             color="#ff0000" 
             // transparent={true} 
@@ -225,7 +225,7 @@ export const EarthTextured = ({clickedHandler}:{clickedHandler:(e:any)=>void}) =
     }}>
       <meshStandardMaterial map={earth_jpg}  side={2}
       color={"#ffffff"} emissive={"#112233"}
-      displacementScale={.32} displacementMap={bump2} />
+      displacementScale={.24} displacementMap={bump2} />
     </Sphere>
   </>);
 };

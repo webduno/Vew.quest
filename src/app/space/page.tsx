@@ -9,6 +9,7 @@ import { BewWorldLogo } from "@/dom/bew/BewWorldLogo";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import { Tooltip } from "react-tooltip";
 import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
+
 export default function ModelPage() {
   const [clickCounter, setClickCounter] = useState(0);
   const [wincounter, setWincounter] = useState(0);
@@ -23,66 +24,61 @@ export default function ModelPage() {
   const [totalClickCounter, setTotalClickCounter] = useState(0);
   const [loadingWin, setLoadingWin] = useState(false)
   const [lastClickedCoords, setLastClickedCoords] = useState<{lat: number, lng: number} | null>(null);
+  const [showShopModal, setShowShopModal] = useState(false);
+  const [shopItems, setShopItems] = useState<string[]>([]);
+  const [boughtItems, setBoughtItems] = useState<string[]>([]);
+  const [shopMessage, setShopMessage] = useState<string>("");
+  const [allBoughtItems, setAllBoughtItems] = useState<string[]>([]);
 
+  const {playSoundEffect} = useBackgroundMusic()
+  const [isVfxHappening, setIsVfxHappening] = useState(false)
+  const pre_setIsVfxHappening = async (isVfxHappeningarg:boolean)=>{
+    console.log("isVfxHappeningarg", isVfxHappening, isVfxHappeningarg)
+    if (isVfxHappening){
+      return
+    }
 
-const {playSoundEffect} = useBackgroundMusic()
-const [isVfxHappening, setIsVfxHappening] = useState(false)
-const pre_setIsVfxHappening = async (isVfxHappeningarg:boolean)=>{
-  console.log("isVfxHappeningarg", isVfxHappening, isVfxHappeningarg)
-  if (isVfxHappening){
+    console.log("blur")
+    if (containerRef.current) {
+      containerRef.current.style.transition = 'filter 1s ease-in-out';
+      containerRef.current.style.filter = 'blur(10px)';
+    }
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-  return
-}
-
-
-console.log("blur")
-  // setIsVfxHappening(true)
-  if (containerRef.current) {
-    containerRef.current.style.transition = 'filter 1s ease-in-out';
-    containerRef.current.style.filter = 'blur(10px)';
-  }
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  console.log("blur2")
-  // triggerSnackbar("Goal not found, target moved!", "error")
-  // await new Promise(resolve => setTimeout(resolve, 1000));
-  // console.log("blur3")
-  // triggerSnackbar("Click to start!", "error")
-  // await new Promise(resolve => setTimeout(resolve, 1000));
-  console.log("blur4")
-  // setIsVfxHappening(false)
-  if (containerRef.current) {
-    containerRef.current.style.filter = 'none';
-  }
+    console.log("blur2")
+    if (containerRef.current) {
+      containerRef.current.style.filter = 'none';
+    }
   }
 
-  useEffect(() => {
-    const fetchInitialClicks = async () => {
-      if (!LS_playerId) return;
-      
-      try {
-        const response = await fetch('/api/click/findOrCreate', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            player_id: LS_playerId,
-            isWin: false,
-            attempts: 0
-          }),
-        });
+  const fetchInitialClicks = async () => {
+    if (!LS_playerId) return;
+    
+    try {
+      const response = await fetch('/api/click/findOrCreate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          player_id: LS_playerId,
+          isWin: false,
+          attempts: 0
+        }),
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          // setClickCounter(data.data.attempts);
-          setTotalClickCounter(data.data.attempts);
-          setWincounter(data.data.win);
-        }
-      } catch (error) {
-        console.error('Error fetching initial clicks:', error);
+      if (response.ok) {
+        const data = await response.json();
+        setTotalClickCounter(data.data.attempts);
+        setWincounter(data.data.win);
+        const spentObj = typeof data.data.spent === 'string' ? JSON.parse(data.data.spent) : data.data.spent;
+        setAllBoughtItems(spentObj.bought);
       }
-    };
+    } catch (error) {
+      console.error('Error fetching initial clicks:', error);
+    }
+  };
+  useEffect(() => {
 
     fetchInitialClicks();
   }, [LS_playerId]);
@@ -97,32 +93,31 @@ console.log("blur")
       lng: Math.random() * 360 - 180
     }
     setRandomCoord1LatLan(randomCoord1LatLan)
-    setTimeRemaining(timerLimit) // Reset time remaining to current timer limit
+    setTimeRemaining(timerLimit)
     
-    // Clear existing timer if any
     if (timerRef.current) {
       clearInterval(timerRef.current)
     }
     
-    // Start new timer
     timerRef.current = setInterval(() => {
       setTimeRemaining(prev => {
         if (prev <= 1) {
-          // Reset timer and generate new coordinates when reaching 0
           const newRandomCoord = {
             lat: Math.random() * 180 - 90,
             lng: Math.random() * 360 - 180
           }
           setRandomCoord1LatLan(newRandomCoord)
           setLastClickedCoords(null)
-          playSoundEffect("/sfx/short/clock.mp3")
+          if (document.hasFocus()) {
+            playSoundEffect("/sfx/short/clock.mp3")
+          }
           triggerSnackbar("Goal not found, target moved!", "error")
           confettiRef.current?.addConfetti({
             confettiColors: ['#FD0008', '#ffDB80'],
             confettiNumber: 50,
           })
           
-          return timerLimit // Use the current timer limit
+          return timerLimit
           
         }
         return prev - 1
@@ -148,14 +143,11 @@ console.log("blur")
         }),
       });
 
-
       if (!response.ok) {
         console.error('Failed to track click');
       }
-      // console.log("tracked click", await response.json())
       const newClickCounterData = await response.json()
       const newClickCounter = newClickCounterData.data.attempts
-      // if its multiple of 100, add a confetti
       if (newClickCounter % 100 === 0) {
     playSoundEffect("/sfx/short/myst.mp3")
 
@@ -171,6 +163,64 @@ console.log("blur")
       console.error('Error tracking click:', error);
     }
   }
+
+  function getRandomShopItems() {
+    const allItems = [
+      'Golden Chip',
+      'Mystery Pin',
+      'Time Booster',
+      'Chip Doubler',
+      'Pin Magnet',
+      'Lucky Coin',
+      'Map Reveal',
+      'Speed Shoes',
+      'Confetti Bomb',
+    ];
+    return allItems.sort(() => 0.5 - Math.random()).slice(0, 3);
+  }
+
+  function openShop() {
+    setShopItems(getRandomShopItems());
+    setBoughtItems([]);
+    setShopMessage("");
+    setShowShopModal(true);
+    if (!LS_playerId) return;
+  }
+
+  const SHOP_ITEM_COST = 10;
+
+  async function handleBuyItem(item: string) {
+    if (!LS_playerId) return;
+    if (boughtItems.includes(item)) return;
+    if (totalClickCounter + clickCounter < SHOP_ITEM_COST) {
+      setShopMessage('Not enough chips!');
+      return;
+    }
+    try {
+      const newBought = [...boughtItems, item];
+      const response = await fetch('/api/click/saveSpent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          player_id: LS_playerId,
+          chip: SHOP_ITEM_COST,
+          bought: newBought,
+        }),
+      });
+      if (!response.ok) {
+        setShopMessage('Purchase failed.');
+        return;
+      }
+      setBoughtItems(newBought);
+      setShopMessage(`You bought ${item}!`);
+
+      // refetch the data
+      fetchInitialClicks();
+    } catch (e) {
+      setShopMessage('Purchase failed.');
+    }
+  }
+
   return (
     <div ref={containerRef}>
       <div className="pos-abs top-0 left-0 z-100 ma-2">
@@ -180,7 +230,6 @@ console.log("blur")
       
       <div className='tx-bold' style={{ color: "#2B29AF" }}>Vew</div>
       <div className='tx-bold' style={{ color: "#6B69CF" }}>.quest</div>
-      {/* <div className='tx-bold' style={{ color: "#2B29AF" }}>/world</div> */}
       </a>
           </div> 
       </div>
@@ -188,7 +237,7 @@ console.log("blur")
         
       <div className="mb-1 flex-row gap-2 tx-bold">
         <div className="tx-lg tx-shadow-2"  >
-          Lvl: {Math.floor(clickCounter/100)}
+          Lvl: {Math.floor((totalClickCounter + clickCounter)/100)}
         </div>
          <div className='tx-white bord-r-100 mt-1 py-1 px-2 pos-rel'
         style={{
@@ -199,8 +248,7 @@ console.log("blur")
       >
         <div className=' h-100 pos-abs top-0 left-0'
           style={{
-            // show how close it is to multiple of 100 using modulo
-            width: `${Math.floor((clickCounter % 100)/1)}px`,
+            width: `${Math.floor(((totalClickCounter + clickCounter) % 100)/1)}px`,
             background: "#FDC908",
             transition: "width 0.5s ease-out"
           }}
@@ -209,7 +257,7 @@ console.log("blur")
           style={{
             color: "#D68800",
           }}
-          className='tx-bold pos-rel '>{((clickCounter % 100)/1) }%</div>
+          className='tx-bold pos-rel '>{(((totalClickCounter + clickCounter) % 100)/1) }%</div>
       </div> 
          </div>
 
@@ -218,82 +266,32 @@ console.log("blur")
         data-tooltip-place="left"
         onClick={()=>{
           triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
-            {/* <div>Remaining time</div> */}
-            {/* eye emoji */}
-            <div className="pb-2">{""+clickCounter + " vew chips"}</div>
-            <div className="pb-2">{" in this session"}</div>
-            <hr className="w-100 opaci-20" />
-            <div className="pb-2">{""+totalClickCounter + " total vew chips"}</div>
-          </div>, "yellow")
+            {(totalClickCounter + clickCounter) + " vew chips"}</div>, "yellow")
         }}
          className="pr-2 tx-center flex-row flex-justify-end tx-mdl  pointer tx-bold  py-1 gap-1">
-          {/* eye emoji */}
-        <div className="tx-shadow-2">{clickCounter}</div>
-        <div
+          <div className="tx-shadow-2">{(totalClickCounter + clickCounter)}</div>
+          <div
         style={{ background:"#FAeeA5", boxShadow:" inset -2px -4px 0px #F7CB28, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
          className="tx-lg py-1 px-1 ml-2 bord-r-100">
           <div className="pb-1 tx-md" style={{filter:"saturate(0) brightness(3)"}}>👀</div>
          </div>
-
-
-
-
         </div>
 
-
-
-
-        
-      <Tooltip id="my-chip-tooltip" />
+        <Tooltip id="my-chip-tooltip" />
         <div data-tooltip-id="my-chip-tooltip" data-tooltip-content="Vew pins" 
         data-tooltip-place="left"
         onClick={()=>{
           triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
-            {/* <div>Remaining time</div> */}
-            {/* eye emoji */}
-            <div className="flex-row pl-2">
-            <div>{" You have"}</div>
-            <div
-        style={{ background:"#B7E999", boxShadow:" inset -2px -4px 0px #139724, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
-         className="tx-lg py-1 px-1  mb-2 bord-r-100">
-          <div className="pb-1 tx-md r-1" style={{filter:"saturate(1) brightness(1)"}}>📍</div>
-         </div>
-              </div>
-            <div className="pb-2">{""+wincounter + " vew pins"}</div>
-          </div>, "errorwarning")
+            {wincounter + " vew pins"}</div>, "errorwarning")
         }}
          className="pr-2 tx-center flex-row flex-justify-end tx-mdl  pointer tx-bold  py-1 gap-1">
-          {/* eye emoji */}
-        <div className="tx-shadow-2">{wincounter}</div>
-        <div
+          <div className="tx-shadow-2">{wincounter}</div>
+          <div
         style={{ background:"#B7E999", boxShadow:" inset -2px -4px 0px #139724, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
          className="tx-lg py-1 px-1 ml-2 bord-r-100">
           <div className="pb-1 tx-md" style={{filter:"saturate(1) brightness(1)"}}>📍</div>
          </div>
         </div>
-
-        
-
-
-        
-
-
-        {/* <div
-        onClick={()=>{
-          if(wincounter > 0){
-            confettiRef.current?.addConfetti({
-              confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
-              confettiNumber: 50,
-            })
-          }
-          triggerSnackbar( "📍" + wincounter + " Pins found!", "errorwarning")
-        }}
-         className="pr-2 tx-center flex-row flex-justify-end tx-mdl tx-shadow-2 pointer tx-bold  py-1 gap-1">
-        
-        <div>{wincounter}</div>
-        <div className="tx-lg py-1 ">📍</div>
-        </div> */}
-
 
         <div
         onClick={()=>{
@@ -305,7 +303,6 @@ console.log("blur")
          className="pr-2 tx-center flex-row flex-justify-end tx-mdl tx-shadow-2 pointer tx-bold  py-1 gap-1">
         
         <div className="pr-1">{timeRemaining}s</div>
-        {/* <div className="tx-lg py-1 ">⏲️</div> */}
         <div
         style={{ background:"#E9B799", 
           boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 0px #971324, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
@@ -314,7 +311,21 @@ console.log("blur")
          </div>
         </div>
 
+        <div
+        onClick={openShop}
+        className="pr-2 tx-center flex-row flex-justify-end tx-mdl tx-shadow-2 pointer tx-bold py-1 gap-1"
+        style={{ marginTop: '8px' }}
+      >
+        <div className="pr-1">Shop</div>
+        <div
+          style={{ background: '#E9B799', boxShadow: 'inset -2px -4px 6px #77777777, inset -2px -4px 0px #971324, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa' }}
+          className="tx-lg py-1 px-1 mb- bord-r-100"
+        >
+          <div className="pb-1 tx-md r-1" style={{ filter: 'saturate(1) brightness(1)' }}>🛒</div>
         </div>
+      </div>
+
+      </div>
       <SpaceWorldContainer  
         isVfxHappening={isVfxHappening}
         setIsVfxHappening={pre_setIsVfxHappening}
@@ -330,17 +341,11 @@ console.log("blur")
         trackClick={trackClick}
         setClickCounter={(e)=>{
           setClickCounter(e)
-          // if (Math.random() < 0.5) {return}
           confettiRef.current?.addConfetti({
             confettiColors: ['#F7CB28', '#FAEFA5', "#ff9900"],
             confettiNumber: 3,
           })
     playSoundEffect("/sfx/short/passbip.mp3")
-    // playSoundEffect("/sfx/short/goodbip.wav")
-          // triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
-          //   <div>{" You have"}</div>
-          //   <div className="">{""+e + " vew chips"}</div>
-          // </div>, "yellow")
         }}
         wincounter={wincounter}
         setWincounter={(e)=>{
@@ -352,14 +357,10 @@ console.log("blur")
     playSoundEffect("/sfx/short/fff.mp3")
     confettiRef.current?.addConfetti({
       confettiColors: ['#C67Bc7', '#F9EDf4', '#ff99ff'],
-      // "emojis": ["📍"],
-      // confettiColors: ['#C6AB47', '#F9EDA4', '#ff9900', '#FDC908'],
-      // emojiSize: 0.2,
       confettiNumber: 50,
     });
             triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
               <div>{"New target ready!"}</div>
-              {/* <div>{"Max Score: " + wincounter}</div> */}
             </div>, "purple")
           }, 4000)
         }}
@@ -370,6 +371,49 @@ console.log("blur")
       >
         <></>
       </SpaceWorldContainer>
+      {showShopModal && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.4)', zIndex: 200,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }} onClick={() => setShowShopModal(false)}>
+          <div style={{ background: 'white', borderRadius: 16, padding: 24, minWidth: 260, boxShadow: '0 4px 24px #0002' }} onClick={e => e.stopPropagation()}>
+            <div className="tx-center tx-lg tx-bold mb-2">🛒 Shop Purchases</div>
+            <div className="mb-2">Choose an item to buy:</div>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              {shopItems.map((item, i) => (
+                <li key={i} className="mb-1 flex-row flex-align-center gap-2">
+                  <span>{item} <span style={{color:'#888', fontSize:'0.9em'}}>({SHOP_ITEM_COST} chips)</span></span>
+                  {boughtItems.includes(item) ? (
+                    <span style={{ color: '#4caf50', fontWeight: 'bold' }}>Bought</span>
+                  ) : (
+                    <button
+                      className="py-1 px-2 bord-r-100 tx-bold"
+                      style={{ background: '#eee', border: 'none' }}
+                      onClick={() => handleBuyItem(item)}
+                    >Buy</button>
+                  )}
+                </li>
+              ))}
+            </ul>
+            {shopMessage && <div className="my-2 tx-center" style={{ color: '#4caf50' }}>{shopMessage}</div>}
+            {allBoughtItems.length > 0 && (<>
+              <div style={{ borderTop: '1px solid #eee' }}
+              className="tx-bold  mb-1 pt-2">Your Bought Items:</div>
+
+              <div className=" pt- w-max-250px  w-100" >
+                <ul
+                className="flex-wrap gap-1"
+                 style={{ listStyle: 'none', padding: 0, fontSize: '0.95em', color: '#333' }}>
+                  {allBoughtItems.map((item, i) => (
+                    <li key={i} className="mb-1 tx-xs">{item}</li>
+                  ))}
+                </ul>
+              </div>
+</>            )}
+            <button className="mt-2 py-1 px-3 bord-r-100 tx-bold" style={{ background: '#eee', border: 'none' }} onClick={() => setShowShopModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
