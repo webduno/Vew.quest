@@ -112,8 +112,11 @@ const {playSoundEffect} = useBackgroundMusic()
           <div className="flex-col bg-white gap-1 px-8  bord-r-15 py-3 noclick noselect "
           style={{color:"#afafaf"}}
           >
-            <div>Aliens are coming</div>
-            <div>find target pin! </div>
+            <div>Random geo-coords ready!</div>
+            {/* red  sphere pin  emoji */}
+            
+            <div>Tap earth to find target pin 📍</div>
+            <div className="tx-xsm pt-2 ">Scroll in/out &amp; Drag to rotate </div>
           </div>
           </>)}
           </div>

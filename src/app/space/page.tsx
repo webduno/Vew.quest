@@ -112,10 +112,11 @@ export default function ModelPage() {
             playSoundEffect("/sfx/short/clock.mp3")
           }
           triggerSnackbar("Goal not found, target moved!", "error")
-          confettiRef.current?.addConfetti({
-            confettiColors: ['#FD0008', '#ffDB80'],
-            confettiNumber: 50,
-          })
+          pre_setIsVfxHappening(true)
+          // confettiRef.current?.addConfetti({
+          //   confettiColors: ['#FD0008', '#ffDB80'],
+          //   confettiNumber: 50,
+          // })
           
           return timerLimit
           
@@ -343,7 +344,7 @@ export default function ModelPage() {
           setClickCounter(e)
           confettiRef.current?.addConfetti({
             confettiColors: ['#F7CB28', '#FAEFA5', "#ff9900"],
-            confettiNumber: 3,
+            confettiNumber: 1,
           })
     playSoundEffect("/sfx/short/passbip.mp3")
         }}
