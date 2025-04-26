@@ -103,6 +103,8 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         setTotalClickCounter(data.data.attempts);
         setWincounter(data.data.win);
         const spentObj = typeof data.data.spent === 'string' ? JSON.parse(data.data.spent) : data.data.spent;
+        console.log("spentObj", data.data)
+        console.log("spentObj", spentObj)
         setAllBoughtItems(spentObj.bought);
       }
     } catch (error) {

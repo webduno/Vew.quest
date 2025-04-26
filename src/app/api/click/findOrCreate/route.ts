@@ -45,9 +45,10 @@ export async function POST(request: Request) {
         .update({
           attempts: existingClick.attempts + attempts,
           win: existingClick.win + (isWin ? 1 : 0),
-          updated_at: 'now()'
+          updated_at: 'now()',
+          spent: existingClick.spent
         })
-        .eq('player_id', player_id);
+        .eq('player_id', player_id.toLowerCase());
 
       if (updateError) {
         console.error('Error updating click record:', updateError);
@@ -61,7 +62,7 @@ export async function POST(request: Request) {
       const { data: updatedRecords, error: fetchError } = await supabase
         .from('vew_click')
         .select('attempts, win, spent')
-        .eq('player_id', player_id);
+        .eq('player_id', player_id.toLowerCase());
 
       if (fetchError) {
         console.error('Error fetching updated record:', fetchError);
@@ -92,7 +93,7 @@ export async function POST(request: Request) {
       .from('vew_click')
       .insert([
         {
-          player_id,
+          player_id: player_id.toLowerCase(),
           attempts,
           win: isWin ? 1 : 0
         }
@@ -110,7 +111,7 @@ export async function POST(request: Request) {
     const { data: newRecords, error: fetchError } = await supabase
       .from('vew_click')
       .select('attempts, win, spent')
-      .eq('player_id', player_id);
+      .eq('player_id', player_id.toLowerCase());
 
     if (fetchError) {
       console.error('Error fetching new record:', fetchError);

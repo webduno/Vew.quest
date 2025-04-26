@@ -21,7 +21,7 @@ export async function POST(request: Request) {
     // Check if user exists and fetch spent and attempts fields
     const { data: existingClick, error: findError } = await supabase
       .from('vew_click')
-      .select('id, spent, attempts')
+      .select('id, spent, attempts, win')
       .eq('player_id', player_id.toLowerCase())
       .single();
 
@@ -55,6 +55,7 @@ export async function POST(request: Request) {
 
     // Check if spending chips would exceed attempts
     const attempts = typeof existingClick.attempts === 'number' ? existingClick.attempts : 0;
+    console.log("attempts", attempts, prevSpent.spent.chip + chip > attempts)
     if (prevSpent.spent.chip + chip > attempts) {
       return NextResponse.json(
         { error: 'Not enough chips/attempts left to complete this purchase' },
@@ -74,13 +75,31 @@ export async function POST(request: Request) {
     }
     // Ensure used stays as is or is an object
     prevSpent.used = typeof prevSpent.used === 'object' && prevSpent.used !== null ? prevSpent.used : {};
-
+    console.log("prevSpent", prevSpent, )
     const spentValue = JSON.stringify(prevSpent);
+    console.log("spentValue", spentValue, { 
+        
+      attempts: existingClick.attempts,
+      win: existingClick.win,
+      updated_at: 'now()',
+      // spent: existingClick.spent
+      spent: spentValue
+    })
     const { error: updateError } = await supabase
       .from('vew_click')
-      .update({ spent: spentValue, updated_at: 'now()' })
-      .eq('player_id', player_id);
+      .update({ 
+        
+        attempts: existingClick.attempts,
+        win: existingClick.win,
+        updated_at: 'now()',
+        // spent: existingClick.spent
+        spent: spentValue
+      })
+      // .update({ spent: spentValue, updated_at: 'now()' })
+      
+      .eq('player_id', player_id.toLowerCase());
 
+      console.log("updateError", updateError)
     if (updateError) {
       console.error('Error updating spent field:', updateError);
       return NextResponse.json(
