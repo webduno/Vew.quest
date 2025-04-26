@@ -111,14 +111,15 @@ const {playSoundEffect} = useBackgroundMusic()
             
             <div>to turn ON/OFF the helper</div>
           </div> */}
-          <div className="flex-col bg-white gap-1 px-8  bord-r-15 py-3 noclick noselect "
+          <div className="flex-col bg-white gap- pb-4 px-8  bord-r-15 py-3 noclick noselect "
           style={{color:"#afafaf"}}
           >
-            <div>Random geo-coords ready!</div>
             {/* red  sphere pin  emoji */}
             
-            <div>Tap earth to find target pin 📍</div>
-            <div className="tx-xsm pt-2 ">Scroll in/out &amp; Drag to rotate </div>
+            <div className="tx-xsm  ">Scroll in/out &amp; Drag to rotate </div>
+            <div className="tx-sm">Random geo-coords ready!</div>
+
+            <div className="tx-lg w-200px tx-center mt-2">Tap earth to find target pin 📍</div>
           </div>
           </>)}
           </div>
