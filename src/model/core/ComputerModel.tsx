@@ -2,9 +2,9 @@ import { Vector3 } from "three";
 import { RoundedBox } from "@react-three/drei";
 import { Cylinder } from "@react-three/drei";
 
-export const ComputerModel = ({state,tokensArrayArray}:any) => {
+export const ComputerModel = ({state,tokensArrayArray,onClick}:any) => {
     return (<>
-    <group position={[0,-0.15,0]}>
+    <group position={[0,-0.15,0]} onClick={onClick}>
 
 
 

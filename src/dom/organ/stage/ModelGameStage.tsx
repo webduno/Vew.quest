@@ -12,6 +12,7 @@ import TiltShiftEffects from "@/model/tools/tiltshift";
 import { WorldModelTextured } from "@/model/level/WorldModelTextured";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import { ComputerModel } from "@/model/core/ComputerModel";
+import { useBackgroundMusic } from "../../../../script/state/context/BackgroundMusicContext";
 
 const latLngToCartesian = (lat: number, lng: number, radius: number = 1) => {
   const phi = (90 - lat) * (Math.PI / 180);
@@ -23,7 +24,8 @@ const latLngToCartesian = (lat: number, lng: number, radius: number = 1) => {
   };
 };
 
-export default function ModelGameStage({ attempts, setAttempts, winAttempts, setWinAttempts, onGreenClicked,children,gameStageRef,gameData,onTargetFound}:{
+export default function ModelGameStage({ setShowHelper, attempts, setAttempts, winAttempts, setWinAttempts, onGreenClicked,children,gameStageRef,gameData,onTargetFound}:{
+  setShowHelper:(showHelper:boolean)=>void,
   attempts:number,
   setAttempts:(attempts:number)=>void,
   winAttempts:number,
@@ -41,15 +43,25 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
   const noAutoRotate = searchParams.has('norotate') || false
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const [mounted, s__Mounted] = useState(false);
+  const [hasClickedOnTarget, setHasClickedOnTarget] = useState(false);
   const [lastClickedCoords, setLastClickedCoords] = useState<{lat: number, lng: number} | null>(null);
   useEffect(() => {
     s__Mounted(true);
   }, []);
-
+const {playSoundEffect} = useBackgroundMusic()
   const clickedHandler = (coordsLatLan:any) => {
-    console.log("Clicked coordinates:", coordsLatLan)
+    console.log("Clicked coordinates:", coordsLatLan, attempts)
     setLastClickedCoords(coordsLatLan);
-    setAttempts(attempts + 1)
+    setAttempts(attempts + 1);
+    if (!!hasClickedOnTarget){ 
+      return
+     } else {
+      triggerSnackbar(<div className="tx-center flex-col">
+        <div className="">{"A random coordinate has been set!"}</div>
+        <div className="">{"Find it! "}</div>
+      </div>, "success")
+     }
+    setHasClickedOnTarget(true);
   }
   
   // const old_clickedHandler = (coordsLatLan:any) => {
@@ -69,10 +81,40 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
   }, [gameStageRef.current]);
 
   
-  if (!mounted) return <>LoadingFullScreen </>;
+  if (!mounted) return <> </>;
 
   return (
     <div className="flex-col tx-altfont-4  ">
+      <div className="flex-col pos-fix bottom-0 z-100 px-8 my-8 py-2 gap-2 noclick noselect">
+        {!hasClickedOnTarget && (<>
+          <div className="flex-col bg-white px-8 tx-sm bord-r-15 py-2 noclick noselect "
+          style={{color:"#007700",background:"#d0ffd0",borderBottom:"4px solid #70af70"}}
+          >
+            <div className="flex-row gap-1">Click the green <div style={{transform:"rotate(45deg)"}}>🟩</div></div>
+            
+            <div>to toggle the helper</div>
+          </div>
+          <div className="flex-col bg-white gap-1 px-8  bord-r-15 py-3 noclick noselect "
+          style={{color:"#afafaf"}}
+          >
+            <div>Click the globe to</div>
+            <div>start guessing</div>
+          </div>
+          </>)}
+          </div>
+          <div className="flex-col pos-fix top-0 z-100 px-8 my-8 py-2 gap-2 noclick noselect">
+          {attempts > 0 && lastClickedCoords && (<>
+      <div className="flex-row bg-white gap-2 px-8  bord-r-15 py-2">
+        <div className="tx-center">Last <br /> Coords</div>
+        <div className="flex-col flex-align-start">
+
+        <div>{(lastClickedCoords?.lat || 0).toFixed(1)}°</div>
+        <div>{(lastClickedCoords?.lng || 0).toFixed(1)}°</div>
+
+        </div>
+      </div>
+      </>)}
+      </div>
       <Canvas style={{width:"100vw",height:"100vh"}} shadows 
         camera={{fov:50,position:[isSmallDevice?8:6,1,0]}}
         gl={{ preserveDrawingBuffer: true, }}
@@ -88,10 +130,15 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
         />
         {isDOF && <TiltShiftEffects />}
         <WorldModelTextured 
+          state={ {loadingWin:gameData.loadingWin}}
+          setShowHelper={setShowHelper}
           onGreenClicked={onGreenClicked}
           clickedHandler={clickedHandler}
           targetCoords={randomCoord1LatLan}
-          onTargetFound={onTargetFound}
+          onTargetFound={(e:any)=>{
+            onTargetFound()
+            setLastClickedCoords(null)
+          }}
           showHelper={showHelper}
           lastClickedCoords={lastClickedCoords}
         />
@@ -102,20 +149,31 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
         {children}
         <group rotation={[0,0,0]}>
           <group position={[0,0,0]} >
-          <group position={[0,1.5,0]}  scale={[1,.5,1]} onClick={(e:any)=>{
+          <group position={[0,1.5,0]}  scale={[.5,.3,.5]} onClick={(e:any)=>{
             onGreenClicked(e)
           }}>
           <Cylinder args={[0,0.3,.75,4]}  position={[0,0.45,0]} >
-            <meshStandardMaterial color={showHelper ? "#ff9999" : "#55ff55"} side={1} />
+            <meshStandardMaterial color={showHelper ? "#aa9999" : "#55aa55"} side={1} />
           </Cylinder>
           <Cylinder args={[.3,0,.75,4]}  position={[0,-.45,0]} >
-            <meshStandardMaterial color={showHelper ? "#ff9999" : "#55ff55"} />
+            <meshStandardMaterial color={showHelper ? "#aa9999" : "#55ff55"} />
           </Cylinder>
 
           </group>    
 
 
           
+
+
+
+
+
+
+
+
+
+          
+          {hasClickedOnTarget && (<>
 
 
           
@@ -158,7 +216,22 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
               W:{winAttempts}
             </Text>
           )}
-            <ComputerModel state={{}} tokensArrayArray={[]} />
+            <ComputerModel onClick={()=>{
+              if (winAttempts < 10){
+                playSoundEffect("/sfx/short/errorbip.mp3")
+                triggerSnackbar(<div className="tx-center flex-col">
+                  <div className="">{"You need to find 10 a"}</div>
+                  <div className="">{"min of 10 targets to"}</div>
+                  <div className="">{"open the shop"}</div>
+                </div>, "error")
+                return
+              }
+              
+              triggerSnackbar(<div className="tx-center flex-col">
+                <div className="">{"You have "}</div>
+                <div className="">{""+winAttempts + " vew chips"}</div>
+              </div>, "success")
+            }} state={{}} tokensArrayArray={[]} />
 
 
 
@@ -176,7 +249,7 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
         <Text fontSize={0.1} color="#ffffff"  position={[
         0,-1,0.02
       ]}>
-        {`Look further ${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "North" : "South"}`}
+        {`${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "☝️" : "👇"}Look further ${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "North☝️" : "South👇"}`}
         {/* {`Lat: ${lastClickedCoords.lat.toFixed(1)}° (distance ~${(randomCoord1LatLan.lat - lastClickedCoords.lat).toFixed(1)}°)`} */}
       </Text>
       <Text 
@@ -184,13 +257,19 @@ export default function ModelGameStage({ attempts, setAttempts, winAttempts, set
       fontSize={0.1} color="#ffffff"  position={[
         0,-1,-0.02
       ]}>
-        {`Look further ${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "North" : "South"}`}
+        {`${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "☝️" : "👇"}Look further ${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "North☝️" : "South👇"}`}
         {/* {`Look further ${randomCoord1LatLan.lng - lastClickedCoords.lng > 0 ? "East" : "West"}`} */}
         {/* {`Lng: ${lastClickedCoords.lng.toFixed(1)}° (distance ~${(randomCoord1LatLan.lng - lastClickedCoords.lng).toFixed(1)}°)`} */}
       </Text>
+
       </>)}
+
     </group>
     </group>
+
+
+
+    </>)}
 
 
 

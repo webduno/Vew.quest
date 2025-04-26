@@ -5,8 +5,9 @@ import { useRef, useState } from "react";
 import { Vector3, Quaternion } from "three";
 import { ComputerModel } from "../core/ComputerModel";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
+import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
 
-export const WorldModelTextured = ({state, onGreenClicked, targetCoords, onTargetFound, showHelper, clickedHandler, lastClickedCoords  }:any) => {
+export const WorldModelTextured = ({state, setShowHelper, onGreenClicked, targetCoords, onTargetFound, showHelper, clickedHandler, lastClickedCoords  }:any) => {
   const $cloudsWireframe:any = useRef()
   const $light:any = useRef()
   const $whole:any = useRef()
@@ -26,6 +27,10 @@ export const WorldModelTextured = ({state, onGreenClicked, targetCoords, onTarge
     if (!$cloudsWireframe.current) return
     $cloudsWireframe.current.rotation.y += 0.003
   })
+
+  const {playSoundEffect} = useBackgroundMusic()
+
+  const [attemptedBefore, setAttemptedBefore] = useState(false);
 
   const latLngToCartesian = (lat: number, lng: number, radius: number = 0.65) => {
     // Convert to radians
@@ -99,16 +104,32 @@ export const WorldModelTextured = ({state, onGreenClicked, targetCoords, onTarge
         </Sphere>
       </group>
     ))}
-    <EarthTextured clickedHandler={clickedHandler} />
+    <EarthTextured clickedHandler={state.loadingWin ? (e:any)=>{
+      // alert("loadingWin")e
+    } : clickedHandler} />
     {targetCoords && (
       <group position={[
         latLngToCartesian(targetCoords.lat, targetCoords.lng).x,
         latLngToCartesian(targetCoords.lat, targetCoords.lng).y,
         latLngToCartesian(targetCoords.lat, targetCoords.lng).z
       ]}>
-        <Sphere args={[0.3, 32, 32]} 
+        <Sphere args={[ showHelper ? 0.1 : 0.3, 8, 8]} 
           onClick={(e) => {
             e.stopPropagation();
+            if (!!showHelper) {
+              clickedHandler()
+              if (true){
+                playSoundEffect("/sfx/short/errorbip.mp3")
+                triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
+                  <div className="">{"Helper turned off "}</div>
+                  <div className="">{"Click again"}</div>
+                  <div className="">{"to get the pin"}</div>
+                </div>, "warning")
+                setAttemptedBefore(true)
+              }
+              setShowHelper(false)
+              return
+            };
             setPreviousTargets(prev => [...prev, targetCoords]);
             onTargetFound();
           }}
@@ -118,7 +139,8 @@ export const WorldModelTextured = ({state, onGreenClicked, targetCoords, onTarge
             emissive="#00ff00" 
             emissiveIntensity={0.3} 
             transparent={true} 
-            opacity={showHelper ? 0.1 : 0} 
+            wireframe={!showHelper ? false : true}
+            opacity={showHelper ? 0.7 : 0} 
           />
         </Sphere>
         {showHelper && (
@@ -177,7 +199,7 @@ export const EarthTextured = ({clickedHandler}:{clickedHandler:(e:any)=>void}) =
       const coords = cartesianToLatLng(point.x, point.y, point.z);
       clickedHandler(coords);
     }}>
-      <meshStandardMaterial map={earth_jpg} 
+      <meshStandardMaterial map={earth_jpg}  side={2}
       color={"#ffffff"}
       displacementScale={.32} displacementMap={bump2} />
     </Sphere>

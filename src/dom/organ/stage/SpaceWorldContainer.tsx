@@ -20,23 +20,27 @@ interface SpaceWorldContainerProps {
   randomCoord1LatLan: {lat:number,lng:number};
   setRandomCoord1LatLan: (randomCoord1LatLan: {lat:number,lng:number}) => void;
   setTimerLimit: (timerLimit: number) => void;
+  confettiRef: React.MutableRefObject<JSConfetti | null>;
+  trackClick: (isWin: boolean) => void;
+  showHelper: boolean;
+  setShowHelper: (showHelper: boolean) => void;
+  loadingWin: boolean;
 }
 
 export default function SpaceWorldContainer({ 
-  startGameProcess, timerRef, randomCoord1LatLan, setRandomCoord1LatLan,
-  children, clickCounter, wincounter, setClickCounter, setWincounter, timeRemaining, setTimerLimit }: SpaceWorldContainerProps) {
+  startGameProcess, timerRef, randomCoord1LatLan, setRandomCoord1LatLan, trackClick,
+  showHelper, setShowHelper,
+  children, clickCounter, wincounter, setClickCounter, setWincounter, timeRemaining, 
+  setTimerLimit, confettiRef, loadingWin }: SpaceWorldContainerProps) {
   const {LS_playerId} = useLSPlayerId()
   const { triggerSnackbar } = useProfileSnackbar();
   const { playSoundEffect } = useBackgroundMusic();
   const gameStageRef = useRef<"loading" | "starting" | "playing" | "ended">("loading")
-  const [showHelper, setShowHelper] = useState(false)
-  const confettiRef = useRef<JSConfetti | null>(null);
   const [attempts, setAttempts] = useState(0)
   // const [winAttempts, setWinAttempts] = useState(0)
 
   // Generate initial target
   useEffect(() => {
-    confettiRef.current = new JSConfetti();
     startGameProcess()
   }, [])
 
@@ -55,20 +59,33 @@ export default function SpaceWorldContainer({
   }, [])
 
   const onTargetFound = () => {
-    triggerSnackbar("Target found", "success")
     // setWinAttempts(winAttempts + 1)
     startGameProcess()
+    triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
+      <div className="">{"Target found"}</div>
+      {/* red pin emoji */}
+        <div className="">{"New Pin 📍 added"}</div>
+    </div>, "success")
     playSoundEffect("/sfx/short/myst.mp3")
     confettiRef.current?.addConfetti({
-      confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
-      confettiNumber: 50,
+      confettiColors: ['#B7E999', '#139724', '#ffffff', '#00ff00'],
+      confettiNumber: 250,
     });
     // Track win and reset attempts
-    trackClick(true, attempts);
+    trackClick(true);
+    
     setWincounter(wincounter + 1)
-    setAttempts(0);
+    setAttempts(1);
+    setShowHelper(false)
     // Set new timer limit when target is found
     setTimerLimit(59); // Reset to 10 seconds when target is found
+
+    setTimeout(() => {
+      triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
+        <div>{"Loading new target..."}</div>
+      </div>, "handbook")
+
+    }, 2500);
   }
 
   const changeSetAttempts = (newAttempts:number) => {
@@ -79,43 +96,21 @@ export default function SpaceWorldContainer({
     // Only track attempts when the game is ongoing
     console.log("gameStageRef.current", gameStageRef.current)
     // if (gameStageRef.current === "playing") {
-      trackClick(false, newAttempts);
+      trackClick(false);
     // }
   }
 
-  const trackClick = async (isWin: boolean, attempts: number) => {
-    if (!LS_playerId) return;
-    
-    try {
-      const response = await fetch('/api/click/findOrCreate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          player_id: LS_playerId,
-          isWin,
-          attempts: 1
-        }),
-      });
-
-      if (!response.ok) {
-        console.error('Failed to track click');
-      }
-    } catch (error) {
-      console.error('Error tracking click:', error);
-    }
-  }
 
   return (
-    <ModelGameStage attempts={attempts} setAttempts={changeSetAttempts} 
+    <ModelGameStage setShowHelper={setShowHelper} attempts={attempts} setAttempts={changeSetAttempts} 
     winAttempts={wincounter} setWinAttempts={setWincounter}
      onGreenClicked={onGreenClicked} gameStageRef={gameStageRef}
     onTargetFound={onTargetFound}
     gameData={{
       randomCoord1LatLan,
       showHelper,
-      timeRemaining
+      timeRemaining,
+      loadingWin
     }}
     >
       <>

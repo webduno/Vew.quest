@@ -42,7 +42,8 @@ export async function POST(request: Request) {
         .from('vew_click')
         .update({
           attempts: existingClick.attempts + attempts,
-          win: existingClick.win + (isWin ? 1 : 0)
+          win: existingClick.win + (isWin ? 1 : 0),
+          updated_at: 'now()'
         })
         .eq('player_id', player_id);
 

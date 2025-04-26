@@ -40,6 +40,8 @@ export const ProfileSnackbarNotif = () => {
         return '#80DB7D';
       case 'error':
         return '#f44336';
+      case 'yellow':
+        return '#f7cb28';
       case 'warning':
         return '#ff9800';
         case 'info':
