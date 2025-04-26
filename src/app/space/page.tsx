@@ -92,7 +92,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          player_id: LS_playerId,
+          player_id: LS_playerId.toLowerCase(),
           isWin: false,
           attempts: 1
         }),
@@ -171,7 +171,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          player_id: LS_playerId,
+          player_id: LS_playerId.toLowerCase(),
           isWin,
           attempts: 1
         }),
