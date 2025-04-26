@@ -25,8 +25,18 @@ const latLngToCartesian = (lat: number, lng: number, radius: number = 1) => {
 };
 
 export default function ModelGameStage({ 
+  isVfxHappening, setIsVfxHappening,
   lastClickedCoords, setLastClickedCoords,
-  setShowHelper, attempts, setAttempts, winAttempts, setWinAttempts, onGreenClicked,children,gameStageRef,gameData,onTargetFound}:{
+  setShowHelper,
+   attempts,
+   setAttempts,
+   winAttempts,
+   setWinAttempts,
+   onGreenClicked,
+  children,
+  gameStageRef,gameData,onTargetFound}:{
+  isVfxHappening:boolean,
+  setIsVfxHappening:(isVfxHappening:boolean)=>void,
   lastClickedCoords:any,
   setLastClickedCoords:any,
   setShowHelper:(showHelper:boolean)=>void,
@@ -120,7 +130,7 @@ const {playSoundEffect} = useBackgroundMusic()
       </div>
       <Canvas style={{width:"100vw",height:"100vh"}} shadows 
         camera={{fov:50,position:[isSmallDevice?8:6,1,0]}}
-        gl={{ preserveDrawingBuffer: true, }}
+        // gl={{ preserveDrawingBuffer: true, }}
         onCreated={(state)=>{ state.gl.setClearColor("#cccccc"); state.scene.fog = new Fog("#cccccc",16,32) }}
       >
         
@@ -136,8 +146,10 @@ const {playSoundEffect} = useBackgroundMusic()
            minPolarAngle={1.025}
            enablePan={false}
         />
-        {isDOF && <TiltShiftEffects />}
+        {/* {isDOF && <TiltShiftEffects />} */}
         <WorldModelTextured 
+          isVfxHappening={isVfxHappening}
+          setIsVfxHappening={setIsVfxHappening}
           state={ {loadingWin:gameData.loadingWin}}
           setShowHelper={setShowHelper}
           onGreenClicked={onGreenClicked}

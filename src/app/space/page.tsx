@@ -19,13 +19,42 @@ export default function ModelPage() {
   const { triggerSnackbar } = useProfileSnackbar();
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const confettiRef = useRef<JSConfetti | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const [loadingWin, setLoadingWin] = useState(false)
   const [lastClickedCoords, setLastClickedCoords] = useState<{lat: number, lng: number} | null>(null);
 
 
 const {playSoundEffect} = useBackgroundMusic()
+const [isVfxHappening, setIsVfxHappening] = useState(false)
+const pre_setIsVfxHappening = async (isVfxHappeningarg:boolean)=>{
+  console.log("isVfxHappeningarg", isVfxHappening, isVfxHappeningarg)
+  if (isVfxHappening){
 
+  return
+}
+
+
+console.log("blur")
+  // setIsVfxHappening(true)
+  if (containerRef.current) {
+    containerRef.current.style.transition = 'filter 1s ease-in-out';
+    containerRef.current.style.filter = 'blur(10px)';
+  }
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  console.log("blur2")
+  // triggerSnackbar("Goal not found, target moved!", "error")
+  // await new Promise(resolve => setTimeout(resolve, 1000));
+  // console.log("blur3")
+  // triggerSnackbar("Click to start!", "error")
+  // await new Promise(resolve => setTimeout(resolve, 1000));
+  console.log("blur4")
+  // setIsVfxHappening(false)
+  if (containerRef.current) {
+    containerRef.current.style.filter = 'none';
+  }
+  }
 
   useEffect(() => {
     const fetchInitialClicks = async () => {
@@ -126,7 +155,7 @@ const {playSoundEffect} = useBackgroundMusic()
     }
   }
   return (
-    <div>
+    <div ref={containerRef}>
       <div className="pos-abs top-0 left-0 z-100 ma-2">
       <div className='bg-white bord-r-100'>
           <a href="/" className='pointer flex-row nodeco pos-rel tx-xsm py-1 px-2 '>
@@ -244,6 +273,8 @@ const {playSoundEffect} = useBackgroundMusic()
 
         </div>
       <SpaceWorldContainer  
+        isVfxHappening={isVfxHappening}
+        setIsVfxHappening={pre_setIsVfxHappening}
         showHelper={showHelper}
         setShowHelper={setShowHelper}
         lastClickedCoords={lastClickedCoords}

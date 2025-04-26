@@ -7,7 +7,16 @@ import { ComputerModel } from "../core/ComputerModel";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
 
-export const WorldModelTextured = ({state, setShowHelper, onGreenClicked, targetCoords, onTargetFound, showHelper, clickedHandler, lastClickedCoords  }:any) => {
+export const WorldModelTextured = ({
+  isVfxHappening,
+  setIsVfxHappening,
+  state,
+  setShowHelper,
+  onGreenClicked,
+  targetCoords,
+  onTargetFound,
+  showHelper,
+  clickedHandler, lastClickedCoords  }:any) => {
   const $cloudsWireframe:any = useRef()
   const $light:any = useRef()
   const $whole:any = useRef()
@@ -98,6 +107,7 @@ export const WorldModelTextured = ({state, setShowHelper, onGreenClicked, target
             color="#ff00ff" 
             transparent={true} 
             opacity={0.5}
+            wireframe={true}
             // emissive="#ff0000" 
             // emissiveIntensity={0.1}
           />
@@ -118,8 +128,9 @@ export const WorldModelTextured = ({state, setShowHelper, onGreenClicked, target
             e.stopPropagation();
             if (!!showHelper) {
               clickedHandler()
+              setIsVfxHappening(true)
               if (true){
-                playSoundEffect("/sfx/short/errorbip.mp3")
+                playSoundEffect("/sfx/short/chairsit.mp3")
                 triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
                   <div className="">{"Helper turned off "}</div>
                   <div className="">{"Click again"}</div>
