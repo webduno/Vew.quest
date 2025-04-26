@@ -102,7 +102,7 @@ export const WorldModelTextured = ({
         latLngToCartesian(coords.lat, coords.lng).y,
         latLngToCartesian(coords.lat, coords.lng).z
       ]}>
-        <Sphere args={[0.1, 32, 32]}>
+        <Sphere args={[0.1, 8, 8]}>
           <meshStandardMaterial 
             color="#ff00ff" 
             transparent={true} 
@@ -126,6 +126,9 @@ export const WorldModelTextured = ({
         <Sphere args={[ showHelper ? 0.1 : 0.3, 8, 8]} 
           onClick={(e) => {
             e.stopPropagation();
+            if (!!isVfxHappening || state.loadingWin) {
+              return
+            }
             if (!!showHelper) {
               clickedHandler()
               setIsVfxHappening(true)
@@ -151,7 +154,7 @@ export const WorldModelTextured = ({
             emissiveIntensity={0.3} 
             transparent={true} 
             wireframe={!showHelper ? false : true}
-            opacity={showHelper ? 0.7 : 0} 
+            opacity={ (isVfxHappening || state.loadingWin) ? 0 : showHelper ? 0.7 : 0.05} 
           />
         </Sphere>
         {showHelper && (

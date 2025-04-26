@@ -115,10 +115,10 @@ const {playSoundEffect} = useBackgroundMusic()
           </div>
           </>)}
           </div>
-          <div className="flex-col pos-fix top-0 z-100 px-8 my-8 py-2 gap-2 noclick noselect">
+          <div className="flex-col pos-fix top-0 z-100  mt-4  gap-2 noclick noselect">
           {attempts > 0 && lastClickedCoords && (<>
-      <div className="flex-row bg-white gap-2 px-8  bord-r-15 py-2">
-        <div className="tx-center">Last <br /> Coords</div>
+      <div className="flex-row bg-white gap-2 px-2  bord-r-15 py-1">
+        <div className="tx-center tx-sm">Last <br /> Coords</div>
         <div className="flex-col flex-align-start">
 
         <div>{(lastClickedCoords?.lat || 0).toFixed(1)}°</div>

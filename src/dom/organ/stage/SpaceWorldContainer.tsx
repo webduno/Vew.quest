@@ -72,7 +72,7 @@ export default function SpaceWorldContainer({
       {/* red pin emoji */}
         <div className="">{"New Pin 📍 added"}</div>
     </div>, "success")
-    playSoundEffect("/sfx/short/myst.mp3")
+    playSoundEffect("/sfx/short/conf.mp3")
     confettiRef.current?.addConfetti({
       confettiColors: ['#B7E999', '#139724', '#ffffff', '#00ff00'],
       confettiNumber: 250,
@@ -91,12 +91,11 @@ export default function SpaceWorldContainer({
         <div>{"Loading new target..."}</div>
       </div>, "handbook")
 
-    }, 2500);
+    }, 2000);
   }
 
   const changeSetAttempts = (newAttempts:number) => {
     console.log("newAttempts", newAttempts)
-    playSoundEffect("/sfx/short/goodbip.wav")
     setClickCounter(clickCounter + 1)
     setAttempts(newAttempts)
     // Only track attempts when the game is ongoing

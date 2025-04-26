@@ -147,8 +147,24 @@ console.log("blur")
         }),
       });
 
+
       if (!response.ok) {
         console.error('Failed to track click');
+      }
+      // console.log("tracked click", await response.json())
+      const newClickCounterData = await response.json()
+      const newClickCounter = newClickCounterData.data.attempts
+      // if its multiple of 100, add a confetti
+      if (newClickCounter % 100 === 0) {
+    playSoundEffect("/sfx/short/myst.mp3")
+
+        triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
+          <div>{"You've leveled up!"}</div>
+        </div>, "yellow")
+        confettiRef.current?.addConfetti({
+          confettiColors: ['#FDC908', '#7DDB80', '#807DDB', '#6DcB70'],
+          confettiNumber: 50,
+        })
       }
     } catch (error) {
       console.error('Error tracking click:', error);
@@ -169,6 +185,33 @@ console.log("blur")
       </div>
       <div className="tx-center pb-0 pa-2 pos-abs top-0 right-0 z-100 flex-col flex-align-stretch  tx-white">
         
+      <div className="mb-1 flex-row gap-2 tx-bold">
+        <div className="tx-lg tx-shadow-2"  >
+          Lvl: {Math.floor(clickCounter/100)}
+        </div>
+         <div className='tx-white bord-r-100 mt-1 py-1 px-2 pos-rel'
+        style={{
+          background: "#E5E5E5",
+          boxShadow: "0 3px 0 #D68800",
+          overflow: "hidden"
+        }}
+      >
+        <div className=' h-100 pos-abs top-0 left-0'
+          style={{
+            // show how close it is to multiple of 100 using modulo
+            width: `${Math.floor((clickCounter % 100)/1)}px`,
+            background: "#FDC908",
+            transition: "width 0.5s ease-out"
+          }}
+        ></div>
+        <div
+          style={{
+            color: "#D68800",
+          }}
+          className='tx-bold pos-rel '>{((clickCounter % 100)/1) }%</div>
+      </div> 
+         </div>
+
       <Tooltip id="my-chip-tooltip" />
         <div data-tooltip-id="my-chip-tooltip" data-tooltip-content="Vew chips" 
         data-tooltip-place="left"
@@ -179,7 +222,7 @@ console.log("blur")
             <div className="flex-row pl-2">
             <div>{" You have"}</div>
             <div
-        style={{ background:"#FAeeA5", boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 2px #F7CB28, inset 2px 2px 2px #fff7f1, 2px 4px 4px #aaaaaa"}}
+        style={{ background:"#FAeeA5", boxShadow:"i, inset -2px -4px 0px #F7CB28, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
          className="tx-lg py-1 px-1  mb-2 bord-r-100">
           <div className="pb-1 tx-md r-1" style={{filter:"saturate(0) brightness(3)"}}>👀</div>
          </div>
@@ -191,10 +234,14 @@ console.log("blur")
           {/* eye emoji */}
         <div className="tx-shadow-2">{clickCounter}</div>
         <div
-        style={{ background:"#FAeeA5", boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 2px #F7CB28, inset 2px 2px 2px #fff7f1, 2px 4px 4px #aaaaaa"}}
+        style={{ background:"#FAeeA5", boxShadow:" inset -2px -4px 0px #F7CB28, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
          className="tx-lg py-1 px-1 ml-2 bord-r-100">
           <div className="pb-1 tx-md" style={{filter:"saturate(0) brightness(3)"}}>👀</div>
          </div>
+
+
+
+
         </div>
 
 
@@ -211,7 +258,7 @@ console.log("blur")
             <div className="flex-row pl-2">
             <div>{" You have"}</div>
             <div
-        style={{ background:"#B7E999", boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 2px #139724, inset 2px 2px 2px #fff7f1, 2px 4px 4px #aaaaaa"}}
+        style={{ background:"#B7E999", boxShadow:" inset -2px -4px 0px #139724, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
          className="tx-lg py-1 px-1  mb-2 bord-r-100">
           <div className="pb-1 tx-md r-1" style={{filter:"saturate(1) brightness(1)"}}>📍</div>
          </div>
@@ -223,7 +270,7 @@ console.log("blur")
           {/* eye emoji */}
         <div className="tx-shadow-2">{wincounter}</div>
         <div
-        style={{ background:"#B7E999", boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 2px #139724, inset 2px 2px 2px #fff7f1, 2px 4px 4px #aaaaaa"}}
+        style={{ background:"#B7E999", boxShadow:" inset -2px -4px 0px #139724, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
          className="tx-lg py-1 px-1 ml-2 bord-r-100">
           <div className="pb-1 tx-md" style={{filter:"saturate(1) brightness(1)"}}>📍</div>
          </div>
@@ -265,7 +312,7 @@ console.log("blur")
         {/* <div className="tx-lg py-1 ">⏲️</div> */}
         <div
         style={{ background:"#E9B799", 
-          boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 2px #971324, inset 2px 2px 2px #fff7f1, 2px 4px 4px #aaaaaa"}}
+          boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 0px #971324, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
          className="tx-lg py-1 px-1  mb- bord-r-100">
           <div className="pb-1 tx-md r-1" style={{filter:"saturate(1) brightness(1)"}}>🕗</div>
          </div>
@@ -287,10 +334,12 @@ console.log("blur")
         trackClick={trackClick}
         setClickCounter={(e)=>{
           setClickCounter(e)
+          // if (Math.random() < 0.5) {return}
           confettiRef.current?.addConfetti({
             confettiColors: ['#F7CB28', '#FAEFA5', "#ff9900"],
             confettiNumber: 3,
           })
+    playSoundEffect("/sfx/short/goodbip.wav")
           // triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
           //   <div>{" You have"}</div>
           //   <div className="">{""+e + " vew chips"}</div>
@@ -315,7 +364,7 @@ console.log("blur")
               <div>{"New target ready!"}</div>
               {/* <div>{"Max Score: " + wincounter}</div> */}
             </div>, "purple")
-          }, 5000)
+          }, 4000)
         }}
         loadingWin={loadingWin}
         timeRemaining={timeRemaining}
