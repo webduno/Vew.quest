@@ -30,23 +30,30 @@ export default function ModelPage() {
   const [boughtItems, setBoughtItems] = useState<string[]>([]);
   const [shopMessage, setShopMessage] = useState<string>("");
   const [allBoughtItems, setAllBoughtItems] = useState<string[]>([]);
-
+  const [showResultSeshModal, setShowResultSeshModal] = useState(false)
+  const [showHelper, setShowHelper] = useState(false)
   const {playSoundEffect} = useBackgroundMusic()
   const [isVfxHappening, setIsVfxHappening] = useState(false)
-  const pre_setIsVfxHappening = async (isVfxHappeningarg:boolean)=>{
-    console.log("isVfxHappeningarg", isVfxHappening, isVfxHappeningarg)
-    if (isVfxHappening){
-      return
-    }
+  const SHOP_ITEM_COST = 10;
 
-    console.log("blur")
+
+
+
+
+
+
+
+
+
+  const pre_setIsVfxHappening = async (isVfxHappeningarg:boolean)=>{
+    if (isVfxHappening){ return }
+
     if (containerRef.current) {
       containerRef.current.style.transition = 'filter 1s ease-in-out';
       containerRef.current.style.filter = 'blur(10px)';
     }
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    console.log("blur2")
     if (containerRef.current) {
       containerRef.current.style.filter = 'none';
     }
@@ -82,7 +89,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
   
   return `${distance.toFixed(2)} km away`;
 }
-  const fetchInitialClicks = async () => {
+  const fetchSetInitialClicks = async () => {
     if (!LS_playerId) return;
     
     try {
@@ -111,15 +118,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       console.error('Error fetching initial clicks:', error);
     }
   };
-  const [showResultSeshModal, setShowResultSeshModal] = useState(false)
-  useEffect(() => {
-
-    fetchInitialClicks();
-  }, [LS_playerId]);
-
-  useEffect(() => {
-    confettiRef.current = new JSConfetti();
-  }, []);
+  
 
   const startGameProcess = () => {
     const randomCoord1LatLan = {
@@ -160,7 +159,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       })
     }, 1000)
   }
-  const [showHelper, setShowHelper] = useState(false)
+  
 
   const trackClick = async (isWin: boolean) => {
     if (showHelper) return;
@@ -223,7 +222,6 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
     if (!LS_playerId) return;
   }
 
-  const SHOP_ITEM_COST = 10;
 
   async function handleBuyItem(item: string) {
     if (!LS_playerId) return;
@@ -251,11 +249,20 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       setShopMessage(`You bought ${item}!`);
 
       // refetch the data
-      fetchInitialClicks();
+      fetchSetInitialClicks();
     } catch (e) {
       setShopMessage('Purchase failed.');
     }
   }
+
+  useEffect(() => {
+    if (!confettiRef.current) {
+      confettiRef.current = new JSConfetti();
+    }
+    fetchSetInitialClicks();
+  }, [LS_playerId]);
+
+
 
   return (
     <div ref={containerRef}>
@@ -340,8 +347,8 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         
         <div className="pr-1">{timeRemaining}s</div>
         <div
-        style={{ background:"#E9B799", 
-          boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 0px #971324, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
+        style={{ background:"#cccccc", 
+          boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 0px #777777, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
          className="tx-lg py-1 px-1  mb- bord-r-100">
           <div className="pb-1 tx-md r-1" style={{filter:"saturate(1) brightness(1)"}}>🕗</div>
          </div>
@@ -353,12 +360,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         style={{ marginTop: '8px' }}
       >
         <div className="pr-1">Shop</div>
-        <div
-          style={{ background: '#E9B799', boxShadow: 'inset -2px -4px 6px #77777777, inset -2px -4px 0px #971324, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa' }}
-          className="tx-lg py-1 px-1 mb- bord-r-100"
-        >
-          <div className="pb-1 tx-md r-1" style={{ filter: 'saturate(1) brightness(1)' }}>🛒</div>
-        </div>
+        
       </div>
 
       </div>
