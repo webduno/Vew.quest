@@ -148,7 +148,7 @@ export default function ModelPage() {
       }
       const newClickCounterData = await response.json()
       const newClickCounter = newClickCounterData.data.attempts
-      if (newClickCounter % 100 === 0) {
+      if ((newClickCounter + clickCounter) % 100 === 0) {
     playSoundEffect("/sfx/short/myst.mp3")
 
         triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
