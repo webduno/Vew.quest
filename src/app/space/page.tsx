@@ -9,6 +9,7 @@ import { BewWorldLogo } from "@/dom/bew/BewWorldLogo";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import { Tooltip } from "react-tooltip";
 import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
+import { countries, CountryFeature } from "@/data/countries";
 
 export default function ModelPage() {
   const [clickCounter, setClickCounter] = useState(0);
@@ -50,7 +51,37 @@ export default function ModelPage() {
       containerRef.current.style.filter = 'none';
     }
   }
+const humanDescription = (coords: { lat: number, lng: number } | null)=>{
+  if (!coords) return "No coordinates available";
+  
+  const distance = Math.sqrt(Math.pow(coords.lat - randomCoord1LatLan.lat, 2) + Math.pow(coords.lng - randomCoord1LatLan.lng, 2))
+  
+  // Find the closest country
+  let closestCountry: CountryFeature | null = null;
+  let minDistance = Infinity;
+  
+  countries.features.forEach(country => {
+    const countryCoords = country.geometry.coordinates;
+    const countryDistance = Math.sqrt(
+      Math.pow(coords.lat - countryCoords[1], 2) + 
+      Math.pow(coords.lng - countryCoords[0], 2)
+    );
+    
+    if (countryDistance < minDistance) {
+      minDistance = countryDistance;
+      closestCountry = country;
+    }
+  });
 
+  if (closestCountry && (closestCountry as any)?.properties ) {
+    const countryName = (closestCountry as any)?.properties.name;
+    const direction = coords.lat > randomCoord1LatLan.lat ? "north" : "south";
+    const eastWest = coords.lng > randomCoord1LatLan.lng ? "east" : "west";
+    return `${distance.toFixed(2)} km away, near ${countryName} (${direction}${eastWest})`;
+  }
+  
+  return `${distance.toFixed(2)} km away`;
+}
   const fetchInitialClicks = async () => {
     if (!LS_playerId) return;
     
@@ -78,6 +109,7 @@ export default function ModelPage() {
       console.error('Error fetching initial clicks:', error);
     }
   };
+  const [showResultSeshModal, setShowResultSeshModal] = useState(false)
   useEffect(() => {
 
     fetchInitialClicks();
@@ -107,7 +139,8 @@ export default function ModelPage() {
             lng: Math.random() * 360 - 180
           }
           setRandomCoord1LatLan(newRandomCoord)
-          setLastClickedCoords(null)
+
+          // setLastClickedCoords(null)
           if (document.hasFocus()) {
             playSoundEffect("/sfx/short/clock.mp3")
           }
@@ -350,6 +383,8 @@ export default function ModelPage() {
         }}
         wincounter={wincounter}
         setWincounter={(e)=>{
+          
+          setShowResultSeshModal(true)
           setLoadingWin(true)
           setWincounter(e)
           setTimeout(() => {
@@ -363,6 +398,8 @@ export default function ModelPage() {
             triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
               <div>{"New target ready!"}</div>
             </div>, "purple")
+            setShowResultSeshModal(false)
+            setLastClickedCoords(null)
           }, 4000)
         }}
         loadingWin={loadingWin}
@@ -372,6 +409,32 @@ export default function ModelPage() {
       >
         <></>
       </SpaceWorldContainer>
+      {showResultSeshModal && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.4)', zIndex: 200,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }} 
+        // onClick={() => setShowResultSeshModal(false)}
+        >
+          <div style={{ background: 'white', borderRadius: 16, padding: 24, minWidth: 260, boxShadow: '0 4px 24px #0002' }} onClick={e => e.stopPropagation()}>
+            {/* <div className="tx-center tx-lg tx-bold mb-2"> {LS_playerId}</div> */}
+            <div className="tx-center tx-lg tx-bold opaci-25 mb-2">
+              Target found!
+              <div className="tx-center tx-lg tx-bold mb-2">
+                <div className="flex-row gap-2">
+                  <div>lat: {lastClickedCoords?.lat?.toFixed(1)}</div>
+                  <div>lng: {lastClickedCoords?.lng?.toFixed(1)}</div>
+                </div>
+                <div>
+                  {humanDescription(lastClickedCoords)}
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showShopModal && (
         <div style={{
           position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.4)', zIndex: 200,

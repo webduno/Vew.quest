@@ -138,7 +138,10 @@ export const WorldModelTextured = ({
               return
             }
             if (!!showHelper) {
-              clickedHandler()
+              clickedHandler({
+                lat: targetCoords.lat,
+                lng: targetCoords.lng
+              })
               setIsVfxHappening(true)
               if (true){
                 playSoundEffect("/sfx/short/chairsit.mp3")
@@ -153,7 +156,7 @@ export const WorldModelTextured = ({
               return
             };
             setPreviousTargets(prev => [...prev, targetCoords]);
-            clickedHandler(e)
+            clickedHandler()
             onTargetFound();
             setHelperSphereSize(prev => Math.max(0.1, prev - 0.01));
           }}

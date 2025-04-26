@@ -22,6 +22,7 @@
     "leva": "^0.10.0",
     "next": "13.5.8",
     "next-auth": "^4.24.11",
+    "node-geocoder": "^4.4.1",
     "postprocessing": "^6.37.1",
     "profanity-cleaner": "^0.0.3",
     "react": "^18",

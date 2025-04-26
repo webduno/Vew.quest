@@ -64,7 +64,9 @@ export default function ModelGameStage({
 const {playSoundEffect} = useBackgroundMusic()
   const clickedHandler = (coordsLatLan:any) => {
     console.log("Clicked coordinates:", coordsLatLan, attempts)
-    setLastClickedCoords(coordsLatLan);
+    if (coordsLatLan?.lat && coordsLatLan?.lng){
+      setLastClickedCoords(coordsLatLan);
+    }
     setAttempts(attempts + 1);
     if (!!hasClickedOnTarget){ 
       return
@@ -172,7 +174,7 @@ const {playSoundEffect} = useBackgroundMusic()
           targetCoords={randomCoord1LatLan}
           onTargetFound={(e:any)=>{
             onTargetFound()
-            setLastClickedCoords(null)
+            // setLastClickedCoords(null)
           }}
           showHelper={showHelper}
           lastClickedCoords={lastClickedCoords}

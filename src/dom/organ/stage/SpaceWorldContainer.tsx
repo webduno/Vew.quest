@@ -77,7 +77,7 @@ export default function SpaceWorldContainer({
     playSoundEffect(`/sfx/short/${chosensfx}.mp3`)
     confettiRef.current?.addConfetti({
       confettiColors: ['#B7E999', '#139724', '#ffffff', '#00ff00'],
-      confettiNumber: 68,
+      confettiNumber: 5,
     });
     // Track win and reset attempts
     trackClick(true);
