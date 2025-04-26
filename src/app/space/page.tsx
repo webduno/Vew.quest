@@ -63,7 +63,7 @@ export default function ModelPage() {
         body: JSON.stringify({
           player_id: LS_playerId,
           isWin: false,
-          attempts: 0
+          attempts: 1
         }),
       });
 
@@ -377,7 +377,8 @@ export default function ModelPage() {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }} onClick={() => setShowShopModal(false)}>
           <div style={{ background: 'white', borderRadius: 16, padding: 24, minWidth: 260, boxShadow: '0 4px 24px #0002' }} onClick={e => e.stopPropagation()}>
-            <div className="tx-center tx-lg tx-bold mb-2">🛒 Shop Purchases</div>
+            <div className="tx-center tx-lg tx-bold mb-2"> {LS_playerId}</div>
+            <div className="tx-center tx-lg tx-bold opaci-25 mb-2">🛒 Shop Purchases</div>
             <div className="mb-2">Choose an item to buy:</div>
             <ul style={{ listStyle: 'none', padding: 0 }}>
               {shopItems.map((item, i) => (

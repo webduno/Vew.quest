@@ -20,13 +20,15 @@ export async function POST(request: Request) {
     }
 
     // Try to find existing click record
+    console.log("player_id", player_id.toLowerCase())
     const { data: existingClick, error: findError } = await supabase
       .from('vew_click')
       .select('id, attempts, win, player_id, spent')
       .eq('player_id', player_id.toLowerCase())
-      .single();
+      .limit(1)
+      .maybeSingle();
 
-    // console.log("existingClick", existingClick)
+    // console.log("existingClick", existingClick, findError)
 
     if (findError && findError.code !== 'PGRST116') { // PGRST116 is "not found" error
       console.error('Supabase database error:', findError);
