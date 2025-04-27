@@ -37,13 +37,12 @@ style={{
   </summary>
 
         {(
-          <div className='flex-col flex-justify-stretch  pb-2 bg-glass-10 tx-sm z-1000   noverflow flex-align-end tx-white'
+          <div className='flex-col flex-justify-stretch bord-r-10 mb-2 pb-2 bg-glass-10 tx-sm z-1000   noverflow flex-align-end tx-white'
             
   style={{
     background: "#8080f0",
     boxShadow: "0 4px 0 #6060f0",
     borderTop: "1px solid #aaaaff",
-    borderRadius: "0 0 10px 10px",
   }}
           >
           {!isCurrentPage('/party') && (
