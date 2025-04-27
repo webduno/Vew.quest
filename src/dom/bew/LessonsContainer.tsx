@@ -41,15 +41,6 @@ export const LessonsContainer = () => {
       forcedClick: null
     },
     {
-      title: "3D World",
-      emoji: "🛣️",
-      href: "/world",
-      backgroundColor: "#96C34A",
-      boxShadowColor: "#66a31A",
-      actionText: "Enter Main Plaza & Play",
-      forcedClick: null
-    },
-    {
       title: "Space Quest",
       emoji: "🌍",
       href: "/space",
@@ -65,6 +56,15 @@ export const LessonsContainer = () => {
       backgroundColor: "#aD8574",
       boxShadowColor: "#7D5544",
       actionText: "Public Leaderboard",
+      forcedClick: null
+    },
+    {
+      title: "3D World",
+      emoji: "🛣️",
+      href: "/world",
+      backgroundColor: "#96C34A",
+      boxShadowColor: "#66a31A",
+      actionText: "Enter Main Plaza & Play",
       forcedClick: null
     },
   //   {
