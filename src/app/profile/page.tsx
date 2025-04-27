@@ -26,6 +26,8 @@ import { RemoteViewingHistory } from '@/dom/bew/RemoteViewingHistory';
 import { BewBadges } from '@/dom/bew/BewBadges';
 import { ProfileSnackbarContext, SnackbarSeverity } from '../../../script/state/context/ProfileSnackbarProvider';
 import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
+import { DailyGoalsSection } from '@/dom/organ/vew_profile/DailyGoalsSection';
+import { RVStatsSection } from '@/dom/organ/vew_profile/RVStatsSection';
 
 
 export default function ProfilePage() {
@@ -268,30 +270,16 @@ style={{
 
 <div className='flex-wrap px-4 flex-align-start flex-justify-start gap-4 flex-1'>
             
-        
+<DailyGoalsSection
+  streak={streak}
+  userStats={userStats}
+  crvObjects={crvObjects}
+/>
+<RVStatsSection
+  uniqueDays={uniqueDays}
+  userStats={userStats}
+/>
 
-<div className='bord-r-15  pt-4 pb-2 px-4' style={{ border: "1px solid #f0f0f0" }}>
-  <div className='tx-bold tx-lg mb-2'>Daily Goals</div>
-  <div className='flex-col gap-2 flex-align-start'>
-    <div>Current Streak: {streak}</div>
-    <div>Completed Goal: {crvObjects.filter(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]).length >= 5 ? '✅' : "❌"} ({userStats.dailyGoals.requests > 3 ? 3 : userStats.dailyGoals.requests} / 3)</div>
-    <div>Viewed Today: {userStats.dailyGoals.requests}</div>
-    <div>Avg Accuracy: {userStats.dailyGoals.accuracy > 0 ? userStats.dailyGoals.accuracy.toFixed(3) : 'N/A'}%</div>
-    <div>Best Today: {userStats.dailyGoals.bestAccuracy > 0 ? userStats.dailyGoals.bestAccuracy.toFixed(3) : 'N/A'}%</div>
-  </div>
-</div>
-
-            <div className='bord-r-15  pb-2 pt-4 px-4' style={{ border: "1px solid #f0f0f0" }}>
-              <div className='tx-bold tx-lg mb-2 '>RV Stats</div>
-              <div className='flex-col gap-2 flex-align-start'>
-                <div>Streak Potential: {userStats.potentialStreak}</div>
-                <div>Days of practice: {uniqueDays.length}</div>
-                <div>Total Requests: {userStats.totalRequests}</div>
-                <div>First Request: {userStats.firstRequestDate ? new Date(userStats.firstRequestDate).toLocaleDateString() : 'No requests yet'}</div>
-                <div>Average Accuracy: {userStats.averageAccuracy.toFixed(3)}%</div>
-                <div>Personal Record: {userStats.bestAccuracy.toFixed(3)}%</div>
-              </div>
-            </div>
 
 
 {/* Badges */}
@@ -370,7 +358,7 @@ style={{
       <div id="journey"></div>  
       <div className='pb-100 flex-col flex-align-start tx-altfont-2 gap-4 w-100 w-max-1080px'
       >
-        <div className="tx-xl opaci-40 tx-altfont-6 px-4">Your Journey</div>
+        <div className="tx-xl opaci-40 tx-altfont-6 px-4 py-8">{LS_playerId.toUpperCase()}&apos;s JOURNEY</div>
         <div className="w-max-600px py-4 ">
           
         <BewChoiceButton
