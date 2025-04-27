@@ -31,13 +31,13 @@ style={{
 }}>
   <summary className='flex flex-col b opaci-chov--50'
   >
-    <button className='noclick tx-end g nowrap w-150px tx-white py-3 pr-3 block'>
+    <button className='noclick tx-end g nowrap  tx-white py-3 pl-6 pr-4 block tx-sm'>
       More Options
     </button>
   </summary>
 
         {(
-          <div className='flex-col flex-justify-end pb-2 bg-glass-10 tx-sm z-1000   noverflow flex-align-end tx-white'
+          <div className='flex-col flex-justify-stretch  pb-2 bg-glass-10 tx-sm z-1000   noverflow flex-align-end tx-white'
             
   style={{
     background: "#8080f0",
@@ -47,25 +47,25 @@ style={{
   }}
           >
           {!isCurrentPage('/party') && (
-            <a href="/party" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
+            <a href="/party" className='nodeco noselect py- py-1 px-4 block  w-100 tx-right  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
               <div className="py-1 pl-2 nowrap">CRV Party
               </div>
             </a>
           )}
             {!isCurrentPage('/space') && (
-              <a href="/space" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+              <a href="/space" className='nodeco noselect py- py-1 px-4 block  w-100 tx-right  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
                 <div className="py-1 pl-2 nowrap">Space RV</div>
               </a>
             )}
 
             {!isCurrentPage('/world') && (
-              <a href="/world" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+              <a href="/world" className='nodeco noselect py- py-1 px-4 block  w-100 tx-right  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
                 <div className="py-1 pl-2 nowrap"> 3D Worlds</div>
               </a>
             )}
 
             {!isCurrentPage('/about') && (
-              <a href="/about" className='nodeco noselect py- py-1 pr-4 px-1 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
+              <a href="/about" className='nodeco noselect py- py-1 px-4 block   opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
                 <div className="py-1 pl-2 nowrap">About <VersionTag />
                   {/*  <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(100)' }}>❓</span> */}
                 </div>
@@ -82,13 +82,13 @@ style={{
             boxShadow: "0 4px 0 #6060f0",
           }}
         >
-        <a href="/tool" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+        <a href="/tool" className='nodeco noselect py- py-1 px-4 block w-100 tx-right  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
           <div className="py-1 pl-2 nowrap">Tool
             {/* <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(2)' }}>👁️</span> */}
           </div>
         </a>
           {!isCurrentPage('/profile') && (
-            <a href="/profile" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
+            <a href="/profile" className='nodeco noselect py- py-1 px-4 block w-100 tx-right  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
               <div className="py-1 pl-2 nowrap">Profile
               </div>
             </a>
