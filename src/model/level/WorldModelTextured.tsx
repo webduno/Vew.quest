@@ -87,18 +87,20 @@ export const WorldModelTextured = ({
     {/* <Sphere args={[1.1,8,4]}  >
       <meshStandardMaterial wireframe={true} emissive={"#000000"} color={"#000000"} />
     </Sphere> */}
-    {/* <Sphere args={[0.15,8,4]}  position={[0,0,3.3]}  onClick={(e)=>{
-      e.stopPropagation();
-      onGreenClicked()
-      triggerSnackbar(<>
-      <div className="tx-shadow-5">
-        Moon clicked!
-      </div>
-      </>, "handbook")
+    {state.inventory.includes("Mystery Pin") && (
+      <Sphere args={[0.15,8,4]}  position={[0,0,3.3]}  onClick={(e)=>{
+        e.stopPropagation();
+        // onGreenClicked()
+        // triggerSnackbar(<>
+        // <div className="tx-shadow-5">
+        //   Moon clicked!
+      // </div>
+      // </>, "handbook")
 
     }}>
       <meshStandardMaterial  color={"#aaaaaa"} />
-    </Sphere> */}
+      </Sphere>
+    )}
     </group>
   <group ref={$whole}>
     <group ref={$light}></group>
@@ -134,6 +136,7 @@ export const WorldModelTextured = ({
         </Sphere>
       </group>
     ))}
+    
     <EarthTextured clickedHandler={state.loadingWin ? (e:any)=>{
       // alert("loadingWin")e
     } : (e)=>{
@@ -159,6 +162,15 @@ export const WorldModelTextured = ({
             if (!!showHelper) {
               setShowHelper(false)
               // setIsVfxHappening(true)
+              if (state.winAttempts == 0) {
+
+                triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
+                  {/* <div className="">{"Findings must be blind"}</div> */}
+                  {/* <div className="">{"Helper is off"}</div> */}
+                  <div className="">{"Click again"}</div>
+                  <div className="">{"without the Helper"}</div>
+                </div>, "warning")
+              }
               // if (true){
               //   playSoundEffect("/sfx/short/chairsit.mp3")
               //   triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">

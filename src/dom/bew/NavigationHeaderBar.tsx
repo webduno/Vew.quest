@@ -81,13 +81,11 @@ export const NavigationHeaderBar = ({
              </div>
         </a>
       )}
-      {!isCurrentPage('/tool') && (
         <a href="/tool" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
           <div className="py-1 pl-2 nowrap">RV Tool
              {/* <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(2)' }}>👁️</span> */}
              </div>
         </a>
-      )}
       {!isCurrentPage('/party') && (
         <a href="/party" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
           <div className="py-1 pl-2 nowrap">CRV Party

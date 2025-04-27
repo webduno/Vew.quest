@@ -76,7 +76,7 @@ const {playSoundEffect} = useBackgroundMusic()
       setLastClickedCoords(coordsLatLan);
     }
     setAttempts(attempts + 1);
-    if (attempts == 0) {
+    if (attempts == 0 && winAttempts == 0) {
       triggerSnackbar(<div className="tx-center flex-col tx-sm tx-shadow-5 "> 
         <div>Scroll in/out to zoom in/out</div>
         <div className="tx-lgx">Drag screen <br /> to rotate</div>
@@ -142,7 +142,7 @@ const {playSoundEffect} = useBackgroundMusic()
           </div>
           </>)}
           </div>  
-          <div className="flex-col pos-fix top-0 z-100  mt-4  gap-2 noclick noselect">
+          <div className="flex-col pos-fix top-0 left-0 z-100  mt-8 pt-2 ml-2  gap-2 noclick noselect">
           {attempts > 0 && lastClickedCoords && (<>
       <div className="flex-row bg-white gap-2 px-2  bord-r-15 py-1">
         <div className="tx-center tx-sm">Last <br /> Coords</div>
@@ -187,7 +187,11 @@ const {playSoundEffect} = useBackgroundMusic()
         <WorldModelTextured 
           isVfxHappening={isVfxHappening}
           setIsVfxHappening={setIsVfxHappening}
-          state={ {loadingWin:gameData.loadingWin}}
+          state={ {
+            loadingWin:gameData.loadingWin,
+            winAttempts:winAttempts,
+            inventory:inventory
+          }}
           setShowHelper={setShowHelper}
           onGreenClicked={onGreenClicked}
           clickedHandler={clickedHandler}
@@ -206,7 +210,7 @@ const {playSoundEffect} = useBackgroundMusic()
         {children}
         <group rotation={[0,0,0]}>
           <group position={[0,0,0]} >
-            {attempts > 1 && (<>
+            {attempts > 1 && (inventory.includes("Mystery Pin") || (!inventory.includes("Mystery Pin") && winAttempts == 0 )) && (<>
             
           <group position={[0,1.5,0]}  scale={[.5,.3,.5]} onClick={(e:any)=>{
             onGreenClicked(e)
@@ -238,7 +242,7 @@ const {playSoundEffect} = useBackgroundMusic()
 
           
           <group position={[0,-.5,0]} rotation={[0,Math.PI/2,0]}>
-          {attempts > 5 && (
+          {attempts > 5 && winAttempts > 0 && (
             <Text fontSize={0.07} color="#ff4400"  
             position={[0,-1.02,-0.02]}
             // position={[0,0,-1]}
@@ -247,6 +251,7 @@ const {playSoundEffect} = useBackgroundMusic()
               Try #{attempts}
             </Text>
           )}
+          {attempts > 5 && winAttempts > 0 && (
           <group position={[0.1,-1,0]}>
 
           {/* table top */}
@@ -305,6 +310,7 @@ const {playSoundEffect} = useBackgroundMusic()
             <Box args={[.02 ,.75,.02]} position={[0.4,-.19,-.2]}><meshStandardMaterial color={"#aa8866"} /></Box>
       </>)}
           </group>
+      )}
 
           <group position={[0,.25,-.2]}>
       {lastClickedCoords &&  attempts > 5 && inventory.includes("Map Reveal") && (<>

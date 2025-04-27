@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import JSConfetti from 'js-confetti';
 
 import SpaceWorldContainer from "@/dom/organ/stage/SpaceWorldContainer";
@@ -10,12 +10,13 @@ import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import { Tooltip } from "react-tooltip";
 import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
 import { countries, CountryFeature } from "@/data/countries";
+import { VersionTag } from "@/dom/bew/VersionTag";
 
 export default function ModelPage() {
   // const [clickCounter, setClickCounter] = useState(0);
   const [wincounter, setWincounter] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(59); 
-  const [availSpend, setAvailSpend] = useState(0);
+  // const [availSpend, setAvailSpend] = useState(0);
   const [timerLimit, setTimerLimit] = useState(59);
   const {LS_playerId, setPlayerId} = useLSPlayerId();
   const [randomCoord1LatLan, setRandomCoord1LatLan] = useState({lat:0,lng:0})
@@ -36,8 +37,10 @@ export default function ModelPage() {
   const {playSoundEffect} = useBackgroundMusic()
   const [isVfxHappening, setIsVfxHappening] = useState(false)
   const SHOP_ITEM_COST = 10;
-
-
+const [spentObj, setSpentObj] = useState<{spent: {chip: number}} | null>(null)
+const availSpend = useMemo(()=>{
+  return totalClickCounter - (spentObj?.spent.chip || 0)
+}, [totalClickCounter, spentObj])
 
 
 
@@ -110,12 +113,13 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         const data = await response.json();
         setTotalClickCounter(data.data.attempts);
         setWincounter(data.data.win);
-        const spentObj = typeof data.data.spent === 'string' ? JSON.parse(data.data.spent) : data.data.spent;
-        console.log("spentObj", data.data)
-        console.log("spentObj", spentObj)
-        setAllBoughtItems(spentObj.bought);
-        console.log(data.data.attempts , spentObj.spent.chip);
-        setAvailSpend(data.data.attempts - spentObj.spent.chip);
+        const theSpentObj = typeof data.data.spent === 'string' ? JSON.parse(data.data.spent) : data.data.spent;
+        console.log("theSpentObj", data.data)
+        console.log("theSpentObj", theSpentObj)
+        setAllBoughtItems(theSpentObj.bought);
+        console.log(data.data.attempts , theSpentObj.spent.chip);
+        setSpentObj(theSpentObj)
+        // setAvailSpend(data.data.attempts - theSpentObj.spent.chip);
       }
     } catch (error) {
       console.error('Error fetching initial clicks:', error);
@@ -192,6 +196,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       }
       const newClickCounterData = await response.json()
       const newClickCounter = newClickCounterData.data.attempts
+      setTotalClickCounter(newClickCounter)
       if ((newClickCounter) % 100 === 0) {
     playSoundEffect("/sfx/short/myst.mp3")
 
@@ -207,6 +212,64 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       console.error('Error tracking click:', error);
     }
   }
+  const ITEM_REFERENCE: { [key: string]: { emoji: string; name: string; description: string; cost: number } } = {
+    "Golden Chip": {
+      emoji: "💰",
+      name: "Golden Chip",
+      description: "A golden chip that can be used to buy items in the shop.",
+      cost: 10
+    },
+    "Mystery Pin": {
+      emoji: "🟩",
+      name: "Mystery Pin",
+      description: "Locate the green pin to find the target.",
+      cost: 10
+    },
+    "Time Booster": {
+      emoji: "⏰",
+      name: "Time Booster",
+      description: "A booster that can be used to buy items in the shop.",
+      cost: 10
+    },
+    "Chip Doubler": {
+      emoji: "💰",
+      name: "Chip Doubler",
+      description: "A doubler that can be used to buy items in the shop.",
+      cost: 10
+    },
+    "Pin Magnet": {
+      emoji: "🔍",
+      name: "Pin Magnet",
+      description: "A magnet that can be used to buy items in the shop.",
+      cost: 10
+    },
+    "Lucky Coin": {
+      emoji: "🍀",
+      name: "Lucky Coin",
+      description: "A lucky coin that can be used to buy items in the shop.",
+      cost: 10
+    },
+    "Map Reveal": {
+      emoji: "🗺️",
+      name: "Map Reveal",
+      description: "A sing that points to the correct latitude",
+      cost: 10
+    },
+    "Speed Shoes": {
+      emoji: "🏃‍♂️",
+      name: "Speed Shoes",
+      description: "A pair of speed shoes that can be used to buy items in the shop.",
+      cost: 10
+    },
+    "Confetti Bomb": {
+      emoji: "🎉",
+      name: "Confetti Bomb",
+      description: "A confetti bomb that can be used to buy items in the shop.",
+      cost: 10
+    },
+    
+    
+  }
 
   function getRandomShopItems() {
     const allItems = [
@@ -220,7 +283,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       'Speed Shoes',
       'Confetti Bomb',
     ];
-    return allItems.sort(() => 0.5 - Math.random()).slice(0, 3);
+    return allItems.sort(() => 0.5 - Math.random()).slice(0, 4);
   }
 
   function openShop() {
@@ -271,7 +334,14 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
     }
     fetchSetInitialClicks();
   }, [LS_playerId]);
-
+const normalClick = (e:number)=>{
+  setTotalClickCounter(e)
+          confettiRef.current?.addConfetti({
+            confettiColors: ['#F7CB28', '#FAEFA5', "#ff9900"],
+            confettiNumber: 1,
+          })
+    playSoundEffect("/sfx/short/passbip.mp3")
+        }
 
 
   return (
@@ -286,8 +356,9 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       </a>
           </div> 
       </div>
-      <div className="tx-center pb-0 pa-2 pos-abs top-0  right-0 z-100 flex-col flex-align-stretch flex-justify-end tx-white">
+      <div className="tx-center pb-0 pa-2 pos-abs top-0  right-0 z-100 flex-row gap-2 flex-align-stretch flex-justify-end tx-white">
         
+
       <div className="mb-1 flex-row gap-2 tx-bold   ">
         {totalClickCounter > 100 && (<>
         <div className="tx-lg tx-shadow-2 "  >
@@ -315,6 +386,32 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       </div> 
         </>)}
         </div>
+
+
+      <details className='flex-col pos-rel '>
+  <summary className='flex-col bg-white bord-r-10 pointer'
+  style={{
+    border: "1px solid #AFAFAF",
+  }}
+  >
+
+  <button className='flex-col  px-2 py-2 px-4 noclick' style={{ color: "#AFAFAF" }}>
+    <div className='noselect'>Menu</div>
+  </button>
+  </summary>
+    <div className='pos-abs gap-2 flex-align-start flex-row bottom-0 right-0 z-1000'
+    style={{
+      transform: "translate(-0%, 100%)",
+    }}
+    >
+     
+  <div className='flex-col flex-justify-end pb-2 bg-glass-10 tx-sm z-1000 mt-2 m r-4 bord-r-10 noverflow flex-align-end tx-white'
+      style={{
+        // background: "#8080f0",
+        // boxShadow: "0 4px 0 #6060f0",
+      }}
+      > 
+
 
          <div className="flex-row gap  flex-justify-end -2">
 
@@ -379,6 +476,14 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         <div className="pr-1">Shop</div>
         
       </div>
+      </div>
+    </div>
+  </details>
+  
+
+
+
+
 
       </div>
       <SpaceWorldContainer  
@@ -398,12 +503,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         clickCounter={totalClickCounter}
         trackClick={trackClick}
         setClickCounter={(e)=>{
-          setTotalClickCounter(e)
-          confettiRef.current?.addConfetti({
-            confettiColors: ['#F7CB28', '#FAEFA5', "#ff9900"],
-            confettiNumber: 1,
-          })
-    playSoundEffect("/sfx/short/passbip.mp3")
+          normalClick(e)
         }}
         wincounter={wincounter}
         setWincounter={(e)=>{
@@ -460,45 +560,80 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       )}
 
       {showShopModal && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.4)', zIndex: 200,
+        <div className="tx-altfont-2 bg-w-90 bg-glass-5 pos-fix top-0 left-0 z-1000 w-100vw h-100hv" style={{
+          height: '100vh', 
+         zIndex: 200,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }} onClick={() => setShowShopModal(false)}>
-          <div style={{ background: 'white', borderRadius: 16, padding: 24, minWidth: 260, boxShadow: '0 4px 24px #0002' }} onClick={e => e.stopPropagation()}>
-            <div className="tx-center tx-lg tx-bold mb-2"> {LS_playerId}</div>
-            <div className="tx-center tx-lg tx-bold opaci-25 mb-2">🛒 Shop Purchases</div>
-            <div className="mb-2">Choose an item to buy:</div>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
+          <div className="w-max-400px w-100" style={{ background: 'white', borderRadius: 16, padding: 24, minWidth: 260, boxShadow: '0 4px 24px #0002' }} onClick={e => e.stopPropagation()}>
+            {/* <div className="tx-center tx-lg tx-bold opaci-25 mb-2">🛒 Shop Purchases</div> */}
+            
+            <div className="flex-row gap-2  w-100 "
+            style={{
+              color: "#AFAFAF",
+            }}
+            >
+              <div className="mb-2 flex-1 nowrap tx-ls-5 tx-sm">🛒 GAME SHOP</div>
+              <button className="mb-2 nowrap opaci-50"
+              onClick={()=>{
+                trackClick(false)
+                normalClick(totalClickCounter)
+                setShopItems(getRandomShopItems())
+                setBoughtItems([])
+              }}
+              >Refresh</button>
+            </div>
+            <div className=" nowrap tx-bold"
+            style={{
+              color: "#4b4b4b",
+            }}
+            >
+             💰 Available: {availSpend}
+            </div>
+            <ul style={{ listStyle: 'none', padding: 0 }} className="flex-wrap w-100 gap-2">
               {shopItems.map((item, i) => (
-                <li key={i} className="mb-1 flex-row flex-align-center gap-2">
-                  <span>{item} <span style={{color:'#888', fontSize:'0.9em'}}>({SHOP_ITEM_COST} chips)</span></span>
+                <li key={i} className="mb-1 flex-col flex-align-center gap-2 bord-r-15 pa-2"
+                style={{
+                  border: "1px solid #AFAFAF",
+                  // background: "#eeeeee",
+                  // boxShadow:"inset -2px -4px 0px #bbbbbb, inset 2px 2px 0px #ffffff"
+                }}
+                >
+                  <span>{ITEM_REFERENCE[item].emoji} {item} </span>
                   {boughtItems.includes(item) ? (
                     <span style={{ color: '#4caf50', fontWeight: 'bold' }}>Bought</span>
                   ) : (
+                    <div className="flex-row-r gap-2">
                     <button
                       className="py-1 px-2 bord-r-100 tx-bold"
                       style={{ background: '#eee', border: 'none' }}
                       onClick={() => handleBuyItem(item)}
                     >Buy</button>
+                    <span style={{color:'#888', fontSize:'0.9em'}}>({SHOP_ITEM_COST} 💰)</span>
+                    </div>
                   )}
                 </li>
               ))}
             </ul>
             {shopMessage && <div className="my-2 tx-center" style={{ color: '#4caf50' }}>{shopMessage}</div>}
+            <div className="tx-center tx-lg tx-bold mb -2">🛒  {LS_playerId}</div>
             
             {allBoughtItems.length > 0 && (<>
-              <div style={{ borderTop: '1px solid #eee' }}
-              className="tx-bold  mb-1 pt-2">Your Bought Items:</div>
+              <div style={{ borderTop: '1px solid #eee' }} className="tx-bold  p t-2"></div>
 
-              <div className=" pt- w-max-250px  w-100" >
-              <div>
-              Available: {availSpend}
-            </div>
+              <div className=" pt-   w-100" >
+              
                 <ul
                 className="flex-wrap gap-1"
                  style={{ listStyle: 'none', padding: 0, fontSize: '0.95em', color: '#333' }}>
                   {allBoughtItems.map((item, i) => (
-                    <li key={i} className="mb-1 tx-xs">{item}</li>
+                    <li key={i} 
+                    onClick={()=>{
+                      triggerSnackbar(<div className="tx-center flex-col tx-shadow-5 w-max-250px">
+                        {ITEM_REFERENCE[item].description}</div>, "handbook")
+                    }}
+
+                     className="pointer bg-b-10 bord-r-100 pa-1  tx-xs">{ITEM_REFERENCE[item].emoji} {item}</li>
                   ))}
                 </ul>
               </div>

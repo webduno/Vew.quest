@@ -13,7 +13,7 @@ import { VewLandingGraphic } from '@/dom/organ/vew_landing/VewLandingGraphic.tsx
 
 
 export default function TrainingPage() {
-  const { typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = useLSPlayerId();
+  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = useLSPlayerId();
   const [userExists, setUserExists] = useState(0);
   const [streak, setStreak] = useState(0);
   const [potentialStreak, setPotentialStreak] = useState(0);
@@ -42,7 +42,7 @@ export default function TrainingPage() {
   useEffect(() => {
     if (isLoading) { return }
     fetchUserCount();
-  }, [typedUsername]);
+  }, [LS_playerId]);
 
   const handleStart = async () => {
     if ( typedUsername) {

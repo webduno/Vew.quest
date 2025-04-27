@@ -26,9 +26,9 @@ export const MenuIconBar = ({  playSoundEffect }: MenuIconBarProps) => {
       />
       
       <MenuBarItem 
-        href="/party"
+        href="/space"
         emoji="🌎"
-        tooltip="Party"
+        tooltip="Space Quest"
       />
       
       <MenuBarItem 
