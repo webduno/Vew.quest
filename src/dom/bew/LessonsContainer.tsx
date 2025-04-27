@@ -41,15 +41,6 @@ export const LessonsContainer = () => {
       forcedClick: null
     },
     {
-      title: "Your Journey",
-      emoji: "💭",
-      href: "/profile#journey",
-      backgroundColor: "#C3B4D0",
-      boxShadowColor: "#9F86A8",
-      actionText: "Review History",
-      forcedClick: null
-    },
-    {
       title: "3D World",
       emoji: "🛣️",
       href: "/world",

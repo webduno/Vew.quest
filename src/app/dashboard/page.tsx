@@ -230,31 +230,10 @@ export default function TrainingPage() {
   return(<>
     <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
 
-      <NavigationHeaderBar linkList={<>
-        <a href="/profile" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>Profile</div>
-        </a>
-        <a href="/about" className='nodeco' style={{ color: "#AFAFAF" }}>
-          <div>About <VersionTag /></div>
-        </a>
-      </>} />
-      
-      {/* <BewPageHeader title={"DASHBOARD"} /> */}
+      <NavigationHeaderBar  />
       
     <div className='w-100 w-max-1080px Q_xs_sm_flex-col flex-row  pt- 8  flex-justify-center flex-align-center gap- 4'>
-
-        
-
-
-
-        
-        
-    <div className='flex-col px-4 gap-4 pos-rel'
-    style={{
-      alignSelf: "center",
-    }}
-        
-        >
+      <div className='flex-col px-4 gap-4 pos-rel' style={{ alignSelf: "center", }}>
           {LS_playerId && (<>
           <div className='bord-r-15  pb-2 px-4' style={{
             border: "1px solid #f0f0f0",
@@ -266,17 +245,12 @@ export default function TrainingPage() {
         { (<>
           
         <img src="/bew/birds.png"
-        style={{
-          filter: "blur(0px)",
-        }}
+        style={{ filter: "blur(0px)", }}
          alt="tool_bg2" className='Q_sm_x hover-bird pos-abs noverflow block w-150px Q_xs_pt- 8 pb-100' />
 
 
 
-        <img src="/bew/landscape1.jpeg"
-        style={{
-          
-        }}
+        <img src="/bew/landscape1.jpeg" 
          alt="tool_bg1" className='Q_sm_x bord-r-50 noverflow block w-250px' />
 </>
 )}
@@ -293,8 +267,6 @@ export default function TrainingPage() {
                 }}
                 >
                 <a href="/tool" className='landing-title py-4 tx-altfont-2 tx-bold-4 w-100 block tx-center nodeco'
-                style={{
-                }}
                 >
                   Go to Remote Viewing  <br /> <span style={{
                     borderBottom: "2px solid #F7CB28",
@@ -304,79 +276,46 @@ export default function TrainingPage() {
                 </div>
             </div>
     
+      </div>
+      <div className='Q_xs_md block w-100  py-4'></div>
+      <LessonsContainer />
+    </div>
+    <hr className='w-90 opaci-20 mt-100'  />
+    <div className='mt-8 pb- '>
+      <div className='bord-r-10  mb-8 px-4'  style={{ border: "1px solid #E5E5E5", }} >
+        <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 '>
+          <div className='tx-bold px-4'  style={{ color: "#4B4B4B", }} >Top Players</div>
+          <a className='tx-bold px-4 pointer nodeco' href="/leaderboard"
+            style={{ color: "#22AEFF", }}
+          >
+            View All
+          </a>
         </div>
-        <div className='Q_xs_md block w-100  py-4'></div>
-        <LessonsContainer />
-        
-        </div>
-        <hr className='w-100 opaci-20 mt-100'  />
 
-        
-        <div className='mt-8 pb- '>
-
-
-<div className='bord-r-10  mb-8 px-4' 
-style={{
-border: "1px solid #E5E5E5",
-}}
->
-<div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 '>
-<div className='tx-bold px-4' 
-style={{
-color: "#4B4B4B",
-}}
->Top Players</div>
-<a 
-className='tx-bold px-4 pointer nodeco' 
-href="/leaderboard"
-style={{
-color: "#22AEFF",
-}}
->View All</a>
-</div>
-
-
-
-  <LeaderboardTable 
-    leaderboard={leaderboard || []}
-    isLoading={isLoadingLeaderboard}
-    error={leaderboardError}
-    currentPlayerId={LS_playerId}
-  />
-</div>
-</div>
-        <hr className='w-100 opaci-20 mt-1 00'  />
-        <div className='w-100 w-max-1080px flex-col  pt-8  flex-justify-center flex-align-start gap-4'>
-
-<div className='flex-col w-100 '>
+        <LeaderboardTable leaderboard={leaderboard || []} isLoading={isLoadingLeaderboard}
+          error={leaderboardError} currentPlayerId={LS_playerId}
+        />
+      </div>
+    </div>
+    <hr className='w-90 opaci-20 mt-1 00'  />
+    <div className='w-100 w-max-1080px flex-col  pt-8  flex-justify-center flex-align-start gap-4'>
+      <div className='flex-col w-100 '>
         <div className='tx-center  w-80 flex-col bord-r-25 mt-0 mb-8 ' id="resources"
-                style={{
-                    alignContent: "center",
-                  background: "#a09DfB",
-                  boxShadow: "0px 4px 0 0px #807DDB",
-                }}
-                >
-                <div className='nodeco tx-bold tx-lgx  tx-white py-4 tx-altfont-2 tx-bold-4 w-100 block tx-center'
-                style={{
-                }}
-                >
-                  Resources
-                  {/* <br /> <span style={{
-                    borderBottom: "2px solid #6B69CF",
-                  }}
-                  className=' tx-bold'>Training Tool</span> */}
-                </div>
-                </div>
-                </div>
-                <PreLessonsContainer />
-    </div>
+          style={{
+            alignContent: "center", background: "#a09DfB", boxShadow: "0px 4px 0 0px #807DDB",
+          }}
+        >
+          <div className='nodeco tx-bold tx-lgx  tx-white py-4 tx-altfont-2 tx-bold-4 w-100 block tx-center'>
+            Resources
+          </div>
+        </div>
+      </div>
 
-
+      <PreLessonsContainer />
 
     </div>
+  </div>
 </>)
-
-
 } 
 
 
