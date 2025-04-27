@@ -1,7 +1,7 @@
 "use client"
 import { Box, Cylinder, OrbitControls, Plane, Sphere, Text } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { ReactNode, useEffect, useState } from "react"
+import { ReactNode, useEffect, useMemo, useState } from "react"
 import { useMediaQuery } from "usehooks-ts"
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -25,9 +25,11 @@ const latLngToCartesian = (lat: number, lng: number, radius: number = 1) => {
 };
 
 export default function ModelGameStage({ 
+  inventory,
   isVfxHappening, setIsVfxHappening,
   lastClickedCoords, setLastClickedCoords,
   setShowHelper,
+  setShowShopModal,
    attempts,
    setAttempts,
    winAttempts,
@@ -48,7 +50,9 @@ export default function ModelGameStage({
   children:ReactNode,
   gameStageRef:React.MutableRefObject<"loading" | "starting" | "playing" | "ended">,
   gameData:any,
-  onTargetFound:()=>void
+  onTargetFound:()=>void,
+  inventory:any,
+  setShowShopModal:(showShopModal:boolean)=>void
 }) {
   const { triggerSnackbar } = useProfileSnackbar();
   const {randomCoord1LatLan, showHelper} = gameData
@@ -58,6 +62,10 @@ export default function ModelGameStage({
   const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
   const [mounted, s__Mounted] = useState(false);
   const [hasClickedOnTarget, setHasClickedOnTarget] = useState(false);
+  const fullDiff = useMemo(()=>{
+    // if (!lastClickedCoords || !randomCoord1LatLan) return 0
+    return (randomCoord1LatLan?.lat || 0) - (lastClickedCoords?.lat || 0)
+  },[lastClickedCoords, randomCoord1LatLan])
   useEffect(() => {
     s__Mounted(true);
   }, []);
@@ -68,6 +76,18 @@ const {playSoundEffect} = useBackgroundMusic()
       setLastClickedCoords(coordsLatLan);
     }
     setAttempts(attempts + 1);
+    if (attempts == 0) {
+      triggerSnackbar(<div className="tx-center flex-col tx-sm tx-shadow-5 "> 
+        <div>Scroll in/out to zoom in/out</div>
+        <div className="tx-lgx">Drag screen <br /> to rotate</div>
+      </div>, "handbook")
+    }
+    if (attempts == 2) {
+      triggerSnackbar(<div className="tx-center flex-col"> 
+        <div className="flex-row">Click the green <div style={{transform:"rotate(45deg)"}}>🟩</div> </div>
+        <div>to hide/show the helper</div>
+      </div>, "success")
+    }
     if (!!hasClickedOnTarget){ 
       return
      } else {
@@ -114,15 +134,14 @@ const {playSoundEffect} = useBackgroundMusic()
           <div className="flex-col bg-white gap- pb-4 px-8  bord-r-15 py-3 noclick noselect "
           style={{color:"#afafaf"}}
           >
-            {/* red  sphere pin  emoji */}
             
-            <div className="tx-xsm  ">Scroll in/out &amp; Drag to rotate </div>
-            <div className="tx-sm">Random geo-coords ready!</div>
+            {/* <div className="tx-xsm  ">Scroll in/out &amp; Drag to rotate </div> */}
+            {/* <div className="tx-sm">Random geo-coords ready!</div> */}
 
-            <div className="tx-lg w-200px tx-center mt-2">Tap earth to find target pin 📍</div>
+            <div className="tx-lg w-250px tx-center mt-2">🌎 Tap the earth to find the random target's coordinates</div>
           </div>
           </>)}
-          </div>
+          </div>  
           <div className="flex-col pos-fix top-0 z-100  mt-4  gap-2 noclick noselect">
           {attempts > 0 && lastClickedCoords && (<>
       <div className="flex-row bg-white gap-2 px-2  bord-r-15 py-1">
@@ -139,7 +158,7 @@ const {playSoundEffect} = useBackgroundMusic()
       <Canvas style={{width:"100vw",height:"100vh"}} shadows 
         camera={{fov:50,position:[isSmallDevice?8:6,1,0]}}
         // gl={{ preserveDrawingBuffer: true, }}
-        onCreated={(state)=>{ state.gl.setClearColor("#cccccc"); state.scene.fog = new Fog("#cccccc",16,32) }}
+        onCreated={(state)=>{ state.gl.setClearColor("#cccccc"); state.scene.fog = new Fog("#cccccc",6,18) }}
       >
 {/*         
         <Plane args={[100,100]} position={[0,-2.4,0]} rotation={[-Math.PI/2,0,0]} 
@@ -187,6 +206,8 @@ const {playSoundEffect} = useBackgroundMusic()
         {children}
         <group rotation={[0,0,0]}>
           <group position={[0,0,0]} >
+            {attempts > 1 && (<>
+            
           <group position={[0,1.5,0]}  scale={[.5,.3,.5]} onClick={(e:any)=>{
             onGreenClicked(e)
           }}>
@@ -199,6 +220,7 @@ const {playSoundEffect} = useBackgroundMusic()
 
           </group>    
 
+          </>)}
 
           
 
@@ -211,12 +233,12 @@ const {playSoundEffect} = useBackgroundMusic()
 
 
           
-          {hasClickedOnTarget && (<>
+          {hasClickedOnTarget && attempts > 3 && (<>
 
 
           
           <group position={[0,-.5,0]} rotation={[0,Math.PI/2,0]}>
-          {attempts > 0 && (
+          {attempts > 5 && (
             <Text fontSize={0.07} color="#ff4400"  
             position={[0,-1.02,-0.02]}
             // position={[0,0,-1]}
@@ -245,7 +267,8 @@ const {playSoundEffect} = useBackgroundMusic()
               <meshStandardMaterial color={"#aa8866"} />
             </Box>
             
-          {winAttempts > 0 && (
+          { attempts > 5 &&  (<>
+            {winAttempts > 0 && (
             <Text fontSize={0.11} color="#44ff00"  position={[-0.1,-.13,-0.02]}>
               W:{winAttempts}
             </Text>
@@ -261,37 +284,44 @@ const {playSoundEffect} = useBackgroundMusic()
                 return
               }
               
-              triggerSnackbar(<div className="tx-center flex-col">
-                <div className="">{"You have "}</div>
-                <div className="">{""+winAttempts + " vew chips"}</div>
-              </div>, "success")
+              setShowShopModal(true)
+              // triggerSnackbar(<div className="tx-center flex-col">
+              //   <div className="">{"You have "}</div>
+              //   <div className="">{""+winAttempts + " vew chips"}</div>
+              // </div>, "success")
             }} state={{}} tokensArrayArray={[]} />
 
+</> 
+          )}
 
 
 
-
-
-            <Box args={[1.41 ,.2,.03]} position={[-0.1,.25,-.2]}>
+            {inventory.includes("Map Reveal") && (<>
+              <Box args={[1.41 ,.2,.03]} position={[-0.1,.25,-.2]}>
               
-        <meshStandardMaterial color={"#aa8866"} />
-      </Box>
+              <meshStandardMaterial color={"#aa8866"} />
+            </Box>
+            <Box args={[.02 ,.75,.02]} position={[-0.5,-.19,-.2]}><meshStandardMaterial color={"#aa8866"} /></Box>
+            <Box args={[.02 ,.75,.02]} position={[0.4,-.19,-.2]}><meshStandardMaterial color={"#aa8866"} /></Box>
+      </>)}
           </group>
 
           <group position={[0,.25,-.2]}>
-      {lastClickedCoords && (<>
+      {lastClickedCoords &&  attempts > 5 && inventory.includes("Map Reveal") && (<>
         <Text fontSize={0.1} color="#ffffff"  position={[
         0,-1,0.02
       ]}>
-        {`${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "☝️" : "👇"}Look further ${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "North☝️" : "South👇"}`}
-        {/* {`Lat: ${lastClickedCoords.lat.toFixed(1)}° (distance ~${(randomCoord1LatLan.lat - lastClickedCoords.lat).toFixed(1)}°)`} */}
+        {/* {`${fullDiff > 0 ? "☝️" : "👇"}Look further ${fullDiff > 0 ? "North☝️" : "South👇"}`} */}
+        {fullDiff < -5 && `${ "👇"}Look further South 👇`}
+        {fullDiff > 5 && `${ "☝️"}Look further North ☝️`}
+        {/* {`Lat: ${lastClickedCoords.lat.toFixed(1)}° (distance ~${(fullDiff).toFixed(1)}°)`} */}
       </Text>
       <Text 
       rotation={[0,Math.PI,0]}
       fontSize={0.1} color="#ffffff"  position={[
         0,-1,-0.02
       ]}>
-        {`${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "☝️" : "👇"}Look further ${randomCoord1LatLan.lat - lastClickedCoords.lat > 0 ? "North☝️" : "South👇"}`}
+        {`${fullDiff > 0 ? "☝️" : "👇"}Look further ${fullDiff > 0 ? "North☝️" : "South👇"}`}
         {/* {`Look further ${randomCoord1LatLan.lng - lastClickedCoords.lng > 0 ? "East" : "West"}`} */}
         {/* {`Lng: ${lastClickedCoords.lng.toFixed(1)}° (distance ~${(randomCoord1LatLan.lng - lastClickedCoords.lng).toFixed(1)}°)`} */}
       </Text>

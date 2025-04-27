@@ -6,6 +6,8 @@ import { Vector3, Quaternion } from "three";
 import { ComputerModel } from "../core/ComputerModel";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
 import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
+import { humanDescription } from '@/script/utils/calculations';
+import { countries } from '@/data/countries';
 
 export const WorldModelTextured = ({
   isVfxHappening,
@@ -22,20 +24,23 @@ export const WorldModelTextured = ({
   const $whole:any = useRef()
   const $wholeReversed:any = useRef()
   const { triggerSnackbar } = useProfileSnackbar();
-  const [previousTargets, setPreviousTargets] = useState<Array<{lat: number, lng: number}>>([]);
+  const [previousTargets, setPreviousTargets] = useState<Array<{lat: number, lng: number, targetLat: number, targetLng: number, humanString: string}>>([]);
   const [helperSphereSize, setHelperSphereSize] = useState(0.3);
+
+  const rotSpeed = useRef(0)
+  // const rotSpeed = useRef(0.03)
 
   useFrame(()=>{
     if (!$light.current) return
     if (!$whole.current) return
-    $light.current.rotation.y += 0.03
-    $whole.current.rotation.y += 0.001
+    $light.current.rotation.y += rotSpeed.current
+    $whole.current.rotation.y += rotSpeed.current/30
     if (!$wholeReversed.current) return
-    $wholeReversed.current.rotation.y -= 0.006
+    $wholeReversed.current.rotation.y -= rotSpeed.current/10
     // $wholeReversed.current.rotation.x -= 0.01
     $wholeReversed.current.position.y = Math.sin(Date.now()/1000)/10
     if (!$cloudsWireframe.current) return
-    $cloudsWireframe.current.rotation.y += 0.003
+    $cloudsWireframe.current.rotation.y += rotSpeed.current
   })
 
   const {playSoundEffect} = useBackgroundMusic()
@@ -110,21 +115,31 @@ export const WorldModelTextured = ({
             color="#ffffff" 
           />
         </Cylinder> */}
-        <Sphere args={[0.035, 8, 8]}>
+        <Sphere args={[0.035, 8, 8]} onClick={(e) => {
+          e.stopPropagation();
+          playSoundEffect("/sfx/short/chairsit.mp3")
+          triggerSnackbar(<>
+            <div className="tx-shadow-5 tx w-200px tx-center">
+              {humanDescription(
+                { lat: coords.lat, lng: coords.lng },
+                { lat: coords.targetLat, lng: coords.targetLng },
+                countries
+              )}
+            </div>
+          </>, "handbook");
+        }}>
           <meshStandardMaterial 
             color="#ff0000" 
-            // transparent={true} 
-            // opacity={0.5}
-            // wireframe={true}
-            // emissive="#ff0000" 
-            // emissiveIntensity={0.1}
           />
         </Sphere>
       </group>
     ))}
     <EarthTextured clickedHandler={state.loadingWin ? (e:any)=>{
       // alert("loadingWin")e
-    } : clickedHandler} />
+    } : (e)=>{
+      clickedHandler(e)
+      rotSpeed.current += 0.001
+    }} />
     {targetCoords && (
       <group position={[
         latLngToCartesian(targetCoords.lat, targetCoords.lng).x,
@@ -137,26 +152,39 @@ export const WorldModelTextured = ({
             if (!!isVfxHappening || state.loadingWin) {
               return
             }
+            clickedHandler({
+              lat: targetCoords.lat,
+              lng: targetCoords.lng
+            })
             if (!!showHelper) {
-              clickedHandler({
-                lat: targetCoords.lat,
-                lng: targetCoords.lng
-              })
-              setIsVfxHappening(true)
-              if (true){
-                playSoundEffect("/sfx/short/chairsit.mp3")
-                triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
-                  <div className="">{"DONT click the Helper"}</div>
-                  <div className="">{"Click again"}</div>
-                  <div className="">{"to get the pin"}</div>
-                </div>, "warning")
-                setAttemptedBefore(true)
-              }
               setShowHelper(false)
+              // setIsVfxHappening(true)
+              // if (true){
+              //   playSoundEffect("/sfx/short/chairsit.mp3")
+              //   triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
+              //     <div className="">{"DONT click the Helper"}</div>
+              //     <div className="">{"Click again"}</div>
+              //     <div className="">{"to get the pin"}</div>
+              //   </div>, "warning")
+              //   setAttemptedBefore(true)
+              // }
+              // setShowHelper(false)
               return
             };
-            setPreviousTargets(prev => [...prev, targetCoords]);
-            clickedHandler()
+            setPreviousTargets(prev => [
+              ...prev,
+              {
+                lat: targetCoords.lat,
+                lng: targetCoords.lng,
+                targetLat: lastClickedCoords?.lat ?? targetCoords.lat,
+                targetLng: lastClickedCoords?.lng ?? targetCoords.lng,
+                humanString: humanDescription(
+                  lastClickedCoords ?? targetCoords,
+                  targetCoords,
+                  countries
+                )
+              }
+            ]);
             onTargetFound();
             setHelperSphereSize(prev => Math.max(0.1, prev - 0.01));
           }}
@@ -167,7 +195,7 @@ export const WorldModelTextured = ({
             emissiveIntensity={0.3} 
             transparent={true} 
             wireframe={!showHelper ? false : true}
-            opacity={ (isVfxHappening || state.loadingWin) ? 0 : showHelper ? 0.7 : 0.05} 
+            opacity={ (isVfxHappening || state.loadingWin) ? 0 : showHelper ? 0.7 : 0} 
           />
         </Sphere>
         {showHelper && (

@@ -12,9 +12,10 @@ import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusi
 import { countries, CountryFeature } from "@/data/countries";
 
 export default function ModelPage() {
-  const [clickCounter, setClickCounter] = useState(0);
+  // const [clickCounter, setClickCounter] = useState(0);
   const [wincounter, setWincounter] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(59); 
+  const [availSpend, setAvailSpend] = useState(0);
   const [timerLimit, setTimerLimit] = useState(59);
   const {LS_playerId, setPlayerId} = useLSPlayerId();
   const [randomCoord1LatLan, setRandomCoord1LatLan] = useState({lat:0,lng:0})
@@ -113,6 +114,8 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         console.log("spentObj", data.data)
         console.log("spentObj", spentObj)
         setAllBoughtItems(spentObj.bought);
+        console.log(data.data.attempts , spentObj.spent.chip);
+        setAvailSpend(data.data.attempts - spentObj.spent.chip);
       }
     } catch (error) {
       console.error('Error fetching initial clicks:', error);
@@ -145,7 +148,13 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
           if (document.hasFocus()) {
             playSoundEffect("/sfx/short/clock.mp3")
           }
-          triggerSnackbar("Goal not found, target moved!", "error")
+          triggerSnackbar(
+            <div className="tx-center flex-col tx-shadow-5">
+              {/* clock emoji */}
+              <div>🕗 Time is up! </div>
+              <div>Goal not found</div>
+              <div>Target moved!</div>
+            </div>, "error")
           pre_setIsVfxHappening(true)
           // confettiRef.current?.addConfetti({
           //   confettiColors: ['#FD0008', '#ffDB80'],
@@ -183,7 +192,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       }
       const newClickCounterData = await response.json()
       const newClickCounter = newClickCounterData.data.attempts
-      if ((newClickCounter + clickCounter) % 100 === 0) {
+      if ((newClickCounter) % 100 === 0) {
     playSoundEffect("/sfx/short/myst.mp3")
 
         triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
@@ -226,7 +235,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
   async function handleBuyItem(item: string) {
     if (!LS_playerId) return;
     if (boughtItems.includes(item)) return;
-    if (totalClickCounter + clickCounter < SHOP_ITEM_COST) {
+    if (totalClickCounter < SHOP_ITEM_COST) {
       setShopMessage('Not enough chips!');
       return;
     }
@@ -277,11 +286,12 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       </a>
           </div> 
       </div>
-      <div className="tx-center pb-0 pa-2 pos-abs top-0 right-0 z-100 flex-col flex-align-stretch  tx-white">
+      <div className="tx-center pb-0 pa-2 pos-abs top-0  right-0 z-100 flex-col flex-align-stretch flex-justify-end tx-white">
         
-      <div className="mb-1 flex-row gap-2 tx-bold">
-        <div className="tx-lg tx-shadow-2"  >
-          Lvl: {Math.floor((totalClickCounter + clickCounter)/100)}
+      <div className="mb-1 flex-row gap-2 tx-bold   ">
+        {totalClickCounter > 100 && (<>
+        <div className="tx-lg tx-shadow-2 "  >
+          Lvl: {Math.floor((totalClickCounter)/100)}
         </div>
          <div className='tx-white bord-r-100 mt-1 py-1 px-2 pos-rel'
         style={{
@@ -292,7 +302,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
       >
         <div className=' h-100 pos-abs top-0 left-0'
           style={{
-            width: `${Math.floor(((totalClickCounter + clickCounter) % 100)/1)}px`,
+            width: `${Math.floor(((totalClickCounter) % 100)/1)}px`,
             background: "#FDC908",
             transition: "width 0.5s ease-out"
           }}
@@ -301,26 +311,29 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
           style={{
             color: "#D68800",
           }}
-          className='tx-bold pos-rel '>{(((totalClickCounter + clickCounter) % 100)/1) }%</div>
+          className='tx-bold pos-rel '>{(((totalClickCounter) % 100)/1) }%</div>
       </div> 
-         </div>
+        </>)}
+        </div>
+
+         <div className="flex-row gap  flex-justify-end -2">
 
       <Tooltip id="my-chip-tooltip" />
         <div data-tooltip-id="my-chip-tooltip" data-tooltip-content="Vew chips" 
         data-tooltip-place="left"
         onClick={()=>{
           triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
-            {(totalClickCounter + clickCounter) + " vew chips"}</div>, "yellow")
+            {(totalClickCounter) + " vew chips"}</div>, "yellow")
         }}
          className="pr-2 tx-center flex-row flex-justify-end tx-mdl  pointer tx-bold  py-1 gap-1">
-          <div className="tx-shadow-2">{(totalClickCounter + clickCounter)}</div>
+          {/* <div className="tx-shadow-2">{(totalClickCounter + clickCounter)}</div> */}
           <div
-        style={{ background:"#FAeeA5", boxShadow:" inset -2px -4px 0px #F7CB28, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
-         className="tx-lg py-1 px-1 ml-2 bord-r-100">
-          <div className="pb-1 tx-md" style={{filter:"saturate(0) brightness(3)"}}>👀</div>
+        style={{ background:"#FAeeA5", boxShadow:" inset -2px -4px 0px #F7CB28, inset 2px 2px 0px #fff7f1"}}
+         className="tx-lg py-1 px-1 bord-r-100">
+          <div className="pb-1 tx-md flex-row pr-2" style={{filter:"saturate(0) brightness(3)"}}>👀 <div className="tx-shadow-2">{(totalClickCounter )}</div></div>
          </div>
         </div>
-
+{wincounter > 0 && (<>
         <Tooltip id="my-chip-tooltip" />
         <div data-tooltip-id="my-chip-tooltip" data-tooltip-content="Vew pins" 
         data-tooltip-place="left"
@@ -328,13 +341,16 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
           triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
             {wincounter + " vew pins"}</div>, "errorwarning")
         }}
-         className="pr-2 tx-center flex-row flex-justify-end tx-mdl  pointer tx-bold  py-1 gap-1">
-          <div className="tx-shadow-2">{wincounter}</div>
+         className=" tx-center flex-row flex-justify-end tx-mdl  pointer tx-bold  py-1 gap-1">
+          {/* <div className="tx-shadow-2">{wincounter}</div> */}
           <div
-        style={{ background:"#B7E999", boxShadow:" inset -2px -4px 0px #139724, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
-         className="tx-lg py-1 px-1 ml-2 bord-r-100">
-          <div className="pb-1 tx-md" style={{filter:"saturate(1) brightness(1)"}}>📍</div>
+        style={{ background:"#B7E999", boxShadow:" inset -2px -4px 0px #139724, inset 2px 2px 0px #fff7f1"}}
+         className="tx-lg py-1 px-1  bord-r-100">
+          <div className="pb-1 tx-md flex-row pr-2" style={{filter:"saturate(1) brightness(1)"}}>📍 <div className="tx-shadow-2">{wincounter}</div></div>
          </div>
+        </div>
+        </>
+        )}
         </div>
 
         <div
@@ -344,21 +360,21 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
             <div className="">{"" + timeRemaining+" seconds"}</div>
           </div>, "handbook")
         }}
-         className="pr-2 tx-center flex-row flex-justify-end tx-mdl tx-shadow-2 pointer tx-bold  py-1 gap-1">
+         className=" tx-center flex-row flex-justify-end tx-mdl tx-shadow-2 pointer tx-bold  py-1 gap-1">
         
-        <div className="pr-1">{timeRemaining}s</div>
+        
         <div
-        style={{ background:"#cccccc", 
-          boxShadow:"inset -2px -4px 6px #77777777, inset -2px -4px 0px #777777, inset 2px 2px 0px #fff7f1, 2px 4px 4px #aaaaaa"}}
+        style={{ background:"#eeeeee", 
+          boxShadow:"inset -2px -4px 0px #bbbbbb, inset 2px 2px 0px #ffffff"}}
          className="tx-lg py-1 px-1  mb- bord-r-100">
-          <div className="pb-1 tx-md r-1" style={{filter:"saturate(1) brightness(1)"}}>🕗</div>
+          <div className="flex-row px-2 pb-1 tx-md r-1" style={{filter:"saturate(1) brightness(1)"}}>🕗 <div className="pr-1">{timeRemaining}s</div></div>
          </div>
         </div>
 
         <div
         onClick={openShop}
-        className="pr-2 tx-center flex-row flex-justify-end tx-mdl tx-shadow-2 pointer tx-bold py-1 gap-1"
-        style={{ marginTop: '8px' }}
+        className="p r-2 tx-center flex-row flex-justify-end tx-mdl tx-shadow-2 pointer tx-bold py-1 gap-1"
+        // style={{ marginTop: '8px' }}
       >
         <div className="pr-1">Shop</div>
         
@@ -366,6 +382,8 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
 
       </div>
       <SpaceWorldContainer  
+        setShowShopModal={openShop}
+        inventory={allBoughtItems}
         isVfxHappening={isVfxHappening}
         setIsVfxHappening={pre_setIsVfxHappening}
         showHelper={showHelper}
@@ -376,10 +394,11 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         setRandomCoord1LatLan={setRandomCoord1LatLan}
         timerRef={timerRef}
         startGameProcess={startGameProcess}
-        clickCounter={clickCounter}
+        // clickCounter={clickCounter}
+        clickCounter={totalClickCounter}
         trackClick={trackClick}
         setClickCounter={(e)=>{
-          setClickCounter(e)
+          setTotalClickCounter(e)
           confettiRef.current?.addConfetti({
             confettiColors: ['#F7CB28', '#FAEFA5', "#ff9900"],
             confettiNumber: 1,
@@ -430,7 +449,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
                   <div>lat: {lastClickedCoords?.lat?.toFixed(1)}</div>
                   <div>lng: {lastClickedCoords?.lng?.toFixed(1)}</div>
                 </div>
-                <div>
+                <div className="w-max-250px">
                   {humanDescription(lastClickedCoords)}
                 </div>
                 
@@ -466,11 +485,15 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
               ))}
             </ul>
             {shopMessage && <div className="my-2 tx-center" style={{ color: '#4caf50' }}>{shopMessage}</div>}
+            
             {allBoughtItems.length > 0 && (<>
               <div style={{ borderTop: '1px solid #eee' }}
               className="tx-bold  mb-1 pt-2">Your Bought Items:</div>
 
               <div className=" pt- w-max-250px  w-100" >
+              <div>
+              Available: {availSpend}
+            </div>
                 <ul
                 className="flex-wrap gap-1"
                  style={{ listStyle: 'none', padding: 0, fontSize: '0.95em', color: '#333' }}>

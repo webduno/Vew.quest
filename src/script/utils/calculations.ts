@@ -89,4 +89,43 @@ export const calculateGuestStats = (crvObjects: CRVObject[]) => {
 };
 
 // Import this from your existing streak.ts file
-import { calculatePotentialStreak, calculateStreak } from './streak'; 
+import { calculatePotentialStreak, calculateStreak } from './streak';
+
+export function humanDescription(
+  coords: { lat: number, lng: number } | null,
+  targetCoords: { lat: number, lng: number },
+  countries: { features: any[] }
+) {
+  if (!coords) return "No coordinates available";
+
+  const distance = Math.sqrt(
+    Math.pow(coords.lat - targetCoords.lat, 2) +
+      Math.pow(coords.lng - targetCoords.lng, 2)
+  );
+
+  // Find the closest country
+  let closestCountry: any = null;
+  let minDistance = Infinity;
+
+  countries.features.forEach((country) => {
+    const countryCoords = country.geometry.coordinates;
+    const countryDistance = Math.sqrt(
+      Math.pow(coords.lat - countryCoords[1], 2) +
+        Math.pow(coords.lng - countryCoords[0], 2)
+    );
+
+    if (countryDistance < minDistance) {
+      minDistance = countryDistance;
+      closestCountry = country;
+    }
+  });
+
+  if (closestCountry && closestCountry?.properties) {
+    const countryName = closestCountry.properties.name;
+    const direction = coords.lat > targetCoords.lat ? "north" : "south";
+    const eastWest = coords.lng > targetCoords.lng ? "east" : "west";
+    return `${distance.toFixed(2)} km away, near ${countryName} (${direction}${eastWest})`;
+  }
+
+  return `${distance.toFixed(2)} km away`;
+} 

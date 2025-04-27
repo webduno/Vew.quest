@@ -29,9 +29,13 @@ interface SpaceWorldContainerProps {
   setLastClickedCoords: (lastClickedCoords: {lat: number, lng: number} | null) => void;
   isVfxHappening: boolean;
   setIsVfxHappening: (isVfxHappening: boolean) => void;
+  inventory: any;
+  setShowShopModal: (showshop: boolean) => void;
 }
 
-export default function SpaceWorldContainer({ 
+export default function SpaceWorldContainer({
+  setShowShopModal,
+  inventory,
   isVfxHappening, setIsVfxHappening,
   lastClickedCoords, setLastClickedCoords,
   startGameProcess, timerRef, randomCoord1LatLan, setRandomCoord1LatLan, trackClick,
@@ -110,6 +114,8 @@ export default function SpaceWorldContainer({
 
   return (
     <ModelGameStage
+    setShowShopModal={setShowShopModal}
+    inventory={inventory}
     isVfxHappening={isVfxHappening}
     setIsVfxHappening={setIsVfxHappening}
     lastClickedCoords={lastClickedCoords}

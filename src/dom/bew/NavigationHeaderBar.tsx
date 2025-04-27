@@ -42,7 +42,7 @@ export const NavigationHeaderBar = ({
     >
       
       { (
-      <div className='flex-col flex-justify-end pb-2 bg-glass-10  z-1000 mt-2 m r-4 bord-r-10 noverflow flex-align-end tx-white'
+      <div className='flex-col flex-justify-end pb-2 bg-glass-10 tx-sm z-1000 mt-2 m r-4 bord-r-10 noverflow flex-align-end tx-white'
       style={{
         background: "#8080f0",
         boxShadow: "0 4px 0 #6060f0",
@@ -60,13 +60,6 @@ export const NavigationHeaderBar = ({
       </a>
       )}
       
-      {!isCurrentPage('/dashboard') && (
-        <a href="/dashboard" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
-          <div className="py-1 pl-2 nowrap">Dashboard
-             {/* <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(100)' }}>🧮</span> */}
-             </div>
-        </a>
-      )}
       {!isCurrentPage('/leaderboard') && (
         <a href="/leaderboard" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
           <div className="py-1 pl-2 nowrap"> Leaderboard</div>
@@ -98,6 +91,13 @@ export const NavigationHeaderBar = ({
       {!isCurrentPage('/party') && (
         <a href="/party" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
           <div className="py-1 pl-2 nowrap">CRV Party
+             </div>
+        </a>
+      )}
+      {!isCurrentPage('/dashboard') && (
+        <a href="/dashboard" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75    z-1000' style={{ color: "#ffffff" }}>
+          <div className="py-1 pl-2 nowrap">Dashboard
+             {/* <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(100)' }}>🧮</span> */}
              </div>
         </a>
       )}
