@@ -128,7 +128,7 @@ export default function UserProfilePage() {
             }}
           />
 
-          <div className='flex-wrap px-4 flex-align-start flex-justify-start gap-4 flex-1'>
+          <div className='flex-wrap tx-altfont-2 px-4 flex-align-start flex-justify-start gap-4 flex-1'>
             <DailyGoalsSection
               streak={userStats.streak}
               userStats={userStats}

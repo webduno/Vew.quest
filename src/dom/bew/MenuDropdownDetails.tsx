@@ -43,6 +43,12 @@ style={{
     borderTop: "1px solid #aaaaff",
   }}
           >
+          {!isCurrentPage('/party') && (
+            <a href="/party" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
+              <div className="py-1 pl-2 nowrap">CRV Party
+              </div>
+            </a>
+          )}
             {!isCurrentPage('/space') && (
               <a href="/space" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
                 <div className="py-1 pl-2 nowrap">Space RV</div>
@@ -55,11 +61,6 @@ style={{
               </a>
             )}
 
-            {!isCurrentPage('/leaderboard') && (
-              <a href="/leaderboard" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
-                <div className="py-1 pl-2 nowrap"> Leaderboard</div>
-              </a>
-            )}
             {!isCurrentPage('/about') && (
               <a href="/about" className='nodeco noselect py- py-1 pr-4 px-1 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
                 <div className="py-1 pl-2 nowrap">About <VersionTag />
@@ -78,20 +79,14 @@ style={{
             boxShadow: "0 4px 0 #6060f0",
           }}
         >
+        <a href="/tool" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+          <div className="py-1 pl-2 nowrap">Tool
+            {/* <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(2)' }}>👁️</span> */}
+          </div>
+        </a>
           {!isCurrentPage('/profile') && (
             <a href="/profile" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
               <div className="py-1 pl-2 nowrap">Profile
-              </div>
-            </a>
-          )}
-          <a href="/tool" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
-            <div className="py-1 pl-2 nowrap">RV Tool
-              {/* <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(2)' }}>👁️</span> */}
-            </div>
-          </a>
-          {!isCurrentPage('/party') && (
-            <a href="/party" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
-              <div className="py-1 pl-2 nowrap">CRV Party
               </div>
             </a>
           )}
@@ -100,6 +95,11 @@ style={{
               <div className="py-1 pl-2 nowrap">Dashboard
                 {/* <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(100)' }}>🧮</span> */}
               </div>
+            </a>
+          )}
+          {!isCurrentPage('/leaderboard') && (
+            <a href="/leaderboard" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+              <div className="py-1 pl-2 nowrap"> Leaderboard</div>
             </a>
           )}
           {/* {!isCurrentPage('/') && (
