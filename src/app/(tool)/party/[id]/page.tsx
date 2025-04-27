@@ -42,6 +42,9 @@ export default function PartyPage() {
     if (!params.id) {
       return
     }
+    if (params.id === LS_playerId) {
+      return;
+    }
     // console.log("fffffffffffffffffffff", crvObjects.length);
     setInitiallyAutoLoaded(true);
     // if (crvObjects.length === 0) { 

@@ -59,9 +59,9 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
 
 
           <img src="/bew/party.jpg"
-            onClick={() => {
-              setGameState('playing');
-            }}
+            // onClick={() => {
+            //   setGameState('playing');
+            // }}
             style={{}}
             alt="tool_bg1" className='pointer bord-r-50 noverflow block w-200px' />
 
@@ -98,6 +98,10 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
                     return;
                   }
                   if (e.key === "Enter") {
+                    if (params.id === typedUsername) {
+                      triggerSnackbar("You cannot party with yourself", "error")
+                      return;
+                    }
                     handleStart(friendUsername);
                   }
                 }} />
@@ -117,6 +121,12 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
                     return;
                   }
                   if (e.key === "Enter") {
+
+                    if (params.id === typedUsername) {
+                      triggerSnackbar("You cannot party with yourself", "error")
+                      return;
+                    }
+
                     handleStart(friendUsername);
                   }
                 }} />
@@ -124,6 +134,10 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
             <div
               className='py-2 px-2 tx-center tx-white bord-r-10 tx-lgx opaci-chov--75'
               onClick={isLoading ? undefined : () => {
+                if (params.id === typedUsername) {
+                  triggerSnackbar("You cannot party with yourself", "error")
+                  return;
+                }
                 if (!typedUsername) {
                   // const randomId = random10CharString();
                   // setTypedUsername(randomId);

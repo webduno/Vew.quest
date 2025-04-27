@@ -460,28 +460,30 @@ backgroundColor='#71B44F'
 
 
 <hr className='w-100 opaci-10  mt-100 '  />
-
+{crvObjects.length > 0 &&
 <RemoteViewingHistory 
   authorId={LS_playerId}
-  crvObjects={crvObjects.slice(0, 50)}
+  crvObjects={crvObjects.slice(0, 33)}
   onSketchClick={(sketch, image) => {
     setCurrentSketch(sketch);
     setCurrentImage(image);
     setShowSketchModal(true);
   }}
 />
+}
 {crvObjects.length > 50 && (<>
 <div className=''>
-<div className='tx-altfont-2 px-4 py-4 pointer'
-onClick={() => {
-  alert('Coming soon!');
-}}
+<a className='tx-altfont-2 px-4 py-4 block pointer'
+href={"/u?friend="+LS_playerId}
 style={{
   color: "#22aeff",
 }}
 >
 Click here to see full history
-</div>
+ <br />
+ <br />
+ <span>Vew.quest{"/u?friend="+LS_playerId}</span>
+</a>
 </div>
 </>)}
 

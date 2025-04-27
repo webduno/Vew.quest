@@ -26,8 +26,8 @@ export const MenuDropdownDetails = ({ isCurrentPage }: { isCurrentPage: any; }) 
 
 <details className='flex-col  r tx-white bord-r-10  '
 style={{
-  background: "#8080f0",
-  boxShadow: "0 4px 0 #6060f0",
+  background: "#a0a0ff",
+  boxShadow: "0 4px 0 #8080f0",
 }}>
   <summary className='flex flex-col b opaci-chov--50'
   >
@@ -40,7 +40,10 @@ style={{
           <div className='flex-col flex-justify-end pb-2 bg-glass-10 tx-sm z-1000   noverflow flex-align-end tx-white'
             
   style={{
+    background: "#8080f0",
+    boxShadow: "0 4px 0 #6060f0",
     borderTop: "1px solid #aaaaff",
+    borderRadius: "0 0 10px 10px",
   }}
           >
           {!isCurrentPage('/party') && (
