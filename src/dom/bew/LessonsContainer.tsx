@@ -58,15 +58,15 @@ export const LessonsContainer = () => {
       actionText: "Public Leaderboard",
       forcedClick: null
     },
-    {
-      title: "3D World",
-      emoji: "🛣️",
-      href: "/world",
-      backgroundColor: "#96C34A",
-      boxShadowColor: "#66a31A",
-      actionText: "Enter Main Plaza & Play",
-      forcedClick: null
-    },
+    // {
+    //   title: "3D World",
+    //   emoji: "🛣️",
+    //   href: "/world",
+    //   backgroundColor: "#96C34A",
+    //   boxShadowColor: "#66a31A",
+    //   actionText: "Enter Main Plaza & Play",
+    //   forcedClick: null
+    // },
   //   {
   //     title: "Weekly Challenges",
   //     emoji: "📅",
@@ -113,6 +113,34 @@ export const LessonsContainer = () => {
           forcedClick={lesson.forcedClick || undefined}
         />
       ))}
+      {/* <LessonCard 
+          styleOverride={{
+            width: "250px",
+            filter: "saturate(1)"
+          }}
+          key={"index"} 
+          title={"lesson.title"} 
+          emoji={"💭"}
+          href={"lesson.href"} 
+          // backgroundColor={"lesson.backgroundColor"} 
+          // boxShadowColor={"lesson.boxShadowColor"}
+          actionText={"lesson"}
+          forcedClick={() => {}}
+        /> */}
+        <a 
+        href="/world"
+        className="w-300px bord-r-25 pt-4 nodeco tx-black "
+        style={{
+          backgroundColor: "#EAF8FF",
+          borderBottom: "4px solid #cAd8dF",
+        }}
+        >
+          <div className="tx-center opaci-50 tx-bold tx-altfont-2 tx-lg">3D World</div>
+          <div>
+            <img src="/bew/worldisland.png" className="w-300px" alt="lesson-card-bg" />
+          </div>
+          </a>  
+
     </div>
   );
 };

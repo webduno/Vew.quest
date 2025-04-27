@@ -16,6 +16,7 @@ import { PartyScreen, WaitingRoom } from '@/dom/bew/PartyScreen';
 import { PartyToolLogin } from '@/dom/bew/PartyToolLogin';
 import { useParams } from 'next/navigation';
 import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
+import { WrappedPartyStatsSummary } from '@/dom/bew/PartyStatsSummary';
 
 type TargetsData = {
   [key: string]: string;
@@ -531,7 +532,26 @@ const handleRefresh = async ()=>{
 
               {!isMobile() && crvObjects.length > 0 && (<>
                 <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
-                <WrappedBewUserStatsSummary />
+                  <WrappedPartyStatsSummary 
+                    notes={(() => {
+                      let liveData = fullPartyData?.live_data;
+                      if (typeof liveData === 'string') {
+                        try { liveData = JSON.parse(liveData); } catch { return ''; }
+                      }
+                      return liveData?.notes || '';
+                    })()}
+                    onNotesUpdate={(newNotes) => {
+                      let liveData = fullPartyData?.live_data;
+                      if (typeof liveData === 'string') {
+                        try { liveData = JSON.parse(liveData); } catch { liveData = {}; }
+                      }
+                      handleUpdate({
+                        ...liveData,
+                        notes: newNotes
+                      });
+                    }}
+                    playerId={LS_playerId}
+                  />
                 </div>
               </>)}
 
