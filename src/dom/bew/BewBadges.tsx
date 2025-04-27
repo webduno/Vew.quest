@@ -143,6 +143,24 @@ export const BewBadges = ({
           backgroundColor='#FF9600'
         />
       )}
+
+      {!hasMoreThan3DaysStreakValue && !hasMoreThanFirstDaysValue && totalRequests < 9 && averageAccuracy < 40 && (
+        <div className="tx-center tx-gray-500">
+          <BadgeCard
+            title="No Badges Earned"
+            emoji="🚫"
+            href="/tool"
+            actionText={"Continue Practice"}
+            backgroundColor="#80DB7D"
+            boxShadowColor="#40aB3D"
+            styleOverride={{
+              width: "300px",
+              // fontSize: "12px",
+            }}
+            forcedClick={() => {}}
+          />
+        </div>
+      )}
     </>
   );
 }; 

@@ -146,19 +146,19 @@ export default function ProfilePage() {
     return (
       <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
         <NavigationHeaderBar />
-        <BewPageHeader title={"PROFILE"} />
+        {/* <BewPageHeader title={"PROFILE"} /> */}
 
         
-        <div className='flex-col pt-100 w-80 tx-altfont-2'>
-          <div className='tx-bold tx-lg mb-2 opaci-75'>
+        <div className='flex-col pt-8 w-80 tx-altfont-2'>
+          <div className='tx-bold tx-smd mb-2 opaci-75'>
             Username not found!
           </div>
-        <img src="/bew/pfp/row-4-column-1.png"
- alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
+        <img src="/bew/pfp/noprofile.png"
+ alt="pfp" className={'bord-r-100p mb-8 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
         <a href="/tool"  
-             className={`nodeco bord-r-25 py-4 tx-altfont-2 tx-bold-4 w-100 w-max-600px tx-bold block tx-center ${isSubmitting ? 'opaci-50' : ''}`}
+             className={`nodeco bord-r-25 py-4 tx-lg tx-altfont-2 tx-bold-4 w-100 w-max-600px tx-bold block tx-center ${isSubmitting ? 'opaci-50' : ''}`}
             style={{
-              color: submitStatus === 'success' ? "#22cc22" : submitStatus === 'error' ? "#cc2222" : "#ff9900",
+              color: submitStatus === 'success' ? "#22aa22" : submitStatus === 'error' ? "#cc2222" : "#ff9900",
               background: submitStatus === 'success' ? "#e5ffe5" : submitStatus === 'error' ? "#ffe5e5" : "#FAeFa5",
               boxShadow: `0px 4px 0 0px ${submitStatus === 'success' ? "#22aa22" : submitStatus === 'error' ? "#aa2222" : "#F7CB28"}`,
               cursor: isSubmitting ? 'not-allowed' : 'pointer',
@@ -170,10 +170,12 @@ export default function ProfilePage() {
       </div>
     );
   }
+  
 
   return (
     <>
       <div className='w-100 autoverflow-y h-100vh  flex-col flex-justify-start'>
+        <div id="top-of-page"></div>
         
         <NavigationHeaderBar />
 
@@ -250,54 +252,18 @@ style={{
             </div>
 
                 
-            { !!didViewToday ?  <>
-            {!!isMobile() && (<>
-            <div className=' tx-l g mb-2'>Viewed Today ✅</div>
-              <a href="/tool"
-          className='py-2 px-2 mb-4 pointer tx-bold nodeco tx-center tx-white bord-r-10 tx- w-100px lg '
-          style={{
-            backgroundColor: "#807DDB",
-            boxShadow: `0px 4px 0 0px #6B69CF`,
-          }}
-        >
-          {"Continue Viewing"}
-        </a>
-            </>)}
-              {!isMobile() && !!didViewToday && (<>
-                 <LessonCard
-                 title="Viewed Today"
-                 emoji="✅"
-                 href="/tool"
-                 styleOverride={{
-                  width: "200px",
-                 }}
-                 actionText={"Continue Viewing"}
-                 
-                 />
-                 </>)}
-                 </>    : <>
-                 {!isMobile() && !didViewToday && (<>
-                 <div className='pb-2'>Did not view today ❌</div>
-                  <a href="/tool" className='tx-bold tx-lg mb-2'
+                 {  (<>
+                 {!!didViewToday ? <div className='pb-2'>Did see today ✅</div> :
+                 <div className='pb-2'>Did not see today ❌</div>
+            }
+                  <a href="/tool" className='tx-bold tx-center tx-lg mb-2'
                   style={{
                     color: "#22aeff",
                   }}
-                  >Start Viewing</a>
+                  >{didViewToday ? "Continue" : "Start"} <br /> Viewing</a>
                  </>)}
-                 {!didViewToday && !!isMobile() && (<>
-            <div className=' tx-l g mb-2'>Did not view today ❌</div>
-              <a href="/tool"
-          className='py-2 px-2 mb-4 pointer tx-bold nodeco tx-center tx-white bord-r-10 tx- w-100px lg '
-          style={{
-            backgroundColor: "#807DDB",
-            boxShadow: `0px 4px 0 0px #6B69CF`,
-          }}
-        >
-          {"Start Viewing"}
-        </a>
-            </>)}
                  
-                 </>}            
+                 
 </div>
 
 <div className='flex-wrap px-4 flex-align-start flex-justify-start gap-4 flex-1'>
@@ -497,16 +463,36 @@ backgroundColor='#71B44F'
 
 <RemoteViewingHistory 
   authorId={LS_playerId}
-  crvObjects={crvObjects}
+  crvObjects={crvObjects.slice(0, 50)}
   onSketchClick={(sketch, image) => {
     setCurrentSketch(sketch);
     setCurrentImage(image);
     setShowSketchModal(true);
   }}
 />
-
+{crvObjects.length > 50 && (<>
+<div className=''>
+<div className='tx-altfont-2 px-4 py-4 pointer'
+onClick={() => {
+  alert('Coming soon!');
+}}
+style={{
+  color: "#22aeff",
+}}
+>
+Click here to see full history
+</div>
+</div>
+</>)}
 
         </div>
+      </div>
+<div className='opaci-50  pb-100'>
+        <button className='tx-green  tx-lg tx-bold' onClick={() => {
+          window.location.hash = '#top-of-page';
+        }}>
+          Go back <br /> to top
+        </button>
       </div>
 <div className='opaci-50  pb-100'>
         <button className='tx-red' onClick={() => {

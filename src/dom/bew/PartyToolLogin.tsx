@@ -75,7 +75,7 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
 
           {!typedUsername && (<>
           <a href="/tool" className=''>
-          <BewPurpleBtn text="Login First"
+          <BewPurpleBtn text="Create your Username"
             onClick={() => {
               // setTypedUsername('');
             }} />
