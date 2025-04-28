@@ -71,11 +71,13 @@ export default function SpaceWorldContainer({
   const onTargetFound = () => {
     // setWinAttempts(winAttempts + 1)
     startGameProcess()
-    triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
-      <div className="">{"Target found"}</div>
+    triggerSnackbar(<div className="tx-center noselect noclick flex-col tx-shadow-5">
+      <div className="">{"High Energy Target "}</div>
       {/* red pin emoji */}
-        <div className="">{"New Pin 📍 added"}</div>
+        <div className="">{"found, new Pin 📍 added"}</div>
     </div>, "success")
+    
+  
     const chosensfx =  ["conff", "clapp", "cheer"][Math.floor(Math.random()*3)]
     // const chosensfx =  ["conff", "clapp", "children"][Math.floor(Math.random()*3)]
     playSoundEffect(`/sfx/short/${chosensfx}.mp3`)

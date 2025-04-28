@@ -1,7 +1,7 @@
 "use client";
 import { Sphere, useTexture, Billboard, Text, Box, Cylinder } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Vector3, Quaternion } from "three";
 import { ComputerModel } from "../core/ComputerModel";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
@@ -26,22 +26,25 @@ export const WorldModelTextured = ({
   const { triggerSnackbar } = useProfileSnackbar();
   const [previousTargets, setPreviousTargets] = useState<Array<{lat: number, lng: number, targetLat: number, targetLng: number, humanString: string}>>([]);
   const [previousClicks, setPreviousClicks] = useState<Array<{lat: number, lng: number}>>([]);
-  const [helperSphereSize, setHelperSphereSize] = useState(0.3);
+  const [helperSphereSize, setHelperSphereSize] = useState(0.2);
 
   const rotSpeed = useRef(0)
+  const isTimeBoosted = useMemo(()=>{
+    return state.inventory.includes("Time Booster") ? 2 : 1
+  }, [state.inventory])
   // const rotSpeed = useRef(0.03)
 
   useFrame(()=>{
     if (!$light.current) return
     if (!$whole.current) return
-    $light.current.rotation.y += rotSpeed.current
-    $whole.current.rotation.y += rotSpeed.current/30
+    $light.current.rotation.y += rotSpeed.current * isTimeBoosted
+    $whole.current.rotation.y += rotSpeed.current/30 * isTimeBoosted
     if (!$wholeReversed.current) return
-    $wholeReversed.current.rotation.y -= rotSpeed.current/10
+    $wholeReversed.current.rotation.y -= rotSpeed.current/10 * isTimeBoosted
     // $wholeReversed.current.rotation.x -= 0.01
     $wholeReversed.current.position.y = Math.sin(Date.now()/1000)/10
     if (!$cloudsWireframe.current) return
-    $cloudsWireframe.current.rotation.y += rotSpeed.current
+    $cloudsWireframe.current.rotation.y += rotSpeed.current * isTimeBoosted
   })
 
   const {playSoundEffect} = useBackgroundMusic()
@@ -154,9 +157,9 @@ export const WorldModelTextured = ({
     }} />
     {previousClicks.map((coords, index) => (
       <group key={`click-${index}`} position={[
-        latLngToCartesian(coords.lat, coords.lng,.72).x,
-        latLngToCartesian(coords.lat, coords.lng,.72).y,
-        latLngToCartesian(coords.lat, coords.lng,.72).z
+        latLngToCartesian(coords.lat, coords.lng,.79).x,
+        latLngToCartesian(coords.lat, coords.lng,.79).y,
+        latLngToCartesian(coords.lat, coords.lng,.79).z
       ]}>
         <Sphere args={[0.02, 3, 3]}>
           <meshStandardMaterial 
@@ -171,7 +174,8 @@ export const WorldModelTextured = ({
         latLngToCartesian(targetCoords.lat, targetCoords.lng).y,
         latLngToCartesian(targetCoords.lat, targetCoords.lng).z
       ]}>
-        <Sphere rotation={[Math.PI/2.6,0,0]} args={[ showHelper ? 0.1 : helperSphereSize, 8, 8]} 
+        <Sphere rotation={[Math.PI/2.6,0,0]}
+         args={[ showHelper ? 0.1 : helperSphereSize, 8, 8]} 
           onClick={(e) => {
             e.stopPropagation();
             if (!!isVfxHappening || state.loadingWin) {
@@ -229,7 +233,8 @@ export const WorldModelTextured = ({
             emissiveIntensity={0.3} 
             transparent={true} 
             wireframe={!showHelper ? false : true}
-            opacity={ (isVfxHappening || state.loadingWin) ? 0 : showHelper ? 0.7 : 0} 
+            opacity={ (isVfxHappening || state.loadingWin) ?
+               0 : showHelper ? 0.7 : 0.25} 
           />
         </Sphere>
         {showHelper && (

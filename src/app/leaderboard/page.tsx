@@ -8,6 +8,7 @@ import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
 import { LeaderboardTable } from '@/dom/bew/LeaderboardTable';
 import { VersionTag } from '@/dom/bew/VersionTag';
+import { CountdownTimer } from '@/dom/bew/CountdownTimer';
 
 export default function LeaderboardPage() {
   const { leaderboard, isLoadingLeaderboard, leaderboardError, fetchLeaderboard } = useFetchedStats();
@@ -28,6 +29,7 @@ export default function LeaderboardPage() {
         </a>
       </>} />
       <BewPageHeader title="Leaderboard" isBigScreenOnly={true} />
+      <CountdownTimer />
       <div className='flex-col flex-align-stretch w-max-700px w-100'>
         <div className='tx-bold tx-lg flex-col px-4 flex-align-stretch'>
           <div className='flex-col mb-100'>

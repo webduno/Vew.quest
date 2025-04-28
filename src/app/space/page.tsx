@@ -11,6 +11,7 @@ import { Tooltip } from "react-tooltip";
 import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
 import { countries, CountryFeature } from "@/data/countries";
 import { VersionTag } from "@/dom/bew/VersionTag";
+import { DEFAULT_SHOP_ITEMS } from "../../../script/state/constant";
 
 export default function ModelPage() {
   // const [clickCounter, setClickCounter] = useState(0);
@@ -36,7 +37,6 @@ export default function ModelPage() {
   const [showHelper, setShowHelper] = useState(false)
   const {playSoundEffect} = useBackgroundMusic()
   const [isVfxHappening, setIsVfxHappening] = useState(false)
-  const SHOP_ITEM_COST = 10;
 const [spentObj, setSpentObj] = useState<{spent: {chip: number}} | null>(null)
 const availSpend = useMemo(()=>{
   return totalClickCounter - (spentObj?.spent.chip || 0)
@@ -212,76 +212,44 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
     }
   }
   const ITEM_REFERENCE: { [key: string]: { emoji: string; name: string; description: string; cost: number } } = {
-    "Golden Chip": {
-      emoji: "💰",
-      name: "Golden Chip",
-      description: "A golden chip that can be used to buy items in the shop.",
-      cost: 10
-    },
-    "Mystery Pin": {
-      emoji: "🟩",
-      name: "Mystery Pin",
-      description: "Locate the green pin to find the target.",
-      cost: 10
-    },
-    "Time Booster": {
-      emoji: "⏰",
-      name: "Time Booster",
-      description: "A booster that can be used to buy items in the shop.",
-      cost: 10
-    },
-    "Chip Doubler": {
-      emoji: "💰",
-      name: "Chip Doubler",
-      description: "A doubler that can be used to buy items in the shop.",
-      cost: 10
-    },
-    "Pin Magnet": {
-      emoji: "🔍",
-      name: "Pin Magnet",
-      description: "A magnet that can be used to buy items in the shop.",
-      cost: 10
-    },
-    "Lucky Coin": {
-      emoji: "🍀",
-      name: "Lucky Coin",
-      description: "A lucky coin that can be used to buy items in the shop.",
-      cost: 10
-    },
-    "Map Reveal": {
-      emoji: "🗺️",
-      name: "Map Reveal",
-      description: "A sing that points to the correct latitude",
-      cost: 10
-    },
-    "Speed Shoes": {
-      emoji: "🏃‍♂️",
-      name: "Speed Shoes",
-      description: "A pair of speed shoes that can be used to buy items in the shop.",
-      cost: 10
-    },
-    "Confetti Bomb": {
-      emoji: "🎉",
-      name: "Confetti Bomb",
-      description: "A confetti bomb that can be used to buy items in the shop.",
-      cost: 10
-    },
+    
+    ...DEFAULT_SHOP_ITEMS,
+    // "Golden Chip": {
+    //   emoji: "💰",
+    //   name: "Golden Chip",
+    //   description: "A golden chip that can be used to buy items in the shop.",
+    //   cost: 30
+    // },
+    // "Chip Doubler": {
+    //   emoji: "💰",
+    //   name: "Chip Doubler",
+    //   description: "A doubler that can be used to buy items in the shop.",
+    //   cost: 30
+    // },
+    // "Pin Magnet": {
+    //   emoji: "🔍",
+    //   name: "Pin Magnet",
+    //   description: "A magnet that can be used to buy items in the shop.",
+    //   cost: 30
+    // },
+    // "Speed Shoes": {
+    //   emoji: "🏃‍♂️",
+    //   name: "Speed Shoes",
+    //   description: "A pair of speed shoes that can be used to buy items in the shop.",
+    //   cost: 30
+    // },
+    // "Confetti Bomb": {
+    //   emoji: "🎉",
+    //   name: "Confetti Bomb",
+    //   description: "A confetti bomb that can be used to buy items in the shop.",
+    //   cost: 30
+    // },
     
     
   }
 
   function getRandomShopItems() {
-    const allItems = [
-      'Golden Chip',
-      'Mystery Pin',
-      'Time Booster',
-      'Chip Doubler',
-      'Pin Magnet',
-      'Lucky Coin',
-      'Map Reveal',
-      'Speed Shoes',
-      'Confetti Bomb',
-    ];
+    const allItems = Object.keys(ITEM_REFERENCE)
     return allItems.sort(() => 0.5 - Math.random()).slice(0, 4);
   }
 
@@ -297,7 +265,8 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
   async function handleBuyItem(item: string) {
     if (!LS_playerId) return;
     if (boughtItems.includes(item)) return;
-    if (totalClickCounter < SHOP_ITEM_COST) {
+    const itemCost = ITEM_REFERENCE[item].cost;
+    if (totalClickCounter < itemCost) {
       setShopMessage('Not enough chips!');
       return;
     }
@@ -308,7 +277,7 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           player_id: LS_playerId,
-          chip: SHOP_ITEM_COST,
+          chip: itemCost,
           bought: [item],
         }),
       });
@@ -427,7 +396,7 @@ const normalClick = (e:number)=>{
          </div>
         </div>
 {wincounter > 0 && (<>
-        <Tooltip id="my-chip-tooltip" />
+        <Tooltip id="my-chip-tooltip" style={{zIndex:5000}}/>
         <div data-tooltip-id="my-chip-tooltip" data-tooltip-content="Vew pins" 
         data-tooltip-place="left"
         onClick={()=>{
@@ -507,6 +476,7 @@ const normalClick = (e:number)=>{
         setWincounter={(e)=>{
           
           setShowResultSeshModal(true)
+          
           setLoadingWin(true)
           setWincounter(e)
           setTimeout(() => {
@@ -517,9 +487,13 @@ const normalClick = (e:number)=>{
       confettiColors: ['#C67Bc7', '#F9EDf4', '#ff99ff'],
       confettiNumber: 50,
     });
-            triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
-              <div>{"New target ready!"}</div>
-            </div>, "purple")
+            // triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
+            //   <div>{"New target ready!"}</div>
+            // </div>, "purple")
+
+
+
+
             setShowResultSeshModal(false)
             setLastClickedCoords(null)
           }, 4000)
@@ -531,21 +505,20 @@ const normalClick = (e:number)=>{
       >
         <></>
       </SpaceWorldContainer>
-      {showResultSeshModal && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.4)', zIndex: 200,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
+      {showResultSeshModal && false && (
+        <div className="w-100vw h-100vh bg-w-90 bg-glass-10 pos-fix flex-col top-0 left-0 z-1000" style={{
         }} 
         // onClick={() => setShowResultSeshModal(false)}
         >
           <div style={{ background: 'white', borderRadius: 16, padding: 24, minWidth: 260, boxShadow: '0 4px 24px #0002' }} onClick={e => e.stopPropagation()}>
             {/* <div className="tx-center tx-lg tx-bold mb-2"> {LS_playerId}</div> */}
-            <div className="tx-center tx-lg tx-bold opaci-25 mb-2">
-              Target found!
-              <div className="tx-center tx-lg tx-bold mb-2">
+            <div className="tx-center tx-lg tx-bold  mb-2">
+              <div style={{ color: "#4b4b4b", }}
+               className="tx-xsm pb-4">High Energy Target found!</div>
+              <div className="tx-center tx-lg tx-bold mb-2 opaci-25">
                 <div className="flex-row gap-2">
-                  <div>lat: {lastClickedCoords?.lat?.toFixed(1)}</div>
-                  <div>lng: {lastClickedCoords?.lng?.toFixed(1)}</div>
+                  <div>Lat: {lastClickedCoords?.lat?.toFixed(1)}</div>
+                  <div>Lng: {lastClickedCoords?.lng?.toFixed(1)}</div>
                 </div>
                 <div className="w-max-250px">
                   {humanDescription(lastClickedCoords)}
@@ -597,17 +570,23 @@ const normalClick = (e:number)=>{
                   // boxShadow:"inset -2px -4px 0px #bbbbbb, inset 2px 2px 0px #ffffff"
                 }}
                 >
-                  <span>{ITEM_REFERENCE[item].emoji} {item} </span>
+                <Tooltip id={"my-onsale-tooltip-"+ item} >
+                <div className="w-100px">{ITEM_REFERENCE[item].description}</div>
+                  </Tooltip>
+                  <span data-tooltip-id={"my-onsale-tooltip-"+ item} 
+                    data-tooltip-place="top">
+                      {ITEM_REFERENCE[item].emoji} {item} 
+                      </span>
                   {boughtItems.includes(item) ? (
                     <span style={{ color: '#4caf50', fontWeight: 'bold' }}>Bought</span>
                   ) : (
                     <div className="flex-row-r gap-2">
-                    <button
+                    <button 
                       className="py-1 px-2 bord-r-100 tx-bold"
                       style={{ background: '#eee', border: 'none' }}
                       onClick={() => handleBuyItem(item)}
                     >Buy</button>
-                    <span style={{color:'#888', fontSize:'0.9em'}}>({SHOP_ITEM_COST} 💰)</span>
+                    <span style={{color:'#888', fontSize:'0.9em'}}>({ITEM_REFERENCE[item].cost} 💰)</span>
                     </div>
                   )}
                 </li>

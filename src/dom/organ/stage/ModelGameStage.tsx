@@ -140,16 +140,17 @@ const {playSoundEffect} = useBackgroundMusic()
 
             <div className="tx-lg w-250px tx-center flex-row">
               <div className="tx-lx">🌎</div>
-              <div className="flex-1">Tap earth to send good vibes</div>
+              <div className="flex-1 tx-ls-1">Tap earth to send good vibes</div>
               </div>
           </div>
           </>)}
           </div>  
-          <div className="flex-col pos-fix top-0 left-0 z-100  mt-8 pt-2 ml-2  gap-2 noclick noselect">
+          <div className="flex-col pos-fix flex-align-start top-0 left-0 z-100  mt-8 pt-2 ml-2  gap-2 noclick noselect">
+            
           {attempts > 0 && lastClickedCoords && (<>
       <div className="flex-row bg-white gap-2 px-2  bord-r-15 py-1">
-        <div className="tx-center tx-sm">Last <br /> Coords</div>
-        <div className="flex-col flex-align-start">
+        <div className="tx-center tx-md">🖱️</div>
+        <div className="flex-col tx-xsm flex-align-start">
 
         <div>{(lastClickedCoords?.lat || 0).toFixed(1)}°</div>
         <div>{(lastClickedCoords?.lng || 0).toFixed(1)}°</div>
@@ -157,6 +158,43 @@ const {playSoundEffect} = useBackgroundMusic()
         </div>
       </div>
       </>)}
+
+
+
+
+
+
+
+
+
+          { winAttempts < 3 && (<>
+          <div className="flex-col flex-align-start bg-white px-4  bord-r-15 py-2 gap-1">
+          <div className="tx-sm opaci-50">📍 Mission #1</div> <br />
+          {/* emoji pins  pin*/}
+          <div className="">Find the 3  <br />  hidden pins</div>
+          <hr className="w-100 opaci-20" />
+          <div className="flex-wrap gap-1 tx-xsm pb-2 opaci-50">Open <b className="hover-jump block">Menu</b> for Stats</div>
+          </div>
+</>)}
+
+
+{ winAttempts > 3 && inventory.length == 0 && (<>
+<div className="flex-col flex-align-start bg-white px-4  bord-r-15 py-2 gap-1">
+<div className="tx-sm opaci-50">🛒 Mission #2</div> <br />
+{/* emoji pins  pin*/}
+<div className="">Open the shop  <br /> 🖥️ &amp; buy items</div>
+</div>
+</>)}
+
+
+
+
+
+
+
+
+
+
       </div>
       <Canvas style={{width:"100vw",height:"100vh"}} shadows 
         camera={{fov:50,position:[isSmallDevice?8:6,1,0]}}
@@ -187,6 +225,17 @@ const {playSoundEffect} = useBackgroundMusic()
            enablePan={false}
         />
         {/* {isDOF && <TiltShiftEffects />} */}
+
+
+
+
+
+
+
+
+
+
+        
         <WorldModelTextured 
           isVfxHappening={isVfxHappening}
           setIsVfxHappening={setIsVfxHappening}
@@ -240,110 +289,111 @@ const {playSoundEffect} = useBackgroundMusic()
 
 
           
-          {hasClickedOnTarget && attempts > 3 && (<>
+        {/* {hasClickedOnTarget &&  (<> */}
+          {hasClickedOnTarget &&  (<>
 
 
           
           <group position={[0,-.5,0]} rotation={[0,Math.PI/2,0]}>
-          {attempts > 5 && winAttempts > 0 && (
-            <Text fontSize={0.07} color="#ff4400"  
-            position={[0,-1.02,-0.02]}
-            // position={[0,0,-1]}
-            // position={[0,2.2,0]}
-            >
-              Try #{attempts}
-            </Text>
-          )}
-          {attempts > 5 && winAttempts > 0 && (
-          <group position={[0.1,-1,0]}>
+            { winAttempts > 0 && (
+              <Text fontSize={0.07} color="#ff4400"  
+                position={[0,-1.02,-0.02]}
+                // position={[0,0,-1]}
+                // position={[0,2.2,0]}
+              >
+                Try #{attempts}
+              </Text>
+            )}
+            { winAttempts > 0 && (
+              <group position={[0.1,-1,0]}>
 
-          {/* table top */}
-            <Box args={[1.1 ,.08,.6]} position={[-0.1,-0.55,-0.2]} receiveShadow>
-              <meshStandardMaterial color={"#ddbb99"} />
-            </Box>
-            {/* Table legs */}
-            <Box args={[.05,.4,.05]} position={[-0.6,-0.75,-0.4]} receiveShadow>
-              <meshStandardMaterial color={"#aa8866"} />
-            </Box>
-            <Box args={[.05,.4,.05]} position={[0.4,-0.75,-0.4]} receiveShadow>
-              <meshStandardMaterial color={"#aa8866"} />
-            </Box>
-            <Box args={[.05,.4,.05]} position={[-0.6,-0.75,0]} receiveShadow>
-              <meshStandardMaterial color={"#aa8866"} />
-            </Box>
-            <Box args={[.05,.4,.05]} position={[0.4,-0.75,0]} receiveShadow>
-              <meshStandardMaterial color={"#aa8866"} />
-            </Box>
-            
-          { attempts > 5 &&  (<>
-            {winAttempts > 0 && (
-            <Text fontSize={0.11} color="#44ff00"  position={[-0.1,-.13,-0.02]}>
-              W:{winAttempts}
-            </Text>
-          )}
-            <ComputerModel onClick={()=>{
-              if (winAttempts < 3){
-                playSoundEffect("/sfx/short/errorbip.mp3")
-                triggerSnackbar(<div className="tx-center flex-col">
-                  <div className="">{"Find 3 Target Pins"}</div>
-                  <div className="">{"to open the shop"}</div>
-                  <hr className="w-100 opaci-20" />
-                  <div className="">{"Check menu for info"}</div>
-                </div>, "error")
-                return
-              }
-              
-              setShowShopModal(true)
-              // triggerSnackbar(<div className="tx-center flex-col">
-              //   <div className="">{"You have "}</div>
-              //   <div className="">{""+winAttempts + " vew chips"}</div>
-              // </div>, "success")
-            }} state={{}} tokensArrayArray={[]} />
+                {/* table top */}
+                <Box args={[1.1 ,.08,.6]} position={[-0.1,-0.55,-0.2]} receiveShadow>
+                  <meshStandardMaterial color={"#ddbb99"} />
+                </Box>
+                {/* Table legs */}
+                <Box args={[.05,.4,.05]} position={[-0.6,-0.75,-0.4]} receiveShadow>
+                  <meshStandardMaterial color={"#aa8866"} />
+                </Box>
+                <Box args={[.05,.4,.05]} position={[0.4,-0.75,-0.4]} receiveShadow>
+                  <meshStandardMaterial color={"#aa8866"} />
+                </Box>
+                <Box args={[.05,.4,.05]} position={[-0.6,-0.75,0]} receiveShadow>
+                  <meshStandardMaterial color={"#aa8866"} />
+                </Box>
+                <Box args={[.05,.4,.05]} position={[0.4,-0.75,0]} receiveShadow>
+                  <meshStandardMaterial color={"#aa8866"} />
+                </Box>
+                  
+                {   (<>
+                  {winAttempts > 0 && (
+                    <Text fontSize={0.11} color="#44ff00"  position={[-0.1,-.13,-0.02]}>
+                      W:{winAttempts}
+                    </Text>
+                  )}
+                  <ComputerModel 
+                    onClick={()=>{
+                      if (winAttempts < 3){
+                        playSoundEffect("/sfx/short/errorbip.mp3")
+                        triggerSnackbar(<div className="tx-center flex-col">
+                          <div className="">{"Find 3 Target Pins"}</div>
+                          <div className="">{"to open the shop"}</div>
+                          <hr className="w-100 opaci-20" />
+                          <div className="">{"Check menu for info"}</div>
+                        </div>, "error")
+                        return
+                      }
+                      
+                      setShowShopModal(true)
+                      // triggerSnackbar(<div className="tx-center flex-col">
+                      //   <div className="">{"You have "}</div>
+                      //   <div className="">{""+winAttempts + " vew chips"}</div>
+                      // </div>, "success")
+                    }} state={{}} tokensArrayArray={[]} 
+                  />
 
-</> 
-          )}
+                </>)}
 
 
 
-            {inventory.includes("Map Reveal") && (<>
-              <Box args={[1.41 ,.2,.03]} position={[-0.1,.25,-.2]}>
-              
-              <meshStandardMaterial color={"#aa8866"} />
-            </Box>
-            <Box args={[.02 ,.75,.02]} position={[-0.5,-.19,-.2]}><meshStandardMaterial color={"#aa8866"} /></Box>
-            <Box args={[.02 ,.75,.02]} position={[0.4,-.19,-.2]}><meshStandardMaterial color={"#aa8866"} /></Box>
-      </>)}
+                {inventory.includes("Map Reveal") && (<>
+                  <Box args={[1.41 ,.2,.03]} position={[-0.1,.25,-.2]}>
+                  
+                    <meshStandardMaterial color={"#aa8866"} />
+                  </Box>
+                  <Box args={[.02 ,.75,.02]} position={[-0.5,-.19,-.2]}><meshStandardMaterial color={"#aa8866"} /></Box>
+                  <Box args={[.02 ,.75,.02]} position={[0.4,-.19,-.2]}><meshStandardMaterial color={"#aa8866"} /></Box>
+                </>)}
+              </group>
+            )}
+
+            <group position={[0,.25,-.2]}>
+              {lastClickedCoords &&   inventory.includes("Map Reveal") && (<>
+                <Text fontSize={0.1} color="#ffffff"  position={[
+                  0,-1,0.02
+                ]}>
+                  {/* {`${fullDiff > 0 ? "☝️" : "👇"}Look further ${fullDiff > 0 ? "North☝️" : "South👇"}`} */}
+                  {fullDiff < -5 && `${ "👇"}Look further South 👇`}
+                  {fullDiff > 5 && `${ "☝️"}Look further North ☝️`}
+                  {/* {`Lat: ${lastClickedCoords.lat.toFixed(1)}° (distance ~${(fullDiff).toFixed(1)}°)`} */}
+                </Text>
+                <Text 
+                  rotation={[0,Math.PI,0]}
+                  fontSize={0.1} color="#ffffff"  position={[
+                    0,-1,-0.02
+                  ]}
+                >
+                  {`${fullDiff > 0 ? "☝️" : "👇"}Look further ${fullDiff > 0 ? "North☝️" : "South👇"}`}
+                  {/* {`Look further ${randomCoord1LatLan.lng - lastClickedCoords.lng > 0 ? "East" : "West"}`} */}
+                  {/* {`Lng: ${lastClickedCoords.lng.toFixed(1)}° (distance ~${(randomCoord1LatLan.lng - lastClickedCoords.lng).toFixed(1)}°)`} */}
+                </Text>
+
+              </>)}
+
+            </group>
+
           </group>
-      )}
-
-          <group position={[0,.25,-.2]}>
-      {lastClickedCoords &&  attempts > 5 && inventory.includes("Map Reveal") && (<>
-        <Text fontSize={0.1} color="#ffffff"  position={[
-        0,-1,0.02
-      ]}>
-        {/* {`${fullDiff > 0 ? "☝️" : "👇"}Look further ${fullDiff > 0 ? "North☝️" : "South👇"}`} */}
-        {fullDiff < -5 && `${ "👇"}Look further South 👇`}
-        {fullDiff > 5 && `${ "☝️"}Look further North ☝️`}
-        {/* {`Lat: ${lastClickedCoords.lat.toFixed(1)}° (distance ~${(fullDiff).toFixed(1)}°)`} */}
-      </Text>
-      <Text 
-      rotation={[0,Math.PI,0]}
-      fontSize={0.1} color="#ffffff"  position={[
-        0,-1,-0.02
-      ]}>
-        {`${fullDiff > 0 ? "☝️" : "👇"}Look further ${fullDiff > 0 ? "North☝️" : "South👇"}`}
-        {/* {`Look further ${randomCoord1LatLan.lng - lastClickedCoords.lng > 0 ? "East" : "West"}`} */}
-        {/* {`Lng: ${lastClickedCoords.lng.toFixed(1)}° (distance ~${(randomCoord1LatLan.lng - lastClickedCoords.lng).toFixed(1)}°)`} */}
-      </Text>
-
-      </>)}
-
-    </group>
-    </group>
-
-
-
-    </>)}
+        </>)}
 
 
 
