@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
+import { useLSPlayerId, usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
 import targetsData from '@/../public/data/targets_1.json';
@@ -25,6 +25,7 @@ type TargetsData = {
 export type PartyGameState = 'initial' | 'playing' | 'results' | 'waiting';
 
 export default function PartyPage() {
+  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const { isLoading, crvObjects, refetchStats } = useFetchedStats();
   const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
   const { triggerSnackbar } = useProfileSnackbar();
@@ -94,7 +95,7 @@ const [reloadingParty, setReloadingParty] = useState(false);
 
 
 
-  const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
+  // const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const [enterUsername, setEnterUsername] = useState(false);
   const [isLoadingMyRequests, setIsLoadingMyRequests] = useState(false);
   const [myRequests, setMyRequests] = useState<null | {
@@ -153,7 +154,8 @@ const [reloadingParty, setReloadingParty] = useState(false);
   const [showSketchModal, setShowSketchModal] = useState(false);
   const [sketchData, setSketchData] = useState<any>(null);
   const [notes, setNotes] = useState<any>(null);
-const sharedIdState = useState<string | null>(null);
+  const sharedIdState = useState<string | null>(null);
+  const roomkey = useState<string | null>(null);
   const friendId = params.id;
   
 
@@ -403,10 +405,10 @@ const handleRefresh = async ()=>{
         {gameState === 'waiting' && (<>
         <WaitingRoom 
         
-        friendListString={[typedUsername, friendId].join(">>>")}
+        friendListString={[LS_playerId, friendId].join(">>>")}
         sharedIdState={sharedIdState}
         friendList={
-          [typedUsername, friendId]
+          [(LS_playerId || ""), friendId]
         }
 
         />
@@ -533,6 +535,7 @@ const handleRefresh = async ()=>{
               {!isMobile() && crvObjects.length > 0 && (<>
                 <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
                   <WrappedPartyStatsSummary 
+                    roomkey={[LS_playerId, friendId].join(">>>")}
                     notes={(() => {
                       let liveData = fullPartyData?.live_data;
                       if (typeof liveData === 'string') {

@@ -1,13 +1,13 @@
 'use client';
 import { Tooltip } from 'react-tooltip';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { IconStatsBar } from './IconStatsBar';
 
 
-export const WrappedPartyStatsSummary = ({ minified = false, notes = '', onNotesUpdate, playerId }: { minified?: boolean, notes?: string, onNotesUpdate?: (newNotes: string) => void, playerId?: string | null }) => {
+export const WrappedPartyStatsSummary = ({ roomkey, minified = false, notes = '', onNotesUpdate, playerId }: { roomkey?: string, minified?: boolean, notes?: string, onNotesUpdate?: (newNotes: string) => void, playerId?: string | null }) => {
   const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
-  return <PartyStatsSummary minified={minified}
+  return <PartyStatsSummary roomkey={roomkey} minified={minified}
   crvObjects_length={crvObjects.length}
   calculatedStats={{
     potentialStreak: potentialStreak,
@@ -25,8 +25,10 @@ export const PartyStatsSummary = ({
   crvObjects_length = 0,
   notes = '',
   onNotesUpdate = undefined,
-  playerId = undefined
+  playerId = undefined,
+  roomkey = undefined
 }: {
+  roomkey?: string;
   minified?: boolean;
   calculatedStats?: any;
   crvObjects_length?: number;
@@ -46,6 +48,10 @@ export const PartyStatsSummary = ({
     error: null,
     averageResult: 0
   })
+
+  const ownSubFriendId = useMemo(() => {
+    return roomkey?.split('>>>')[0] === playerId ? 'f1:' : 'f2:';
+  }, [roomkey, playerId]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -187,9 +193,7 @@ export const PartyStatsSummary = ({
           e.preventDefault();
           if (!message.trim()) return;
           setIsSending(true);
-          // Add as f1 or f2 based on playerId
-          const prefix = playerId ? 'f1:' : 'f2:';
-          const newNotes = (notes ? notes + '\n' : '') + `${prefix} ${message.trim()}`;
+          const newNotes = (notes ? notes + '\n' : '') + `${ownSubFriendId} ${message.trim()}`;
           onNotesUpdate(newNotes);
           setMessage('');
           setTimeout(() => setIsSending(false), 300);
@@ -203,8 +207,8 @@ export const PartyStatsSummary = ({
             onChange={e => setMessage(e.target.value)}
             disabled={isSending}
           />
-          <button type="submit" className='h-80px flex-col pointer' disabled={isSending || !message.trim()} style={{background: 'none', border: 'none'}}>
-            <div className='tx-lgx'>💬</div>
+          <button type="submit" className=' flex-col pointer' disabled={isSending || !message.trim()} style={{background: 'none', border: 'none'}}>
+            <div className='tx-l gx'>Send</div>
           </button>
         </form>
         )}
