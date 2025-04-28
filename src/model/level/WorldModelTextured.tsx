@@ -1,7 +1,7 @@
 "use client";
 import { Sphere, useTexture, Billboard, Text, Box, Cylinder } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect, useCallback } from "react";
 import { Vector3, Quaternion } from "three";
 import { ComputerModel } from "../core/ComputerModel";
 import { useProfileSnackbar } from "@/script/state/context/useProfileSnackbar";
@@ -27,6 +27,8 @@ export const WorldModelTextured = ({
   const [previousTargets, setPreviousTargets] = useState<Array<{lat: number, lng: number, targetLat: number, targetLng: number, humanString: string}>>([]);
   const [previousClicks, setPreviousClicks] = useState<Array<{lat: number, lng: number}>>([]);
   const [helperSphereSize, setHelperSphereSize] = useState(0.04);
+  const autoClickInterval = useRef<NodeJS.Timeout | null>(null);
+  const hasAutoMoonClick = useMemo(() => state.inventory.includes("Auto Moon Click"), [state.inventory]);
 
   const rotSpeed = useRef(0)
   const isTimeBoosted = useMemo(()=>{
@@ -82,6 +84,38 @@ export const WorldModelTextured = ({
     quaternion.setFromUnitVectors(up, position);
     return quaternion;
   };
+
+  const performAutoClick = useCallback(() => {
+    if (isVfxHappening || state.loadingWin) return;
+    
+    // Generate random coordinates
+    const lat = Math.random() * 180 - 90; // -90 to 90
+    const lng = Math.random() * 360 - 180; // -180 to 180
+    
+    // Save the click and adjust longitude based on current rotation
+    const adjustedLng = lng - (90 - ($whole.current?.rotation.y * (180 / Math.PI)));
+    setPreviousClicks(prev => [...prev, { lat, lng: adjustedLng }]);
+    rotSpeed.current += 0.001;
+
+    // Handle the click
+    clickedHandler({ lat, lng });
+  }, []);
+
+  useEffect(() => {
+    if (!hasAutoMoonClick) return;
+    
+    console.log("Starting auto-click interval");
+    performAutoClick(); // Click immediately once
+    autoClickInterval.current = setInterval(performAutoClick, 5000);
+
+    return () => {
+      console.log("Cleaning up auto-click interval");
+      if (autoClickInterval.current) {
+        clearInterval(autoClickInterval.current);
+        autoClickInterval.current = null;
+      }
+    };
+  }, [hasAutoMoonClick, performAutoClick]);
 
   return (<>
   <group ref={$wholeReversed}>
