@@ -4,11 +4,12 @@ import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusi
 type InputType = 'sketch' | 'multi-options' | 'notes' | '';
 
 interface InputTabsProps {
+  notesLabel?: string;
   selectedInputType: InputType;
   onInputTypeChange: (newType: InputType) => void;
 }
 
-export const InputTabs: React.FC<InputTabsProps> = ({ selectedInputType, onInputTypeChange }) => {
+export const InputTabs: React.FC<InputTabsProps> = ({ notesLabel = "Notes", selectedInputType, onInputTypeChange }) => {
   const { playSoundEffect } = useBackgroundMusic();
 
   return (
@@ -52,7 +53,7 @@ export const InputTabs: React.FC<InputTabsProps> = ({ selectedInputType, onInput
           color: selectedInputType === 'notes' ? "#DB807D" : "#afafaf"
         }}
       >
-        Notes
+        {notesLabel}
       </div>
     </div>
   );

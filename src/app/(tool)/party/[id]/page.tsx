@@ -453,15 +453,15 @@ const ownSubFriendId = useMemo(() => {
                   boxShadow: "0 4px 0 #D68800",
                 }}
                 >
-                <a href="/tool"           style={{color: "#964800"}}     
+                {/* <a href="/tool"           style={{color: "#964800"}}     
                 className='opaci-50 nodeco pointer '>← Go to Single Player</a>
-                
-                <div className='tx-bold tx-lg pt-1'>Shared target #{target?.code}</div>
+                 */}
+                <div className='tx-bold tx-lg pt-1'>Target #{target?.code} (Shared)</div>
                 <div className='w-100  flex-row flex-align-end flex-justify-end '>
                 <a href={"/u?friend="+friendId}                style={{color: "#ffffff"}}     
                 className=' px-4  Q_xs_pt-2 nodeco pointer'>
-                  <span className='tx-sm pr-1 ' style={{filter: "brightness(10)"}}>🔗</span>
-                  Partying with {friendId}
+                  
+                  In party | <span className='tx-sm  ' style={{filter: "brightness(10)"}}>🔗</span> {friendId}
                   </a>
                   </div>
 

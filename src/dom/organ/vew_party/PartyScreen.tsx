@@ -265,7 +265,8 @@ export const PartyScreen = ({
 
 <div className='flex-col'>
     {!!selectedInputType && (
-      <InputTabs 
+      <InputTabs  
+        notesLabel="Chat"
         selectedInputType={selectedInputType}
         onInputTypeChange={handleInputTypeChange}
       />
@@ -335,7 +336,7 @@ export const PartyScreen = ({
               background: "#80DB7D"
              }}
           >
-            <div>⬇️ Re-sync</div>
+            <div>Syncronize</div>
           </div>
           <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
             onClick={handleSend}
@@ -344,7 +345,7 @@ export const PartyScreen = ({
               background: "#807DDB"
              }}
           >
-            <div>🔔 Update</div>
+            <div>Send Changes</div>
           </div>
         </div>
       </>
@@ -386,7 +387,7 @@ export const PartyScreen = ({
               playSoundEffect("/sfx/short/passbip.mp3")
               handleInputTypeChange('notes')
             }}
-            text="Notes"
+            text="Chat"
             image={<div><span role="img" aria-label="page">📄</span></div>}
           />
         </div>
