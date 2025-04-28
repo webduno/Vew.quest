@@ -1,23 +1,24 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { TopSection } from '../molecule/game/SenseMeter/TopSection';
-import { MiddleSection } from '../molecule/game/SenseMeter/MiddleSection';
-import { BottomSection } from '../molecule/game/SenseMeter/BottomSection';
-import { ExitButton } from '../molecule/game/SenseMeter/ExitButton';
+import { TopSection } from '../../molecule/game/SenseMeter/TopSection';
+import { MiddleSection } from '../../molecule/game/SenseMeter/MiddleSection';
+import { BottomSection } from '../../molecule/game/SenseMeter/BottomSection';
+import { ExitButton } from '../../molecule/game/SenseMeter/ExitButton';
 import { normalizeRotation, buttonColors, buttonTypes } from '@/../script/utils/play/analogHelpers';
-import { useAnalogModal } from '../molecule/game/SenseMeter/useAnalogModal';
+import { useAnalogModal } from '../../molecule/game/SenseMeter/useAnalogModal';
 import { SenseSectionType } from '@/../script/utils/play/senseMeterTypes';
 import { KeyboardBtn } from '@/dom/atom/button/KeyboardBtn';
 import { isMobile } from '@/../script/utils/platform/mobileDetection';
-import { BewChoiceButton } from './BewChoiceButton';
-import { MultiOptionInputs } from './MultiOptionInputs';
-import { NotesInputs } from './NotesInputs';
-import { SketchInputs, SketchInputsRef } from './SketchInputs';
-import { BewUserStatsSummary } from './BewUserStatsSummary';
-import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
-import { InputTabs } from './InputTabs';
-import { FriendCard } from './FriendCard';
+import { BewChoiceButton } from '../../bew/BewChoiceButton';
+import { MultiOptionInputs } from '../../bew/MultiOptionInputs';
+import { NotesInputs } from '../../bew/NotesInputs';
+import { SketchInputs, SketchInputsRef } from '../../bew/SketchInputs';
+import { BewUserStatsSummary } from '../../bew/BewUserStatsSummary';
+import { useBackgroundMusic } from '../../../../script/state/context/BackgroundMusicContext';
+import { InputTabs } from '../../bew/InputTabs';
+import { FriendCard } from '../../bew/FriendCard';
+import { PartyNotesInputs } from './PartyNotesInputs';
 
 // Define input types for better type safety
 type InputType = 'sketch' | 'multi-options' | 'notes' | '';
@@ -35,6 +36,8 @@ type OptionsState = {
 };
 
 export const PartyScreen = ({
+  room_key,
+  ownSubFriendId,
   selectedInputType, setSelectedInputType,
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onFullSend,
   absolute = true,
@@ -43,7 +46,11 @@ export const PartyScreen = ({
   handleRefresh,
   friendid,
   handleNewTarget,
+  refetchStats,
+  onNotesUpdate
 }: {
+  room_key: string;
+  ownSubFriendId: string;
   selectedInputType: InputType;
   setSelectedInputType: (inputType: InputType) => void;
   setEnableLocked: (enableLocked: boolean) => void;
@@ -70,9 +77,11 @@ export const PartyScreen = ({
     friend_list: string[];
     live_data: any
   } | null
-  handleRefresh: () => void;
+  handleRefresh: () => Promise<any>;
   friendid: string;
   handleNewTarget: any;
+  refetchStats: () => Promise<any>;
+  onNotesUpdate: (newNotes: string) => void;
 }) => {
 
   const [sharedId, setSharedId] = sharedIdState;
@@ -230,7 +239,12 @@ export const PartyScreen = ({
         );
       case 'notes':
         return (
-          <NotesInputs 
+          <PartyNotesInputs 
+            room_key={room_key}
+            refetchStats={handleRefresh}
+            sharedIdState={sharedIdState}
+            onNotesUpdate={onNotesUpdate}
+            ownSubFriendId={ownSubFriendId}
             onValueChange={(e)=>{
               
               setNotesValue(e)

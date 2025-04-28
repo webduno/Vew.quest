@@ -4,7 +4,7 @@ import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { useBackgroundMusic } from '@/../script/state/context/BackgroundMusicContext';
-import { PartyToolLogin } from '@/dom/bew/PartyToolLogin';
+import { PartyToolLogin } from '@/dom/organ/vew_party/PartyToolLogin';
 import { useRouter } from 'next/navigation';
 import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 
@@ -79,7 +79,7 @@ export default function PartyPage() {
             typedUsername={typedUsername}
             setTypedUsername={setTypedUsername}
             isLoading={isLoading}
-            handleStart={(e) => {
+            handleStart={(e: any) => {
               if (!e) {
                 triggerSnackbar('Please enter a username', 'error');
                 return;

@@ -1,13 +1,12 @@
 'use client';
 import { NavigationHeaderBar } from '@/dom/bew/NavigationHeaderBar';
-import { random10CharString } from '../../../script/utils/platform/random10CharString';
 import { GameState } from '@/app/(tool)/tool/page';
-import { VersionTag } from './VersionTag';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation'
 import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
-import { BewPurpleBtn } from './BewBtns';
+import { VersionTag } from '@/dom/bew/VersionTag';
+import { BewPurpleBtn } from '@/dom/bew/BewBtns';
 
 export interface PartyToolLoginProps {
   gameState: GameState;

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useLSPlayerId, usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
@@ -12,11 +12,11 @@ import { generateRandomTargetRandomized } from '../../../../../script/utils/plat
 import { ToolResultsCard } from '../../../../dom/bew/ToolResultsCard';
 import { useBackgroundMusic } from '../../../../../script/state/context/BackgroundMusicContext';
 import { MenuIconBar } from '@/dom/bew/MenuIconBar';
-import { PartyScreen, WaitingRoom } from '@/dom/bew/PartyScreen';
-import { PartyToolLogin } from '@/dom/bew/PartyToolLogin';
+import { PartyScreen, WaitingRoom } from '@/dom/organ/vew_party/PartyScreen';
+import { PartyToolLogin } from '@/dom/organ/vew_party/PartyToolLogin';
 import { useParams } from 'next/navigation';
 import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
-import { WrappedPartyStatsSummary } from '@/dom/bew/PartyStatsSummary';
+import { WrappedPartyStatsSummary } from '@/dom/organ/vew_party/PartyStatsSummary';
 
 type TargetsData = {
   [key: string]: string;
@@ -281,6 +281,11 @@ const handleRefresh = async ()=>{
 return returnedData;
 }
 
+const ownSubFriendId = useMemo(() => {
+  console.log('room_key', room_key);
+  return room_key?.split('>>>')[0] === LS_playerId ? 'f1:' : 'f2:';
+}, [room_key, LS_playerId]);
+
 
   useEffect(() => {
     if (!sharedIdState[0]) { return }
@@ -293,13 +298,14 @@ return returnedData;
     initializeParty( sharedIdState[0]);
   }, [sharedIdState[0]]);
 
+  
   const fetchPartyData = async (byId: string) => {
     try {
       if (!byId) {
         console.error('No party ID available');
         return;
       }
-      const response = await fetch(`/api/party/get?id=${byId}`);
+      const response: {ok: boolean, json: () => Promise<any>} = await api_partyGet(byId);
       if (!response.ok) {
         console.error('Failed to fetch party data');
         return;
@@ -498,6 +504,20 @@ return returnedData;
               
                 {!reloadingParty && (<>
                   <PartyScreen friendid={friendId}
+ownSubFriendId={ownSubFriendId}
+onNotesUpdate={(newNotes) => {
+  let liveData = fullPartyData?.live_data;
+  if (typeof liveData === 'string') {
+    try { liveData = JSON.parse(liveData); } catch { liveData = {}; }
+  }
+  handleUpdate({
+    ...liveData,
+    notes: newNotes
+  });
+}}
+
+
+                  room_key={room_key || ''}
                 selectedInputType={selectedInputType}
                 setSelectedInputType={setSelectedInputType}
                 sharedIdState={sharedIdState}
@@ -507,6 +527,7 @@ return returnedData;
                 onFullSend={handleUpdate}
                 handleRefresh={handleRefresh}
                 handleNewTarget={handleNewTarget}
+                refetchStats={refetchStats}
                 />
                 </>)}
 
@@ -539,9 +560,10 @@ return returnedData;
               {!isMobile() && crvObjects.length > 0 && (<>
                 <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
                   <WrappedPartyStatsSummary 
+                    sharedIdState={sharedIdState}
                     fullPartyData={fullPartyData}
                     refetchStats={handleRefresh}
-                    roomkey={room_key || undefined}
+                    room_key={room_key || ''}
                     notes={(() => {
                       let liveData = fullPartyData?.live_data;
                       if (typeof liveData === 'string') {
@@ -678,3 +700,11 @@ return returnedData;
 
 
 
+export const api_partyGet = async (byId: string): Promise<{ok: boolean, json: () => Promise<any>}> => {
+  const response = await fetch(`/api/party/get?id=${byId}`);
+  if (!response.ok) {
+    console.error('Failed to fetch party data');
+    return {ok: false, json: () => Promise.resolve({})};
+  }
+  return response;
+}

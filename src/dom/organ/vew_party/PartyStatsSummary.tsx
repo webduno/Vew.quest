@@ -2,17 +2,20 @@
 import { Tooltip } from 'react-tooltip';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { useState, useEffect, useMemo, useRef } from 'react';
-import { IconStatsBar } from './IconStatsBar';
+import { IconStatsBar } from '../../bew/IconStatsBar';
+import { ChatBox } from '../../bew/ChatBox';
 
 
 export const WrappedPartyStatsSummary = ({  
   fullPartyData,
-  roomkey, refetchStats, minified = false, notes = '', onNotesUpdate, playerId }: { fullPartyData: any, roomkey?: string, refetchStats: () => void, minified?: boolean, notes?: string, onNotesUpdate?: (newNotes: string) => void, playerId?: string | null }) => {
+  room_key, refetchStats, minified = false, notes = '', onNotesUpdate, playerId, sharedIdState
+}: { 
+  fullPartyData: any, room_key?: string, refetchStats: () => void, minified?: boolean, notes?: string, onNotesUpdate?: (newNotes: string) => void, playerId?: string | null, sharedIdState?: [string | null, (id: string | null) => void] }) => {
   const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
   return <PartyStatsSummary 
   fullPartyData={fullPartyData}
   refetchStats={refetchStats}
-  roomkey={roomkey} 
+  room_key={room_key} 
   minified={minified}
   crvObjects_length={crvObjects.length}
   calculatedStats={{
@@ -23,6 +26,7 @@ export const WrappedPartyStatsSummary = ({
   notes={notes}
   onNotesUpdate={onNotesUpdate}
   playerId={playerId}
+  sharedIdState={sharedIdState}
   />
 }
 export const PartyStatsSummary = ({
@@ -34,17 +38,19 @@ export const PartyStatsSummary = ({
   notes = '',
   onNotesUpdate = undefined,
   playerId = undefined,
-  roomkey = undefined
+  room_key = undefined,
+  sharedIdState = undefined
 }: {
   fullPartyData: any;
   refetchStats: () => void;
-  roomkey?: string;
+  room_key?: string;
   minified?: boolean;
   calculatedStats?: any;
   crvObjects_length?: number;
   notes?: string;
   onNotesUpdate?: (newNotes: string) => void;
   playerId?: string | null;
+  sharedIdState?: [string | null, (id: string | null) => void];
 }) => {
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const [message, setMessage] = useState('');
@@ -60,9 +66,9 @@ export const PartyStatsSummary = ({
   })
   const chatLinesRef = useRef<HTMLDivElement>(null);
   const ownSubFriendId = useMemo(() => {
-    console.log('roomkey', roomkey);
-    return roomkey?.split('>>>')[0] === playerId ? 'f1:' : 'f2:';
-  }, [roomkey, playerId]);
+    console.log('room_key', room_key);
+    return room_key?.split('>>>')[0] === playerId ? 'f1:' : 'f2:';
+  }, [room_key, playerId]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -163,88 +169,22 @@ export const PartyStatsSummary = ({
         </div>
       </div>
 
+      <ChatBox
+        room_key={room_key || ''}
+        sharedIdState={sharedIdState || [null, () => {}]}
+        chatLinesRef={chatLinesRef}
+        chatLines={chatLines}
+        ownSubFriendId={ownSubFriendId}
+        playerId={playerId}
+        onNotesUpdate={onNotesUpdate}
+        refetchStats={() => Promise.resolve(refetchStats())}
+        message={message}
+        setMessage={setMessage}
+        isSending={isSending}
+        setIsSending={setIsSending}
+        notes={notes}
+      />
 
-      <div className='' 
-      style={{
-        borderRadius: "10px",
-        border: "1px solid #E5E5E5",
-      }}
-      >
-        <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
-          <div className='tx-bold px-4' 
-          style={{
-            color: "#4B4B4B",
-          }}
-          >Chat {ownSubFriendId}</div>
-          <a 
-          className='tx-bold px-4 pointer nodeco' 
-          onClick={() => {
-            alert("Coming soon!");
-          }}            
-          // href="/dashboard#resources"
-          href="#"
-
-          style={{
-            color: "#22AEFF",
-          }}
-          >View All</a>
-        </div>
-        <div
-        ref={chatLinesRef}
-         className='flex-col pa-2 gap-2' style={{maxHeight: 180, overflowY: 'auto'}}>
-          {chatLines.length === 0 && (
-            <div className='tx-sm opaci-50'>No messages yet.</div>
-          )}
-          {chatLines.map((line, idx) => (
-            <div key={idx} className={`pa-2 bord-r-10 my-1 ${playerId && line.startsWith('f1:') ? 'bg-blue-10' : 'bg-gray-10'}`}
-              style={{
-                background: line.startsWith('f1:') ? '#E5F0FF' : '#F5F5F5',
-                color: '#333',
-                alignSelf: line.startsWith('f1:') ? 'flex-end' : 'flex-start',
-                maxWidth: '90%',
-                wordBreak: 'break-word',
-              }}
-            >
-              {line.replace(/^f\d+:/, '').trim()}
-            </div>
-          ))}
-        </div>
-        {onNotesUpdate && (
-        <form className='flex-row flex-justify-start gap-2 pa-2 pt-3' onSubmit={async (e) => {
-          e.preventDefault();
-          if (!message.trim()) return;
-          // fetch previous messages
-          const returnedData = await refetchStats();
-          await new Promise(resolve => setTimeout(resolve, 2000));
-          console.log('returnedData', returnedData);
-          const fullPartyData_live_data: any = JSON.parse(returnedData?.live_data)
-          const uptodatenotes = fullPartyData_live_data?.notes || '';
-          console.log('fullPartyData_live_data', fullPartyData_live_data);
-          setIsSending(true);
-          const newMessage = `${ownSubFriendId} ${message.trim()}`;
-          const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
-          onNotesUpdate?.(newNotes);
-          setMessage('');
-          setTimeout(() => setIsSending(false), 300);
-          
-        }}>
-          <input
-            type="text"
-            placeholder="Add a message"
-            className='w-100 pa-2 bord-r-10 w-150px tx-center'
-            style={{ border: "1px solid #E5E5E5" }}
-            value={message}
-            onChange={e => setMessage(e.target.value)}
-            disabled={isSending}
-          />
-          <button type="submit" className=' flex-col pointer' disabled={isSending || !message.trim()} style={{background: 'none', border: 'none'}}>
-            <div className='tx-l gx'>Send</div>
-          </button>
-        </form>
-        )}
-      </div>
-
-      
       <a 
       href="/dashboard"
       className='bord-r-10 pa-4 pl-2 opaci-chov--75 nodeco' 
@@ -274,4 +214,5 @@ export const PartyStatsSummary = ({
     </div>
   </>);
 };
+
 
