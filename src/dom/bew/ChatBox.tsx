@@ -33,23 +33,23 @@ export const ChatBox = ({
         style={{
           color: "#4B4B4B",
         }}
-      >{room_key}</div>
+      >{ownSubFriendId.replace(':', '')} <span className='tx-sm opaci-50'>(you)</span></div>
       <a
         className='tx-bold px-4 pointer nodeco'
         onClick={() => {
-          alert("Coming soon!");
+          fetchPartyData(sharedIdState[0] || '');
         }}
         href="#"
         style={{
           color: "#22AEFF",
         }}
-      >View All</a>
+      >Refresh</a>
     </div>
     <div
       ref={chatLinesRef}
       className='flex-col pa-2 gap-2' style={{ maxHeight: 180, overflowY: 'auto' }}>
       {chatLines.length === 0 && (
-        <div className='tx-sm opaci-50'>No messages yet.</div>
+        <div className='tx-sm opaci-50 py-8'>No messages yet.</div>
       )}
       {chatLines.map((line, idx) => (
         <div key={idx} className={`pa-2 bord-r-10 my-1 ${line.startsWith(ownSubFriendId) ? 'bg-blue-10' : 'bg-gray-10'}`}

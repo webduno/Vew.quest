@@ -320,36 +320,7 @@ export const PartyScreen = ({
       </div>
     )}
 
-    {!!selectedInputType && (
-      <>
-      
-
-        <div className='px-4 flex-row  gap-4'>
-          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
-            onClick={() => {
-              handleRefresh();
-              setRefreshCounter(prev => prev + 1);
-              playSoundEffect("/sfx/short/passbip.mp3");
-            }}
-            style={{ 
-              boxShadow: "0 4px 0 #6BCF69",
-              background: "#80DB7D"
-             }}
-          >
-            <div>Syncronize</div>
-          </div>
-          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
-            onClick={handleSend}
-            style={{ 
-              boxShadow: "0 4px 0 #6B69CF",
-              background: "#807DDB"
-             }}
-          >
-            <div>Send Changes</div>
-          </div>
-        </div>
-      </>
-    )}
+    
 
     {!selectedInputType && (
       <div className='flex-wrap flex-justify-center gap-4 w-100 pt-8'>
@@ -419,9 +390,88 @@ export const PartyScreen = ({
 
 
   <div className='flex-row flex-justify-center flex-align-stretch tx-altfont-2  gap-2'>
+
+
+
+
+
+
+      
+
+
+
+
+      <details className='w-80  flex-col pos-rel'>
+<summary className='flex-row gap-2  w-80 py-4 pointer w-100'>
+
+
+
+
+      <div className='flex-1 w-100'
+        style={{
+          height: "2px",
+          background: "#E5E5E5",
+        }}
+      />
+      {(
+        <div 
+        className='tx-bol d'
+        style={{ color: "#AFAFAF" }}>
+          {/* down caret emoji */}
+          ▲ Party Options</div>
+      )}
+      <div className='flex-1'
+        style={{
+          height: "2px",
+          background: "#E5E5E5",
+        }}
+      />
+    </summary>
+
+
+
+  <div className='flex-row flex-justify-center pa-2 bord-r-10 tx-altfont-2 left-50p    top-0 bg-white gap-2 pos-abs z-1000'
+  style={{
+    border: "1px solid #E5E5E5",
+    transform: "translate(-50%, -100%)",
+  }}
+  >
+    {!!selectedInputType && (
+      <>
+      
+
+        <div className='px flex-row  gap-2'>
+          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
+            onClick={() => {
+              handleRefresh();
+              setRefreshCounter(prev => prev + 1);
+              playSoundEffect("/sfx/short/passbip.mp3");
+            }}
+            style={{ 
+              boxShadow: "0 4px 0 #6BCF69",
+              background: "#80DB7D"
+             }}
+          >
+            <div>Syncronize</div>
+          </div>
+          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
+            onClick={handleSend}
+            style={{ 
+              boxShadow: "0 4px 0 #6B69CF",
+              background: "#807DDB"
+             }}
+          >
+            <div>Update</div>
+          </div>
+        </div>
+      </>
+    )}
+
+
+
       <a 
       href="/tool"
-      className='tx- lg pa-1 px-2  bord-r-15 opaci-chov--50 flex-row nodeco'
+      className='tx- mt-1 lg pa-1 px-2  bord-r-15 opaci-chov--50 flex-row nodeco'
       style={{
         border: "2px solid #ccaaaa",
       }}
@@ -430,15 +480,21 @@ export const PartyScreen = ({
         handleSendNewTarget();
       }}
       >
-        <div className='tx-bold-5 tx-center pa-1'
+        <div className='tx-bold-5 tx-center pa-1 pb-1'
            style={{ color: "#ff4b4b", borderRight: "2px solid #aa7b7b" }}
         >
           ❌
         </div>
-          <div className='tx-bold-5 tx-center pa-1' style={{ color: "#ff4b4b" }}>
+          <div className='tx-bold-5 nowrap tx-center pa-1' style={{ color: "#ff4b4b" }}>
           End Party
         </div>
       </a>
+    </div>
+
+    </details> 
+
+
+
     </div>
 
     </div> </>

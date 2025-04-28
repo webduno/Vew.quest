@@ -456,7 +456,7 @@ const ownSubFriendId = useMemo(() => {
                 {/* <a href="/tool"           style={{color: "#964800"}}     
                 className='opaci-50 nodeco pointer '>← Go to Single Player</a>
                  */}
-                <div className='tx-bold tx-lg pt-1'>Target #{target?.code} (Shared)</div>
+                <div className='tx-bold tx-lg pt-1'>Target #{target?.code}</div>
                 <div className='w-100  flex-row flex-align-end flex-justify-end '>
                 <a href={"/u?friend="+friendId}                style={{color: "#ffffff"}}     
                 className=' px-4  Q_xs_pt-2 nodeco pointer'>
