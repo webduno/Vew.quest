@@ -25,6 +25,7 @@ export const WorldModelTextured = ({
   const $wholeReversed:any = useRef()
   const { triggerSnackbar } = useProfileSnackbar();
   const [previousTargets, setPreviousTargets] = useState<Array<{lat: number, lng: number, targetLat: number, targetLng: number, humanString: string}>>([]);
+  const [previousClicks, setPreviousClicks] = useState<Array<{lat: number, lng: number}>>([]);
   const [helperSphereSize, setHelperSphereSize] = useState(0.3);
 
   const rotSpeed = useRef(0)
@@ -141,8 +142,29 @@ export const WorldModelTextured = ({
       // alert("loadingWin")e
     } : (e)=>{
       clickedHandler(e)
+      // Adjust longitude based on current globe rotation
+      console.log("e.lng", e.lng, 90-$whole.current?.rotation.y)
+      const adjustedLng = e.lng - (90 -($whole.current?.rotation.y*(180/3.14)))
+      // console.log("adjustedLng", ($whole.current?.rotation.y * 180 / Math.PI || 0))
+      // console.log("adjustedLng", adjustedLng)
+      setPreviousClicks(prev => [...prev, 
+        { lat: e.lat, lng: adjustedLng }
+      ])
       rotSpeed.current += 0.001
     }} />
+    {previousClicks.map((coords, index) => (
+      <group key={`click-${index}`} position={[
+        latLngToCartesian(coords.lat, coords.lng,.72).x,
+        latLngToCartesian(coords.lat, coords.lng,.72).y,
+        latLngToCartesian(coords.lat, coords.lng,.72).z
+      ]}>
+        <Sphere args={[0.02, 3, 3]}>
+          <meshStandardMaterial 
+            color="#ffefaa" 
+          />
+        </Sphere>
+      </group>
+    ))}
     {targetCoords && (
       <group position={[
         latLngToCartesian(targetCoords.lat, targetCoords.lng).x,
@@ -167,8 +189,8 @@ export const WorldModelTextured = ({
                 triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
                   {/* <div className="">{"Findings must be blind"}</div> */}
                   {/* <div className="">{"Helper is off"}</div> */}
-                  <div className="">{"Click again"}</div>
-                  <div className="">{"without the Helper"}</div>
+                  <div className="">{"Click the same spot again"}</div>
+                  <div className="">{"to claim the pin"}</div>
                 </div>, "warning")
               }
               // if (true){

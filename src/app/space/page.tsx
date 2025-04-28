@@ -114,10 +114,10 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         setTotalClickCounter(data.data.attempts);
         setWincounter(data.data.win);
         const theSpentObj = typeof data.data.spent === 'string' ? JSON.parse(data.data.spent) : data.data.spent;
-        console.log("theSpentObj", data.data)
-        console.log("theSpentObj", theSpentObj)
+        // console.log("theSpentObj", data.data)
+        // console.log("theSpentObj", theSpentObj)
         setAllBoughtItems(theSpentObj.bought);
-        console.log(data.data.attempts , theSpentObj.spent.chip);
+        // console.log(data.data.attempts , theSpentObj.spent.chip);
         setSpentObj(theSpentObj)
         // setAvailSpend(data.data.attempts - theSpentObj.spent.chip);
       }
@@ -156,9 +156,8 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
             <div className="tx-center flex-col tx-shadow-5">
               {/* clock emoji */}
               <div>🕗 Time is up! </div>
-              <div>Goal not found</div>
-              <div>Target moved!</div>
-            </div>, "error")
+              <div>Target has moved!</div>
+            </div>, "handbook")
           pre_setIsVfxHappening(true)
           // confettiRef.current?.addConfetti({
           //   confettiColors: ['#FD0008', '#ffDB80'],
@@ -464,7 +463,7 @@ const normalClick = (e:number)=>{
           <div className="flex-row px-2 pb-1 tx-md r-1" style={{filter:"saturate(1) brightness(1)"}}>🕗 <div className="pr-1">{timeRemaining}s</div></div>
          </div>
         </div>
-
+{wincounter > 3 && (<>
         <div
         onClick={openShop}
         className="p r-2 tx-center flex-row flex-justify-end tx-mdl tx-shadow-2 pointer tx-bold py-1 gap-1"
@@ -473,6 +472,8 @@ const normalClick = (e:number)=>{
         <div className="pr-1">Shop</div>
         
       </div>
+      </>
+      )}
       </div>
     </div>
   </details>

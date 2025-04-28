@@ -71,7 +71,7 @@ export default function ModelGameStage({
   }, []);
 const {playSoundEffect} = useBackgroundMusic()
   const clickedHandler = (coordsLatLan:any) => {
-    console.log("Clicked coordinates:", coordsLatLan, attempts)
+    // console.log("Clicked coordinates:", coordsLatLan, attempts)
     if (coordsLatLan?.lat && coordsLatLan?.lng){
       setLastClickedCoords(coordsLatLan);
     }
@@ -80,9 +80,9 @@ const {playSoundEffect} = useBackgroundMusic()
       triggerSnackbar(<div className="tx-center flex-col tx-sm tx-shadow-5 "> 
         <div>Scroll in/out to zoom in/out</div>
         <div className="tx-lgx">Drag screen <br /> to rotate</div>
-      </div>, "handbook")
+      </div>, "info")
     }
-    if (attempts == 2) {
+    if (attempts == 1 && winAttempts == 0) {
       triggerSnackbar(<div className="tx-center flex-col"> 
         <div className="flex-row">Click the green <div style={{transform:"rotate(45deg)"}}>🟩</div> </div>
         <div>to hide/show the helper</div>
@@ -131,14 +131,17 @@ const {playSoundEffect} = useBackgroundMusic()
             
             <div>to turn ON/OFF the helper</div>
           </div> */}
-          <div className="flex-col bg-white gap- pb-4 px-8  bord-r-15 py-3 noclick noselect "
+          <div className="flex-col bg-white  px-2  bord-r-15 py-3 noclick noselect "
           style={{color:"#afafaf"}}
           >
             
             {/* <div className="tx-xsm  ">Scroll in/out &amp; Drag to rotate </div> */}
             {/* <div className="tx-sm">Random geo-coords ready!</div> */}
 
-            <div className="tx-lg w-250px tx-center mt-2">🌎 Tap the earth to find the random target's coordinates</div>
+            <div className="tx-lg w-250px tx-center flex-row">
+              <div className="tx-lx">🌎</div>
+              <div className="flex-1">Tap earth to send good vibes</div>
+              </div>
           </div>
           </>)}
           </div>  
@@ -279,12 +282,13 @@ const {playSoundEffect} = useBackgroundMusic()
             </Text>
           )}
             <ComputerModel onClick={()=>{
-              if (winAttempts < 10){
+              if (winAttempts < 3){
                 playSoundEffect("/sfx/short/errorbip.mp3")
                 triggerSnackbar(<div className="tx-center flex-col">
-                  <div className="">{"You need to find 10 a"}</div>
-                  <div className="">{"min of 10 targets to"}</div>
-                  <div className="">{"open the shop"}</div>
+                  <div className="">{"Find 3 Target Pins"}</div>
+                  <div className="">{"to open the shop"}</div>
+                  <hr className="w-100 opaci-20" />
+                  <div className="">{"Check menu for info"}</div>
                 </div>, "error")
                 return
               }
