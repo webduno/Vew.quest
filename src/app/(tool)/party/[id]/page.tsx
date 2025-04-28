@@ -17,7 +17,7 @@ import { PartyToolLogin } from '@/dom/organ/vew_party/PartyToolLogin';
 import { useParams } from 'next/navigation';
 import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 import { WrappedPartyStatsSummary } from '@/dom/organ/vew_party/PartyStatsSummary';
-import { api_partyGet } from '../../../../../script/state/service/vew';
+import { api_partyGet } from '@/../script/state/service/vew';
 
 type TargetsData = {
   [key: string]: string;

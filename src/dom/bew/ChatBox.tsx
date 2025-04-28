@@ -1,6 +1,6 @@
 'use client';
 
-import { api_partyGet } from "@/app/(tool)/party/[id]/page";
+import { api_partyGet } from '@/../script/state/service/vew';
 
 // --- ChatBox component ---
 
