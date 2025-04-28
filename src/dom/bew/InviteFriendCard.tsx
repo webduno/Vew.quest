@@ -1,33 +1,24 @@
 'use client';
 import React from 'react';
+import { Tooltip } from 'react-tooltip';
 
 
 
 
 
 export const InviteFriendCard = () => {
-  return (
+  return (<>
 
 
 
 
-
-    <button className='bord-r-15 py-3 px-4 opaci-chov--75 Q_xs_py-1'
-      onClick={() => {
-
-        const guestid = prompt("Enter friend ID");
-        if (!guestid) {
-          alert("Please enter a friend ID");
-          return;
-        }
-
-
-
-        window.location.href = "/party/" + guestid;
-      }}
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
+<Tooltip id="invite-friend-card-tooltip" />
+    <a className='bord-r-15 py-3 px-4 opaci-chov--75 Q_xs_py-1 border-gg nodeco'
+    data-tooltip-id="invite-friend-card-tooltip"
+    data-tooltip-content="Coordinated Remote Viewing"
+    data-tooltip-place="top"
+    href="/party"
+    // data-tooltip-variant='light'
     >
       <div className='flex-row flex-justify-start gap-2 '>
         <div>
@@ -57,6 +48,6 @@ export const InviteFriendCard = () => {
 
 
       </div>
-    </button>
-  );
+    </a>
+    </>);
 };

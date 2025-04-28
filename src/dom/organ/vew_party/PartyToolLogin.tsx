@@ -16,8 +16,9 @@ export interface PartyToolLoginProps {
   isLoading: boolean;
   handleStart: (friendUsername?: string) => void;
   sanitizePlayerId: (id: string) => string;
+  actionLabel?: string;
 }
-export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
+export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({actionLabel = "PARTY",
   gameState, setGameState, typedUsername, setTypedUsername, isLoading, handleStart, sanitizePlayerId
 }) => {
   const version = process.env.VEW_PUBLIC_VERSION;
@@ -153,7 +154,7 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({
                 boxShadow: isLoading ? "0px 4px 0 0px #999999" : "0px 4px 0 0px #FD7F42",
               }}
             >
-              {isLoading ? "Loading..." : "PARTY"}
+              {isLoading ? "Loading..." : actionLabel}
             </div>
           </div>
           </>)}

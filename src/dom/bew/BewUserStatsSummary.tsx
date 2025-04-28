@@ -69,11 +69,7 @@ export const BewUserStatsSummary = ({
     />
 
     <div className='flex-col flex-align-stretch gap-4'>
-      <div className='bord-r-10 pa-4 pl-2' 
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
-      >
+        <div className='bord-r-10 pa-4 pl-2 border-gg' >
         <div className='flex-row flex-justify-start gap-2'>
           <div>
             <div className='tx-lgx'>✨</div>
@@ -124,11 +120,8 @@ export const BewUserStatsSummary = ({
       </div>
 
       <a target='_blank'
-      href="https://www.reddit.com/r/remoteviewing/comments/1k1y0ge/weekly_practice_objective_r16487/"
-      className='bord-r-10 pa-4 pl-2 opaci-chov--75 nodeco' 
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
+        href="https://www.reddit.com/r/remoteviewing/comments/1k1y0ge/weekly_practice_objective_r16487/"
+        className='bord-r-10 pa-4 pl-2 opaci-chov--75 nodeco border-gg' 
       >
         <div className='flex-row flex-justify-start gap-2'>
           <div>
@@ -150,11 +143,7 @@ export const BewUserStatsSummary = ({
         <div></div>
       </a>
 
-      <div className='bord-r-10' 
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
-      >
+      <div className='bord-r-10 border-gg' >
         <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
           <div className='tx-bold px-4' 
           style={{

@@ -87,7 +87,7 @@ export const PartyNotesInputs = ({
         value={unsavedValue}
         onChange={handleChange}
         style={{
-          border: "1px solid #afafaf",
+          border: "2px solid #eaeaea",
         }}
       />
     </div>

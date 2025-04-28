@@ -458,7 +458,7 @@ const ownSubFriendId = useMemo(() => {
                 
                 <div className='tx-bold tx-lg pt-1'>Shared target #{target?.code}</div>
                 <div className='w-100  flex-row flex-align-end flex-justify-end '>
-                <a href={"/party/"+friendId}                style={{color: "#ffffff"}}     
+                <a href={"/u?friend="+friendId}                style={{color: "#ffffff"}}     
                 className=' px-4  Q_xs_pt-2 nodeco pointer'>
                   <span className='tx-sm pr-1 ' style={{filter: "brightness(10)"}}>🔗</span>
                   Partying with {friendId}

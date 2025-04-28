@@ -429,52 +429,15 @@ export const PartyScreen = ({
         handleSendNewTarget();
       }}
       >
-        {/* plus emoji */}
-        {/* <div className='tx-l tx-center'>➕</div> */}
-        <div className='tx-bold-5 tx-center' style={{ color: "#ff4b4b" }}>
+        <div className='tx-bold-5 tx-center pa-1'
+           style={{ color: "#ff4b4b", borderRight: "2px solid #aa7b7b" }}
+        >
           ❌
-          </div>
-          <div className='tx-bold-5 tx-center' style={{ color: "#ff4b4b" }}>
+        </div>
+          <div className='tx-bold-5 tx-center pa-1' style={{ color: "#ff4b4b" }}>
           End Party
         </div>
       </a>
-      <a 
-      href={"/u?friend=" + friendid}
-      className='tx- lg pa-1 px-3  bord-r-10 opaci-chov--50 flex-wrap nodeco'
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
-      >
-        <div className='tx-bold-5 tx-center' style={{ color: "#4b4b4b" }}>
-          Friend&apos;s <br /> Profile
-        </div>
-      </a>
-      <div 
-      className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
-      style={{
-        border: "1px solid #45af45",
-      }}
-      onClick={(e) => {
-        e.preventDefault();
-        handleSendNewTarget();
-      }}
-      >
-        {/* green checkmark emoji */}
-        {/* <div className='tx-l tx-center'>➕</div> */}
-
-        <div className='tx-bold-5 tx-center' style={{ color: "#2baa2b" }}> 
-          <span role="img" aria-label="check">✅</span>
-          New Target
-        </div> 
-      </div>
-      {/* <a href="/dashboard#resources"
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
-      className='tx- lg pa-2 mt -2 bord-r-10  opaci-chov--50 flex-wrap nodeco'
-      >
-        <div className='tx-bold-5 tx-center' style={{ color: "#4b4b4b" }}>Auto <br /> Refresh</div>
-      </a> */}
     </div>
 
     </div> </>
@@ -537,7 +500,7 @@ useEffect(() => {
 
   <div className='flex-col pa-8 mt-8 bord-r-25'
   style={{
-    border: "1px solid #E5E5E5",
+    border: "2px solid #E5E5E5",
     boxShadow: "0 4px 0 2px #cccccc",
   }}
   >

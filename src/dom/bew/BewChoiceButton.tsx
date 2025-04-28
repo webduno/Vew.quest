@@ -27,7 +27,7 @@ export const BewChoiceButton = ({
       ></div>
       <div className='nowrap z-100 bg-white  bord-r-10 top-0 pos-abs translate-y--75 py-1 px-3 tx-bold'
         style={{
-          border: "1px solid #afafaf",
+          border: "2px solid #eaeaea",
           color: mainColor,
         }}
       >{text}</div>

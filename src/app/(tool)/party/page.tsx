@@ -74,6 +74,7 @@ export default function PartyPage() {
     <div className='w-100 h-100  flex-col flex-justify-start'>
       <div className='w-100  flex-col  '>
           <PartyToolLogin
+            actionLabel="GO TO ROOM"
             gameState={'initial'}
             setGameState={() => {}}
             typedUsername={typedUsername}
@@ -81,7 +82,7 @@ export default function PartyPage() {
             isLoading={isLoading}
             handleStart={(e: any) => {
               if (!e) {
-                triggerSnackbar('Please enter a username', 'error');
+                triggerSnackbar(<div className='tx-center'>Please enter a <br /> friend&apos;s username</div>, 'error');
                 return;
               }
               handlePartyStartSetup(e)
