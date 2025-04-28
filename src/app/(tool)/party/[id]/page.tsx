@@ -17,6 +17,7 @@ import { PartyToolLogin } from '@/dom/organ/vew_party/PartyToolLogin';
 import { useParams } from 'next/navigation';
 import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 import { WrappedPartyStatsSummary } from '@/dom/organ/vew_party/PartyStatsSummary';
+import { api_partyGet } from '../../../../../script/state/service/vew';
 
 type TargetsData = {
   [key: string]: string;
@@ -699,12 +700,3 @@ onNotesUpdate={(newNotes) => {
 } 
 
 
-
-export const api_partyGet = async (byId: string): Promise<{ok: boolean, json: () => Promise<any>}> => {
-  const response = await fetch(`/api/party/get?id=${byId}`);
-  if (!response.ok) {
-    console.error('Failed to fetch party data');
-    return {ok: false, json: () => Promise.resolve({})};
-  }
-  return response;
-}
