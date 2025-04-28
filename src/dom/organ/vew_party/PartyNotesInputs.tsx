@@ -58,9 +58,10 @@ export const PartyNotesInputs = ({
   
   if (isMobile) {
     return (
-      <ChatBox
+      <ChatBox 
         room_key={room_key}
         sharedIdState={sharedIdState}
+        showHeader={false}
         chatLinesRef={chatLinesRef}
         chatLines={unsavedValue ? unsavedValue.split(/\r?\n/).filter(Boolean) : []}
         ownSubFriendId={ownSubFriendId}

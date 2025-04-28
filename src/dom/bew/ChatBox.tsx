@@ -5,11 +5,12 @@ import { api_partyGet } from '@/../script/state/service/vew';
 // --- ChatBox component ---
 
 export const ChatBox = ({
-  room_key,sharedIdState,
+  room_key,sharedIdState, showHeader = true,
   chatLinesRef, chatLines, ownSubFriendId, playerId, onNotesUpdate, fetchPartyData, message, setMessage, isSending, setIsSending, notes
 }: {
   room_key: string;
   sharedIdState: [string | null, (id: string | null) => void];
+  showHeader?: boolean;
   chatLinesRef: React.RefObject<HTMLDivElement>;
   chatLines: string[];
   ownSubFriendId: string;
@@ -28,8 +29,9 @@ export const ChatBox = ({
       border: "1px solid #E5E5E5",
     }}
   >
-    <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
-      <div className='tx-bold px-4'
+    {showHeader && (
+      <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
+        <div className='tx-bold px-4'
         style={{
           color: "#4B4B4B",
         }}
@@ -43,13 +45,14 @@ export const ChatBox = ({
         style={{
           color: "#22AEFF",
         }}
-      >Refresh</a>
-    </div>
+        >Refresh</a>
+      </div>
+    )}
     <div
       ref={chatLinesRef}
       className='flex-col pa-2 gap-2' style={{ maxHeight: 180, overflowY: 'auto' }}>
       {chatLines.length === 0 && (
-        <div className='tx-sm opaci-50 py-8'>No messages yet.</div>
+        <div className='tx-sm opaci-50 pt-8 pb-100'>No messages yet.</div>
       )}
       {chatLines.map((line, idx) => (
         <div key={idx} className={`pa-2 bord-r-10 my-1 ${line.startsWith(ownSubFriendId) ? 'bg-blue-10' : 'bg-gray-10'}`}
