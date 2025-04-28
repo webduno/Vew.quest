@@ -31,7 +31,8 @@ export default function RootLayout({
       // gradient like sunset
       // background: 'linear-gradient(-45deg, #ffba6e , #aad0f4 , #6aa0f4 )',
         // height: '100vh',
-        overflow: 'hidden' }}>
+        // overflow: 'hidden'
+         }}>
         {/* <ClientLayout> */}
         <ProfileSnackbarProvider>
           <BackgroundMusicProvider>

@@ -71,7 +71,7 @@ export default function PartyPage() {
   
   
   return (
-    <div className='w-100 h-100  flex-col flex-justify-start'>
+    <div className='w-100   flex-col flex-justify-start'>
       <div className='w-100  flex-col  '>
           <PartyToolLogin
             actionLabel="GO TO ROOM"

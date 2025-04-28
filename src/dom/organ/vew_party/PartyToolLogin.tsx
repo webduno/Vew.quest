@@ -45,9 +45,9 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({actionLabel = "PA
 
 
 
-      <div className='flex-wrap gap-8 px-4 '
+      <div className='flex-wrap gap-8 px-4 pb-100 '
         style={{
-          height: "70vh",
+          minHeight: "70vh",
         }}
       >
         <div className='flex-col '
