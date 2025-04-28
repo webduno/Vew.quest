@@ -2,7 +2,7 @@
 import { Tooltip } from 'react-tooltip';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { useState, useEffect } from 'react';
-import { IconStatsBar } from './IconStatsBar';
+import { IconStatsBar } from '../../bew/IconStatsBar';
 
 
 export const WrappedBewUserStatsSummary = ({ minified = false }: { minified?: boolean }) => {

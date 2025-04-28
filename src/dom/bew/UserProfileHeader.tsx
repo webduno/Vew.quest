@@ -1,6 +1,6 @@
 'use client';
 import { BewLogo } from '@/dom/atom/logo/BewLogo';
-import { BewUserStatsSummary } from '@/dom/bew/BewUserStatsSummary';
+import { BewUserStatsSummary } from '@/dom/organ/vew_tool/BewUserStatsSummary';
 import { isMobile } from '@/script/utils/platform/mobileDetection';
 import { UserStats } from '@/script/utils/calculations';
 import { IconStatsBar } from './IconStatsBar';

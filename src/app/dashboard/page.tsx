@@ -4,7 +4,7 @@ import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
 import targetsData from '@/../public/data/targets_1.json';
-import { WrappedBewUserStatsSummary } from '../../dom/bew/BewUserStatsSummary';
+import { WrappedBewUserStatsSummary } from '../../dom/organ/vew_tool/BewUserStatsSummary';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { LessonsContainer } from '../../dom/bew/LessonsContainer';
 import { PreLessonsContainer } from "@/dom/bew/PreLessonsContainer";

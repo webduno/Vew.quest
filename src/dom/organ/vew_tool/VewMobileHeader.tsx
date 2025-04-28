@@ -1,4 +1,4 @@
-import { WrappedBewUserStatsSummary } from "@/dom/bew/BewUserStatsSummary";
+import { WrappedBewUserStatsSummary } from "@/dom/organ/vew_tool/BewUserStatsSummary";
 import { Tooltip } from "react-tooltip";
 
 export const VewMobileHeader = () => {

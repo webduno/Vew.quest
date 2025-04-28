@@ -5,13 +5,13 @@ import { useLSPlayerId, usePlayerStats } from '@/../script/state/hook/usePlayerS
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
 import targetsData from '@/../public/data/targets_1.json';
 import { Tooltip } from 'react-tooltip';
-import { WrappedBewUserStatsSummary } from '../../../../dom/bew/BewUserStatsSummary';
+import { WrappedBewUserStatsSummary } from '../../../../dom/organ/vew_tool/BewUserStatsSummary';
 import { isMobile } from '../../../../../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { generateRandomTargetRandomized } from '../../../../../script/utils/platform/generateRandomTargetRandomized';
-import { ToolResultsCard } from '../../../../dom/bew/ToolResultsCard';
+import { ToolResultsCard } from '../../../../dom/organ/vew_tool/ToolResultsCard';
 import { useBackgroundMusic } from '../../../../../script/state/context/BackgroundMusicContext';
-import { MenuIconBar } from '@/dom/bew/MenuIconBar';
+import { MenuIconBar } from '@/dom/organ/vew_tool/MenuIconBar';
 import { PartyScreen, WaitingRoom } from '@/dom/organ/vew_party/PartyScreen';
 import { PartyToolLogin } from '@/dom/organ/vew_party/PartyToolLogin';
 import { useParams } from 'next/navigation';

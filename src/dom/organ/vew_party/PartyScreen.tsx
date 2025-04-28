@@ -14,7 +14,7 @@ import { BewChoiceButton } from '../../bew/BewChoiceButton';
 import { MultiOptionInputs } from '../../bew/MultiOptionInputs';
 import { NotesInputs } from '../../bew/NotesInputs';
 import { SketchInputs, SketchInputsRef } from '../../bew/SketchInputs';
-import { BewUserStatsSummary } from '../../bew/BewUserStatsSummary';
+import { BewUserStatsSummary } from '../vew_tool/BewUserStatsSummary';
 import { useBackgroundMusic } from '../../../../script/state/context/BackgroundMusicContext';
 import { InputTabs } from '../../bew/InputTabs';
 import { FriendCard } from '../../bew/FriendCard';

@@ -12,10 +12,10 @@ import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 
 import targetsData from '@/../public/data/targets_1.json';
 import { VewPanelTool } from '@/dom/organ/vew_tool/VewPanelTool';
-import { WrappedBewUserStatsSummary } from '../../../dom/bew/BewUserStatsSummary';
+import { WrappedBewUserStatsSummary } from '../../../dom/organ/vew_tool/BewUserStatsSummary';
 import { VewToolLogin } from '@/dom/organ/vew_tool/VewToolLogin';
-import { ToolResultsCard } from '../../../dom/bew/ToolResultsCard';
-import { MenuIconBar } from '@/dom/bew/MenuIconBar';
+import { ToolResultsCard } from '../../../dom/organ/vew_tool/ToolResultsCard';
+import { MenuIconBar } from '@/dom/organ/vew_tool/MenuIconBar';
 import { VewMobileHeader } from '@/dom/organ/vew_tool/VewMobileHeader';
 import { VewToolTitleNav } from '@/dom/organ/vew_tool/VewToolTitleNav';
 import { VewPreviewImage } from '../../../dom/organ/vew_tool/VewPreviewImage';

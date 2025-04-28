@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useLSPlayerId } from '@/../script/state/hook/usePlayerStats';
 import { random10CharString } from "@/../script/utils/platform/random10CharString";
 
-import { BewUserStatsSummary } from '@/dom/bew/BewUserStatsSummary';
+import { BewUserStatsSummary } from '@/dom/organ/vew_tool/BewUserStatsSummary';
 import { VewLandingProfileActionButton } from '@/dom/organ/vew_landing/VewLandingProfileActionButton';
 import { VewLandingUsernameInput } from '@/dom/organ/vew_landing/VewLandingUsernameInput';
 import { BewPurpleBtn } from '@/dom/bew/BewBtns';
