@@ -12,7 +12,7 @@ export function DailyGoalsSection({ streak, userStats, crvObjects }: DailyGoalsS
     <div className='bord-r-15 pt-4 pb-2 px-4' style={{ border: "2px solid #f0f0f0" }}>
       <div className='tx-bold tx-sm mb-2 tx-ls-3 pb-2'
       style={{
-        borderBottom: "1px solid #f0f0f0",
+        borderBottom: "2px solid #f0f0f0",
       }}
       >🥳 Daily Goals</div>
       <div className='flex-col gap-2 flex-align-start pb-2'>

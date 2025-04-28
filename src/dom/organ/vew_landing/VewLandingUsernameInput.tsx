@@ -13,7 +13,8 @@ export function VewLandingUsernameInput({ typedUsername, setTypedUsername, handl
         className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3 tx-center'
         placeholder='Enter your name'
         style={{
-          border: "1px solid #E5E5E5",
+          border: "2px solid #eaeaea",
+          background: "#f7f7f7",
         }}
         value={typedUsername}
         onChange={(e) => { setTypedUsername(e.target.value) }}

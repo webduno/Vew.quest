@@ -7,7 +7,7 @@ interface MenuIconBarProps {
 export const MenuIconBar = ({  playSoundEffect }: MenuIconBarProps) => {
   return (
     <div id="menu-icon-bar" className='h-100vh Q_sm_x'
-      style={{ borderRight: "2px solid #eaeaea" }}
+      style={{ borderRight: "3px solid #eaeaea" }}
     >
       <a href="/" className='pointer'>
         <img src="/bew/pnglogo.png" alt="tool_bg7" className='px-2 py-4 ' width="50px" />

@@ -9,7 +9,7 @@ export const MenuDropdownDetails = ({ isCurrentPage }: { isCurrentPage: any; }) 
     <details className='flex-col pos-rel ma-4'>
       <summary className='flex-col bg-white bord-r-10 pointer'
         style={{
-          border: "1px solid #AFAFAF",
+          border: "2px solid #eaeaea",
         }}
       >
 

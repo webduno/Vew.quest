@@ -89,7 +89,8 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({actionLabel = "PA
                 className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3 tx-center'
                 placeholder='Enter your name'
                 style={{
-                  border: "1px solid #E5E5E5",
+          background: "#eaeaea",
+          border: "2px solid #dddddd",
                 }}
                 value={typedUsername}
                 onChange={(e) => { setTypedUsername(sanitizePlayerId(e.target.value)); }}
@@ -112,7 +113,8 @@ export const PartyToolLogin: React.FC<PartyToolLoginProps> = ({actionLabel = "PA
                 className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3 tx-center'
                 placeholder='Enter friend username'
                 style={{
-                  border: "1px solid #E5E5E5",
+          background: "#f7f7f7",
+          border: "1px solid #E5E5E5",
                 }}
                 value={friendUsername}
                 onChange={(e) => { setFriendUsername(sanitizePlayerId(e.target.value)); }}

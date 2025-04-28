@@ -18,7 +18,7 @@ export const LessonCard = ({
       }}
       className='pb-6 nodeco opaci-chov--75 tx-altfont-2 tx-bold gap-4  flex-col w-150px  bord-r-25'
       style={{
-        border: "1px solid #E5E5E5",
+        border: "2px solid #E5E5E5",
         color: "#777777",
         ...styleOverride
       }}

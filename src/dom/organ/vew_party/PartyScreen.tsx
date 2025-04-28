@@ -480,11 +480,11 @@ export const PartyScreen = ({
         handleSendNewTarget();
       }}
       >
-        <div className='tx-bold-5 tx-center pa-1 pb-1'
+        {/* <div className='tx-bold-5 tx-center pa-1 pb-1'
            style={{ color: "#ff4b4b", borderRight: "2px solid #aa7b7b" }}
         >
           ❌
-        </div>
+        </div> */}
           <div className='tx-bold-5 nowrap tx-center pa-1' style={{ color: "#ff4b4b" }}>
           End Party
         </div>
