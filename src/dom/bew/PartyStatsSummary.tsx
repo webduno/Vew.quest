@@ -1,13 +1,19 @@
 'use client';
 import { Tooltip } from 'react-tooltip';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { IconStatsBar } from './IconStatsBar';
 
 
-export const WrappedPartyStatsSummary = ({ roomkey, minified = false, notes = '', onNotesUpdate, playerId }: { roomkey?: string, minified?: boolean, notes?: string, onNotesUpdate?: (newNotes: string) => void, playerId?: string | null }) => {
+export const WrappedPartyStatsSummary = ({  
+  fullPartyData,
+  roomkey, refetchStats, minified = false, notes = '', onNotesUpdate, playerId }: { fullPartyData: any, roomkey?: string, refetchStats: () => void, minified?: boolean, notes?: string, onNotesUpdate?: (newNotes: string) => void, playerId?: string | null }) => {
   const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
-  return <PartyStatsSummary roomkey={roomkey} minified={minified}
+  return <PartyStatsSummary 
+  fullPartyData={fullPartyData}
+  refetchStats={refetchStats}
+  roomkey={roomkey} 
+  minified={minified}
   crvObjects_length={crvObjects.length}
   calculatedStats={{
     potentialStreak: potentialStreak,
@@ -20,6 +26,8 @@ export const WrappedPartyStatsSummary = ({ roomkey, minified = false, notes = ''
   />
 }
 export const PartyStatsSummary = ({
+  fullPartyData,
+  refetchStats,
   minified = false,
   calculatedStats,
   crvObjects_length = 0,
@@ -28,6 +36,8 @@ export const PartyStatsSummary = ({
   playerId = undefined,
   roomkey = undefined
 }: {
+  fullPartyData: any;
+  refetchStats: () => void;
   roomkey?: string;
   minified?: boolean;
   calculatedStats?: any;
@@ -48,8 +58,9 @@ export const PartyStatsSummary = ({
     error: null,
     averageResult: 0
   })
-
+  const chatLinesRef = useRef<HTMLDivElement>(null);
   const ownSubFriendId = useMemo(() => {
+    console.log('roomkey', roomkey);
     return roomkey?.split('>>>')[0] === playerId ? 'f1:' : 'f2:';
   }, [roomkey, playerId]);
 
@@ -58,6 +69,14 @@ export const PartyStatsSummary = ({
       setLS_playerId(localStorage.getItem('VB_PLAYER_ID'));
     }
   }, []);
+  useEffect(() => {
+    if (chatLinesRef.current) {
+      chatLinesRef.current?.scrollTo({
+        top: chatLinesRef.current?.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  }, [notes]);
 
   if (isLoading) {
     return <div 
@@ -156,7 +175,7 @@ export const PartyStatsSummary = ({
           style={{
             color: "#4B4B4B",
           }}
-          >Chat</div>
+          >Chat {ownSubFriendId}</div>
           <a 
           className='tx-bold px-4 pointer nodeco' 
           onClick={() => {
@@ -170,7 +189,9 @@ export const PartyStatsSummary = ({
           }}
           >View All</a>
         </div>
-        <div className='flex-col pa-2 gap-2' style={{maxHeight: 180, overflowY: 'auto'}}>
+        <div
+        ref={chatLinesRef}
+         className='flex-col pa-2 gap-2' style={{maxHeight: 180, overflowY: 'auto'}}>
           {chatLines.length === 0 && (
             <div className='tx-sm opaci-50'>No messages yet.</div>
           )}
@@ -189,14 +210,23 @@ export const PartyStatsSummary = ({
           ))}
         </div>
         {onNotesUpdate && (
-        <form className='flex-row flex-justify-start gap-2 pa-2 pt-3' onSubmit={e => {
+        <form className='flex-row flex-justify-start gap-2 pa-2 pt-3' onSubmit={async (e) => {
           e.preventDefault();
           if (!message.trim()) return;
+          // fetch previous messages
+          const returnedData = await refetchStats();
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          console.log('returnedData', returnedData);
+          const fullPartyData_live_data: any = JSON.parse(returnedData?.live_data)
+          const uptodatenotes = fullPartyData_live_data?.notes || '';
+          console.log('fullPartyData_live_data', fullPartyData_live_data);
           setIsSending(true);
-          const newNotes = (notes ? notes + '\n' : '') + `${ownSubFriendId} ${message.trim()}`;
-          onNotesUpdate(newNotes);
+          const newMessage = `${ownSubFriendId} ${message.trim()}`;
+          const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
+          onNotesUpdate?.(newNotes);
           setMessage('');
           setTimeout(() => setIsSending(false), 300);
+          
         }}>
           <input
             type="text"
@@ -215,8 +245,8 @@ export const PartyStatsSummary = ({
       </div>
 
       
-      <a target='_blank'
-      href="https://www.reddit.com/r/remoteviewing/comments/1k1y0ge/weekly_practice_objective_r16487/"
+      <a 
+      href="/dashboard"
       className='bord-r-10 pa-4 pl-2 opaci-chov--75 nodeco' 
       style={{
         border: "1px solid #E5E5E5",
@@ -224,17 +254,17 @@ export const PartyStatsSummary = ({
       >
         <div className='flex-row flex-justify-start gap-2'>
           <div>
-            <div className='tx-lgx'>📅</div>
+            <div className='tx-lgx'>🧮</div>
           </div>
           <div className='flex-col flex-align-start gap-2'>
             <div className='tx-bold'
             style={{
               color: "#4B4B4B",
             }}
-            >Weekly Goal</div>
+            >Open Dashboard</div>
             <div className='tx-sm ' style={{color: "#afafaf"}}>
               <div className='flex-col gap-1'>
-                <div>Reddit&apos;s Practice Object</div>
+                <div>Web Apps &amp; MiniGames</div>
               </div>
             </div>
           </div>

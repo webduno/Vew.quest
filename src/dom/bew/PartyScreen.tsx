@@ -401,12 +401,12 @@ export const PartyScreen = ({
 
 
 
-  <div className='flex-row flex-justify-center tx-altfont-2  gap-2'>
+  <div className='flex-row flex-justify-center flex-align-stretch tx-altfont-2  gap-2'>
       <a 
       href="/tool"
-      className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      className='tx- lg pa-1 px-2  bord-r-15 opaci-chov--50 flex-row nodeco'
       style={{
-        border: "1px solid #ff9595",
+        border: "2px solid #ccaaaa",
       }}
       onClick={(e) => {
         e.preventDefault();
@@ -415,18 +415,23 @@ export const PartyScreen = ({
       >
         {/* plus emoji */}
         {/* <div className='tx-l tx-center'>➕</div> */}
-        <div className='tx-bold-5 tx-center' style={{ color: "#ff4b4b" }}>❌ End Party</div>
+        <div className='tx-bold-5 tx-center' style={{ color: "#ff4b4b" }}>
+          ❌
+          </div>
+          <div className='tx-bold-5 tx-center' style={{ color: "#ff4b4b" }}>
+          End Party
+        </div>
       </a>
       <a 
       href={"/u?friend=" + friendid}
-      className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
+      className='tx- lg pa-1 px-3  bord-r-10 opaci-chov--50 flex-wrap nodeco'
       style={{
         border: "1px solid #E5E5E5",
       }}
       >
-        {/* user emoji */}
-        {/* <div className='tx-l tx-center'>👑</div> */}
-        <div className='tx-bold-5 tx-center' style={{ color: "#4b4b4b" }}>Friend&apos;s <br /> Profile</div>
+        <div className='tx-bold-5 tx-center' style={{ color: "#4b4b4b" }}>
+          Friend&apos;s <br /> Profile
+        </div>
       </a>
       <div 
       className='tx- lg pa-1 px-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
@@ -471,7 +476,17 @@ export const PartyScreen = ({
 
 
 
-export const WaitingRoom = ({friendList, friendListString, sharedIdState}: {friendList: string[], friendListString: string, sharedIdState: [string | null, (id: string | null) => void]}) => {
+export const WaitingRoom = ({
+
+  friendList, friendListString, sharedIdState, room_key, setRoom_key
+}: {
+  friendList: string[],
+  friendListString: string,
+  sharedIdState: [string | null,
+    (id: string | null) => void]
+  room_key: string | null,
+  setRoom_key: (key: string | null) => void
+}) => {
 
 const [sharedId, setSharedId] = sharedIdState;  
 
@@ -483,8 +498,11 @@ useEffect(() => {
       const response = await fetch(`/api/party/findOrCreate?room_key=${friendListString}`);
       const data = await response.json();
       
+        console.log('data', data);
       if (data.id) {
         setSharedId(data.id);
+        console.log('data.room_key', data.room_key);
+        setRoom_key(data.room_key);
       }
     } catch (error) {
       console.error('Error fetching or creating party ID:', error);

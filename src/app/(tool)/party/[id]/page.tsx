@@ -29,6 +29,7 @@ export default function PartyPage() {
   const { isLoading, crvObjects, refetchStats } = useFetchedStats();
   const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
   const { triggerSnackbar } = useProfileSnackbar();
+  const [room_key, setRoom_key] = useState<string | null>(null);
   const { playSoundEffect } = useBackgroundMusic();
   const params = useParams<{ id: string }>()
   useEffect(() => {
@@ -155,7 +156,6 @@ const [reloadingParty, setReloadingParty] = useState(false);
   const [sketchData, setSketchData] = useState<any>(null);
   const [notes, setNotes] = useState<any>(null);
   const sharedIdState = useState<string | null>(null);
-  const roomkey = useState<string | null>(null);
   const friendId = params.id;
   
 
@@ -266,10 +266,9 @@ const handleRefresh = async ()=>{
   setReloadingParty(true);
   // fetchpartydata again
   playSoundEffect("/sfx/short/goodcode.mp3")
-  setTimeout(async ()=>{
   if (!sharedIdState[0]) { return }
-
-  await fetchPartyData(sharedIdState[0]);
+  await new Promise(resolve => setTimeout(resolve, 500));
+  const returnedData = await fetchPartyData(sharedIdState[0]);
   triggerSnackbar(<div className='flex-col gap-2'>
     <div>Refreshed successfully!</div>
     <div>⬇️ Syncronization completed</div>
@@ -278,7 +277,8 @@ const handleRefresh = async ()=>{
   setTimeout(()=>{
     playSoundEffect("/sfx/short/fff.mp3")
   }, 200);
-}, 500);
+  console.log('handleRefresh returnedData', returnedData);
+return returnedData;
 }
 
 
@@ -324,6 +324,8 @@ const handleRefresh = async ()=>{
       }
       
       setFullPartyData(data);
+      console.log('fullPartyData returning', fullPartyData);
+      return data;
     } catch (error) {
       console.error('Error fetching party data:', error);
     }
@@ -407,6 +409,8 @@ const handleRefresh = async ()=>{
         
         friendListString={[LS_playerId, friendId].join(">>>")}
         sharedIdState={sharedIdState}
+        room_key={room_key}
+        setRoom_key={setRoom_key}
         friendList={
           [(LS_playerId || ""), friendId]
         }
@@ -535,7 +539,9 @@ const handleRefresh = async ()=>{
               {!isMobile() && crvObjects.length > 0 && (<>
                 <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
                   <WrappedPartyStatsSummary 
-                    roomkey={[LS_playerId, friendId].join(">>>")}
+                    fullPartyData={fullPartyData}
+                    refetchStats={handleRefresh}
+                    roomkey={room_key || undefined}
                     notes={(() => {
                       let liveData = fullPartyData?.live_data;
                       if (typeof liveData === 'string') {

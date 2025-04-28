@@ -37,7 +37,7 @@ export async function GET(request: Request) {
     // Try to find an existing party with either room key orientation
     const { data: existingParty, error: findError } = await supabase
       .from('vew_party')
-      .select('id, target_code')
+      .select('id, target_code, room_key')
       .or(`room_key.eq.${roomKey},room_key.eq.${reverseRoomKey}`)
       .order('created_at', { ascending: false })
       .limit(1);
@@ -70,7 +70,7 @@ export async function GET(request: Request) {
         }
       }
       return NextResponse.json(
-        { id: party.id },
+        { id: party.id, room_key: existingParty[0].room_key },
         { status: 200 }
       );
     }
@@ -81,7 +81,7 @@ export async function GET(request: Request) {
       .from('vew_party')
       .insert([
         { 
-          room_key: roomKey,
+          room_key: existingParty[0].room_key,
           target_code: randomTargetCode
         }
       ])
@@ -97,7 +97,7 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json(
-      { id: newParty.id },
+      { id: newParty.id, room_key: existingParty[0].room_key },
       { status: 200 }
     );
 
