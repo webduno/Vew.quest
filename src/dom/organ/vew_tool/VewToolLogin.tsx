@@ -79,7 +79,7 @@ export const VewToolLogin: React.FC<InitialToolLoginProps> = ({
                 }} />
             </div>
             <div
-              className='py-2 px-8 tx-center tx-white bord-r-10 tx-lgx opaci-chov--75'
+              className='py-2 px-8 tx-center tx-white bord-r-15 tx-lgx opaci-chov--75'
               onClick={isLoading ? undefined : () => {
                 if (!typedUsername) {
                   const randomId = random10CharString();

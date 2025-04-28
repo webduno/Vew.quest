@@ -198,7 +198,7 @@ export default function ProfilePage() {
 
 {/* <img src="/bew/birds.png" style={{ filter: "blur(0px)" }} alt="tool_bg2" className='hover-bird pos-abs noverflow block w-150px Q_xs_pt-8 pb-100' /> */}
 <div className="pos-rel">
-<button className='pos-abs bottom-0 right-0 mb-8 bg-white bord-r-10 px-2 py-1 tx-bold pointer '
+<button className='pos-abs bottom-0 right-0 mb-8 bg-white bord-r-10 border-gg px-2 py-1 tx-bold pointer '
 onClick={() => {
   // coming soon
   // alert('Coming soon!');
@@ -212,7 +212,6 @@ onClick={() => {
 }}
 style={{
   color: "#aaaaaa",
-  border: "1px solid #f0f0f0",
 }}
 >
   <div className='Q_sm_x'>Change</div>

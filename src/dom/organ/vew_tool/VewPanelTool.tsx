@@ -348,7 +348,7 @@ useEffect(() => {
   >
       <a href="/dashboard#resources border-gg"
       
-      className='tx- lg pa-2 mt -2 bord-r-10  opaci-chov--50 flex-wrap nodeco'
+      className='tx- lg pa-2 mt -2   opaci-chov--50 flex-wrap nodeco'
       >
         {/* books emoji */}
         <div className='tx-lg tx-center'>📚</div>
@@ -356,16 +356,15 @@ useEffect(() => {
       </a>
       <a 
       href="/world"
-      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco border-gg'
+      className='tx- lg pa-2   opaci-chov--50 flex-wrap nodeco '
       
       >
-        {/* target emoji */}
-        <div className='tx-lg tx-center'>🛣️</div>
-        <div className='nowrap tx-bold-5' style={{ color: "#4b4b4b" }}>3D World</div>
+        <div className='tx-lg tx-center'>🌎</div>
+        <div className='nowrap tx-bold-5' style={{ color: "#4b4b4b" }}>Space Quest</div>
       </a>
       <a 
       href="/leaderboard"
-      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco border-gg'
+      className='tx- lg pa-2   opaci-chov--50 flex-wrap nodeco '
       
       >
         {/* user emoji */}

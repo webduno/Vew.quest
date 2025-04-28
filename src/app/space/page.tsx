@@ -389,10 +389,7 @@ const normalClick = (e:number)=>{
 
 
       <details className='flex-col pos-rel '>
-  <summary className='flex-col bg-white bord-r-10 pointer'
-  style={{
-    border: "1px solid #AFAFAF",
-  }}
+  <summary className='flex-col bg-white bord-r-10  pointer'
   >
 
   <button className='flex-col  px-2 py-2 px-4 noclick' style={{ color: "#AFAFAF" }}>

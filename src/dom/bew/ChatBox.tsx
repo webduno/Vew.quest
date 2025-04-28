@@ -23,12 +23,7 @@ export const ChatBox = ({
   setIsSending: (b: boolean) => void;
   notes: string;
 }) => (
-  <div className=''
-    style={{
-      borderRadius: "10px",
-      border: "1px solid #E5E5E5",
-    }}
-  >
+  <div className='border-gg bord-r-15'>
     {showHeader && (
       <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
         <div className='tx-bold px-4'

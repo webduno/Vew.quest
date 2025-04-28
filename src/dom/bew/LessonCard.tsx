@@ -1,6 +1,6 @@
 'use client';
 import { LessonCardProps } from "./LessonsContainer";
-
+import Link from "next/link";
 
 export const LessonCard = ({ 
   actionStyle = {}, 
@@ -8,7 +8,7 @@ export const LessonCard = ({
   title, href, emoji, backgroundColor = "#807DDB", boxShadowColor = "#6B69CF", styleOverride = {}, actionText = "Start"
 }: LessonCardProps) => {
   return (
-    <a
+    <Link prefetch={false}
       href={href}
       onClick={typeof forcedClick === 'function' ? forcedClick : () => {
         if (href === "#") {
@@ -39,6 +39,6 @@ export const LessonCard = ({
         </div>
       </div>
       )}
-    </a>
+    </Link>
   );
 };

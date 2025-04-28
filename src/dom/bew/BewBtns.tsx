@@ -2,7 +2,7 @@
 export const BewBtn = ({text, onClick, ...args}: {text: string, onClick: () => void} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (<>
     <button 
-              className={'py-2 px-8 tx-center tx-bold tx-white bord-r-10 tx-lgx opaci-chov--75' + args.className}
+              className={'py-2 px-8 tx-center tx-bold tx-white bord-r-15 tx-lgx opaci-chov--75' + args.className}
               onClick={onClick}
               style={args.style || {
                 backgroundColor: "#aaaaaa",
