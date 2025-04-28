@@ -25,7 +25,7 @@ export const InputTabs: React.FC<InputTabsProps> = ({ notesLabel = "Notes", sele
           onInputTypeChange('sketch')
         }}
         style={{
-          border: selectedInputType === 'sketch' ? "2px solid #7DDB80" : "2px solid #afafaf",
+          border: selectedInputType === 'sketch' ? "2px solid #7DDB80" : "2px solid #eaeaea",
           color: selectedInputType === 'sketch' ? "#7DDB80" : "#afafaf"
         }}
       >
@@ -37,7 +37,7 @@ export const InputTabs: React.FC<InputTabsProps> = ({ notesLabel = "Notes", sele
           onInputTypeChange('multi-options')
         }}
         style={{
-          border: selectedInputType === 'multi-options' ? "2px solid #FF9600" : "2px solid #afafaf",
+          border: selectedInputType === 'multi-options' ? "2px solid #FF9600" : "2px solid #eaeaea",
           color: selectedInputType === 'multi-options' ? "#FF9600" : "#afafaf"
         }}
       >
@@ -49,7 +49,7 @@ export const InputTabs: React.FC<InputTabsProps> = ({ notesLabel = "Notes", sele
           onInputTypeChange('notes')
         }}
         style={{
-          border: selectedInputType === 'notes' ? "2px solid #DB807D" : "2px solid #afafaf",
+          border: selectedInputType === 'notes' ? "2px solid #DB807D" : "2px solid #eaeaea",
           color: selectedInputType === 'notes' ? "#DB807D" : "#afafaf"
         }}
       >

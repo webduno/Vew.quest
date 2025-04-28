@@ -82,13 +82,10 @@ export const PartyNotesInputs = ({
 
   return (<>
     <div className='flex-col flex-align-stretch tx-altfont-2'>
-      <textarea className='flex-1 bord-r-15 pa-4' 
+      <textarea className='flex-1 bord-r-15 pa-4 border-gg' 
         rows={12}
         value={unsavedValue}
         onChange={handleChange}
-        style={{
-          border: "2px solid #eaeaea",
-        }}
       />
     </div>
   </>);

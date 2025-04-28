@@ -62,11 +62,10 @@ export const VewToolLogin: React.FC<InitialToolLoginProps> = ({
             <div>
               <input
                 type="text"
-                className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3 tx-center'
+                className='bord-r-10 border-gg tx-altfont-2 py-2 mb-2 px-3 tx-center'
                 placeholder='Enter your name'
                 style={{
           background: "#f7f7f7",
-          border: "2px solid #eaeaea",
                 }}
                 value={typedUsername}
                 onChange={(e) => { setTypedUsername(sanitizePlayerId(e.target.value)); }}

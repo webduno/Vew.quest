@@ -25,9 +25,8 @@ export const BewChoiceButton = ({
         boxShadow: `0px 6px 0px 0px ${secondaryColor}`,
       }}
       ></div>
-      <div className='nowrap z-100 bg-white  bord-r-10 top-0 pos-abs translate-y--75 py-1 px-3 tx-bold'
+      <div className='nowrap z-100 bg-white border-gg bord-r-10 top-0 pos-abs translate-y--75 py-1 px-3 tx-bold'
         style={{
-          border: "2px solid #eaeaea",
           color: mainColor,
         }}
       >{text}</div>

@@ -341,16 +341,13 @@ useEffect(() => {
 
 
 
-  <div className='flex-row flex-justify-center pa-2 bord-r-10 tx-altfont-2 left-50p    top-0 bg-white gap-2 pos-abs z-1000'
+  <div className='border-gg flex-row flex-justify-center pa-2 bord-r-10 tx-altfont-2 left-50p    top-0 bg-white gap-2 pos-abs z-1000'
   style={{
-    border: "1px solid #E5E5E5",
     transform: "translate(-50%, -100%)",
   }}
   >
-      <a href="/dashboard#resources"
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
+      <a href="/dashboard#resources border-gg"
+      
       className='tx- lg pa-2 mt -2 bord-r-10  opaci-chov--50 flex-wrap nodeco'
       >
         {/* books emoji */}
@@ -359,10 +356,8 @@ useEffect(() => {
       </a>
       <a 
       href="/world"
-      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
+      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco border-gg'
+      
       >
         {/* target emoji */}
         <div className='tx-lg tx-center'>🛣️</div>
@@ -370,10 +365,8 @@ useEffect(() => {
       </a>
       <a 
       href="/leaderboard"
-      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco'
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
+      className='tx- lg pa-2  bord-r-10 opaci-chov--50 flex-wrap nodeco border-gg'
+      
       >
         {/* user emoji */}
         <div className='tx-lg tx-center'>🏆</div>

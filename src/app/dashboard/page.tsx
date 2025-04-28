@@ -235,9 +235,7 @@ export default function TrainingPage() {
     <div className='w-100 w-max-1080px Q_xs_sm_flex-col flex-row  pt- 8  flex-justify-center flex-align-center gap- 4'>
       <div className='flex-col px-4 gap-4 pos-rel' style={{ alignSelf: "center", }}>
           {LS_playerId && (<>
-          <div className='bord-r-15  pb-2 px-4' style={{
-            border: "1px solid #f0f0f0",
-          }}>
+          <div className='bord-r-15  pb-2 px-4 border-gg' >
             <WrappedBewUserStatsSummary minified={true} />
           </div>
         </>

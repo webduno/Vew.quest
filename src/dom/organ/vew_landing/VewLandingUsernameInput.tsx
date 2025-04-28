@@ -10,10 +10,9 @@ export function VewLandingUsernameInput({ typedUsername, setTypedUsername, handl
     <div>
       <input 
         type="text" 
-        className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3 tx-center'
+        className='bord-r-10 tx-altfont-2 py-2 mb-2 px-3 tx-center border-gg'
         placeholder='Enter your name'
         style={{
-          border: "2px solid #eaeaea",
           background: "#f7f7f7",
         }}
         value={typedUsername}

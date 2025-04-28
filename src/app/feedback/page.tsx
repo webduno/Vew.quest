@@ -98,14 +98,11 @@ export default function AboutPage() {
           </div>
 
           <div className='w-100 flex-col flex-align-stretch'>
-              <textarea className='pt-4 bord-r-15 px-4 py-2 tx-lg  tx-altfont-2'
+              <textarea className='pt-4 bord-r-15 px-4 py-2 tx-lg  tx-altfont-2 border-gg'
               placeholder='Feedback Message'
               value={content}
               onChange={(e) => setContent(e.target.value)}
               rows={10}
-              style={{
-                border: "1px solid #f0f0f0",
-              }}
               />
             </div>
             <div className='tx-center mb-  w-100 flex-col  '
