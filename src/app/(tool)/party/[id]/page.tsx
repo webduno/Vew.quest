@@ -64,7 +64,7 @@ export default function PartyPage() {
     setGameState('waiting');
 
 
-  }, [isLoading, params.id]);
+  }, [isLoading, params.id, LS_playerId]);
   const [ wndwTg, s__wndwTg] = useState<any>(null);
   const [ telegram_id, s__telegram_id] = useState<string | null>(null);
 
