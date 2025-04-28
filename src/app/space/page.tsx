@@ -479,14 +479,14 @@ const normalClick = (e:number)=>{
           
           setLoadingWin(true)
           setWincounter(e)
-          setTimeout(() => {
+          // setTimeout(() => {
             setLoadingWin(false)
             
-    playSoundEffect("/sfx/short/fff.mp3")
-    confettiRef.current?.addConfetti({
-      confettiColors: ['#C67Bc7', '#F9EDf4', '#ff99ff'],
-      confettiNumber: 50,
-    });
+    // playSoundEffect("/sfx/short/fff.mp3")
+    // confettiRef.current?.addConfetti({
+    //   confettiColors: ['#C67Bc7', '#F9EDf4', '#ff99ff'],
+    //   confettiNumber: 50,
+    // });
             // triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
             //   <div>{"New target ready!"}</div>
             // </div>, "purple")
@@ -496,7 +496,7 @@ const normalClick = (e:number)=>{
 
             setShowResultSeshModal(false)
             setLastClickedCoords(null)
-          }, 4000)
+          // }, 4000)
         }}
         loadingWin={loadingWin}
         timeRemaining={timeRemaining}
@@ -571,7 +571,7 @@ const normalClick = (e:number)=>{
                 }}
                 >
                 <Tooltip id={"my-onsale-tooltip-"+ item} >
-                <div className="w-100px">{ITEM_REFERENCE[item].description}</div>
+                <div className="w-150px">{ITEM_REFERENCE[item].description}</div>
                   </Tooltip>
                   <span data-tooltip-id={"my-onsale-tooltip-"+ item} 
                     data-tooltip-place="top">

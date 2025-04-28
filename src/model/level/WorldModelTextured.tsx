@@ -26,7 +26,7 @@ export const WorldModelTextured = ({
   const { triggerSnackbar } = useProfileSnackbar();
   const [previousTargets, setPreviousTargets] = useState<Array<{lat: number, lng: number, targetLat: number, targetLng: number, humanString: string}>>([]);
   const [previousClicks, setPreviousClicks] = useState<Array<{lat: number, lng: number}>>([]);
-  const [helperSphereSize, setHelperSphereSize] = useState(0.2);
+  const [helperSphereSize, setHelperSphereSize] = useState(0.04);
 
   const rotSpeed = useRef(0)
   const isTimeBoosted = useMemo(()=>{
@@ -91,9 +91,10 @@ export const WorldModelTextured = ({
     {/* <Sphere args={[1.1,8,4]}  >
       <meshStandardMaterial wireframe={true} emissive={"#000000"} color={"#000000"} />
     </Sphere> */}
-    {state.inventory.includes("Mystery Pin") && (
+    {state.inventory.includes("Auto Moon Click") && (
       <Sphere args={[0.15,8,4]}  position={[0,0,3.3]}  onClick={(e)=>{
         e.stopPropagation();
+        // auto moon click
         // onGreenClicked()
         // triggerSnackbar(<>
         // <div className="tx-shadow-5">
@@ -170,9 +171,9 @@ export const WorldModelTextured = ({
     ))}
     {targetCoords && (
       <group position={[
-        latLngToCartesian(targetCoords.lat, targetCoords.lng).x,
-        latLngToCartesian(targetCoords.lat, targetCoords.lng).y,
-        latLngToCartesian(targetCoords.lat, targetCoords.lng).z
+        latLngToCartesian(targetCoords.lat, targetCoords.lng, showHelper ? 0.65 : .8).x,
+        latLngToCartesian(targetCoords.lat, targetCoords.lng, showHelper ? 0.65 : .8).y,
+        latLngToCartesian(targetCoords.lat, targetCoords.lng, showHelper ? 0.65 : .8).z
       ]}>
         <Sphere rotation={[Math.PI/2.6,0,0]}
          args={[ showHelper ? 0.1 : helperSphereSize, 8, 8]} 
@@ -224,17 +225,17 @@ export const WorldModelTextured = ({
               }
             ]);
             onTargetFound();
-            setHelperSphereSize(prev => Math.max(0.1, prev - 0.01));
+            // setHelperSphereSize(prev => Math.max(0.1, prev - 0.01));
           }}
         >
           <meshStandardMaterial 
-            color="#00ff00" 
-            emissive="#00ff00" 
-            emissiveIntensity={0.3} 
+            color={ showHelper ? "#00ff00" : "#aaffff" } 
+            // emissive="#00ff00" 
+            // emissiveIntensity={0.3} 
             transparent={true} 
             wireframe={!showHelper ? false : true}
             opacity={ (isVfxHappening || state.loadingWin) ?
-               0 : showHelper ? 0.7 : 0.25} 
+               0 : showHelper ? 0.27 : 0.95} 
           />
         </Sphere>
         {showHelper && (

@@ -94,12 +94,12 @@ export default function SpaceWorldContainer({
     // Set new timer limit when target is found
     setTimerLimit(59); // Reset to 10 seconds when target is found
 
-    setTimeout(() => {
-      triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
-        <div>{"Loading new target..."}</div>
-      </div>, "handbook")
+    // setTimeout(() => {
+    //   triggerSnackbar(<div className="tx-center flex-col tx-shadow-5">
+    //     <div>{"Loading new target..."}</div>
+    //   </div>, "handbook")
 
-    }, 3000);
+    // }, 3000);
   }
 
   const changeSetAttempts = (newAttempts:number) => {

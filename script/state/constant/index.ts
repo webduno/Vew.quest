@@ -23,4 +23,10 @@ export const DEFAULT_SHOP_ITEMS = {
         description: "A sing that points to the correct latitude",
         cost: 35
       },
+      "Auto Moon Click": {
+        emoji: "🌕",
+        name: "Auto Moon Click",
+        description: "A helper that automatically clicks from the moon.",
+        cost: 250
+      }
     }

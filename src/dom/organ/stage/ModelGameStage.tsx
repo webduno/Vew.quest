@@ -169,7 +169,7 @@ const {playSoundEffect} = useBackgroundMusic()
 
           { winAttempts < 3 && (<>
           <div className="flex-col flex-align-start bg-white px-4  bord-r-15 py-2 gap-1">
-          <div className="tx-sm opaci-50">📍 Mission #1</div> <br />
+          <div className="tx-sm opaci-50">📍 Mission #2</div> <br />
           {/* emoji pins  pin*/}
           <div className="">Find the 3  <br />  hidden pins</div>
           <hr className="w-100 opaci-20" />
@@ -180,7 +180,7 @@ const {playSoundEffect} = useBackgroundMusic()
 
 { winAttempts > 3 && inventory.length == 0 && (<>
 <div className="flex-col flex-align-start bg-white px-4  bord-r-15 py-2 gap-1">
-<div className="tx-sm opaci-50">🛒 Mission #2</div> <br />
+<div className="tx-sm opaci-50">🛒 Mission #3</div> <br />
 {/* emoji pins  pin*/}
 <div className="">Open the shop  <br /> 🖥️ &amp; buy items</div>
 </div>
@@ -262,7 +262,7 @@ const {playSoundEffect} = useBackgroundMusic()
         {children}
         <group rotation={[0,0,0]}>
           <group position={[0,0,0]} >
-            {attempts > 1 && (inventory.includes("Mystery Pin") || (!inventory.includes("Mystery Pin") && winAttempts == 0 )) && (<>
+            {(inventory.includes("Mystery Pin")) && (<>
             
           <group position={[0,1.5,0]}  scale={[.5,.3,.5]} onClick={(e:any)=>{
             onGreenClicked(e)
