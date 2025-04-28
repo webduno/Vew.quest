@@ -33,71 +33,10 @@ export default function PartyPage() {
   const [room_key, setRoom_key] = useState<string | null>(null);
   const { playSoundEffect } = useBackgroundMusic();
   const params = useParams<{ id: string }>()
-  useEffect(() => {
-    if (isLoading) { return; }
-    if (initiallyAutoLoaded) { return; }
-    // console.log("222222222211111111111222", );
-    if (!LS_playerId) {
-      // setEnterUsername(true);
-      return;
-    }
-    // console.log("2222222222222", params);
-    // if not friend id
-    if (!params.id) {
-      return
-    }
-    if (params.id === LS_playerId) {
-      return;
-    }
-    // console.log("fffffffffffffffffffff", crvObjects.length);
-    setInitiallyAutoLoaded(true);
-    // if (crvObjects.length === 0) { 
-
-    //   generateNewRound()
-    //   return; 
-    // }
-    // console.log("crvObjects 22", crvObjects);
-    // console.log("initiallyAutoLoaded", initiallyAutoLoaded);
-
-    // handleStart();
-    // console.log("waiting", crvObjects.length);
-    setGameState('waiting');
-
-
-  }, [isLoading, params.id, LS_playerId]);
   const [ wndwTg, s__wndwTg] = useState<any>(null);
   const [ telegram_id, s__telegram_id] = useState<string | null>(null);
-
+  const [selectedInputType, setSelectedInputType] = useState<any>('notes');
 const [reloadingParty, setReloadingParty] = useState(false);
-
-  const handlePartyStart = () => {
-    // console.log("handlePartyStart");
-    if (gameState === 'waiting') { return }
-    setGameState('waiting');
-  }
-
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     console.log("window.Telegram", window.Telegram);
-
-  //   }
-  //     if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-  //     s__wndwTg(window.Telegram.WebApp);
-  //     const thenewid = window.Telegram.WebApp.initDataUnsafe?.user?.id || null;
-  //     console.log("thenewid", thenewid);
-  //     s__telegram_id(thenewid);
-  //     if (thenewid) {
-  //       setPlayerId(thenewid);
-  //       localStorage.setItem('VB_PLAYER_ID', thenewid);
-  //       generateNewRound()
-
-  //     }
-  //   }
-  // }, []);
-
-
-
-  // const { LS_playerId, typedUsername, setTypedUsername, setPlayerId, sanitizePlayerId } = usePlayerStats();
   const [enterUsername, setEnterUsername] = useState(false);
   const [isLoadingMyRequests, setIsLoadingMyRequests] = useState(false);
   const [myRequests, setMyRequests] = useState<null | {
@@ -159,6 +98,70 @@ const [reloadingParty, setReloadingParty] = useState(false);
   const sharedIdState = useState<string | null>(null);
   const friendId = params.id;
   
+
+
+
+
+
+  useEffect(() => {
+    if (isLoading) { return; }
+    if (initiallyAutoLoaded) { return; }
+    // console.log("222222222211111111111222", );
+    if (!LS_playerId) {
+      // setEnterUsername(true);
+      return;
+    }
+    // console.log("2222222222222", params);
+    // if not friend id
+    if (!params.id) {
+      return
+    }
+    if (params.id === LS_playerId) {
+      return;
+    }
+    // console.log("fffffffffffffffffffff", crvObjects.length);
+    setInitiallyAutoLoaded(true);
+    // if (crvObjects.length === 0) { 
+
+    //   generateNewRound()
+    //   return; 
+    // }
+    // console.log("crvObjects 22", crvObjects);
+    // console.log("initiallyAutoLoaded", initiallyAutoLoaded);
+
+    // handleStart();
+    // console.log("waiting", crvObjects.length);
+    setGameState('waiting');
+
+
+  }, [isLoading, params.id, LS_playerId]);
+
+  const handlePartyStart = () => {
+    // console.log("handlePartyStart");
+    if (gameState === 'waiting') { return }
+    setGameState('waiting');
+  }
+
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     console.log("window.Telegram", window.Telegram);
+
+  //   }
+  //     if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+  //     s__wndwTg(window.Telegram.WebApp);
+  //     const thenewid = window.Telegram.WebApp.initDataUnsafe?.user?.id || null;
+  //     console.log("thenewid", thenewid);
+  //     s__telegram_id(thenewid);
+  //     if (thenewid) {
+  //       setPlayerId(thenewid);
+  //       localStorage.setItem('VB_PLAYER_ID', thenewid);
+  //       generateNewRound()
+
+  //     }
+  //   }
+  // }, []);
+
+
 
   async function fetchRandomFromCocoDatabase() {
     // check if user has ability to play audio and cliiked anything or interacted with the page
@@ -340,7 +343,6 @@ const ownSubFriendId = useMemo(() => {
   }
 
 
-  const [selectedInputType, setSelectedInputType] = useState<any>('notes');
 
 
   const handleNewTarget = async (params: any) => {
@@ -395,6 +397,10 @@ const ownSubFriendId = useMemo(() => {
       console.error('Error setting new target:', error);
     }
   };
+
+
+
+
 
   return (
     <div className='w-100 h-100  flex-col flex-justify-start'>
@@ -695,8 +701,22 @@ onNotesUpdate={ async (newMessage) => {
             setShowSketchModal={setShowSketchModal}
             sketchData={sketchData}
             notes={notes}
-            handleTryAgain={()=>{
+            handleTryAgain={async ()=>{
+              
+              // const currentSketchData = sketchData;
+              // const notesValue = notes;
+              // const optionsValue = sentObject
+              // handleNewTarget({
+              //   sketch: currentSketchData,
+              //   notes: notesValue,
+              //   options: {
+              //     ...optionsValue,
+              //     confidence: 100
+              //   }
+              // });
+              await handleRefresh()
               setGameState('playing');
+
             }}
             selectedTargetInfo={selectedTargetInfo}
           />
