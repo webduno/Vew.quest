@@ -8,13 +8,15 @@ import { ChatBox } from '../../bew/ChatBox';
 
 export const WrappedPartyStatsSummary = ({  
   fullPartyData,
-  room_key, refetchStats, minified = false, notes = '', onNotesUpdate, playerId, sharedIdState
+  room_key, fetchPartyData, minified = false, notes = '', onNotesUpdate, playerId, sharedIdState
 }: { 
-  fullPartyData: any, room_key?: string, refetchStats: () => void, minified?: boolean, notes?: string, onNotesUpdate?: (newNotes: string) => void, playerId?: string | null, sharedIdState?: [string | null, (id: string | null) => void] }) => {
+  fullPartyData: any, room_key?: string, fetchPartyData: (id:string) => Promise<any>,
+   minified?: boolean, notes?: string, onNotesUpdate?: (newNotes: string) => void,
+    playerId?: string | null, sharedIdState?: [string | null, (id: string | null) => void] }) => {
   const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
   return <PartyStatsSummary 
   fullPartyData={fullPartyData}
-  refetchStats={refetchStats}
+  fetchPartyData={fetchPartyData}
   room_key={room_key} 
   minified={minified}
   crvObjects_length={crvObjects.length}
@@ -31,7 +33,7 @@ export const WrappedPartyStatsSummary = ({
 }
 export const PartyStatsSummary = ({
   fullPartyData,
-  refetchStats,
+  fetchPartyData,
   minified = false,
   calculatedStats,
   crvObjects_length = 0,
@@ -42,7 +44,7 @@ export const PartyStatsSummary = ({
   sharedIdState = undefined
 }: {
   fullPartyData: any;
-  refetchStats: () => void;
+  fetchPartyData: (id:string) => Promise<any>;
   room_key?: string;
   minified?: boolean;
   calculatedStats?: any;
@@ -176,8 +178,11 @@ export const PartyStatsSummary = ({
         chatLines={chatLines}
         ownSubFriendId={ownSubFriendId}
         playerId={playerId}
-        onNotesUpdate={onNotesUpdate}
-        refetchStats={() => Promise.resolve(refetchStats())}
+        onNotesUpdate={(newMessage)=>{
+          console.log('PartyStatsSummary onNotesUpdate', onNotesUpdate, newMessage);
+          onNotesUpdate && onNotesUpdate(newMessage)
+        }}
+        fetchPartyData={fetchPartyData}
         message={message}
         setMessage={setMessage}
         isSending={isSending}

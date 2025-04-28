@@ -46,7 +46,7 @@ export const PartyScreen = ({
   handleRefresh,
   friendid,
   handleNewTarget,
-  refetchStats,
+  fetchPartyData,
   onNotesUpdate
 }: {
   room_key: string;
@@ -80,7 +80,7 @@ export const PartyScreen = ({
   handleRefresh: () => Promise<any>;
   friendid: string;
   handleNewTarget: any;
-  refetchStats: () => Promise<any>;
+  fetchPartyData: (id:string) => Promise<any>;
   onNotesUpdate: (newNotes: string) => void;
 }) => {
 
@@ -243,7 +243,7 @@ export const PartyScreen = ({
         return (
           <PartyNotesInputs 
             room_key={room_key}
-            refetchStats={handleRefresh}
+            fetchPartyData={fetchPartyData}
             sharedIdState={sharedIdState}
             onNotesUpdate={onNotesUpdate}
             ownSubFriendId={ownSubFriendId}

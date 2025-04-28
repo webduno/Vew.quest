@@ -307,6 +307,7 @@ const ownSubFriendId = useMemo(() => {
         return;
       }
       const response: {ok: boolean, json: () => Promise<any>} = await api_partyGet(byId);
+      console.log('fetchPartyData response', response);
       if (!response.ok) {
         console.error('Failed to fetch party data');
         return;
@@ -506,15 +507,33 @@ const ownSubFriendId = useMemo(() => {
                 {!reloadingParty && (<>
                   <PartyScreen friendid={friendId}
 ownSubFriendId={ownSubFriendId}
-onNotesUpdate={(newNotes) => {
-  let liveData = fullPartyData?.live_data;
-  if (typeof liveData === 'string') {
-    try { liveData = JSON.parse(liveData); } catch { liveData = {}; }
-  }
-  handleUpdate({
-    ...liveData,
-    notes: newNotes
-  });
+onNotesUpdate={ async (newMessage) => {
+  console.log('fetchPartyData onNotesUpdateonNotesUpdate', newMessage);
+
+
+
+  const jsonData = await (await fetchPartyData(sharedIdState[0] || '')).json();
+  const fullPartyData_live_data: any = JSON.parse(jsonData?.live_data);
+  const uptodatenotes = fullPartyData_live_data?.notes || '';
+  const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
+  console.log('newNotes', newNotes);
+
+
+
+
+  // const newestDataRaw = await fetchPartyData(sharedIdState[0] || '');
+  // const newestData = JSON.parse(newestDataRaw?.live_data);
+  // console.log('newestData', newestData);
+  // await new Promise(resolve => setTimeout(resolve, 1000));
+  // let liveData = newestData?.live_data;
+  // if (typeof liveData === 'string') {
+  //   try { liveData = JSON.parse(liveData); } catch { liveData = {}; }
+  // }
+
+  // handleUpdate({
+  //   ...liveData,
+  //   notes: newNotes
+  // });
 }}
 
 
@@ -528,7 +547,7 @@ onNotesUpdate={(newNotes) => {
                 onFullSend={handleUpdate}
                 handleRefresh={handleRefresh}
                 handleNewTarget={handleNewTarget}
-                refetchStats={refetchStats}
+                fetchPartyData={fetchPartyData}
                 />
                 </>)}
 
@@ -563,7 +582,7 @@ onNotesUpdate={(newNotes) => {
                   <WrappedPartyStatsSummary 
                     sharedIdState={sharedIdState}
                     fullPartyData={fullPartyData}
-                    refetchStats={handleRefresh}
+                    fetchPartyData={fetchPartyData}
                     room_key={room_key || ''}
                     notes={(() => {
                       let liveData = fullPartyData?.live_data;
@@ -572,13 +591,21 @@ onNotesUpdate={(newNotes) => {
                       }
                       return liveData?.notes || '';
                     })()}
-                    onNotesUpdate={(newNotes) => {
-                      let liveData = fullPartyData?.live_data;
-                      if (typeof liveData === 'string') {
-                        try { liveData = JSON.parse(liveData); } catch { liveData = {}; }
-                      }
+                    onNotesUpdate={ async (newMessage) => {
+                      
+                      const reqdata = await fetchPartyData(sharedIdState[0] || '')
+  const jsonData = reqdata
+  const fullPartyData_live_data: any = JSON.parse(jsonData?.live_data);
+  const uptodatenotes = fullPartyData_live_data?.notes || '';
+  const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
+  console.log('newNotes', newNotes);
+
+                      // let liveData = fullPartyData?.live_data;
+                      // if (typeof liveData === 'string') {
+                      //   try { liveData = JSON.parse(liveData); } catch { liveData = {}; }
+                      // }
                       handleUpdate({
-                        ...liveData,
+                        ...fullPartyData_live_data,
                         notes: newNotes
                       });
                     }}

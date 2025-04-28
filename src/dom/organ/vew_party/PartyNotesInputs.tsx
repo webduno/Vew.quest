@@ -6,7 +6,7 @@ export const PartyNotesInputs = ({
   onValueChange,
   initialValue = '',
   room_key,
-  refetchStats,
+  fetchPartyData,
   sharedIdState,
   onNotesUpdate,
   ownSubFriendId
@@ -14,20 +14,20 @@ export const PartyNotesInputs = ({
   onValueChange: (value: string) => void;
   initialValue?: string;
   room_key: string;
-  refetchStats: () => Promise<any>;
+  fetchPartyData: (id:string) => Promise<any>;
   sharedIdState: [string | null, (id: string | null) => void];
   onNotesUpdate: (newNotes: string) => void;
   ownSubFriendId: string;
 }) => {
-  const [value, setValue] = useState(initialValue);
+  const [unsavedValue, setUnsavedValue] = useState(initialValue);
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
   const chatLinesRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Update value when initialValue changes
+  // Update unsavedValue when initialValue changes
   useEffect(() => {
-    setValue(initialValue);
+    setUnsavedValue(initialValue);
   }, [initialValue]);
 
   // Check if mobile on mount and on resize
@@ -43,7 +43,7 @@ export const PartyNotesInputs = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value;
-    setValue(newValue);
+    setUnsavedValue(newValue);
     onValueChange(newValue);
   };
 
@@ -54,7 +54,7 @@ export const PartyNotesInputs = ({
         behavior: 'smooth'
       });
     }
-  }, [value]);
+  }, [unsavedValue]);
   
   if (isMobile) {
     return (
@@ -62,20 +62,20 @@ export const PartyNotesInputs = ({
         room_key={room_key}
         sharedIdState={sharedIdState}
         chatLinesRef={chatLinesRef}
-        chatLines={value ? value.split(/\r?\n/).filter(Boolean) : []}
+        chatLines={unsavedValue ? unsavedValue.split(/\r?\n/).filter(Boolean) : []}
         ownSubFriendId={ownSubFriendId}
         playerId={null}
         onNotesUpdate={(newNotes) => {
-          setValue(newNotes);
-          onValueChange(newNotes);
+          setUnsavedValue(newNotes);
+          // onValueChange(newNotes);
           onNotesUpdate(newNotes);
         }}
-        refetchStats={refetchStats}
+        fetchPartyData={fetchPartyData}
         message={message}
         setMessage={setMessage}
         isSending={isSending}
         setIsSending={setIsSending}
-        notes={value}
+        notes={unsavedValue}
       />
     );
   }
@@ -84,7 +84,7 @@ export const PartyNotesInputs = ({
     <div className='flex-col flex-align-stretch tx-altfont-2'>
       <textarea className='flex-1 bord-r-15 pa-4' 
         rows={12}
-        value={value}
+        value={unsavedValue}
         onChange={handleChange}
         style={{
           border: "1px solid #afafaf",
