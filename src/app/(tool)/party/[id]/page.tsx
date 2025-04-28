@@ -458,10 +458,15 @@ const ownSubFriendId = useMemo(() => {
                  */}
                 <div className='tx-bold tx-lg pt-1'>Target #{target?.code}</div>
                 <div className='w-100  flex-row flex-align-end flex-justify-end '>
-                <a href={"/u?friend="+friendId}                style={{color: "#ffffff"}}     
-                className=' px-4  Q_xs_pt-2 nodeco pointer'>
+                <a href={"/party/"+friendId}                style={{color: "#ffffff"}}     
+                className=' pl-4  Q_xs_pt-2 nodeco pointer'>
                   
-                  In party | <span className='tx-sm  ' style={{filter: "brightness(10)"}}>🔗</span> {friendId}
+                  In party | 
+                  </a>
+                  <a href={"/u?friend="+friendId}                style={{color: "#ffffff"}}     
+                className=' pr-4 pl-1 Q_xs_pt-2 nodeco pointer'>
+                  
+                  <span className='tx-sm  ' style={{filter: "brightness(10)"}}>🔗</span> {friendId}
                   </a>
                   </div>
 
