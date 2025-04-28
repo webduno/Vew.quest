@@ -223,6 +223,8 @@ export const PartyScreen = ({
             onValueChange={(e)=>{
               
               setSketchValue(e)
+              // handleSend()
+
             }}
             initialValue={sketchValue} 
           />
