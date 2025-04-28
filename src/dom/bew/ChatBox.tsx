@@ -45,7 +45,7 @@ export const ChatBox = ({
     )}
     <div
       ref={chatLinesRef}
-      className='flex-col pa-2 gap-2' style={{ maxHeight: 180, overflowY: 'auto' }}>
+      className='flex-col pa-2 gap-2' style={{ minHeight: 180, maxHeight: 280, overflowY: 'auto' }}>
       {chatLines.length === 0 && (
         <div className='tx-sm opaci-50 pt-8 pb-100'>No messages yet.</div>
       )}
