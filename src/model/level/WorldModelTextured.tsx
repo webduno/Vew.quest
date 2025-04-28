@@ -144,7 +144,7 @@ export const WorldModelTextured = ({
       clickedHandler(e)
       // Adjust longitude based on current globe rotation
       console.log("e.lng", e.lng, 90-$whole.current?.rotation.y)
-      const adjustedLng = e.lng - (90 -($whole.current?.rotation.y*(180/3.14)))
+      const adjustedLng = e.lng - (90 -($whole.current?.rotation.y*(180/Math.PI)))
       // console.log("adjustedLng", ($whole.current?.rotation.y * 180 / Math.PI || 0))
       // console.log("adjustedLng", adjustedLng)
       setPreviousClicks(prev => [...prev, 
