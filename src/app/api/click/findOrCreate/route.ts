@@ -11,7 +11,6 @@ export async function POST(request: Request) {
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
     const { player_id, isWin, attempts } = await request.json();
-    // console.log("player_id", player_id)
     if (!player_id) {
       return NextResponse.json(
         { error: 'Player ID is required' },
@@ -20,7 +19,6 @@ export async function POST(request: Request) {
     }
 
     // Try to find existing click record
-    console.log("player_id", player_id.toLowerCase())
     const { data: existingClick, error: findError } = await supabase
       .from('vew_click')
       .select('id, attempts, win, player_id, spent')
@@ -28,7 +26,6 @@ export async function POST(request: Request) {
       .limit(1)
       .maybeSingle();
 
-    // console.log("existingClick", existingClick, findError)
 
     if (findError && findError.code !== 'PGRST116') { // PGRST116 is "not found" error
       console.error('Supabase database error:', findError);

@@ -38,7 +38,6 @@ export default function TrainingPage() {
       // setEnterUsername(true);
       return;
     }
-    console.log("crvObjects", crvObjects.length);
     setInitiallyAutoLoaded(true);
     if (crvObjects.length === 0) { 
 

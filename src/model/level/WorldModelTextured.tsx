@@ -104,12 +104,10 @@ export const WorldModelTextured = ({
   useEffect(() => {
     if (!hasAutoMoonClick) return;
     
-    console.log("Starting auto-click interval");
     performAutoClick(); // Click immediately once
     autoClickInterval.current = setInterval(performAutoClick, 5000);
 
     return () => {
-      console.log("Cleaning up auto-click interval");
       if (autoClickInterval.current) {
         clearInterval(autoClickInterval.current);
         autoClickInterval.current = null;
@@ -181,10 +179,7 @@ export const WorldModelTextured = ({
     } : (e)=>{
       clickedHandler(e)
       // Adjust longitude based on current globe rotation
-      console.log("e.lng", e.lng, 90-$whole.current?.rotation.y)
       const adjustedLng = e.lng - (90 -($whole.current?.rotation.y*(180/Math.PI)))
-      // console.log("adjustedLng", ($whole.current?.rotation.y * 180 / Math.PI || 0))
-      // console.log("adjustedLng", adjustedLng)
       setPreviousClicks(prev => [...prev, 
         { lat: e.lat, lng: adjustedLng }
       ])

@@ -7,7 +7,6 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 export async function POST(request: Request) {
-  console.log("viewclick")
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
     const { player_id, win, attempts } = await request.json();

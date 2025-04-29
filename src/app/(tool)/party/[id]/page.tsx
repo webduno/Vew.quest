@@ -281,12 +281,12 @@ const handleRefresh = async ()=>{
   setTimeout(()=>{
     playSoundEffect("/sfx/short/fff.mp3")
   }, 200);
-  console.log('handleRefresh returnedData', returnedData);
+  // console.log('handleRefresh returnedData', returnedData);
 return returnedData;
 }
 
 const ownSubFriendId = useMemo(() => {
-  console.log('room_key', room_key);
+  // console.log('room_key', room_key);
   return room_key?.split('>>>')[0] === LS_playerId ? 'f1:' : 'f2:';
 }, [room_key, LS_playerId]);
 
@@ -310,7 +310,7 @@ const ownSubFriendId = useMemo(() => {
         return;
       }
       const response: {ok: boolean, json: () => Promise<any>} = await api_partyGet(byId);
-      console.log('fetchPartyData response', response);
+      // console.log('fetchPartyData response', response);
       if (!response.ok) {
         console.error('Failed to fetch party data');
         return;
@@ -335,7 +335,7 @@ const ownSubFriendId = useMemo(() => {
       }
       
       setFullPartyData(data);
-      console.log('fullPartyData returning', fullPartyData);
+      // console.log('fullPartyData returning', fullPartyData);
       return data;
     } catch (error) {
       console.error('Error fetching party data:', error);
@@ -346,7 +346,6 @@ const ownSubFriendId = useMemo(() => {
 
 
   const handleNewTarget = async (params: any) => {
-    console.log("handleNewTarget", fullPartyData);
     if (!fullPartyData?.id) return;
     
     try {
@@ -365,7 +364,6 @@ const ownSubFriendId = useMemo(() => {
       }
 
       // Calculate results based on current state
-      console.log("target && sentObject", target, sentObject, params);
       if (target && params?.options) {
         const calculatedResults = {
           type: target.values.type.toLowerCase() === params?.options.type.toLowerCase() ? true : false,
@@ -519,7 +517,7 @@ const ownSubFriendId = useMemo(() => {
                   <PartyScreen friendid={friendId}
 ownSubFriendId={ownSubFriendId}
 onNotesUpdate={ async (newMessage) => {
-  console.log('fetchPartyData onNotesUpdateonNotesUpdate', newMessage);
+  // console.log('fetchPartyData onNotesUpdateonNotesUpdate', newMessage);
 
 
 
@@ -527,14 +525,14 @@ onNotesUpdate={ async (newMessage) => {
   const fullPartyData_live_data: any = JSON.parse(jsonData?.live_data);
   const uptodatenotes = fullPartyData_live_data?.notes || '';
   const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
-  console.log('newNotes', newNotes);
+  // console.log('newNotes', newNotes);
 
 
 
 
   // const newestDataRaw = await fetchPartyData(sharedIdState[0] || '');
   // const newestData = JSON.parse(newestDataRaw?.live_data);
-  // console.log('newestData', newestData);
+  // // console.log('newestData', newestData);
   // await new Promise(resolve => setTimeout(resolve, 1000));
   // let liveData = newestData?.live_data;
   // if (typeof liveData === 'string') {
@@ -609,7 +607,6 @@ onNotesUpdate={ async (newMessage) => {
   const fullPartyData_live_data: any = JSON.parse(jsonData?.live_data);
   const uptodatenotes = fullPartyData_live_data?.notes || '';
   const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
-  console.log('newNotes', newNotes);
 
                       // let liveData = fullPartyData?.live_data;
                       // if (typeof liveData === 'string') {

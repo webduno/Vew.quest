@@ -27,7 +27,6 @@ export const VendingMachine = () => {
     const currentStats = savedStats ? JSON.parse(savedStats) : { color: 0, solid: 0, cash: 0 };
     
     if (currentStats.cash < items[selectedItem].cost) {
-      // console.log('Not enough money');
       playSoundEffect('/sfx/short/errorbip.mp3');
       showSnackbar('Not enough money', 'error', 3000);
       return;

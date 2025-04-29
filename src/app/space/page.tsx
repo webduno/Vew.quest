@@ -114,12 +114,8 @@ const humanDescription = (coords: { lat: number, lng: number } | null)=>{
         setTotalClickCounter(data.data.attempts);
         setWincounter(data.data.win);
         const theSpentObj = typeof data.data.spent === 'string' ? JSON.parse(data.data.spent) : data.data.spent;
-        // console.log("theSpentObj", data.data)
-        // console.log("theSpentObj", theSpentObj)
         setAllBoughtItems(theSpentObj.bought);
-        // console.log(data.data.attempts , theSpentObj.spent.chip);
         setSpentObj(theSpentObj)
-        // setAvailSpend(data.data.attempts - theSpentObj.spent.chip);
       }
     } catch (error) {
       console.error('Error fetching initial clicks:', error);

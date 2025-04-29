@@ -68,7 +68,6 @@ export const PartyStatsSummary = ({
   })
   const chatLinesRef = useRef<HTMLDivElement>(null);
   const ownSubFriendId = useMemo(() => {
-    console.log('room_key', room_key);
     return room_key?.split('>>>')[0] === playerId ? 'f1:' : 'f2:';
   }, [room_key, playerId]);
 
@@ -179,7 +178,6 @@ export const PartyStatsSummary = ({
         ownSubFriendId={ownSubFriendId}
         playerId={playerId}
         onNotesUpdate={(newMessage)=>{
-          console.log('PartyStatsSummary onNotesUpdate', onNotesUpdate, newMessage);
           onNotesUpdate && onNotesUpdate(newMessage)
         }}
         fetchPartyData={fetchPartyData}

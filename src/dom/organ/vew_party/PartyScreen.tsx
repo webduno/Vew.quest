@@ -534,10 +534,8 @@ useEffect(() => {
       const response = await fetch(`/api/party/findOrCreate?room_key=${friendListString}`);
       const data = await response.json();
       
-        console.log('data', data);
       if (data.id) {
         setSharedId(data.id);
-        console.log('data.room_key', data.room_key);
         setRoom_key(data.room_key);
       }
     } catch (error) {

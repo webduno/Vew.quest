@@ -24,7 +24,6 @@ export default function TrainingPage() {
   useEffect(() => {
     if (isLoading) { return; }
     if (crvObjects.length === 0) { return; }
-    // console.log("crvObjects 33", crvObjects);
     handleStart();
   }, [isLoading]);
 

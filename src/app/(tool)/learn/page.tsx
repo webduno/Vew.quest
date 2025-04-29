@@ -35,6 +35,8 @@ export default function TrainingPage() {
   const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
   const { playSoundEffect } = useBackgroundMusic();
   const [typedLessonTitle, setTypedLessonTitle] = useState("");
+  const [isCreatingLesson, setIsCreatingLesson] = useState(false);
+  const [lessonError, setLessonError] = useState<string | null>(null);
   useEffect(() => {
     if (isLoading) { return; }
     if (initiallyAutoLoaded) { return; }
@@ -42,15 +44,12 @@ export default function TrainingPage() {
       // setEnterUsername(true);
       return;
     }
-    console.log("crvObjects", crvObjects.length);
     setInitiallyAutoLoaded(true);
     if (crvObjects.length === 0) { 
 
       generateNewRound()
       return; 
     }
-    // console.log("crvObjects 22", crvObjects);
-    // console.log("initiallyAutoLoaded", initiallyAutoLoaded);
 
     handleStart();
 
@@ -83,37 +82,69 @@ const handleGenerateLesson = async () => {
     return;
   }
 
+  if (!typedLessonTitle.trim()) {
+    setLessonError("Please enter a lesson title");
+    return;
+  }
+
+  setIsCreatingLesson(true);
+  setLessonError(null);
+
   try {
-    const response = await fetch('/api/lesson/findOrCreate', {
+    // First generate the lesson content using AI
+    const generateResponse = await fetch('/api/ai/generate-lesson', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        topic: typedLessonTitle,
+        difficulty: "beginner" // You can make this dynamic based on user input
+      }),
+    });
+
+    if (!generateResponse.ok) {
+      throw new Error('Failed to generate lesson content');
+    }
+
+    const generatedData = await generateResponse.json();
+    if (!generatedData.success) {
+      throw new Error('Failed to generate valid lesson content');
+    }
+
+    // Now save the generated content
+    const saveResponse = await fetch('/api/lesson/findOrCreate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         title: typedLessonTitle,
-        content: JSON.stringify(QUIZ_DATA),
+        content: JSON.stringify(generatedData.data),
         creator_id: LS_playerId,
-        lesson_id: Date.now().toString(), // Using timestamp as a unique ID
+        lesson_id: Date.now().toString(),
         progress: "0"
       }),
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to create lesson');
+    if (!saveResponse.ok) {
+      throw new Error('Failed to save lesson');
     }
 
-    const data = await response.json();
-    console.log("Lesson created:", data);
+    const saveData = await saveResponse.json();
     
     // Update the lesson string state with the quiz data
-    setLessonString(data.data.title);
-    setCoursingData(data.data);
+    setLessonString(saveData.data.title);
+    setCoursingData(saveData.data);
     
     // Play success sound effect if available
     playSoundEffect?.("/sfx/short/sssccc.mp3");
     
   } catch (error) {
     console.error('Error creating lesson:', error);
+    setLessonError(error instanceof Error ? error.message : 'Failed to create lesson');
+  } finally {
+    setIsCreatingLesson(false);
   }
 };
   const generateNewRound = async () => {
@@ -537,11 +568,17 @@ const QuestionView = ({
                       value={typedLessonTitle}
                       onChange={(e) => {
                         setTypedLessonTitle(e.target.value);
+                        setLessonError(null); // Clear error when user types
                       }}
                        />
-                      <BewGreenBtn text="Create Lesson" onClick={() => {
-                        handleGenerateLesson()
-                      }} />
+                      {lessonError && (
+                        <div className="tx-red tx-sm mt-1">{lessonError}</div>
+                      )}
+                      <BewGreenBtn 
+                        text={isCreatingLesson ? "Creating..." : "Create Lesson"} 
+                        onClick={handleGenerateLesson}
+                        disabled={isCreatingLesson}
+                      />
                           <div className='tx-center tx-lg mt-4'>Your Lessons:</div>
                           {isLoadingLessons ? (
                         <div className='tx-center'>Loading lessons...</div>
@@ -594,7 +631,7 @@ const QuestionView = ({
                   </>)}
                     {!!lessonString && (<>
 <div id='main-content-container'
- className=' flex-col gap-4 pt-4 relative w-100 pos-rel'>
+ className=' flex-col gap-4 pt-4 relative w-100 pos-rel pb-100'>
   {coursingData && selectedModule === null ? (
     // Module List View
     JSON.parse(coursingData.content).map((section: any, index: number) => {
@@ -606,7 +643,7 @@ const QuestionView = ({
         <div 
           key={index}
           onClick={() => handleModuleClick(index)}
-          className='border-gg bord-r-25 tx-lg  cursor-pointer px-4 pt-3 pb-4 gap-2 flex-col pointer'
+          className='border-gg bord-r-25 tx-lg w-150px cursor-pointer px-4 pt-3 pb-4 gap-2 flex-col pointer'
           style={{
             transform: `translateX(${xOffset}%)`,
             transition: 'transform 0.3s ease-in-out'

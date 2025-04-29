@@ -103,14 +103,9 @@ export default function SpaceWorldContainer({
   }
 
   const changeSetAttempts = (newAttempts:number) => {
-    // console.log("newAttempts", newAttempts)
     setClickCounter(clickCounter + 1)
     setAttempts(newAttempts)
-    // Only track attempts when the game is ongoing
-    // console.log("gameStageRef.current", gameStageRef.current)
-    // if (gameStageRef.current === "playing") {
-      trackClick(false);
-    // }
+    trackClick(false);
   }
 
 

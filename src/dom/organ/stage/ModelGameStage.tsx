@@ -71,7 +71,6 @@ export default function ModelGameStage({
   }, []);
 const {playSoundEffect} = useBackgroundMusic()
   const clickedHandler = (coordsLatLan:any) => {
-    // console.log("Clicked coordinates:", coordsLatLan, attempts)
     if (coordsLatLan?.lat && coordsLatLan?.lng){
       setLastClickedCoords(coordsLatLan);
     }
@@ -101,16 +100,6 @@ const {playSoundEffect} = useBackgroundMusic()
     setHasClickedOnTarget(true);
   }
   
-  // const old_clickedHandler = (coordsLatLan:any) => {
-  //   console.log("Clicked coordinates:", coordsLatLan)
-  //   console.log("Target coordinates:", randomCoord1LatLan)
-  //   const distance = Math.sqrt(Math.pow(coordsLatLan.lat - randomCoord1LatLan.lat, 2) + Math.pow(coordsLatLan.lng - randomCoord1LatLan.lng, 2))
-  //   console.log("Distance:", distance)
-  //   if (distance < 10) {
-  //     onTargetFound()
-  //     return
-  //   }
-  // }
   useEffect(() => {
     if (gameStageRef.current === "starting") {
       

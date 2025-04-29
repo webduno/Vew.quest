@@ -66,23 +66,8 @@ export const ChatBox = ({
     {onNotesUpdate && (
       <form className='flex-row flex-justify-start gap-2 pa-2 pt-3' onSubmit={async (e) => {
         e.preventDefault();
-        // await fetchPartyData(sharedIdState[0] || '');
-        console.log('000000000fetchPartyData');
-        // return
         if (!message.trim()) return;
-        // fetch previous messages
-        // const returnedData: any = await fetchPartyData();
-        // await fetchPartyData(sharedIdState[0] || '');
-        // await new Promise(resolve => setTimeout(resolve, 2000));
-        // console.log('fetchPartyData2');
-        // const returnedData: any = await api_partyGet(sharedIdState[0] || '');
-        // const jsonData = await returnedData.json();
-        // console.log('returnedData', jsonData);
-        // setIsSending(true);
         const newMessage = `${ownSubFriendId} ${message.trim()}`;
-        // const fullPartyData_live_data: any = JSON.parse(jsonData?.live_data);
-        // const uptodatenotes = fullPartyData_live_data?.notes || '';
-        // const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
         onNotesUpdate?.(newMessage);
         setMessage('');
         setTimeout(() => setIsSending(false), 300);
