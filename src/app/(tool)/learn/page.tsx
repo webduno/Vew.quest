@@ -653,27 +653,24 @@ const handleContinueGeneration = async () => {
 <div id='main-content-container'
  className=' flex-col gap-4 pt-4 relative  w-100 pos-rel pb-100'>
   {coursingData && selectedModule === null ? (<>
-    <div className="flex-col pos-abs top-0  left-0  ml-4">
+    <div className="flex-col pos-abs top-0  left-0  flex-justify-start flex-align-start  ml-4">
       <div className="flex-row gap-2  flex-justify-start flex-align-start z-100 ">
         <button
-          className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer opaci-50"
+          className="tx-md bord-r-15 border-gg pa-2 px-4 bg-white pointer opaci-50"
           onClick={() => setLessonString("")}
         >
-          ← Lessons
+          ← Back
         </button>
-        <button
-          className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer"
-          onClick={handleContinueGeneration}
-          disabled={isGeneratingMore}
-        >
-          {isGeneratingMore ? "Generating..." : "Generate"}
-        </button>
+        
       </div>
       {generationError && (
         <div className="tx-red tx-sm mt-2">{generationError}</div>
       )}
       </div>
-    <div className="flex-col gap-4  w-100 ">
+      <div
+      style={{ color: "#777777"}}
+       className='tx-bold w-250px w-100 tx-center  pt-100' >{coursingData.title.toUpperCase()}</div>
+    <div className="flex-col gap-4 w-100 ">
       <ModuleList 
         coursingData={coursingData}
         handleModuleClick={handleModuleClick}
