@@ -8,8 +8,8 @@ Create a comprehensive lesson array with multiple submodules, each containing qu
 
 Requirements:
 - Generate a MINIMUM of 2 submodules
-- Each submodule should have 5-8 questions
-- Each question should have 3-5 options with one correct answer
+- Each submodule should have 3-6 questions
+- Each question should have 2-5 options with one correct answer
 - Questions should progress from basic to advanced concepts
 - Format must match the example structure exactly
 - Only generate content in English
@@ -128,9 +128,9 @@ export async function POST(request: NextRequest) {
       // console.log('***********************************', );
       // console.log('Parsed content:', parsedContent);
       // console.log('***********************************', );
-      if (!Array.isArray(parsedContent) || parsedContent.length !== 3) {
+      if (!Array.isArray(parsedContent)) {
         return NextResponse.json(
-          { success: false, error: 'Generated content must contain exactly 3 submodules' },
+          { success: false, error: 'Generated content must contain submodules' },
           { status: 400 }
         );
       }
