@@ -37,6 +37,42 @@ export default function TrainingPage() {
   const [typedLessonTitle, setTypedLessonTitle] = useState("");
   const [isCreatingLesson, setIsCreatingLesson] = useState(false);
   const [lessonError, setLessonError] = useState<string | null>(null);
+  const [isGeneratingMore, setIsGeneratingMore] = useState(false);
+  const [generationError, setGenerationError] = useState<string | null>(null);
+
+  const getRandomEmoji = () => {
+    // Common emoji ranges
+    const ranges = [
+      [0x1F300, 0x1F3FF], // Miscellaneous Symbols and Pictographs
+      [0x1F400, 0x1F64F], // Emoticons and additional symbols
+      [0x1F680, 0x1F6FF], // Transport and Map Symbols
+      [0x2600, 0x26FF],   // Miscellaneous Symbols
+      [0x2700, 0x27BF],   // Dingbats
+    ];
+    
+    // Pick a random range
+    const range = ranges[Math.floor(Math.random() * ranges.length)];
+    // Get a random code point within the range
+    const codePoint = range[0] + Math.floor(Math.random() * (range[1] - range[0] + 1));
+    // Convert code point to emoji
+    return String.fromCodePoint(codePoint);
+  };
+  
+  const addRandomEmoji = () => {
+    const randomEmoji = getRandomEmoji();
+    setTypedLessonTitle(prev => {
+      // Check if the first character is an emoji (basic check for surrogate pairs)
+      const firstCharCode = prev.charCodeAt(0);
+      if (firstCharCode && firstCharCode >= 0x1F300) {
+        // Find the length of the first emoji (could be 1-2 code units)
+        const emojiLength = prev.codePointAt(0)! > 0xFFFF ? 2 : 1;
+        return randomEmoji + prev.substring(emojiLength);
+      }
+      return randomEmoji + prev;
+    });
+    playSoundEffect?.("/sfx/short/cling.mp3");
+  };
+
   useEffect(() => {
     if (isLoading) { return; }
     if (initiallyAutoLoaded) { return; }
@@ -517,6 +553,51 @@ const QuestionView = ({
   );
 };
 
+const handleContinueGeneration = async () => {
+  if (!coursingData || !LS_playerId) return;
+  
+  setIsGeneratingMore(true);
+  setGenerationError(null);
+
+  try {
+    const response = await fetch('/api/ai/continue-lesson', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        lesson_id: coursingData.lesson_id,
+        creator_id: LS_playerId
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to generate more content');
+    }
+
+    const data = await response.json();
+    if (!data.success) {
+      throw new Error(data.error || 'Failed to generate valid content');
+    }
+
+    // Update the lesson data with new content
+    setCoursingData({
+      ...coursingData,
+      content: JSON.stringify(data.data)
+    });
+
+    // Refresh the lessons list
+    await fetchLessons();
+    
+    playSoundEffect?.("/sfx/short/sssccc.mp3");
+  } catch (error) {
+    console.error('Error generating more content:', error);
+    setGenerationError(error instanceof Error ? error.message : 'Failed to generate more content');
+  } finally {
+    setIsGeneratingMore(false);
+  }
+};
+
   return (
     <div className='w-100  flex-col flex-justify-start autoverflow-y'>
       
@@ -564,13 +645,24 @@ const QuestionView = ({
                   {!lessonString && (<>
                     <div className='tx-center tx-altfont-2 gap-2  w-100 tx-black flex-col h-100'>
                       <div>{"1)"} Whats the purpose of your lesson?</div>
-                      <input type="text" className='tx-lg pa-2 bord-r-25 border-gg tx-center'
-                      value={typedLessonTitle}
-                      onChange={(e) => {
-                        setTypedLessonTitle(e.target.value);
-                        setLessonError(null); // Clear error when user types
-                      }}
-                       />
+                      <div className="flex-row gap-2 flex-center">
+                        <input type="text" className='tx-lg pa-2 bord-r-25 border-gg tx-center'
+                          value={typedLessonTitle}
+                          onChange={(e) => {
+                            setTypedLessonTitle(e.target.value);
+                            setLessonError(null); // Clear error when user types
+                          }}
+                        />
+                        <button 
+                          onClick={addRandomEmoji}
+                          className="tx-lg pa-2 bord-r-25 border-gg pointer opaci-chov--50"
+                          style={{
+                            background: "#f7f7f7",
+                          }}
+                        >
+                          🎲
+                        </button>
+                      </div>
                       {lessonError && (
                         <div className="tx-red tx-sm mt-1">{lessonError}</div>
                       )}
@@ -587,7 +679,7 @@ const QuestionView = ({
                           {lessonsList.map((lesson) => (
                             <div 
                               key={lesson.lesson_id}
-                              className='border-gg bord-r-25 pa-2 tx-center pointer '
+                              className='border-gg bord-r-25 pa-2 py-4 tx-center pointer '
                               onClick={() => {
                                 setLessonString(lesson.title);
 
@@ -632,29 +724,51 @@ const QuestionView = ({
                     {!!lessonString && (<>
 <div id='main-content-container'
  className=' flex-col gap-4 pt-4 relative w-100 pos-rel pb-100'>
-  {coursingData && selectedModule === null ? (
-    // Module List View
-    JSON.parse(coursingData.content).map((section: any, index: number) => {
-      const itemsInArray = Object.keys(section?.["en"]).length;
-      // calculate x position based on math sin function
-      const steps = Array.from({ length: itemsInArray }, (_, i) => Math.sin(i * 0.1) * 100);
-      const xOffset = steps[index % steps.length];
-      return (
-        <div 
-          key={index}
-          onClick={() => handleModuleClick(index)}
-          className='border-gg bord-r-25 tx-lg w-150px cursor-pointer px-4 pt-3 pb-4 gap-2 flex-col pointer'
-          style={{
-            transform: `translateX(${xOffset}%)`,
-            transition: 'transform 0.3s ease-in-out'
-          }}
+  {coursingData && selectedModule === null ? (<>
+    <div className="flex-col pos-abs top-0  left-0  ml-4">
+      <div className="flex-col gap-2  flex-justify-start flex-align-start z-100 ">
+        <button
+          className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer opaci-50"
+          onClick={() => setLessonString("")}
         >
-          <div className="font-bold tx-center">Module {index + 1}</div>
-          <div className="tx-center opaci-50">{section.en[0].question}</div>
-        </div>
-      );
-    })
-  ) : (
+          ← Lessons
+        </button>
+        <button
+          className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer"
+          onClick={handleContinueGeneration}
+          disabled={isGeneratingMore}
+        >
+          {isGeneratingMore ? "Generating..." : "Generate"}
+        </button>
+      </div>
+      {generationError && (
+        <div className="tx-red tx-sm mt-2">{generationError}</div>
+      )}
+      </div>
+    <div className="flex-col gap-4 pos-abs top-0  left-0 w-100 ml-4">
+    <div className="flex-col gap-4 mt-8">
+        {JSON.parse(coursingData.content).map((section: any, index: number) => {
+          const itemsInArray = Object.keys(section?.["en"]).length;
+          const steps = Array.from({ length: itemsInArray }, (_, i) => Math.sin(i * 0.1) * 100);
+          const xOffset = steps[index % steps.length];
+          return (
+            <div 
+              key={index}
+              onClick={() => handleModuleClick(index)}
+              className='border-gg bord-r-25 tx-lg w-150px cursor-pointer px-4 pt-3 pb-4 gap-2 flex-col pointer'
+              style={{
+                transform: `translateX(${xOffset}%)`,
+                transition: 'transform 0.3s ease-in-out'
+              }}
+            >
+              <div className="font-bold tx-center">Module {index + 1}</div>
+              <div className="tx-center opaci-50">{section.en[0].question}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+    </>) : (
     // Question View
     coursingData && selectedModule !== null && (
       <>
