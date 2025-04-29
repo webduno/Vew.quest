@@ -5,9 +5,10 @@ import { useState, useEffect } from 'react';
 import { IconStatsBar } from '../../bew/IconStatsBar';
 
 
-export const WrappedBewUserStatsSummary = ({ minified = false }: { minified?: boolean }) => {
+export const WrappedBewUserStatsSummary = ({ showResources = true, minified = false }: { showResources?: boolean, minified?: boolean }) => {
   const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
   return <BewUserStatsSummary minified={minified}
+  showResources={showResources} 
   crvObjects_length={crvObjects.length}
   calculatedStats={{
     potentialStreak: potentialStreak,
@@ -18,11 +19,13 @@ export const WrappedBewUserStatsSummary = ({ minified = false }: { minified?: bo
 export const BewUserStatsSummary = ({
   minified = false,
   calculatedStats,
-  crvObjects_length = 0
+  crvObjects_length = 0,  
+  showResources = true
 }: {
   minified?: boolean;
   calculatedStats?: any;
   crvObjects_length?: number;
+  showResources?: boolean;
 }) => {
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const { potentialStreak, streak, dailyProgress, dailyGoal, isLoading, error,  averageResult } = (calculatedStats || {
@@ -143,6 +146,7 @@ export const BewUserStatsSummary = ({
         <div></div>
       </a>
 
+      {showResources && (<> 
       <div className='bord-r-10 border-gg' >
         <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
           <div className='tx-bold px-4' 
@@ -232,6 +236,7 @@ export const BewUserStatsSummary = ({
 
         <div></div>
       </div>
+      </>)}
     </div>
   </>);
 };

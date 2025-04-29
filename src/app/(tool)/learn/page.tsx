@@ -653,7 +653,13 @@ const handleContinueGeneration = async () => {
                             setLessonError(null); // Clear error when user types
                           }}
                         />
-                        <button 
+                        
+                      </div>
+                      {lessonError && (
+                        <div className="tx-red tx-sm mt-1">{lessonError}</div>
+                      )}
+                      <div className="flex-row gap-2 py-8 ">
+                      <button 
                           onClick={addRandomEmoji}
                           className="tx-lg pa-2 bord-r-25 border-gg pointer opaci-chov--50"
                           style={{
@@ -662,20 +668,18 @@ const handleContinueGeneration = async () => {
                         >
                           🎲
                         </button>
-                      </div>
-                      {lessonError && (
-                        <div className="tx-red tx-sm mt-1">{lessonError}</div>
-                      )}
-                      <BewGreenBtn 
+
+                      <BewGreenBtn
                         text={isCreatingLesson ? "Creating..." : "Create Lesson"} 
                         onClick={handleGenerateLesson}
                         disabled={isCreatingLesson}
                       />
-                          <div className='tx-center tx-lg mt-4'>Your Lessons:</div>
+                      </div>
+                      <div className='tx-center tx-lg mt-4'>Your Lessons:</div>
                           {isLoadingLessons ? (
                         <div className='tx-center'>Loading lessons...</div>
                       ) : lessonsList && lessonsList.length > 0 ? (
-                        <div className='flex-wrap gap-2 mt-4 w-100'>
+                        <div className='flex-wrap gap-2 mt-4 w-90 pb-100'>
                           {lessonsList.map((lesson) => (
                             <div 
                               key={lesson.lesson_id}
@@ -803,7 +807,7 @@ const handleContinueGeneration = async () => {
 
               {!isMobile() && crvObjects.length > 0 && (<>
                 <div className='h-100 h-100vh w-250px pr-4 Q_sm_x' id="user-stats-bar">
-                <WrappedBewUserStatsSummary />
+                <WrappedBewUserStatsSummary showResources={false} />
                 </div>
               </>)}
 
