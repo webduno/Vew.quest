@@ -513,6 +513,32 @@ const handleContinueGeneration = async () => {
   }
 };
 
+const areAllQuestionsAnswered = () => {
+  if (!coursingData) return false;
+  
+  try {
+    const progress = JSON.parse(coursingData.progress || '[]');
+    const content = JSON.parse(coursingData.content);
+    
+    // Check each module
+    for (let i = 0; i < content.length; i++) {
+      const moduleContent = content[i].en;
+      const moduleProgress = progress[i]?.en || [];
+      
+      // If any module has fewer answered questions than total questions, return false
+      if (moduleProgress.length !== moduleContent.length || 
+          !moduleProgress.every((q: any) => q?.answered)) {
+        return false;
+      }
+    }
+    
+    return true;
+  } catch (e) {
+    console.error('Error checking question completion:', e);
+    return false;
+  }
+};
+
   return (
     <div className='w-100  flex-col flex-justify-start autoverflow-y '>
       
@@ -714,6 +740,15 @@ const handleContinueGeneration = async () => {
         handleModuleClick={handleModuleClick}
       />
     </div>
+       {areAllQuestionsAnswered() && (
+        <button
+          className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer mt-8"
+          onClick={handleContinueGeneration}
+          disabled={isGeneratingMore}
+        >
+          {isGeneratingMore ? "Generating..." : "Generate More"}
+        </button>
+       )}
     </>) : (
     // Question View
     coursingData && selectedModule !== null && (
