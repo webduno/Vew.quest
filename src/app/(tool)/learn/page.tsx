@@ -643,7 +643,7 @@ const handleContinueGeneration = async () => {
 
                 <div className='flex-1  tx-altfont-2 flex-col flex-justify-start tx-altfont-2'>
                   {!lessonString && (<>
-                    <div className='tx-center tx-altfont-2 gap-2  w-100 tx-black flex-col h-100'>
+                    <div className='tx-center tx-altfont-2 pt-8 gap-2  w-100 tx-black flex-col h-100'>
                       <div>{"1)"} Whats the purpose of your lesson?</div>
                       <div className="flex-row gap-2 flex-center">
                         <input type="text" className='tx-lg pa-2 bord-r-25 border-gg tx-center'
