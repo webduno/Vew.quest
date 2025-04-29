@@ -1,28 +1,21 @@
 'use client';
-import { useState, useCallback, useEffect } from 'react';
-import { Tooltip } from 'react-tooltip';
+import { useState, useEffect } from 'react';
 import JSConfetti from 'js-confetti';
 
-import QUIZ_DATA from '@/../script/state/constant/remote_viewing_quiz_full.json';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useBackgroundMusic } from '@/../script/state/context/BackgroundMusicContext';
 import { generateRandomTargetRandomized } from '@/../script/utils/platform/generateRandomTargetRandomized';
-import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
 import { isMobile } from '@/../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 
 import targetsData from '@/../public/data/targets_1.json';
-import { VewPanelTool } from '@/dom/organ/vew_tool/VewPanelTool';
 import { WrappedBewUserStatsSummary } from '../../../dom/organ/vew_tool/BewUserStatsSummary';
 import { VewToolLogin } from '@/dom/organ/vew_tool/VewToolLogin';
-import { ToolResultsCard } from '../../../dom/organ/vew_tool/ToolResultsCard';
 import { MenuIconBar } from '@/dom/organ/vew_tool/MenuIconBar';
 import { VewMobileHeader } from '@/dom/organ/vew_tool/VewMobileHeader';
-import { VewToolTitleNav } from '@/dom/organ/vew_tool/VewToolTitleNav';
-import { VewPreviewImage } from '../../../dom/organ/vew_tool/VewPreviewImage';
-import { VewAltLogo } from '../../../dom/organ/vew_tool/VewAltLogo';
 import { LearnToolCreateNav, LearnToolTitleNav } from '@/dom/organ/vew_learn/LearnToolTitleNav';
-import { BewGreenBtn, BewPurpleBtn } from '@/dom/bew/BewBtns';
+import { BewGreenBtn } from '@/dom/bew/BewBtns';
+import { QuestionView } from '@/dom/organ/vew_learn/QuestionView';
 
 type TargetsData = {
   [key: string]: string;
@@ -348,101 +341,6 @@ emojiSize:50,
     setSentObject(null);
   };
 
-  const handleSend = useCallback(async (params: {
-    type: string;
-    natural: number;
-    temp: number;
-    light: number;
-    color: number;
-    solid: number;
-    confidence: number;
-  }, noteData: any, drawingData: any) => {
-    if (!target) return;
-    setSentObject(params);
-    const calculatedResults = {
-      type: target.values.type.toLowerCase() === params.type.toLowerCase() ? true : false,
-      natural: calculateAccuracy(target.values.natural, params.natural, true, false),
-      temp: calculateAccuracy(target.values.temp, params.temp, true, false),
-      light: calculateAccuracy(target.values.light, params.light, false, false),
-      color: calculateAccuracy(target.values.color, params.color, false, false),
-      solid: calculateAccuracy(target.values.solid, params.solid, false, false),
-      confidence: calculateAccuracy(target.values.confidence, params.confidence, true, false),
-    };
-    const overallAccuracy = (
-      calculatedResults.natural +
-      calculatedResults.temp +
-      calculatedResults.light +
-      calculatedResults.color +
-      calculatedResults.solid ) / 5;
-
-
-    setOverallAccuracy(overallAccuracy);
-    setResults(calculatedResults);
-    setGameState('results');
-
-    // save to supabase
-    const saveResponse = await fetch('/api/supabase', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        objList: {
-          sent: {
-            ...params,
-          },
-          notes: noteData,
-          sketch: drawingData,
-          target: target?.values,
-          ai_sent_guess: "n/a",
-          target_id: selectedTargetInfo?.id.padStart(12, '0'),
-        },
-        storageKey: LS_playerId
-      })
-    });
-    
-    playSoundEffect("/sfx/short/sssccc.mp3")
-    // Refetch stats after saving new data
-    await refetchStats();
-
-    // image if sketch is not null modal
-    if (sketchData) {
-      setShowSketchModal(true);
-    } else {
-      setShowImageModal(true);
-    }
-  }, [target, LS_playerId, refetchStats]);
-
-
-  const handleFullSend = async (params: {
-    sketch: any;
-    notes: any;
-    options: {type: string;
-    natural: number;
-    temp: number;
-    light: number;
-    color: number;
-    solid: number;
-    confidence: number;}
-  }) => {
-    // playSoundEffect("/sfx/short/sssccc.mp3")
-    setSketchData(params.sketch);
-    setNotes(params.notes);
-    handleSend(params.options, params.notes, params.sketch, );
-    
-  }
-
-  const handleTryAgain = async () => {
-    const newTarget = await fetchRandomFromCocoDatabase();
-    setShowImageModal(false);
-    setShowSketchModal(false);
-    setSketchData(null);
-    setTarget(newTarget);
-    setGameState('playing');
-    setResults(null);
-    setSentObject(null);
-    setTimeout(async () => {
-      playSoundEffect("/sfx/short/cling.mp3")
-  }, 200);
-}
 
 const handleModuleClick = (moduleIndex: number) => {
   setSelectedModule(moduleIndex);
@@ -465,92 +363,6 @@ const handleNextQuestion = () => {
     setIsAnswerCorrect(null);
     playSoundEffect?.("/sfx/short/sssccc.mp3");
   }
-};
-
-interface QuestionViewProps {
-  question: string;
-  options: Array<{
-    text: string;
-    correct: boolean;
-  }>;
-  playSoundEffect?: (sound: string) => void;
-  onNextQuestion: () => void;
-  isLastQuestion: boolean;
-  currentQuestionNumber: number;
-  totalQuestions: number;
-}
-
-const QuestionView = ({ 
-  question, 
-  options, 
-  playSoundEffect, 
-  onNextQuestion, 
-  isLastQuestion,
-  currentQuestionNumber,
-  totalQuestions 
-}: QuestionViewProps) => {
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-  const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
-
-  return (
-    <div className='flex-col gap-4 w-100 pt-8'>
-      <div className="tx-bold opaci-50 tx-ls-1 w-300px mb-4 tx-center">
-        <div className="mb-2 tx-sm opaci-50">Question {currentQuestionNumber}/{totalQuestions}</div>
-        {question}
-      </div>
-      <div 
-        className='border-gg bord-r-25 tx-mdl w-90 py-4'
-        style={{
-          animation: 'fadeIn 0.3s ease-in-out'
-        }}
-      >
-        <div className="flex-col gap-4">
-          <div className="flex-col gap-2">
-            {options.map((option, oIndex) => (
-              <div 
-                key={oIndex} 
-                style={{
-                  background: selectedAnswer === oIndex ? (option.correct ? '#77CC4F' : '#8d8d8d') : 'transparent',
-                  boxShadow: selectedAnswer === oIndex ? (option.correct ? '0 4px 0 #68A82F' : '0 4px 0 #6b6b6b') : 'none',
-                }}
-                className={`pa-1 w-250px ${selectedAnswer === oIndex ? 'tx-white' : 'border-gg'} bord-r-25 tx-center pointer  `}
-                onClick={() => {
-                  setSelectedAnswer(oIndex);
-                  setIsAnswerCorrect(option.correct);
-                  playSoundEffect?.(option.correct ? "/sfx/short/sssccc.mp3" : "/sfx/short/cling.mp3");
-                }}
-              >
-                {option.text}
-              </div>
-            ))}
-          </div>
-          <div className="flex-center ">
-            <button 
-              onClick={onNextQuestion}
-              className={`tx-white font-bold py-2 px-4 bord-r-25`}
-              style={{
-                background: isAnswerCorrect ? '#77CC4F' : '#8d8d8d',
-                boxShadow: isAnswerCorrect ? '0 4px 0 #68A82F' : '0 4px 0 #6b6b6b',
-              }}
-              disabled={!isAnswerCorrect}
-            >
-              {isLastQuestion ? 'Back to Modules' : 'Next Question'}
-            </button>
-          </div>
-          {selectedAnswer !== null && (
-            <div className={`tx-center  ${isAnswerCorrect ? 'tx-green' : 'tx-red'}`}>
-              {isAnswerCorrect ? 'Correct! 🎉' : 'Incorrect, try again! ❌'}
-            </div>
-          )}
-          {selectedAnswer === null && (
-            <div style={{visibility: "hidden"}}>
-              waiting for your answer...
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
 };
 
 const handleContinueGeneration = async () => {
@@ -825,42 +637,6 @@ const handleContinueGeneration = async () => {
           </div>
         )}
 
-        {gameState !== 'results' && showImageModal && (<>
-        <div className='pos-abs flex-col top-0 left-0 w-100 h-100 bg-glass-10  z-200'>
-        <VewPreviewImage selectedTargetInfo={selectedTargetInfo} 
-          setShowImageModal={setShowImageModal} 
-        />
-
-                    </div>
-        </>)}
-
-
-
-        {gameState === 'results' && results && target && (myRequests?.length === 0 || !myRequests) && (<>
-        <div className='flex-col z-1000 w-100 pos-abs top-0 left-0 pt-4'
-        style={{
-          filter: "hue-rotate(160deg) brightness(1.5)",
-        }}
-        >
-      <VewAltLogo />
-          
-
-        </div>
-          <ToolResultsCard
-            target={target}
-            results={results}
-            sentObject={sentObject}
-            overallAccuracy={overallAccuracy}
-            showImageModal={showImageModal}
-            setShowImageModal={setShowImageModal}
-            showSketchModal={showSketchModal}
-            setShowSketchModal={setShowSketchModal}
-            sketchData={sketchData}
-            notes={notes}
-            handleTryAgain={handleTryAgain}
-            selectedTargetInfo={selectedTargetInfo}
-          />
-        </>)}
 
     </div>
     </div>
