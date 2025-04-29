@@ -655,21 +655,59 @@ const handleContinueGeneration = async () => {
   {coursingData && selectedModule === null ? (<>
     <div className="flex-col pos-abs top-0  left-0  flex-justify-start flex-align-start  ml-4">
       <div className="flex-row gap-2  flex-justify-start flex-align-start z-100 ">
-        <button
+        {/* <button
           className="tx-md bord-r-15 border-gg pa-2 px-4 bg-white pointer opaci-50"
           onClick={() => setLessonString("")}
         >
           ← Back
-        </button>
+        </button> */}
         
       </div>
       {generationError && (
         <div className="tx-red tx-sm mt-2">{generationError}</div>
       )}
       </div>
+       <details>
+        <summary className='flex-col pointer border-gg bord-r-15 px-4 pa-2'>
+          <button className='noclick'>View Course Details</button>
+        </summary>
+        <div className="flex-col border-gg bord-r-15 pa-4 gap-2 mt-2">
       <div
       style={{ color: "#777777"}}
-       className='tx-bold w-250px w-100 tx-center  pt-100' >{coursingData.title.toUpperCase()}</div>
+       className='tx-bold w-250px w-100 tx-center  pt- flex-row' >
+        <div className='flex-1 tx-start'>Title:</div>
+        <div>{coursingData.title}</div>
+       </div>
+      <div
+      style={{ color: "#777777"}}
+       className='tx-bold w-250px w-100 tx-center  pt- flex-row' >
+        <div className='flex-1 tx-start'>Lesson ID:</div>
+        <div>{coursingData.lesson_id}</div>
+       </div>
+      <div
+      style={{ color: "#777777"}}
+       className='tx-bold w-250px w-100 tx-center  pt- flex-row' >
+        <div className='flex-1 tx-start'>Course Size:</div>
+        <div>{coursingData.content.length}</div>
+       </div>
+      <div
+      style={{ color: "#777777"}}
+       className='tx-bold w-250px w-100 tx-center  pt- flex-row' >
+        <div className='flex-1 tx-start'>Progress Saved:</div>
+        <div>{coursingData.progress.length}</div>
+       </div>
+      <div
+      style={{ color: "#777777"}}
+       className='tx-bold w-250px w-100 tx-center  pt- flex-row' >
+        <div className='flex-1 tx-start'>Creation Date:</div>
+        <div className='tx-xs'>{coursingData.created_at.split("T")[1]}</div>
+       </div>
+       </div>
+       </details>
+
+
+
+
     <div className="flex-col gap-4 w-100 ">
       <ModuleList 
         coursingData={coursingData}

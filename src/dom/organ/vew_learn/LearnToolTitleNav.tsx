@@ -18,7 +18,7 @@ export const LearnToolTitleNav = ({
                   >
                   <a href="/learn"           style={{color: "#fafafa"}}     
                   className='opaci-50 nodeco pointer'>← Lessons Index</a>
-                  <div className='tx-bold tx-lg'>Lesson: {target}</div>
+                  <div className='tx-bold tx-lg opaci-'>{target.toUpperCase()}</div>
   
   
   
@@ -65,8 +65,8 @@ export const LearnToolCreateNav = ({
                     boxShadow: "0 4px 0 #68A82F",
                   }}
                   >
-                  <a href="/learn"           style={{color: "#fafafa"}}     
-                  className='opaci-50 nodeco pointer'>← Go to Lessons</a>
+                  <a href="/dashboard"           style={{color: "#fafafa"}}     
+                  className='opaci-50 nodeco pointer'>← Go to Dashboard</a>
                   <div className='tx-bold tx-lg'>Create new lesson</div>
   
   
