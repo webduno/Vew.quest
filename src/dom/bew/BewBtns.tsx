@@ -1,4 +1,4 @@
-export const BewBtn = ({text, onClick, disabled, ...args}: {text: string, onClick: () => void, disabled?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+export const BewBtn = ({text, onClick, disabled, ...args}: {text: any, onClick: () => void, disabled?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (<>
     <button 
               className={'py-2 px-8 tx-center tx-bold tx-white bord-r-15 tx-lgx ' + (disabled ? 'opaci-50' : 'opaci-chov--75') + ' ' + args.className}
@@ -14,7 +14,7 @@ export const BewBtn = ({text, onClick, disabled, ...args}: {text: string, onClic
             </button>
   </>)
 }
-export const BewOrangeBtn = ({text, onClick, disabled, ...args}: {text: string, onClick: () => void, disabled?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+export const BewOrangeBtn = ({text, onClick, disabled, ...args}: {text: any, onClick: () => void, disabled?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (<>
     <BewBtn text={text} onClick={onClick} disabled={disabled} {...args} 
     style={{
@@ -25,7 +25,7 @@ export const BewOrangeBtn = ({text, onClick, disabled, ...args}: {text: string, 
     />
     </>)
 }
-export const BewGreenBtn = ({text, onClick, disabled, ...args}: {text: string, onClick: () => void, disabled?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+export const BewGreenBtn = ({text, onClick, disabled, ...args}: {text: any, onClick: () => void, disabled?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (<>
     <BewBtn text={text} onClick={onClick} disabled={disabled} {...args} 
     style={{
@@ -36,7 +36,7 @@ export const BewGreenBtn = ({text, onClick, disabled, ...args}: {text: string, o
     />
     </>)
 }
-export const BewPurpleBtn = ({text, onClick, disabled, ...args}: {text: string, onClick: () => void, disabled?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+export const BewPurpleBtn = ({text, onClick, disabled, ...args}: {text: any, onClick: () => void, disabled?: boolean} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
     return (<>
     <BewBtn text={text} onClick={onClick} disabled={disabled} {...args} 
     style={{

@@ -493,7 +493,7 @@ const QuestionView = ({
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
 
   return (
-    <div className='flex-col gap-4 w-100'>
+    <div className='flex-col gap-4 w-100 pt-8'>
       <div className="tx-bold opaci-50 tx-ls-1 w-300px mb-4 tx-center">
         <div className="mb-2 tx-sm opaci-50">Question {currentQuestionNumber}/{totalQuestions}</div>
         {question}
@@ -599,9 +599,9 @@ const handleContinueGeneration = async () => {
 };
 
   return (
-    <div className='w-100  flex-col flex-justify-start autoverflow-y'>
+    <div className='w-100  flex-col flex-justify-start autoverflow-y '>
       
-      <div className='w-100  flex-col  '>
+      <div className='w-100  flex-col   '>
         {gameState === 'initial' && (
           <VewToolLogin
             gameState={gameState}
@@ -658,7 +658,7 @@ const handleContinueGeneration = async () => {
                       {lessonError && (
                         <div className="tx-red tx-sm mt-1">{lessonError}</div>
                       )}
-                      <div className="flex-row gap-2 py-8 ">
+                      <div className="flex-row gap-2 pb-8 ">
                       <button 
                           onClick={addRandomEmoji}
                           className="tx-lg pa-2 bord-r-25 border-gg pointer opaci-chov--50"
@@ -670,11 +670,19 @@ const handleContinueGeneration = async () => {
                         </button>
 
                       <BewGreenBtn
-                        text={isCreatingLesson ? "Creating..." : "Create Lesson"} 
+                        text={isCreatingLesson ? "Creating..." : <>Create <br /> Lesson</>} 
                         onClick={handleGenerateLesson}
                         disabled={isCreatingLesson}
                       />
                       </div>
+
+                      
+                      <div className="flex-row gap-4 w-90 ">
+                      <hr className='flex-1 opaci-20 ' />
+                      <div className='opaci-20 pt-2 tx-lgx'>°</div>
+                      <hr className='flex-1 opaci-20 ' />
+                      </div>
+
                       <div className='tx-center tx-lg mt-4'>Your Lessons:</div>
                           {isLoadingLessons ? (
                         <div className='tx-center'>Loading lessons...</div>
@@ -727,10 +735,10 @@ const handleContinueGeneration = async () => {
                   </>)}
                     {!!lessonString && (<>
 <div id='main-content-container'
- className=' flex-col gap-4 pt-4 relative w-100 pos-rel pb-100'>
+ className=' flex-col gap-4 pt-4 relative  w-100 pos-rel pb-100'>
   {coursingData && selectedModule === null ? (<>
     <div className="flex-col pos-abs top-0  left-0  ml-4">
-      <div className="flex-col gap-2  flex-justify-start flex-align-start z-100 ">
+      <div className="flex-row gap-2  flex-justify-start flex-align-start z-100 ">
         <button
           className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer opaci-50"
           onClick={() => setLessonString("")}
@@ -749,7 +757,7 @@ const handleContinueGeneration = async () => {
         <div className="tx-red tx-sm mt-2">{generationError}</div>
       )}
       </div>
-    <div className="flex-col gap-4 pos-abs top-0  left-0 w-100 ml-4">
+    <div className="flex-col gap-4  w-100 ">
     <div className="flex-col gap-4 mt-8">
         {JSON.parse(coursingData.content).map((section: any, index: number) => {
           const itemsInArray = Object.keys(section?.["en"]).length;
@@ -806,7 +814,7 @@ const handleContinueGeneration = async () => {
 
 
               {!isMobile() && crvObjects.length > 0 && (<>
-                <div className='h-100 h-100vh w-250px pr-4 Q_sm_x' id="user-stats-bar">
+                <div className='h-100  w-250px pr-4 Q_sm_x' id="user-stats-bar">
                 <WrappedBewUserStatsSummary showResources={false} />
                 </div>
               </>)}
