@@ -575,7 +575,7 @@ const normalClick = (e:number)=>{
                   </Tooltip>
                   <span data-tooltip-id={"my-onsale-tooltip-"+ item} 
                     data-tooltip-place="top">
-                      {ITEM_REFERENCE[item].emoji} {item} 
+                      {ITEM_REFERENCE[item]?.emoji} {item} 
                       </span>
                   {boughtItems.includes(item) ? (
                     <span style={{ color: '#4caf50', fontWeight: 'bold' }}>Bought</span>
@@ -610,7 +610,7 @@ const normalClick = (e:number)=>{
                         {ITEM_REFERENCE[item].description}</div>, "handbook")
                     }}
 
-                     className="pointer bg-b-10 bord-r-100 pa-1  tx-xs">{ITEM_REFERENCE[item].emoji} {item}</li>
+                     className="pointer bg-b-10 bord-r-100 pa-1  tx-xs">{ITEM_REFERENCE[item]?.emoji} {item}</li>
                   ))}
                 </ul>
               </div>

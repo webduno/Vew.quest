@@ -5,9 +5,32 @@ interface MenuIconBarProps {
 }
 
 export const MenuIconBar = ({  playSoundEffect }: MenuIconBarProps) => {
-  return (
-    <div id="menu-icon-bar" className='h-100vh Q_sm_x'
-      style={{ borderRight: "3px solid #eaeaea" }}
+  return (<>
+
+<div id="menu-icon-bar_invisible" className=' Q_sm_x '
+style={{
+  visibility: "hidden",
+}}
+>
+
+<a href="/" className='pointer'>
+        <img src="/bew/pnglogo.png" alt="tool_bg7" className='px-2 py-4 ' width="50px" />
+      </a>
+
+      <MenuBarItem 
+        href="/dashboard"
+        emoji="🧮"
+        tooltip="Dashboard"
+      />
+</div>
+
+
+
+    <div id="menu-icon-bar" className=' Q_sm_x pos-fix'
+      style={{
+        // height: "100%",
+        minHeight: "100vh",
+         borderRight: "3px solid #eaeaea" }}
     >
       <a href="/" className='pointer'>
         <img src="/bew/pnglogo.png" alt="tool_bg7" className='px-2 py-4 ' width="50px" />
@@ -55,5 +78,5 @@ export const MenuIconBar = ({  playSoundEffect }: MenuIconBarProps) => {
         tooltip="About"
       />
     </div>
-  );
+  </>);
 }; 
