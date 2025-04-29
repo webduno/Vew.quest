@@ -17,7 +17,7 @@ export const LearnToolTitleNav = ({
                   }}
                   >
                   <a href="/learn"           style={{color: "#fafafa"}}     
-                  className='opaci-50 nodeco pointer'>← Go back to Index</a>
+                  className='opaci-50 nodeco pointer'>← Lessons Index</a>
                   <div className='tx-bold tx-lg'>Lesson: {target}</div>
   
   

@@ -16,6 +16,7 @@ import { VewMobileHeader } from '@/dom/organ/vew_tool/VewMobileHeader';
 import { LearnToolCreateNav, LearnToolTitleNav } from '@/dom/organ/vew_learn/LearnToolTitleNav';
 import { BewGreenBtn } from '@/dom/bew/BewBtns';
 import { QuestionView } from '@/dom/organ/vew_learn/QuestionView';
+import { ModuleList } from '@/dom/organ/vew_learn/ModuleList';
 
 type TargetsData = {
   [key: string]: string;
@@ -248,6 +249,84 @@ const handleGenerateLesson = async () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
+  const [shuffledOptions, setShuffledOptions] = useState<{ text: string; correct: boolean }[]>([]);
+
+  const updateProgress = async (moduleIndex: number, questionIndex: number, selectedAnswerIndex: number) => {
+    if (!coursingData || !LS_playerId) return;
+    
+    try {
+      // Initialize fresh progress structure
+      let currentProgress: any[] = [];
+      
+      try {
+        // Try to parse existing progress, if it fails or is null, use fresh structure
+        currentProgress = coursingData.progress ? JSON.parse(coursingData.progress) : [];
+      } catch (e) {
+        console.error('Error parsing progress, using fresh structure:', e);
+        currentProgress = [];
+      }
+      
+      // Ensure progress is an array
+      if (!Array.isArray(currentProgress)) {
+        currentProgress = [];
+      }
+      
+      // Ensure the module exists in progress
+      if (!currentProgress[moduleIndex]) {
+        currentProgress[moduleIndex] = {"en": []};
+      }
+      
+      // Ensure the module has the correct structure
+      if (!currentProgress[moduleIndex].en) {
+        currentProgress[moduleIndex] = {"en": []};
+      }
+      
+      // Get the current question data
+      const moduleContent = JSON.parse(coursingData.content);
+      const currentQuestion = moduleContent[moduleIndex].en[questionIndex];
+      
+      // Ensure the question exists in progress and update with question string and selected answer
+      if (!currentProgress[moduleIndex].en[questionIndex]) {
+        currentProgress[moduleIndex].en[questionIndex] = {
+          date: new Date().toISOString(),
+          answered: true,
+          question: currentQuestion.question,
+          selectedAnswer: selectedAnswerIndex
+        };
+      } else {
+        currentProgress[moduleIndex].en[questionIndex].date = new Date().toISOString();
+        currentProgress[moduleIndex].en[questionIndex].answered = true;
+        currentProgress[moduleIndex].en[questionIndex].question = currentQuestion.question;
+        currentProgress[moduleIndex].en[questionIndex].selectedAnswer = selectedAnswerIndex;
+      }
+
+      const response = await fetch('/api/lesson/findOrCreate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: coursingData.title,
+          content: coursingData.content,
+          creator_id: LS_playerId,
+          lesson_id: coursingData.lesson_id,
+          progress: JSON.stringify(currentProgress)
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update progress');
+      }
+
+      const data = await response.json();
+      if (data.success) {
+        setCoursingData(data.data);
+      }
+    } catch (error) {
+      console.error('Error updating progress:', error);
+    }
+  };
+
   const fetchLessons = async () => {
     setIsLoadingLessons(true);
     try {
@@ -263,6 +342,7 @@ const handleGenerateLesson = async () => {
     }
     setIsLoadingLessons(false);
   };
+
   useEffect(() => {
     if (!LS_playerId) return;
     
@@ -345,6 +425,19 @@ emojiSize:50,
 const handleModuleClick = (moduleIndex: number) => {
   setSelectedModule(moduleIndex);
   setCurrentQuestionIndex(0);
+  setSelectedAnswer(null);
+  setIsAnswerCorrect(null);
+  
+  // Shuffle options for the first question
+  const moduleQuestions = JSON.parse(coursingData.content)[moduleIndex].en;
+  const options = moduleQuestions[0].options;
+  const shuffled = [...options];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  setShuffledOptions(shuffled);
+  
   playSoundEffect?.("/sfx/short/sssccc.mp3");
 };
 
@@ -355,6 +448,16 @@ const handleNextQuestion = () => {
     setCurrentQuestionIndex(prev => prev + 1);
     setSelectedAnswer(null);
     setIsAnswerCorrect(null);
+    
+    // Shuffle options for the next question
+    const options = moduleQuestions[currentQuestionIndex + 1].options;
+    const shuffled = [...options];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    setShuffledOptions(shuffled);
+    
     playSoundEffect?.("/sfx/short/cling.mp3");
   } else {
     setSelectedModule(null);
@@ -537,8 +640,9 @@ const handleContinueGeneration = async () => {
                                 playSoundEffect?.("/sfx/short/sssccc.mp3");
                               }}
                             >
-                              {lesson.title}
-                              <div className='w-100  tx-sm tx-ls-5 opaci-50 pt-2'>Continue</div>
+                              {/* {lesson.title} */}
+                              <div className='w-90  tx-sm tx-ls- opaci-75 '>{lesson.title.toUpperCase()}</div>
+                              <div className='w-100  tx-sm tx-ls- opaci-25 pt-2'>Click to Start</div>
                             </div>
                           ))}
                         </div>
@@ -570,27 +674,10 @@ const handleContinueGeneration = async () => {
       )}
       </div>
     <div className="flex-col gap-4  w-100 ">
-    <div className="flex-col gap-4 mt-8">
-        {JSON.parse(coursingData.content).map((section: any, index: number) => {
-          const itemsInArray = Object.keys(section?.["en"]).length;
-          const steps = Array.from({ length: itemsInArray }, (_, i) => Math.sin(i * 0.1) * 100);
-          const xOffset = steps[index % steps.length];
-          return (
-            <div 
-              key={index}
-              onClick={() => handleModuleClick(index)}
-              className='border-gg bord-r-25 tx-lg w-150px cursor-pointer px-4 pt-3 pb-4 gap-2 flex-col pointer'
-              style={{
-                transform: `translateX(${xOffset}%)`,
-                transition: 'transform 0.3s ease-in-out'
-              }}
-            >
-              <div className="font-bold tx-center">Module {index + 1}</div>
-              <div className="tx-center opaci-50">{section.en[0].question}</div>
-            </div>
-          );
-        })}
-      </div>
+      <ModuleList 
+        coursingData={coursingData}
+        handleModuleClick={handleModuleClick}
+      />
     </div>
     </>) : (
     // Question View
@@ -598,20 +685,29 @@ const handleContinueGeneration = async () => {
       <>
         <div className="mb-2 flex-row flex-justify-start pos-abs top-0 ml-4 left-0">
           <button
-            className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer opaci-50"
+            className="tx-md pa-2 px-4 bg-white pointer opaci-50"
             onClick={() => setSelectedModule(null)}
           >
-            ↑ Back
+            ← Back
           </button>
         </div>
         <QuestionView
           question={JSON.parse(coursingData.content)[selectedModule].en[currentQuestionIndex].question}
-          options={JSON.parse(coursingData.content)[selectedModule].en[currentQuestionIndex].options}
+          options={shuffledOptions}
           playSoundEffect={playSoundEffect}
           onNextQuestion={handleNextQuestion}
           isLastQuestion={currentQuestionIndex === JSON.parse(coursingData.content)[selectedModule].en.length - 1}
           currentQuestionNumber={currentQuestionIndex + 1}
           totalQuestions={JSON.parse(coursingData.content)[selectedModule].en.length}
+          onCorrectAnswer={updateProgress}
+          moduleIndex={selectedModule}
+          questionIndex={currentQuestionIndex}
+          selectedAnswer={selectedAnswer}
+          isAnswerCorrect={isAnswerCorrect}
+          onAnswerSelect={(index, isCorrect) => {
+            setSelectedAnswer(index);
+            setIsAnswerCorrect(isCorrect);
+          }}
         />
       </>
     )
