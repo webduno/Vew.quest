@@ -23,6 +23,16 @@ export const BewOrangeBtn = ({text, onClick, ...args}: {text: string, onClick: (
     />
     </>)
 }
+export const BewGreenBtn = ({text, onClick, ...args}: {text: string, onClick: () => void} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
+  return (<>
+    <BewBtn text={text} onClick={onClick} {...args} 
+    style={{
+      backgroundColor: "#77CC4F",
+      boxShadow: "0px 4px 0 0px #68A82F",
+    }}
+    />
+    </>)
+}
 export const BewPurpleBtn = ({text, onClick, ...args}: {text: string, onClick: () => void} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
     return (<>
     <BewBtn text={text} onClick={onClick} {...args} 

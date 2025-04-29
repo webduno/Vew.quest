@@ -35,8 +35,8 @@ export const LessonsContainer = () => {
       title: "Your Achievements",
       emoji: "⚡",
       href: "/profile",
-      backgroundColor: "#5BA386",
-      boxShadowColor: "#4A856D",
+      backgroundColor: "#77CC4F",
+      boxShadowColor: "#68A82F",
       actionText: "Open Your Profile",
       forcedClick: null
     },

@@ -41,8 +41,8 @@ export const PreLessonsContainer = () => {
       title: "Remote Viewing Beginner's Guide",
       emoji: "🧑🏻‍🏫",
       href: "https://www.reddit.com/r/remoteviewing/wiki/guide",
-      backgroundColor: "#7DDB80",
-      boxShadowColor: "#6B9F6D",
+      backgroundColor: "#77CC4F",
+      boxShadowColor: "#68A82F",
       actionText: "Begin"
     },
     {

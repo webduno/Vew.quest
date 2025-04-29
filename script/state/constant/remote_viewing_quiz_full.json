@@ -1,0 +1,708 @@
+[
+  {
+    "en": [
+      {
+        "question": "What is remote viewing?",
+        "options": [
+          {
+            "text": "A psychic ability to perceive distant targets",
+            "correct": true
+          },
+          {
+            "text": "Remote desktop software",
+            "correct": false
+          },
+          {
+            "text": "Television broadcast system",
+            "correct": false
+          },
+          {
+            "text": "Online surveillance tool",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "What is typically used as a target in remote viewing?",
+        "options": [
+          {
+            "text": "A sealed envelope",
+            "correct": true
+          },
+          {
+            "text": "A live camera feed",
+            "correct": false
+          },
+          {
+            "text": "A public database",
+            "correct": false
+          },
+          {
+            "text": "A satellite image",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "Who is known for developing the military remote viewing program?",
+        "options": [
+          {
+            "text": "Stanford Research Institute",
+            "correct": true
+          },
+          {
+            "text": "NASA",
+            "correct": false
+          },
+          {
+            "text": "MIT",
+            "correct": false
+          },
+          {
+            "text": "FBI",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "What does 'target' mean in remote viewing?",
+        "options": [
+          {
+            "text": "The object or location to be perceived",
+            "correct": true
+          },
+          {
+            "text": "The person performing remote viewing",
+            "correct": false
+          },
+          {
+            "text": "The viewer’s assistant",
+            "correct": false
+          },
+          {
+            "text": "A computer model",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "Which of the following is a stage in the remote viewing process?",
+        "options": [
+          {
+            "text": "Ideogram",
+            "correct": true
+          },
+          {
+            "text": "Optical input",
+            "correct": false
+          },
+          {
+            "text": "Code generation",
+            "correct": false
+          },
+          {
+            "text": "Remote access",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "Which skill is important in remote viewing?",
+        "options": [
+          {
+            "text": "Intuition",
+            "correct": true
+          },
+          {
+            "text": "Mathematical logic",
+            "correct": false
+          },
+          {
+            "text": "Programming",
+            "correct": false
+          },
+          {
+            "text": "Typing speed",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "What is a common criticism of remote viewing?",
+        "options": [
+          {
+            "text": "Lack of scientific evidence",
+            "correct": true
+          },
+          {
+            "text": "Too many viewers",
+            "correct": false
+          },
+          {
+            "text": "Too expensive",
+            "correct": false
+          },
+          {
+            "text": "Government surveillance",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "What kind of state is often encouraged during a remote viewing session?",
+        "options": [
+          {
+            "text": "Relaxed and focused",
+            "correct": true
+          },
+          {
+            "text": "Agitated",
+            "correct": false
+          },
+          {
+            "text": "Distracted",
+            "correct": false
+          },
+          {
+            "text": "Highly caffeinated",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "Which organization funded remote viewing research?",
+        "options": [
+          {
+            "text": "CIA",
+            "correct": true
+          },
+          {
+            "text": "IRS",
+            "correct": false
+          },
+          {
+            "text": "World Bank",
+            "correct": false
+          },
+          {
+            "text": "IMF",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "What is CRV in remote viewing?",
+        "options": [
+          {
+            "text": "Controlled Remote Viewing",
+            "correct": true
+          },
+          {
+            "text": "Critical Remote Validation",
+            "correct": false
+          },
+          {
+            "text": "Current Remote Vision",
+            "correct": false
+          },
+          {
+            "text": "Central Recording Vehicle",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "Is remote viewing considered scientifically proven?",
+        "options": [
+          {
+            "text": "No",
+            "correct": true
+          },
+          {
+            "text": "Yes",
+            "correct": false
+          },
+          {
+            "text": "Only in military settings",
+            "correct": false
+          },
+          {
+            "text": "Only by psychics",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "What tool is commonly used in documenting remote viewing results?",
+        "options": [
+          {
+            "text": "Pen and paper",
+            "correct": true
+          },
+          {
+            "text": "Satellite receiver",
+            "correct": false
+          },
+          {
+            "text": "Telescope",
+            "correct": false
+          },
+          {
+            "text": "X-ray machine",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "What does 'tasker' refer to in remote viewing?",
+        "options": [
+          {
+            "text": "The person assigning the target",
+            "correct": true
+          },
+          {
+            "text": "A military rank",
+            "correct": false
+          },
+          {
+            "text": "The remote viewer",
+            "correct": false
+          },
+          {
+            "text": "The analysis tool",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "Which sense is primarily used in remote viewing?",
+        "options": [
+          {
+            "text": "None physically – it's extrasensory",
+            "correct": true
+          },
+          {
+            "text": "Sight",
+            "correct": false
+          },
+          {
+            "text": "Hearing",
+            "correct": false
+          },
+          {
+            "text": "Touch",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      }
+    ],
+    "es": [
+      {
+        "question": "¿Qué es la visión remota?",
+        "options": [
+          {
+            "text": "Una habilidad psíquica para percibir objetivos lejanos",
+            "correct": true
+          },
+          {
+            "text": "Un software de escritorio remoto",
+            "correct": false
+          },
+          {
+            "text": "Un sistema de transmisión televisiva",
+            "correct": false
+          },
+          {
+            "text": "Una herramienta de vigilancia en línea",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Qué se usa comúnmente como objetivo en la visión remota?",
+        "options": [
+          {
+            "text": "Un sobre sellado",
+            "correct": true
+          },
+          {
+            "text": "Una transmisión en vivo",
+            "correct": false
+          },
+          {
+            "text": "Una base de datos pública",
+            "correct": false
+          },
+          {
+            "text": "Una imagen satelital",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Quién es conocido por desarrollar el programa militar de visión remota?",
+        "options": [
+          {
+            "text": "Instituto de Investigación de Stanford",
+            "correct": true
+          },
+          {
+            "text": "NASA",
+            "correct": false
+          },
+          {
+            "text": "MIT",
+            "correct": false
+          },
+          {
+            "text": "FBI",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Qué significa 'objetivo' en la visión remota?",
+        "options": [
+          {
+            "text": "El objeto o lugar que se debe percibir",
+            "correct": true
+          },
+          {
+            "text": "La persona que realiza la visión remota",
+            "correct": false
+          },
+          {
+            "text": "El asistente del vidente",
+            "correct": false
+          },
+          {
+            "text": "Un modelo informático",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Cuál de los siguientes es una etapa en el proceso de visión remota?",
+        "options": [
+          {
+            "text": "Ideograma",
+            "correct": true
+          },
+          {
+            "text": "Entrada óptica",
+            "correct": false
+          },
+          {
+            "text": "Generación de código",
+            "correct": false
+          },
+          {
+            "text": "Acceso remoto",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Qué habilidad es importante en la visión remota?",
+        "options": [
+          {
+            "text": "Intuición",
+            "correct": true
+          },
+          {
+            "text": "Lógica matemática",
+            "correct": false
+          },
+          {
+            "text": "Programación",
+            "correct": false
+          },
+          {
+            "text": "Velocidad de escritura",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Cuál es una crítica común a la visión remota?",
+        "options": [
+          {
+            "text": "Falta de evidencia científica",
+            "correct": true
+          },
+          {
+            "text": "Demasiados videntes",
+            "correct": false
+          },
+          {
+            "text": "Demasiado costoso",
+            "correct": false
+          },
+          {
+            "text": "Vigilancia gubernamental",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Qué tipo de estado se fomenta durante una sesión de visión remota?",
+        "options": [
+          {
+            "text": "Relajado y enfocado",
+            "correct": true
+          },
+          {
+            "text": "Agitado",
+            "correct": false
+          },
+          {
+            "text": "Distraído",
+            "correct": false
+          },
+          {
+            "text": "Altamente estimulado",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Qué organización financió la investigación sobre visión remota?",
+        "options": [
+          {
+            "text": "CIA",
+            "correct": true
+          },
+          {
+            "text": "IRS",
+            "correct": false
+          },
+          {
+            "text": "Banco Mundial",
+            "correct": false
+          },
+          {
+            "text": "FMI",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Qué es CRV en visión remota?",
+        "options": [
+          {
+            "text": "Visión Remota Controlada",
+            "correct": true
+          },
+          {
+            "text": "Validación Remota Crítica",
+            "correct": false
+          },
+          {
+            "text": "Visión Remota Actual",
+            "correct": false
+          },
+          {
+            "text": "Vehículo de Registro Central",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Está científicamente probada la visión remota?",
+        "options": [
+          {
+            "text": "No",
+            "correct": true
+          },
+          {
+            "text": "Sí",
+            "correct": false
+          },
+          {
+            "text": "Solo en entornos militares",
+            "correct": false
+          },
+          {
+            "text": "Solo por psíquicos",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Qué herramienta se usa comúnmente para documentar resultados de visión remota?",
+        "options": [
+          {
+            "text": "Lápiz y papel",
+            "correct": true
+          },
+          {
+            "text": "Receptor satelital",
+            "correct": false
+          },
+          {
+            "text": "Telescopio",
+            "correct": false
+          },
+          {
+            "text": "Máquina de rayos X",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Qué significa 'asignador' en visión remota?",
+        "options": [
+          {
+            "text": "La persona que asigna el objetivo",
+            "correct": true
+          },
+          {
+            "text": "Un rango militar",
+            "correct": false
+          },
+          {
+            "text": "El vidente remoto",
+            "correct": false
+          },
+          {
+            "text": "La herramienta de análisis",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "¿Qué sentido se usa principalmente en la visión remota?",
+        "options": [
+          {
+            "text": "Ninguno físicamente – es extrasensorial",
+            "correct": true
+          },
+          {
+            "text": "La vista",
+            "correct": false
+          },
+          {
+            "text": "El oído",
+            "correct": false
+          },
+          {
+            "text": "El tacto",
+            "correct": false
+          },
+          {
+            "text": "Todo lo anterior",
+            "correct": false
+          }
+        ]
+      }
+    ]
+  }
+]
