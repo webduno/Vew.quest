@@ -409,19 +409,30 @@ interface QuestionViewProps {
   playSoundEffect?: (sound: string) => void;
   onNextQuestion: () => void;
   isLastQuestion: boolean;
+  currentQuestionNumber: number;
+  totalQuestions: number;
 }
 
-const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLastQuestion }: QuestionViewProps) => {
+const QuestionView = ({ 
+  question, 
+  options, 
+  playSoundEffect, 
+  onNextQuestion, 
+  isLastQuestion,
+  currentQuestionNumber,
+  totalQuestions 
+}: QuestionViewProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
 
   return (
     <div className='flex-col gap-4 w-100'>
       <div className="tx-bold opaci-50 tx-ls-1 w-300px mb-4 tx-center">
+        <div className="mb-2 tx-sm opaci-50">Question {currentQuestionNumber}/{totalQuestions}</div>
         {question}
       </div>
       <div 
-        className='border-gg bord-r-25 tx-mdl  w-90 py-4'
+        className='border-gg bord-r-25 tx-mdl w-90 py-4'
         style={{
           animation: 'fadeIn 0.3s ease-in-out'
         }}
@@ -431,8 +442,11 @@ const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLa
             {options.map((option, oIndex) => (
               <div 
                 key={oIndex} 
-                className={`pa-1 w-250px border-gg bord-r-25 tx-center pointer  
-                  ${selectedAnswer === oIndex ? (option.correct ? 'bg-green-100' : 'bg-red-100') : ''}`}
+                style={{
+                  background: selectedAnswer === oIndex ? (option.correct ? '#77CC4F' : '#8d8d8d') : 'transparent',
+                  boxShadow: selectedAnswer === oIndex ? (option.correct ? '0 4px 0 #68A82F' : '0 4px 0 #6b6b6b') : 'none',
+                }}
+                className={`pa-1 w-250px ${selectedAnswer === oIndex ? 'tx-white' : 'border-gg'} bord-r-25 tx-center pointer  `}
                 onClick={() => {
                   setSelectedAnswer(oIndex);
                   setIsAnswerCorrect(option.correct);
@@ -443,19 +457,29 @@ const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLa
               </div>
             ))}
           </div>
-          {selectedAnswer !== null && (
-            <div className={`tx-center mt-4 ${isAnswerCorrect ? 'tx-green' : 'tx-red'}`}>
-              {isAnswerCorrect ? 'Correct! 🎉' : 'Incorrect, try again! ❌'}
-            </div>
-          )}
-          <div className="flex-center mt-8">
+          <div className="flex-center ">
             <button 
               onClick={onNextQuestion}
-              className="bg-b-50 hover:bg-b-40 text-white font-bold py-2 px-4 bord-r-25"
+              className={`tx-white font-bold py-2 px-4 bord-r-25`}
+              style={{
+                background: isAnswerCorrect ? '#77CC4F' : '#8d8d8d',
+                boxShadow: isAnswerCorrect ? '0 4px 0 #68A82F' : '0 4px 0 #6b6b6b',
+              }}
+              disabled={!isAnswerCorrect}
             >
               {isLastQuestion ? 'Back to Modules' : 'Next Question'}
             </button>
           </div>
+          {selectedAnswer !== null && (
+            <div className={`tx-center  ${isAnswerCorrect ? 'tx-green' : 'tx-red'}`}>
+              {isAnswerCorrect ? 'Correct! 🎉' : 'Incorrect, try again! ❌'}
+            </div>
+          )}
+          {selectedAnswer === null && (
+            <div style={{visibility: "hidden"}}>
+              waiting for your answer...
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -494,7 +518,7 @@ const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLa
                 
                 {!!lessonString && (<>
                 <LearnToolTitleNav
-                 target={lessonString.slice(0, 10)} setShowImageModal={setShowImageModal}
+                 target={lessonString} setShowImageModal={setShowImageModal}
                   playSoundEffect={playSoundEffect}
                  />
                  </>)}
@@ -518,15 +542,15 @@ const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLa
                       <BewGreenBtn text="Create Lesson" onClick={() => {
                         handleGenerateLesson()
                       }} />
-                      {isLoadingLessons ? (
+                          <div className='tx-center tx-lg mt-4'>Your Lessons:</div>
+                          {isLoadingLessons ? (
                         <div className='tx-center'>Loading lessons...</div>
                       ) : lessonsList && lessonsList.length > 0 ? (
-                        <div className='flex-col gap-2 mt-4'>
-                          <div className='tx-center tx-lg'>Your Lessons:</div>
+                        <div className='flex-wrap gap-2 mt-4 w-100'>
                           {lessonsList.map((lesson) => (
                             <div 
                               key={lesson.lesson_id}
-                              className='border-gg bord-r-25 pa-2 tx-center cursor-pointer hover:bg-glass-10'
+                              className='border-gg bord-r-25 pa-2 tx-center pointer '
                               onClick={() => {
                                 setLessonString(lesson.title);
 
@@ -549,6 +573,7 @@ const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLa
                                     const data = await response.json();
                                     if (data.success) {
                                       setCoursingData(data.data);
+                                      setLessonString(data.data.title);
                                     }
                                   } catch (error) {
                                     console.error('Error fetching lesson data:', error);
@@ -560,9 +585,7 @@ const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLa
                               }}
                             >
                               {lesson.title}
-                              <div className='w-100 pointer tx-sm tx-ls-5 opaci-50 pt-2'>
-                                Continue
-                              </div>
+                              <div className='w-100  tx-sm tx-ls-5 opaci-50 pt-2'>Continue</div>
                             </div>
                           ))}
                         </div>
@@ -571,7 +594,7 @@ const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLa
                   </>)}
                     {!!lessonString && (<>
 <div id='main-content-container'
- className=' flex-col pt-4 relative w-100 '>
+ className=' flex-col gap-4 pt-4 relative w-100 pos-rel'>
   {coursingData && selectedModule === null ? (
     // Module List View
     JSON.parse(coursingData.content).map((section: any, index: number) => {
@@ -583,7 +606,7 @@ const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLa
         <div 
           key={index}
           onClick={() => handleModuleClick(index)}
-          className='border-gg bord-r-25 tx-lg  cursor-pointer  pointer'
+          className='border-gg bord-r-25 tx-lg  cursor-pointer px-4 pt-3 pb-4 gap-2 flex-col pointer'
           style={{
             transform: `translateX(${xOffset}%)`,
             transition: 'transform 0.3s ease-in-out'
@@ -597,13 +620,25 @@ const QuestionView = ({ question, options, playSoundEffect, onNextQuestion, isLa
   ) : (
     // Question View
     coursingData && selectedModule !== null && (
-      <QuestionView
-        question={JSON.parse(coursingData.content)[selectedModule].en[currentQuestionIndex].question}
-        options={JSON.parse(coursingData.content)[selectedModule].en[currentQuestionIndex].options}
-        playSoundEffect={playSoundEffect}
-        onNextQuestion={handleNextQuestion}
-        isLastQuestion={currentQuestionIndex === JSON.parse(coursingData.content)[selectedModule].en.length - 1}
-      />
+      <>
+        <div className="mb-2 flex-row flex-justify-start pos-abs top-0 ml-4 left-0">
+          <button
+            className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer opaci-50"
+            onClick={() => setSelectedModule(null)}
+          >
+            ↑ Back
+          </button>
+        </div>
+        <QuestionView
+          question={JSON.parse(coursingData.content)[selectedModule].en[currentQuestionIndex].question}
+          options={JSON.parse(coursingData.content)[selectedModule].en[currentQuestionIndex].options}
+          playSoundEffect={playSoundEffect}
+          onNextQuestion={handleNextQuestion}
+          isLastQuestion={currentQuestionIndex === JSON.parse(coursingData.content)[selectedModule].en.length - 1}
+          currentQuestionNumber={currentQuestionIndex + 1}
+          totalQuestions={JSON.parse(coursingData.content)[selectedModule].en.length}
+        />
+      </>
     )
   )}
 </div>

@@ -12,13 +12,13 @@ export const LearnToolTitleNav = ({
     return (
       <div className='pos-rel tx-white ma-4 pa-4 mt-0 bord-r-15 tx-altfont-2 flex-col flex-align-start gap-2'
                   style={{
-                    background: "#807DDB",
-                    boxShadow: "0 4px 0 #6B69CF",
+                    background: "#77CC4F",
+                    boxShadow: "0 4px 0 #68A82F",
                   }}
                   >
-                  <a href="/dashboard"           style={{color: "#fafafa"}}     
+                  <a href="/learn"           style={{color: "#fafafa"}}     
                   className='opaci-50 nodeco pointer'>← Go back to Index</a>
-                  <div className='tx-bold tx-lg'>Lesson :{target}</div>
+                  <div className='tx-bold tx-lg'>Lesson: {target}</div>
   
   
   

@@ -225,131 +225,6 @@
             "correct": false
           }
         ]
-      },
-      {
-        "question": "What is CRV in remote viewing?",
-        "options": [
-          {
-            "text": "Controlled Remote Viewing",
-            "correct": true
-          },
-          {
-            "text": "Critical Remote Validation",
-            "correct": false
-          },
-          {
-            "text": "Current Remote Vision",
-            "correct": false
-          },
-          {
-            "text": "Central Recording Vehicle",
-            "correct": false
-          },
-          {
-            "text": "All of the above",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "question": "Is remote viewing considered scientifically proven?",
-        "options": [
-          {
-            "text": "No",
-            "correct": true
-          },
-          {
-            "text": "Yes",
-            "correct": false
-          },
-          {
-            "text": "Only in military settings",
-            "correct": false
-          },
-          {
-            "text": "Only by psychics",
-            "correct": false
-          },
-          {
-            "text": "All of the above",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "question": "What tool is commonly used in documenting remote viewing results?",
-        "options": [
-          {
-            "text": "Pen and paper",
-            "correct": true
-          },
-          {
-            "text": "Satellite receiver",
-            "correct": false
-          },
-          {
-            "text": "Telescope",
-            "correct": false
-          },
-          {
-            "text": "X-ray machine",
-            "correct": false
-          },
-          {
-            "text": "All of the above",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "question": "What does 'tasker' refer to in remote viewing?",
-        "options": [
-          {
-            "text": "The person assigning the target",
-            "correct": true
-          },
-          {
-            "text": "A military rank",
-            "correct": false
-          },
-          {
-            "text": "The remote viewer",
-            "correct": false
-          },
-          {
-            "text": "The analysis tool",
-            "correct": false
-          },
-          {
-            "text": "All of the above",
-            "correct": false
-          }
-        ]
-      },
-      {
-        "question": "Which sense is primarily used in remote viewing?",
-        "options": [
-          {
-            "text": "None physically – it's extrasensory",
-            "correct": true
-          },
-          {
-            "text": "Sight",
-            "correct": false
-          },
-          {
-            "text": "Hearing",
-            "correct": false
-          },
-          {
-            "text": "Touch",
-            "correct": false
-          },
-          {
-            "text": "All of the above",
-            "correct": false
-          }
-        ]
       }
     ],
     "es": [
@@ -577,7 +452,138 @@
             "correct": false
           }
         ]
+      }
+    ]
+  },
+{
+  "en": [
+      {
+        "question": "What is CRV in remote viewing?",
+        "options": [
+          {
+            "text": "Controlled Remote Viewing",
+            "correct": true
+          },
+          {
+            "text": "Critical Remote Validation",
+            "correct": false
+          },
+          {
+            "text": "Current Remote Vision",
+            "correct": false
+          },
+          {
+            "text": "Central Recording Vehicle",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
       },
+      {
+        "question": "Is remote viewing considered scientifically proven?",
+        "options": [
+          {
+            "text": "No",
+            "correct": true
+          },
+          {
+            "text": "Yes",
+            "correct": false
+          },
+          {
+            "text": "Only in military settings",
+            "correct": false
+          },
+          {
+            "text": "Only by psychics",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "What tool is commonly used in documenting remote viewing results?",
+        "options": [
+          {
+            "text": "Pen and paper",
+            "correct": true
+          },
+          {
+            "text": "Satellite receiver",
+            "correct": false
+          },
+          {
+            "text": "Telescope",
+            "correct": false
+          },
+          {
+            "text": "X-ray machine",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "What does 'tasker' refer to in remote viewing?",
+        "options": [
+          {
+            "text": "The person assigning the target",
+            "correct": true
+          },
+          {
+            "text": "A military rank",
+            "correct": false
+          },
+          {
+            "text": "The remote viewer",
+            "correct": false
+          },
+          {
+            "text": "The analysis tool",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      },
+      {
+        "question": "Which sense is primarily used in remote viewing?",
+        "options": [
+          {
+            "text": "None physically – it's extrasensory",
+            "correct": true
+          },
+          {
+            "text": "Sight",
+            "correct": false
+          },
+          {
+            "text": "Hearing",
+            "correct": false
+          },
+          {
+            "text": "Touch",
+            "correct": false
+          },
+          {
+            "text": "All of the above",
+            "correct": false
+          }
+        ]
+      }
+    ],
+    "es": [
       {
         "question": "¿Qué es CRV en visión remota?",
         "options": [
