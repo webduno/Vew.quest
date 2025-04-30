@@ -42,11 +42,11 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 export async function POST(request: NextRequest) {
   try {
-    const { lesson_id, creator_id } = await request.json();
+    const { id, creator_id } = await request.json();
 
-    if (!lesson_id || !creator_id) {
+    if (!id || !creator_id) {
       return NextResponse.json(
-        { success: false, error: 'Lesson ID and creator ID are required' },
+        { success: false, error: 'ID and creator ID are required' },
         { status: 400 }
       );
     }
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
       .from('vew_lesson')
       .select('content')
       .eq('creator_id', creator_id.toLowerCase())
-      .eq('lesson_id', lesson_id)
+      .eq('id', id)
       .single();
 
     if (findError) {
@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
         .from('vew_lesson')
         .update({ content: JSON.stringify(updatedContent) })
         .eq('creator_id', creator_id.toLowerCase())
-        .eq('lesson_id', lesson_id);
+        .eq('id', id);
 
       if (updateError) {
         console.error('Error updating lesson:', updateError);

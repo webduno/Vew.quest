@@ -632,7 +632,7 @@ const handleContinueGeneration = async () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        lesson_id: coursingData.id,
+        id: coursingData.id,
         creator_id: LS_playerId
       }),
     });
