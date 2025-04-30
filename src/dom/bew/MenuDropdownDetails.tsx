@@ -48,11 +48,11 @@ style={{
               </div>
             </a>
           )}
-            {!isCurrentPage('/space') && (
-              <a href="/space" className='nodeco noselect py- py-1 px-4 block  w-100 tx-right  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
-                <div className="py-1 pl-2 nowrap">Space RV</div>
-              </a>
-            )}
+          {!isCurrentPage('/space') && (
+            <a href="/space" className='nodeco noselect py- py-1 px-4 block  w-100 tx-right  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+              <div className="py-1 pl-2 nowrap">Space RV</div>
+            </a>
+          )}
 
             {!isCurrentPage('/world') && (
               <a href="/world" className='nodeco noselect py- py-1 px-4 block  w-100 tx-right  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
@@ -72,6 +72,21 @@ style={{
         )}
 </details>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div className='flex-col pb-2 bg-glass-10  z-1000 mt-2 m r-4 bord-r-10 noverflow flex-align-end'
           style={{
             background: "#8080f0",
@@ -83,9 +98,15 @@ style={{
             {/* <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(2)' }}>👁️</span> */}
           </div>
         </a>
+          {!isCurrentPage('/learn') && (
+            <a href="/learn" className='nodeco noselect py- py-1 px-4 block w-100 tx-right  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
+              <div className="py-1 pl-2 nowrap">Learn
+              </div>
+            </a>
+          )}
           {!isCurrentPage('/profile') && (
             <a href="/profile" className='nodeco noselect py- py-1 px-4 block w-100 tx-right  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
-              <div className="py-1 pl-2 nowrap">Profile
+              <div className="py-1 pl-2 nowrap">Your Profile
               </div>
             </a>
           )}

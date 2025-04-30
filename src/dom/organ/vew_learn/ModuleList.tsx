@@ -1,3 +1,5 @@
+import { BewChoiceButton } from '@/dom/bew/BewChoiceButton';
+import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 import React from 'react';
 
 interface ModuleListProps {
@@ -6,6 +8,7 @@ interface ModuleListProps {
 }
 
 export const ModuleList: React.FC<ModuleListProps> = ({ coursingData, handleModuleClick }) => {
+  const { triggerSnackbar } = useProfileSnackbar();
   const isModuleEnabled = (currentIndex: number): boolean => {
     try {
       const progress = JSON.parse(coursingData.progress || '[]');
@@ -40,10 +43,21 @@ export const ModuleList: React.FC<ModuleListProps> = ({ coursingData, handleModu
         const enabled = isModuleEnabled(index);
         
         return (
-          <div 
+          <button 
             key={index}
-            onClick={() => enabled && handleModuleClick(index)}
-            className={`border-gg bord-r-25 w-150px px-4 pt-3 pb-4 gap-2 flex-col pointer ${enabled ? 'cursor-pointer' : 'cursor-not-allowed opaci-25'}`}
+            onClick={() => {
+              if (!enabled) {
+              // alert("test 222")
+              // alert("Please complete all previous modules to start this lesson")
+              triggerSnackbar(<>
+              <div className='w-200px tx-center tx-mdl'>Please complete all previous modules to start this lesson</div>
+              </>, "error")
+              return
+             }
+             handleModuleClick(index)
+            }
+            }
+            className={`border-gg bord-r-25 w-150px px-4 pt-3 pb-4 gap-2 flex-col  ${enabled ? ' pointer ' : ' opaci-25'}`}
             style={{
               transform: `translateX(${xOffset}%)`,
               transition: 'transform 0.3s ease-in-out',
@@ -62,9 +76,24 @@ export const ModuleList: React.FC<ModuleListProps> = ({ coursingData, handleModu
               })()
             }}
           >
+            
+          <BewChoiceButton
+            // secondaryColor="#D07900"
+            // mainColor="#FF9600"
+            
+            secondaryColor="#68A82F"
+            mainColor="#77CC4F"
+            onClick={() => {
+              alert("test 333")
+              // playSoundEffect("/sfx/short/passbip.mp3")
+              // handleInputTypeChange('multi-options')
+            }}
+            text="Start Lesson"
+            image={<div>⭐</div>}
+          />
             <div className="font-bold tx-center tx-lg">Module {index + 1}</div>
             <div className="tx-center opaci-50">{section.en[0].question}</div>
-          </div>
+          </button>
         );
       })}
     </div>

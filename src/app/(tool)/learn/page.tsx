@@ -53,11 +53,34 @@ export default function TrainingPage() {
   };
   
   const exampleLessons = [
-    "Remote Viewing with Joseph McMoneagle",
-    "Daz Smith - CRV Controlled Remote Viewing Manuals",
-    "The Remote Viewing Handbook",
-    "Ingo Swann Findings",
-    "Remote Viewing Protocols"
+    "What is Remote Viewing?",
+    "Remote Viewing History",
+    "Remote Viewing Protocols",
+    "Professional Remote Viewing Training",
+    "Target Practice",
+    "Ideogram Drills",
+    "Research - Articles and Papers",
+    "IRVA - Ethical Guidelines for Remote Viewers",
+    "ESP Glossary of terms",
+    "Interviews and Talks by Professional Remote Viewers",
+    "Third Eye Spies Documentary",
+    "The Real X-Files",
+    "Superhuman Institute history of RV documentary",
+    "The Case of ESP",
+    "Documented RV Cases - CIA's Stargate Program",
+    "CIA's Project SCANATE - Remote Viewing Origins",
+    "Project GRILL FLAME - Military Remote Viewing",
+    "Project SUN STREAK - Advanced RV Research",
+    "Ingo Swann's Remote Viewing Experiments",
+    "Pat Price's RV Successes",
+    "Joseph McMoneagle's RV Missions",
+    "The Mars RV Experiments",
+    "CIA's Gateway Process - Hemi-Sync Research",
+    "Project MKULTRA and Psi Research",
+    "The Monroe Institute's Role in RV Development",
+    "SRI's Remote Viewing Research Program",
+    "The Farsight Institute's RV Studies",
+    "Documented RV Successes in Intelligence Operations"
   ];
 
   const addRandomEmoji = () => {
@@ -424,6 +447,7 @@ emojiSize:50,
 
 
 const handleModuleClick = (moduleIndex: number) => {
+  alert("test 222")
   setSelectedModule(moduleIndex);
   setCurrentQuestionIndex(0);
   setSelectedAnswer(null);
@@ -548,9 +572,9 @@ const areAllQuestionsAnswered = () => {
         {gameState === 'initial' && (
           <VewToolLogin
             titleNode={<div className='tx-center tx-lgx landing -title'>
-              Ask me anything <br /> to learn anything step-by-step lessons
+              Ask a question <br /> to learn anything with step-by-step lessons
               <br />
-              <div className='tx-xsm py-2 opaci-50'>Producedurally generated</div>
+              <div className='tx-xsm py-2 opaci-50'>Producedurally Generated</div>
             </div>}
             defaultImage="/bew/bttrf.png"
             defaultImageOverlay="/bew/brain.png"
@@ -594,10 +618,12 @@ const areAllQuestionsAnswered = () => {
                 <div className='flex-1  tx-altfont-2 flex-col flex-justify-start tx-altfont-2'>
                   {!lessonString && (<>
                     <div className='tx-center tx-altfont-2 pt-8 gap-2  w-100 tx-black flex-col h-100'>
-                      <div>{"1)"} Whats the purpose of your lesson?</div>
-                      <div className="flex-row gap-2 flex-center">
-                        <input type="text" className='tx-lg pa-2 bord-r-25 border-gg tx-center'
+                      <div>Learn about anything</div>
+                      <div className="flex-row gap-2 flex-center w-100">
+                        <textarea  className='w-80 w-max-400px tx-lg pa-2 bord-r-25 border-gg tx-center'
+                        rows={2}
                           value={typedLessonTitle}
+                          placeholder="Ask a question"
                           onChange={(e) => {
                             setTypedLessonTitle(e.target.value);
                             setLessonError(null); // Clear error when user types
@@ -709,7 +735,7 @@ const areAllQuestionsAnswered = () => {
                   </>)}
                     {!!lessonString && (<>
 <div id='main-content-container'
- className=' flex-col gap-4 pt-4 relative  w-100 pos-rel pb-100'>
+ className=' flex-col gap-4  relative  w-100 pos-rel pb-100'>
   {coursingData && selectedModule === null ? (<>
     <div className="flex-col pos-abs top-0  left-0  flex-justify-start flex-align-start  ml-4">
       <div className="flex-row gap-2  flex-justify-start flex-align-start z-100 ">
@@ -725,11 +751,11 @@ const areAllQuestionsAnswered = () => {
         <div className="tx-red tx-sm mt-2">{generationError}</div>
       )}
       </div>
-       <details>
-        <summary className='flex-col pointer border-gg bord-r-15 px-4 pa-2'>
+       <details className='w-300px  flex-col flex-align-stretch flex-justify-stretch'>
+        <summary className='flex-col  pointer border-gg bord-r-15  py-2 w-100'>
           <button className='noclick'>View Course Details</button>
         </summary>
-        <div className="flex-col border-gg bord-r-15 pa-4 gap-2 mt-2">
+        <div className="flex-col  border-gg bord-r-15 w-100 gap-2 py-4 mt-2">
       <div
       style={{ color: "#777777"}}
        className='tx-bold w-250px w-100 tx-center  pt- flex-row' >
@@ -752,13 +778,13 @@ const areAllQuestionsAnswered = () => {
       style={{ color: "#777777"}}
        className='tx-bold w-250px w-100 tx-center  pt- flex-row' >
         <div className='flex-1 tx-start'>Progress Saved:</div>
-        <div>{coursingData.progress.length}</div>
+        <div>{coursingData?.progress?.length || 0}</div>
        </div>
       <div
       style={{ color: "#777777"}}
        className='tx-bold w-250px w-100 tx-center  pt- flex-row' >
         <div className='flex-1 tx-start'>Creation Date:</div>
-        <div className='tx-xs'>{coursingData.created_at.split("T")[1]}</div>
+        <div className='tx-xs'>{coursingData?.created_at?.split("T")[1]}</div>
        </div>
        </div>
        </details>
@@ -787,7 +813,18 @@ const areAllQuestionsAnswered = () => {
             </div>
           }
         </button>
-       )}
+      )}
+       {!areAllQuestionsAnswered() && (<>
+       <div className='tx-center tx-lg pt-4 mt-4 w-300px'
+       style={{
+        borderTop: "1px solid #eaeaea",
+        color: "#777777",
+       }}
+       >
+        Finish all lesson modules to generate more content
+       </div>
+       </>
+      )}
     </>) : (
     // Question View
     coursingData && selectedModule !== null && (
