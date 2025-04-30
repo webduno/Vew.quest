@@ -572,7 +572,6 @@ emojiSize:50,
 
 
 const handleModuleClick = (moduleIndex: number) => {
-  alert("test 222")
   setSelectedModule(moduleIndex);
   setCurrentQuestionIndex(0);
   setSelectedAnswer(null);
@@ -588,7 +587,7 @@ const handleModuleClick = (moduleIndex: number) => {
   }
   setShuffledOptions(shuffled);
   
-  playSoundEffect?.("/sfx/short/sssccc.mp3");
+  playSoundEffect?.("/sfx/short/start.mp3");
 };
 
 const handleNextQuestion = () => {
@@ -608,14 +607,15 @@ const handleNextQuestion = () => {
     }
     setShuffledOptions(shuffled);
     
-    playSoundEffect?.("/sfx/short/cling.mp3");
+    // playSoundEffect?.("/sfx/short/cling.mp3");
   } else {
     setSelectedModule(null);
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setIsAnswerCorrect(null);
-    playSoundEffect?.("/sfx/short/sssccc.mp3");
+    // playSoundEffect?.("/sfx/short/sssccc.mp3");
   }
+    playSoundEffect?.("/sfx/short/passbip.mp3");
 };
 
 const handleContinueGeneration = async () => {

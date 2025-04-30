@@ -48,7 +48,7 @@ export const QuestionView = ({
       const isCorrect = options[index].correct;
       onAnswerSelect(index, isCorrect);
       setIsEvaluated(true);
-      playSoundEffect?.(isCorrect ? "/sfx/short/sssccc.mp3" : "/sfx/short/cling.mp3");
+      playSoundEffect?.(isCorrect ? "/sfx/short/goodbip.wav" : "/sfx/short/errorbip.mp3");
       if (isCorrect && onCorrectAnswer) {
         onCorrectAnswer(moduleIndex, questionIndex, index);
       }
@@ -66,7 +66,8 @@ export const QuestionView = ({
       const isCorrect = options[selectedAnswer].correct;
       onAnswerSelect(selectedAnswer, isCorrect);
       setIsEvaluated(true);
-      playSoundEffect?.(isCorrect ? "/sfx/short/sssccc.mp3" : "/sfx/short/cling.mp3");
+      // playSoundEffect?.(isCorrect ? "/sfx/short/goodbip.wav" : "/sfx/short/errorbip.mp3");
+      // playSoundEffect?.(isCorrect ? "/sfx/short/goodbip.wav" : "/sfx/short/errorbip.mp3");
       if (isCorrect && onCorrectAnswer) {
         onCorrectAnswer(moduleIndex, questionIndex, selectedAnswer);
       }
