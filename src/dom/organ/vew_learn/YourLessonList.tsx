@@ -136,7 +136,7 @@ export const YourLessonList = ({
   };
 
   if (isLoadingLessons || isLoadingPublic) {
-    return <div className='tx-center'>Loading lessons...</div>;
+    return <div className='tx-center pt-8 opaci-50'>Loading lessons...</div>;
   }
 
   const displayList = showPublic ? publicLessons : lessonsList;
@@ -147,13 +147,16 @@ export const YourLessonList = ({
 
   return (
     <>
-    <div className="flex-row gap-4 w-90 ">
+    {/* <div className="flex-row gap-4 w-90 "
+    
+    >
                       <hr className='flex-1 opaci-20 ' />
                       <div className='opaci-20 pt-2 tx-lgx'>°</div>
                       <hr className='flex-1 opaci-20 ' />
-                      </div>
+                      </div> */}
       {/* <div className='tx-center tx-lg mt-4'>Your Lessons:</div> */}
-      <div className='flex-row  tx-smd flex-justify-between  pb-4 w-100  gap-2 '>
+      <div className='flex-row  tx-smd flex-justify-between  pb-4 w-100  gap-2 '
+      >
           <div className='tx-bold px-4' 
           style={{
             color: "#4B4B4B",
@@ -167,7 +170,12 @@ export const YourLessonList = ({
           }}
           >{showPublic ? 'Show Mine' : '🌐 View All'}</a>
         </div>
-      <div className='flex-wrap gap-1  w-100  pb-100 '>
+      <div className='flex-wrap gap-1  w-100  pb-100 mb-8' 
+      style={{
+        maxHeight: "550px",
+        overflowY: "auto",
+      }}
+      >
         {displayList.map((lesson) => (
           <div
             key={lesson.lesson_id}

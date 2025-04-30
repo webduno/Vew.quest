@@ -72,7 +72,6 @@ export const IconStatsBar = ({
         <div className='tx-bold-5' style={{ color: "#F92F60" }}>{hearts}%</div>
       </button>
 
-      {!!minds && (
       <a 
       href={`/learn`}
       className='nodeco pa-2 pt-4  opaci-chov--50 flex-wrap'
@@ -87,7 +86,6 @@ export const IconStatsBar = ({
         <div className='tx-lg tx-center'>🧠</div>
         <div className='tx-bold-5' style={{ color: "#F92F60" }}>{formatMindCount(minds || 0)}</div>
       </a>
-      )}
 
 
     </div>

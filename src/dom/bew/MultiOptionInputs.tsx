@@ -108,12 +108,13 @@ export const MultiOptionInputs = ({
       </div>
       <div className='pa-2 Q_xs_py-1 bord-r-10 tx-xs'>
         <div className=" flex-row flex-justify-between" style={{color:"#afafaf"}}>
+        <button className={`opaci-chov--75 pointer${values.temp >= 90 ? ' tx-bold tx-ls-1 ' : ''}`} 
+          // style={values.temp >= 90 ? { color: '#d06a00' } : {}}
+           onClick={() => handleChange('temp', values.temp >= 98 ? 100 : Math.round(values.temp + (100 - values.temp) / 2))}>Cold or Chilly</button>
           <button className={`opaci-chov--75 pointer${values.temp <= 10 ? ' tx-bold tx-ls-1 ' : ''}`} 
           // style={values.temp <= 10 ? { color: '#d06a00' } : {}}
            onClick={() => handleChange('temp', values.temp <= 2 ? 0 : Math.round(values.temp / 2))}>Hot or Warm</button>
-          <button className={`opaci-chov--75 pointer${values.temp >= 90 ? ' tx-bold tx-ls-1 ' : ''}`} 
-          // style={values.temp >= 90 ? { color: '#d06a00' } : {}}
-           onClick={() => handleChange('temp', values.temp >= 98 ? 100 : Math.round(values.temp + (100 - values.temp) / 2))}>Cold or Chilly</button>
+          
         </div>
         <div className='w-100'>
           <input className='w-100' type="range" 

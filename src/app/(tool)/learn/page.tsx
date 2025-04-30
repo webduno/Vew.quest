@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEvent } from 'react';
 import JSConfetti from 'js-confetti';
 
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
@@ -13,7 +13,7 @@ import { VewToolLogin } from '@/dom/organ/vew_tool/VewToolLogin';
 import { MenuIconBar } from '@/dom/organ/vew_tool/MenuIconBar';
 import { VewMobileHeader } from '@/dom/organ/vew_tool/VewMobileHeader';
 import { LearnToolCreateNav, LearnToolTitleNav } from '@/dom/organ/vew_learn/LearnToolTitleNav';
-import { BewGreenBtn } from '@/dom/bew/BewBtns';
+import { BewGreenBtn, BewPurpleBtn } from '@/dom/bew/BewBtns';
 import { QuestionView } from '@/dom/organ/vew_learn/QuestionView';
 import { ModuleList } from '@/dom/organ/vew_learn/ModuleList';
 import { YourLessonList } from '../../../dom/organ/vew_learn/YourLessonList';
@@ -33,6 +33,7 @@ export default function TrainingPage() {
   const [lessonError, setLessonError] = useState<string | null>(null);
   const [isGeneratingMore, setIsGeneratingMore] = useState(false);
   const [generationError, setGenerationError] = useState<string | null>(null);
+  const [generatedLessonData, setGeneratedLessonData] = useState<any>(null);
 
   const getRandomEmoji = () => {
     // Common emoji ranges
@@ -166,6 +167,9 @@ const handleGenerateLesson = async () => {
       throw new Error('Failed to generate valid lesson content');
     }
 
+    // Save the generated data in state
+    setGeneratedLessonData(generatedData.data);
+
     // Now save the generated content
     const saveResponse = await fetch('/api/lesson/findOrCreate', {
       method: 'POST',
@@ -176,7 +180,7 @@ const handleGenerateLesson = async () => {
         title: typedLessonTitle,
         content: JSON.stringify(generatedData.data),
         creator_id: LS_playerId,
-        lesson_id: null,
+        lesson_id: Date.now(),
         progress: null
       }),
     });
@@ -201,6 +205,22 @@ const handleGenerateLesson = async () => {
     setIsCreatingLesson(false);
   }
 };
+
+const handleSaveAsJson = () => {
+  if (!generatedLessonData) return;
+  
+  const jsonString = JSON.stringify(generatedLessonData, null, 2);
+  const blob = new Blob([jsonString], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `lesson_${Date.now()}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+};
+
   const generateNewRound = async () => {
     const newTarget = await fetchRandomFromCocoDatabase();
     setTarget(newTarget);
@@ -268,6 +288,7 @@ const handleGenerateLesson = async () => {
   const [coursingData, setCoursingData] = useState<any>(null);
   const [lessonString, setLessonString] = useState<string>("");
   const [lessonsList, setLessonsList] = useState<{lesson_id: string, title: string, updated_at: string}[]>([]);
+  const [localLessons, setLocalLessons] = useState<{lesson_id: string, title: string, updated_at: string, content: string}[]>([]);
   const [isLoadingLessons, setIsLoadingLessons] = useState(false);
   const [selectedModule, setSelectedModule] = useState<number | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -373,9 +394,102 @@ const handleGenerateLesson = async () => {
     fetchLessons();
   }, [LS_playerId]);
 
+  // Load lessons from localStorage on mount
+  useEffect(() => {
+    const loadLocalLessons = () => {
+      const localLessonKeys = Object.keys(localStorage).filter(key => key.startsWith('VB_LESSON_'));
+      const loadedLessons = localLessonKeys.map(key => {
+        try {
+          const lessonData = JSON.parse(localStorage.getItem(key) || '');
+          return {
+            lesson_id: lessonData.lesson_id as string,
+            title: lessonData.title as string,
+            updated_at: lessonData.updated_at as string,
+            content: lessonData.content as string
+          };
+        } catch (error) {
+          console.error('Error loading lesson from localStorage:', error);
+          return null;
+        }
+      }).filter((lesson): lesson is {
+        lesson_id: string;
+        title: string;
+        updated_at: string;
+        content: string;
+      } => lesson !== null);
+      setLocalLessons(loadedLessons);
+    };
 
+    loadLocalLessons();
+  }, []);
 
-  
+  const handleImportJson = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      console.log('No file selected');
+      return;
+    }
+    console.log('File selected:', file.name);
+    
+
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        console.log('File content:', e.target?.result);
+        const content = JSON.parse(e.target?.result as string);
+        console.log('Parsed content:', content);
+
+        // If content is already stringified, parse it
+        const lessonContent = typeof content === 'string' ? JSON.parse(content) : content;
+        console.log('Lesson content:', lessonContent);
+
+        // First try to save to server
+        const saveResponse = await fetch('/api/lesson/findOrCreate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: lessonContent.title || file.name.replace('.json', '') || `Imported Lesson ${Date.now()}`,
+            content: JSON.stringify(lessonContent),
+            creator_id: LS_playerId,
+            lesson_id: Date.now(),
+            progress: null
+          }),
+        });
+
+        if (!saveResponse.ok) {
+          throw new Error('Failed to save lesson to server');
+        }
+
+        const saveData = await saveResponse.json();
+        if (!saveData.success) {
+          throw new Error(saveData.error || 'Failed to save lesson');
+        }
+        
+        // Update the lesson string state with the quiz data
+        setLessonString(saveData.data.title);
+        setCoursingData(saveData.data);
+        
+        // Refresh lessons list
+        await fetchLessons();
+        
+        playSoundEffect?.("/sfx/short/sssccc.mp3");
+      } catch (error) {
+        console.error('Error importing lesson:', error);
+        alert('Failed to import lesson. Please check the file format. Error: ' + (error as Error).message);
+      }
+    };
+
+    reader.onerror = (error) => {
+      console.error('Error reading file:', error);
+      alert('Error reading file: ' + (error.target as any).error);
+    };
+
+    reader.readAsText(file);
+    // Reset the input value to allow importing the same file again
+    event.target.value = '';
+  };
 
   async function fetchRandomFromCocoDatabase() {
     // check if user has ability to play audio and cliiked anything or interacted with the page
@@ -634,6 +748,14 @@ const areAllQuestionsAnswered = () => {
                       {lessonError && (
                         <div className="tx-red tx-sm mt-1">{lessonError}</div>
                       )}
+                      {lessonError && generatedLessonData && (
+                        <div className="flex-row gap-2 mt-2">
+                          <BewGreenBtn
+                            text="Save as JSON"
+                            onClick={handleSaveAsJson}
+                          />
+                        </div>
+                      )}
                       <div className="flex-row gap-2  ">
                       <BewGreenBtn
                         text={isCreatingLesson ? "Creating..." : <>Create <br /> Lesson</>} 
@@ -651,15 +773,6 @@ const areAllQuestionsAnswered = () => {
                         >
                           🎲
                         </button>
-
-                      {/* {!!lessonsList && lessonsList.length > 0 && (<>
-                      
-                      <div className="flex-row gap-4 w-90 Q_xs">
-                      <hr className='flex-1 opaci-20 ' />
-                      <div className='opaci-20 pt-2 tx-lgx'>°</div>
-                      <hr className='flex-1 opaci-20 ' />
-                      </div>
-                      </>)} */}
 
                       {!!lessonsList && lessonsList.length === 0 && false && (<>
                       {/* <div className='tx-center tx-lg mt-4'>No lessons yet</div> */}
@@ -679,19 +792,64 @@ const areAllQuestionsAnswered = () => {
                       ))}
                       </>)}
 
+                      {!!lessonsList && (<>
+                        <div className='flex-row gap-2 w-90 Q_xs mt-8'>
+                          <hr className='flex-1 opaci-20' />
+                          <div className='opaci-20 pt-2 tx-lgx'>°</div>
+                          <hr className='flex-1 opaci-20' />
+                        </div>
+                      </>)}
+
                       {!!lessonsList && lessonsList.length > 0 && (
                         <div className='Q_xs_md flex-col w-90'>
                         <YourLessonList 
-                          lessonsList={lessonsList}
+                          lessonsList={[...lessonsList, ...localLessons]}
                           isLoadingLessons={isLoadingLessons}
                           setLessonString={setLessonString}
                           LS_playerId={LS_playerId}
-                          setCoursingData={setCoursingData}
+                          setCoursingData={(data) => {
+                            // Check if this is a local lesson
+                            const localLesson = localLessons.find(l => l.lesson_id === data.lesson_id);
+                            if (localLesson) {
+                              // Use the stored content for local lessons
+                              setCoursingData({
+                                ...data,
+                                content: localLesson.content
+                              });
+                            } else {
+                              setCoursingData(data);
+                            }
+                          }}
                           playSoundEffect={playSoundEffect}
                         />
+
                         </div>
                       )}
 
+                        
+<div className='flex-col gap-2 mt-4 flex-center pb-100'>
+                          <input
+                            type="file"
+                            accept=".json"
+                            onChange={handleImportJson}
+                            style={{ visibility: 'hidden' }}
+                            id="import-json-input"
+                            className="pointer"
+                          />
+                          {/* <div className="tx-sm opaci-50">or</div> */}
+                          <label htmlFor="import-json-input">
+                            <BewPurpleBtn
+                              text={<>
+                              <div className="tx-center">Import <br /> Lesson</div>
+                              </>}
+                              onClick={() => {
+                                document.getElementById('import-json-input')?.click();
+                              }}
+                            />
+                          </label>
+                        </div>
+
+                        
                     </div>
                   </>)}
                     {!!lessonString && (<>
@@ -746,6 +904,25 @@ const areAllQuestionsAnswered = () => {
        className='tx-bold w-250px w-100 tx-center  pt- flex-row' >
         <div className='flex-1 tx-start'>Creation Date:</div>
         <div className='tx-xs'>{coursingData?.created_at?.split("T")[1]}</div>
+       </div>
+       <div className="flex-row gap-2 mt-4 flex-center">
+          <BewGreenBtn
+            text="Save as JSON"
+            onClick={() => {
+              const jsonString = JSON.stringify(JSON.parse(coursingData.content), null, 2);
+              const blob = new Blob([jsonString], { type: 'application/json' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              // title lessonString
+              a.download = `lesson_${lessonString}.json`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+              playSoundEffect?.("/sfx/short/cling.mp3");
+            }}
+          />
        </div>
        </div>
        </details>
@@ -834,13 +1011,25 @@ const areAllQuestionsAnswered = () => {
                 <div className='h-100  w-300px pr-4 Q_md_x' id="user-stats-bar">
                 <WrappedBewUserStatsSummary showResources={false} />
                 
-                <div className='Q_md_x flex-col w-100'>
+                <div className='Q_md_x flex-col w-100 pt-4'>
                         <YourLessonList 
-                          lessonsList={lessonsList}
+                          lessonsList={[...lessonsList, ...localLessons]}
                           isLoadingLessons={isLoadingLessons}
                           setLessonString={setLessonString}
                           LS_playerId={LS_playerId}
-                          setCoursingData={setCoursingData}
+                          setCoursingData={(data) => {
+                            // Check if this is a local lesson
+                            const localLesson = localLessons.find(l => l.lesson_id === data.lesson_id);
+                            if (localLesson) {
+                              // Use the stored content for local lessons
+                              setCoursingData({
+                                ...data,
+                                content: localLesson.content
+                              });
+                            } else {
+                              setCoursingData(data);
+                            }
+                          }}
                           playSoundEffect={playSoundEffect}
                         />
                         </div>
