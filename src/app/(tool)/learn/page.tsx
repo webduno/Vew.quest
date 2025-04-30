@@ -67,22 +67,22 @@ export default function TrainingPage() {
     "Interviews and Talks by Professional Remote Viewers",
     "Third Eye Spies Documentary",
     "The Real X-Files",
-    "Superhuman Institute history of RV documentary",
+    "Superhuman Institute history documentary",
     "The Case of ESP",
-    "Documented RV Cases - CIA's Stargate Program",
+    "Documented Cases of CIA's Stargate Program",
     "CIA's Project SCANATE - Remote Viewing Origins",
     "Project GRILL FLAME - Military Remote Viewing",
-    "Project SUN STREAK - Advanced RV Research",
+    "Project SUN STREAK Advanced Clairvoyance Research",
     "Ingo Swann's Remote Viewing Experiments",
-    "Pat Price's RV Successes",
-    "Joseph McMoneagle's RV Missions",
-    "The Mars RV Experiments",
+    "Pat Price's Psychic Successes",
+    "Joseph McMoneagle's Government Missions",
+    "The Mars Remote Viewing Experiments",
     "CIA's Gateway Process - Hemi-Sync Research",
     "Project MKULTRA and Psi Research",
-    "The Monroe Institute's Role in RV Development",
+    "The Monroe Institute's Role in Psi-research Development",
     "SRI's Remote Viewing Research Program",
-    "The Farsight Institute's RV Studies",
-    "Documented RV Successes in Intelligence Operations"
+    "The Farsight Institute's Clairvoyance Studies",
+    "Documented Psychic Successes in Intelligence Operations"
   ];
   const { triggerSnackbar } = useProfileSnackbar();
   const [isLoadingNewTopic, setIsLoadingNewTopic] = useState(false);
