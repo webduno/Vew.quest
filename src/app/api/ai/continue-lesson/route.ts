@@ -41,6 +41,8 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 export async function POST(request: NextRequest) {
+  const isGPT = process.env.ISGPT === 'true';
+  console.log('isGPT', isGPT);
   try {
     const { id, creator_id } = await request.json();
 
@@ -68,10 +70,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!process.env.OPENAI_API_KEY) {
-      console.error('Missing OPENAI_API_KEY environment variable');
+    if (!process.env.AI_API_KEY) {
+      console.error('Missing AI_API_KEY environment variable');
       return NextResponse.json(
-        { success: false, error: 'Missing OPENAI_API_KEY environment variable' },
+        { success: false, error: 'Missing AI_API_KEY environment variable' },
         { status: 500 }
       );
     }
@@ -81,14 +83,20 @@ export async function POST(request: NextRequest) {
     const lastModule = existingContent[existingContent.length - 1];
     const lastQuestion = lastModule.en[lastModule.en.length - 1].question;
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const apiUrl = isGPT 
+      ? 'https://api.openai.com/v1/chat/completions'
+      : 'https://openrouter.ai/api/v1/chat/completions';
+
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': isGPT 
+          ? `Bearer ${process.env.AI_API_KEY}`
+          : `Bearer ${process.env.AI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4',
+        model: 'qwen/qwen3-1.7b:free',
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: `Continue this lesson by building upon the last question: "${lastQuestion}". The new content should be more advanced and build upon the previous concepts.` }

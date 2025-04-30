@@ -69,22 +69,30 @@ export async function POST(request: NextRequest) {
     const { topic, difficulty } = await request.json();
 
     // Log incoming request
-    if (!process.env.OPENAI_API_KEY) {
-      console.error('Missing OPENAI_API_KEY environment variable');
+    if (!process.env.AI_API_KEY && !process.env.OPENROUTER_API_KEY) {
+      console.error('Missing API key environment variable');
       return NextResponse.json(
-        { success: false, error: 'Missing OPENAI_API_KEY environment variable' },
+        { success: false, error: 'Missing API key environment variable' },
         { status: 500 }
       );
     }
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const isGPT = process.env.ISGPT === 'true';
+    console.log('isGPT', isGPT, process.env.AI_API_KEY);
+    const apiUrl = isGPT 
+      ? 'https://api.openai.com/v1/chat/completions'
+      : 'https://openrouter.ai/api/v1/chat/completions';
+    console.log('apiUrl', apiUrl);
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': isGPT 
+          ? `Bearer ${process.env.AI_API_KEY}`
+          : `Bearer ${process.env.AI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4',
+        model: 'qwen/qwen3-1.7b:free',
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: `Create a lesson about: ${topic} with difficulty level: ${difficulty}` }
