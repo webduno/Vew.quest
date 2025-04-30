@@ -746,7 +746,7 @@ const areAllQuestionsAnswered = () => {
                       <div className='opaci-25'>Learn about anything</div>
                       <div className="flex-row gap-2 flex-center w-100">
                         <textarea  className='w-80 w-max-400px tx-lg pa-2 bord-r-25 border-gg tx-center'
-                        rows={2}
+                        rows={3}
                           value={typedLessonTitle}
                           placeholder="Ask a question"
                           onChange={(e) => {

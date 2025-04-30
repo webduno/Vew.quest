@@ -112,7 +112,7 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       console.error('OpenAI API error:', data);
       return NextResponse.json(
-        { success: false, error: data.error?.message || 'Failed to generate lesson content', openai: data },
+        { success: false, error: data.error?.message || ' OpenAI API errorFailed to generate lesson content OpenAI API' , openai: data },
         { status: 500 }
       );
     }
