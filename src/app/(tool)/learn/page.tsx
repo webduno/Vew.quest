@@ -877,9 +877,7 @@ const areAllQuestionsAnswered = () => {
         </button> */}
         
       </div>
-      {generationError && (
-        <div className="tx-red tx-sm mt-2">{generationError}</div>
-      )}
+      
       </div>
        <details className='w-300px  flex-col flex-align-stretch flex-justify-stretch'>
         <summary className='flex-col  pointer border-gg bord-r-15  py-2 w-100'>
@@ -949,6 +947,10 @@ const areAllQuestionsAnswered = () => {
       />
     </div>
     </>)}
+    {generationError && (
+        <div className="tx-red py-4 tx-sm mt-2">{generationError}</div>
+      )}
+
        {areAllQuestionsAnswered() && (
         <button
           className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer mt-8"
