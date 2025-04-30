@@ -22,9 +22,9 @@ export async function GET(request: Request) {
 
     const { data: lessons, error } = await supabase
       .from('vew_lesson')
-      .select('lesson_id, title')
+      .select('lesson_id, title, updated_at')
       .eq('creator_id', creator_id.toLowerCase())
-      .order('created_at', { ascending: false });
+      .order('updated_at', { ascending: false });
 
     if (error) {
       console.error('Error fetching lessons:', error);

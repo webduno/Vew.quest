@@ -127,7 +127,7 @@ export const BewUserStatsSummary = ({
         </div>
       </div>
 
-      <a target='_blank'
+      {/* <a target='_blank'
         href="https://www.reddit.com/r/remoteviewing/comments/1k1y0ge/weekly_practice_objective_r16487/"
         className='bord-r-10 pa-4 pl-2 opaci-chov--75 nodeco border-gg' 
       >
@@ -149,7 +149,7 @@ export const BewUserStatsSummary = ({
           </div>
         </div>
         <div></div>
-      </a>
+      </a> */}
 
       {showResources && (<> 
       <div className='bord-r-10 border-gg' >

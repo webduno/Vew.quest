@@ -17,6 +17,7 @@ import { LearnToolCreateNav, LearnToolTitleNav } from '@/dom/organ/vew_learn/Lea
 import { BewGreenBtn } from '@/dom/bew/BewBtns';
 import { QuestionView } from '@/dom/organ/vew_learn/QuestionView';
 import { ModuleList } from '@/dom/organ/vew_learn/ModuleList';
+import { YourLessonList } from '../../../dom/organ/vew_learn/YourLessonList';
 
 type TargetsData = {
   [key: string]: string;
@@ -267,7 +268,7 @@ const handleGenerateLesson = async () => {
 
   const [coursingData, setCoursingData] = useState<any>(null);
   const [lessonString, setLessonString] = useState<string>("");
-  const [lessonsList, setLessonsList] = useState<{lesson_id: string, title: string}[]>([]);
+  const [lessonsList, setLessonsList] = useState<{lesson_id: string, title: string, updated_at: string}[]>([]);
   const [isLoadingLessons, setIsLoadingLessons] = useState(false);
   const [selectedModule, setSelectedModule] = useState<number | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -615,9 +616,9 @@ const areAllQuestionsAnswered = () => {
                  />
                  </>)}
 
-                <div className='flex-1  tx-altfont-2 flex-col flex-justify-start tx-altfont-2'>
+                <div className='flex-1  tx-altfont-2 flex-col  flex-justify-start tx-altfont-2'>
                   {!lessonString && (<>
-                    <div className='tx-center tx-altfont-2 pt-8 gap-2  w-100 tx-black flex-col h-100'>
+                    <div className='tx-center tx-altfont-2 pt-8 gap-2 flex-justify-start w-100 tx-black flex-col h-100'>
                       <div>Learn about anything</div>
                       <div className="flex-row gap-2 flex-center w-100">
                         <textarea  className='w-80 w-max-400px tx-lg pa-2 bord-r-25 border-gg tx-center'
@@ -652,14 +653,14 @@ const areAllQuestionsAnswered = () => {
                           🎲
                         </button>
 
-                      {!!lessonsList && lessonsList.length > 0 && (<>
+                      {/* {!!lessonsList && lessonsList.length > 0 && (<>
                       
-                      <div className="flex-row gap-4 w-90 ">
+                      <div className="flex-row gap-4 w-90 Q_xs">
                       <hr className='flex-1 opaci-20 ' />
                       <div className='opaci-20 pt-2 tx-lgx'>°</div>
                       <hr className='flex-1 opaci-20 ' />
                       </div>
-                      </>)}
+                      </>)} */}
 
                       {!!lessonsList && lessonsList.length === 0 && false && (<>
                       {/* <div className='tx-center tx-lg mt-4'>No lessons yet</div> */}
@@ -679,58 +680,19 @@ const areAllQuestionsAnswered = () => {
                       ))}
                       </>)}
 
-                      {!!lessonsList && lessonsList.length > 0 && (<>
-                      <div className='tx-center tx-lg mt-4'>Your Lessons:</div>
-                      </>)}
-                      
-                          {isLoadingLessons ? (
-                        <div className='tx-center'>Loading lessons...</div>
-                      ) : !!lessonsList && lessonsList.length > 0 ? (
-                        <div className='flex-wrap gap-2 mt-4 w-90 pb-100'>
-                          {lessonsList.map((lesson) => (
-                            <div 
-                              key={lesson.lesson_id}
-                              className='border-gg bord-r-25 pa-2 py-4 tx-center pointer '
-                              onClick={() => {
-                                setLessonString(lesson.title);
-
-                                // fetch full lesson data by id
-                                const fetchLessonData = async () => {
-                                  try {
-                                    const response = await fetch(`/api/lesson/findOrCreate`, {
-                                      method: 'POST',
-                                      headers: {
-                                        'Content-Type': 'application/json',
-                                      },
-                                      body: JSON.stringify({
-                                        lesson_id: lesson.lesson_id,
-                                        creator_id: LS_playerId,
-                                      }),
-                                    });
-                                    if (!response.ok) {
-                                      throw new Error('Failed to fetch lesson data');
-                                    }
-                                    const data = await response.json();
-                                    if (data.success) {
-                                      setCoursingData(data.data);
-                                      setLessonString(data.data.title);
-                                    }
-                                  } catch (error) {
-                                    console.error('Error fetching lesson data:', error);
-                                  }
-                                };
-                                fetchLessonData();
-
-                                playSoundEffect?.("/sfx/short/sssccc.mp3");
-                              }}
-                            >
-                              {/* {lesson.title} */}
-                              <div className='w-90  tx-sm tx-ls- opaci-75 '>{lesson.title.toUpperCase()}</div>
-                              <div className='w-100  tx-sm tx-ls- opaci-25 pt-2'>Click to Start</div>
-                            </div>
-                          ))}
+                      {!!lessonsList && lessonsList.length > 0 && (
+                        <div className='Q_xs flex-col w-90'>
+                        <YourLessonList 
+                          lessonsList={lessonsList}
+                          isLoadingLessons={isLoadingLessons}
+                          setLessonString={setLessonString}
+                          LS_playerId={LS_playerId}
+                          setCoursingData={setCoursingData}
+                          playSoundEffect={playSoundEffect}
+                        />
                         </div>
-                      ) : null}
+                      )}
+
                     </div>
                   </>)}
                     {!!lessonString && (<>
@@ -792,12 +754,14 @@ const areAllQuestionsAnswered = () => {
 
 
 
-    <div className="flex-col gap-4 w-100 ">
+       {!!lessonString && (<>
+        <div className="flex-col gap-4 w-100 ">
       <ModuleList 
         coursingData={coursingData}
         handleModuleClick={handleModuleClick}
       />
     </div>
+    </>)}
        {areAllQuestionsAnswered() && (
         <button
           className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer mt-8"
@@ -870,6 +834,18 @@ const areAllQuestionsAnswered = () => {
               {!isMobile() && crvObjects.length > 0 && (<>
                 <div className='h-100  w-250px pr-4 Q_sm_x' id="user-stats-bar">
                 <WrappedBewUserStatsSummary showResources={false} />
+                
+                <div className='Q_sm_x flex-col w-100'>
+                        <YourLessonList 
+                          lessonsList={lessonsList}
+                          isLoadingLessons={isLoadingLessons}
+                          setLessonString={setLessonString}
+                          LS_playerId={LS_playerId}
+                          setCoursingData={setCoursingData}
+                          playSoundEffect={playSoundEffect}
+                        />
+                        </div>
+                
                 </div>
               </>)}
 
