@@ -6,8 +6,9 @@ import { IconStatsBar } from '../../bew/IconStatsBar';
 
 
 export const WrappedBewUserStatsSummary = ({ showResources = true, minified = false }: { showResources?: boolean, minified?: boolean }) => {
-  const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
+  const { streak, crvObjects, potentialStreak, averageResult, minds } = useFetchedStats();
   return <BewUserStatsSummary minified={minified}
+  minds={minds}
   showResources={showResources} 
   crvObjects_length={crvObjects.length}
   calculatedStats={{
@@ -20,12 +21,14 @@ export const BewUserStatsSummary = ({
   minified = false,
   calculatedStats,
   crvObjects_length = 0,  
-  showResources = true
+  showResources = true,
+  minds = 0
 }: {
   minified?: boolean;
   calculatedStats?: any;
   crvObjects_length?: number;
   showResources?: boolean;
+  minds?: number;
 }) => {
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const { potentialStreak, streak, dailyProgress, dailyGoal, isLoading, error,  averageResult } = (calculatedStats || {
@@ -61,6 +64,7 @@ export const BewUserStatsSummary = ({
       <IconStatsBar potentialStreak={potentialStreak}  streak={streak}
       points={crvObjects_length}
       hearts={Math.round(averageResult)}
+      minds={minds}
       />
     );
   }
@@ -69,6 +73,7 @@ export const BewUserStatsSummary = ({
     <IconStatsBar potentialStreak={potentialStreak}  streak={streak}
     points={crvObjects_length}
     hearts={Math.round(averageResult)}
+    minds={minds}
     />
 
     <div className='flex-col flex-align-stretch gap-4'>

@@ -3,9 +3,17 @@
 import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
 
 export const IconStatsBar = ({
-  potentialStreak, streak, points, hearts
-}: { potentialStreak?: number; streak: number; points: number; hearts: number; }) => {
+  potentialStreak, streak, points, hearts, minds
+}: { potentialStreak?: number; streak: number; points: number; hearts: number; minds?: number; }) => {
   const { playSoundEffect } = useBackgroundMusic();
+
+  const formatMindCount = (count: number): string => {
+    if (count >= 1000) {
+      return `${(count / 1000).toFixed(1)}k`;
+    }
+    return count.toString();
+  };
+
   return (
     <div className='flex-row pos-rel flex-justify-between tx-altfont-2'>
       <button className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
@@ -60,9 +68,28 @@ export const IconStatsBar = ({
         data-tooltip-place="bottom"
         data-tooltip-variant='error'
       >
-        <div className='tx-lg tx-center'>💖</div>
+        <div className='tx-lg tx-center'>❤️</div>
         <div className='tx-bold-5' style={{ color: "#F92F60" }}>{hearts}%</div>
       </button>
+
+      {!!minds && (
+      <a 
+      href={`/learn`}
+      className='nodeco pa-2 pt-4  opaci-chov--50 flex-wrap'
+      onClick={() => {
+        playSoundEffect('/sfx/short/passbip.mp3');
+      }}
+        data-tooltip-id="hearts-tooltip"
+        data-tooltip-content="Average"
+        data-tooltip-place="bottom"
+        data-tooltip-variant='error'
+      >
+        <div className='tx-lg tx-center'>🧠</div>
+        <div className='tx-bold-5' style={{ color: "#F92F60" }}>{formatMindCount(minds || 0)}</div>
+      </a>
+      )}
+
+
     </div>
   );
 };

@@ -52,18 +52,19 @@ export default function TrainingPage() {
     return String.fromCodePoint(codePoint);
   };
   
+  const exampleLessons = [
+    "Remote Viewing with Joseph McMoneagle",
+    "Daz Smith - CRV Controlled Remote Viewing Manuals",
+    "The Remote Viewing Handbook",
+    "Ingo Swann Findings",
+    "Remote Viewing Protocols"
+  ];
+
   const addRandomEmoji = () => {
     const randomEmoji = getRandomEmoji();
-    setTypedLessonTitle(prev => {
-      // Check if the first character is an emoji (basic check for surrogate pairs)
-      const firstCharCode = prev.charCodeAt(0);
-      if (firstCharCode && firstCharCode >= 0x1F300) {
-        // Find the length of the first emoji (could be 1-2 code units)
-        const emojiLength = prev.codePointAt(0)! > 0xFFFF ? 2 : 1;
-        return randomEmoji + prev.substring(emojiLength);
-      }
-      return randomEmoji + prev;
-    });
+    const randomLesson = exampleLessons[Math.floor(Math.random() * exampleLessons.length)];
+    setTypedLessonTitle(randomLesson);
+    // setTypedLessonTitle(randomEmoji + " " + randomLesson);
     playSoundEffect?.("/sfx/short/cling.mp3");
   };
 
@@ -153,7 +154,7 @@ const handleGenerateLesson = async () => {
         content: JSON.stringify(generatedData.data),
         creator_id: LS_playerId,
         lesson_id: Date.now().toString(),
-        progress: "0"
+        progress: null
       }),
     });
 
@@ -470,7 +471,8 @@ const handleNextQuestion = () => {
 
 const handleContinueGeneration = async () => {
   if (!coursingData || !LS_playerId) return;
-  
+  if (isGeneratingMore) return;
+
   setIsGeneratingMore(true);
   setGenerationError(null);
 
@@ -545,6 +547,13 @@ const areAllQuestionsAnswered = () => {
       <div className='w-100  flex-col   '>
         {gameState === 'initial' && (
           <VewToolLogin
+            titleNode={<div className='tx-center tx-lgx landing -title'>
+              Ask me anything <br /> to learn anything step-by-step lessons
+              <br />
+              <div className='tx-xsm py-2 opaci-50'>Producedurally generated</div>
+            </div>}
+            defaultImage="/bew/bttrf.png"
+            defaultImageOverlay="/bew/brain.png"
             gameState={gameState}
             setGameState={setGameState}
             typedUsername={typedUsername}
@@ -599,7 +608,14 @@ const areAllQuestionsAnswered = () => {
                       {lessonError && (
                         <div className="tx-red tx-sm mt-1">{lessonError}</div>
                       )}
-                      <div className="flex-row gap-2 pb-8 ">
+                      <div className="flex-row gap-2  ">
+                      <BewGreenBtn
+                        text={isCreatingLesson ? "Creating..." : <>Create <br /> Lesson</>} 
+                        onClick={handleGenerateLesson}
+                        disabled={isCreatingLesson}
+                      />
+                      </div>
+
                       <button 
                           onClick={addRandomEmoji}
                           className="tx-lg pa-2 bord-r-25 border-gg pointer opaci-chov--50"
@@ -610,24 +626,40 @@ const areAllQuestionsAnswered = () => {
                           🎲
                         </button>
 
-                      <BewGreenBtn
-                        text={isCreatingLesson ? "Creating..." : <>Create <br /> Lesson</>} 
-                        onClick={handleGenerateLesson}
-                        disabled={isCreatingLesson}
-                      />
-                      </div>
-
+                      {!!lessonsList && lessonsList.length > 0 && (<>
                       
                       <div className="flex-row gap-4 w-90 ">
                       <hr className='flex-1 opaci-20 ' />
                       <div className='opaci-20 pt-2 tx-lgx'>°</div>
                       <hr className='flex-1 opaci-20 ' />
                       </div>
+                      </>)}
 
+                      {!!lessonsList && lessonsList.length === 0 && false && (<>
+                      {/* <div className='tx-center tx-lg mt-4'>No lessons yet</div> */}
+                      <div className='flex-col gap-2 pt-8 '>
+                        <div className='tx-sm tx-bold tx-ls-1 pb-4'>Example Lessons:</div>
+                      </div>
+                      {exampleLessons.map((lesson, index) => (
+                        <div 
+                          key={index}
+                          className='flex-col gap-2 w-300px py-1'
+                          onClick={() => {
+                            setTypedLessonTitle(lesson);
+                          }}
+                        >
+                          <div>{lesson}</div>
+                        </div>
+                      ))}
+                      </>)}
+
+                      {!!lessonsList && lessonsList.length > 0 && (<>
                       <div className='tx-center tx-lg mt-4'>Your Lessons:</div>
+                      </>)}
+                      
                           {isLoadingLessons ? (
                         <div className='tx-center'>Loading lessons...</div>
-                      ) : lessonsList && lessonsList.length > 0 ? (
+                      ) : !!lessonsList && lessonsList.length > 0 ? (
                         <div className='flex-wrap gap-2 mt-4 w-90 pb-100'>
                           {lessonsList.map((lesson) => (
                             <div 
@@ -743,10 +775,17 @@ const areAllQuestionsAnswered = () => {
        {areAllQuestionsAnswered() && (
         <button
           className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer mt-8"
-          onClick={handleContinueGeneration}
+          onClick={isGeneratingMore ? undefined : handleContinueGeneration}
           disabled={isGeneratingMore}
         >
-          {isGeneratingMore ? "Generating..." : "Generate More"}
+          {isGeneratingMore ?
+            <div className='tx-lg hover-4'>
+              Generating, please wait...
+            </div> :
+            <div className='tx-lg hover-jump'>
+              Generate More
+            </div>
+          }
         </button>
        )}
     </>) : (

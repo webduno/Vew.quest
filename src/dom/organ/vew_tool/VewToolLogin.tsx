@@ -12,8 +12,14 @@ export interface InitialToolLoginProps {
   isLoading: boolean;
   handleStart: () => void;
   sanitizePlayerId: (id: string) => string;
+  defaultImage?: string;
+  defaultImageOverlay?: string;
+  titleNode?: React.ReactNode;
 }
 export const VewToolLogin: React.FC<InitialToolLoginProps> = ({
+  defaultImage = '/bew/cleaneyes.png',
+  defaultImageOverlay = '/bew/starsbg2.jpeg',
+  titleNode = <div className='tx-center tx-lgx landing -title'>Gamified <br /> step-by-step lessons for remote viewing</div>,
   gameState, setGameState, typedUsername, setTypedUsername, isLoading, handleStart, sanitizePlayerId
 }) => {
   const version = process.env.VEW_PUBLIC_VERSION 
@@ -35,7 +41,7 @@ export const VewToolLogin: React.FC<InitialToolLoginProps> = ({
           <div className='Q_xs_sm py-4'></div>
 
 
-          <img src="/bew/cleaneyes.png"
+          <img src={defaultImage}
             onClick={() => {
               setGameState('playing');
             }}
@@ -44,7 +50,7 @@ export const VewToolLogin: React.FC<InitialToolLoginProps> = ({
 
 
 
-          <img src="/bew/starsbg2.jpeg"
+          <img src={defaultImageOverlay}
             onClick={() => {
               setGameState('playing');
             }}
@@ -57,7 +63,7 @@ export const VewToolLogin: React.FC<InitialToolLoginProps> = ({
             color: "#777777",
           }}
         >
-          <div className='tx-center tx-lgx landing -title'>Gamified <br /> step-by-step lessons for remote viewing</div>
+          {titleNode}
           <div className='flex-col '>
             <div>
               <input

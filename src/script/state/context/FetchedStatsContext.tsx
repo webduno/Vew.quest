@@ -49,6 +49,7 @@ interface FetchedStatsContextType {
   dailyGoal: number;
   isLoading: boolean;
   error: string | null;
+  minds: any | null;
   // Mailbox related states
   mailboxRequests: MailboxRequest[] | null;
   isLoadingMailbox: boolean;
@@ -75,7 +76,7 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   const [isLoadingMailbox, setIsLoadingMailbox] = useState(false);
   const [mailboxError, setMailboxError] = useState<string | null>(null);
   const [lastFetchTime, setLastFetchTime] = useState<number>(0);
-
+  const [minds, setMinds] = useState<number | null>(2);
   // Leaderboard states
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[] | null>(null);
   const [isLoadingLeaderboard, setIsLoadingLeaderboard] = useState(false);
@@ -161,6 +162,12 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
       if (data.success) {
         setCrvObjects(data.data);
       }
+
+      const mindResponse = await fetch(`/api/lesson/mind?storageKey=${identifier}`);
+      const mindData = await mindResponse.json();
+      if (mindData.success) {
+        setMinds(mindData.data);
+      }
     } catch (error) {
       console.error('Error fetching CRV objects:', error);
       setError('Failed to fetch user stats');
@@ -223,7 +230,8 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
       leaderboard,
       isLoadingLeaderboard,
       leaderboardError,
-      fetchLeaderboard
+      fetchLeaderboard,
+      minds
     }}>
       {children}
     </FetchedStatsContext.Provider>
