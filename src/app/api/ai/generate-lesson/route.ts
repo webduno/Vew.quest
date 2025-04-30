@@ -78,11 +78,11 @@ export async function POST(request: NextRequest) {
     }
 
     const isGPT = process.env.ISGPT === 'true';
-    console.log('isGPT', isGPT, process.env.AI_API_KEY);
+    // console.log('isGPT', isGPT, process.env.AI_API_KEY);
     const apiUrl = isGPT 
       ? 'https://api.openai.com/v1/chat/completions'
       : 'https://openrouter.ai/api/v1/chat/completions';
-    console.log('apiUrl', apiUrl);
+    // console.log('apiUrl', apiUrl);
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
