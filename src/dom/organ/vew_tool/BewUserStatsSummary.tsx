@@ -3,17 +3,29 @@ import { Tooltip } from 'react-tooltip';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { useState, useEffect } from 'react';
 import { IconStatsBar } from '../../bew/IconStatsBar';
+import { useUserProfile } from '@/script/state/hook/useUserProfile';
+import { useLSPlayerId } from '../../../../script/state/hook/usePlayerStats';
 
 
 export const WrappedBewUserStatsSummary = ({ showResources = true, minified = false }: { showResources?: boolean, minified?: boolean }) => {
+  const { LS_playerId } = useLSPlayerId();
+  
   const { streak, crvObjects, potentialStreak, averageResult, minds } = useFetchedStats();
+
+  const {
+    // crvObjects,
+    userStats,
+    isLoading,
+    error
+  } = useUserProfile(LS_playerId);
+  
   return <BewUserStatsSummary minified={minified}
   minds={minds}
   showResources={showResources} 
   crvObjects_length={crvObjects.length}
   calculatedStats={{
     // crvObjects.length for today 
-    dailyGoal: crvObjects.filter((obj: any) => obj.date === new Date().toISOString().split('T')[0]).length,
+    dailyProgress: userStats.dailyGoals.requests,
     potentialStreak: potentialStreak,
     streak: streak,
     averageResult: averageResult,
@@ -37,7 +49,7 @@ export const BewUserStatsSummary = ({
     potentialStreak: 0,
     streak: 0,
     dailyProgress: 0,
-    dailyGoal: 0,
+    dailyGoal: 3,
     isLoading: false,
     error: null,
     averageResult: 0
