@@ -1,5 +1,6 @@
 'use client';
 
+import { Tooltip } from "react-tooltip";
 import { useBackgroundMusic } from "../../../script/state/context/BackgroundMusicContext";
 
 export const IconStatsBar = ({
@@ -16,10 +17,12 @@ export const IconStatsBar = ({
 
   return (
     <div className='flex-row pos-rel flex-justify-between tx-altfont-2'>
-      <button className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
-      onClick={() => {
-        playSoundEffect('/sfx/short/passbip.mp3');
-      }}
+      <a 
+      href={`/tool`}
+      className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap nodeco'
+      // onClick={() => {
+      //   playSoundEffect('/sfx/short/passbip.mp3');
+      // }}
         data-tooltip-id="streak-tooltip"
         data-tooltip-content="Streak"
         data-tooltip-place="bottom"
@@ -46,11 +49,11 @@ export const IconStatsBar = ({
           <div className='tx-lg tx-center'>🔥</div>}
 
         <div className='tx-bold-5' style={{ color: "#FFB02E" }}>{streak || potentialStreak}</div>
-      </button>
-      <button className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
-      onClick={() => {
-        playSoundEffect('/sfx/short/passbip.mp3');
-      }}
+      </a>
+      <a href={`/profile`} className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap nodeco'
+      // onClick={() => {
+      //   playSoundEffect('/sfx/short/passbip.mp3');
+      // }}
         data-tooltip-id="points-tooltip"
         data-tooltip-content="Points"
         data-tooltip-place="bottom"
@@ -58,11 +61,11 @@ export const IconStatsBar = ({
       >
         <div className='tx-lg tx-center'>💎</div>
         <div className='tx-bold-5' style={{ color: "#00A6ED" }}>{points}</div>
-      </button>
-      <button className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap'
-      onClick={() => {
-        playSoundEffect('/sfx/short/passbip.mp3');
-      }}
+      </a>
+      <a href={`/profile`} className='tx- lg pa-2 pt-4  opaci-chov--50 flex-wrap nodeco'
+      // onClick={() => {
+      //   playSoundEffect('/sfx/short/passbip.mp3');
+      // }}
         data-tooltip-id="hearts-tooltip"
         data-tooltip-content="Average"
         data-tooltip-place="bottom"
@@ -70,7 +73,7 @@ export const IconStatsBar = ({
       >
         <div className='tx-lg tx-center'>❤️</div>
         <div className='tx-bold-5' style={{ color: "#F92F60" }}>{hearts}%</div>
-      </button>
+      </a>
 
       <a 
       href={`/learn`}
@@ -78,8 +81,8 @@ export const IconStatsBar = ({
       onClick={() => {
         playSoundEffect('/sfx/short/passbip.mp3');
       }}
-        data-tooltip-id="hearts-tooltip"
-        data-tooltip-content="Average"
+        data-tooltip-id="minds-tooltip"
+        data-tooltip-content="Mind"
         data-tooltip-place="bottom"
         data-tooltip-variant='error'
       >
@@ -87,6 +90,11 @@ export const IconStatsBar = ({
         <div className='tx-bold-5' style={{ color: "#F92F60" }}>{formatMindCount(minds || 0)}</div>
       </a>
 
+
+      <Tooltip id="streak-tooltip" />
+          <Tooltip id="points-tooltip" />
+          <Tooltip id="hearts-tooltip" />
+          <Tooltip id="minds-tooltip" />
 
     </div>
   );

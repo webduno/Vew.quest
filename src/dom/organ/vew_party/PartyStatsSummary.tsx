@@ -164,9 +164,6 @@ export const PartyStatsSummary = ({
           <Tooltip id="profile-tooltip" />
           <Tooltip id="settings-tooltip" />
           <Tooltip id="help-tooltip" />
-          <Tooltip id="streak-tooltip" />
-          <Tooltip id="points-tooltip" />
-          <Tooltip id="hearts-tooltip" />
         </div>
       </div>
 

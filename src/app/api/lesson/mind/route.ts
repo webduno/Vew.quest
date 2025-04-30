@@ -20,9 +20,13 @@ export async function GET(request: Request) {
       );
     }
 
+    // Get today's date at midnight UTC
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+
     const { data: lessons, error } = await supabase
       .from('vew_lesson')
-      .select('progress')
+      .select('progress, created_at')
       .eq('creator_id', storageKey.toLowerCase());
 
     if (error) {
@@ -33,13 +37,33 @@ export async function GET(request: Request) {
       );
     }
 
-    // Calculate total progress length
+    // Calculate total progress length (total minds) - keep as character count
     const totalProgressLength = lessons.reduce((sum, lesson) => {
       return sum + (lesson.progress ? lesson.progress.length : 0);
     }, 0);
 
+    // Calculate today's progress (number of questions answered today)
+    const todayProgress = lessons.reduce((sum, lesson) => {
+      const lessonDate = new Date(lesson.created_at);
+      lessonDate.setUTCHours(0, 0, 0, 0);
+      let arr = [];
+      try {
+        arr = Array.isArray(lesson.progress) ? lesson.progress : JSON.parse(lesson.progress || '[]');
+      } catch (e) {
+        arr = [];
+      }
+      if (lessonDate.getTime() === today.getTime()) {
+        return sum + arr.length;
+      }
+      return sum;
+    }, 0);
+
     return NextResponse.json(
-      { success: true, data: totalProgressLength },
+      { 
+        success: true, 
+        data: totalProgressLength,
+        todayProgress: todayProgress
+      },
       { status: 200 }
     );
 

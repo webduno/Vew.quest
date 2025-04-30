@@ -41,28 +41,29 @@ interface LeaderboardEntry {
   highest_accuracy: number;
 }
 
-interface FetchedStatsContextType {
+export type FetchedStatsContextType = {
+  isLoading: boolean;
+  error: string | null;
   crvObjects: CRVObject[];
   streak: number;
   potentialStreak: number;
   dailyProgress: number;
   dailyGoal: number;
-  isLoading: boolean;
-  error: string | null;
-  minds: any | null;
+  minds: number;
+  mindMission: number;
+  refetchStats: () => Promise<void>;
   // Mailbox related states
   mailboxRequests: MailboxRequest[] | null;
   isLoadingMailbox: boolean;
   mailboxError: string | null;
   fetchMailboxRequests: () => Promise<void>;
-  refetchStats: () => Promise<void>;
   averageResult: number;
   // Leaderboard states
   leaderboard: LeaderboardEntry[] | null;
   isLoadingLeaderboard: boolean;
   leaderboardError: string | null;
   fetchLeaderboard: (topOnly?: boolean) => Promise<void>;
-}
+};
 
 const FetchedStatsContext = createContext<FetchedStatsContextType | undefined>(undefined);
 
@@ -76,7 +77,8 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   const [isLoadingMailbox, setIsLoadingMailbox] = useState(false);
   const [mailboxError, setMailboxError] = useState<string | null>(null);
   const [lastFetchTime, setLastFetchTime] = useState<number>(0);
-  const [minds, setMinds] = useState<number | null>(2);
+  const [minds, setMinds] = useState<number>(0);
+  const [mindMission, setMindMission] = useState<number>(0);
   // Leaderboard states
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[] | null>(null);
   const [isLoadingLeaderboard, setIsLoadingLeaderboard] = useState(false);
@@ -167,6 +169,9 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
       const mindData = await mindResponse.json();
       if (mindData.success) {
         setMinds(mindData.data);
+        // Calculate mind mission progress - lessons completed today
+        const todayMindMission = mindData.todayProgress || 0;
+        setMindMission(todayMindMission);
       }
     } catch (error) {
       console.error('Error fetching CRV objects:', error);
@@ -213,26 +218,31 @@ export function FetchedStatsProvider({ children }: { children: ReactNode }) {
   const averageResult = calculateAverageResult(crvObjects);
 
   return (
-    <FetchedStatsContext.Provider value={{
-      crvObjects,
-      streak,
-      potentialStreak,
-      dailyProgress,
-      dailyGoal,
-      isLoading,
-      error,
-      mailboxRequests,
-      isLoadingMailbox,
-      mailboxError,
-      fetchMailboxRequests,
-      refetchStats,
-      averageResult,
-      leaderboard,
-      isLoadingLeaderboard,
-      leaderboardError,
-      fetchLeaderboard,
-      minds
-    }}>
+    <FetchedStatsContext.Provider
+      value={{
+        isLoading,
+        error,
+        crvObjects,
+        streak,
+        potentialStreak,
+        dailyProgress,
+        dailyGoal,
+        minds,
+        mindMission,
+        refetchStats,
+        // Mailbox related states
+        mailboxRequests,
+        isLoadingMailbox,
+        mailboxError,
+        fetchMailboxRequests,
+        averageResult,
+        // Leaderboard states
+        leaderboard,
+        isLoadingLeaderboard,
+        leaderboardError,
+        fetchLeaderboard,
+      }}
+    >
       {children}
     </FetchedStatsContext.Provider>
   );

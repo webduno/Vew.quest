@@ -10,7 +10,7 @@ import { useLSPlayerId } from '../../../../script/state/hook/usePlayerStats';
 export const WrappedBewUserStatsSummary = ({ showResources = true, minified = false }: { showResources?: boolean, minified?: boolean }) => {
   const { LS_playerId } = useLSPlayerId();
   
-  const { streak, crvObjects, potentialStreak, averageResult, minds } = useFetchedStats();
+  const { streak, crvObjects, potentialStreak, averageResult, minds, mindMission } = useFetchedStats();
 
   const {
     // crvObjects,
@@ -29,6 +29,7 @@ export const WrappedBewUserStatsSummary = ({ showResources = true, minified = fa
     potentialStreak: potentialStreak,
     streak: streak,
     averageResult: averageResult,
+    mindMission: mindMission,
   }} />
 }
 export const BewUserStatsSummary = ({
@@ -45,14 +46,15 @@ export const BewUserStatsSummary = ({
   minds?: number;
 }) => {
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
-  const { potentialStreak, streak, dailyProgress, dailyGoal, isLoading, error,  averageResult } = (calculatedStats || {
+  const { potentialStreak, streak, dailyProgress, dailyGoal, isLoading, error,  averageResult, mindMission = 0 } = (calculatedStats || {
     potentialStreak: 0,
     streak: 0,
     dailyProgress: 0,
     dailyGoal: 3,
     isLoading: false,
     error: null,
-    averageResult: 0
+    averageResult: 0,
+    mindMission: 0
   })
 
   useEffect(() => {
@@ -101,7 +103,7 @@ export const BewUserStatsSummary = ({
             style={{
               color: "#4B4B4B",
             }}
-            >Daily Goal</div>
+            >RV Daily Goal</div>
             <div className='tx-sm tx-bold bord-r-25  w-100 ' style={{
               padding: "3px 0",
               boxShadow: "0 2px 0 #D68800",
@@ -111,6 +113,31 @@ export const BewUserStatsSummary = ({
               <div className='flex-row gap-1'>
                 <div>{dailyProgress || 0}/{dailyGoal || 3}</div>
                 <div>Targets</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div className='flex-row flex-justify-start gap-2 pt-4'>
+          <div>
+            <div className='tx-lgx'>🧠</div>
+          </div>
+          <div className='flex-col flex-align-start gap-2 flex-1'>
+            <div className='tx-bold'
+            style={{
+              color: "#4B4B4B",
+            }}
+            >Mind Daily Mission</div>
+            <div className='tx-sm tx-bold bord-r-25  w-100 ' style={{
+              padding: "3px 0",
+              boxShadow: "0 2px 0 #D68800",
+              background: "#FDC908",
+              color: "#D68800",
+            }}>
+              <div className='flex-row gap-1'>
+                <div>{mindMission || 0}/3</div>
+                <div>Lessons</div>
               </div>
             </div>
           </div>
@@ -135,9 +162,6 @@ export const BewUserStatsSummary = ({
           <Tooltip id="profile-tooltip" />
           <Tooltip id="settings-tooltip" />
           <Tooltip id="help-tooltip" />
-          <Tooltip id="streak-tooltip" />
-          <Tooltip id="points-tooltip" />
-          <Tooltip id="hearts-tooltip" />
         </div>
       </div>
 
