@@ -5,7 +5,6 @@ import JSConfetti from 'js-confetti';
 import { usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 import { useBackgroundMusic } from '@/../script/state/context/BackgroundMusicContext';
 import { generateRandomTargetRandomized } from '@/../script/utils/platform/generateRandomTargetRandomized';
-import { isMobile } from '@/../script/utils/platform/mobileDetection';
 import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 
 import targetsData from '@/../public/data/targets_1.json';
@@ -177,7 +176,7 @@ const handleGenerateLesson = async () => {
         title: typedLessonTitle,
         content: JSON.stringify(generatedData.data),
         creator_id: LS_playerId,
-        lesson_id: Date.now().toString(),
+        lesson_id: null,
         progress: null
       }),
     });
@@ -508,7 +507,7 @@ const handleContinueGeneration = async () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        lesson_id: coursingData.lesson_id,
+        lesson_id: coursingData.id,
         creator_id: LS_playerId
       }),
     });
@@ -681,7 +680,7 @@ const areAllQuestionsAnswered = () => {
                       </>)}
 
                       {!!lessonsList && lessonsList.length > 0 && (
-                        <div className='Q_xs flex-col w-90'>
+                        <div className='Q_xs_md flex-col w-90'>
                         <YourLessonList 
                           lessonsList={lessonsList}
                           isLoadingLessons={isLoadingLessons}
@@ -831,11 +830,11 @@ const areAllQuestionsAnswered = () => {
 
 
 
-              {!isMobile() && crvObjects.length > 0 && (<>
-                <div className='h-100  w-250px pr-4 Q_sm_x' id="user-stats-bar">
+              {  (<>
+                <div className='h-100  w-300px pr-4 Q_md_x' id="user-stats-bar">
                 <WrappedBewUserStatsSummary showResources={false} />
                 
-                <div className='Q_sm_x flex-col w-100'>
+                <div className='Q_md_x flex-col w-100'>
                         <YourLessonList 
                           lessonsList={lessonsList}
                           isLoadingLessons={isLoadingLessons}

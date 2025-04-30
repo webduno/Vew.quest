@@ -350,9 +350,9 @@ useEffect(() => {
       
       className='tx- lg pa-2 mt -2   opaci-chov--50 flex-wrap nodeco'
       >
-        {/* books emoji */}
-        <div className='tx-lg tx-center'>📚</div>
-        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Assets"}</div>
+        {/* brain emoji */}
+        <div className='tx-lg tx-center'>🧠</div>
+        <div className='tx-bold-5' style={{ color: "#4b4b4b" }}>{"Learn"}</div>
       </a>
       <a 
       href="/world"

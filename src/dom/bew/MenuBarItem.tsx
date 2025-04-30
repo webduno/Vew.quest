@@ -14,7 +14,9 @@ export const MenuBarItem = ({ href, emoji, tooltip }: { href: string, emoji: str
         {/* home emoji */}
         <a href={href} className='nodeco pa-2 tx-center'>{emoji}</a>
         </div>
-        <Tooltip id={`${tooltip}-tooltip`} className='z-100' />
+        <Tooltip
+        style={{ zIndex: 6000}}
+         id={`${tooltip}-tooltip`} className='pos-rel block' />
         </>);
   };
   

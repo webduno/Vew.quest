@@ -12,6 +12,8 @@ export const WrappedBewUserStatsSummary = ({ showResources = true, minified = fa
   showResources={showResources} 
   crvObjects_length={crvObjects.length}
   calculatedStats={{
+    // crvObjects.length for today 
+    dailyGoal: crvObjects.filter((obj: any) => obj.date === new Date().toISOString().split('T')[0]).length,
     potentialStreak: potentialStreak,
     streak: streak,
     averageResult: averageResult,

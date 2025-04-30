@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 
 const donetodayorYtday = (updatedAt: string) => {
   const today = new Date();
@@ -15,6 +16,7 @@ const donetodayorYtday = (updatedAt: string) => {
   }
   return false;
 }
+
 const getBorderStyle = (updatedAt: string) => {
   const today = new Date();
   const yesterday = new Date(today);
@@ -41,11 +43,105 @@ export const YourLessonList = ({
   setCoursingData: (data: any) => void;
   playSoundEffect: ((path: string) => void) | undefined;
 }) => {
-  if (isLoadingLessons) {
+  const [publicLessons, setPublicLessons] = useState<{ lesson_id: string; title: string; updated_at: string; creator_id: string }[] | null>(null);
+  const [isLoadingPublic, setIsLoadingPublic] = useState(false);
+  const [showPublic, setShowPublic] = useState(false);
+
+  const fetchPublicLessons = async () => {
+    setIsLoadingPublic(true);
+    try {
+      const response = await fetch(`/api/lesson/publicList`);
+      const data = await response.json();
+      if (data.success) {
+        setPublicLessons(data.data);
+      }
+    } catch (error) {
+      console.error('Error fetching public lessons:', error);
+    }
+    setIsLoadingPublic(false);
+  };
+
+  const handleViewAllClick = async () => {
+    if (!showPublic) {
+      await fetchPublicLessons();
+    }
+    setShowPublic(!showPublic);
+  };
+
+  const handleLessonClick = async (lesson: { lesson_id: string; title: string; updated_at: string; creator_id?: string }) => {
+    if (!LS_playerId) return;
+
+    // If it's a public lesson and not created by the current user
+    if (showPublic && lesson.creator_id && lesson.creator_id !== LS_playerId) {
+      try {
+        // Copy the lesson first
+        const copyResponse = await fetch('/api/lesson/copy', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            lesson_id: lesson.lesson_id,
+            creator_id: LS_playerId,
+            proxy_id: lesson.creator_id
+          }),
+        });
+
+        if (!copyResponse.ok) {
+          throw new Error('Failed to copy lesson');
+        }
+
+        const copyData = await copyResponse.json();
+        if (copyData.success) {
+          setCoursingData(copyData.data);
+          setLessonString(copyData.data.title);
+          playSoundEffect?.("/sfx/short/sssccc.mp3");
+        }
+      } catch (error) {
+        console.error('Error copying lesson:', error);
+      }
+    } else {
+      // For personal lessons or public lessons created by the current user
+      setLessonString(lesson.title);
+
+      // fetch full lesson data by id
+      const fetchLessonData = async () => {
+        try {
+          const response = await fetch(`/api/lesson/findOrCreate`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              lesson_id: lesson.lesson_id,
+              creator_id: LS_playerId,
+            }),
+          });
+          if (!response.ok) {
+            throw new Error('Failed to fetch lesson data');
+          }
+          const data = await response.json();
+          if (data.success) {
+            setCoursingData(data.data);
+            setLessonString(data.data.title);
+          }
+        } catch (error) {
+          console.error('Error fetching lesson data:', error);
+        }
+      };
+      fetchLessonData();
+
+      playSoundEffect?.("/sfx/short/sssccc.mp3");
+    }
+  };
+
+  if (isLoadingLessons || isLoadingPublic) {
     return <div className='tx-center'>Loading lessons...</div>;
   }
 
-  if (!lessonsList || lessonsList.length === 0) {
+  const displayList = showPublic ? publicLessons : lessonsList;
+
+  if (!displayList || displayList.length === 0) {
     return null;
   }
 
@@ -62,17 +158,17 @@ export const YourLessonList = ({
           style={{
             color: "#4B4B4B",
           }}
-          >Your Lessons</div>
+          >{showPublic ? 'Public Lessons' : 'Your Lessons'}</div>
           <a 
           className='tx-bold px-4 pointer nodeco' 
-          href="/dashboard#resources"
+          onClick={handleViewAllClick}
           style={{
-            color: "#22AEFF",
+            color: !showPublic ? "#22AEFF" : "#77CC4F",
           }}
-          >View All</a>
+          >{showPublic ? 'Show Mine' : '🌐 View All'}</a>
         </div>
       <div className='flex-wrap gap-1  w-100  pb-100 '>
-        {lessonsList.map((lesson) => (
+        {displayList.map((lesson) => (
           <div
             key={lesson.lesson_id}
             className='bord-r-15 pa-2 py-4 tx-start pointer w-100 flex-row'
@@ -80,38 +176,7 @@ export const YourLessonList = ({
               ...getBorderStyle(lesson.updated_at),
               borderRadius: '15px'
             }}
-            onClick={() => {
-              setLessonString(lesson.title);
-
-              // fetch full lesson data by id
-              const fetchLessonData = async () => {
-                try {
-                  const response = await fetch(`/api/lesson/findOrCreate`, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      lesson_id: lesson.lesson_id,
-                      creator_id: LS_playerId,
-                    }),
-                  });
-                  if (!response.ok) {
-                    throw new Error('Failed to fetch lesson data');
-                  }
-                  const data = await response.json();
-                  if (data.success) {
-                    setCoursingData(data.data);
-                    setLessonString(data.data.title);
-                  }
-                } catch (error) {
-                  console.error('Error fetching lesson data:', error);
-                }
-              };
-              fetchLessonData();
-
-              playSoundEffect?.("/sfx/short/sssccc.mp3");
-            }}
+            onClick={() => handleLessonClick(lesson)}
           >
             <div>
               {/* single book emoji */}
