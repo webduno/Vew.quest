@@ -953,7 +953,9 @@ const areAllQuestionsAnswered = () => {
 
        {areAllQuestionsAnswered() && (
         <button
-          className="tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer mt-8"
+          className={"tx-md bord-r-25 border-gg pa-2 px-4 bg-white pointer mt-8 "+(
+            isGeneratingMore ? "hover-jump" : ""
+          )}
           onClick={isGeneratingMore ? undefined : handleContinueGeneration}
           disabled={isGeneratingMore}
         >
@@ -961,7 +963,7 @@ const areAllQuestionsAnswered = () => {
             <div className='tx-lg hover-4'>
               Generating, please wait...
             </div> :
-            <div className='tx-lg hover-jump'>
+            <div className='tx-lg '>
               Generate More
             </div>
           }
