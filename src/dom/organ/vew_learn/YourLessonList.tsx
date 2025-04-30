@@ -146,7 +146,9 @@ export const YourLessonList = ({
     return <div className='tx-center pt-8 opaci-50'>Loading lessons...</div>;
   }
 
-  const displayList = showPublic ? publicLessons : lessonsList;
+  const displayList = showPublic 
+    ? publicLessons?.filter(lesson => lesson.creator_id !== LS_playerId) 
+    : lessonsList;
 
   if (!displayList || displayList.length === 0) {
     return null;
