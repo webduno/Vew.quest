@@ -13,7 +13,8 @@ export async function GET(request: Request) {
     const { data: lessons, error } = await supabase
       .from('vew_lesson')
       .select('lesson_id, title, updated_at, creator_id')
-      .order('updated_at', { ascending: false });
+      .order('updated_at', { ascending: false })
+      .limit(12);
 
     if (error) {
       console.error('Error fetching public lessons:', error);

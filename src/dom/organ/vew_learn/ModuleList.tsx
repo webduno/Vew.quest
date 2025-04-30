@@ -47,7 +47,6 @@ export const ModuleList: React.FC<ModuleListProps> = ({ coursingData, handleModu
             key={index}
             onClick={() => {
               if (!enabled) {
-              // alert("test 222")
               // alert("Please complete all previous modules to start this lesson")
               triggerSnackbar(<>
               <div className='w-200px tx-center tx-mdl'>Please complete all previous modules to start this lesson</div>
@@ -84,7 +83,6 @@ export const ModuleList: React.FC<ModuleListProps> = ({ coursingData, handleModu
             secondaryColor="#68A82F"
             mainColor="#77CC4F"
             onClick={() => {
-              alert("test 333")
               // playSoundEffect("/sfx/short/passbip.mp3")
               // handleInputTypeChange('multi-options')
             }}

@@ -34,10 +34,17 @@ const getBorderStyle = (updatedAt: string) => {
 }
 
 export const YourLessonList = ({
-  lessonsList, isLoadingLessons, setLessonString, LS_playerId, setCoursingData, playSoundEffect
+  currentTitle,
+  lessonsList,
+  isLoadingLessons,
+  setLessonString,
+  LS_playerId,
+  setCoursingData,
+  playSoundEffect
 }: {
   lessonsList: { lesson_id: string; title: string; updated_at: string }[] | null;
   isLoadingLessons: boolean;
+  currentTitle?: string;
   setLessonString: (str: string) => void;
   LS_playerId: string | null;
   setCoursingData: (data: any) => void;
@@ -131,7 +138,7 @@ export const YourLessonList = ({
       };
       fetchLessonData();
 
-      playSoundEffect?.("/sfx/short/sssccc.mp3");
+      playSoundEffect?.("/sfx/short/goodcode.mp3");
     }
   };
 
@@ -147,14 +154,6 @@ export const YourLessonList = ({
 
   return (
     <>
-    {/* <div className="flex-row gap-4 w-90 "
-    
-    >
-                      <hr className='flex-1 opaci-20 ' />
-                      <div className='opaci-20 pt-2 tx-lgx'>°</div>
-                      <hr className='flex-1 opaci-20 ' />
-                      </div> */}
-      {/* <div className='tx-center tx-lg mt-4'>Your Lessons:</div> */}
       <div className='flex-row  tx-smd flex-justify-between  pb-4 w-100  gap-2 '
       >
           <div className='tx-bold px-4' 
@@ -182,7 +181,8 @@ export const YourLessonList = ({
             className='bord-r-15 pa-2 py-4 tx-start pointer w-100 flex-row'
             style={{
               ...getBorderStyle(lesson.updated_at),
-              borderRadius: '15px'
+              borderRadius: '15px',
+              display: currentTitle === lesson.title ? 'none' : 'flex'
             }}
             onClick={() => handleLessonClick(lesson)}
           >

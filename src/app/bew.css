@@ -14,3 +14,6 @@ button {
 .border-gg {
   border: 2px solid #eaeaea;
 }
+.tx-dark {
+  color: #333333 !important;
+}

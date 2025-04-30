@@ -17,6 +17,7 @@ import { BewGreenBtn, BewPurpleBtn } from '@/dom/bew/BewBtns';
 import { QuestionView } from '@/dom/organ/vew_learn/QuestionView';
 import { ModuleList } from '@/dom/organ/vew_learn/ModuleList';
 import { YourLessonList } from '../../../dom/organ/vew_learn/YourLessonList';
+import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 
 type TargetsData = {
   [key: string]: string;
@@ -83,13 +84,23 @@ export default function TrainingPage() {
     "The Farsight Institute's RV Studies",
     "Documented RV Successes in Intelligence Operations"
   ];
-
-  const addRandomEmoji = () => {
+  const { triggerSnackbar } = useProfileSnackbar();
+  const [isLoadingNewTopic, setIsLoadingNewTopic] = useState(false);
+  const addRandomEmoji = async () => {
+    if (isLoadingNewTopic) { return; }
+    playSoundEffect?.("/sfx/short/dice.mp3");
+    setTypedLessonTitle("");
+    triggerSnackbar(<>
+    <div className='tx-center tx-dark'>
+      Loading new topic...
+      </div>  </>, "handbook")
+    setIsLoadingNewTopic(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
     const randomEmoji = getRandomEmoji();
     const randomLesson = exampleLessons[Math.floor(Math.random() * exampleLessons.length)];
     setTypedLessonTitle(randomLesson);
     // setTypedLessonTitle(randomEmoji + " " + randomLesson);
-    playSoundEffect?.("/sfx/short/cling.mp3");
+    setIsLoadingNewTopic(false);
   };
 
   useEffect(() => {
@@ -732,7 +743,7 @@ const areAllQuestionsAnswered = () => {
                 <div className='flex-1  tx-altfont-2 flex-col  flex-justify-start tx-altfont-2'>
                   {!lessonString && (<>
                     <div className='tx-center tx-altfont-2 pt-8 gap-2 flex-justify-start w-100 tx-black flex-col h-100'>
-                      <div>Learn about anything</div>
+                      <div className='opaci-25'>Learn about anything</div>
                       <div className="flex-row gap-2 flex-center w-100">
                         <textarea  className='w-80 w-max-400px tx-lg pa-2 bord-r-25 border-gg tx-center'
                         rows={2}
@@ -1013,6 +1024,7 @@ const areAllQuestionsAnswered = () => {
                 
                 <div className='Q_md_x flex-col w-100 pt-4'>
                         <YourLessonList 
+                        currentTitle={lessonString}
                           lessonsList={[...lessonsList, ...localLessons]}
                           isLoadingLessons={isLoadingLessons}
                           setLessonString={setLessonString}
