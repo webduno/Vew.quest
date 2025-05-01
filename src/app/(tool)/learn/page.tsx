@@ -55,6 +55,7 @@ export default function TrainingPage() {
   };
   
   const exampleLessons = [
+    // Technical Skills
     "What is Remote Viewing?",
     "Remote Viewing History",
     "Remote Viewing Protocols",
@@ -82,20 +83,86 @@ export default function TrainingPage() {
     "The Monroe Institute's Role in Psi-research Development",
     "SRI's Remote Viewing Research Program",
     "The Farsight Institute's Clairvoyance Studies",
-    "Documented Psychic Successes in Intelligence Operations"
+    "Documented Psychic Successes in Intelligence Operations",
+    // Technical Skills
+    "Introduction to ChatGPT and AI Fundamentals",
+    "Basics of Computer Programming",
+    "Cybersecurity Fundamentals",
+    "DevOps Best Practices",
+    "Ethical Hacking Principles",
+    "Generative AI Applications",
+    "Java Programming Essentials",
+    "Python Programming Basics",
+    "Web Development Fundamentals",
+    // Analytical Skills
+    "Understanding Artificial Intelligence",
+    "Working with Big Data (Macrodatos)",
+    "Business Analysis Fundamentals",
+    "Data Analysis Techniques",
+    "Data Science Principles",
+    "Financial Modeling Basics",
+    "Machine Learning Fundamentals",
+    "Microsoft Excel Advanced Features",
+    "Power BI Dashboard Creation",
+    "SQL Database Management",
+    // Business Skills
+    "Accounting Principles",
+    "Digital Marketing Strategies",
+    "E-commerce Fundamentals",
+    "Financial Management Basics",
+    "Google Analytics Implementation",
+    "Graphic Design Principles",
+    "IBM Technology Overview",
+    "Marketing Strategy Development",
+    "Project Management Fundamentals",
+    "Social Media Marketing",
+    // Professional Resources
+    "Essential IT Certifications Guide",
+    "High-Level IT Competencies",
+    "PMP Certification Guide",
+    "Introduction to Artificial Intelligence",
+    "Cybersecurity Certification Guide",
+    "Data Analysis Certification Path",
+    "What Does a Data Analyst Do?",
+    "Professional Development Resources",
+    "Professional Aptitude Assessment",
+    // Web Development
+    "JavaScript Programming",
+    "React.js Framework",
+    "Angular Framework",
+    "Java Enterprise Development",
+    // Information Sciences
+    "Information Science Fundamentals",
+    "Python for Data Science",
+    "Machine Learning Basics",
+    "Deep Learning Fundamentals",
+    "ChatGPT Implementation",
+    // Communication Skills
+    "Communication Skills in IT",
+    "Presentation Techniques",
+    "Public Speaking for Tech Professionals",
+    "Technical Writing",
+    "PowerPoint Mastery",
+    // Business Analytics
+    "Microsoft Excel for Business",
+    "SQL for Business Analysis",
+    "Microsoft Power BI Fundamentals",
+    "Data Analysis for Business",
+    "Business Intelligence Basics"
   ];
   const { triggerSnackbar } = useProfileSnackbar();
   const [isLoadingNewTopic, setIsLoadingNewTopic] = useState(false);
   const addRandomEmoji = async () => {
     if (isLoadingNewTopic) { return; }
     playSoundEffect?.("/sfx/short/dice.mp3");
-    setTypedLessonTitle("");
-    triggerSnackbar(<>
-    <div className='tx-center tx-dark'>
-      Loading new topic...
-      </div>  </>, "handbook")
-    setIsLoadingNewTopic(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // setTypedLessonTitle("");
+    // triggerSnackbar(<>
+    // <div className='tx-center tx-dark'>
+    //   Loading new topic...
+    //   </div>  </>, "handbook")
+    // setIsLoadingNewTopic(true);
+    // await new Promise(resolve => setTimeout(resolve, 1000));
+    
     const randomEmoji = getRandomEmoji();
     const randomLesson = exampleLessons[Math.floor(Math.random() * exampleLessons.length)];
     setTypedLessonTitle(randomLesson);
