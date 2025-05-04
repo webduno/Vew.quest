@@ -103,7 +103,7 @@ export const BewUserStatsSummary = ({
             style={{
               color: "#4B4B4B",
             }}
-            >RV Daily Goal</div>
+            >Daily Goal</div>
             <div className='tx-sm tx-bold bord-r-25  w-100 ' style={{
               padding: "3px 0",
               boxShadow: "0 2px 0 #D68800",
@@ -119,7 +119,7 @@ export const BewUserStatsSummary = ({
         </div>
 
         
-        <div className='flex-row flex-justify-start gap-2 pt-4'>
+        {/* <div className='flex-row flex-justify-start gap-2 pt-4'>
           <div>
             <div className='tx-lgx'>🧠</div>
           </div>
@@ -141,7 +141,7 @@ export const BewUserStatsSummary = ({
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div>
           <a href="/profile" className='nodeco'>

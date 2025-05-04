@@ -278,7 +278,7 @@ export default function TrainingPage() {
       <LessonsContainer />
     </div>
     <hr className='w-90 opaci-20 mt-100'  />
-    <div className='mt-8 pb- '>
+    <div className='mt-8 pb- w-90 w-max-600px'>
       <div className='bord-r-15  mb-8 px-4 border-gg'  >
         <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 '>
           <div className='tx-bold px-4'  style={{ color: "#4B4B4B", }} >Top Players</div>

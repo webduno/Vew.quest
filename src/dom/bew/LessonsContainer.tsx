@@ -40,15 +40,15 @@ export const LessonsContainer = () => {
       actionText: "Open Your Profile",
       forcedClick: null
     },
-    {
-      title: "Space Quest",
-      emoji: "🌍",
-      href: "/space",
-      backgroundColor: "#30a4eA",
-      boxShadowColor: "#0074BA",
-      actionText: "Enter Space Quest",
-      forcedClick: null
-    },
+    // {
+    //   title: "Space Quest",
+    //   emoji: "🌍",
+    //   href: "/space",
+    //   backgroundColor: "#30a4eA",
+    //   boxShadowColor: "#0074BA",
+    //   actionText: "Enter Space Quest",
+    //   forcedClick: null
+    // },
     {
       title: "Global Ranking",
       emoji: "🏆",
@@ -127,7 +127,7 @@ export const LessonsContainer = () => {
           actionText={"lesson"}
           forcedClick={() => {}}
         /> */}
-        <a 
+        {/* <a 
         href="/world"
         className="w-300px bord-r-25 pt-4 nodeco tx-black "
         style={{
@@ -139,7 +139,7 @@ export const LessonsContainer = () => {
           <div>
             <img src="/bew/worldisland.png" className="w-300px" alt="lesson-card-bg" />
           </div>
-          </a>  
+          </a>   */}
 
     </div>
   );

@@ -26,7 +26,7 @@ style={{
 
 
 
-    <div id="menu-icon-bar" className=' Q_sm_x pos-fix'
+    <div id="menu-icon-bar" className=' Q_sm_x pos-abs'
       style={{
         // height: "100%",
         minHeight: "100vh",
@@ -49,7 +49,7 @@ style={{
         tooltip="Party"
       />
       
-      <MenuBarItem 
+      {/* <MenuBarItem 
         href="/space"
         emoji="🌎"
         tooltip="Space Quest"
@@ -59,7 +59,7 @@ style={{
         href="/learn"
         emoji="🧠"
         tooltip="Learn"
-      />
+      /> */}
 
       <MenuBarItem 
         href="/leaderboard"
