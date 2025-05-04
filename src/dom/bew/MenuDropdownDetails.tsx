@@ -42,6 +42,11 @@ style={{
     borderTop: "1px solid #aaaaff",
   }}
           >
+          {!isCurrentPage('/feedback') && (
+            <a href="/feedback" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+              <div className="py-1 pl-2 nowrap"> Feedback</div>
+            </a>
+          )}
           {!isCurrentPage('/leaderboard') && (
             <a href="/leaderboard" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
               <div className="py-1 pl-2 nowrap"> Leaderboard</div>
