@@ -21,7 +21,7 @@ export const MenuDropdownDetails = ({ isCurrentPage }: { isCurrentPage: any; }) 
         }}
       >
 
-<details className='flex-col  r tx-white bord-r-10  '
+<details className='flex-col px-1 r tx-white bord-r-10  '
 style={{
   background: "#a0a0ff",
   boxShadow: "0 4px 0 #8080f0",
@@ -34,7 +34,7 @@ style={{
   </summary>
 
         {(
-          <div className='flex-col flex-justify-stretch bord-r-10 mb-2 pb-2 bg-glass-10 tx-sm z-1000   noverflow flex-align-end tx-white'
+          <div className='flex-col flex-justify-stretch bord-r-10 mb-2  pb-2 bg-glass-10 tx-sm z-1000   noverflow flex-align-end tx-white'
             
   style={{
     background: "#8080f0",
@@ -42,10 +42,9 @@ style={{
     borderTop: "1px solid #aaaaff",
   }}
           >
-          {!isCurrentPage('/party') && (
-            <a href="/party" className='nodeco noselect py- py-1 px-4 block  w-100 tx-right  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
-              <div className="py-1 pl-2 nowrap">CRV Party
-              </div>
+          {!isCurrentPage('/leaderboard') && (
+            <a href="/leaderboard" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
+              <div className="py-1 pl-2 nowrap"> Leaderboard</div>
             </a>
           )}
           {/* {!isCurrentPage('/space') && (
@@ -104,9 +103,15 @@ style={{
               </div>
             </a>
           )} */}
+          {!isCurrentPage('/party') && (
+            <a href="/party" className='nodeco noselect py- py-1 px-4 block  w-100 tx-right  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
+              <div className="py-1 pl-2 nowrap">Party
+              </div>
+            </a>
+          )}
           {!isCurrentPage('/profile') && (
             <a href="/profile" className='nodeco noselect py- py-1 px-4 block w-100 tx-right  opaci-chov--75   z-1000' style={{ color: "#ffffff" }}>
-              <div className="py-1 pl-2 nowrap">Your Profile
+              <div className="py-1 pl-2 nowrap">Profile
               </div>
             </a>
           )}
@@ -115,11 +120,6 @@ style={{
               <div className="py-1 pl-2 nowrap">Dashboard
                 {/* <span className="tx-lgx py-" style={{ filter: 'saturate(0) brightness(100)' }}>🧮</span> */}
               </div>
-            </a>
-          )}
-          {!isCurrentPage('/leaderboard') && (
-            <a href="/leaderboard" className='nodeco noselect py- py-1 px-4 block  opaci-chov--75  pt-2 z-1000' style={{ color: "#ffffff" }}>
-              <div className="py-1 pl-2 nowrap"> Leaderboard</div>
             </a>
           )}
           {/* {!isCurrentPage('/') && (
