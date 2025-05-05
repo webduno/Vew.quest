@@ -53,13 +53,13 @@ style={{
         href="/space"
         emoji="🌎"
         tooltip="Space Quest"
-      />
+      />*/}
       
       <MenuBarItem 
-        href="/learn"
+        href="http://study.taxi"
         emoji="🧠"
         tooltip="Learn"
-      /> */}
+      /> 
 
       <MenuBarItem 
         href="/leaderboard"
