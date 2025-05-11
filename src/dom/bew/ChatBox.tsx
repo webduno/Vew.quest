@@ -1,6 +1,7 @@
 'use client';
 
 import { api_partyGet } from '@/../script/state/service/vew';
+import { useMemo } from 'react';
 
 // --- ChatBox component ---
 
@@ -22,7 +23,12 @@ export const ChatBox = ({
   isSending: boolean;
   setIsSending: (b: boolean) => void;
   notes: string;
-}) => (
+}) => {
+  const otherSubFriendId = useMemo(() => {
+    console.log("room_key", room_key, room_key.split(">>>", ), playerId);
+    return room_key.split(">>>").filter(id => id !== playerId)[0];
+  }, [ownSubFriendId, room_key]);
+  return (
   <div className='border-gg bord-r-15'>
     {showHeader && (
       <div className='flex-row  tx-smd flex-justify-between pt-4 pb-2 gap-2'>
@@ -30,7 +36,7 @@ export const ChatBox = ({
         style={{
           color: "#4B4B4B",
         }}
-      >{ownSubFriendId.replace(':', '')} <span className='tx-sm opaci-50'>(you)</span></div>
+      >{otherSubFriendId} <span className='tx-sm opaci-50'></span></div>
       <a
         className='tx-bold px-4 pointer nodeco'
         onClick={() => {
@@ -86,4 +92,4 @@ export const ChatBox = ({
       </form>
     )}
   </div>
-);
+)}
