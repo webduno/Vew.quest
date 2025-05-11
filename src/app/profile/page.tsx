@@ -200,8 +200,8 @@ export default function ProfilePage() {
           >
             <div className='flex-col  px-2 pos-rel '>
 
-{/* <img src="/bew/birds.png" style={{ filter: "blur(0px)" }} alt="tool_bg2" className='hover-bird pos-abs noverflow block w-150px Q_xs_pt-8 pb-100' /> */}
 <div className="pos-rel">
+{!session &&
 <button className='pos-abs bottom-0 right-0 mb-8 bg-white bord-r-10 border-gg px-2 py-1 tx-bold pointer '
 onClick={() => {
   // coming soon
@@ -209,7 +209,7 @@ onClick={() => {
   playSoundEffect('/sfx/short/errorbip.mp3');
   triggerSnackbar(<div className='tx-center py-1'>
     <div className=''>
-      Change of username <br /> is coming soon!
+      Login with Google to change profile picture
     </div>
   </div>, "errorwarning");
 
@@ -221,7 +221,7 @@ style={{
   <div className='Q_sm_x'>Change</div>
   <div className='Q_xs_sm'>🔄</div>
 </button>
-
+}
               <div className='tx-mdl pt- 4 pointer tx-center'
               onClick={() => {
                 navigator.clipboard.writeText(LS_playerId || '');
