@@ -69,7 +69,6 @@ export async function GET(request: Request) {
           );
         }
       }
-      console.log('existingParty', existingParty)
       return NextResponse.json(
         { id: party.id, room_key: existingParty[0].room_key },
         { status: 200 }

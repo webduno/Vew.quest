@@ -8,14 +8,17 @@ import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 
 
 export const WrappedPartyStatsSummary = ({  
+  chatData,
   fullPartyData,
   room_key, fetchPartyData, minified = false, notes = '', onNotesUpdate, playerId, sharedIdState
 }: { 
+  chatData: string,
   fullPartyData: any, room_key?: string, fetchPartyData: (id:string) => Promise<any>,
    minified?: boolean, notes?: string, onNotesUpdate?: (newNotes: string) => void,
     playerId?: string | null, sharedIdState?: [string | null, (id: string | null) => void] }) => {
   const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
   return <PartyStatsSummary 
+  chatData={chatData}
   fullPartyData={fullPartyData}
   fetchPartyData={fetchPartyData}
   room_key={room_key} 
@@ -42,9 +45,11 @@ export const PartyStatsSummary = ({
   onNotesUpdate = undefined,
   playerId = undefined,
   room_key = undefined,
-  sharedIdState = undefined
+  sharedIdState = undefined,
+  chatData = ''
 }: {
   fullPartyData: any;
+  chatData: string;
   fetchPartyData: (id:string) => Promise<any>;
   room_key?: string;
   minified?: boolean;
@@ -109,7 +114,7 @@ export const PartyStatsSummary = ({
   }
 
   // Parse notes into chat lines
-  const chatLines = (notes || '').split(/\r?\n/).filter(Boolean);
+  const chatLines = useMemo(() => (chatData || '').split(/\r?\n/).filter(Boolean), [chatData]);
 
   return (<>
     <IconStatsBar potentialStreak={potentialStreak}  streak={streak}

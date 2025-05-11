@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ChatBox } from '../../bew/ChatBox';
 
 export const PartyNotesInputs = ({ 
-  onValueChange,
+  // onValueChange,
   initialValue = '',
   room_key,
   fetchPartyData,
@@ -11,7 +11,7 @@ export const PartyNotesInputs = ({
   onNotesUpdate,
   ownSubFriendId
 }: { 
-  onValueChange: (value: string) => void;
+  // onValueChange: (value: string) => void;
   initialValue?: string;
   room_key: string;
   fetchPartyData: (id:string) => Promise<any>;
@@ -26,9 +26,9 @@ export const PartyNotesInputs = ({
   const [isMobile, setIsMobile] = useState(true);
 
   // Update unsavedValue when initialValue changes
-  useEffect(() => {
-    setUnsavedValue(initialValue);
-  }, [initialValue]);
+  // useEffect(() => {
+  //   setUnsavedValue(initialValue);
+  // }, [initialValue]);
 
   // Check if mobile on mount and on resize
   useEffect(() => {
@@ -44,7 +44,7 @@ export const PartyNotesInputs = ({
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = e.target.value;
     setUnsavedValue(newValue);
-    onValueChange(newValue);
+    // onValueChange(newValue);
   };
 
   useEffect(() => {
@@ -63,11 +63,11 @@ export const PartyNotesInputs = ({
         sharedIdState={sharedIdState}
         showHeader={false}
         chatLinesRef={chatLinesRef}
-        chatLines={unsavedValue ? unsavedValue.split(/\r?\n/).filter(Boolean) : []}
+        chatLines={initialValue ? initialValue.split(/\r?\n/).filter(Boolean) : []}
         ownSubFriendId={ownSubFriendId}
         playerId={null}
         onNotesUpdate={(newNotes) => {
-          setUnsavedValue(newNotes);
+          // setUnsavedValue(newNotes);
           // onValueChange(newNotes);
           onNotesUpdate(newNotes);
         }}

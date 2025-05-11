@@ -54,6 +54,8 @@ export async function POST(request: Request) {
     }
 
     const randomTargetCode = getRandomTargetCode();
+    const randomTargetCode2 = getRandomTargetCode();
+    const randomTargetCode3 = getRandomTargetCode();
     
     // Get target values from the random target code
     const targetValues = (targetsData as TargetsData)[randomTargetCode];
@@ -139,7 +141,7 @@ export async function POST(request: Request) {
           solid: 0
         },
         sketch: liveData?.sketch || '',
-        notes: liveData?.notes || ''
+        notes: partyData?.chat || ''
       };
 
       const { error: insertError } = await supabase
@@ -164,7 +166,10 @@ export async function POST(request: Request) {
     // Update the party's target code and clear live data
     const { error: updateError } = await supabase
       .from('vew_party')
-      .update({ target_code: randomTargetCode, live_data: null })
+      .update({ target_code: randomTargetCode, live_data: null, chat: '' ,
+        friend1: randomTargetCode2,
+        friend2: randomTargetCode3
+      })
       .eq('id', partyId);
 
     if (updateError) {

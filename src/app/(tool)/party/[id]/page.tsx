@@ -51,12 +51,14 @@ const [reloadingParty, setReloadingParty] = useState(false);
   const [enableLocked, setEnableLocked] = useState(false);
   const [gameState, setGameState] = useState<PartyGameState>('initial');
   const [successRequest, setSuccessRequest] = useState(false);
+  const [chatData, setChatData] = useState("")
   const [fullPartyData, setFullPartyData] = useState<null | {
     id: string;
     target_code: string;
     friend_list: string[];
     live_data: any;
     turn: string;
+    chat: string;
   }>(null);
   const [sentObject, setSentObject] = useState<null | {
     type: string;
@@ -96,7 +98,7 @@ const [reloadingParty, setReloadingParty] = useState(false);
   const [showImageModal, setShowImageModal] = useState(false);
   const [showSketchModal, setShowSketchModal] = useState(false);
   const [sketchData, setSketchData] = useState<any>(null);
-  const [notes, setNotes] = useState<any>(null);
+  // const [notes, setNotes] = useState<any>(null);
   const sharedIdState = useState<string | null>(null);
   const friendId = params.id;
   
@@ -259,6 +261,7 @@ const [reloadingParty, setReloadingParty] = useState(false);
   
       const data = await response.json();
       setFullPartyData(data);
+      setChatData(data.chat)
       triggerSnackbar(<div className='flex-col gap-2 tx-sm'>
         {/* <div>Your changes have been saved!</div> */}
         <div>📤 Party data sent &amp; updated</div>
@@ -271,13 +274,50 @@ const [reloadingParty, setReloadingParty] = useState(false);
 
   const sketchRef = useRef<SketchInputsRef>(null);
 
-  const handleUpdateTurn = async ()=>{
-    // console.log("handleUpdate", e, sharedIdState[0]);
+  const handleRefreshChat = async ()=>{
     if (!sharedIdState[0]) return;
-    // playSoundEffect("/sfx/short/cling.mp3")
+  // const returnedData = await fetchPartyData(sharedIdState[0]);
+  const response: {ok: boolean, json: () => Promise<any>} = await api_partyGet(sharedIdState[0], "chat");
+  const returnedData = await response.json();
+  // setFullPartyData(returnedData)
+  setChatData(returnedData.chat)
+  }
+  const handleUpdateChat = async (newChat: string)=>{
+    if (!sharedIdState[0]) return;
   
     try {
-    // console.log("handleUpdate 2222", e, sharedIdState[0]);
+      const response = await fetch('/api/party/update/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: sharedIdState[0],
+          chat: newChat
+        })
+      });
+      const newChatData = await response.json();
+      // setFullPartyData((prev:any) => ({
+      //   ...prev,
+      //   chat: newChatData.chat
+      // }));
+      setChatData(newChatData.chat)
+  
+      if (!response.ok) {
+        throw new Error('Failed to update party data');
+      }
+  
+  
+    } catch (error) {
+      console.error('Error updating party:', error);
+    }
+  }
+
+
+  const handleUpdateTurn = async ()=>{
+    if (!sharedIdState[0]) return;
+  
+    try {
       const response = await fetch('/api/party/update/turn', {
         method: 'POST',
         headers: {
@@ -292,7 +332,7 @@ const [reloadingParty, setReloadingParty] = useState(false);
         throw new Error('Failed to update party data');
       }
   
-      const data = await response.json();
+      // const data = await response.json();
   {
     // Get the appropriate sketch data
     const currentSketchData = selectedInputType === 'sketch' && sketchRef.current 
@@ -301,7 +341,7 @@ const [reloadingParty, setReloadingParty] = useState(false);
     
       handleUpdate({
       sketch: currentSketchData,
-      notes: notes,
+      // notes: notes,
       options: {
         ...sentObject,
         confidence: 100
@@ -397,6 +437,7 @@ const ownSubFriendId = useMemo(() => {
       }
       
       setFullPartyData(data);
+      setChatData(data.chat)
       // console.log('fullPartyData returning', fullPartyData);
       return data;
     } catch (error) {
@@ -446,7 +487,7 @@ const ownSubFriendId = useMemo(() => {
 
         // Set sketch and notes data
         setSketchData(params.sketch);
-        setNotes(params.notes);
+        // setNotes(params.notes);
         setSentObject(params.options);
         
         setOverallAccuracy(overallAccuracy);
@@ -592,18 +633,19 @@ const ownSubFriendId = useMemo(() => {
               
                 {!reloadingParty && (<>
                   <PartyScreen friendid={friendId}
+                  handleRefreshChat={handleRefreshChat}
 ownSubFriendId={ownSubFriendId}
 onNotesUpdate={ async (newMessage) => {
   // console.log('fetchPartyData onNotesUpdateonNotesUpdate', newMessage);
 
 
 
-  const jsonData = await (await fetchPartyData(sharedIdState[0] || '')).json();
-  const fullPartyData_live_data: any = JSON.parse(jsonData?.live_data);
-  const uptodatenotes = fullPartyData_live_data?.notes || '';
-  const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
+  // const jsonData = await (await fetchPartyData(sharedIdState[0] || '')).json();
+  // const fullPartyData_live_data: any = JSON.parse(jsonData?.live_data);
+  // const uptodatenotes = fullPartyData?.chat || '';
+  // const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
   // console.log('newNotes', newNotes);
-
+handleUpdateChat(newMessage)
 
 
 
@@ -621,7 +663,8 @@ onNotesUpdate={ async (newMessage) => {
   //   notes: newNotes
   // });
 }}
-
+chatData={chatData}
+setChatData={setChatData}
 
                   room_key={room_key || ''}
                 selectedInputType={selectedInputType}
@@ -670,6 +713,7 @@ onNotesUpdate={ async (newMessage) => {
               {!isMobile() && crvObjects.length > 0 && (<>
                 <div className='h-100 w-250px pr-4 Q_sm_x' id="user-stats-bar">
                   <WrappedPartyStatsSummary 
+                    chatData={chatData}
                     sharedIdState={sharedIdState}
                     fullPartyData={fullPartyData}
                     fetchPartyData={fetchPartyData}
@@ -682,21 +726,11 @@ onNotesUpdate={ async (newMessage) => {
                       return liveData?.notes || '';
                     })()}
                     onNotesUpdate={ async (newMessage) => {
-                      
-                      const reqdata = await fetchPartyData(sharedIdState[0] || '')
-  const jsonData = reqdata
-  const fullPartyData_live_data: any = JSON.parse(jsonData?.live_data);
-  const uptodatenotes = fullPartyData_live_data?.notes || '';
-  const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
+  // const uptodatenotes = fullPartyData?.chat || '';
+  // const newNotes = (uptodatenotes ? uptodatenotes + '\n' : '') + newMessage;
+  handleUpdateChat(newMessage)
 
-                      // let liveData = fullPartyData?.live_data;
-                      // if (typeof liveData === 'string') {
-                      //   try { liveData = JSON.parse(liveData); } catch { liveData = {}; }
-                      // }
-                      handleUpdate({
-                        ...fullPartyData_live_data,
-                        notes: newNotes
-                      });
+
                     }}
                     playerId={LS_playerId}
                   />
@@ -778,7 +812,7 @@ onNotesUpdate={ async (newMessage) => {
             showSketchModal={showSketchModal}
             setShowSketchModal={setShowSketchModal}
             sketchData={sketchData}
-            notes={notes}
+            notes={fullPartyData?.chat || ''}
             handleTryAgain={async ()=>{
               
               // const currentSketchData = sketchData;

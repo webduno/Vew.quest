@@ -7,7 +7,8 @@ import { useMemo } from 'react';
 
 export const ChatBox = ({
   room_key,sharedIdState, showHeader = true,
-  chatLinesRef, chatLines, ownSubFriendId, playerId, onNotesUpdate, fetchPartyData, message, setMessage, isSending, setIsSending, notes
+  chatLinesRef, chatLines, ownSubFriendId, playerId, onNotesUpdate,
+   fetchPartyData, message, setMessage, isSending, setIsSending, notes
 }: {
   room_key: string;
   sharedIdState: [string | null, (id: string | null) => void];

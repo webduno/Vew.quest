@@ -41,9 +41,12 @@ export const PartyScreen = ({
   sketchValue,
   setSketchValue,
   handleUpdateTurn,
+  handleRefreshChat,
   room_key,
   ownSubFriendId,
   selectedInputType, setSelectedInputType,
+  chatData,
+  setChatData,
   setEnableLocked, enableLocked, playerRotation = { x: 0, y: 0, z: 0 }, onFullSend,
   absolute = true,
   sharedIdState,
@@ -58,6 +61,8 @@ export const PartyScreen = ({
   ownSubFriendId: string;
   handleUpdateTurn: () => void;
   selectedInputType: InputType;
+  chatData: string;
+  setChatData: (chatData: string) => void;
   setSelectedInputType: (inputType: InputType) => void;
   setEnableLocked: (enableLocked: boolean) => void;
   enableLocked: boolean;
@@ -66,8 +71,7 @@ export const PartyScreen = ({
   sketchValue: string;
   setSketchValue: (value: string) => void;
   onFullSend: (params: {
-    sketch: any;
-    notes: any;
+    sketch: any
     options: {
       type: string;
       natural: number;
@@ -86,8 +90,10 @@ export const PartyScreen = ({
     friend_list: string[];
     live_data: any;
     turn: string;
+    chat: string;
   } | null
   handleRefresh: (quickSilent?: boolean) => Promise<any>;
+  handleRefreshChat: () => Promise<any>;
   friendid: string;
   handleNewTarget: any;
   fetchPartyData: (id:string) => Promise<any>;
@@ -102,7 +108,7 @@ export const PartyScreen = ({
   // Add refresh counter
   const [refreshCounter, setRefreshCounter] = useState(0);
   // Maintain separate states for each input type
-  const [notesValue, setNotesValue] = useState<string>('');
+  // const [notesValue, setNotesValue] = useState<string>('');
   const [optionsValue, setOptionsValue] = useState<OptionsState>({
     type: 'object',
     natural: 0,
@@ -114,14 +120,22 @@ export const PartyScreen = ({
 
   // Add auto-refresh when it's not our turn
   useEffect(() => {
-    if (fullPartyData?.turn === friendid) {
+    // if (fullPartyData?.turn === friendid) {
       const intervalId = setInterval(() => {
-        handleRefresh(true);
+        handleRefreshChat();
       }, 4000);
 
       return () => clearInterval(intervalId);
-    }
-  }, [fullPartyData?.turn, friendid, handleRefresh]);
+    // }
+    //  else {
+    //   const intervalId = setInterval(() => {
+    //     console.log("sending")
+    //     handleSend()
+    //   }, 4000);
+
+    //   return () => clearInterval(intervalId);
+    // }
+  }, []);
 
   // Initial data loading
   useEffect(() => {
@@ -138,6 +152,10 @@ export const PartyScreen = ({
       }
     }
     
+    // if (fullPartyData.chat) {
+    //   // if (!sketch && !options) setSelectedInputType('notes');
+    //   setNotesValue(fullPartyData.chat);
+    // }
     if (!liveData) return;
 
     // Set initial input type if there's live data
@@ -149,10 +167,6 @@ export const PartyScreen = ({
     if (options) {
       // if (!sketch) setSelectedInputType('notes');
       setOptionsValue(options);
-    }
-    if (notes) {
-      // if (!sketch && !options) setSelectedInputType('notes');
-      setNotesValue(notes);
     }
 
     // setSelectedInputType('notes')
@@ -176,7 +190,7 @@ export const PartyScreen = ({
     const { sketch, notes, options } = liveData;
     
     if (sketch !== undefined) setSketchValue(sketch);
-    if (notes !== undefined) setNotesValue(notes);
+    // if (notes !== undefined) setNotesValue(notes);
     if (options !== undefined) setOptionsValue(options);
   }, [fullPartyData?.live_data, refreshCounter]);
 
@@ -198,7 +212,7 @@ export const PartyScreen = ({
     
     onFullSend({
       sketch: currentSketchData,
-      notes: notesValue,
+      // notes: notesValue,
       options: {
         ...optionsValue,
         confidence: 100
@@ -214,7 +228,7 @@ export const PartyScreen = ({
     
     handleNewTarget({
       sketch: currentSketchData,
-      notes: notesValue,
+      // notes: notesValue,
       options: {
         ...optionsValue,
         confidence: 100
@@ -267,11 +281,11 @@ export const PartyScreen = ({
             sharedIdState={sharedIdState}
             onNotesUpdate={onNotesUpdate}
             ownSubFriendId={ownSubFriendId}
-            onValueChange={(e)=>{
+            // onValueChange={(e)=>{
               
-              setNotesValue(e)
-            }}
-            initialValue={notesValue}
+            //   setNotesValue(e)
+            // }}
+            initialValue={chatData || ''}
           />
         );
       default:
@@ -421,7 +435,7 @@ export const PartyScreen = ({
 
 
 
-      <details open={true} className='w-80  flex-col pos-rel'>
+      <details className='w-80  flex-col pos-rel'>
 <summary className='flex-row gap-2  w-80 py-4 pointer w-100'>
 
 
@@ -440,7 +454,7 @@ export const PartyScreen = ({
           {/* down caret emoji */}
           
           <button className='noselect noclick'>
-            ▲ Party Options {fullPartyData?.turn === friendid ? "(Wait...)" : "(Your Turn)"}
+            ▲ Party Options {fullPartyData?.turn === friendid ? "(Wait Turn)" : "(Your Turn)"}
           </button>
           </div>
       )}
@@ -452,37 +466,18 @@ export const PartyScreen = ({
       />
     </summary>
 
-<div className='left-50p flex-col  pos-abs z-1000  top-0'
+<div className='left-50p flex-col-r gap-2  pos-abs z-1000  top-0'
 style={{
   transform: "translate(-50%, -100%)",
 
 }}>
-    <div className='flex-row gap-2 pb-2'>
+    <div className='flex-row gap-2 pb-2 bg-white px-2 border-gg  py-2 bord-r-15'>
     <div className='opaci-50'>
       Turn:
       </div>
       <div>
     {fullPartyData?.turn}
       </div>
-      </div>
-
-  <div className='flex-row flex-justify-center pa-2 bord-r-10 tx-altfont-2  bg-white gap-2 border-gg'
-  >
-      {!!selectedInputType && (
-      <>
-      
-
-        <div className='px flex-row  gap-2'>
-          
-          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
-            onClick={handleSend}
-            style={{ 
-              boxShadow: "0 4px 0 #6B69CF",
-              background: "#807DDB"
-             }}
-          >
-            <div>📤 Send</div>
-          </div>
           { (
           <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
             onClick={fullPartyData?.turn !== friendid ? handleUpdateTurn : ()=>{
@@ -496,7 +491,26 @@ style={{
             <div>{fullPartyData?.turn !== friendid ? "Pass Turn" : "Wait Turn"}</div>
           </div>
           )}
-          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
+      </div>
+
+  <div className='flex-row-r flex-justify-center pa-2 bord-r-10 tx-altfont-2  bg-white gap-2 border-gg'
+  >
+      {!!selectedInputType && (
+      <>
+      
+
+        <div className='px flex-row-r  gap-2'>
+          
+          <button className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
+            onClick={handleSend}
+            style={{ 
+              boxShadow: "0 4px 0 #6B69CF",
+              background: "#807DDB"
+             }}
+          >
+            <div>Upload</div>
+          </button>
+          <button className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
             onClick={() => {
               handleRefresh();
               setRefreshCounter(prev => prev + 1);
@@ -508,7 +522,7 @@ style={{
              }}
           >
             <div className=''>Sync </div>
-          </div>
+          </button>
         </div>
       </>
     )}

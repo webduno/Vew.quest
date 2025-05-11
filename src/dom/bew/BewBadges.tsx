@@ -31,9 +31,19 @@ export const BewBadges = ({
     confettiRef.current = new JSConfetti();
   }, []);
 
+  const badgeList = {
+    hasMoreThan3DaysStreakValue,
+    hasMoreThanFirstDaysValue,
+    moreThan9Requests: totalRequests >= 9,
+    moreThan40Accuracy: averageAccuracy >= 40,
+  }
+
+
+  const doesntHaveBadges = !badgeList.hasMoreThan3DaysStreakValue && !badgeList.hasMoreThanFirstDaysValue && totalRequests < 9 && averageAccuracy < 40;
+
   return (
     <>
-      {hasMoreThan3DaysStreakValue && (
+      {badgeList.hasMoreThan3DaysStreakValue && (
         <BadgeCard 
           styleOverride={{
             width: "100px",
@@ -63,7 +73,7 @@ export const BewBadges = ({
         />
       )}
 
-      {hasMoreThanFirstDaysValue && (
+      {badgeList.hasMoreThanFirstDaysValue && (
         <BadgeCard 
           title="First Viewer"
           emoji="♾️"
@@ -90,7 +100,7 @@ export const BewBadges = ({
         />
       )}
 
-      {totalRequests >= 9 && (
+      {badgeList.moreThan9Requests && (
         <BadgeCard 
           title="Seer Achievement"
           actionText={"Details"}
@@ -116,7 +126,7 @@ export const BewBadges = ({
         />
       )}
 
-      {averageAccuracy >= 40 && (
+      {badgeList.moreThan40Accuracy && (
         <LessonCard 
           title="High Accuracy Viewer"
           emoji="🏆"
@@ -144,7 +154,7 @@ export const BewBadges = ({
         />
       )}
 
-      {!hasMoreThan3DaysStreakValue && !hasMoreThanFirstDaysValue && totalRequests < 9 && averageAccuracy < 40 && (
+      {doesntHaveBadges && (
         <div className="tx-center tx-gray-500">
           <BadgeCard
             title="No Badges Earned"
