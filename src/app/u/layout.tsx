@@ -1,14 +1,14 @@
 import { Analytics } from '@vercel/analytics/next';
 
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+// import { Inter } from 'next/font/google'
 import '@/app/globals.css'
 import '@/app/bew.css'
 // import { ClientLayout } from '@/dom/organ/ClientLayout'
 import { FetchedStatsProvider } from '@/script/state/context/FetchedStatsContext';
 import { BackgroundMusicProvider } from '../../../script/state/context/BackgroundMusicContext';
 import { ProfileSnackbarProvider } from '../../../script/state/context/ProfileSnackbarProvider';
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Vew.quest',
@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" style={{ margin: 0, padding: 0 }}>
-      <body className={`${inter.className}`}
+      <body
        style={{ margin: 0, padding: 0,
         // background: "white",
       //  background: 'radial-gradient(circle, rgb(255, 238, 255), rgb(255, 255, 255), rgb(255, 221, 255))',
