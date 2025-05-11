@@ -36,6 +36,7 @@ type OptionsState = {
 };
 
 export const PartyScreen = ({
+  handleUpdateTurn,
   room_key,
   ownSubFriendId,
   selectedInputType, setSelectedInputType,
@@ -51,6 +52,7 @@ export const PartyScreen = ({
 }: {
   room_key: string;
   ownSubFriendId: string;
+  handleUpdateTurn: () => void;
   selectedInputType: InputType;
   setSelectedInputType: (inputType: InputType) => void;
   setEnableLocked: (enableLocked: boolean) => void;
@@ -75,7 +77,8 @@ export const PartyScreen = ({
     id: string;
     target_code: string;
     friend_list: string[];
-    live_data: any
+    live_data: any;
+    turn: string;
   } | null
   handleRefresh: () => Promise<any>;
   friendid: string;
@@ -418,7 +421,11 @@ export const PartyScreen = ({
         className='tx-bol d'
         style={{ color: "#AFAFAF" }}>
           {/* down caret emoji */}
-          ▲ Party Options</div>
+          
+          <button className='noselect noclick'>
+            ▲ Party Options
+          </button>
+          </div>
       )}
       <div className='flex-1'
         style={{
@@ -428,15 +435,23 @@ export const PartyScreen = ({
       />
     </summary>
 
+<div className='left-50p flex-col  pos-abs z-1000  top-0'
+style={{
+  transform: "translate(-50%, -100%)",
 
+}}>
+    <div className='flex-row gap-2 pb-2'>
+    <div className='opaci-50'>
+      Turn:
+      </div>
+      <div>
+    {fullPartyData?.turn}
+      </div>
+      </div>
 
-  <div className='flex-row flex-justify-center pa-2 bord-r-10 tx-altfont-2 left-50p    top-0 bg-white gap-2 pos-abs z-1000'
-  style={{
-    border: "1px solid #E5E5E5",
-    transform: "translate(-50%, -100%)",
-  }}
+  <div className='flex-row flex-justify-center pa-2 bord-r-10 tx-altfont-2  bg-white gap-2 border-gg'
   >
-    {!!selectedInputType && (
+      {!!selectedInputType && (
       <>
       
 
@@ -462,6 +477,15 @@ export const PartyScreen = ({
              }}
           >
             <div>📤 Send</div>
+          </div>
+          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
+            onClick={handleUpdateTurn}
+            style={{ 
+              boxShadow: "0 4px 0 #D68800",
+              background: "#FDC908"
+             }}
+          >
+            <div>🔄 Turn</div>
           </div>
         </div>
       </>
@@ -490,6 +514,7 @@ export const PartyScreen = ({
           End Party
         </div>
       </a>
+    </div>
     </div>
 
     </details> 

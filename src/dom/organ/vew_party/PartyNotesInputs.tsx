@@ -23,7 +23,7 @@ export const PartyNotesInputs = ({
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
   const chatLinesRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   // Update unsavedValue when initialValue changes
   useEffect(() => {
@@ -33,7 +33,7 @@ export const PartyNotesInputs = ({
   // Check if mobile on mount and on resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      // setIsMobile(window.innerWidth <= 768);
     };
     
     checkMobile();

@@ -54,7 +54,8 @@ const [reloadingParty, setReloadingParty] = useState(false);
     id: string;
     target_code: string;
     friend_list: string[];
-    live_data: any
+    live_data: any;
+    turn: string;
   }>(null);
   const [sentObject, setSentObject] = useState<null | {
     type: string;
@@ -233,38 +234,75 @@ const [reloadingParty, setReloadingParty] = useState(false);
   }
 
 
-const handleUpdate = async (e:any)=>{
-  // console.log("handleUpdate", e, sharedIdState[0]);
-  if (!sharedIdState[0]) return;
-  playSoundEffect("/sfx/short/cling.mp3")
-
-  try {
-  // console.log("handleUpdate 2222", e, sharedIdState[0]);
-    const response = await fetch('/api/party/update', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: sharedIdState[0],
-        live_data: e
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to update party data');
+  const handleUpdate = async (e:any)=>{
+    // console.log("handleUpdate", e, sharedIdState[0]);
+    if (!sharedIdState[0]) return;
+    playSoundEffect("/sfx/short/cling.mp3")
+  
+    try {
+    // console.log("handleUpdate 2222", e, sharedIdState[0]);
+      const response = await fetch('/api/party/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: sharedIdState[0],
+          live_data: e
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to update party data');
+      }
+  
+      const data = await response.json();
+      setFullPartyData(data);
+      triggerSnackbar(<div className='flex-col gap-2 tx-sm'>
+        {/* <div>Your changes have been saved!</div> */}
+        <div>📤 Party data sent &amp; updated</div>
+      </div>, "purple");
+    } catch (error) {
+      console.error('Error updating party:', error);
     }
-
-    const data = await response.json();
-    setFullPartyData(data);
-    triggerSnackbar(<div className='flex-col gap-2'>
-      <div>Your changes have been saved!</div>
-      <div>📤 Party data updated</div>
-    </div>, "purple");
-  } catch (error) {
-    console.error('Error updating party:', error);
   }
-}
+
+
+  const handleUpdateTurn = async ()=>{
+    // console.log("handleUpdate", e, sharedIdState[0]);
+    if (!sharedIdState[0]) return;
+    // playSoundEffect("/sfx/short/cling.mp3")
+  
+    try {
+    // console.log("handleUpdate 2222", e, sharedIdState[0]);
+      const response = await fetch('/api/party/update/turn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: sharedIdState[0],
+        })
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to update party data');
+      }
+  
+      const data = await response.json();
+      console.log("handleUpdateTurn data", data);
+      setFullPartyData(data);
+      triggerSnackbar(<div className='flex-col gap-2 tx-sm'>
+        {/* <div>Your changes have been saved!</div> */}
+        <div>Party turn updated</div>
+      </div>, "warning");
+    } catch (error) {
+      console.error('Error updating party:', error);
+    }
+  }
+
+
+
 const handleRefresh = async ()=>{
   if (!sharedIdState[0]) { return }
   setReloadingParty(true);
@@ -572,6 +610,7 @@ onNotesUpdate={ async (newMessage) => {
                 handleRefresh={handleRefresh}
                 handleNewTarget={handleNewTarget}
                 fetchPartyData={fetchPartyData}
+                handleUpdateTurn={handleUpdateTurn}
                 />
                 </>)}
 

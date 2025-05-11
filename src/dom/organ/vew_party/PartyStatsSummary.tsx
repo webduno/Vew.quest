@@ -117,7 +117,7 @@ export const PartyStatsSummary = ({
     hearts={Math.round(averageResult)}
     />
 
-    <div className='flex-col flex-align-stretch gap-4'>
+    <div className='flex-col flex-align-stretch gap-4 tx-altfont-2' >
       <div className='bord-r-15 pa-4 pl-2 border-gg' 
       >
         <div className='flex-row flex-justify-start gap-2'>
