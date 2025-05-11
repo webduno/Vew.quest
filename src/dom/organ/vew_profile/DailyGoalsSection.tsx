@@ -17,7 +17,7 @@ export function DailyGoalsSection({ streak, userStats, crvObjects }: DailyGoalsS
       >🥳 Daily Goals</div>
       <div className='flex-col gap-2 flex-align-start pb-2'>
         <div>Current Streak: {streak}</div>
-        <div>Completed Goal: {crvObjects.filter(obj => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]).length >= 5 ? '✅' : "❌"} ({userStats.dailyGoals.requests > 3 ? 3 : userStats.dailyGoals.requests} / 3)</div>
+        <div>Completed Goal: {userStats.dailyGoals.requests >= 3 ? '✅' : "❌"} ({userStats.dailyGoals.requests > 3 ? 3 : userStats.dailyGoals.requests} / 3)</div>
         <div>Viewed Today: {userStats.dailyGoals.requests}</div>
         <div>Avg Accuracy: {userStats.dailyGoals.accuracy > 0 ? userStats.dailyGoals.accuracy.toFixed(3) : 'N/A'}%</div>
         <div>Best Today: {userStats.dailyGoals.bestAccuracy > 0 ? userStats.dailyGoals.bestAccuracy.toFixed(3) : 'N/A'}%</div>

@@ -234,7 +234,7 @@ style={{
                  {/* 📋 */}
                  </div>
 <img src={session?.user?.image || "/bew/pfp/row-4-column-1.png"}
- alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
+ alt="pfp" className={'bord-r-100p mb-2 noverflow block '+(isMobile() ? 'w-150px' : 'w-200px')} />
  </div>
 <div className='bord-r-15 mb-4 pb-2 flex-col ' style={{ border: "1px solid #f0f0f0" }}>
               <WrappedBewUserStatsSummary minified />

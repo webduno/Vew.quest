@@ -49,7 +49,11 @@ export const RemoteViewingHistory = ({ authorId, crvObjects, onSketchClick, high
             <div className=''>Result/Sketch/Notes</div>
           </div>
           <hr className='w-100 opaci-10 '  />
-          <div className='flex-col  gap-2 w-100'>
+          <div className='flex-col  gap-2 w-90 '
+          style={{
+            marginLeft: "5%",
+          }}
+          >
             {crvObjects.map((obj) => (
               <div key={obj.id}
               id={`target-${obj.content.target_id}`}
@@ -71,7 +75,7 @@ export const RemoteViewingHistory = ({ authorId, crvObjects, onSketchClick, high
                           border: "1px solid #e5e5e5",
                           color: "#aaaaaa",
                         }}
-                        className='flex-row tx-bold-4 bord-r-10 px-2 py-1 tx-sm  border'
+                        className='flex-row tx-bold-4 bord-r-10 px-2 py-1 tx-xsm  border'
                         key={key}>{key}: {key=="type"?value:parseInt(String(value))}</div>
                       ))}
                     </div>
