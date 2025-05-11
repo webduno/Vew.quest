@@ -9,7 +9,8 @@ export const ProfileSnackbarNotif = () => {
     snackbarMessage,
     snackbarSeverity,
     setIsSnackbarOpen,
-    autoCloseTimeoutRef
+    autoCloseTimeoutRef,
+    timeoutTime
   } = useContext(ProfileSnackbarContext)!;
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export const ProfileSnackbarNotif = () => {
       // Set new timeout to close after 3 seconds
       autoCloseTimeoutRef.current = setTimeout(() => {
         setIsSnackbarOpen(false);
-      }, 3000);
+      }, timeoutTime);
     }
 
     return () => {

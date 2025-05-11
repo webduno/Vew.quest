@@ -14,9 +14,10 @@ type ProfileSnackbarContextType = {
   autoCloseTimeoutRef: React.MutableRefObject<NodeJS.Timeout | undefined>;
   setSnackbarMessage: (message: ReactNode) => void;
   snackbarSeverity: SnackbarSeverity;
+  timeoutTime: number;
   setSnackbarSeverity: (severity: SnackbarSeverity) => void;
   setIsSnackbarOpen: (isSnackbarOpen: boolean) => void;
-  triggerSnackbar: (message: ReactNode, severity: SnackbarSeverity) => void;
+  triggerSnackbar: (message: ReactNode, severity: SnackbarSeverity, timeout?: number) => void;
 };
 
 // Create the context with default values
@@ -28,12 +29,19 @@ export const ProfileSnackbarProvider = ({ children }: { children: ReactNode }) =
   const [snackbarMessage, setSnackbarMessage] = useState<ReactNode>('');
   const [snackbarSeverity, setSnackbarSeverity] = useState<SnackbarSeverity>('info');
   const autoCloseTimeoutRef = useRef<NodeJS.Timeout>();
-
-  const triggerSnackbar = (message: ReactNode, severity: SnackbarSeverity) => {
+  const [timeoutTime, setTimeoutTime] = useState(3000);
+  const triggerSnackbar = (message: ReactNode, severity: SnackbarSeverity, timeout: number = 3000) => {
     // Show test snackbar when page loads
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setIsSnackbarOpen(true);
+    if (autoCloseTimeoutRef.current) {
+      clearTimeout(autoCloseTimeoutRef.current);
+    }
+    setTimeoutTime(timeout);
+    autoCloseTimeoutRef.current = setTimeout(() => {
+      setIsSnackbarOpen(false);
+    }, timeout);
   }
   const contextValue: ProfileSnackbarContextType = {
     isSnackbarOpen,
@@ -43,6 +51,7 @@ export const ProfileSnackbarProvider = ({ children }: { children: ReactNode }) =
     setSnackbarSeverity,
     setIsSnackbarOpen,
     snackbarSeverity,
+    timeoutTime,
     triggerSnackbar
   };
 

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useLSPlayerId, usePlayerStats } from '@/../script/state/hook/usePlayerStats';
 
 import { calculateAccuracy } from '@/../script/utils/play/calculateAccuracy';
@@ -18,6 +18,7 @@ import { useParams } from 'next/navigation';
 import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 import { WrappedPartyStatsSummary } from '@/dom/organ/vew_party/PartyStatsSummary';
 import { api_partyGet } from '@/../script/state/service/vew';
+import { SketchInputsRef } from '@/dom/bew/SketchInputs';
 
 type TargetsData = {
   [key: string]: string;
@@ -266,7 +267,9 @@ const [reloadingParty, setReloadingParty] = useState(false);
       console.error('Error updating party:', error);
     }
   }
+  const [sketchValue, setSketchValue] = useState<string>('');
 
+  const sketchRef = useRef<SketchInputsRef>(null);
 
   const handleUpdateTurn = async ()=>{
     // console.log("handleUpdate", e, sharedIdState[0]);
@@ -290,12 +293,22 @@ const [reloadingParty, setReloadingParty] = useState(false);
       }
   
       const data = await response.json();
-      console.log("handleUpdateTurn data", data);
-      setFullPartyData(data);
-      triggerSnackbar(<div className='flex-col gap-2 tx-sm'>
-        {/* <div>Your changes have been saved!</div> */}
-        <div>Party turn updated</div>
-      </div>, "warning");
+  {
+    // Get the appropriate sketch data
+    const currentSketchData = selectedInputType === 'sketch' && sketchRef.current 
+      ? sketchRef.current.getCurrentData() 
+      : sketchValue;
+    
+      handleUpdate({
+      sketch: currentSketchData,
+      notes: notes,
+      options: {
+        ...sentObject,
+        confidence: 100
+      }
+    })
+  }
+  
     } catch (error) {
       console.error('Error updating party:', error);
     }
@@ -303,23 +316,34 @@ const [reloadingParty, setReloadingParty] = useState(false);
 
 
 
-const handleRefresh = async ()=>{
+const handleRefresh = async (quickSilent=false)=>{
   if (!sharedIdState[0]) { return }
-  setReloadingParty(true);
+  if (!quickSilent) {
+    setReloadingParty(true);
+  }
   // fetchpartydata again
-  playSoundEffect("/sfx/short/goodcode.mp3")
+  if (!quickSilent) {
+    playSoundEffect("/sfx/short/goodcode.mp3")
+  }
   if (!sharedIdState[0]) { return }
   await new Promise(resolve => setTimeout(resolve, 500));
   const returnedData = await fetchPartyData(sharedIdState[0]);
-  triggerSnackbar(<div className='flex-col gap-2'>
-    <div>Refreshed successfully!</div>
-    <div>⬇️ Syncronization completed</div>
-  </div>, "success");
+  // if (!quickSilent)
+    {
+    triggerSnackbar(<div className='flex-col gap-2'>
+      {/* <div>Refreshed successfully!</div> */}
+      <div className='tx-smd'>♻️ Synced</div>
+    </div>, "success", 1500);
+  }
   setReloadingParty(false);
-  setTimeout(()=>{
-    playSoundEffect("/sfx/short/fff.mp3")
-  }, 200);
-  // console.log('handleRefresh returnedData', returnedData);
+    setTimeout(()=>{
+      if (!quickSilent) {
+      playSoundEffect("/sfx/short/fff.mp3")
+  } else {
+    playSoundEffect("/sfx/short/passbip.mp3")
+  }
+    }, 200);
+    // console.log('handleRefresh returnedData', returnedData);
 return returnedData;
 }
 
@@ -611,6 +635,9 @@ onNotesUpdate={ async (newMessage) => {
                 handleNewTarget={handleNewTarget}
                 fetchPartyData={fetchPartyData}
                 handleUpdateTurn={handleUpdateTurn}
+                sketchRef={sketchRef}
+                sketchValue={sketchValue}
+                setSketchValue={setSketchValue}
                 />
                 </>)}
 

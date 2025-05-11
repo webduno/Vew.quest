@@ -19,6 +19,7 @@ import { useBackgroundMusic } from '../../../../script/state/context/BackgroundM
 import { InputTabs } from '../../bew/InputTabs';
 import { FriendCard } from '../../bew/FriendCard';
 import { PartyNotesInputs } from './PartyNotesInputs';
+import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 
 // Define input types for better type safety
 type InputType = 'sketch' | 'multi-options' | 'notes' | '';
@@ -36,6 +37,9 @@ type OptionsState = {
 };
 
 export const PartyScreen = ({
+  sketchRef,
+  sketchValue,
+  setSketchValue,
   handleUpdateTurn,
   room_key,
   ownSubFriendId,
@@ -58,6 +62,9 @@ export const PartyScreen = ({
   setEnableLocked: (enableLocked: boolean) => void;
   enableLocked: boolean;
   playerRotation?: { x: number, y: number, z: number };
+  sketchRef: React.RefObject<SketchInputsRef>;
+  sketchValue: string;
+  setSketchValue: (value: string) => void;
   onFullSend: (params: {
     sketch: any;
     notes: any;
@@ -80,7 +87,7 @@ export const PartyScreen = ({
     live_data: any;
     turn: string;
   } | null
-  handleRefresh: () => Promise<any>;
+  handleRefresh: (quickSilent?: boolean) => Promise<any>;
   friendid: string;
   handleNewTarget: any;
   fetchPartyData: (id:string) => Promise<any>;
@@ -91,10 +98,10 @@ export const PartyScreen = ({
 
   // State management for input types and their values
   const { playSoundEffect } = useBackgroundMusic();
+  const { triggerSnackbar } = useProfileSnackbar();
   // Add refresh counter
   const [refreshCounter, setRefreshCounter] = useState(0);
   // Maintain separate states for each input type
-  const [sketchValue, setSketchValue] = useState<string>('');
   const [notesValue, setNotesValue] = useState<string>('');
   const [optionsValue, setOptionsValue] = useState<OptionsState>({
     type: 'object',
@@ -104,6 +111,17 @@ export const PartyScreen = ({
     color: 0,
     solid: 0
   });
+
+  // Add auto-refresh when it's not our turn
+  useEffect(() => {
+    if (fullPartyData?.turn === friendid) {
+      const intervalId = setInterval(() => {
+        handleRefresh(true);
+      }, 4000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [fullPartyData?.turn, friendid, handleRefresh]);
 
   // Initial data loading
   useEffect(() => {
@@ -162,7 +180,6 @@ export const PartyScreen = ({
     if (options !== undefined) setOptionsValue(options);
   }, [fullPartyData?.live_data, refreshCounter]);
 
-  const sketchRef = useRef<SketchInputsRef>(null);
 
   const handleInputTypeChange = (newType: InputType) => {
     // Always save current sketch data before switching
@@ -404,7 +421,7 @@ export const PartyScreen = ({
 
 
 
-      <details className='w-80  flex-col pos-rel'>
+      <details open={true} className='w-80  flex-col pos-rel'>
 <summary className='flex-row gap-2  w-80 py-4 pointer w-100'>
 
 
@@ -423,7 +440,7 @@ export const PartyScreen = ({
           {/* down caret emoji */}
           
           <button className='noselect noclick'>
-            ▲ Party Options
+            ▲ Party Options {fullPartyData?.turn === friendid ? "(Wait...)" : "(Your Turn)"}
           </button>
           </div>
       )}
@@ -456,6 +473,29 @@ style={{
       
 
         <div className='px flex-row  gap-2'>
+          
+          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
+            onClick={handleSend}
+            style={{ 
+              boxShadow: "0 4px 0 #6B69CF",
+              background: "#807DDB"
+             }}
+          >
+            <div>📤 Send</div>
+          </div>
+          { (
+          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
+            onClick={fullPartyData?.turn !== friendid ? handleUpdateTurn : ()=>{
+              triggerSnackbar(<div>Wait your turn...</div>, "handbook")
+            }}
+            style={{ 
+              boxShadow: fullPartyData?.turn !== friendid ? "0 4px 0 #D68800" : "0 4px 0 #aaaaaa",
+              background: fullPartyData?.turn !== friendid ? "#FDC908" : "#cccccc"
+             }}
+          >
+            <div>{fullPartyData?.turn !== friendid ? "Pass Turn" : "Wait Turn"}</div>
+          </div>
+          )}
           <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
             onClick={() => {
               handleRefresh();
@@ -467,25 +507,7 @@ style={{
               background: "#80DB7D"
              }}
           >
-            <div className='tx-shadow-5'>♻️ Sync</div>
-          </div>
-          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
-            onClick={handleSend}
-            style={{ 
-              boxShadow: "0 4px 0 #6B69CF",
-              background: "#807DDB"
-             }}
-          >
-            <div>📤 Send</div>
-          </div>
-          <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
-            onClick={handleUpdateTurn}
-            style={{ 
-              boxShadow: "0 4px 0 #D68800",
-              background: "#FDC908"
-             }}
-          >
-            <div>🔄 Turn</div>
+            <div className=''>Sync </div>
           </div>
         </div>
       </>
