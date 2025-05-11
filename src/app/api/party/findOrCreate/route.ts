@@ -69,6 +69,7 @@ export async function GET(request: Request) {
           );
         }
       }
+      console.log('existingParty', existingParty)
       return NextResponse.json(
         { id: party.id, room_key: existingParty[0].room_key },
         { status: 200 }
@@ -81,7 +82,7 @@ export async function GET(request: Request) {
       .from('vew_party')
       .insert([
         { 
-          room_key: existingParty[0].room_key,
+          room_key: roomKey,
           target_code: randomTargetCode
         }
       ])
@@ -97,7 +98,7 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json(
-      { id: newParty.id, room_key: existingParty[0].room_key },
+      { id: newParty.id, room_key: roomKey },
       { status: 200 }
     );
 

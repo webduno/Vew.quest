@@ -452,7 +452,7 @@ export const PartyScreen = ({
               background: "#80DB7D"
              }}
           >
-            <div>Syncronize</div>
+            <div className='tx-shadow-5'>♻️ Sync</div>
           </div>
           <div className='tx-white pointer tx-center pa-2 bord-r-10  flex-1'
             onClick={handleSend}
@@ -461,7 +461,7 @@ export const PartyScreen = ({
               background: "#807DDB"
              }}
           >
-            <div>Update</div>
+            <div>📤 Send</div>
           </div>
         </div>
       </>
@@ -478,6 +478,7 @@ export const PartyScreen = ({
       onClick={(e) => {
         e.preventDefault();
         handleSendNewTarget();
+        // setImageModal(true)
       }}
       >
         {/* <div className='tx-bold-5 tx-center pa-1 pb-1'

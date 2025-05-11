@@ -28,6 +28,7 @@ import { ProfileSnackbarContext, SnackbarSeverity } from '../../../script/state/
 import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusicContext';
 import { DailyGoalsSection } from '@/dom/organ/vew_profile/DailyGoalsSection';
 import { RVStatsSection } from '@/dom/organ/vew_profile/RVStatsSection';
+import { FriendListSection } from '@/dom/organ/vew_profile/FriendListSection';
 
 
 export default function ProfilePage() {
@@ -277,6 +278,9 @@ style={{
 <RVStatsSection
   uniqueDays={uniqueDays}
   userStats={userStats}
+/>
+<FriendListSection
+  friendId={LS_playerId}
 />
 
 

@@ -259,7 +259,7 @@ const handleUpdate = async (e:any)=>{
     setFullPartyData(data);
     triggerSnackbar(<div className='flex-col gap-2'>
       <div>Your changes have been saved!</div>
-      <div>🔔 Party data updated</div>
+      <div>📤 Party data updated</div>
     </div>, "purple");
   } catch (error) {
     console.error('Error updating party:', error);
@@ -347,7 +347,7 @@ const ownSubFriendId = useMemo(() => {
 
   const handleNewTarget = async (params: any) => {
     if (!fullPartyData?.id) return;
-    
+    setShowImageModal(false)
     try {
       const response = await fetch('/api/party/setNewTarget', {
         method: 'POST',
@@ -465,13 +465,28 @@ const ownSubFriendId = useMemo(() => {
                 <a href={"/party/"+friendId}                style={{color: "#ffffff"}}     
                 className=' pl-4  Q_xs_pt-2 nodeco pointer'>
                   
-                  In party | 
+                   In party | 
                   </a>
-                  <a href={"/u?friend="+friendId}                style={{color: "#ffffff"}}     
+                  <button 
+                  onClick={()=>{
+                    navigator.clipboard.writeText(`${window.location.origin}/party/${friendId}`);
+                    triggerSnackbar('Copied to clipboard: ' + friendId, "success");
+                  }}
+                              style={{color: "#ffffff"}}     
+                className=' pl-1 Q_xs_pt-2 nodeco pointer'>
+                  
+                  <span className='tx-sm  ' style={{filter: "brightness(10)"}}></span> {friendId}
+                  </button>
+                  <button 
+                  onClick={()=>{
+                    navigator.clipboard.writeText(`${window.location.origin}/party/${LS_playerId}`);
+                    triggerSnackbar('Copied to clipboard: ' + LS_playerId, "success");
+                  }}
+                              style={{color: "#ffffff"}}     
                 className=' pr-4 pl-1 Q_xs_pt-2 nodeco pointer'>
                   
-                  <span className='tx-sm  ' style={{filter: "brightness(10)"}}>🔗</span> {friendId}
-                  </a>
+                  <span className='tx-sm  ' style={{filter: "brightness(10)"}}>🔗</span> {LS_playerId}
+                  </button>
                   </div>
 
 

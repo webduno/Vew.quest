@@ -67,6 +67,15 @@ export const LessonsContainer = () => {
     //   actionText: "Enter Main Plaza & Play",
     //   forcedClick: null
     // },
+    {
+      title: "Learn",
+      emoji: "🧠",
+      href: "http://study.taxi",
+      backgroundColor: "#96C34A",
+      boxShadowColor: "#66a31A",
+      actionText: "Learn",
+      forcedClick: null
+    },
   //   {
   //     title: "Weekly Challenges",
   //     emoji: "📅",

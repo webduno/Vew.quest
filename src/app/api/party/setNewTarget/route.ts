@@ -61,6 +61,8 @@ export async function POST(request: Request) {
     const [type, natural, temp, light, color, solid, confidence] = valuesStr.split(',').map(Number);
     const typeString = ['object', 'entity', 'place', 'event'][type - 1];
 
+    // Store the old target code before updating
+    const oldTargetCode = partyData.target_code || '000000000000';
 
     // get unix
     const partyEndTimestamp = new Date().getTime()
@@ -118,7 +120,7 @@ export async function POST(request: Request) {
 
       const objList = {
         result: overallAccuracy,
-        target_id: randomTargetCode.padStart(12, '0'),
+        target_id: oldTargetCode.padStart(12, '0'),
         target: {
           type: typeString,
           natural,

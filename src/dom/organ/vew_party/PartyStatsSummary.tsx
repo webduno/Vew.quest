@@ -4,6 +4,7 @@ import { useFetchedStats } from '@/script/state/context/FetchedStatsContext';
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { IconStatsBar } from '../../bew/IconStatsBar';
 import { ChatBox } from '../../bew/ChatBox';
+import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 
 
 export const WrappedPartyStatsSummary = ({  
@@ -54,6 +55,7 @@ export const PartyStatsSummary = ({
   playerId?: string | null;
   sharedIdState?: [string | null, (id: string | null) => void];
 }) => {
+  const { triggerSnackbar } = useProfileSnackbar();
   const [LS_playerId, setLS_playerId] = useState<string | null>(null);
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -116,10 +118,7 @@ export const PartyStatsSummary = ({
     />
 
     <div className='flex-col flex-align-stretch gap-4'>
-      <div className='bord-r-10 pa-4 pl-2' 
-      style={{
-        border: "1px solid #E5E5E5",
-      }}
+      <div className='bord-r-15 pa-4 pl-2 border-gg' 
       >
         <div className='flex-row flex-justify-start gap-2'>
           <div>
@@ -185,12 +184,35 @@ export const PartyStatsSummary = ({
         notes={notes}
       />
 
-      <a 
-      href="/dashboard"
-      className='bord-r-10 pa-4 pl-2 opaci-chov--75 nodeco' 
-      style={{
-        border: "1px solid #E5E5E5",
+<button 
+      onClick={()=>{
+        navigator.clipboard.writeText(`${window.location.origin}/party/${LS_playerId}`);
+        triggerSnackbar('Copied to clipboard', "success");
       }}
+      className='bord-r-15 pa-3 pl-2 opaci-chov--75 nodeco border-gg' 
+      >
+        <div className='flex-row flex-justify-start gap-2'>
+          <div>
+            <div className='tx-lgx'>🔗</div>
+          </div>
+          <div className='flex-col flex-align-start gap-2'>
+            <div className='tx-bold'
+            style={{
+              color: "#4B4B4B",
+            }}
+            >Copy my party link</div>
+            <div className='tx-sm ' style={{color: "#afafaf"}}>
+              <div className='flex-col gap-1'>
+                <div>party/{LS_playerId}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div></div>
+      </button>
+      {/* <a 
+      href="/dashboard"
+      className='bord-r-15 pa-4 pl-2 opaci-chov--75 nodeco border-gg' 
       >
         <div className='flex-row flex-justify-start gap-2'>
           <div>
@@ -210,7 +232,7 @@ export const PartyStatsSummary = ({
           </div>
         </div>
         <div></div>
-      </a>
+      </a> */}
     </div>
   </>);
 };

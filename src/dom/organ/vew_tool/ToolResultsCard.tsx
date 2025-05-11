@@ -485,7 +485,10 @@ export const ToolResultsCard = ({
               boxShadow: "0px 4px 0 0px #24aE27",
             }}
             className="tx-lg py-1 px-4 bord-r-10 noborder bg-trans tx-white pointer tx-altfont-2"
-            onClick={handleTryAgain}
+            onClick={(e:any)=>{
+              
+              handleTryAgain()
+            }}
           >
             <div>Next Target</div>
           </button>
