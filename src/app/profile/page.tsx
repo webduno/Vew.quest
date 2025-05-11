@@ -29,9 +29,12 @@ import { useBackgroundMusic } from '../../../script/state/context/BackgroundMusi
 import { DailyGoalsSection } from '@/dom/organ/vew_profile/DailyGoalsSection';
 import { RVStatsSection } from '@/dom/organ/vew_profile/RVStatsSection';
 import { FriendListSection } from '@/dom/organ/vew_profile/FriendListSection';
+import { useSession, signIn, signOut } from "next-auth/react";
 
 
 export default function ProfilePage() {
+  const { data: session } = useSession();
+
   const { streak, crvObjects, potentialStreak, averageResult } = useFetchedStats();
   const { LS_playerId } = usePlayerStats();
   const searchParams = useSearchParams();
@@ -230,7 +233,7 @@ style={{
                  <div className='tx-altfont-2 tx-lgx'>{LS_playerId || 'Not set'}</div> 
                  {/* 📋 */}
                  </div>
-<img src="/bew/pfp/row-4-column-1.png"
+<img src={session?.user?.image || "/bew/pfp/row-4-column-1.png"}
  alt="pfp" className={'bord-r-50 noverflow block '+(isMobile() ? 'w-150px' : 'w-250px')} />
  </div>
 <div className='bord-r-15 mb-4 pb-2 flex-col ' style={{ border: "1px solid #f0f0f0" }}>
@@ -252,6 +255,39 @@ style={{
               </div>
               </details>
             </div>
+
+            <div className="flex-col mb-4 ">
+                <div className="tx-gray pb-1">
+                  Integrations
+                </div>
+              {!!session && <>
+              <button className='flex-row gap-2 bg-white border-gg boxShadow-gg px-4 py-1 bord-r-15 mb-4'
+              onClick={() => {
+                const confirmLogout = confirm('Are you sure you want to logout?');
+                if (confirmLogout) {
+                  signOut();
+                }
+              }}
+              >
+              <div className='tx-mdl'><img src="/bew/google.png" width="20" height="20" alt="help" /></div>
+
+              <div className='tx-mdl flex-col '>
+                <div>Logged in as:</div>
+                <div>{session?.user?.email}</div>
+              </div>
+              </button>
+              </>}
+              {!session &&
+              <button className='flex-row gap-2 bg-white border-gg boxShadow-gg px-4 py-1 bord-r-15 mb-2'
+              onClick={() => {
+                signIn('google');
+              }}
+              >
+              <div className='tx-mdl'><img src="/bew/google.png" width="20" height="20" alt="help" /></div>
+              <div className='tx-mdl'>Login With Google</div>
+              </button>
+              }
+              </div>
 
                 
                  {  (<>
@@ -541,6 +577,7 @@ Click here to see full history
                         <div>Viewed Today: {guestStats.crvObjects.filter((obj: any) => obj.created_at.split('T')[0] === new Date().toISOString().split('T')[0]).length}</div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               )}

@@ -8,6 +8,7 @@ import '@/app/bew.css'
 import { FetchedStatsProvider } from '@/script/state/context/FetchedStatsContext';
 import { BackgroundMusicProvider } from '../../../script/state/context/BackgroundMusicContext';
 import { ProfileSnackbarProvider } from '../../../script/state/context/ProfileSnackbarProvider';
+import MainAppWrapper from '@/dom/MainAppWrapper';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default function RootLayout({
       // background: 'linear-gradient(-45deg, #ffba6e , #aad0f4 , #6aa0f4 )',
         // height: '100vh',
         overflow: 'hidden' }}>
-        {/* <ClientLayout> */}
+        <MainAppWrapper>
         <ProfileSnackbarProvider>
         <BackgroundMusicProvider>
         <FetchedStatsProvider>
@@ -40,7 +41,7 @@ export default function RootLayout({
         </FetchedStatsProvider>
         </BackgroundMusicProvider>
         </ProfileSnackbarProvider>
-        {/* </ClientLayout> */}
+        </MainAppWrapper>
         <Analytics mode="production" />
       </body>
     </html>
