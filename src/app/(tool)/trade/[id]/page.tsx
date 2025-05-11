@@ -36,7 +36,7 @@ export default function PartyPage() {
   const params = useParams<{ id: string }>()
   const [ wndwTg, s__wndwTg] = useState<any>(null);
   const [ telegram_id, s__telegram_id] = useState<string | null>(null);
-  const [selectedInputType, setSelectedInputType] = useState<any>('sketch');
+  const [selectedInputType, setSelectedInputType] = useState<any>('notes');
 const [reloadingParty, setReloadingParty] = useState(false);
   const [enterUsername, setEnterUsername] = useState(false);
   const [isLoadingMyRequests, setIsLoadingMyRequests] = useState(false);
