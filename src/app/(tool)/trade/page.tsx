@@ -11,7 +11,7 @@ import { useProfileSnackbar } from '@/script/state/context/useProfileSnackbar';
 
 export type GameState = 'initial' | 'playing' | 'results';
 
-export default function PartyPage() {
+export default function TradePage() {
   const { isLoading, crvObjects } = useFetchedStats();
   const [initiallyAutoLoaded, setInitiallyAutoLoaded] = useState(false);
   const { playSoundEffect } = useBackgroundMusic();
