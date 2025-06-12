@@ -68,7 +68,7 @@ export default function TrainingPage() {
 
           <div className= {' tx-altfont-2  flex-col gap-2  w-300px'}>
             <div className='tx-center tx-lgx tx-bold tx-gg'>
-              Gamified <br /> step-by-step lessons for remote viewing
+              Gamified <br /> practice lessons for remote viewing
             </div>
             <div className='flex-col _dd r'>
               {userExists > 0 && (<>
