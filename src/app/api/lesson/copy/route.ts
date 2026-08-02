@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     // First, get the original lesson
     const { data: originalLesson, error: findError } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .select('*')
       .eq('lesson_id', lesson_id)
       .eq('creator_id', proxy_id)
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
     // Create a new lesson with the same content but new creator_id
     const { error: createError } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .insert([
         {
           title: originalLesson.title,
@@ -61,7 +61,7 @@ export async function POST(request: Request) {
 
     // Fetch the newly created record
     const { data: newRecords, error: fetchError } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .select('*')
       .eq('creator_id', creator_id.toLowerCase())
       .eq('proxy_id', proxy_id)

@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
     // Check if user exists and fetch spent and attempts fields
     const { data: existingClick, error: findError } = await supabase
-      .from('vew_click')
+      .from('remoview_vew_click')
       .select('id, spent, attempts, win')
       .eq('player_id', player_id.toLowerCase())
       .single();
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
     prevSpent.used = typeof prevSpent.used === 'object' && prevSpent.used !== null ? prevSpent.used : {};
     const spentValue = JSON.stringify(prevSpent);
     const { error: updateError } = await supabase
-      .from('vew_click')
+      .from('remoview_vew_click')
       .update({ 
         
         attempts: existingClick.attempts,

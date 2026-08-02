@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     }
 
     const existingData:any = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .select('*')
       .eq('id', id)
       .single();
@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     }
     const newVersion = existingData.data.chat + '\n' + chat
     const { data, error } = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .update({ chat: newVersion })
       .eq('id', id)
       .select()

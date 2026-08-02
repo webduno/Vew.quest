@@ -11,7 +11,7 @@ export async function GET() {
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
     const { data, error } = await supabase
-      .from('crv_request')
+      .from('remoview_crv_request')
       .select()
       .eq('solved', 0)
       .lt('attempts', 10)
@@ -75,7 +75,7 @@ export async function POST(request: Request) {
     }
 
     const result = await supabase
-      .from('crv_request')
+      .from('remoview_crv_request')
       .insert([{ 
         description,
         creator_id,

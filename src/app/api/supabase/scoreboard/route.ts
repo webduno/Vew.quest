@@ -11,7 +11,7 @@ export async function GET() {
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
     const { data, error } = await supabase
-      .from('crv_object')
+      .from('remoview_crv_object')
       .select()
       .order('result', { ascending: false })
       .limit(10);

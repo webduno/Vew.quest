@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     }
 
     const result = await supabase
-      .from('vew_click')
+      .from('remoview_vew_click')
       .insert([{ 
         player_id,
         win: win ? 1 : 0,

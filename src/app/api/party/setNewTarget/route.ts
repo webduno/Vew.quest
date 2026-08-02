@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 
     // First get the party data to access room key and live data
     const { data: partyData, error: fetchError } = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .select('*')
       .eq('id', partyId)
       .single();
@@ -145,7 +145,7 @@ export async function POST(request: Request) {
       };
 
       const { error: insertError } = await supabase
-        .from('crv_object')
+        .from('remoview_crv_object')
         .insert([{ 
           content: JSON.stringify(objList),
           result: overallAccuracy,
@@ -165,7 +165,7 @@ export async function POST(request: Request) {
 
     // Update the party's target code and clear live data
     const { error: updateError } = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .update({ target_code: randomTargetCode, live_data: null, chat: '' ,
         friend1: randomTargetCode2,
         friend2: randomTargetCode3

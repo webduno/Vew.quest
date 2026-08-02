@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     // Try to find existing lesson record
     const { data: existingLesson, error: findError } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .select('*')
       .eq('creator_id', creator_id.toLowerCase())
       .eq('lesson_id', lesson_id)
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     if (existingLesson) {
       // Update existing record
       const { error: updateError } = await supabase
-        .from('vew_lesson')
+        .from('remoview_vew_lesson')
         .update({
           title,
           content,
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
 
       // Fetch the updated record
       const { data: updatedRecords, error: fetchError } = await supabase
-        .from('vew_lesson')
+        .from('remoview_vew_lesson')
         .select('*')
         .eq('creator_id', creator_id.toLowerCase())
         .eq('lesson_id', lesson_id);
@@ -88,7 +88,7 @@ export async function POST(request: Request) {
 
     // Create new record
     const { error: createError } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .insert([
         {
           title,
@@ -111,7 +111,7 @@ export async function POST(request: Request) {
 
     // Fetch the newly created record
     const { data: newRecords, error: fetchError } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .select('*')
       .eq('creator_id', creator_id.toLowerCase())
       .eq('lesson_id', lesson_id);

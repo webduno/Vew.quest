@@ -25,7 +25,7 @@ export async function GET(request: Request) {
     today.setUTCHours(0, 0, 0, 0);
 
     const { data: lessons, error } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .select('progress, created_at')
       .eq('creator_id', storageKey.toLowerCase());
 

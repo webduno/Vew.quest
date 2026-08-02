@@ -22,7 +22,7 @@ export async function GET(request: Request) {
 
     // Get all parties where the friend is involved
     const { data: parties, error: findError } = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .select('id, room_key, target_code, created_at')
       .or(`room_key.ilike.%${friendId}%`)
       .order('created_at', { ascending: false });

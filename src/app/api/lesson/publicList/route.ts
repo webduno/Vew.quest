@@ -11,7 +11,7 @@ export async function GET(request: Request) {
   const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
   try {
     const { data: lessons, error } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .select('lesson_id, title, updated_at, creator_id')
       .order('updated_at', { ascending: false })
       .limit(12);

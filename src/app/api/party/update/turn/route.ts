@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     }
 
     const existingData = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .select('*')
       .eq('id', id)
       .single();
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     })();
 
     const { data, error } = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .update({ turn: newPlayerTurnKey })
       .eq('id', id)
       .select()

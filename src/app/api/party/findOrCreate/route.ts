@@ -36,7 +36,7 @@ export async function GET(request: Request) {
 
     // Try to find an existing party with either room key orientation
     const { data: existingParty, error: findError } = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .select('id, target_code, room_key')
       .or(`room_key.eq.${roomKey},room_key.eq.${reverseRoomKey}`)
       .order('created_at', { ascending: false })
@@ -57,7 +57,7 @@ export async function GET(request: Request) {
         // Update the party with a random target code
         const randomTargetCode = getRandomTargetCode();
         const { error: updateError } = await supabase
-          .from('vew_party')
+          .from('remoview_vew_party')
           .update({ target_code: randomTargetCode })
           .eq('id', party.id);
 
@@ -78,7 +78,7 @@ export async function GET(request: Request) {
     // If no party exists, create a new one with a random target code
     const randomTargetCode = getRandomTargetCode();
     const { data: newParty, error: createError } = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .insert([
         { 
           room_key: roomKey,

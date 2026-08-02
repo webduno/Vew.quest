@@ -28,7 +28,7 @@ export async function GET(request: Request) {
     }
 
     const { data, error } = await supabase
-      .from('crv_object')
+      .from('remoview_crv_object')
       .select()
       .ilike('storage_key', storageKey)
       .is('request_id', null)
@@ -122,20 +122,20 @@ export async function POST(request: Request) {
     // if has request id, update the request and add an attempt count
     if (requestId) {
       const foundRequest = await supabase
-        .from('crv_request')
+        .from('remoview_crv_request')
         .select('*')
         .eq('id', requestId);
 
       if (foundRequest.data) {
         const { data, error } = await supabase
-          .from('crv_request')
+          .from('remoview_crv_request')
           .update({ attempts: foundRequest.data[0].attempts + 1 })
           .eq('id', requestId);
       }
     }
 
     const result = await supabase
-      .from('crv_object')
+      .from('remoview_crv_object')
       .insert([{ 
         content: JSON.stringify(objList),
         result: overallAccuracy,

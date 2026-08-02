@@ -29,7 +29,7 @@ export async function GET(request: Request) {
     const topOnly = searchParams.get('topOnly') === 'true';
     
     const { data, error } = await supabase
-      .from('crv_object')
+      .from('remoview_crv_object')
       .select('*')
       .order('created_at', { ascending: false });
 

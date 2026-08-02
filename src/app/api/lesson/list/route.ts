@@ -21,7 +21,7 @@ export async function GET(request: Request) {
     }
 
     const { data: lessons, error } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .select('lesson_id, title, updated_at')
       .eq('creator_id', creator_id.toLowerCase())
       .order('updated_at', { ascending: false });

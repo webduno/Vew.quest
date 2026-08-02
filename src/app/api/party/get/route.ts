@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     }
 
     const { data, error } = await supabase
-      .from('vew_party')
+      .from('remoview_vew_party')
       .select(scope)
       .eq('id', id)
       .single();

@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     // Get the existing lesson content
     const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
     const { data: existingLesson, error: findError } = await supabase
-      .from('vew_lesson')
+      .from('remoview_vew_lesson')
       .select('content')
       .eq('creator_id', creator_id.toLowerCase())
       .eq('id', id)
@@ -149,7 +149,7 @@ export async function POST(request: NextRequest) {
 
       // Update the lesson in the database
       const { error: updateError } = await supabase
-        .from('vew_lesson')
+        .from('remoview_vew_lesson')
         .update({ content: JSON.stringify(updatedContent) })
         .eq('creator_id', creator_id.toLowerCase())
         .eq('id', id);

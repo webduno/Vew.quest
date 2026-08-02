@@ -28,7 +28,7 @@ export async function GET(request: Request) {
 
     // Get all data for the storage key
     const { data, error } = await supabase
-      .from('crv_object')
+      .from('remoview_crv_object')
       .select('*')
       .ilike('storage_key', storageKey)
       .is('request_id', null)

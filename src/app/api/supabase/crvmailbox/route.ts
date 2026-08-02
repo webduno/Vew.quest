@@ -25,7 +25,7 @@ export async function GET(request: Request) {
     }
 
     const { data, error } = await supabase
-      .from('crv_request')
+      .from('remoview_crv_request')
       .select('*')
       .ilike('creator_id', playerId)
       .order('created_at', { ascending: false });

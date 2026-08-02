@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     }
 
     const result = await supabase
-      .from('dev_issue')
+      .from('remoview_dev_issue')
       .insert([{ 
         name: title,
         content,

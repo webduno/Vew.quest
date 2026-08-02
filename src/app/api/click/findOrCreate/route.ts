@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
     // Try to find existing click record
     const { data: existingClick, error: findError } = await supabase
-      .from('vew_click')
+      .from('remoview_vew_click')
       .select('id, attempts, win, player_id, spent')
       .eq('player_id', player_id.toLowerCase())
       .limit(1)
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     if (existingClick) {
       // Update existing record
       const { error: updateError } = await supabase
-        .from('vew_click')
+        .from('remoview_vew_click')
         .update({
           attempts: existingClick.attempts + attempts,
           win: existingClick.win + (isWin ? 1 : 0),
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
 
       // Fetch the updated record
       const { data: updatedRecords, error: fetchError } = await supabase
-        .from('vew_click')
+        .from('remoview_vew_click')
         .select('attempts, win, spent')
         .eq('player_id', player_id.toLowerCase());
 
@@ -87,7 +87,7 @@ export async function POST(request: Request) {
 
     // Create new record
     const { error: createError } = await supabase
-      .from('vew_click')
+      .from('remoview_vew_click')
       .insert([
         {
           player_id: player_id.toLowerCase(),
@@ -106,7 +106,7 @@ export async function POST(request: Request) {
 
     // Fetch the newly created record
     const { data: newRecords, error: fetchError } = await supabase
-      .from('vew_click')
+      .from('remoview_vew_click')
       .select('attempts, win, spent')
       .eq('player_id', player_id.toLowerCase());
 
